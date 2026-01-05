@@ -5,7 +5,7 @@ export interface UserProfile {
   email: string;
   fullName: string;
   roles: string[];
-  permissions: string[];
+  permissions?: string[];
   mustChangePassword?: boolean;
 }
 
