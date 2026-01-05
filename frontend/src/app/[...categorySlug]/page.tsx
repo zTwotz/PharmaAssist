@@ -8,25 +8,23 @@ import Link from 'next/link';
 
 export const revalidate = 60; // Cache page for 60 seconds
 
-export default async function DynamicProductListingPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ categorySlug: string[] }> | { categorySlug: string[] };
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }> | { [key: string]: string | string[] | undefined };
+export default async function DynamicProductListingPage(props: {
+  params: Promise<{ categorySlug: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
-  const slugArray = resolvedParams.categorySlug || [];
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+
+  const slugArray = params.categorySlug || [];
   const activeSlug = slugArray.length > 0 ? slugArray[slugArray.length - 1] : undefined;
 
-  const brandCodes = typeof resolvedSearchParams.brand === 'string' 
-    ? [resolvedSearchParams.brand] 
-    : Array.isArray(resolvedSearchParams.brand) ? resolvedSearchParams.brand : [];
+  const brandCodes = typeof searchParams.brand === 'string' 
+    ? [searchParams.brand] 
+    : Array.isArray(searchParams.brand) ? searchParams.brand : [];
   
-  const minPrice = typeof resolvedSearchParams.minPrice === 'string' ? parseInt(resolvedSearchParams.minPrice) : 0;
-  const maxPrice = typeof resolvedSearchParams.maxPrice === 'string' ? parseInt(resolvedSearchParams.maxPrice) : 5000000;
-  const sort = typeof resolvedSearchParams.sort === 'string' ? resolvedSearchParams.sort : undefined;
+  const minPrice = typeof searchParams.minPrice === 'string' ? parseInt(searchParams.minPrice) : 0;
+  const maxPrice = typeof searchParams.maxPrice === 'string' ? parseInt(searchParams.maxPrice) : 5000000;
+  const sort = typeof searchParams.sort === 'string' ? searchParams.sort : undefined;
   
   const limit = 12;
   const offset = 0;
