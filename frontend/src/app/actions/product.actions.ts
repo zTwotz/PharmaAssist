@@ -21,7 +21,7 @@ export async function fetchMoreProducts(params: {
       id, name, slug,
       product_variants${isFilteringPrice ? '!inner' : ''} (selling_price, variant_name),
       product_images (image_url, is_primary)
-    `, { count: 'exact' });
+    `, { count: 'estimated' });
 
   if (isFilteringPrice) {
     query = query.gte('product_variants.selling_price', minPrice).lte('product_variants.selling_price', maxPrice);
