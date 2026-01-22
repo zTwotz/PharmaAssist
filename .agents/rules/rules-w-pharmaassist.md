@@ -30,7 +30,7 @@ description: Quy tắc phát triển PharmaAssist (NestJS, Next.js, Prisma, Supa
   - **Cấp độ User Story (US):** Sau khi hoàn thành các task bên trong 1 US, tiến hành kiểm thử bằng các skill để kiểm thử và test xem đã hoàn thành chưa. Nếu có lỗi thì sử dụng skill để debug, commit và push lên nhánh của US đó.
   - **Cấp độ Epic:** Sau khi hoàn thành các task và US của 1 epic, tiến hành kiểm thử bằng các skill để kiểm thử và test xem đã hoàn thành chưa. Nếu có lỗi thì sử dụng skill để debug, commit và push lên nhánh của epic đó.
 - **Commit Format:**
-  - Định dạng: `<type>(PAC-xxx): <mô tả tiếng Anh>`.
+  - Định dạng: `<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>`.
   - Không dùng `git push --force` lên `main/develop`. 
   - **Các kiểu commit thường dùng:**
 
@@ -57,7 +57,7 @@ Chỉ khi các bài kiểm tra đã vượt qua, mã nguồn hoạt động chí
 1. **Xác minh code trước khi Push:** Chạy kiểm tra nội bộ (vd: `npm run build`) để tránh hỏng PR.
 2. **Cập nhật develop:** Kéo code bằng `git pull origin develop --rebase`.
 3. **Đẩy code (Push):** Lên nhánh hiện tại (`git push origin feature/PAC-xxx-slug`). Lưu ý: Giữ nguyên các nhánh con chức năng (không xóa) để minh chứng chấm điểm; giữ các commit lẻ để dễ kiểm soát.
-4. **PR vào develop:** Tạo PR gộp nhánh tính năng vào `develop` trên GitHub. Hệ thống Jira sẽ tự động link nhờ mã PAC-xxx. Merge nhánh vào `develop`.
+4. **Tạo PR & Merge Flow:** Luồng Merge chuẩn: Task branch -> User Story branch -> Epic -> develop -> main. Tạo PR từ nhánh tính năng vào nhánh đích (thường là develop hoặc nhánh của User Story và Epic).
 5. **Báo cáo & Kiểm duyệt trước khi lên main:** KHÔNG merge vào `main` sau mỗi task lẻ. Khi xong một cụm chức năng/Sprint, **dừng lại báo cáo** cho người dùng test. Sau khi test OK, người dùng mới tạo PR & merge từ `develop` vào `main`.
 6. **Mô tả PR & Che dấu AI:** Quá trình tạo PR cần "Add a description" đầy đủ. Các commit, PR, description **tuyệt đối không nhắc đến** AI, agents, automation.
 7. **Tiếp tục:** Về nhánh `develop` -> Kéo code mới -> Làm tiếp.
@@ -114,10 +114,10 @@ feature/PAC-TASK-025-implement-permission-guard
 Ví dụ commit task:
 
 ```text
-feat(auth): add permission decorator for PAC-TASK-024
-feat(auth): implement permission guard for PAC-TASK-025
-test(auth): add permission guard tests for PAC-TASK-025
-fix(auth): handle forbidden response for PAC-TASK-030
+feat(auth): PAC-TASK-024 add permission decorator
+feat(auth): PAC-TASK-025 implement permission guard
+test(auth): PAC-TASK-025 add permission guard tests
+fix(auth): PAC-TASK-030 handle forbidden response
 ```
 
 ---
@@ -144,9 +144,9 @@ feature/US-06-permission-based-api-guard
 Ví dụ commit User Story:
 
 ```text
-test(auth): verify US-06 permission guard flow
-fix(auth): align forbidden response with US-06 acceptance criteria
-docs(sprint-1): update US-06 completion evidence
+test(auth): US-06 verify permission guard flow
+fix(auth): US-06 align forbidden response with acceptance criteria
+docs(sprint-1): US-06 update completion evidence
 ```
 
 ---
@@ -173,9 +173,9 @@ feature/PAC-EPIC-01-authentication-rbac
 Ví dụ commit Epic:
 
 ```text
-test(auth): verify PAC-EPIC-01 auth and RBAC flow
-fix(rbac): resolve permission mismatch in PAC-EPIC-01
-docs(sprint-1): mark PAC-EPIC-01 completion checklist
+test(auth): PAC-EPIC-01 verify auth and RBAC flow
+fix(rbac): PAC-EPIC-01 resolve permission mismatch
+docs(sprint-1): PAC-EPIC-01 mark completion checklist
 ```
 
 ---
@@ -203,16 +203,16 @@ Commit phải rõ ràng, ngắn gọn, có phạm vi và bám vào thay đổi t
 Format khuyến nghị:
 
 ```text
-<type>(<scope>): <mô tả ngắn> for <Jira key>
+<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>
 ```
 
 Ví dụ:
 
 ```text
-feat(auth): add permission guard for PAC-TASK-025
-fix(auth): return forbidden response for PAC-TASK-030
-test(auth): add guard test cases for PAC-TASK-025
-docs(sprint-1): update progress for PAC-TASK-025
+feat(auth): PAC-TASK-025 add permission guard
+fix(auth): PAC-TASK-030 return forbidden response
+test(auth): PAC-TASK-025 add guard test cases
+docs(sprint-1): PAC-TASK-025 update progress
 ```
 
 Không commit các nội dung sau:
