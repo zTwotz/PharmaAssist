@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Test, TestingModule } from '@nestjs/testing';
 import { MedicinesService } from './medicines.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -5,7 +10,6 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('MedicinesService', () => {
   let service: MedicinesService;
-  let prisma: PrismaService;
 
   const mockPrismaService = {
     medicine: {
@@ -24,7 +28,7 @@ describe('MedicinesService', () => {
       create: jest.fn(),
       update: jest.fn(),
     },
-    $transaction: jest.fn((cb) => cb(mockPrismaService)),
+    $transaction: jest.fn((cb: any) => cb(mockPrismaService)),
   };
 
   beforeEach(async () => {
@@ -39,7 +43,6 @@ describe('MedicinesService', () => {
     }).compile();
 
     service = module.get<MedicinesService>(MedicinesService);
-    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {

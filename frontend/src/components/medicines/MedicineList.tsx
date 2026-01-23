@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { useAuth } from '@/context/auth-context';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,7 +23,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, CheckCircle2, Info, X } from 'lucide-react';
+import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, Info, X, Edit, Lock, Unlock } from 'lucide-react';
 import Link from 'next/link';
 
 interface ActiveIngredient {
@@ -90,6 +91,7 @@ interface Medicine {
 }
 
 export function MedicineList() {
+  const { hasPermission } = useAuth();
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,23 +102,53 @@ export function MedicineList() {
   // Selected medicine for detail modal
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
 
-  useEffect(() => {
-    fetchMedicines();
-  }, []);
+  // Deactivate state
+  const [deactivateMed, setDeactivateMed] = useState<Medicine | null>(null);
+  const [deactivating, setDeactivating] = useState(false);
 
   const fetchMedicines = async () => {
+    await Promise.resolve();
     setLoading(true);
     setErrorAlert(null);
     try {
       const response = await api.get('/medicines');
       setMedicines(response.data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch medicines:', err);
-      setErrorAlert(err.response?.data?.message || 'Không thể tải danh sách thuốc từ hệ thống.');
+      const error = err as { response?: { data?: { message?: string } } };
+      setErrorAlert(error.response?.data?.message || 'Không thể tải danh sách thuốc từ hệ thống.');
     } finally {
       setLoading(false);
     }
   };
+
+  const handleToggleStatus = async () => {
+    if (!deactivateMed) return;
+    setDeactivating(true);
+    try {
+      const newStatus = deactivateMed.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+      await api.patch(`/medicines/${deactivateMed.id}/status`, { status: newStatus });
+      
+      // Update local state
+      setMedicines((prev) =>
+        prev.map((m) => (m.id === deactivateMed.id ? { ...m, status: newStatus } : m))
+      );
+      setDeactivateMed(null);
+    } catch (err: unknown) {
+      console.error('Failed to toggle status:', err);
+      const error = err as { response?: { data?: { message?: string } } };
+      setErrorAlert(error.response?.data?.message || 'Không thể cập nhật trạng thái thuốc.');
+    } finally {
+      setDeactivating(false);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchMedicines();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Get unique categories from medicines to populate filter
   const categories = Array.from(
@@ -163,12 +195,14 @@ export function MedicineList() {
             Hiển thị danh sách chi tiết các loại thuốc, thành phần dược chất và cấu hình bán hàng.
           </p>
         </div>
-        <Link href="/dashboard/medicines/new" passHref>
-          <Button className="bg-primary hover:bg-primary-deep text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-all shrink-0">
-            <Plus className="h-4 w-4" />
-            Thêm thuốc mới
-          </Button>
-        </Link>
+        {hasPermission('MANAGE_MEDICINES') && (
+          <Link href="/dashboard/medicines/new" passHref>
+            <Button className="bg-primary hover:bg-primary-deep text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-all shrink-0">
+              <Plus className="h-4 w-4" />
+              Thêm thuốc mới
+            </Button>
+          </Link>
+        )}
       </div>
 
       {errorAlert && (
@@ -319,15 +353,47 @@ export function MedicineList() {
                           {m.status === 'ACTIVE' ? 'Hoạt động' : 'Tạm khóa'}
                         </Badge>
                       </TableCell>
-                      <TableCell className="py-4 pr-6 text-right">
+                       <TableCell className="py-4 pr-6 text-right flex items-center justify-end gap-1.5">
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => setSelectedMedicine(m)}
                           className="h-8 w-8 text-primary hover:text-primary-deep hover:bg-primary-soft rounded-lg"
+                          title="Chi tiết"
                         >
                           <Info className="h-4 w-4" />
                         </Button>
+                        {hasPermission('MANAGE_MEDICINES') && (
+                          <Link href={`/dashboard/medicines/${m.id}/edit`} passHref>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-charcoal hover:text-ink hover:bg-fog rounded-lg"
+                              title="Sửa"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                        )}
+                        {hasPermission('MANAGE_MEDICINES') && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setDeactivateMed(m)}
+                            className={`h-8 w-8 rounded-lg ${
+                              m.status === 'ACTIVE'
+                                ? 'text-error hover:text-error-deep hover:bg-bloom-rose/25'
+                                : 'text-emerald-600 hover:text-emerald-700 hover:bg-bloom-emerald/25'
+                            }`}
+                            title={m.status === 'ACTIVE' ? 'Khóa' : 'Mở khóa'}
+                          >
+                            {m.status === 'ACTIVE' ? (
+                              <Lock className="h-4 w-4" />
+                            ) : (
+                              <Unlock className="h-4 w-4" />
+                            )}
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -486,6 +552,66 @@ export function MedicineList() {
                   Cấu hình hoặc Thêm thuốc mới
                 </Button>
               </Link>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Soft Deactivate Dialog */}
+      {deactivateMed && (
+        <Dialog open={!!deactivateMed} onOpenChange={() => setDeactivateMed(null)}>
+          <DialogContent className="max-w-md bg-white border border-hairline rounded-xl shadow-lg p-0 overflow-hidden font-sans">
+            <DialogHeader className="p-6 bg-cloud border-b border-hairline flex flex-row items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-warning" />
+                <DialogTitle className="text-base font-bold text-ink">
+                  {deactivateMed.status === 'ACTIVE' ? 'Tạm khóa thuốc' : 'Kích hoạt lại thuốc'}
+                </DialogTitle>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setDeactivateMed(null)}
+                className="h-8 w-8 text-graphite hover:text-ink hover:bg-fog rounded-full shrink-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogHeader>
+
+            <div className="p-6 text-xs text-charcoal font-medium leading-relaxed">
+              {deactivateMed.status === 'ACTIVE' ? (
+                <p>
+                  Bạn có chắc chắn muốn tạm khóa thuốc <span className="font-bold text-ink">&ldquo;{deactivateMed.product?.name}&rdquo;</span>?
+                  Khi bị khóa, thuốc này sẽ không thể dùng cho các giao dịch bán hàng mới hoặc chọn trong POS.
+                </p>
+              ) : (
+                <p>
+                  Bạn có muốn kích hoạt lại thuốc <span className="font-bold text-ink">&ldquo;{deactivateMed.product?.name}&rdquo;</span>?
+                  Sau khi kích hoạt, thuốc sẽ tiếp tục hiển thị và sử dụng bình thường trên toàn hệ thống.
+                </p>
+              )}
+            </div>
+
+            <DialogFooter className="p-4 bg-cloud border-t border-hairline flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setDeactivateMed(null)}
+                className="border-hairline text-xs font-bold h-9 hover:bg-fog"
+              >
+                Hủy
+              </Button>
+              <Button
+                disabled={deactivating}
+                onClick={handleToggleStatus}
+                className={`text-white text-xs font-bold h-9 px-4 rounded-lg flex items-center gap-2 ${
+                  deactivateMed.status === 'ACTIVE'
+                    ? 'bg-error hover:bg-error-deep'
+                    : 'bg-emerald-600 hover:bg-emerald-700'
+                }`}
+              >
+                {deactivating && <Loader2 className="h-4 w-4 animate-spin" />}
+                Xác nhận
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

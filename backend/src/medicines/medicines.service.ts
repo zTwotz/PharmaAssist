@@ -193,6 +193,41 @@ export class MedicinesService {
     });
   }
 
+  async toggleStatus(id: number, status: string) {
+    const medicine = await this.prisma.medicine.findUnique({
+      where: { id },
+    });
+    if (!medicine) {
+      throw new NotFoundException('Không tìm thấy thuốc');
+    }
+
+    if (status !== 'ACTIVE' && status !== 'INACTIVE') {
+      throw new BadRequestException('Trạng thái không hợp lệ');
+    }
+
+    return await this.prisma.$transaction(async (tx) => {
+      // Update medicine status
+      const updatedMed = await tx.medicine.update({
+        where: { id },
+        data: { status },
+      });
+
+      // Update associated product status
+      await tx.product.update({
+        where: { id: medicine.productId },
+        data: { status: status === 'ACTIVE' ? 'ACTIVE' : 'DRAFT' },
+      });
+
+      // Update variants
+      await tx.productVariant.updateMany({
+        where: { productId: medicine.productId },
+        data: { status },
+      });
+
+      return updatedMed;
+    });
+  }
+
   async getReferenceData() {
     const [categories, units, dosageForms, brands, manufacturers] =
       await Promise.all([

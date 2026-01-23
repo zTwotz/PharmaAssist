@@ -44,6 +44,15 @@ export class MedicinesController {
     return this.medicinesService.updateMedicine(id, updateMedicineDto);
   }
 
+  @Patch(':id/status')
+  @RequirePermissions('MANAGE_MEDICINES')
+  async toggleStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status') status: string,
+  ) {
+    return this.medicinesService.toggleStatus(id, status);
+  }
+
   @Get()
   @RequirePermissions('VIEW_MEDICINES')
   async findAll() {
