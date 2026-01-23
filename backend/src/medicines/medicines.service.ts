@@ -289,8 +289,12 @@ export class MedicinesService {
     return medicine;
   }
 
-  async findAll() {
-    return this.prisma.medicine.findMany({
+  async findAll(options?: { page?: number; limit?: number }) {
+    const page = options?.page || 1;
+    const limit = options?.limit || 10;
+
+    const total = await this.prisma.medicine.count();
+    const data = await this.prisma.medicine.findMany({
       include: {
         product: {
           include: {
@@ -312,10 +316,20 @@ export class MedicinesService {
           },
         },
       },
+      skip: (page - 1) * limit,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
     });
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async search(term: string) {
