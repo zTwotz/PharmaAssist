@@ -14,6 +14,10 @@ describe('MedicinesController', () => {
           useValue: {
             getReferenceData: jest.fn(),
             createMedicine: jest.fn(),
+            findOne: jest.fn(),
+            updateMedicine: jest.fn(),
+            search: jest.fn(),
+            findAll: jest.fn(),
           },
         },
       ],
