@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
@@ -85,7 +89,7 @@ export class MedicinesService {
           sku: `SKU-${dto.code}`,
           variantName: dto.name,
           unitId: dto.medicineUnitId,
-          sellingPrice: dto.sellingPrice || 1.00,
+          sellingPrice: dto.sellingPrice || 1.0,
           status: 'ACTIVE',
         },
       });
@@ -125,9 +129,10 @@ export class MedicinesService {
       }
     }
 
-    const slug = dto.name && dto.name !== medicine.product.name 
-      ? this.generateSlug(dto.name) 
-      : medicine.product.slug;
+    const slug =
+      dto.name && dto.name !== medicine.product.name
+        ? this.generateSlug(dto.name)
+        : medicine.product.slug;
 
     return await this.prisma.$transaction(async (tx) => {
       // 1. Update Product
@@ -161,7 +166,9 @@ export class MedicinesService {
       });
 
       // 3. Update or create ProductVariant
-      const variantSku = dto.code ? `SKU-${dto.code}` : `SKU-${medicine.product.code}`;
+      const variantSku = dto.code
+        ? `SKU-${dto.code}`
+        : `SKU-${medicine.product.code}`;
       const existingVariant = await tx.productVariant.findFirst({
         where: { productId: medicine.productId },
       });
@@ -173,7 +180,8 @@ export class MedicinesService {
             sku: dto.code ? `SKU-${dto.code}` : undefined,
             variantName: dto.name || undefined,
             unitId: dto.medicineUnitId || undefined,
-            sellingPrice: dto.sellingPrice !== undefined ? dto.sellingPrice : undefined,
+            sellingPrice:
+              dto.sellingPrice !== undefined ? dto.sellingPrice : undefined,
           },
         });
       } else {
@@ -183,7 +191,8 @@ export class MedicinesService {
             sku: variantSku,
             variantName: dto.name || medicine.product.name,
             unitId: dto.medicineUnitId || medicine.medicineUnitId,
-            sellingPrice: dto.sellingPrice !== undefined ? dto.sellingPrice : 1.00,
+            sellingPrice:
+              dto.sellingPrice !== undefined ? dto.sellingPrice : 1.0,
             status: 'ACTIVE',
           },
         });
@@ -393,6 +402,7 @@ export class MedicinesService {
 
     const variants = await this.prisma.productVariant.findMany({
       where: {
+        status: 'ACTIVE',
         OR: [
           { variantName: { contains: term, mode: 'insensitive' } },
           { sku: { contains: term, mode: 'insensitive' } },
