@@ -6,12 +6,12 @@ import { Sidebar } from '@/components/sidebar';
 import { RouteGuard } from '@/components/route-guard';
 import { CategoryList } from '@/components/medicines/CategoryList';
 import { MedicineList } from '@/components/medicines/MedicineList';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { User, Shield, Pill, FolderTree } from 'lucide-react';
+import { ActiveIngredientList } from '@/components/medicines/ActiveIngredientList';
+import { User, Shield, Pill, FolderTree, FlaskConical } from 'lucide-react';
 
 export default function MedicinesPage() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'categories' | 'medicines'>('categories');
+  const [activeTab, setActiveTab] = useState<'categories' | 'medicines' | 'ingredients'>('categories');
 
   const displayRole = user?.roles?.includes('ADMIN') 
     ? 'Quản trị viên' 
@@ -68,14 +68,27 @@ export default function MedicinesPage() {
                 <Pill className="h-4 w-4" />
                 Danh sách thuốc
               </button>
+              <button
+                onClick={() => setActiveTab('ingredients')}
+                className={`pb-3 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+                  activeTab === 'ingredients'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-graphite hover:text-ink'
+                }`}
+              >
+                <FlaskConical className="h-4 w-4" />
+                Hoạt chất (Active Ingredients)
+              </button>
             </div>
 
             {/* Tab Contents */}
             <div className="mt-4 animate-fade-in duration-200">
               {activeTab === 'categories' ? (
                 <CategoryList />
-              ) : (
+              ) : activeTab === 'medicines' ? (
                 <MedicineList />
+              ) : (
+                <ActiveIngredientList />
               )}
             </div>
           </main>
