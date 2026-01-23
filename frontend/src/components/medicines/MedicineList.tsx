@@ -23,7 +23,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, Info, X, Edit, Lock, Unlock } from 'lucide-react';
+import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, Info, X, Edit, Lock, Unlock, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface ActiveIngredient {
@@ -94,9 +94,21 @@ export function MedicineList() {
   const { hasPermission } = useAuth();
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Search and filter states
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [prescriptionFilter, setPrescriptionFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  
+  // Pagination states
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
 
   // Selected medicine for detail modal
@@ -107,18 +119,37 @@ export function MedicineList() {
   const [deactivating, setDeactivating] = useState(false);
 
   const fetchMedicines = async () => {
-    await Promise.resolve();
     setLoading(true);
     setErrorAlert(null);
     try {
-      const response = await api.get('/medicines');
-      setMedicines(response.data);
+      const response = await api.get('/medicines', {
+        params: {
+          page,
+          limit,
+          search: debouncedSearch || undefined,
+          status: statusFilter,
+          categoryId: categoryFilter === 'ALL' ? undefined : Number(categoryFilter),
+          prescription: prescriptionFilter,
+        },
+      });
+      setMedicines(response.data.data || []);
+      setTotal(response.data.total || 0);
+      setTotalPages(response.data.totalPages || 0);
     } catch (err: unknown) {
       console.error('Failed to fetch medicines:', err);
       const error = err as { response?: { data?: { message?: string } } };
       setErrorAlert(error.response?.data?.message || 'Không thể tải danh sách thuốc từ hệ thống.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const res = await api.get('/medicines/reference-data');
+      setCategories(res.data.categories || []);
+    } catch (err) {
+      console.error('Failed to fetch categories:', err);
     }
   };
 
@@ -143,44 +174,48 @@ export function MedicineList() {
     }
   };
 
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Fetch categories on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchCategories();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Fetch medicines when pagination or filters change
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchMedicines();
     }, 0);
     return () => clearTimeout(timer);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit, debouncedSearch, categoryFilter, statusFilter, prescriptionFilter]);
 
-  // Get unique categories from medicines to populate filter
-  const categories = Array.from(
-    new Map(
-      medicines
-        .filter(m => m.product?.category)
-        .map(m => [m.product.category.id, m.product.category])
-    ).values()
-  );
+  const handleCategoryFilterChange = (val: string) => {
+    setCategoryFilter(val);
+    setPage(1);
+  };
 
-  // Filtered medicines based on search and filters
-  const filteredMedicines = medicines.filter((m) => {
-    const nameMatch = m.product?.name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const codeMatch = m.medicineCode?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                      m.product?.code?.toLowerCase().includes(searchQuery.toLowerCase());
-    const ingredientMatch = m.ingredients?.some(i => 
-      i.activeIngredient?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  const handlePrescriptionFilterChange = (val: string) => {
+    setPrescriptionFilter(val);
+    setPage(1);
+  };
 
-    const matchesSearch = nameMatch || codeMatch || ingredientMatch;
+  const handleStatusFilterChange = (val: string) => {
+    setStatusFilter(val);
+    setPage(1);
+  };
 
-    const matchesPrescription = 
-      prescriptionFilter === 'ALL' || 
-      (prescriptionFilter === 'YES' && m.requiresPrescription) || 
-      (prescriptionFilter === 'NO' && !m.requiresPrescription);
-
-    const matchesCategory = 
-      categoryFilter === 'ALL' || 
-      m.product?.category?.id.toString() === categoryFilter;
-
-    return matchesSearch && matchesPrescription && matchesCategory;
-  });
+  const filteredMedicines = medicines;
 
   return (
     <div className="space-y-6">
@@ -231,7 +266,7 @@ export function MedicineList() {
             <div className="w-full md:w-48">
               <select
                 value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
+                onChange={(e) => handleCategoryFilterChange(e.target.value)}
                 className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="ALL">Tất cả danh mục</option>
@@ -247,12 +282,25 @@ export function MedicineList() {
             <div className="w-full md:w-44">
               <select
                 value={prescriptionFilter}
-                onChange={(e) => setPrescriptionFilter(e.target.value)}
+                onChange={(e) => handlePrescriptionFilterChange(e.target.value)}
                 className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="ALL">Đơn thuốc: Tất cả</option>
                 <option value="YES">Bắt buộc kê đơn 📄</option>
                 <option value="NO">Không kê đơn 🟢</option>
+              </select>
+            </div>
+
+            {/* Status Filter */}
+            <div className="w-full md:w-36">
+              <select
+                value={statusFilter}
+                onChange={(e) => handleStatusFilterChange(e.target.value)}
+                className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
+              >
+                <option value="ALL">Trạng thái: Tất cả</option>
+                <option value="ACTIVE">Hoạt động 🟢</option>
+                <option value="INACTIVE">Tạm khóa 🔴</option>
               </select>
             </div>
           </div>
@@ -276,7 +324,8 @@ export function MedicineList() {
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <>
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader className="bg-cloud border-b border-hairline">
                   <TableRow>
@@ -400,7 +449,55 @@ export function MedicineList() {
                 </TableBody>
               </Table>
             </div>
-          )}
+            
+            {/* Pagination Controls */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-hairline bg-cloud/50">
+              <div className="text-xs text-graphite font-medium">
+                Hiển thị <span className="font-semibold text-ink">{total > 0 ? (page - 1) * limit + 1 : 0}</span> -{' '}
+                <span className="font-semibold text-ink">{Math.min(page * limit, total)}</span> trong số{' '}
+                <span className="font-semibold text-ink">{total}</span> thuốc
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === 1}
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  className="h-8 w-8 p-0 border-hairline rounded-lg text-charcoal hover:bg-fog"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <span className="text-xs text-charcoal font-semibold px-2">
+                  Trang {page} / {totalPages || 1}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages || totalPages === 0}
+                  onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                  className="h-8 w-8 p-0 border-hairline rounded-lg text-charcoal hover:bg-fog"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+                
+                <div className="flex items-center gap-1.5 ml-2">
+                  <span className="text-[10px] text-graphite uppercase font-bold tracking-wider">Số lượng:</span>
+                  <select
+                    value={limit}
+                    onChange={(e) => {
+                      setLimit(Number(e.target.value));
+                      setPage(1);
+                    }}
+                    className="h-8 border border-hairline rounded-lg px-2 text-xs text-charcoal bg-white font-medium focus:outline-none"
+                  >
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </>)}
         </CardContent>
       </Card>
 
