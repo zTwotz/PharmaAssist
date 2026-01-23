@@ -289,8 +289,68 @@ export class MedicinesService {
     return medicine;
   }
 
-  async findAll() {
-    return this.prisma.medicine.findMany({
+  async findAll(options?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: string;
+    categoryId?: number;
+    prescription?: string;
+  }) {
+    const page = options?.page || 1;
+    const limit = options?.limit || 10;
+    const search = options?.search;
+    const status = options?.status;
+    const categoryId = options?.categoryId;
+    const prescription = options?.prescription;
+
+    const where: any = {
+      AND: [],
+    };
+
+    if (status && status !== 'ALL') {
+      where.AND.push({ status });
+    }
+
+    if (categoryId) {
+      where.AND.push({
+        product: {
+          categoryId: categoryId,
+        },
+      });
+    }
+
+    if (prescription && prescription !== 'ALL') {
+      where.AND.push({
+        requiresPrescription: prescription === 'YES',
+      });
+    }
+
+    if (search && search.trim().length > 0) {
+      const cleanSearch = search.trim();
+      where.AND.push({
+        OR: [
+          { medicineCode: { contains: cleanSearch, mode: 'insensitive' } },
+          { product: { name: { contains: cleanSearch, mode: 'insensitive' } } },
+          { product: { code: { contains: cleanSearch, mode: 'insensitive' } } },
+          {
+            ingredients: {
+              some: {
+                activeIngredient: {
+                  name: { contains: cleanSearch, mode: 'insensitive' },
+                },
+              },
+            },
+          },
+        ],
+      });
+    }
+
+    const whereClause = where.AND.length > 0 ? where : {};
+
+    const total = await this.prisma.medicine.count({ where: whereClause });
+    const data = await this.prisma.medicine.findMany({
+      where: whereClause,
       include: {
         product: {
           include: {
@@ -312,10 +372,20 @@ export class MedicinesService {
           },
         },
       },
+      skip: (page - 1) * limit,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
     });
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async search(term: string) {

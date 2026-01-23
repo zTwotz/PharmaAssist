@@ -55,7 +55,24 @@ export class MedicinesController {
 
   @Get()
   @RequirePermissions('VIEW_MEDICINES')
-  async findAll() {
-    return this.medicinesService.findAll();
+  async findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
+    @Query('status') status?: string,
+    @Query('categoryId') categoryId?: string,
+    @Query('prescription') prescription?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    const categoryIdNum = categoryId ? parseInt(categoryId, 10) : undefined;
+    return this.medicinesService.findAll({
+      page: pageNum,
+      limit: limitNum,
+      search,
+      status,
+      categoryId: categoryIdNum,
+      prescription,
+    });
   }
 }
