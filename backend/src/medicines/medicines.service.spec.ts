@@ -1,9 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MedicinesService } from './medicines.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('MedicinesService', () => {
   let service: MedicinesService;
+  let prisma: PrismaService;
+
+  const mockPrismaService = {
+    medicine: {
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    product: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    productVariant: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    $transaction: jest.fn((cb) => cb(mockPrismaService)),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -11,19 +33,82 @@ describe('MedicinesService', () => {
         MedicinesService,
         {
           provide: PrismaService,
-          useValue: {
-            medicine: { findMany: jest.fn(), create: jest.fn() },
-            medicineCategory: { findMany: jest.fn() },
-            unit: { findMany: jest.fn() },
-          },
+          useValue: mockPrismaService,
         },
       ],
     }).compile();
 
     service = module.get<MedicinesService>(MedicinesService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('createMedicine', () => {
+    it('should throw BadRequestException if sellingPrice is <= 0', async () => {
+      const dto = {
+        code: 'MED-123',
+        name: 'Test Med',
+        categoryId: 1,
+        medicineCode: 'M-123',
+        dosageFormId: 1,
+        medicineUnitId: 1,
+        sellingPrice: 0,
+      };
+
+      await expect(service.createMedicine(dto)).rejects.toThrow(
+        new BadRequestException('Giá bán phải lớn hơn 0'),
+      );
+    });
+
+    it('should throw BadRequestException if sellingPrice is negative', async () => {
+      const dto = {
+        code: 'MED-123',
+        name: 'Test Med',
+        categoryId: 1,
+        medicineCode: 'M-123',
+        dosageFormId: 1,
+        medicineUnitId: 1,
+        sellingPrice: -10,
+      };
+
+      await expect(service.createMedicine(dto)).rejects.toThrow(
+        new BadRequestException('Giá bán phải lớn hơn 0'),
+      );
+    });
+  });
+
+  describe('updateMedicine', () => {
+    it('should throw NotFoundException if medicine does not exist', async () => {
+      mockPrismaService.medicine.findUnique.mockResolvedValue(null);
+
+      const dto = {
+        name: 'Updated Med',
+        sellingPrice: 50,
+      };
+
+      await expect(service.updateMedicine(999, dto)).rejects.toThrow(
+        new NotFoundException('Không tìm thấy thuốc'),
+      );
+    });
+
+    it('should throw BadRequestException if sellingPrice is <= 0', async () => {
+      mockPrismaService.medicine.findUnique.mockResolvedValue({
+        id: 1,
+        productId: 1,
+        medicineCode: 'M-123',
+        product: { id: 1, code: 'MED-123', name: 'Test Med', slug: 'test-med' },
+      });
+
+      const dto = {
+        sellingPrice: 0,
+      };
+
+      await expect(service.updateMedicine(1, dto)).rejects.toThrow(
+        new BadRequestException('Giá bán phải lớn hơn 0'),
+      );
+    });
   });
 });
