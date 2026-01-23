@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-16 (Deactivate thuốc - PAC-55)
-Current Task: PAC-276 (PAC-TASK-066 - Implement medicine deactivate API)
+Current User Story: US-17 (Validate giá bán thuốc lớn hơn 0 - PAC-56)
+Current Task: PAC-279 (PAC-TASK-069 - Enforce selling_price greater than 0 in backend)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 18/49 Tasks Completed — 36.7%
+Overall Progress: 21/49 Tasks Completed — 42.9%
 Ready for Sprint 3: No
 ```
 
@@ -38,9 +38,9 @@ Ready for Sprint 3: No
 - [x] **`PAC-275`** (PAC-TASK-065): Add medicine list empty/loading/error states — **Done** (Ternary loading states, error boundary alerts, and pagination controls implemented)
 
 #### US-16 — Deactivate thuốc (Logical: US-16 | Jira: PAC-55)
-- [ ] **`PAC-276`** (PAC-TASK-066): Implement medicine deactivate API — **Not Started** (Missing soft deactivation API)
-- [ ] **`PAC-277`** (PAC-TASK-067): Add deactivate action in medicine UI — **Not Started** (Missing button / confirm dialog)
-- [ ] **`PAC-278`** (PAC-TASK-068): Prevent inactive medicines from POS selection — **Not Started** (POS search still includes inactive)
+- [x] **`PAC-276`** (PAC-TASK-066): Implement medicine deactivate API — **Done** (Implemented toggleStatus API and associated product updates)
+- [x] **`PAC-277`** (PAC-TASK-067): Add deactivate action in medicine UI — **Done** (Added status toggle action and confirm dialog in MedicineList UI)
+- [x] **`PAC-278`** (PAC-TASK-068): Prevent inactive medicines from POS selection — **Done** (Filtered variant search and blocked checkout of inactive variants)
 
 #### US-17 — Validate giá bán thuốc lớn hơn 0 (Logical: US-17 | Jira: PAC-56)
 - [ ] **`PAC-279`** (PAC-TASK-069): Enforce selling_price greater than 0 in backend — **Partial** (Needs explicit validation in DTO / service)
