@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-15 (Tìm kiếm và lọc thuốc - PAC-54)
-Current Task: PAC-271 (PAC-TASK-061 - Implement page/limit pagination in medicines API)
+Current User Story: US-16 (Deactivate thuốc - PAC-55)
+Current Task: PAC-276 (PAC-TASK-066 - Implement medicine deactivate API)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 15/49 Tasks Completed — 30.6%
+Overall Progress: 18/49 Tasks Completed — 36.7%
 Ready for Sprint 3: No
 ```
 
@@ -31,11 +31,11 @@ Ready for Sprint 3: No
 - [x] **`PAC-270`** (PAC-TASK-060): Add medicine update validation and errors — **Done** (Frontend and backend validations verified)
 
 #### US-15 — Tìm kiếm và lọc thuốc (Logical: US-15 | Jira: PAC-54)
-- [ ] **`PAC-271`** (PAC-TASK-061): Implement medicine list API with pagination — **Partial** (FindAll exists but lacks page/limit)
+- [x] **`PAC-271`** (PAC-TASK-061): Implement medicine list API with pagination — **Done** (Backend paginated fetching with page/limit)
 - [x] **`PAC-272`** (PAC-TASK-062): Implement medicine search by code/name — **Done** (Search term matching implemented in service)
-- [ ] **`PAC-273`** (PAC-TASK-063): Implement medicine filters — **Not Started** (Need active/inactive filters and categories)
+- [x] **`PAC-273`** (PAC-TASK-063): Implement medicine filters — **Done** (Filters for status, category, and prescription requirements)
 - [x] **`PAC-274`** (PAC-TASK-064): Build medicine list table — **Done** (Table component exists)
-- [ ] **`PAC-275`** (PAC-TASK-065): Add medicine list empty/loading/error states — **Partial** (Need to implement error & retry views)
+- [x] **`PAC-275`** (PAC-TASK-065): Add medicine list empty/loading/error states — **Done** (Ternary loading states, error boundary alerts, and pagination controls implemented)
 
 #### US-16 — Deactivate thuốc (Logical: US-16 | Jira: PAC-55)
 - [ ] **`PAC-276`** (PAC-TASK-066): Implement medicine deactivate API — **Not Started** (Missing soft deactivation API)
