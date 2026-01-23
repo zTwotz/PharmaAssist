@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-17 (Validate giá bán thuốc lớn hơn 0 - PAC-56)
-Current Task: PAC-279 (PAC-TASK-069 - Enforce selling_price greater than 0 in backend)
+Current User Story: US-18 (Quản lý ActiveIngredient - PAC-57)
+Current Task: PAC-283 (PAC-TASK-073 - Implement ActiveIngredient create API)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 21/49 Tasks Completed — 42.9%
+Overall Progress: 24/49 Tasks Completed — 49.0%
 Ready for Sprint 3: No
 ```
 
@@ -43,9 +43,9 @@ Ready for Sprint 3: No
 - [x] **`PAC-278`** (PAC-TASK-068): Prevent inactive medicines from POS selection — **Done** (Filtered variant search and blocked checkout of inactive variants)
 
 #### US-17 — Validate giá bán thuốc lớn hơn 0 (Logical: US-17 | Jira: PAC-56)
-- [ ] **`PAC-279`** (PAC-TASK-069): Enforce selling_price greater than 0 in backend — **Partial** (Needs explicit validation in DTO / service)
-- [ ] **`PAC-280`** (PAC-TASK-070): Add selling price validation in UI — **Not Started** (UI forms do not restrict 0 or negative price)
-- [ ] **`PAC-281`** (PAC-TASK-071): Add tests for medicine price validation — **Not Started** (No tests created yet)
+- [x] **`PAC-279`** (PAC-TASK-069): Enforce selling_price greater than 0 in backend — **Done** (Enforced greater than 0 check in service logic and DTO Min decorators)
+- [x] **`PAC-280`** (PAC-TASK-070): Add selling price validation in UI — **Done** (Added UI validation of price > 0 in medicine create and edit forms)
+- [x] **`PAC-281`** (PAC-TASK-071): Add tests for medicine price validation — **Done** (Covered negative and zero price validation in unit tests)
 
 #### US-18 — Quản lý ActiveIngredient (Logical: US-18 | Jira: PAC-57)
 - [x] **`PAC-282`** (PAC-TASK-072): Create active_ingredients Prisma model — **Done** (In `schema.prisma`)
