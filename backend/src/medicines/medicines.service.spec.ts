@@ -27,6 +27,7 @@ describe('MedicinesService', () => {
       findFirst: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+      updateMany: jest.fn(),
     },
     medicineIngredient: {
       findMany: jest.fn(),
@@ -54,6 +55,10 @@ describe('MedicinesService', () => {
     }).compile();
 
     service = module.get<MedicinesService>(MedicinesService);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -92,6 +97,50 @@ describe('MedicinesService', () => {
         new BadRequestException('Giá bán phải lớn hơn 0'),
       );
     });
+
+    it('should successfully create medicine and create GraphSyncOutbox event', async () => {
+      mockPrismaService.product.findUnique.mockResolvedValue(null);
+      mockPrismaService.medicine.findUnique.mockResolvedValue(null);
+
+      const mockProduct = { id: 10, code: 'MED-123', name: 'Test Med' };
+      const mockMedicine = {
+        id: 20,
+        productId: 10,
+        medicineCode: 'M-123',
+        status: 'ACTIVE',
+      };
+
+      mockPrismaService.product.create.mockResolvedValue(mockProduct);
+      mockPrismaService.medicine.create.mockResolvedValue(mockMedicine);
+      mockPrismaService.productVariant.create.mockResolvedValue({});
+      mockPrismaService.graphSyncOutbox.create.mockResolvedValue({ id: 1 });
+
+      const dto = {
+        code: 'MED-123',
+        name: 'Test Med',
+        categoryId: 1,
+        medicineCode: 'M-123',
+        dosageFormId: 1,
+        medicineUnitId: 1,
+        sellingPrice: 100,
+      };
+
+      const result = await service.createMedicine(dto);
+      expect(result).toEqual({ product: mockProduct, medicine: mockMedicine });
+      expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: 20,
+          action: 'CREATE',
+          payload: {
+            id: 20,
+            code: 'M-123',
+            name: 'Test Med',
+            status: 'ACTIVE',
+          },
+        },
+      });
+    });
   });
 
   describe('updateMedicine', () => {
@@ -123,6 +172,127 @@ describe('MedicinesService', () => {
       await expect(service.updateMedicine(1, dto)).rejects.toThrow(
         new BadRequestException('Giá bán phải lớn hơn 0'),
       );
+    });
+
+    it('should successfully update medicine and create GraphSyncOutbox event', async () => {
+      const mockExisting = {
+        id: 20,
+        productId: 10,
+        medicineCode: 'M-123',
+        status: 'ACTIVE',
+        product: {
+          id: 10,
+          code: 'MED-123',
+          name: 'Test Med',
+          slug: 'test-med',
+        },
+      };
+      mockPrismaService.medicine.findUnique.mockImplementation(({ where }) => {
+        if (where.id === 20) return Promise.resolve(mockExisting);
+        return Promise.resolve(null);
+      });
+      mockPrismaService.product.findUnique.mockResolvedValue(null);
+
+      const mockUpdatedProduct = {
+        id: 10,
+        code: 'MED-123-U',
+        name: 'Updated Med',
+      };
+      const mockUpdatedMedicine = {
+        id: 20,
+        productId: 10,
+        medicineCode: 'M-123-U',
+        status: 'ACTIVE',
+      };
+
+      mockPrismaService.product.update.mockResolvedValue(mockUpdatedProduct);
+      mockPrismaService.medicine.update.mockResolvedValue(mockUpdatedMedicine);
+      mockPrismaService.productVariant.findFirst.mockResolvedValue({ id: 5 });
+      mockPrismaService.productVariant.update.mockResolvedValue({});
+      mockPrismaService.graphSyncOutbox.create.mockResolvedValue({ id: 2 });
+
+      const dto = {
+        code: 'MED-123-U',
+        name: 'Updated Med',
+        medicineCode: 'M-123-U',
+        sellingPrice: 150,
+      };
+
+      const result = await service.updateMedicine(20, dto);
+      expect(result).toEqual({
+        product: mockUpdatedProduct,
+        medicine: mockUpdatedMedicine,
+      });
+      expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: 20,
+          action: 'UPDATE',
+          payload: {
+            id: 20,
+            code: 'M-123-U',
+            name: 'Updated Med',
+            status: 'ACTIVE',
+          },
+        },
+      });
+    });
+  });
+
+  describe('toggleStatus', () => {
+    it('should throw NotFoundException if medicine does not exist', async () => {
+      mockPrismaService.medicine.findUnique.mockResolvedValue(null);
+      await expect(service.toggleStatus(999, 'ACTIVE')).rejects.toThrow(
+        new NotFoundException('Không tìm thấy thuốc'),
+      );
+    });
+
+    it('should throw BadRequestException if status is invalid', async () => {
+      mockPrismaService.medicine.findUnique.mockResolvedValue({
+        id: 20,
+        productId: 10,
+      });
+      await expect(service.toggleStatus(20, 'INVALID')).rejects.toThrow(
+        new BadRequestException('Trạng thái không hợp lệ'),
+      );
+    });
+
+    it('should successfully toggle status and create GraphSyncOutbox event', async () => {
+      mockPrismaService.medicine.findUnique.mockResolvedValue({
+        id: 20,
+        productId: 10,
+      });
+
+      const mockUpdatedMed = {
+        id: 20,
+        productId: 10,
+        medicineCode: 'M-123',
+        status: 'INACTIVE',
+      };
+      const mockUpdatedProduct = { id: 10, name: 'Test Med', status: 'DRAFT' };
+
+      mockPrismaService.medicine.update.mockResolvedValue(mockUpdatedMed);
+      mockPrismaService.product.update.mockResolvedValue(mockUpdatedProduct);
+      mockPrismaService.productVariant.updateMany.mockResolvedValue({
+        count: 1,
+      });
+      mockPrismaService.graphSyncOutbox.create.mockResolvedValue({ id: 3 });
+
+      const result = await service.toggleStatus(20, 'INACTIVE');
+      expect(result).toEqual(mockUpdatedMed);
+      expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: 20,
+          action: 'UPDATE',
+          payload: {
+            id: 20,
+            code: 'M-123',
+            name: 'Test Med',
+            status: 'INACTIVE',
+          },
+        },
+      });
     });
   });
 
