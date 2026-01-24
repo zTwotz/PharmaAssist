@@ -1,7 +1,6 @@
 import {
   IsBoolean,
   IsInt,
-  IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
@@ -9,21 +8,21 @@ import {
   Min,
 } from 'class-validator';
 
-export class CreateMedicineDto {
+export class UpdateMedicineDto {
   // Product info
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MaxLength(100)
-  code: string;
+  code?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MaxLength(255)
-  name: string;
+  name?: string;
 
   @IsInt()
-  @IsNotEmpty()
-  categoryId: number;
+  @IsOptional()
+  categoryId?: number;
 
   @IsInt()
   @IsOptional()
@@ -43,9 +42,9 @@ export class CreateMedicineDto {
 
   // Medicine info
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MaxLength(100)
-  medicineCode: string;
+  medicineCode?: string;
 
   @IsString()
   @IsOptional()
@@ -53,12 +52,12 @@ export class CreateMedicineDto {
   registrationNumber?: string;
 
   @IsInt()
-  @IsNotEmpty()
-  dosageFormId: number;
+  @IsOptional()
+  dosageFormId?: number;
 
   @IsInt()
-  @IsNotEmpty()
-  medicineUnitId: number;
+  @IsOptional()
+  medicineUnitId?: number;
 
   @IsBoolean()
   @IsOptional()

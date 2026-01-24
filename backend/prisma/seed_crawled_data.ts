@@ -347,12 +347,20 @@ async function main() {
   await prisma.product.deleteMany({});
   await prisma.activeIngredient.deleteMany({});
   const ingredientsFile = path.join(CSV_DIR, 'active_ingredients.csv');
-  const ingredientData: { code: string; name: string; description: string | null }[] = [];
+  const ingredientData: { code: string; name: string; normalizedName: string; description: string | null }[] = [];
 
   await readCSV(ingredientsFile, async (row) => {
+    const cleanName = row.ingredient_name.trim().replace(/\s+/g, ' ');
+    const normalizedName = cleanName.toLowerCase();
+    const normalizedTitleCase = cleanName
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
     ingredientData.push({
       code: row.ingredient_code,
-      name: row.ingredient_name,
+      name: normalizedTitleCase,
+      normalizedName,
       description: row.description || null,
     });
   });
