@@ -549,9 +549,12 @@ export function MedicineList() {
                 <div className="bg-cloud p-3 rounded-lg border border-hairline space-y-2">
                   {selectedMedicine.ingredients && selectedMedicine.ingredients.length > 0 ? (
                     selectedMedicine.ingredients.map((ing, idx) => (
-                      <div key={idx} className="flex justify-between items-center text-xs text-charcoal py-1 border-b border-hairline last:border-0 last:pb-0">
-                        <span className="font-semibold text-ink">{ing.activeIngredient?.name}</span>
-                        <span className="font-bold text-primary bg-primary-soft px-2 py-0.5 rounded">{ing.strength}</span>
+                      <div key={idx} className="flex justify-between items-start text-xs text-charcoal py-1 border-b border-hairline last:border-0 last:pb-0">
+                        <div className="flex flex-col">
+                          <span className="font-semibold text-ink">{ing.activeIngredient?.name}</span>
+                          {ing.note && <span className="text-[10px] text-graphite font-medium">Ghi chú: {ing.note}</span>}
+                        </div>
+                        <span className="font-bold text-primary bg-primary-soft px-2 py-0.5 rounded shrink-0">{ing.strength}</span>
                       </div>
                     ))
                   ) : (

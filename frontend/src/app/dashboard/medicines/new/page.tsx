@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle2, Loader2, ArrowLeft } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Loader2, ArrowLeft, Plus, Trash2 } from 'lucide-react';
 
 interface ReferenceData {
   categories: { id: number; name: string }[];
@@ -19,11 +19,19 @@ interface ReferenceData {
   manufacturers: { id: number; name: string }[];
 }
 
+interface SelectedIngredient {
+  activeIngredientId: string;
+  strength: string;
+  note: string;
+}
+
 export default function NewMedicinePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [refData, setRefData] = useState<ReferenceData | null>(null);
+  const [availableIngredients, setAvailableIngredients] = useState<{ id: number; name: string }[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<SelectedIngredient[]>([]);
   
   // Alert States
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -49,11 +57,15 @@ export default function NewMedicinePage() {
   useEffect(() => {
     const fetchRefData = async () => {
       try {
-        const res = await api.get('/medicines/reference-data');
-        setRefData(res.data);
+        const [refRes, ingredientRes] = await Promise.all([
+          api.get('/medicines/reference-data'),
+          api.get('/active-ingredients?status=ACTIVE&limit=200'),
+        ]);
+        setRefData(refRes.data);
+        setAvailableIngredients(ingredientRes.data.data || []);
       } catch (error) {
-        console.error('Failed to fetch reference data', error);
-        setErrorMsg('Không thể tải dữ liệu cấu hình (Reference Data). Vui lòng thử lại.');
+        console.error('Failed to fetch reference data or active ingredients', error);
+        setErrorMsg('Không thể tải dữ liệu cấu hình. Vui lòng thử lại.');
       } finally {
         setInitialLoading(false);
       }
@@ -87,6 +99,20 @@ export default function NewMedicinePage() {
       return;
     }
 
+    // Validate ingredients mapping
+    for (const item of selectedIngredients) {
+      if (!item.activeIngredientId) {
+        setErrorMsg('Vui lòng chọn đầy đủ hoạt chất cho các hàng đã thêm');
+        setLoading(false);
+        return;
+      }
+      if (!item.strength || !item.strength.trim()) {
+        setErrorMsg('Vui lòng nhập hàm lượng cho các hoạt chất đã liên kết');
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
       const payload = {
         ...formData,
@@ -101,7 +127,21 @@ export default function NewMedicinePage() {
       const res = await api.post('/medicines', payload);
 
       if (res.status === 200 || res.status === 201) {
-        setSuccessMsg('Đã thêm thuốc mới thành công. Đang chuyển hướng...');
+        const createdMedicineId = res.data.medicine.id;
+
+        // If there are selected ingredients, call the PUT endpoint
+        if (selectedIngredients.length > 0) {
+          const mappingPayload = {
+            ingredients: selectedIngredients.map((item) => ({
+              activeIngredientId: parseInt(item.activeIngredientId, 10),
+              strength: item.strength.trim(),
+              note: item.note?.trim() || undefined,
+            })),
+          };
+          await api.put(`/medicines/${createdMedicineId}/active-ingredients`, mappingPayload);
+        }
+
+        setSuccessMsg('Đã thêm thuốc mới và liên kết hoạt chất thành công. Đang chuyển hướng...');
         setTimeout(() => {
           router.push('/medicines');
         }, 1500);
@@ -118,6 +158,15 @@ export default function NewMedicinePage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const getFilteredOptions = (currentIndex: number) => {
+    return availableIngredients.filter((option) => {
+      const isSelectedElsewhere = selectedIngredients.some(
+        (item, idx) => idx !== currentIndex && item.activeIngredientId === option.id.toString()
+      );
+      return !isSelectedElsewhere;
+    });
   };
 
   if (initialLoading) {
@@ -303,6 +352,106 @@ export default function NewMedicinePage() {
                   Thuốc kê đơn (Requires Prescription)
                 </label>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Hoạt chất liên kết */}
+          <Card className="bg-white border border-hairline rounded-xl shadow-xs overflow-hidden md:col-span-2">
+            <CardHeader className="bg-cloud/40 border-b border-hairline px-6 py-4 flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="text-sm font-bold text-ink">Hoạt chất liên kết</CardTitle>
+                <CardDescription className="text-xs text-graphite">Liên kết hoạt chất chính thức, chỉ định hàm lượng và ghi chú.</CardDescription>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setSelectedIngredients([...selectedIngredients, { activeIngredientId: '', strength: '', note: '' }])}
+                className="border-primary text-primary hover:bg-primary/5 text-xs font-bold h-8 flex items-center gap-1.5"
+              >
+                <Plus className="h-4 w-4" />
+                Thêm hoạt chất
+              </Button>
+            </CardHeader>
+            <CardContent className="p-6 space-y-4">
+              {selectedIngredients.length === 0 ? (
+                <div className="text-center py-8 border border-dashed border-hairline rounded-lg text-graphite text-xs">
+                  Chưa có hoạt chất nào được liên kết. Nhấn nút &quot;Thêm hoạt chất&quot; để bắt đầu.
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {selectedIngredients.map((item, index) => (
+                    <div key={index} className="flex flex-col md:flex-row items-start md:items-center gap-3 pb-4 border-b border-hairline last:border-0 last:pb-0">
+                      <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="grid gap-1">
+                          <label className="text-[10px] font-bold text-charcoal uppercase tracking-wider">Hoạt chất *</label>
+                          <Select
+                            value={item.activeIngredientId}
+                            onValueChange={(val) => {
+                              const newIngredients = [...selectedIngredients];
+                              newIngredients[index].activeIngredientId = val || '';
+                              setSelectedIngredients(newIngredients);
+                            }}
+                          >
+                            <SelectTrigger className="h-9 text-xs border-hairline focus:ring-primary rounded-lg text-charcoal font-medium bg-white">
+                              <SelectValue placeholder="Chọn hoạt chất" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white border border-hairline rounded-lg max-h-[200px] overflow-y-auto">
+                              {getFilteredOptions(index).map((ai) => (
+                                <SelectItem key={ai.id} value={ai.id.toString()} className="text-xs hover:bg-cloud/55">
+                                  {ai.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="grid gap-1">
+                          <label className="text-[10px] font-bold text-charcoal uppercase tracking-wider">Hàm lượng *</label>
+                          <Input
+                            value={item.strength}
+                            onChange={(e) => {
+                              const newIngredients = [...selectedIngredients];
+                              newIngredients[index].strength = e.target.value;
+                              setSelectedIngredients(newIngredients);
+                            }}
+                            placeholder="Ví dụ: 500mg"
+                            required
+                            className="h-9 text-xs border-hairline focus-visible:ring-primary rounded-lg"
+                          />
+                        </div>
+
+                        <div className="grid gap-1">
+                          <label className="text-[10px] font-bold text-charcoal uppercase tracking-wider">Ghi chú</label>
+                          <Input
+                            value={item.note}
+                            onChange={(e) => {
+                              const newIngredients = [...selectedIngredients];
+                              newIngredients[index].note = e.target.value;
+                              setSelectedIngredients(newIngredients);
+                            }}
+                            placeholder="Ví dụ: Dạng khan"
+                            className="h-9 text-xs border-hairline focus-visible:ring-primary rounded-lg"
+                          />
+                        </div>
+                      </div>
+
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          const newIngredients = selectedIngredients.filter((_, idx) => idx !== index);
+                          setSelectedIngredients(newIngredients);
+                        }}
+                        className="text-error hover:text-error-deep hover:bg-bloom-rose/10 h-9 w-9 mt-0 md:mt-5 shrink-0 rounded-lg"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
