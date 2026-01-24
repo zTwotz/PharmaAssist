@@ -1,4 +1,12 @@
-import { IsBoolean, IsInt, IsOptional, IsString, MaxLength, IsNumber, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsNumber,
+  Min,
+} from 'class-validator';
 
 export class UpdateMedicineDto {
   // Product info

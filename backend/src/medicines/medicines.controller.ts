@@ -1,7 +1,19 @@
-import { Controller, Post, Body, Get, Patch, Param, UseGuards, Query, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Patch,
+  Put,
+  Param,
+  UseGuards,
+  Query,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
+import { UpdateMedicineIngredientsDto } from './dto/update-medicine-ingredients.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/permissions.guard';
 import { RequirePermissions } from '../auth/permissions.decorator';
@@ -51,6 +63,21 @@ export class MedicinesController {
     @Body('status') status: string,
   ) {
     return this.medicinesService.toggleStatus(id, status);
+  }
+
+  @Get(':id/active-ingredients')
+  @RequirePermissions('VIEW_MEDICINES')
+  async getIngredients(@Param('id', ParseIntPipe) id: number) {
+    return this.medicinesService.getIngredients(id);
+  }
+
+  @Put(':id/active-ingredients')
+  @RequirePermissions('MANAGE_MEDICINES')
+  async updateIngredients(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateIngredientsDto: UpdateMedicineIngredientsDto,
+  ) {
+    return this.medicinesService.updateIngredients(id, updateIngredientsDto);
   }
 
   @Get()
