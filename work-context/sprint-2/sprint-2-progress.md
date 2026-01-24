@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-18 (Quản lý ActiveIngredient - PAC-57)
-Current Task: PAC-283 (PAC-TASK-073 - Implement ActiveIngredient create API)
+Current User Story: US-19 (Mapping Medicine với ActiveIngredient - PAC-58)
+Current Task: PAC-289 (PAC-TASK-079 - Implement Medicine-Ingredient mapping API)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 24/49 Tasks Completed — 49.0%
+Overall Progress: 29/49 Tasks Completed — 59.2%
 Ready for Sprint 3: No
 ```
 
@@ -49,11 +49,11 @@ Ready for Sprint 3: No
 
 #### US-18 — Quản lý ActiveIngredient (Logical: US-18 | Jira: PAC-57)
 - [x] **`PAC-282`** (PAC-TASK-072): Create active_ingredients Prisma model — **Done** (In `schema.prisma`)
-- [ ] **`PAC-283`** (PAC-TASK-073): Implement ActiveIngredient create API — **Not Started** (Missing module active-ingredients)
-- [ ] **`PAC-284`** (PAC-TASK-074): Implement ActiveIngredient update API — **Not Started** (Missing module active-ingredients)
-- [ ] **`PAC-285`** (PAC-TASK-075): Implement ActiveIngredient list/search API — **Not Started** (Missing module active-ingredients)
-- [ ] **`PAC-286`** (PAC-TASK-076): Build ActiveIngredient management screen — **Not Started** (Missing UI management screen)
-- [ ] **`PAC-287`** (PAC-TASK-077): Add ActiveIngredient create/edit form validation — **Not Started** (Missing validation on UI)
+- [x] **`PAC-283`** (PAC-TASK-073): Implement ActiveIngredient create API — **Done** (Implemented create active ingredient endpoint with code generation)
+- [x] **`PAC-284`** (PAC-TASK-074): Implement ActiveIngredient update API — **Done** (Implemented update endpoint for name, description, and status)
+- [x] **`PAC-285`** (PAC-TASK-075): Implement ActiveIngredient list/search API — **Done** (Implemented paginated search endpoint with search/status filters)
+- [x] **`PAC-286`** (PAC-TASK-076): Build ActiveIngredient management screen — **Done** (Created active ingredient list and form component inside medicines tabs)
+- [x] **`PAC-287`** (PAC-TASK-077): Add ActiveIngredient create/edit form validation — **Done** (Enforced form validations on client and server sides)
 
 #### US-19 — Mapping Medicine với ActiveIngredient (Logical: US-19 | Jira: PAC-58)
 - [x] **`PAC-288`** (PAC-TASK-078): Create medicine_active_ingredients mapping schema — **Done** (In `schema.prisma`)
