@@ -377,7 +377,7 @@ export function ActiveIngredientList() {
               <Select
                 value={limit.toString()}
                 onValueChange={(val) => {
-                  setLimit(parseInt(val, 10));
+                  setLimit(parseInt(val || '', 10));
                   setPage(1);
                 }}
               >

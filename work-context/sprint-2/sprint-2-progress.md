@@ -57,13 +57,13 @@ Ready for Sprint 3: No
 
 #### US-19 — Mapping Medicine với ActiveIngredient (Logical: US-19 | Jira: PAC-58)
 - [x] **`PAC-288`** (PAC-TASK-078): Create medicine_active_ingredients mapping schema — **Done** (In `schema.prisma`)
-- [ ] **`PAC-289`** (PAC-TASK-079): Implement Medicine-Ingredient mapping API — **Not Started** (Missing mapping controller/service)
-- [ ] **`PAC-290`** (PAC-TASK-080): Build ingredient mapping component in Medicine form — **Not Started** (Missing selector component)
-- [ ] **`PAC-291`** (PAC-TASK-081): Show mapped ingredients in medicine detail — **Not Started** (Needs to render mapping list)
+- [x] **`PAC-289`** (PAC-TASK-079): Implement Medicine-Ingredient mapping API — **Done** (Implemented controller and service with GraphSyncOutbox events)
+- [x] **`PAC-290`** (PAC-TASK-080): Build ingredient mapping component in Medicine form — **Done** (Added selector card in new and edit forms)
+- [x] **`PAC-291`** (PAC-TASK-081): Show mapped ingredients in medicine detail — **Done** (Rendered in medicine detail modal list)
 
 #### US-20 — Validate mapping hoạt chất không trùng (Logical: US-20 | Jira: PAC-59)
-- [ ] **`PAC-292`** (PAC-TASK-082): Add unique validation for ingredient mapping — **Not Started** (Need unique constraint verification)
-- [ ] **`PAC-293`** (PAC-TASK-083): Prevent mapping inactive ingredient if not allowed — **Not Started** (Need is_active check)
+- [x] **`PAC-292`** (PAC-TASK-082): Add unique validation for ingredient mapping — **Done** (Unique check in service, composite key constraint, and frontend select filtering)
+- [x] **`PAC-293`** (PAC-TASK-083): Prevent mapping inactive ingredient if not allowed — **Done** (Blocked linking inactive ingredients in service and filtered out of available UI list)
 
 #### US-21 — Chuẩn hóa dữ liệu hoạt chất (Logical: US-21 | Jira: PAC-60)
 - [ ] **`PAC-294`** (PAC-TASK-084): Normalize ActiveIngredient names — **Not Started** (Need name trimming/normalization utility)

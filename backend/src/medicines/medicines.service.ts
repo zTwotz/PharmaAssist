@@ -3,9 +3,11 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
+import { UpdateMedicineIngredientsDto } from './dto/update-medicine-ingredients.dto';
 
 @Injectable()
 export class MedicinesService {
@@ -237,6 +239,111 @@ export class MedicinesService {
     });
   }
 
+  async getIngredients(medicineId: number) {
+    const medicine = await this.prisma.medicine.findUnique({
+      where: { id: medicineId },
+    });
+    if (!medicine) {
+      throw new NotFoundException('Không tìm thấy thuốc');
+    }
+
+    return this.prisma.medicineIngredient.findMany({
+      where: { medicineId },
+      include: {
+        activeIngredient: true,
+      },
+    });
+  }
+
+  async updateIngredients(
+    medicineId: number,
+    dto: UpdateMedicineIngredientsDto,
+  ) {
+    const medicine = await this.prisma.medicine.findUnique({
+      where: { id: medicineId },
+    });
+    if (!medicine) {
+      throw new NotFoundException('Không tìm thấy thuốc');
+    }
+
+    // 1. Verify duplicates
+    const ingredientIds = dto.ingredients.map((i) => i.activeIngredientId);
+    const uniqueIds = new Set(ingredientIds);
+    if (uniqueIds.size !== ingredientIds.length) {
+      throw new BadRequestException(
+        'Danh sách hoạt chất có chứa bản ghi trùng lặp',
+      );
+    }
+
+    // 2. Fetch all mapped active ingredients to verify existence and active status
+    const activeIngredients = await this.prisma.activeIngredient.findMany({
+      where: {
+        id: { in: ingredientIds },
+      },
+    });
+
+    if (activeIngredients.length !== uniqueIds.size) {
+      throw new BadRequestException(
+        'Một hoặc nhiều hoạt chất không tồn tại trong hệ thống',
+      );
+    }
+
+    // US-20 check: Prevent mapping inactive ingredient
+    const inactiveIngredient = activeIngredients.find(
+      (ai) => ai.status !== 'ACTIVE',
+    );
+    if (inactiveIngredient) {
+      throw new BadRequestException(
+        `Không thể liên kết hoạt chất đã tắt hoạt động: ${inactiveIngredient.name}`,
+      );
+    }
+
+    // 3. Execute in transaction
+    return await this.prisma.$transaction(async (tx) => {
+      // Delete existing mappings
+      await tx.medicineIngredient.deleteMany({
+        where: { medicineId },
+      });
+
+      // Create new mappings
+      const createdMappings = await Promise.all(
+        dto.ingredients.map((item) =>
+          tx.medicineIngredient.create({
+            data: {
+              medicineId,
+              activeIngredientId: item.activeIngredientId,
+              strength: item.strength.trim(),
+              note: item.note?.trim() || null,
+            },
+            include: {
+              activeIngredient: true,
+            },
+          }),
+        ),
+      );
+
+      // Write GraphSyncOutbox event
+      await tx.graphSyncOutbox.create({
+        data: {
+          entityType: 'MEDICINE_INGREDIENT',
+          entityId: medicineId,
+          action: 'UPDATE',
+          payload: {
+            medicineId,
+            ingredients: createdMappings.map((cm) => ({
+              activeIngredientId: cm.activeIngredientId,
+              name: cm.activeIngredient.name,
+              strength: cm.strength,
+              note: cm.note,
+            })),
+          },
+        },
+      });
+
+      return createdMappings;
+    });
+  }
+
   async getReferenceData() {
     const [categories, units, dosageForms, brands, manufacturers] =
       await Promise.all([
@@ -313,16 +420,14 @@ export class MedicinesService {
     const categoryId = options?.categoryId;
     const prescription = options?.prescription;
 
-    const where: any = {
-      AND: [],
-    };
+    const andConditions: Prisma.MedicineWhereInput[] = [];
 
     if (status && status !== 'ALL') {
-      where.AND.push({ status });
+      andConditions.push({ status });
     }
 
     if (categoryId) {
-      where.AND.push({
+      andConditions.push({
         product: {
           categoryId: categoryId,
         },
@@ -330,14 +435,14 @@ export class MedicinesService {
     }
 
     if (prescription && prescription !== 'ALL') {
-      where.AND.push({
+      andConditions.push({
         requiresPrescription: prescription === 'YES',
       });
     }
 
     if (search && search.trim().length > 0) {
       const cleanSearch = search.trim();
-      where.AND.push({
+      andConditions.push({
         OR: [
           { medicineCode: { contains: cleanSearch, mode: 'insensitive' } },
           { product: { name: { contains: cleanSearch, mode: 'insensitive' } } },
@@ -355,7 +460,8 @@ export class MedicinesService {
       });
     }
 
-    const whereClause = where.AND.length > 0 ? where : {};
+    const whereClause: Prisma.MedicineWhereInput =
+      andConditions.length > 0 ? { AND: andConditions } : {};
 
     const total = await this.prisma.medicine.count({ where: whereClause });
     const data = await this.prisma.medicine.findMany({
