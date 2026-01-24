@@ -54,21 +54,44 @@ describe('ActiveIngredientsService', () => {
     });
 
     it('should normalize name and throw BadRequestException if name already exists', async () => {
-      mockPrisma.activeIngredient.findFirst.mockResolvedValue({
+      mockPrisma.activeIngredient.findUnique.mockResolvedValue({
         id: 1,
         name: 'Paracetamol',
+        normalizedName: 'paracetamol',
       });
 
       await expect(
         service.create({ name: '  Paracetamol   ' }),
       ).rejects.toThrow(new BadRequestException('Tên hoạt chất đã tồn tại'));
-      expect(mockPrisma.activeIngredient.findFirst).toHaveBeenCalledWith({
-        where: { name: { equals: 'Paracetamol', mode: 'insensitive' } },
+      expect(mockPrisma.activeIngredient.findUnique).toHaveBeenCalledWith({
+        where: { normalizedName: 'paracetamol' },
+      });
+    });
+
+    it('should convert name to Title Case and save both name and normalizedName', async () => {
+      mockPrisma.activeIngredient.findUnique.mockResolvedValue(null);
+      mockPrisma.activeIngredient.create.mockResolvedValue({
+        id: 10,
+        code: 'ACT-P-1234',
+        name: 'Acid Acetylsalicylic',
+        normalizedName: 'acid acetylsalicylic',
+        status: 'ACTIVE',
+      });
+
+      const result = await service.create({
+        name: '  aCId   aCetyLsaLicyLic  ',
+      });
+
+      expect(result).toBeDefined();
+      expect(mockPrisma.activeIngredient.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          name: 'Acid Acetylsalicylic',
+          normalizedName: 'acid acetylsalicylic',
+        }),
       });
     });
 
     it('should generate code and write to DB and outbox if valid', async () => {
-      mockPrisma.activeIngredient.findFirst.mockResolvedValue(null);
       mockPrisma.activeIngredient.findUnique.mockResolvedValue(null);
       mockPrisma.activeIngredient.create.mockResolvedValue({
         id: 10,
@@ -105,15 +128,23 @@ describe('ActiveIngredientsService', () => {
       mockPrisma.activeIngredient.findUnique.mockResolvedValue({
         id: 1,
         name: 'Ibuprofen',
+        normalizedName: 'ibuprofen',
       });
       mockPrisma.activeIngredient.findFirst.mockResolvedValue({
         id: 2,
         name: 'Paracetamol',
+        normalizedName: 'paracetamol',
       });
 
       await expect(service.update(1, { name: 'Paracetamol' })).rejects.toThrow(
         new BadRequestException('Tên hoạt chất đã tồn tại'),
       );
+      expect(mockPrisma.activeIngredient.findFirst).toHaveBeenCalledWith({
+        where: {
+          normalizedName: 'paracetamol',
+          id: { not: 1 },
+        },
+      });
     });
 
     it('should successfully update and write to outbox', async () => {
