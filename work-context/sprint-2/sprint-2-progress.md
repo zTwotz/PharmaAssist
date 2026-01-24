@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-21 (Chuẩn hóa dữ liệu hoạt chất - PAC-60) — Completed
-Current Task: None (US-21 Completed)
+Current User Story: US-22 (Trigger Graph Sync khi Medicine/Ingredient thay đổi - PAC-61) — Completed
+Current Task: None (US-22 Completed)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 32/49 Tasks Completed — 65.3%
+Overall Progress: 35/49 Tasks Completed — 71.4%
 Ready for Sprint 3: No
 ```
 
@@ -71,9 +71,9 @@ Ready for Sprint 3: No
 - [x] **`PAC-296`** (PAC-TASK-086): Add ActiveIngredient data quality review checklist — **Done** (Created active-ingredient-data-quality.md guidelines)
 
 #### US-22 — Trigger Graph Sync khi Medicine/Ingredient thay đổi (Logical: US-22 | Jira: PAC-61)
-- [ ] **`PAC-297`** (PAC-TASK-087): Create graph sync event when Medicine changes — **Not Started** (Need outbox event emitter)
-- [ ] **`PAC-298`** (PAC-TASK-088): Create graph sync event when ActiveIngredient changes — **Not Started** (Need outbox event emitter)
-- [ ] **`PAC-299`** (PAC-TASK-089): Create graph sync event when Ingredient mapping changes — **Not Started** (Need outbox event emitter)
+- [x] **`PAC-297`** (PAC-TASK-087): Create graph sync event when Medicine changes — **Done** (Outbox event written in medicines service transactions)
+- [x] **`PAC-298`** (PAC-TASK-088): Create graph sync event when ActiveIngredient changes — **Done** (Outbox event written in active ingredient service transactions)
+- [x] **`PAC-299`** (PAC-TASK-089): Create graph sync event when Ingredient mapping changes — **Done** (Outbox event written in mapping update transactions)
 
 ---
 
