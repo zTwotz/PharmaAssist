@@ -96,6 +96,21 @@ export class MedicinesService {
         },
       });
 
+      // 4. Create GraphSyncOutbox event
+      await tx.graphSyncOutbox.create({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: medicine.id,
+          action: 'CREATE',
+          payload: {
+            id: medicine.id,
+            code: medicine.medicineCode,
+            name: product.name,
+            status: medicine.status,
+          },
+        },
+      });
+
       return { product, medicine };
     });
   }
@@ -200,6 +215,21 @@ export class MedicinesService {
         });
       }
 
+      // 4. Create GraphSyncOutbox event
+      await tx.graphSyncOutbox.create({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: id,
+          action: 'UPDATE',
+          payload: {
+            id,
+            code: updatedMedicine.medicineCode,
+            name: product.name,
+            status: updatedMedicine.status,
+          },
+        },
+      });
+
       return { product, medicine: updatedMedicine };
     });
   }
@@ -224,7 +254,7 @@ export class MedicinesService {
       });
 
       // Update associated product status
-      await tx.product.update({
+      const updatedProduct = await tx.product.update({
         where: { id: medicine.productId },
         data: { status: status === 'ACTIVE' ? 'ACTIVE' : 'DRAFT' },
       });
@@ -233,6 +263,21 @@ export class MedicinesService {
       await tx.productVariant.updateMany({
         where: { productId: medicine.productId },
         data: { status },
+      });
+
+      // Create GraphSyncOutbox event
+      await tx.graphSyncOutbox.create({
+        data: {
+          entityType: 'MEDICINE',
+          entityId: id,
+          action: 'UPDATE',
+          payload: {
+            id,
+            code: updatedMed.medicineCode,
+            name: updatedProduct.name,
+            status: updatedMed.status,
+          },
+        },
       });
 
       return updatedMed;
