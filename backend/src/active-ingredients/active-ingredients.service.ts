@@ -16,12 +16,22 @@ export class ActiveIngredientsService {
 
   private normalizeName(name: string): string {
     if (!name) return '';
-    // Trim and replace multiple spaces with a single space
-    return name.trim().replace(/\s+/g, ' ');
+    // Trim, replace multiple spaces with a single space, and convert to Title Case
+    const clean = name.trim().replace(/\s+/g, ' ');
+    return clean
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+
+  private generateNormalizedName(name: string): string {
+    if (!name) return '';
+    // Trim, replace multiple spaces with a single space, and convert to lowercase
+    return name.trim().toLowerCase().replace(/\s+/g, ' ');
   }
 
   private generateCode(name: string): string {
-    const cleanName = this.normalizeName(name);
+    const cleanName = name.trim().replace(/\s+/g, ' ');
     const words = cleanName.split(' ');
     const prefix = words
       .map((w) => w[0])
@@ -33,20 +43,22 @@ export class ActiveIngredientsService {
   }
 
   async create(dto: CreateActiveIngredientDto) {
-    const normalizedName = this.normalizeName(dto.name);
-    if (!normalizedName) {
+    const name = this.normalizeName(dto.name);
+    if (!name) {
       throw new BadRequestException('Tên hoạt chất không được để trống');
     }
 
-    // Check name uniqueness (case-insensitive)
-    const existingName = await this.prisma.activeIngredient.findFirst({
-      where: { name: { equals: normalizedName, mode: 'insensitive' } },
+    const normalizedName = this.generateNormalizedName(dto.name);
+
+    // Check name uniqueness (using unique index)
+    const existingName = await this.prisma.activeIngredient.findUnique({
+      where: { normalizedName },
     });
     if (existingName) {
       throw new BadRequestException('Tên hoạt chất đã tồn tại');
     }
 
-    const code = dto.code ? dto.code.trim() : this.generateCode(normalizedName);
+    const code = dto.code ? dto.code.trim() : this.generateCode(name);
 
     // Check code uniqueness
     const existingCode = await this.prisma.activeIngredient.findUnique({
@@ -60,7 +72,8 @@ export class ActiveIngredientsService {
       const activeIngredient = await tx.activeIngredient.create({
         data: {
           code,
-          name: normalizedName,
+          name,
+          normalizedName,
           description: dto.description?.trim(),
           status: 'ACTIVE',
         },
@@ -96,14 +109,16 @@ export class ActiveIngredientsService {
     const updateData: Prisma.ActiveIngredientUpdateInput = {};
 
     if (dto.name !== undefined) {
-      const normalizedName = this.normalizeName(dto.name);
-      if (!normalizedName) {
+      const name = this.normalizeName(dto.name);
+      if (!name) {
         throw new BadRequestException('Tên hoạt chất không được để trống');
       }
 
+      const normalizedName = this.generateNormalizedName(dto.name);
+
       const existingName = await this.prisma.activeIngredient.findFirst({
         where: {
-          name: { equals: normalizedName, mode: 'insensitive' },
+          normalizedName,
           id: { not: id },
         },
       });
@@ -111,7 +126,8 @@ export class ActiveIngredientsService {
         throw new BadRequestException('Tên hoạt chất đã tồn tại');
       }
 
-      updateData.name = normalizedName;
+      updateData.name = name;
+      updateData.normalizedName = normalizedName;
     }
 
     if (dto.description !== undefined) {

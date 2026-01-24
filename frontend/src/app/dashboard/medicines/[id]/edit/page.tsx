@@ -420,7 +420,12 @@ export default function EditMedicinePage({ params }: { params: Promise<{ id: str
             <CardHeader className="bg-cloud/40 border-b border-hairline px-6 py-4 flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-sm font-bold text-ink">Hoạt chất liên kết</CardTitle>
-                <CardDescription className="text-xs text-graphite">Liên kết hoạt chất chính thức, chỉ định hàm lượng và ghi chú.</CardDescription>
+                <CardDescription className="text-xs text-graphite flex flex-col gap-1.5">
+                  <span>Liên kết hoạt chất chính thức, chỉ định hàm lượng và ghi chú.</span>
+                  <span className="text-[11px] text-primary font-semibold bg-primary/5 border border-primary/10 rounded-md px-2.5 py-1 mt-1 self-start">
+                    * Gợi ý: Chỉ chọn hoạt chất đã chuẩn hóa. Nếu chưa có hoạt chất mong muốn, vui lòng tạo mới tại mục Quản lý Hoạt chất trước.
+                  </span>
+                </CardDescription>
               </div>
               <Button
                 type="button"
