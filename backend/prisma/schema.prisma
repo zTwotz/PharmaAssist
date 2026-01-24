@@ -503,6 +503,7 @@ model ActiveIngredient {
   id                  Int                  @id @default(autoincrement())
   code                String               @unique
   name                String
+  normalizedName      String               @unique @map("normalized_name")
   description         String?
   status              String               @default("ACTIVE")
   createdAt           DateTime             @default(now()) @map("created_at")
