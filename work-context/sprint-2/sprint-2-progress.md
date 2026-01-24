@@ -5,10 +5,10 @@
 ```text
 Sprint State: In Progress
 Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-19 (Mapping Medicine với ActiveIngredient - PAC-58)
-Current Task: PAC-289 (PAC-TASK-079 - Implement Medicine-Ingredient mapping API)
+Current User Story: US-21 (Chuẩn hóa dữ liệu hoạt chất - PAC-60) — Completed
+Current Task: None (US-21 Completed)
 Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 29/49 Tasks Completed — 59.2%
+Overall Progress: 32/49 Tasks Completed — 65.3%
 Ready for Sprint 3: No
 ```
 
@@ -66,9 +66,9 @@ Ready for Sprint 3: No
 - [x] **`PAC-293`** (PAC-TASK-083): Prevent mapping inactive ingredient if not allowed — **Done** (Blocked linking inactive ingredients in service and filtered out of available UI list)
 
 #### US-21 — Chuẩn hóa dữ liệu hoạt chất (Logical: US-21 | Jira: PAC-60)
-- [ ] **`PAC-294`** (PAC-TASK-084): Normalize ActiveIngredient names — **Not Started** (Need name trimming/normalization utility)
-- [ ] **`PAC-295`** (PAC-TASK-085): Reject raw scraped ingredient strings in official mapping — **Not Started** (Need guardrails)
-- [ ] **`PAC-296`** (PAC-TASK-086): Add ActiveIngredient data quality review checklist — **Not Started** (Need documentation file)
+- [x] **`PAC-294`** (PAC-TASK-084): Normalize ActiveIngredient names — **Done** (Implemented Title Case and lowercase index checks)
+- [x] **`PAC-295`** (PAC-TASK-085): Reject raw scraped ingredient strings in official mapping — **Done** (Enforced through ID constraints on API and dropdown selector notes on UI)
+- [x] **`PAC-296`** (PAC-TASK-086): Add ActiveIngredient data quality review checklist — **Done** (Created active-ingredient-data-quality.md guidelines)
 
 #### US-22 — Trigger Graph Sync khi Medicine/Ingredient thay đổi (Logical: US-22 | Jira: PAC-61)
 - [ ] **`PAC-297`** (PAC-TASK-087): Create graph sync event when Medicine changes — **Not Started** (Need outbox event emitter)
