@@ -60,8 +60,10 @@ export default function SuppliersPage() {
   // Modals state
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isDeactivateOpen, setIsDeactivateOpen] = useState(false);
   const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
   const [supplierToDelete, setSupplierToDelete] = useState<Supplier | null>(null);
+  const [supplierToDeactivate, setSupplierToDeactivate] = useState<Supplier | null>(null);
 
   // Form states
   const [formLoading, setFormLoading] = useState(false);
@@ -130,6 +132,11 @@ export default function SuppliersPage() {
     setIsDeleteOpen(true);
   };
 
+  const handleOpenDeactivate = (supplier: Supplier) => {
+    setSupplierToDeactivate(supplier);
+    setIsDeactivateOpen(true);
+  };
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -189,6 +196,27 @@ export default function SuppliersPage() {
       const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi xóa nhà cung cấp.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
       setIsDeleteOpen(false);
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleDeactivateSubmit = async () => {
+    if (!supplierToDeactivate) return;
+    setFormLoading(true);
+    setErrorAlert(null);
+    setSuccessAlert(null);
+
+    try {
+      await api.patch(`/suppliers/${supplierToDeactivate.id}/deactivate`);
+      setSuccessAlert(`Đã ngưng hoạt động nhà cung cấp "${supplierToDeactivate.name}" thành công.`);
+      setIsDeactivateOpen(false);
+      fetchSuppliers();
+    } catch (err: any) {
+      console.error('Deactivate supplier failed:', err);
+      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi ngưng hoạt động nhà cung cấp.';
+      setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
+      setIsDeactivateOpen(false);
     } finally {
       setFormLoading(false);
     }
@@ -345,17 +373,34 @@ export default function SuppliersPage() {
                               size="icon"
                               onClick={() => handleOpenEdit(supp)}
                               className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50/50 rounded-md"
+                              title="Chỉnh sửa"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleOpenDelete(supp)}
-                              className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 rounded-md"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+                            {user?.roles?.includes('ADMIN') && (
+                              <>
+                                {supp.status === 'ACTIVE' && (
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleOpenDeactivate(supp)}
+                                    className="h-8 w-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50/50 rounded-md"
+                                    title="Ngưng hoạt động"
+                                  >
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                )}
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleOpenDelete(supp)}
+                                  className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50/50 rounded-md"
+                                  title="Xóa"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -509,6 +554,35 @@ export default function SuppliersPage() {
             <Button onClick={handleDeleteSubmit} disabled={formLoading} className="bg-rose-600 hover:bg-rose-700 text-white font-bold">
               {formLoading ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : null}
               Đồng ý xóa
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Deactivate Confirm Dialog */}
+      <Dialog open={isDeactivateOpen} onOpenChange={setIsDeactivateOpen}>
+        <DialogContent className="sm:max-w-[400px] bg-white border border-hairline rounded-xl shadow-lg">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-amber-600 flex items-center gap-2">
+              <AlertTriangle className="h-6 w-6 text-amber-500" />
+              Ngưng hoạt động nhà cung cấp
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="py-4 text-slate-600 text-sm leading-relaxed font-sans">
+            Bạn có chắc chắn muốn ngưng hoạt động nhà cung cấp <span className="font-bold text-ink">"{supplierToDeactivate?.name}"</span> (Mã: {supplierToDeactivate?.code})?
+            <p className="mt-2 text-amber-600 font-semibold text-xs bg-amber-50 p-2.5 rounded-lg border border-amber-100">
+              * Khi ngưng hoạt động, nhà cung cấp này sẽ không hiển thị trong danh sách lựa chọn cho các phiếu Nhập kho mới nhưng lịch sử nhập kho cũ vẫn được bảo toàn.
+            </p>
+          </div>
+
+          <DialogFooter className="pt-2">
+            <Button variant="outline" onClick={() => setIsDeactivateOpen(false)} disabled={formLoading}>
+              Hủy
+            </Button>
+            <Button onClick={handleDeactivateSubmit} disabled={formLoading} className="bg-amber-600 hover:bg-amber-700 text-white font-bold">
+              {formLoading ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : null}
+              Xác nhận ngưng
             </Button>
           </DialogFooter>
         </DialogContent>

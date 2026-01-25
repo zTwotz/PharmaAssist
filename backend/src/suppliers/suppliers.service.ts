@@ -91,6 +91,22 @@ export class SuppliersService {
     });
   }
 
+  async deactivate(id: number) {
+    const supplier = await this.prisma.supplier.findUnique({
+      where: { id },
+    });
+    if (!supplier) {
+      throw new NotFoundException(`Nhà cung cấp ID ${id} không tồn tại.`);
+    }
+
+    return this.prisma.supplier.update({
+      where: { id },
+      data: {
+        status: 'INACTIVE',
+      },
+    });
+  }
+
   async delete(id: number) {
     const supplier = await this.prisma.supplier.findUnique({
       where: { id },
