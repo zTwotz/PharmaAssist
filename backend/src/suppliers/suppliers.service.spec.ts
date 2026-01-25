@@ -113,4 +113,63 @@ describe('SuppliersService', () => {
       );
     });
   });
+
+  describe('findAll', () => {
+    it('should return all suppliers if status is not provided', async () => {
+      const mockSuppliers = [
+        { id: 1, name: 'Supplier A', status: 'ACTIVE' },
+        { id: 2, name: 'Supplier B', status: 'INACTIVE' },
+      ];
+      mockPrismaService.supplier.findMany.mockResolvedValue(mockSuppliers);
+
+      const result = await service.findAll();
+      expect(result).toEqual(mockSuppliers);
+      expect(mockPrismaService.supplier.findMany).toHaveBeenCalledWith({
+        where: {},
+        orderBy: { createdAt: 'desc' },
+      });
+    });
+
+    it('should filter by active status', async () => {
+      mockPrismaService.supplier.findMany.mockResolvedValue([]);
+      await service.findAll('ACTIVE');
+      expect(mockPrismaService.supplier.findMany).toHaveBeenCalledWith({
+        where: { status: 'ACTIVE' },
+        orderBy: { createdAt: 'desc' },
+      });
+    });
+  });
+
+  describe('update', () => {
+    it('should throw NotFoundException if supplier does not exist', async () => {
+      mockPrismaService.supplier.findUnique.mockResolvedValue(null);
+      await expect(service.update(999, { name: 'New Name' })).rejects.toThrow(
+        new NotFoundException('Nhà cung cấp ID 999 không tồn tại.'),
+      );
+    });
+
+    it('should throw BadRequestException if new code already exists', async () => {
+      const mockExisting = { id: 1, code: 'SUPP-001', name: 'Supplier A' };
+      const mockConflict = { id: 2, code: 'SUPP-002', name: 'Supplier B' };
+
+      mockPrismaService.supplier.findUnique.mockImplementation(({ where }) => {
+        if (where.id === 1) return Promise.resolve(mockExisting);
+        if (where.code === 'SUPP-002') return Promise.resolve(mockConflict);
+        return Promise.resolve(null);
+      });
+
+      await expect(service.update(1, { code: 'SUPP-002' })).rejects.toThrow(
+        new BadRequestException('Mã nhà cung cấp SUPP-002 đã tồn tại.'),
+      );
+    });
+
+    it('should successfully update supplier', async () => {
+      const mockExisting = { id: 1, code: 'SUPP-001', name: 'Supplier A' };
+      mockPrismaService.supplier.findUnique.mockResolvedValue(mockExisting);
+      mockPrismaService.supplier.update.mockResolvedValue({ id: 1, code: 'SUPP-001', name: 'Updated A' });
+
+      const result = await service.update(1, { name: 'Updated A' });
+      expect(result.name).toEqual('Updated A');
+    });
+  });
 });
