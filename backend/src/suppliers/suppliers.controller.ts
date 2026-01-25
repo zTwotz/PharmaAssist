@@ -38,6 +38,12 @@ export class SuppliersController {
     return this.suppliersService.update(id, updateSupplierDto);
   }
 
+  @Patch(':id/deactivate')
+  @Roles('ADMIN')
+  async deactivate(@Param('id', ParseIntPipe) id: number) {
+    return this.suppliersService.deactivate(id);
+  }
+
   @Delete(':id')
   @Roles('ADMIN', 'WAREHOUSE')
   async remove(@Param('id', ParseIntPipe) id: number) {
