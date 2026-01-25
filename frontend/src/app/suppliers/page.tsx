@@ -5,7 +5,7 @@ import api from '@/lib/api';
 import { useAuth } from '@/context/auth-context';
 import { Sidebar } from '@/components/sidebar';
 import { RouteGuard } from '@/components/route-guard';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -46,6 +46,14 @@ interface Supplier {
   createdAt: string;
 }
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string | string[];
+    };
+  };
+}
+
 export default function SuppliersPage() {
   const { user } = useAuth();
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -81,23 +89,28 @@ export default function SuppliersPage() {
     ? 'Quản trị viên' 
     : 'Thủ kho / Nhân viên kho';
 
-  useEffect(() => {
-    fetchSuppliers();
-  }, []);
-
   const fetchSuppliers = async () => {
     setLoading(true);
     setErrorAlert(null);
     try {
       const response = await api.get('/suppliers');
       setSuppliers(response.data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch suppliers:', err);
-      setErrorAlert(err.response?.data?.message || 'Không thể tải danh sách nhà cung cấp.');
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Không thể tải danh sách nhà cung cấp.';
+      setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchSuppliers();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenAdd = () => {
     setEditingSupplier(null);
@@ -171,9 +184,10 @@ export default function SuppliersPage() {
       }
       setIsFormOpen(false);
       fetchSuppliers();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Submit supplier failed:', err);
-      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi lưu nhà cung cấp.';
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Đã xảy ra lỗi khi lưu nhà cung cấp.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
     } finally {
       setFormLoading(false);
@@ -191,9 +205,10 @@ export default function SuppliersPage() {
       setSuccessAlert(`Đã xóa nhà cung cấp "${supplierToDelete.name}" thành công.`);
       setIsDeleteOpen(false);
       fetchSuppliers();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Delete supplier failed:', err);
-      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi xóa nhà cung cấp.';
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Đã xảy ra lỗi khi xóa nhà cung cấp.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
       setIsDeleteOpen(false);
     } finally {
@@ -212,9 +227,10 @@ export default function SuppliersPage() {
       setSuccessAlert(`Đã ngưng hoạt động nhà cung cấp "${supplierToDeactivate.name}" thành công.`);
       setIsDeactivateOpen(false);
       fetchSuppliers();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Deactivate supplier failed:', err);
-      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi ngưng hoạt động nhà cung cấp.';
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Đã xảy ra lỗi khi ngưng hoạt động nhà cung cấp.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
       setIsDeactivateOpen(false);
     } finally {
@@ -541,7 +557,7 @@ export default function SuppliersPage() {
           </DialogHeader>
 
           <div className="py-4 text-slate-600 text-sm leading-relaxed">
-            Bạn có chắc chắn muốn xóa nhà cung cấp <span className="font-bold text-ink">"{supplierToDelete?.name}"</span> (Mã: {supplierToDelete?.code})?
+            Bạn có chắc chắn muốn xóa nhà cung cấp <span className="font-bold text-ink">&quot;{supplierToDelete?.name}&quot;</span> (Mã: {supplierToDelete?.code})?
             <p className="mt-2 text-rose-500 font-semibold text-xs bg-rose-50 p-2.5 rounded-lg border border-rose-100">
               * Hành động này sẽ xóa vĩnh viễn nhà cung cấp. Chỉ có thể thực hiện nếu nhà cung cấp chưa phát sinh lịch sử đặt hàng hoặc nhập kho.
             </p>
@@ -570,7 +586,7 @@ export default function SuppliersPage() {
           </DialogHeader>
 
           <div className="py-4 text-slate-600 text-sm leading-relaxed font-sans">
-            Bạn có chắc chắn muốn ngưng hoạt động nhà cung cấp <span className="font-bold text-ink">"{supplierToDeactivate?.name}"</span> (Mã: {supplierToDeactivate?.code})?
+            Bạn có chắc chắn muốn ngưng hoạt động nhà cung cấp <span className="font-bold text-ink">&quot;{supplierToDeactivate?.name}&quot;</span> (Mã: {supplierToDeactivate?.code})?
             <p className="mt-2 text-amber-600 font-semibold text-xs bg-amber-50 p-2.5 rounded-lg border border-amber-100">
               * Khi ngưng hoạt động, nhà cung cấp này sẽ không hiển thị trong danh sách lựa chọn cho các phiếu Nhập kho mới nhưng lịch sử nhập kho cũ vẫn được bảo toàn.
             </p>

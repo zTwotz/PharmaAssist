@@ -39,7 +39,7 @@ export function SupplierSelector({ value, onChange, error, disabled }: SupplierS
       try {
         const response = await api.get('/suppliers?status=ACTIVE');
         setSuppliers(response.data);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Failed to load active suppliers:', err);
         setFetchError('Không thể tải danh sách nhà cung cấp đang hoạt động.');
       } finally {
