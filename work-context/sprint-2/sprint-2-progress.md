@@ -3,13 +3,13 @@
 ## 1. Overall Progress
 
 ```text
-Sprint State: In Progress
-Current Epic: PAC-3 (Medicine & ActiveIngredient)
-Current User Story: US-22 (Trigger Graph Sync khi Medicine/Ingredient thay đổi - PAC-61) — Completed
-Current Task: None (US-22 Completed)
-Current Branch: feature/PAC-3-EPIC-03-medicine-activeingredient
-Overall Progress: 35/49 Tasks Completed — 71.4%
-Ready for Sprint 3: No
+Sprint State: Completed
+Current Epic: None (Sprint 2 Completed)
+Current User Story: None
+Current Task: None
+Current Branch: develop
+Overall Progress: 49/49 Tasks Completed — 100%
+Ready for Sprint 3: Yes
 ```
 
 ---
@@ -74,6 +74,24 @@ Ready for Sprint 3: No
 - [x] **`PAC-297`** (PAC-TASK-087): Create graph sync event when Medicine changes — **Done** (Outbox event written in medicines service transactions)
 - [x] **`PAC-298`** (PAC-TASK-088): Create graph sync event when ActiveIngredient changes — **Done** (Outbox event written in active ingredient service transactions)
 - [x] **`PAC-299`** (PAC-TASK-089): Create graph sync event when Ingredient mapping changes — **Done** (Outbox event written in mapping update transactions)
+
+### PAC-EPIC-04 — Supplier Management (Logical: PAC-EPIC-04 | Jira: PAC-4)
+
+#### US-23 — Tạo nhà cung cấp (Logical: US-23 | Jira: PAC-62)
+- [x] **`PAC-302`** (PAC-TASK-092): Build supplier create form — **Done** (Integrated create form in suppliers page UI)
+- [x] **`PAC-303`** (PAC-TASK-093): Validate supplier required fields — **Done** (Required validations added in backend and frontend forms)
+
+#### US-24 — Cập nhật và tìm kiếm nhà cung cấp (Logical: US-24 | Jira: PAC-63)
+- [x] **`PAC-306`** (PAC-TASK-096): Build supplier list and edit screen — **Done** (Created table view, search queries, status filter, and edit forms)
+
+#### US-25 — Admin deactivate nhà cung cấp (Logical: US-25 | Jira: PAC-64)
+- [x] **`PAC-307`** (PAC-TASK-097): Implement Admin-only supplier deactivate API — **Done** (Added PATCH /suppliers/:id/deactivate route guarded by roles)
+- [x] **`PAC-308`** (PAC-TASK-098): Add supplier deactivate confirmation UI — **Done** (Admin actions render X button with confirm dialog)
+- [x] **`PAC-309`** (PAC-TASK-099): Prevent inactive supplier in new Stock Import — **Done** (Handled via server-side status parameter filtering)
+
+#### US-26 — Liên kết Supplier với Stock Import (Logical: US-26 | Jira: PAC-65)
+- [x] **`PAC-310`** (PAC-TASK-100): Link active supplier selection to Stock Import — **Done** (Pre-configured in prisma schema and database layout)
+- [x] **`PAC-311`** (PAC-TASK-101): Build supplier selector for Stock Import UI — **Done** (Created SupplierSelector UI component using status filter)
 
 ---
 
