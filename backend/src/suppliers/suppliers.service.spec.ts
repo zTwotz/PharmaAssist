@@ -172,4 +172,26 @@ describe('SuppliersService', () => {
       expect(result.name).toEqual('Updated A');
     });
   });
+
+  describe('deactivate', () => {
+    it('should throw NotFoundException if supplier does not exist', async () => {
+      mockPrismaService.supplier.findUnique.mockResolvedValue(null);
+      await expect(service.deactivate(999)).rejects.toThrow(
+        new NotFoundException('Nhà cung cấp ID 999 không tồn tại.'),
+      );
+    });
+
+    it('should successfully deactivate supplier', async () => {
+      const mockSupplier = { id: 1, code: 'SUPP-001', name: 'Supplier A', status: 'ACTIVE' };
+      mockPrismaService.supplier.findUnique.mockResolvedValue(mockSupplier);
+      mockPrismaService.supplier.update.mockResolvedValue({ id: 1, ...mockSupplier, status: 'INACTIVE' });
+
+      const result = await service.deactivate(1);
+      expect(result.status).toEqual('INACTIVE');
+      expect(mockPrismaService.supplier.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: { status: 'INACTIVE' },
+      });
+    });
+  });
 });

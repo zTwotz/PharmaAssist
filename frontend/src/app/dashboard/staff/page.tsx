@@ -21,7 +21,7 @@ export default function StaffListPage() {
   const [loading, setLoading] = useState(true);
   const [selectedStaff, setSelectedStaff] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { hasPermission } = useAuth();
+  const { hasRole } = useAuth();
 
   useEffect(() => {
     fetchData();
@@ -143,7 +143,7 @@ export default function StaffListPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    {hasPermission('MANAGE_USERS') && (
+                    {hasRole(['ADMIN']) && (
                       <Button
                         variant="outline"
                         size="sm"
