@@ -295,11 +295,12 @@ Sau khi khởi chạy thành công bằng `node run.js start`, hệ thống sẽ
 
 ## 9. Tài khoản demo
 
-| Vai trò             | Username    | Password |
-| ------------------- | ----------- | -------- |
-| Admin               | admin01     | demo123  |
-| Nhân viên nhà thuốc | staff01     | demo123  |
-| Nhân viên kho       | warehouse01 | demo123  |
+| Vai trò             | Email (Đăng nhập)          | Password     |
+| ------------------- | --------------------------- | ------------ |
+| Admin               | admin@pharmaassist.com      | admin123     |
+| Nhân viên nhà thuốc | staff@pharmaassist.com      | staff123     |
+| Nhân viên kho       | warehouse@pharmaassist.com  | warehouse123 |
+| Khách hàng          | user@pharmaassist.com       | user123      |
 
 ---
 
@@ -470,7 +471,7 @@ npm run seed
 
 Checklist sau khi reset:
 
-- Đăng nhập được `admin01`, `staff01`, `warehouse01`.
+- Đăng nhập được các tài khoản `admin@pharmaassist.com`, `staff@pharmaassist.com`, `warehouse@pharmaassist.com`.
 - Có dữ liệu thuốc MED001 - MED005.
 - MED001 + MED002 tạo cảnh báo tương tác HIGH.
 - MED003 hiển thị cảnh báo sắp hết hàng.

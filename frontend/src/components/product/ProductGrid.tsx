@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, ChevronDown, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useCart } from '@/context/cart-context';
 import { fetchMoreProducts } from '@/app/actions/product.actions';
 
 export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const { addToCart } = useCart();
 
   const [products, setProducts] = useState<any[]>(initialProducts || []);
   const [loading, setLoading] = useState(false);
@@ -150,7 +152,19 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
                       <span className="text-gray-500 text-xs font-medium">/ {unit}</span>
                     </div>
 
-                    <Button className="w-full bg-white text-[#024ad8] border border-[#024ad8] hover:bg-[#024ad8] hover:text-white transition-colors shadow-sm rounded-xl h-10 font-semibold group-hover:bg-[#024ad8] group-hover:text-white">
+                    <Button 
+                      onClick={() => addToCart({
+                        id: product.product_variants?.[0]?.sku || product.code || product.id.toString(),
+                        dbId: product.id,
+                        name: product.name,
+                        price: price,
+                        unit: unit,
+                        imageUrl: imageUrl,
+                        activeIngredient: product.medicines?.[0]?.ingredients?.map((i: any) => i.activeIngredient?.name).join(', ') || product.name,
+                        isAvailable: product.status === 'ACTIVE' || product.product_variants?.[0]?.status === 'ACTIVE' || product.status === 'AVAILABLE' || product.product_variants?.[0]?.status === 'AVAILABLE'
+                      })}
+                      className="w-full bg-white text-[#024ad8] border border-[#024ad8] hover:bg-[#024ad8] hover:text-white transition-colors shadow-sm rounded-xl h-10 font-semibold group-hover:bg-[#024ad8] group-hover:text-white"
+                    >
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Chọn mua
                     </Button>

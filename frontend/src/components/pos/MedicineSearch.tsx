@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Search, Plus, PackageOpen } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import api from '@/lib/api';
 import { usePosStore } from '@/store/usePosStore';
 
 export function MedicineSearch() {
@@ -27,28 +27,8 @@ export function MedicineSearch() {
   const performSearch = async (term: string) => {
     setIsSearching(true);
     try {
-      // Demo mock search using Supabase
-      // In a real scenario, this would search product_variants joined with products and inventories
-      const { data, error } = await supabase
-        .from('product_variants')
-        .select(`
-          id,
-          sku,
-          variant_name,
-          selling_price,
-          unit:medicine_units(name),
-          product:products(
-            id,
-            name,
-            medicines(id)
-          ),
-          inventories(quantity)
-        `)
-        .ilike('variant_name', `%${term}%`)
-        .limit(10);
-
-      if (error) throw error;
-      setResults(data || []);
+      const response = await api.get(`/medicines/search?term=${encodeURIComponent(term)}`);
+      setResults(response.data || []);
     } catch (error) {
       console.error('Error searching medicines:', error);
     } finally {
