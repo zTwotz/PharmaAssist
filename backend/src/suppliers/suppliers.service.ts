@@ -7,8 +7,13 @@ import { UpdateSupplierDto } from './dto/update-supplier.dto';
 export class SuppliersService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(status?: string) {
+    const where: any = {};
+    if (status && (status === 'ACTIVE' || status === 'INACTIVE')) {
+      where.status = status;
+    }
     return this.prisma.supplier.findMany({
+      where,
       orderBy: {
         createdAt: 'desc',
       },

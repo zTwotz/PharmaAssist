@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe, Query } from '@nestjs/common';
 import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
@@ -13,8 +13,8 @@ export class SuppliersController {
 
   @Get()
   @Roles('ADMIN', 'WAREHOUSE')
-  async findAll() {
-    return this.suppliersService.findAll();
+  async findAll(@Query('status') status?: string) {
+    return this.suppliersService.findAll(status);
   }
 
   @Get(':id')
