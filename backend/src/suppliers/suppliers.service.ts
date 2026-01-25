@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
@@ -73,7 +77,9 @@ export class SuppliersService {
         where: { code: dto.code },
       });
       if (existing) {
-        throw new BadRequestException(`Mã nhà cung cấp ${dto.code} đã tồn tại.`);
+        throw new BadRequestException(
+          `Mã nhà cung cấp ${dto.code} đã tồn tại.`,
+        );
       }
     }
 
@@ -120,7 +126,9 @@ export class SuppliersService {
       where: { supplierId: id },
     });
     if (poCount > 0) {
-      throw new BadRequestException('Không thể xóa nhà cung cấp vì đã có lịch sử đặt hàng.');
+      throw new BadRequestException(
+        'Không thể xóa nhà cung cấp vì đã có lịch sử đặt hàng.',
+      );
     }
 
     // Check stock imports
@@ -128,7 +136,9 @@ export class SuppliersService {
       where: { supplierId: id },
     });
     if (importCount > 0) {
-      throw new BadRequestException('Không thể xóa nhà cung cấp vì đã có lịch sử nhập kho.');
+      throw new BadRequestException(
+        'Không thể xóa nhà cung cấp vì đã có lịch sử nhập kho.',
+      );
     }
 
     return this.prisma.supplier.delete({

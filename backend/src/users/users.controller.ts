@@ -1,4 +1,13 @@
-import { Controller, Post, Body, UseGuards, Get, Patch, Param, Request } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Patch,
+  Param,
+  Request,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffRoleStatusDto } from './dto/update-staff.dto';
@@ -37,7 +46,11 @@ export class UsersController {
     @Body() updateStaffRoleStatusDto: UpdateStaffRoleStatusDto,
     @Request() req: any,
   ) {
-    const updatedUser = await this.usersService.updateStaffRoleStatus(id, req.user.id, updateStaffRoleStatusDto);
+    const updatedUser = await this.usersService.updateStaffRoleStatus(
+      id,
+      req.user.id,
+      updateStaffRoleStatusDto,
+    );
     return {
       message: 'Cập nhật nhân viên thành công',
       user: updatedUser,

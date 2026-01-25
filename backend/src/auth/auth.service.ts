@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
@@ -11,7 +15,9 @@ export class AuthService {
     const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error('SUPABASE_URL and SUPABASE_ANON_KEY must be defined in env variables');
+      throw new Error(
+        'SUPABASE_URL and SUPABASE_ANON_KEY must be defined in env variables',
+      );
     }
 
     this.supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -60,7 +66,9 @@ export class AuthService {
     });
 
     if (!userProfile) {
-      throw new UnauthorizedException('User profile not found in system database.');
+      throw new UnauthorizedException(
+        'User profile not found in system database.',
+      );
     }
 
     if (userProfile.status !== 'ACTIVE') {
@@ -71,9 +79,9 @@ export class AuthService {
     const permissions = Array.from(
       new Set(
         userProfile.userRoles.flatMap((ur) =>
-          ur.role.rolePermissions.map((rp) => rp.permission.code)
-        )
-      )
+          ur.role.rolePermissions.map((rp) => rp.permission.code),
+        ),
+      ),
     );
 
     return {
@@ -85,7 +93,8 @@ export class AuthService {
         fullName: userProfile.fullName,
         roles,
         permissions,
-        mustChangePassword: userProfile.userProfile?.mustChangePassword ?? false,
+        mustChangePassword:
+          userProfile.userProfile?.mustChangePassword ?? false,
       },
     };
   }

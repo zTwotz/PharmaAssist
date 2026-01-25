@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -29,7 +33,7 @@ export class CustomersService {
 
   async create(dto: CreateCustomerDto) {
     let code = dto.code;
-    
+
     // Auto-generate code if empty
     if (!code) {
       code = `CUST-${Date.now()}`;
@@ -74,9 +78,12 @@ export class CustomersService {
       }
     }
 
-    const dob = dto.dateOfBirth !== undefined 
-      ? (dto.dateOfBirth ? new Date(dto.dateOfBirth) : null)
-      : undefined;
+    const dob =
+      dto.dateOfBirth !== undefined
+        ? dto.dateOfBirth
+          ? new Date(dto.dateOfBirth)
+          : null
+        : undefined;
 
     return this.prisma.customer.update({
       where: { id },
@@ -105,14 +112,18 @@ export class CustomersService {
       where: { customerId: id },
     });
     if (ordersCount > 0) {
-      throw new BadRequestException('Không thể xóa khách hàng vì đã có lịch sử đơn hàng.');
+      throw new BadRequestException(
+        'Không thể xóa khách hàng vì đã có lịch sử đơn hàng.',
+      );
     }
 
     const invoicesCount = await this.prisma.invoice.count({
       where: { customerId: id },
     });
     if (invoicesCount > 0) {
-      throw new BadRequestException('Không thể xóa khách hàng vì đã có lịch sử hóa đơn.');
+      throw new BadRequestException(
+        'Không thể xóa khách hàng vì đã có lịch sử hóa đơn.',
+      );
     }
 
     return this.prisma.customer.delete({

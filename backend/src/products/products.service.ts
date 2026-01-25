@@ -43,9 +43,10 @@ export class ProductsService {
       const medicineDetail = product.medicines[0];
       const imageUrl = product.images[0]?.imageUrl || '';
 
-      const activeIngredients = medicineDetail?.ingredients
-        ?.map((ing) => `${ing.activeIngredient.name} ${ing.strength}`)
-        .join(', ') || '';
+      const activeIngredients =
+        medicineDetail?.ingredients
+          ?.map((ing) => `${ing.activeIngredient.name} ${ing.strength}`)
+          .join(', ') || '';
 
       return {
         id: product.code,
@@ -57,7 +58,10 @@ export class ProductsService {
         isAvailable: firstVariant ? firstVariant.status === 'ACTIVE' : false,
         activeIngredient: activeIngredients || product.name,
         dosageForm: medicineDetail?.dosageForm?.name || 'Viên nén',
-        description: product.description || product.shortDescription || 'Chưa có mô tả chi tiết.',
+        description:
+          product.description ||
+          product.shortDescription ||
+          'Chưa có mô tả chi tiết.',
         usage: medicineDetail?.usageNote || 'Uống theo chỉ dẫn của dược sĩ.',
         imageUrl,
       };
@@ -86,8 +90,13 @@ export class ProductsService {
   async getProductBySlug(slug: string) {
     let targetSlug = slug;
     // Map Long Chau URL slug alias to database full slug
-    if (slug === 'vien-uong-sac-dep-truong-tho-va-tre-hoa-da-nmn-pqq-kenko-60-v' || slug.includes('nmn-pqq-kenko')) {
-      targetSlug = 'vien-uong-ho-tro-chong-lao-hoa-cai-thien-lan-da-va-tang-de-khang-nmn-pqq-kenko-60-vien';
+    if (
+      slug ===
+        'vien-uong-sac-dep-truong-tho-va-tre-hoa-da-nmn-pqq-kenko-60-v' ||
+      slug.includes('nmn-pqq-kenko')
+    ) {
+      targetSlug =
+        'vien-uong-ho-tro-chong-lao-hoa-cai-thien-lan-da-va-tang-de-khang-nmn-pqq-kenko-60-vien';
     }
     const product = await this.prisma.product.findUnique({
       where: { slug: targetSlug },
@@ -139,33 +148,37 @@ export class ProductsService {
       shortDescription: product.shortDescription,
       description: product.description,
       status: product.status,
-      brand: product.brand ? {
-        id: product.brand.id,
-        code: product.brand.code,
-        name: product.brand.name,
-        slug: product.brand.slug,
-        logoUrl: product.brand.logoUrl,
-      } : null,
+      brand: product.brand
+        ? {
+            id: product.brand.id,
+            code: product.brand.code,
+            name: product.brand.name,
+            slug: product.brand.slug,
+            logoUrl: product.brand.logoUrl,
+          }
+        : null,
       category: {
         id: product.category.id,
         code: product.category.code,
         name: product.category.name,
         slug: product.category.slug,
       },
-      manufacturer: product.manufacturer ? {
-        id: product.manufacturer.id,
-        code: product.manufacturer.code,
-        name: product.manufacturer.name,
-        country: product.manufacturer.country?.name || 'Đang cập nhật',
-      } : null,
-      images: product.images.map(img => ({
+      manufacturer: product.manufacturer
+        ? {
+            id: product.manufacturer.id,
+            code: product.manufacturer.code,
+            name: product.manufacturer.name,
+            country: product.manufacturer.country?.name || 'Đang cập nhật',
+          }
+        : null,
+      images: product.images.map((img) => ({
         id: img.id,
         imageUrl: img.imageUrl,
         altText: img.altText,
         isPrimary: img.isPrimary,
         sortOrder: img.sortOrder,
       })),
-      variants: product.variants.map(variant => ({
+      variants: product.variants.map((variant) => ({
         id: variant.id,
         sku: variant.sku,
         variantName: variant.variantName,
@@ -173,21 +186,23 @@ export class ProductsService {
         unit: variant.unit?.name || 'viên',
         status: variant.status,
       })),
-      medicineDetail: medicineDetail ? {
-        id: medicineDetail.id,
-        medicineCode: medicineDetail.medicineCode,
-        registrationNumber: medicineDetail.registrationNumber,
-        requiresPrescription: medicineDetail.requiresPrescription,
-        usageNote: medicineDetail.usageNote,
-        storageInstruction: medicineDetail.storageInstruction,
-        shelfLifeMonths: medicineDetail.shelfLifeMonths,
-        dosageForm: medicineDetail.dosageForm?.name || 'Đang cập nhật',
-        ingredients: medicineDetail.ingredients.map(ing => ({
-          name: ing.activeIngredient.name,
-          strength: ing.strength,
-          note: ing.note,
-        })),
-      } : null,
+      medicineDetail: medicineDetail
+        ? {
+            id: medicineDetail.id,
+            medicineCode: medicineDetail.medicineCode,
+            registrationNumber: medicineDetail.registrationNumber,
+            requiresPrescription: medicineDetail.requiresPrescription,
+            usageNote: medicineDetail.usageNote,
+            storageInstruction: medicineDetail.storageInstruction,
+            shelfLifeMonths: medicineDetail.shelfLifeMonths,
+            dosageForm: medicineDetail.dosageForm?.name || 'Đang cập nhật',
+            ingredients: medicineDetail.ingredients.map((ing) => ({
+              name: ing.activeIngredient.name,
+              strength: ing.strength,
+              note: ing.note,
+            })),
+          }
+        : null,
     };
   }
 }

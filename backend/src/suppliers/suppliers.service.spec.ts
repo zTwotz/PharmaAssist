@@ -106,7 +106,10 @@ describe('SuppliersService', () => {
         name: 'Supplier A',
       };
 
-      mockPrismaService.supplier.findUnique.mockResolvedValue({ id: 1, code: 'SUPP-001' });
+      mockPrismaService.supplier.findUnique.mockResolvedValue({
+        id: 1,
+        code: 'SUPP-001',
+      });
 
       await expect(service.create(dto)).rejects.toThrow(
         new BadRequestException('Mã nhà cung cấp SUPP-001 đã tồn tại.'),
@@ -166,7 +169,11 @@ describe('SuppliersService', () => {
     it('should successfully update supplier', async () => {
       const mockExisting = { id: 1, code: 'SUPP-001', name: 'Supplier A' };
       mockPrismaService.supplier.findUnique.mockResolvedValue(mockExisting);
-      mockPrismaService.supplier.update.mockResolvedValue({ id: 1, code: 'SUPP-001', name: 'Updated A' });
+      mockPrismaService.supplier.update.mockResolvedValue({
+        id: 1,
+        code: 'SUPP-001',
+        name: 'Updated A',
+      });
 
       const result = await service.update(1, { name: 'Updated A' });
       expect(result.name).toEqual('Updated A');
@@ -182,9 +189,18 @@ describe('SuppliersService', () => {
     });
 
     it('should successfully deactivate supplier', async () => {
-      const mockSupplier = { id: 1, code: 'SUPP-001', name: 'Supplier A', status: 'ACTIVE' };
+      const mockSupplier = {
+        id: 1,
+        code: 'SUPP-001',
+        name: 'Supplier A',
+        status: 'ACTIVE',
+      };
       mockPrismaService.supplier.findUnique.mockResolvedValue(mockSupplier);
-      mockPrismaService.supplier.update.mockResolvedValue({ id: 1, ...mockSupplier, status: 'INACTIVE' });
+      mockPrismaService.supplier.update.mockResolvedValue({
+        id: 1,
+        ...mockSupplier,
+        status: 'INACTIVE',
+      });
 
       const result = await service.deactivate(1);
       expect(result.status).toEqual('INACTIVE');

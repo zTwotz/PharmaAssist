@@ -35,6 +35,3 @@ import { ActiveIngredientsModule } from './active-ingredients/active-ingredients
   providers: [AppService],
 })
 export class AppModule {}
-
-
-

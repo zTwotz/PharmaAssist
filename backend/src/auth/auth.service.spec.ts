@@ -51,7 +51,9 @@ describe('AuthService', () => {
         error: { message: 'Invalid credentials' },
       });
 
-      await expect(service.login('test@example.com', 'password')).rejects.toThrow(UnauthorizedException);
+      await expect(
+        service.login('test@example.com', 'password'),
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it('should throw UnauthorizedException if local user not found', async () => {
@@ -65,7 +67,9 @@ describe('AuthService', () => {
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
 
-      await expect(service.login('test@example.com', 'password')).rejects.toThrow(UnauthorizedException);
+      await expect(
+        service.login('test@example.com', 'password'),
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it('should throw ForbiddenException if user is INACTIVE', async () => {
@@ -82,7 +86,9 @@ describe('AuthService', () => {
         status: 'INACTIVE',
       } as any);
 
-      await expect(service.login('test@example.com', 'password')).rejects.toThrow(ForbiddenException);
+      await expect(
+        service.login('test@example.com', 'password'),
+      ).rejects.toThrow(ForbiddenException);
     });
 
     it('should return valid user object and token with mustChangePassword true', async () => {

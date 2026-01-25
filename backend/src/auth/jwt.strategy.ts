@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
@@ -51,7 +55,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
 
     if (!user) {
-      throw new UnauthorizedException('User profile not found in system database.');
+      throw new UnauthorizedException(
+        'User profile not found in system database.',
+      );
     }
 
     if (user.status !== 'ACTIVE') {
@@ -62,9 +68,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const permissions = Array.from(
       new Set(
         user.userRoles.flatMap((ur) =>
-          ur.role.rolePermissions.map((rp) => rp.permission.code)
-        )
-      )
+          ur.role.rolePermissions.map((rp) => rp.permission.code),
+        ),
+      ),
     );
 
     return {

@@ -37,11 +37,17 @@ describe('AuthController', () => {
   describe('login', () => {
     it('should return session tokens from authService', async () => {
       const loginDto = { email: 'test@example.com', password: 'password123' };
-      const expectedResult = { user: { id: 'user-1' }, session: { access_token: 'token' } };
+      const expectedResult = {
+        user: { id: 'user-1' },
+        session: { access_token: 'token' },
+      };
       mockAuthService.login.mockResolvedValue(expectedResult);
 
       const result = await controller.login(loginDto);
-      expect(authService.login).toHaveBeenCalledWith(loginDto.email, loginDto.password);
+      expect(authService.login).toHaveBeenCalledWith(
+        loginDto.email,
+        loginDto.password,
+      );
       expect(result).toEqual(expectedResult);
     });
   });
@@ -65,10 +71,14 @@ describe('AuthController', () => {
   describe('clearMustChangePassword', () => {
     it('should call authService.clearMustChangePassword with user id', async () => {
       const mockReq = { user: { id: 'user-123' } };
-      mockAuthService.clearMustChangePassword.mockResolvedValue({ success: true });
+      mockAuthService.clearMustChangePassword.mockResolvedValue({
+        success: true,
+      });
 
       const result = await controller.clearMustChangePassword(mockReq);
-      expect(authService.clearMustChangePassword).toHaveBeenCalledWith('user-123');
+      expect(authService.clearMustChangePassword).toHaveBeenCalledWith(
+        'user-123',
+      );
       expect(result).toEqual({ success: true });
     });
   });
