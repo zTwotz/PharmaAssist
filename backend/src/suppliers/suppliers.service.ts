@@ -7,8 +7,13 @@ import { UpdateSupplierDto } from './dto/update-supplier.dto';
 export class SuppliersService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(status?: string) {
+    const where: any = {};
+    if (status && (status === 'ACTIVE' || status === 'INACTIVE')) {
+      where.status = status;
+    }
     return this.prisma.supplier.findMany({
+      where,
       orderBy: {
         createdAt: 'desc',
       },
@@ -82,6 +87,22 @@ export class SuppliersService {
         address: dto.address,
         taxCode: dto.taxCode,
         status: dto.status,
+      },
+    });
+  }
+
+  async deactivate(id: number) {
+    const supplier = await this.prisma.supplier.findUnique({
+      where: { id },
+    });
+    if (!supplier) {
+      throw new NotFoundException(`Nhà cung cấp ID ${id} không tồn tại.`);
+    }
+
+    return this.prisma.supplier.update({
+      where: { id },
+      data: {
+        status: 'INACTIVE',
       },
     });
   }
