@@ -41,6 +41,7 @@ interface StockImport {
   status: string;
   totalAmount: string;
   details: StockImportDetail[];
+  confirmedAt?: string;
 }
 
 export default function StockImportDetailPage() {
@@ -60,6 +61,7 @@ export default function StockImportDetailPage() {
   const [importPrice, setImportPrice] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
   // Edit state
   const [editingLineId, setEditingLineId] = useState<number | null>(null);
@@ -142,6 +144,20 @@ export default function StockImportDetailPage() {
     }
   };
 
+  const handleConfirm = async () => {
+    if (!confirm('Bạn có chắc chắn muốn xác nhận phiếu nhập này? Hành động này không thể hoàn tác và sẽ cập nhật số lượng tồn kho!')) return;
+    try {
+      setConfirming(true);
+      await api.post(`/stock-imports/${id}/confirm`);
+      alert('Xác nhận phiếu nhập thành công!');
+      await fetchData();
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Có lỗi xảy ra khi xác nhận phiếu');
+    } finally {
+      setConfirming(false);
+    }
+  };
+
   if (loading) return <div className="p-6">Đang tải...</div>;
   if (!stockImport) return <div className="p-6 text-red-500">{error || 'Không tìm thấy phiếu nhập'}</div>;
 
@@ -153,13 +169,31 @@ export default function StockImportDetailPage() {
         <main className="flex-1 p-4 md:p-8 overflow-y-auto">
           <div className="p-6 max-w-6xl mx-auto space-y-6">
             <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Chi Tiết Phiếu Nhập</h1>
-        <button onClick={() => router.push('/inventory/imports')} className="text-blue-600 hover:underline">
-          &larr; Quay lại danh sách
-        </button>
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Chi Tiết Phiếu Nhập</h1>
+          <button onClick={() => router.push('/inventory/imports')} className="text-blue-600 hover:underline text-sm mt-1">
+            &larr; Quay lại danh sách
+          </button>
+        </div>
+        {stockImport.status === 'DRAFT' && (
+          <button
+            onClick={handleConfirm}
+            disabled={confirming || stockImport.details.length === 0}
+            className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm disabled:bg-green-300"
+          >
+            {confirming ? 'Đang xử lý...' : 'Xác Nhận Phiếu Nhập'}
+          </button>
+        )}
       </div>
 
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 grid grid-cols-2 gap-4">
+      {stockImport.status === 'CONFIRMED' && (
+        <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg flex items-center">
+          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+          Phiếu nhập này đã được xác nhận và cập nhật vào tồn kho. (Read-only)
+        </div>
+      )}
+
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 grid grid-cols-2 md:grid-cols-3 gap-4">
         <div>
           <p className="text-sm text-gray-500">Mã Phiếu</p>
           <p className="font-semibold">{stockImport.code}</p>
@@ -188,6 +222,12 @@ export default function StockImportDetailPage() {
             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(stockImport.totalAmount))}
           </p>
         </div>
+        {stockImport.confirmedAt && (
+          <div>
+            <p className="text-sm text-gray-500">Ngày Xác Nhận (Audit)</p>
+            <p className="font-medium text-gray-900">{new Date(stockImport.confirmedAt).toLocaleString('vi-VN')}</p>
+          </div>
+        )}
       </div>
 
       {error && (

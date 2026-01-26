@@ -1,4 +1,11 @@
-import { IsInt, IsNumber, IsString, Min, IsDateString, IsOptional } from 'class-validator';
+import {
+  IsInt,
+  IsNumber,
+  IsString,
+  Min,
+  IsDateString,
+  IsOptional,
+} from 'class-validator';
 
 export class UpdateStockImportLineDto {
   @IsOptional()

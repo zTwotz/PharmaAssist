@@ -1,4 +1,15 @@
-import { Controller, Post, Body, UseGuards, Req, Get, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Req,
+  Get,
+  Param,
+  ParseIntPipe,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { StockImportsService } from './stock-imports.service';
 import { CreateStockImportDto } from './dto/create-stock-import.dto';
 import { AddStockImportLineDto } from './dto/add-stock-import-line.dto';
@@ -14,7 +25,10 @@ export class StockImportsController {
 
   @Post()
   @Roles('ADMIN', 'WAREHOUSE')
-  createDraft(@Body() createDto: CreateStockImportDto, @Req() req: { user?: { id: string } }) {
+  createDraft(
+    @Body() createDto: CreateStockImportDto,
+    @Req() req: { user?: { id: string } },
+  ) {
     const userId = req.user?.id || 'SYSTEM';
     return this.stockImportsService.createDraft(createDto, userId);
   }
@@ -35,6 +49,16 @@ export class StockImportsController {
   @Roles('ADMIN', 'WAREHOUSE')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.stockImportsService.findOne(id);
+  }
+
+  @Post(':id/confirm')
+  @Roles('ADMIN', 'WAREHOUSE')
+  confirmImport(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: { user?: { id: string } },
+  ) {
+    const userId = req.user?.id || 'SYSTEM';
+    return this.stockImportsService.confirmImport(id, userId);
   }
 
   @Post(':id/lines')
