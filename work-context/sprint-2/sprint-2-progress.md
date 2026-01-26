@@ -78,10 +78,14 @@ Ready for Sprint 3: Yes
 ### PAC-EPIC-04 — Supplier Management (Logical: PAC-EPIC-04 | Jira: PAC-4)
 
 #### US-23 — Tạo nhà cung cấp (Logical: US-23 | Jira: PAC-62)
+- [x] **`PAC-300`** (PAC-TASK-090): Create suppliers Prisma model — **Done** (In `schema.prisma`)
+- [x] **`PAC-301`** (PAC-TASK-091): Implement supplier create API — **Done** (In `suppliers.controller.ts` & `suppliers.service.ts`)
 - [x] **`PAC-302`** (PAC-TASK-092): Build supplier create form — **Done** (Integrated create form in suppliers page UI)
 - [x] **`PAC-303`** (PAC-TASK-093): Validate supplier required fields — **Done** (Required validations added in backend and frontend forms)
 
 #### US-24 — Cập nhật và tìm kiếm nhà cung cấp (Logical: US-24 | Jira: PAC-63)
+- [x] **`PAC-304`** (PAC-TASK-094): Implement supplier list/search API — **Done** (In `suppliers.controller.ts` & `suppliers.service.ts` with query parameters)
+- [x] **`PAC-305`** (PAC-TASK-095): Implement supplier update API — **Done** (In `suppliers.controller.ts` & `suppliers.service.ts`)
 - [x] **`PAC-306`** (PAC-TASK-096): Build supplier list and edit screen — **Done** (Created table view, search queries, status filter, and edit forms)
 
 #### US-25 — Admin deactivate nhà cung cấp (Logical: US-25 | Jira: PAC-64)
@@ -104,3 +108,20 @@ Epic Branches:
 We will implement User Story by User Story, creating a story branch from the Epic branch, and task branches from the story branch.
 - **US Branch**: `feature/<JIRA-STORY-KEY>-US-xx-<description>`
 - **Task Branch**: `<type>/<JIRA-TASK-KEY>-TASK-xxx-<description>`
+
+---
+
+## 4. Final Quality Gate Decision
+
+```text
+Ready for Sprint 3: Yes
+```
+
+- **Quyết định:** Đủ điều kiện chuyển sang Sprint 3.
+- **Ngày kiểm duyệt:** 2026-06-21
+- **Base Commit:** `264cdc5` (Nhánh `develop`)
+- **Tóm tắt bằng chứng:**
+  - **Prisma & Database:** `npx prisma validate` & `generate` thành công. Bảng và cấu trúc dữ liệu mapping composite unique, soft deactivate của Medicine/Supplier đều khớp baseline.
+  - **Backend Tests & Build:** Chạy thành công 65/65 Unit tests và 10/10 E2E tests (100% Pass). Dọn sạch linter warnings, compile thành công.
+  - **Frontend UI & Build:** Next.js build thành công (`npm run build`). Đã sửa lỗi linter hoisting và state-in-render-cycle của CategoryList và clean up type checks cho SupplierSelector.
+  - **Git Flow:** Quy trình merge nghiêm ngặt từ nhánh Task -> US -> Epic -> develop đã được kiểm chứng đầy đủ. Lịch sử commit tuân thủ quy chuẩn Conventional Commit kèm Jira Key.
