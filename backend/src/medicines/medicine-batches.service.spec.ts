@@ -52,7 +52,7 @@ describe('MedicineBatchesService', () => {
     it('should return null batchId for new batch', async () => {
       jest.spyOn(prisma.medicineBatch, 'findMany').mockResolvedValue([]);
       
-      const result = await service.validateAndGetBatchIdentity('med1', 'LOT1', '2025-12-31');
+      const result = await service.validateAndGetBatchIdentity(1, 'LOT1', '2025-12-31');
       expect(result.batchId).toBeNull();
       expect(result.normalizedBatch).toBe('LOT1');
     });
@@ -60,20 +60,20 @@ describe('MedicineBatchesService', () => {
     it('should return batchId when exact match exists', async () => {
       const expiry = service.normalizeExpiryDate('2025-12-31');
       jest.spyOn(prisma.medicineBatch, 'findMany').mockResolvedValue([
-        { id: 'batch1', medicineId: 'med1', batchNumber: 'LOT1', expiryDate: expiry, quantity: 100, createdAt: new Date(), updatedAt: new Date() }
+        { id: 1, medicineId: 1, warehouseId: 1, batchNumber: 'LOT1', quantity: 100, expiryDate: expiry, createdAt: new Date(), updatedAt: new Date() }
       ]);
       
-      const result = await service.validateAndGetBatchIdentity('med1', 'lot1', '2025-12-31');
-      expect(result.batchId).toBe('batch1');
+      const result = await service.validateAndGetBatchIdentity(1, 'lot1', '2025-12-31');
+      expect(result.batchId).toBe(1);
     });
 
     it('should throw BadRequestException when batch exists with different expiry', async () => {
       const existingExpiry = service.normalizeExpiryDate('2026-01-01');
       jest.spyOn(prisma.medicineBatch, 'findMany').mockResolvedValue([
-        { id: 'batch1', medicineId: 'med1', batchNumber: 'LOT1', expiryDate: existingExpiry, quantity: 100, createdAt: new Date(), updatedAt: new Date() }
+        { id: 1, medicineId: 1, warehouseId: 1, batchNumber: 'LOT1', quantity: 100, expiryDate: existingExpiry, createdAt: new Date(), updatedAt: new Date() }
       ]);
       
-      await expect(service.validateAndGetBatchIdentity('med1', 'LOT1', '2025-12-31'))
+      await expect(service.validateAndGetBatchIdentity(1, 'LOT1', '2025-12-31'))
         .rejects
         .toThrow(BadRequestException);
     });

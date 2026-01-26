@@ -30,10 +30,10 @@ export class MedicineBatchesService {
    * Chặn trường hợp cùng medicineId, cùng batchNumber nhưng khác expiryDate.
    */
   async validateAndGetBatchIdentity(
-    medicineId: string,
+    medicineId: number,
     rawBatchNumber: string,
     rawExpiryDate: Date | string,
-  ): Promise<{ batchId: string | null; normalizedBatch: string; normalizedExpiry: Date }> {
+  ): Promise<{ batchId: number | null; normalizedBatch: string; normalizedExpiry: Date }> {
     const normalizedBatch = this.normalizeBatchNumber(rawBatchNumber);
     const normalizedExpiry = this.normalizeExpiryDate(rawExpiryDate);
 
