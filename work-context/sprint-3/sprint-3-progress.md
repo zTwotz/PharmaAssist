@@ -489,7 +489,7 @@
 
 - [x] **PAC-TASK-134** — Create stock_import_lines Prisma model
 - [x] **PAC-TASK-135** — Implement add stock import line API
-- [ ] **PAC-TASK-136** — Build stock import line editor UI
+- [x] **PAC-TASK-136** — Build stock import line editor UI
 
 ### Completion Criteria
 
@@ -512,19 +512,19 @@
 ---
 ## US-41 — Cập nhật/xóa dòng nhập khi còn draft
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-137** — Implement update draft import line API
-- [ ] **PAC-TASK-138** — Implement delete draft import line API
-- [ ] **PAC-TASK-139** — Disable edit/delete for confirmed import lines
+- [x] **PAC-TASK-137** — Implement update draft import line API
+- [x] **PAC-TASK-138** — Implement delete draft import line API
+- [x] **PAC-TASK-139** — Disable edit/delete for confirmed import lines
 
 ### Completion Criteria
 
-- [ ] Line được cập nhật/xóa khi phiếu còn Draft.
-- [ ] Confirmed import không thể sửa/xóa line.
-- [ ] UI và backend enforce cùng một rule.
+- [x] Line được cập nhật/xóa khi phiếu còn Draft.
+- [x] Confirmed import không thể sửa/xóa line.
+- [x] UI và backend enforce cùng một rule.
 
 ### User Story Evidence
 
