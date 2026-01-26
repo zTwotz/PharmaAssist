@@ -6,8 +6,8 @@ import { CreateOrderDto } from './dto/create-order.dto';
 export class OrdersService {
   constructor(private prisma: PrismaService) {}
 
-  async getOrders(user: any, customerId?: number) {
-    const whereClause: any = {};
+  async getOrders(user: { id: string; roles?: string[] }, customerId?: number) {
+    const whereClause: Record<string, string | number> = {};
 
     // PAC-TASK-035 & PAC-TASK-036: Staff ownership query filter
     // If the user does not have the ADMIN role, restrict the orders to those they created

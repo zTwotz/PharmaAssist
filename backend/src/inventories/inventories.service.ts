@@ -38,7 +38,7 @@ export class InventoriesService {
     return inventories.map((inv: any) => {
       const medicines = inv.productVariant?.product?.medicines || [];
       const allBatches = medicines
-        .flatMap((m: any) => m.batches)
+        .flatMap((m: { batches?: any[] }) => m.batches || [])
         .filter((b: any) => b && b.warehouseId === inv.warehouseId);
 
       const sellableQuantity =
@@ -97,7 +97,7 @@ export class InventoriesService {
 
     const medicines = inv.productVariant?.product?.medicines || [];
     const allBatches = medicines
-      .flatMap((m: any) => m.batches)
+      .flatMap((m: { batches?: any[] }) => m.batches || [])
       .filter((b: any) => b && b.warehouseId === inv.warehouseId);
 
     const sellableQuantity =
@@ -180,12 +180,12 @@ export class InventoriesService {
 
     const medicines = inventory.productVariant?.product?.medicines || [];
     const allBatches = medicines
-      .flatMap((m: any) => m.batches)
+      .flatMap((m: { batches?: any[] }) => m.batches || [])
       .filter((b: any) => b && b.warehouseId === inventory.warehouseId);
 
     // Sort by expiryDate ascending
     return allBatches.sort(
-      (a: any, b: any) =>
+      (a: { expiryDate: Date | string }, b: { expiryDate: Date | string }) =>
         new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime(),
     );
   }

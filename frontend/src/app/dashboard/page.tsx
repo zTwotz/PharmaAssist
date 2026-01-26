@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { Sidebar } from '@/components/sidebar';
@@ -223,12 +225,12 @@ export default function DashboardPage() {
                       <Clock className="h-4 w-4 text-primary" />
                       Đơn hàng gần đây hôm nay
                     </CardTitle>
-                    <a
+                    <Link
                       href="/sales"
                       className="text-xs text-primary hover:underline font-medium"
                     >
                       Xem tất cả →
-                    </a>
+                    </Link>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -248,9 +250,9 @@ export default function DashboardPage() {
                     <div className="flex flex-col items-center justify-center py-12 text-graphite">
                       <ShoppingCart className="h-10 w-10 text-slate-200 mb-3" />
                       <p className="text-sm font-medium">Chưa có đơn hàng nào hôm nay</p>
-                      <a href="/pos" className="mt-2 text-xs text-primary hover:underline">
+                      <Link href="/pos" className="mt-2 text-xs text-primary hover:underline">
                         Đi đến màn hình bán hàng POS
-                      </a>
+                      </Link>
                     </div>
                   ) : (
                     <div className="divide-y divide-hairline">

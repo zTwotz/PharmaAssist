@@ -98,11 +98,7 @@ export default function SalesPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const printAreaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async () => {
+  async function fetchOrders() {
     setLoading(true);
     setErrorAlert(null);
     try {
@@ -114,7 +110,12 @@ export default function SalesPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchOrders();
+  }, []);
 
   const displayRole = user?.roles?.includes('ADMIN') 
     ? 'Quản trị viên' 

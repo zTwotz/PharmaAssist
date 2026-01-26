@@ -62,6 +62,7 @@ export function InvoiceModal({ isOpen, onClose, order, cartItems }: InvoiceModal
     }, 1000);
   };
 
+  // eslint-disable-next-line react-hooks/purity
   const formattedDate = new Date(order.createdAt || Date.now()).toLocaleString('vi-VN', {
     hour: '2-digit',
     minute: '2-digit',

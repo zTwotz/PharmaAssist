@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteGuard } from '@/components/route-guard';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'PharmaAssist POS',
@@ -24,9 +25,9 @@ export default function PosLayout({ children }: { children: React.ReactNode }) {
               <div className="w-2 h-2 rounded-full bg-green-500"></div>
               <span className="text-sm font-medium text-slate-600">Dược sĩ: Admin</span>
             </div>
-            <a href="/" className="text-sm text-blue-600 hover:underline">
+            <Link href="/" className="text-sm text-blue-600 hover:underline">
               Quay lại trang chủ
-            </a>
+            </Link>
           </div>
         </header>
 

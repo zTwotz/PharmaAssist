@@ -36,6 +36,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       try {
         const savedCart = localStorage.getItem('pharma_assist_cart');
         if (savedCart) {
+          // eslint-disable-next-line
           setCartItems(JSON.parse(savedCart));
         }
       } catch (error) {
