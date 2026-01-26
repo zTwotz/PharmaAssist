@@ -3087,3 +3087,6 @@ Document 14 là input trực tiếp cho:
 8. Document 20 — Testing, Demo & Setup Guide.
 
 Bước tiếp theo hợp lý là viết **Document 15 — UI/UX Screen Specification**, vì API, database và Prisma design đã đủ rõ để chuẩn hóa các màn hình, navigation, state, role-based visibility và UX flow.
+
+### Tồn kho (Inventory)
+Từ Sprint 3, **MedicineBatch** là Source of Truth duy nhất cho tồn kho. Không sử dụng aggregate quantity từ `Inventory`. Mọi thay đổi số lượng tồn kho đều phải thông qua StockImport hoặc StockMovement và gắn liền với một Batch cụ thể (MedicineId + BatchNumber + ExpiryDate).
