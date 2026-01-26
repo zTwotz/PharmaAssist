@@ -42,7 +42,7 @@
 # 3. Sprint Summary
 
 - [ ] **Sprint 3 completed**
-- [ ] **PAC-EPIC-05 completed**
+- [x] **PAC-EPIC-05 completed**
 - [ ] **PAC-EPIC-06 completed**
 - [ ] **All 22 User Stories completed**
 - [ ] **All 59 Tasks completed**
@@ -59,7 +59,7 @@
 ---
 # 4. PAC-EPIC-05 — Inventory & MedicineBatch
 
-- [ ] **Epic completed**
+- [x] **Epic completed**
 
 | Thuộc tính | Giá trị |
 |---|---|
@@ -74,26 +74,26 @@
 
 ## Epic Completion Criteria
 
-- [ ] MedicineBatch là inventory source of truth.
-- [ ] Batch identity được enforce ở database và service.
-- [ ] Inventory Summary và Batch Detail hoạt động.
-- [ ] Sellable quantity loại batch hết hạn.
-- [ ] Low-stock và near-expiry đúng permission.
-- [ ] Không có direct quantity edit.
-- [ ] Automated tests liên quan pass.
-- [ ] Epic branch đã merge vào develop qua PR đạt checks.
+- [x] MedicineBatch là inventory source of truth.
+- [x] Batch identity được enforce ở database và service.
+- [x] Inventory Summary và Batch Detail hoạt động.
+- [x] Sellable quantity loại batch hết hạn.
+- [x] Low-stock và near-expiry đúng permission.
+- [x] Không có direct quantity edit.
+- [x] Automated tests liên quan pass.
+- [x] Epic branch đã merge vào develop qua PR đạt checks.
 
 ---
 ## US-27 — Thiết kế MedicineBatch là source of truth
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-102** — Create medicine_batches Prisma model
-- [ ] **PAC-TASK-103** — Add MedicineBatch indexes and constraints
-- [ ] **PAC-TASK-104** — Remove aggregate inventory source-of-truth assumptions
-- [ ] **PAC-TASK-105** — Document MedicineBatch as inventory source of truth
+- [x] **PAC-TASK-102** — Create medicine_batches Prisma model
+- [x] **PAC-TASK-103** — Add MedicineBatch indexes and constraints
+- [x] **PAC-TASK-104** — Remove aggregate inventory source-of-truth assumptions
+- [x] **PAC-TASK-105** — Document MedicineBatch as inventory source of truth
 
 ### Completion Criteria
 
@@ -117,13 +117,13 @@
 ---
 ## US-28 — Batch number bắt buộc
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-106** — Enforce required batch_number
-- [ ] **PAC-TASK-107** — Normalize batch_number before comparison
-- [ ] **PAC-TASK-108** — Add UI validation for batch_number
+- [x] **PAC-TASK-106** — Enforce required batch_number
+- [x] **PAC-TASK-107** — Normalize batch_number before comparison
+- [x] **PAC-TASK-108** — Add UI validation for batch_number
 
 ### Completion Criteria
 
@@ -146,13 +146,13 @@
 ---
 ## US-29 — Batch identity theo medicine + batch + expiry
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-109** — Implement batch identity validation service
-- [ ] **PAC-TASK-110** — Add migration constraint for medicine/batch/expiry uniqueness
-- [ ] **PAC-TASK-111** — Add batch identity unit tests
+- [x] **PAC-TASK-109** — Implement batch identity validation service
+- [x] **PAC-TASK-110** — Add migration constraint for medicine/batch/expiry uniqueness
+- [x] **PAC-TASK-111** — Add batch identity unit tests
 
 ### Completion Criteria
 
@@ -175,13 +175,13 @@
 ---
 ## US-30 — Inventory Summary từ MedicineBatch
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-112** — Implement inventory summary query from MedicineBatch
-- [ ] **PAC-TASK-113** — Build Inventory Summary screen
-- [ ] **PAC-TASK-114** — Add search/filter to Inventory Summary
+- [x] **PAC-TASK-112** — Implement inventory summary query from MedicineBatch
+- [x] **PAC-TASK-113** — Build Inventory Summary screen
+- [x] **PAC-TASK-114** — Add search/filter to Inventory Summary
 
 ### Completion Criteria
 
@@ -204,13 +204,13 @@
 ---
 ## US-31 — Batch Detail view
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-115** — Implement Batch Detail API
-- [ ] **PAC-TASK-116** — Build Batch Detail screen
-- [ ] **PAC-TASK-117** — Display expired/near-expiry/sellable batch status
+- [x] **PAC-TASK-115** — Implement Batch Detail API
+- [x] **PAC-TASK-116** — Build Batch Detail screen
+- [x] **PAC-TASK-117** — Display expired/near-expiry/sellable batch status
 
 ### Completion Criteria
 
@@ -233,12 +233,12 @@
 ---
 ## US-32 — Tính sellable quantity
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-118** — Implement sellable quantity calculation service
-- [ ] **PAC-TASK-119** — Add tests for sellable quantity calculation
+- [x] **PAC-TASK-118** — Implement sellable quantity calculation service
+- [x] **PAC-TASK-119** — Add tests for sellable quantity calculation
 
 ### Completion Criteria
 
@@ -261,12 +261,12 @@
 ---
 ## US-33 — Loại trừ batch hết hạn khỏi sellable stock
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-120** — Exclude expired batches from sellable stock
-- [ ] **PAC-TASK-121** — Add tests for expired batch exclusion
+- [x] **PAC-TASK-120** — Exclude expired batches from sellable stock
+- [x] **PAC-TASK-121** — Add tests for expired batch exclusion
 
 ### Completion Criteria
 
@@ -289,13 +289,13 @@
 ---
 ## US-34 — Low-stock dựa trên sellable quantity
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-122** — Implement low-stock calculation from sellable quantity
-- [ ] **PAC-TASK-123** — Display low-stock state for Admin/Warehouse
-- [ ] **PAC-TASK-124** — Hide general low-stock dashboard from Staff
+- [x] **PAC-TASK-122** — Implement low-stock calculation from sellable quantity
+- [x] **PAC-TASK-123** — Display low-stock state for Admin/Warehouse
+- [x] **PAC-TASK-124** — Hide general low-stock dashboard from Staff
 
 ### Completion Criteria
 
@@ -318,12 +318,12 @@
 ---
 ## US-35 — Near-expiry theo threshold cấu hình
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-125** — Implement near-expiry calculation with threshold
-- [ ] **PAC-TASK-126** — Display near-expiry batch state
+- [x] **PAC-TASK-125** — Implement near-expiry calculation with threshold
+- [x] **PAC-TASK-126** — Display near-expiry batch state
 
 ### Completion Criteria
 
@@ -346,11 +346,11 @@
 ---
 ## US-36 — Inventory dashboard cho Admin/Warehouse
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-127** — Build Admin/Warehouse inventory dashboard cards
+- [x] **PAC-TASK-127** — Build Admin/Warehouse inventory dashboard cards
 
 ### Completion Criteria
 
@@ -373,11 +373,11 @@
 ---
 ## US-37 — POS chỉ xem sellable stock cần bán
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-128** — Build POS sellable stock display
+- [x] **PAC-TASK-128** — Build POS sellable stock display
 
 ### Completion Criteria
 
@@ -400,12 +400,12 @@
 ---
 ## US-38 — Chặn sửa trực tiếp quantity trong Batch Detail
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-129** — Remove direct quantity edit from Batch Detail UI
-- [ ] **PAC-TASK-130** — Ensure no public API directly edits batch quantity
+- [x] **PAC-TASK-129** — Remove direct quantity edit from Batch Detail UI
+- [x] **PAC-TASK-130** — Ensure no public API directly edits batch quantity
 
 ### Completion Criteria
 
@@ -428,7 +428,7 @@
 ---
 # 5. PAC-EPIC-06 — Stock Import
 
-- [ ] **Epic completed**
+- [x] **Epic completed**
 
 | Thuộc tính | Giá trị |
 |---|---|
@@ -448,8 +448,8 @@
 - [ ] Merge batch và expiry mismatch đúng baseline.
 - [ ] Confirmed import immutable và không confirm lặp.
 - [ ] Audit, traceability, integration test và smoke checklist hoàn tất.
-- [ ] Automated tests liên quan pass.
-- [ ] Epic branch đã merge vào develop qua PR đạt checks.
+- [x] Automated tests liên quan pass.
+- [x] Epic branch đã merge vào develop qua PR đạt checks.
 
 ---
 ## US-39 — Tạo phiếu nhập kho draft
