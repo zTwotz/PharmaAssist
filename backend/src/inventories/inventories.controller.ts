@@ -24,6 +24,12 @@ export class InventoriesController {
     return this.inventoriesService.findAll();
   }
 
+  @Get(':id')
+  @Roles('ADMIN', 'WAREHOUSE')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.inventoriesService.findOne(id);
+  }
+
   @Put(':id')
   @Roles('ADMIN', 'WAREHOUSE')
   async update(
@@ -31,5 +37,11 @@ export class InventoriesController {
     @Body() updateInventoryDto: UpdateInventoryDto,
   ) {
     return this.inventoriesService.update(id, updateInventoryDto);
+  }
+
+  @Get(':id/batches')
+  @Roles('ADMIN', 'WAREHOUSE')
+  async getBatches(@Param('id', ParseIntPipe) id: number) {
+    return this.inventoriesService.findBatchesByInventory(id);
   }
 }

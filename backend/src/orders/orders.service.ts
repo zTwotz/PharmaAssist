@@ -115,7 +115,7 @@ export class OrdersService {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    const [todayOrders, totalInventoryCount, lowStockRows] = await Promise.all([
+    const [todayOrders, totalInventoryCount, lowStockRows, expiredBatchesCount, nearExpiryBatchesCount] = await Promise.all([
       // Today's completed POS orders
       this.prisma.order.findMany({
         where: {
@@ -134,6 +134,19 @@ export class OrdersService {
         FROM inventories
         WHERE quantity <= COALESCE(min_quantity, 5)
       `,
+      // Expired batches
+      this.prisma.medicineBatch.count({
+        where: { expiryDate: { lt: todayStart } },
+      }),
+      // Near expiry batches (within 90 days)
+      this.prisma.medicineBatch.count({
+        where: {
+          expiryDate: {
+            gte: todayStart,
+            lte: new Date(todayStart.getTime() + 90 * 24 * 60 * 60 * 1000),
+          },
+        },
+      }),
     ]);
 
     const todayRevenue = todayOrders.reduce(
@@ -146,6 +159,8 @@ export class OrdersService {
       todayOrderCount: todayOrders.length,
       totalSkuCount: totalInventoryCount,
       lowStockCount: Number(lowStockRows[0]?.count ?? 0),
+      expiredCount: expiredBatchesCount,
+      nearExpiryCount: nearExpiryBatchesCount,
     };
   }
 

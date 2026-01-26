@@ -47,8 +47,13 @@ interface InventoryItem {
   storeId: number;
   productVariantId: number;
   quantity: number;
+  sellableQuantity: number;
   reservedQuantity: number;
   minQuantity: number;
+  isLowStock: boolean;
+  totalBatches: number;
+  nearExpiryBatchesCount: number;
+  expiredBatchesCount: number;
   updatedAt: string;
   productVariant: {
     id: number;
@@ -95,7 +100,6 @@ export default function InventoryPage() {
   const [updateLoading, setUpdateLoading] = useState(false);
   
   // Form input states
-  const [newQuantity, setNewQuantity] = useState(0);
   const [newMinQuantity, setNewMinQuantity] = useState(10);
 
   useEffect(() => {
@@ -108,9 +112,10 @@ export default function InventoryPage() {
     try {
       const response = await api.get('/inventories');
       setInventory(response.data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Failed to fetch inventory:', err);
-      setErrorAlert(err.response?.data?.message || 'Không thể tải dữ liệu tồn kho.');
+      const errorMsg = (err as any).response?.data?.message || 'Không thể tải dữ liệu tồn kho.';
+      setErrorAlert(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -135,11 +140,15 @@ export default function InventoryPage() {
 
     let matchesStatus = true;
     if (statusFilter === 'LOW') {
-      matchesStatus = item.quantity > 0 && item.quantity <= item.minQuantity;
+      matchesStatus = item.isLowStock;
     } else if (statusFilter === 'OUT') {
       matchesStatus = item.quantity === 0;
     } else if (statusFilter === 'OK') {
-      matchesStatus = item.quantity > item.minQuantity;
+      matchesStatus = !item.isLowStock && item.quantity > 0;
+    } else if (statusFilter === 'NEAR_EXPIRY') {
+      matchesStatus = item.nearExpiryBatchesCount > 0;
+    } else if (statusFilter === 'EXPIRED') {
+      matchesStatus = item.expiredBatchesCount > 0;
     }
 
     return matchesSearch && matchesStatus;
@@ -147,7 +156,6 @@ export default function InventoryPage() {
 
   const handleOpenUpdate = (item: InventoryItem) => {
     setSelectedItem(item);
-    setNewQuantity(item.quantity);
     setNewMinQuantity(item.minQuantity);
     setIsUpdateOpen(true);
   };
@@ -162,16 +170,16 @@ export default function InventoryPage() {
 
     try {
       await api.put(`/inventories/${selectedItem.id}`, {
-        quantity: newQuantity,
         minQuantity: newMinQuantity,
       });
 
       setSuccessAlert(`Đã điều chỉnh tồn kho cho "${selectedItem.productVariant.product.name} (${selectedItem.productVariant.variantName})" thành công.`);
       setIsUpdateOpen(false);
       fetchInventory();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Update inventory failed:', err);
-      setErrorAlert(err.response?.data?.message || 'Đã xảy ra lỗi khi điều chỉnh tồn kho.');
+      const errorMsg = (err as any).response?.data?.message || 'Đã xảy ra lỗi khi điều chỉnh tồn kho.';
+      setErrorAlert(errorMsg);
     } finally {
       setUpdateLoading(false);
     }
@@ -299,6 +307,8 @@ export default function InventoryPage() {
                     <option value="OK">Đủ hàng (Tồn an toàn)</option>
                     <option value="LOW">Cảnh báo: Sắp hết hàng</option>
                     <option value="OUT">Nguy cấp: Hết hàng</option>
+                    <option value="NEAR_EXPIRY">Cảnh báo: Sắp hết hạn</option>
+                    <option value="EXPIRED">Nguy cấp: Đã hết hạn</option>
                   </select>
                 </div>
               </CardContent>
@@ -339,7 +349,9 @@ export default function InventoryPage() {
                       <TableBody className="divide-y divide-hairline">
                         {filteredInventory.map((item) => {
                           const isOutOfStock = item.quantity === 0;
-                          const isLowStock = item.quantity > 0 && item.quantity <= item.minQuantity;
+                          const isLowStock = item.isLowStock;
+                          const hasExpired = item.expiredBatchesCount > 0;
+                          const hasNearExpiry = item.nearExpiryBatchesCount > 0;
                           
                           let statusBadge = (
                             <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-500/10 font-bold text-[10px] px-2 py-0.5 shadow-xs">
@@ -356,6 +368,21 @@ export default function InventoryPage() {
                             statusBadge = (
                               <Badge className="bg-amber-50 text-warning-deep border border-warning/15 font-bold text-[10px] px-2 py-0.5 shadow-xs">
                                 Sắp hết hàng
+                              </Badge>
+                            );
+                          }
+
+                          let expiryBadge = null;
+                          if (hasExpired) {
+                            expiryBadge = (
+                              <Badge className="bg-bloom-rose text-error-deep border border-error/15 font-bold text-[10px] px-2 py-0.5 shadow-xs ml-1 mt-1">
+                                Lô hết hạn ({item.expiredBatchesCount})
+                              </Badge>
+                            );
+                          } else if (hasNearExpiry) {
+                            expiryBadge = (
+                              <Badge className="bg-amber-50 text-warning-deep border border-warning/15 font-bold text-[10px] px-2 py-0.5 shadow-xs ml-1 mt-1">
+                                Lô sắp hết hạn ({item.nearExpiryBatchesCount})
                               </Badge>
                             );
                           }
@@ -398,17 +425,32 @@ export default function InventoryPage() {
                                 </Badge>
                               </TableCell>
                               <TableCell className="py-4">
-                                {statusBadge}
+                                <div className="flex flex-col items-start gap-1">
+                                  {statusBadge}
+                                  {expiryBadge}
+                                </div>
                               </TableCell>
                               <TableCell className="py-4 pr-6 text-right">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleOpenUpdate(item)}
-                                  className="h-8 w-8 text-primary hover:text-primary-deep hover:bg-primary-soft rounded-lg"
-                                >
-                                  <Edit3 className="h-4 w-4" />
-                                </Button>
+                                <div className="flex justify-end gap-1">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => window.location.href = `/inventory/${item.id}/batches`}
+                                    className="h-8 w-8 text-primary hover:text-primary-deep hover:bg-primary-soft rounded-lg"
+                                    title="Xem chi tiết Lô thuốc"
+                                  >
+                                    <Package className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleOpenUpdate(item)}
+                                    className="h-8 w-8 text-primary hover:text-primary-deep hover:bg-primary-soft rounded-lg"
+                                    title="Điều chỉnh ngưỡng tồn"
+                                  >
+                                    <Edit3 className="h-4 w-4" />
+                                  </Button>
+                                </div>
                               </TableCell>
                             </TableRow>
                           );
@@ -446,22 +488,9 @@ export default function InventoryPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-charcoal">Số lượng tồn mới</label>
-                    <Input
-                      type="number"
-                      min="0"
-                      value={newQuantity}
-                      onChange={(e) => setNewQuantity(parseInt(e.target.value) || 0)}
-                      required
-                      className="h-10 text-xs border-hairline focus-visible:ring-primary rounded-lg font-semibold"
-                    />
-                    <p className="text-[10px] text-graphite">Trước điều chỉnh: {selectedItem.quantity}</p>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-charcoal">Ngưỡng tối thiểu mới</label>
+                    <label className="text-xs font-bold text-charcoal">Ngưỡng tồn tối thiểu mới (Cảnh báo hết hàng)</label>
                     <Input
                       type="number"
                       min="1"

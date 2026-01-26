@@ -13,6 +13,8 @@ interface DashboardStats {
   todayOrderCount: number;
   totalSkuCount: number;
   lowStockCount: number;
+  expiredCount: number;
+  nearExpiryCount: number;
 }
 
 interface RecentOrder {
@@ -144,12 +146,28 @@ export default function DashboardPage() {
       trend: 'neutral' as const,
     },
     {
-      title: 'Cảnh báo sắp hết',
+      title: 'Cảnh báo tồn tối thiểu',
       value: String(stats?.lowStockCount ?? 0),
       subtitle: 'SKU dưới ngưỡng tồn kho tối thiểu',
       icon: AlertTriangle,
       color: stats && stats.lowStockCount > 0 ? 'bg-amber-500' : 'bg-slate-400',
       trend: stats && stats.lowStockCount > 0 ? ('down' as const) : ('neutral' as const),
+    },
+    {
+      title: 'Cảnh báo hết hạn',
+      value: String(stats?.expiredCount ?? 0),
+      subtitle: 'Lô thuốc đã hết hạn sử dụng',
+      icon: AlertTriangle,
+      color: stats && stats.expiredCount > 0 ? 'bg-rose-600' : 'bg-slate-400',
+      trend: stats && stats.expiredCount > 0 ? ('down' as const) : ('neutral' as const),
+    },
+    {
+      title: 'Sắp hết hạn',
+      value: String(stats?.nearExpiryCount ?? 0),
+      subtitle: 'Lô thuốc sẽ hết hạn trong 90 ngày',
+      icon: Clock,
+      color: stats && stats.nearExpiryCount > 0 ? 'bg-orange-500' : 'bg-slate-400',
+      trend: stats && stats.nearExpiryCount > 0 ? ('down' as const) : ('neutral' as const),
     },
   ];
 
@@ -189,7 +207,7 @@ export default function DashboardPage() {
 
           <main className="p-8 space-y-8 flex-1 overflow-y-auto max-w-[1366px] w-full mx-auto">
             {/* Metric Cards */}
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
               {statCards.map((card) => (
                 <StatCard key={card.title} {...card} loading={loading} />
               ))}
