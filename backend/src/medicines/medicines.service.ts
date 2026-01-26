@@ -551,6 +551,9 @@ export class MedicinesService {
   async search(term: string) {
     if (!term || term.trim().length < 2) return [];
 
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
     const variants = await this.prisma.productVariant.findMany({
       where: {
         status: 'ACTIVE',
@@ -564,7 +567,11 @@ export class MedicinesService {
         unit: true,
         product: {
           include: {
-            medicines: true,
+            medicines: {
+              include: {
+                batches: true,
+              }
+            },
           },
         },
         inventories: true,
@@ -572,18 +579,28 @@ export class MedicinesService {
       take: 10,
     });
 
-    return variants.map((v) => ({
-      id: v.id,
-      sku: v.sku,
-      variant_name: v.variantName,
-      selling_price: v.sellingPrice,
-      unit: v.unit,
-      product: {
-        id: v.product.id,
-        name: v.product.name,
-        medicines: v.product.medicines.map((m) => ({ id: m.id })),
-      },
-      inventories: v.inventories.map((inv) => ({ quantity: inv.quantity })),
-    }));
+    return variants.map((v) => {
+      const allBatches = v.product.medicines.flatMap((m) => m.batches);
+
+      return {
+        id: v.id,
+        sku: v.sku,
+        variant_name: v.variantName,
+        selling_price: v.sellingPrice,
+        unit: v.unit,
+        product: {
+          id: v.product.id,
+          name: v.product.name,
+          medicines: v.product.medicines.map((m) => ({ id: m.id })),
+        },
+        inventories: v.inventories.map((inv) => {
+          const warehouseBatches = allBatches.filter((b) => b.warehouseId === inv.warehouseId);
+          const sellableBatches = warehouseBatches.filter((b) => new Date(b.expiryDate) >= today);
+          const sellableQuantity = sellableBatches.reduce((sum, b) => sum + b.quantity, 0);
+          
+          return { quantity: sellableQuantity };
+        }),
+      };
+    });
   }
 }
