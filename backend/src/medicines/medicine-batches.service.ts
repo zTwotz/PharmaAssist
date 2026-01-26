@@ -33,7 +33,11 @@ export class MedicineBatchesService {
     medicineId: number,
     rawBatchNumber: string,
     rawExpiryDate: Date | string,
-  ): Promise<{ batchId: number | null; normalizedBatch: string; normalizedExpiry: Date }> {
+  ): Promise<{
+    batchId: number | null;
+    normalizedBatch: string;
+    normalizedExpiry: Date;
+  }> {
     const normalizedBatch = this.normalizeBatchNumber(rawBatchNumber);
     const normalizedExpiry = this.normalizeExpiryDate(rawExpiryDate);
 

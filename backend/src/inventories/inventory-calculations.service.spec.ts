@@ -9,7 +9,9 @@ describe('InventoryCalculationsService', () => {
       providers: [InventoryCalculationsService],
     }).compile();
 
-    service = module.get<InventoryCalculationsService>(InventoryCalculationsService);
+    service = module.get<InventoryCalculationsService>(
+      InventoryCalculationsService,
+    );
   });
 
   it('should be defined', () => {
@@ -63,9 +65,9 @@ describe('InventoryCalculationsService', () => {
       const reference = new Date('2025-01-01');
       const batches = [
         { quantity: 100, expiryDate: new Date('2025-02-01') }, // sellable
-        { quantity: 50, expiryDate: new Date('2025-01-01') },  // sellable (expires today, still valid)
+        { quantity: 50, expiryDate: new Date('2025-01-01') }, // sellable (expires today, still valid)
         { quantity: 200, expiryDate: new Date('2024-12-31') }, // EXPIRED
-        { quantity: 0, expiryDate: new Date('2025-03-01') },   // empty quantity
+        { quantity: 0, expiryDate: new Date('2025-03-01') }, // empty quantity
       ];
 
       expect(service.calculateSellableQuantity(batches, reference)).toBe(150);

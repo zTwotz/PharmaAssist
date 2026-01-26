@@ -20,7 +20,9 @@ describe('MedicineBatchesController', () => {
       ],
     }).compile();
 
-    controller = module.get<MedicineBatchesController>(MedicineBatchesController);
+    controller = module.get<MedicineBatchesController>(
+      MedicineBatchesController,
+    );
     service = module.get<MedicineBatchesService>(MedicineBatchesService);
   });
 

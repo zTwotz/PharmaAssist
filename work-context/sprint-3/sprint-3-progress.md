@@ -41,14 +41,14 @@
 
 # 3. Sprint Summary
 
-- [ ] **Sprint 3 completed**
+- [x] **Sprint 3 completed**
 - [x] **PAC-EPIC-05 completed**
-- [ ] **PAC-EPIC-06 completed**
-- [ ] **All 22 User Stories completed**
-- [ ] **All 59 Tasks completed**
-- [ ] **Final automated verification passed**
-- [ ] **Manual UI test passed**
-- [ ] **Ready for Sprint 4**
+- [x] **PAC-EPIC-06 completed**
+- [x] **All 22 User Stories completed**
+- [x] **All 59 Tasks completed**
+- [x] **Final automated verification passed**
+- [x] **Manual UI test passed**
+- [x] **Ready for Sprint 4**
 
 | Hạng mục | Tổng | Hoàn thành |
 |---|---:|---:|
@@ -458,9 +458,9 @@
 
 ### Tasks
 
-- [ ] **PAC-TASK-131** — Create stock_imports Prisma model
-- [ ] **PAC-TASK-132** — Implement create Stock Import draft API
-- [ ] **PAC-TASK-133** — Build create Stock Import screen
+- [x] **PAC-TASK-131** — Create stock_imports Prisma model
+- [x] **PAC-TASK-132** — Implement create Stock Import draft API
+- [x] **PAC-TASK-133** — Build create Stock Import screen
 
 ### Completion Criteria
 
@@ -487,9 +487,9 @@
 
 ### Tasks
 
-- [ ] **PAC-TASK-134** — Create stock_import_lines Prisma model
-- [ ] **PAC-TASK-135** — Implement add stock import line API
-- [ ] **PAC-TASK-136** — Build stock import line editor UI
+- [x] **PAC-TASK-134** — Create stock_import_lines Prisma model
+- [x] **PAC-TASK-135** — Implement add stock import line API
+- [x] **PAC-TASK-136** — Build stock import line editor UI
 
 ### Completion Criteria
 
@@ -512,19 +512,19 @@
 ---
 ## US-41 — Cập nhật/xóa dòng nhập khi còn draft
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-137** — Implement update draft import line API
-- [ ] **PAC-TASK-138** — Implement delete draft import line API
-- [ ] **PAC-TASK-139** — Disable edit/delete for confirmed import lines
+- [x] **PAC-TASK-137** — Implement update draft import line API
+- [x] **PAC-TASK-138** — Implement delete draft import line API
+- [x] **PAC-TASK-139** — Disable edit/delete for confirmed import lines
 
 ### Completion Criteria
 
-- [ ] Line được cập nhật/xóa khi phiếu còn Draft.
-- [ ] Confirmed import không thể sửa/xóa line.
-- [ ] UI và backend enforce cùng một rule.
+- [x] Line được cập nhật/xóa khi phiếu còn Draft.
+- [x] Confirmed import không thể sửa/xóa line.
+- [x] UI và backend enforce cùng một rule.
 
 ### User Story Evidence
 
@@ -541,11 +541,11 @@
 ---
 ## US-42 — Validate supplier trong phiếu nhập
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-140** — Validate active supplier before confirm import
+- [x] **PAC-TASK-140** — Validate active supplier before confirm import
 
 ### Completion Criteria
 
@@ -568,12 +568,12 @@
 ---
 ## US-43 — Validate batch number và expiry date
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-141** — Validate batch number in import line
-- [ ] **PAC-TASK-142** — Validate expiry date in import line
+- [x] **PAC-TASK-141** — Validate batch number in import line
+- [x] **PAC-TASK-142** — Validate expiry date in import line
 
 ### Completion Criteria
 
@@ -596,13 +596,13 @@
 ---
 ## US-44 — Confirm Stock Import transaction
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-143** — Implement confirm Stock Import transaction skeleton
-- [ ] **PAC-TASK-144** — Apply stock import lines to MedicineBatch
-- [ ] **PAC-TASK-145** — Rollback Stock Import confirm on any invalid line
+- [x] **PAC-TASK-143** — Implement confirm Stock Import transaction skeleton
+- [x] **PAC-TASK-144** — Apply stock import lines to MedicineBatch
+- [x] **PAC-TASK-145** — Rollback Stock Import confirm on any invalid line
 
 ### Completion Criteria
 
@@ -626,13 +626,13 @@
 ---
 ## US-45 — Merge batch khi medicine/batch/expiry trùng
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-146** — Implement batch merge when medicine/batch/expiry match
-- [ ] **PAC-TASK-147** — Add unit tests for valid batch merge rule
-- [ ] **PAC-TASK-148** — Show batch merge result after Stock Import confirm
+- [x] **PAC-TASK-146** — Implement batch merge when medicine/batch/expiry match
+- [x] **PAC-TASK-147** — Add unit tests for valid batch merge rule
+- [x] **PAC-TASK-148** — Show batch merge result after Stock Import confirm
 
 ### Completion Criteria
 
@@ -656,13 +656,13 @@
 ---
 ## US-46 — Reject batch khi cùng batch nhưng khác expiry
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-149** — Implement expiry mismatch rejection
-- [ ] **PAC-TASK-150** — Return line-level expiry mismatch errors
-- [ ] **PAC-TASK-151** — Add tests for expiry mismatch rejection
+- [x] **PAC-TASK-149** — Implement expiry mismatch rejection
+- [x] **PAC-TASK-150** — Return line-level expiry mismatch errors
+- [x] **PAC-TASK-151** — Add tests for expiry mismatch rejection
 
 ### Completion Criteria
 
@@ -686,14 +686,14 @@
 ---
 ## US-47 — Khóa phiếu nhập đã confirmed
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-152** — Lock confirmed Stock Import status
-- [ ] **PAC-TASK-153** — Build confirmed Stock Import read-only UI
-- [ ] **PAC-TASK-154** — Prevent duplicate Stock Import confirm
-- [ ] **PAC-TASK-155** — Add tests for confirmed Stock Import immutability
+- [x] **PAC-TASK-152** — Lock confirmed Stock Import status
+- [x] **PAC-TASK-153** — Build confirmed Stock Import read-only UI
+- [x] **PAC-TASK-154** — Prevent duplicate Stock Import confirm
+- [x] **PAC-TASK-155** — Add tests for confirmed Stock Import immutability
 
 ### Completion Criteria
 
@@ -717,15 +717,15 @@
 ---
 ## US-48 — Audit Stock Import
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Tasks
 
-- [ ] **PAC-TASK-156** — Write audit log for Stock Import confirm
-- [ ] **PAC-TASK-157** — Show Stock Import audit metadata in detail UI
-- [ ] **PAC-TASK-158** — Add Stock Import traceability notes
-- [ ] **PAC-TASK-159** — Add Stock Import confirm integration tests
-- [ ] **PAC-TASK-160** — Add Stock Import smoke test checklist
+- [x] **PAC-TASK-156** — Write audit log for Stock Import confirm
+- [x] **PAC-TASK-157** — Show Stock Import audit metadata in detail UI
+- [x] **PAC-TASK-158** — Add Stock Import traceability notes
+- [x] **PAC-TASK-159** — Add Stock Import confirm integration tests
+- [x] **PAC-TASK-160** — Add Stock Import smoke test checklist
 
 ### Completion Criteria
 
@@ -750,7 +750,7 @@
 ---
 # 6. PAC-EPIC-19 — Testing, Smoke Test & Release Readiness
 
-- [ ] **Các yêu cầu kiểm thử hỗ trợ Sprint 3 đã hoàn thành**
+- [x] **Các yêu cầu kiểm thử hỗ trợ Sprint 3 đã hoàn thành**
 
 > Các Task dưới đây chỉ được tham chiếu tại Epic hỗ trợ. Checkbox chính thức của Task nằm trong User Story nghiệp vụ tương ứng, không đánh dấu lần hai.
 
@@ -777,17 +777,17 @@
 
 ## Completion Criteria
 
-- [ ] Unit tests cho các business rule trọng yếu pass.
-- [ ] Integration tests cho Stock Import confirm pass.
-- [ ] Smoke test checklist có thể sử dụng trước demo.
-- [ ] Test results được ghi lại trung thực.
-- [ ] Không ghi Pass nếu test chưa chạy.
+- [x] Unit tests cho các business rule trọng yếu pass.
+- [x] Integration tests cho Stock Import confirm pass.
+- [x] Smoke test checklist có thể sử dụng trước demo.
+- [x] Test results được ghi lại trung thực.
+- [x] Không ghi Pass nếu test chưa chạy.
 
 ---
 
 # 7. PAC-EPIC-21 — Documentation & Traceability
 
-- [ ] **Các yêu cầu tài liệu hỗ trợ Sprint 3 đã hoàn thành**
+- [x] **Các yêu cầu tài liệu hỗ trợ Sprint 3 đã hoàn thành**
 
 > Checkbox chính thức của Task nằm trong User Story nghiệp vụ tương ứng.
 
