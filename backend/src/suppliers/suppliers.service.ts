@@ -3,6 +3,7 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
@@ -12,7 +13,7 @@ export class SuppliersService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(status?: string) {
-    const where: any = {};
+    const where: Prisma.SupplierWhereInput = {};
     if (status && (status === 'ACTIVE' || status === 'INACTIVE')) {
       where.status = status;
     }

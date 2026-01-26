@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -51,6 +51,14 @@ interface Category {
   };
 }
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string | string[];
+    };
+  };
+}
+
 export function CategoryList() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,23 +87,28 @@ export function CategoryList() {
     status: 'ACTIVE',
   });
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
   const fetchCategories = async () => {
     setLoading(true);
     setErrorAlert(null);
     try {
       const response = await api.get('/categories');
       setCategories(response.data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch categories:', err);
-      setErrorAlert(err.response?.data?.message || 'Không thể tải danh sách danh mục.');
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Không thể tải danh sách danh mục.';
+      setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchCategories();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenAdd = () => {
     setEditingCategory(null);
@@ -179,9 +192,10 @@ export function CategoryList() {
       }
       setIsFormOpen(false);
       fetchCategories();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Submit form failed:', err);
-      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi lưu danh mục.';
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Đã xảy ra lỗi khi lưu danh mục.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
     } finally {
       setFormLoading(false);
@@ -199,9 +213,10 @@ export function CategoryList() {
       setSuccessAlert(`Đã xóa danh mục "${categoryToDelete.name}" thành công.`);
       setIsDeleteOpen(false);
       fetchCategories();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Delete failed:', err);
-      const msg = err.response?.data?.message || 'Đã xảy ra lỗi khi xóa danh mục.';
+      const apiError = err as ApiError;
+      const msg = apiError.response?.data?.message || 'Đã xảy ra lỗi khi xóa danh mục.';
       setErrorAlert(Array.isArray(msg) ? msg.join(', ') : msg);
       setIsDeleteOpen(false);
     } finally {
@@ -499,7 +514,7 @@ export function CategoryList() {
           </DialogHeader>
 
           <div className="py-4 text-slate-600 text-sm leading-relaxed">
-            Bạn có chắc chắn muốn xóa danh mục <span className="font-bold text-ink">"{categoryToDelete?.name}"</span> (Mã: {categoryToDelete?.code})? 
+            Bạn có chắc chắn muốn xóa danh mục <span className="font-bold text-ink">&quot;{categoryToDelete?.name}&quot;</span> (Mã: {categoryToDelete?.code})? 
             <p className="mt-2 text-rose-500 font-semibold text-xs bg-rose-50 p-2.5 rounded-lg border border-rose-100">
               * Hành động này sẽ xóa vĩnh viễn danh mục khỏi hệ thống và cập nhật lại cây thư mục. 
               Chỉ có thể xóa nếu danh mục không chứa thuốc và không có danh mục con bên dưới.

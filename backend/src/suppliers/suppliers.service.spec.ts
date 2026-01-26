@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SuppliersService } from './suppliers.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 describe('SuppliersService', () => {
   let service: SuppliersService;
@@ -82,18 +83,20 @@ describe('SuppliersService', () => {
         name: 'Supplier B',
       };
 
-      mockPrismaService.supplier.create.mockImplementation((args: any) => {
-        return Promise.resolve({
-          id: 2,
-          name: dto.name,
-          code: args.data.code,
-          phone: null,
-          email: null,
-          address: null,
-          taxCode: null,
-          status: 'ACTIVE',
-        });
-      });
+      mockPrismaService.supplier.create.mockImplementation(
+        (args: { data: Prisma.SupplierCreateInput }) => {
+          return Promise.resolve({
+            id: 2,
+            name: dto.name,
+            code: args.data.code,
+            phone: null,
+            email: null,
+            address: null,
+            taxCode: null,
+            status: 'ACTIVE',
+          });
+        },
+      );
 
       const result = await service.create(dto);
       expect(result.code).toBeDefined();
@@ -155,11 +158,13 @@ describe('SuppliersService', () => {
       const mockExisting = { id: 1, code: 'SUPP-001', name: 'Supplier A' };
       const mockConflict = { id: 2, code: 'SUPP-002', name: 'Supplier B' };
 
-      mockPrismaService.supplier.findUnique.mockImplementation(({ where }) => {
-        if (where.id === 1) return Promise.resolve(mockExisting);
-        if (where.code === 'SUPP-002') return Promise.resolve(mockConflict);
-        return Promise.resolve(null);
-      });
+      mockPrismaService.supplier.findUnique.mockImplementation(
+        ({ where }: { where: Prisma.SupplierWhereUniqueInput }) => {
+          if (where.id === 1) return Promise.resolve(mockExisting);
+          if (where.code === 'SUPP-002') return Promise.resolve(mockConflict);
+          return Promise.resolve(null);
+        },
+      );
 
       await expect(service.update(1, { code: 'SUPP-002' })).rejects.toThrow(
         new BadRequestException('Mã nhà cung cấp SUPP-002 đã tồn tại.'),
