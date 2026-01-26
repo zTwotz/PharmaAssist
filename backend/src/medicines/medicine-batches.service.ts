@@ -68,4 +68,30 @@ export class MedicineBatchesService {
     // Lô hoàn toàn mới
     return { batchId: null, normalizedBatch, normalizedExpiry };
   }
+
+  async findAllByMedicine(medicineId: number) {
+    return this.prisma.medicineBatch.findMany({
+      where: { medicineId },
+      include: {
+        warehouse: true,
+      },
+      orderBy: { expiryDate: 'asc' },
+    });
+  }
+
+  async findOne(id: number) {
+    const batch = await this.prisma.medicineBatch.findUnique({
+      where: { id },
+      include: {
+        medicine: true,
+        warehouse: true,
+      },
+    });
+
+    if (!batch) {
+      throw new BadRequestException('Batch not found');
+    }
+
+    return batch;
+  }
 }
