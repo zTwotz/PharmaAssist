@@ -115,7 +115,13 @@ export class OrdersService {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    const [todayOrders, totalInventoryCount, lowStockRows, expiredBatchesCount, nearExpiryBatchesCount] = await Promise.all([
+    const [
+      todayOrders,
+      totalInventoryCount,
+      lowStockRows,
+      expiredBatchesCount,
+      nearExpiryBatchesCount,
+    ] = await Promise.all([
       // Today's completed POS orders
       this.prisma.order.findMany({
         where: {

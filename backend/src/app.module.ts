@@ -14,6 +14,7 @@ import { CustomersModule } from './customers/customers.module';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { InventoriesModule } from './inventories/inventories.module';
 import { ActiveIngredientsModule } from './active-ingredients/active-ingredients.module';
+import { StockImportsModule } from './stock-imports/stock-imports.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ActiveIngredientsModule } from './active-ingredients/active-ingredients
     SuppliersModule,
     InventoriesModule,
     ActiveIngredientsModule,
+    StockImportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

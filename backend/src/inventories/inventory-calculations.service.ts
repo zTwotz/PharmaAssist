@@ -13,7 +13,10 @@ export class InventoryCalculationsService {
     referenceDate: Date = new Date(),
   ): number {
     return batches
-      .filter((batch) => !this.isBatchExpired(batch, referenceDate) && batch.quantity > 0)
+      .filter(
+        (batch) =>
+          !this.isBatchExpired(batch, referenceDate) && batch.quantity > 0,
+      )
       .reduce((sum, batch) => sum + batch.quantity, 0);
   }
 
@@ -27,10 +30,10 @@ export class InventoryCalculationsService {
   ): boolean {
     const today = new Date(referenceDate);
     today.setUTCHours(0, 0, 0, 0);
-    
+
     const expiry = new Date(batch.expiryDate);
     expiry.setUTCHours(0, 0, 0, 0);
-    
+
     return expiry.getTime() < today.getTime();
   }
 
@@ -46,16 +49,16 @@ export class InventoryCalculationsService {
     if (this.isBatchExpired(batch, referenceDate)) {
       return false; // Nếu đã expired thì không đánh dấu là near-expiry nữa để tránh trùng lặp trạng thái
     }
-    
+
     const today = new Date(referenceDate);
     today.setUTCHours(0, 0, 0, 0);
-    
+
     const expiry = new Date(batch.expiryDate);
     expiry.setUTCHours(0, 0, 0, 0);
-    
+
     const timeDiff = expiry.getTime() - today.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    
+
     return daysDiff <= thresholdDays;
   }
 

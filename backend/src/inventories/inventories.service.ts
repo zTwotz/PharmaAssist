@@ -41,11 +41,19 @@ export class InventoriesService {
         .flatMap((m: any) => m.batches)
         .filter((b: any) => b && b.warehouseId === inv.warehouseId);
 
-      const sellableQuantity = this.calculations.calculateSellableQuantity(allBatches);
-      const isLowStock = this.calculations.isLowStock(sellableQuantity, inv.minQuantity);
-      
-      const nearExpiryCount = allBatches.filter((b: any) => this.calculations.isBatchNearExpiry(b, 90)).length;
-      const expiredCount = allBatches.filter((b: any) => this.calculations.isBatchExpired(b)).length;
+      const sellableQuantity =
+        this.calculations.calculateSellableQuantity(allBatches);
+      const isLowStock = this.calculations.isLowStock(
+        sellableQuantity,
+        inv.minQuantity,
+      );
+
+      const nearExpiryCount = allBatches.filter((b: any) =>
+        this.calculations.isBatchNearExpiry(b, 90),
+      ).length;
+      const expiredCount = allBatches.filter((b: any) =>
+        this.calculations.isBatchExpired(b),
+      ).length;
 
       return {
         ...inv,
@@ -92,11 +100,19 @@ export class InventoriesService {
       .flatMap((m: any) => m.batches)
       .filter((b: any) => b && b.warehouseId === inv.warehouseId);
 
-    const sellableQuantity = this.calculations.calculateSellableQuantity(allBatches);
-    const isLowStock = this.calculations.isLowStock(sellableQuantity, inv.minQuantity);
-    
-    const nearExpiryCount = allBatches.filter((b: any) => this.calculations.isBatchNearExpiry(b, 90)).length;
-    const expiredCount = allBatches.filter((b: any) => this.calculations.isBatchExpired(b)).length;
+    const sellableQuantity =
+      this.calculations.calculateSellableQuantity(allBatches);
+    const isLowStock = this.calculations.isLowStock(
+      sellableQuantity,
+      inv.minQuantity,
+    );
+
+    const nearExpiryCount = allBatches.filter((b: any) =>
+      this.calculations.isBatchNearExpiry(b, 90),
+    ).length;
+    const expiredCount = allBatches.filter((b: any) =>
+      this.calculations.isBatchExpired(b),
+    ).length;
 
     return {
       ...inv,
@@ -147,15 +163,15 @@ export class InventoriesService {
                     batches: {
                       include: {
                         warehouse: true,
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!inventory) {
@@ -168,6 +184,9 @@ export class InventoriesService {
       .filter((b: any) => b && b.warehouseId === inventory.warehouseId);
 
     // Sort by expiryDate ascending
-    return allBatches.sort((a: any, b: any) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime());
+    return allBatches.sort(
+      (a: any, b: any) =>
+        new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime(),
+    );
   }
 }

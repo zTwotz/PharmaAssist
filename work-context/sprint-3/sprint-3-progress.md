@@ -458,9 +458,9 @@
 
 ### Tasks
 
-- [ ] **PAC-TASK-131** — Create stock_imports Prisma model
-- [ ] **PAC-TASK-132** — Implement create Stock Import draft API
-- [ ] **PAC-TASK-133** — Build create Stock Import screen
+- [x] **PAC-TASK-131** — Create stock_imports Prisma model
+- [x] **PAC-TASK-132** — Implement create Stock Import draft API
+- [x] **PAC-TASK-133** — Build create Stock Import screen
 
 ### Completion Criteria
 
@@ -487,8 +487,8 @@
 
 ### Tasks
 
-- [ ] **PAC-TASK-134** — Create stock_import_lines Prisma model
-- [ ] **PAC-TASK-135** — Implement add stock import line API
+- [x] **PAC-TASK-134** — Create stock_import_lines Prisma model
+- [x] **PAC-TASK-135** — Implement add stock import line API
 - [ ] **PAC-TASK-136** — Build stock import line editor UI
 
 ### Completion Criteria
