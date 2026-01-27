@@ -34,6 +34,15 @@ export default function CreateInventoryAdjustmentPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.reason) {
+      setErrorAlert('Vui lòng chọn lý do kiểm kho');
+      return;
+    }
+    if (formData.reason === 'Khác' && !formData.note.trim()) {
+      setErrorAlert('Vui lòng nhập ghi chú khi chọn lý do "Khác"');
+      return;
+    }
+
     try {
       setFormLoading(true);
       setErrorAlert(null);
@@ -110,6 +119,7 @@ export default function CreateInventoryAdjustmentPage() {
                         className="flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         value={formData.reason}
                         onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+                        required
                       >
                         <option value="">-- Chọn lý do --</option>
                         <option value="Định kỳ">Kiểm kho định kỳ</option>
