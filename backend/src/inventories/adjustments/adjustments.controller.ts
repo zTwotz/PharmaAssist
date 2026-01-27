@@ -1,6 +1,18 @@
-import { Body, Controller, Post, Get, Param, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  ParseIntPipe,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AdjustmentsService } from './adjustments.service';
-import { CreateAdjustmentDto, CreateAdjustmentLineDto } from './dto/create-adjustment.dto';
+import {
+  CreateAdjustmentDto,
+  CreateAdjustmentLineDto,
+} from './dto/create-adjustment.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { RolesGuard } from '../../auth/roles.guard';
 import { Roles } from '../../auth/roles.decorator';
@@ -12,10 +24,7 @@ export class AdjustmentsController {
 
   @Post()
   @Roles('ADMIN', 'WAREHOUSE')
-  async create(
-    @Req() req: any,
-    @Body() createDto: CreateAdjustmentDto,
-  ) {
+  async create(@Req() req: any, @Body() createDto: CreateAdjustmentDto) {
     return this.adjustmentsService.create(req.user.id, createDto);
   }
 
@@ -32,5 +41,11 @@ export class AdjustmentsController {
     @Body() addLineDto: CreateAdjustmentLineDto,
   ) {
     return this.adjustmentsService.addLine(id, addLineDto);
+  }
+
+  @Post(':id/confirm')
+  @Roles('ADMIN', 'WAREHOUSE')
+  async confirm(@Param('id', ParseIntPipe) id: number) {
+    return this.adjustmentsService.confirm(id);
   }
 }

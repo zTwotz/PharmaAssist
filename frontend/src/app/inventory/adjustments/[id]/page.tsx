@@ -129,6 +129,21 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
     );
   }
 
+  const handleConfirm = async () => {
+    if (!confirm('Bạn có chắc chắn muốn hoàn tất phiếu kiểm kho này? Kho sẽ được cập nhật và không thể thay đổi sau khi hoàn tất.')) {
+      return;
+    }
+    
+    try {
+      setErrorAlert(null);
+      await api.post(`/inventory/adjustments/${params.id}/confirm`);
+      await fetchAdjustment();
+      alert('Đã hoàn tất phiếu kiểm kho thành công');
+    } catch (err: any) {
+      setErrorAlert(err.response?.data?.message || 'Lỗi khi hoàn tất phiếu kiểm kho');
+    }
+  };
+
   if (!adjustment) return null;
 
   const isDraft = adjustment.status === 'DRAFT';
@@ -154,6 +169,12 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
                   <p className="text-slate-500 mt-1">Trạng thái: {adjustment.status}</p>
                 </div>
               </div>
+              
+              {isDraft && (
+                <Button onClick={handleConfirm} className="bg-primary text-white">
+                  Hoàn tất kiểm kho
+                </Button>
+              )}
             </div>
 
             {errorAlert && (
