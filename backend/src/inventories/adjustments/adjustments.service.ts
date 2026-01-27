@@ -36,13 +36,14 @@ export class AdjustmentsService {
         reason,
         note,
         lines: {
-          create: lines?.map((line) => ({
-            medicineId: line.medicineId,
-            medicineBatchId: line.medicineBatchId,
-            expectedQuantity: line.expectedQuantity,
-            actualQuantity: line.actualQuantity,
-            adjustmentType: line.adjustmentType,
-          })) || [],
+          create:
+            lines?.map((line) => ({
+              medicineId: line.medicineId,
+              medicineBatchId: line.medicineBatchId,
+              expectedQuantity: line.expectedQuantity,
+              actualQuantity: line.actualQuantity,
+              adjustmentType: line.adjustmentType,
+            })) || [],
         },
       },
       include: {
@@ -108,6 +109,76 @@ export class AdjustmentsService {
         actualQuantity: dto.actualQuantity,
         adjustmentType: calculatedType,
       },
+    });
+  }
+  async confirm(id: number) {
+    return this.prisma.$transaction(async (tx) => {
+      const adjustment = await tx.inventoryAdjustment.findUnique({
+        where: { id },
+        include: { lines: true },
+      });
+
+      if (!adjustment) {
+        throw new BadRequestException('Inventory adjustment not found');
+      }
+      if (adjustment.status !== 'DRAFT') {
+        throw new BadRequestException('Can only confirm DRAFT adjustments');
+      }
+
+      if (!adjustment.reason) {
+        throw new BadRequestException('Vui lòng chọn lý do kiểm kho');
+      }
+      if (adjustment.reason === 'Khác' && !adjustment.note) {
+        throw new BadRequestException(
+          'Vui lòng nhập ghi chú khi chọn lý do "Khác"',
+        );
+      }
+
+      if (adjustment.lines.length === 0) {
+        throw new BadRequestException(
+          'Không thể xác nhận phiếu chưa có dữ liệu kiểm kê',
+        );
+      }
+
+      for (const line of adjustment.lines) {
+        await tx.medicineBatch.update({
+          where: { id: line.medicineBatchId },
+          data: { quantity: line.actualQuantity },
+        });
+
+        const medicine = await tx.medicine.findUnique({
+          where: { id: line.medicineId },
+          include: { product: { include: { variants: true } } },
+        });
+
+        if (medicine && medicine.product.variants.length > 0) {
+          const defaultVariant = medicine.product.variants[0];
+
+          const allBatches = await tx.medicineBatch.findMany({
+            where: { medicineId: line.medicineId },
+          });
+
+          const totalQty = allBatches.reduce((sum, b) => sum + b.quantity, 0);
+
+          await tx.inventory.updateMany({
+            where: {
+              storeId: adjustment.storeId,
+              productVariantId: defaultVariant.id,
+            },
+            data: {
+              quantity: totalQty,
+            },
+          });
+        }
+      }
+
+      return tx.inventoryAdjustment.update({
+        where: { id },
+        data: {
+          status: 'CONFIRMED',
+          confirmedAt: new Date(),
+        },
+      });
     });
   }
 }
