@@ -52,6 +52,6 @@ export class CreateAdjustmentDto {
 
   @ValidateNested({ each: true })
   @Type(() => CreateAdjustmentLineDto)
-  @ArrayMinSize(1)
-  lines: CreateAdjustmentLineDto[];
+  @IsOptional()
+  lines?: CreateAdjustmentLineDto[];
 }
