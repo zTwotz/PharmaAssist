@@ -2,6 +2,8 @@ name: Block unauthorized PRs to main
 
 on:
   pull_request_target:
+    branches:
+      - main
     types:
       - opened
       - reopened
@@ -13,7 +15,6 @@ permissions:
 jobs:
   close-unauthorized-pr:
     if: >
-      github.event.pull_request.base.ref == 'main' &&
       github.event.pull_request.user.login != 'TwotNguyenVN' &&
       github.event.pull_request.user.login != 'zTwotz'
     runs-on: ubuntu-latest
