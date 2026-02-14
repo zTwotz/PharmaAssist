@@ -18,6 +18,7 @@ import {
   ArrowRight, 
   ShieldCheck, 
   Heart,
+  ChevronLeft,
   ChevronRight,
   ChevronDown,
   Sparkles,
@@ -1257,8 +1258,346 @@ const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: strin
   }
 };
 
+const FLASH_SALE_PRODUCTS = [
+  {
+    id: "fohepta-milk",
+    dbId: 0,
+    origin: "VN",
+    discount: "-20%",
+    slug: "sua-dinh-duong-danh-cho-benh-nhan-gan-fohepta-vitadairy-400g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg",
+    name: "Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy (400g)",
+    price: 205600,
+    originalPrice: 257000,
+    unit: "Hộp",
+    soldQty: 6,
+    totalQty: 400,
+    activeIngredient: "Dinh dưỡng y học cho bệnh nhân gan",
+    isAvailable: true
+  },
+  {
+    id: "ensure-original-liquid",
+    dbId: 0,
+    origin: "US",
+    discount: "-72kđ",
+    slug: "sua-bo-sung-dinh-duong-ho-tro-tieu-hoa-ensure-original-huong-vani-4-loc-x-6-chai",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg",
+    name: "Sữa bổ sung dinh dưỡng hỗ trợ tiêu hóa Ensure Original nước...",
+    price: 912000,
+    originalPrice: 984000,
+    unit: "Thùng",
+    soldQty: 50,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng hỗ trợ tiêu hóa",
+    isAvailable: false
+  },
+  {
+    id: "ensure-gold-800g",
+    dbId: 0,
+    origin: "US",
+    discount: "-95kđ",
+    slug: "sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-800g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+    name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold...",
+    price: 837000,
+    originalPrice: 932000,
+    unit: "Hộp",
+    soldQty: 38,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ",
+    isAvailable: true
+  },
+  {
+    id: "ensure-gold-less-sweet-800g",
+    dbId: 0,
+    origin: "US",
+    discount: "-95kđ",
+    slug: "sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-it-ngot-800g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+    name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt...",
+    price: 837000,
+    originalPrice: 932000,
+    unit: "Hộp",
+    soldQty: 22,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ (ít ngọt)",
+    isAvailable: true
+  },
+  {
+    id: "icreo-glico-800g",
+    dbId: 0,
+    origin: "JP",
+    discount: "-19%",
+    slug: "sua-ho-tro-he-mien-dich-va-tieu-hoa-khoe-manh-cho-tre-tu-0-thang-tuoi-icreo-balance-milk-glico-800g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg",
+    name: "Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản...",
+    price: 933120,
+    originalPrice: 1152000,
+    unit: "Hộp",
+    soldQty: 1,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng cân bằng cho bé",
+    isAvailable: true
+  },
+  {
+    id: "glucerna-800g",
+    dbId: 0,
+    origin: "US",
+    discount: "-80kđ",
+    slug: "sua-bo-sung-dinh-duong-dac-biet-cho-nguoi-dai-thao-duong-glucerna-abbott-800g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
+    name: "Sữa bổ sung dinh dưỡng đặc biệt cho người đái đường Glucerna...",
+    price: 842000,
+    originalPrice: 922000,
+    unit: "Hộp",
+    soldQty: 27,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng đặc chế cho người tiểu đường",
+    isAvailable: true
+  },
+  {
+    id: "ensure-gold-400g",
+    dbId: 0,
+    origin: "US",
+    discount: "-62kđ",
+    slug: "sua-tang-cuong-suc-khoe-tang-cuong-mien-dich-ensure-gold-strengthpro-huong-vani-400g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+    name: "Sữa bột Ensure Gold StrengthPro hương Vani 400g...",
+    price: 418000,
+    originalPrice: 480000,
+    unit: "Hộp",
+    soldQty: 12,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ 400g",
+    isAvailable: true
+  },
+  {
+    id: "glucerna-400g",
+    dbId: 0,
+    origin: "US",
+    discount: "-65kđ",
+    slug: "sua-bot-abbott-glucerna-huong-lua-mach-lon-400g",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
+    name: "Sữa bột Abbott Glucerna Hương Lúa Mạch 400g...",
+    price: 420000,
+    originalPrice: 485000,
+    unit: "Hộp",
+    soldQty: 15,
+    totalQty: 50,
+    activeIngredient: "Dinh dưỡng đặc chế cho người tiểu đường 400g",
+    isAvailable: true
+  }
+];
+
+const BEST_SELLING_PRODUCTS = [
+  {
+    id: "nmn-pqq-kenko",
+    dbId: 0,
+    origin: "JP",
+    originLabel: "Nhật Bản",
+    discount: "-25%",
+    slug: "vien-uong-ho-tro-chong-lao-hoa-cai-thien-lan-da-va-tang-de-khang-nmn-pqq-kenko-60-vien",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg",
+    name: "Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN...",
+    price: 6675000,
+    originalPrice: 8900000,
+    unit: "Hộp",
+    spec: "Hộp 60 Viên",
+    activeIngredient: "NMN PQQ Kenko chống lão hóa",
+    isAvailable: true
+  },
+  {
+    id: "kudos-daily",
+    dbId: 0,
+    origin: "DE",
+    originLabel: "Đức",
+    discount: "-15%",
+    slug: "vien-sui-giup-bo-sung-cac-vitamin-cho-co-the-kudos-daily-vitamins-plus-biotin-and-ginseng-huong-cam-20-vien",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg",
+    name: "Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins...",
+    price: 118150,
+    originalPrice: 139000,
+    unit: "Tuýp",
+    spec: "Tuýp 20 Viên",
+    activeIngredient: "Bổ sung vitamin cho cơ thể",
+    isAvailable: true
+  },
+  {
+    id: "nano-fucoidan",
+    dbId: 0,
+    origin: "VN",
+    originLabel: "Việt Nam",
+    discount: "-20%",
+    slug: "vien-uong-ho-tro-chong-oxy-hoa-han-che-goc-tu-do-tang-cuong-suc-khoe-nano-fucoidan-biochempha-30v",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg",
+    name: "Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức...",
+    price: 792000,
+    originalPrice: 990000,
+    unit: "Hộp",
+    spec: "Hộp 30 Viên",
+    activeIngredient: "Nano Fucoidan chống oxy hóa",
+    isAvailable: true
+  },
+  {
+    id: "brauer-dha",
+    dbId: 0,
+    origin: "AU",
+    originLabel: "Úc",
+    discount: "-20%",
+    slug: "vien-uong-ho-tro-tang-cuong-suc-khoe-phu-nu-mang-thai-va-cho-con-bu-brauer-ultra-pure-dha-for-pregnancy-and-breastfeeding-60-vien",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png",
+    name: "Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Ki...",
+    price: 388800,
+    originalPrice: 486000,
+    unit: "Hộp",
+    spec: "Hộp 60 Viên",
+    activeIngredient: "DHA phát triển não bộ cho trẻ",
+    isAvailable: true
+  },
+  {
+    id: "achimmadang",
+    dbId: 0,
+    origin: "KR",
+    originLabel: "Hàn Quốc",
+    discount: "-20%",
+    slug: "nuoc-sam-nguyen-cu-achimmadang-inbosam-biok-korea-root-drink-10-chai-x-120ml",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg",
+    name: "Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink...",
+    price: 400000,
+    originalPrice: 500000,
+    unit: "Hộp",
+    spec: "Hộp 10 Chai x 120ml",
+    isSamsung: true,
+    activeIngredient: "Nước sâm nguyên củ bồi bổ sức khỏe",
+    isAvailable: true
+  },
+  {
+    id: "aloclair-plus",
+    dbId: 0,
+    origin: "GB",
+    originLabel: "Anh",
+    discount: null,
+    slug: "chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg",
+    name: "Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...",
+    price: 229000,
+    unit: "Hộp",
+    spec: "Hộp x 15ml",
+    activeIngredient: "Aloclair Plus xịt nhiệt miệng",
+    isAvailable: true
+  },
+  {
+    id: "kamizol-orange",
+    dbId: 0,
+    origin: "VN",
+    originLabel: "Việt Nam",
+    discount: "-16%",
+    slug: "nuoc-bu-dien-giai-kamizol-vi-cam-chai-250ml",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg",
+    name: "Nước Bù Điện Giải Kamizol Vị Cam (Chai 250ml)",
+    price: 8400,
+    originalPrice: 10000,
+    unit: "Chai",
+    spec: "Chai 250ml",
+    activeIngredient: "Nước bù nước điện giải vị cam",
+    isAvailable: true
+  },
+  {
+    id: "kudos-vitc",
+    dbId: 0,
+    origin: "DE",
+    originLabel: "Đức",
+    discount: "-12%",
+    slug: "vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-tuyp-20-vien",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg",
+    name: "Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C 1000mg...",
+    price: 113400,
+    originalPrice: 130000,
+    unit: "Tuýp",
+    spec: "Tuýp 20 Viên",
+    activeIngredient: "Vitamin C 1000mg",
+    isAvailable: true
+  }
+];
+
 export default function HomePage() {
   const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = useMemo(() => [
+    {
+      id: 1,
+      brand: "SANOFI",
+      subBrand: "ENTEROGERMINA BABY COMFORT",
+      title: "Thêm Lợi Khuẩn Tốt",
+      titleHighlight: "Chăm Bụng Bé Khỏe",
+      voucherLabel: "Tặng voucher",
+      voucherValue: "50.000Đ",
+      voucherNote: "*Voucher tiêm chủng",
+      priceLabel: "Giá chỉ",
+      priceValue: "475.000Đ",
+      priceUnit: "1 Hộp",
+      link: "/san-pham/men-vi-sinh-enterogermina-baby-comfort-sanofi-cho-tre-so-sinh-chua-loi-khuan-bb12-lo-8ml",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/enterogermina_4_ty_ong_5ml_2x10_sanofi_00030670_e8cd62ab8d.png",
+      badgeText: "Men vi sinh 4 tỷ bào tử",
+      bgClass: "bg-gradient-to-r from-[#d6f8ff] to-[#e0f2fe]",
+      accentBg: "bg-[#22c55e]/15",
+      accentText: "text-[#16a34a]",
+      pillText: "Men vi sinh",
+      btnText: "Mua Ngay"
+    },
+    {
+      id: 2,
+      brand: "ABBOTT",
+      subBrand: "ENSURE GOLD STRENGTHPRO",
+      title: "Dinh Dưỡng Hợp Chuẩn",
+      titleHighlight: "Tăng Cường Sức Khỏe",
+      voucherLabel: "Tặng voucher",
+      voucherValue: "79.000Đ",
+      voucherNote: "*Khi mua thùng 24 chai",
+      priceLabel: "Giá chỉ từ",
+      priceValue: "58.710Đ",
+      priceUnit: "1 Chai",
+      link: "/san-pham/sua-tang-cuong-suc-khoe-tang-cuong-mien-dich-ensure-gold-strengthpro-huong-vani-237ml",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg",
+      badgeText: "Dinh dưỡng y học Hoa Kỳ",
+      bgClass: "bg-gradient-to-r from-[#fef3c7] to-[#fffbeb]",
+      accentBg: "bg-[#d97706]/15",
+      accentText: "text-[#d97706]",
+      pillText: "Sữa dinh dưỡng",
+      btnText: "Mua Ngay"
+    },
+    {
+      id: 3,
+      brand: "GSK",
+      subBrand: "PANADOL EXTRA ĐỎ",
+      title: "Giảm Đau Nhanh Chóng",
+      titleHighlight: "Hạ Sốt Hiệu Quả",
+      voucherLabel: "Giảm giá",
+      voucherValue: "10%",
+      voucherNote: "*Độc quyền online",
+      priceLabel: "Giá chỉ",
+      priceValue: "135.000Đ",
+      priceUnit: "Hộp 180 viên",
+      link: "/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00007804_panadol_extra_do_gsk_7125_large_03ea089025.jpg",
+      badgeText: "Giảm đau mạnh mẽ",
+      bgClass: "bg-gradient-to-r from-[#fee2e2] to-[#fef2f2]",
+      accentBg: "bg-[#dc2626]/15",
+      accentText: "text-[#dc2626]",
+      pillText: "Thuốc không kê đơn",
+      btnText: "Mua Ngay"
+    }
+  ], []);
+
+  // Autoplay slider every 6s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
   const [searchTerm, setSearchTerm] = useState("");
@@ -1306,6 +1645,23 @@ export default function HomePage() {
     minutes: 29,
     seconds: 37
   });
+
+  const [flashSaleOffset, setFlashSaleOffset] = useState(0);
+  const [bestSellingOffset, setBestSellingOffset] = useState(0);
+
+  const handleFlashSalePrev = () => {
+    setFlashSaleOffset(prev => (prev - 1 + 3) % 3);
+  };
+  const handleFlashSaleNext = () => {
+    setFlashSaleOffset(prev => (prev + 1) % 3);
+  };
+
+  const handleBestSellingPrev = () => {
+    setBestSellingOffset(prev => (prev - 1 + 3) % 3);
+  };
+  const handleBestSellingNext = () => {
+    setBestSellingOffset(prev => (prev + 1) % 3);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1442,6 +1798,8 @@ export default function HomePage() {
     triggerToast(`Đã thêm ${med.name} vào giỏ hàng.`);
   };
 
+  const slide = slides[currentSlide];
+
   return (
     <div className="flex flex-col min-h-screen bg-canvas font-sans text-ink">
 
@@ -1455,51 +1813,48 @@ export default function HomePage() {
           <div className="grid grid-cols-12 gap-4">
             
             {/* Left Big Carousel Banner */}
-            <div className="col-span-12 lg:col-span-8 bg-[#d6f8ff] rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[300px]">
+            <div className={`col-span-12 lg:col-span-8 ${slide.bgClass} rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-500 min-h-[300px]`}>
               {/* Decorative background illustrations */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#93c5fd] opacity-20 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-10 left-10 w-32 h-32 bg-[#22d3ee] opacity-15 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-blue-300 to-indigo-300 opacity-20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 left-10 w-32 h-32 bg-cyan-300 opacity-15 rounded-full blur-2xl pointer-events-none" />
               
               {/* Left text column */}
               <div className="flex flex-col gap-4 max-w-md relative z-10 text-left">
                 <div className="flex items-center gap-1.5">
                   <div className="bg-[#024ad8] text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-                    SANOFI
+                    {slide.brand}
                   </div>
                   <span className="text-[11px] text-[#024ad8] font-bold tracking-wide uppercase">
-                    enterogermina baby comfort
+                    {slide.subBrand}
                   </span>
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl font-extrabold text-[#111827] leading-tight">
-                  Thêm Lợi Khuẩn Tốt<br />
-                  <span className="text-[#024ad8]">Chăm Bụng Bé Khỏe</span>
+                  {slide.title}<br />
+                  <span className="text-[#024ad8]">{slide.titleHighlight}</span>
                 </h2>
                 
                 {/* Orange voucher tags */}
                 <div className="flex items-stretch gap-2 bg-[#ff5a00] text-white p-3 rounded-2xl max-w-sm shadow-sm">
                   <div className="flex flex-col justify-center pr-3 border-r border-white/20">
-                    <span className="text-[10px] opacity-90 font-medium">Tặng voucher</span>
-                    <strong className="text-sm md:text-base font-black">50.000Đ</strong>
-                    <span className="text-[8px] opacity-80">*Voucher tiêm chủng</span>
+                    <span className="text-[10px] opacity-90 font-medium">{slide.voucherLabel}</span>
+                    <strong className="text-sm md:text-base font-black">{slide.voucherValue}</strong>
+                    <span className="text-[8px] opacity-80">{slide.voucherNote}</span>
                   </div>
                   <div className="flex flex-col justify-center pl-1">
-                    <span className="text-[10px] opacity-90 font-medium">Giá chỉ</span>
-                    <strong className="text-sm md:text-base font-black">475.000Đ</strong>
-                    <span className="text-[8px] opacity-80">1 Hộp</span>
+                    <span className="text-[10px] opacity-90 font-medium">{slide.priceLabel}</span>
+                    <strong className="text-sm md:text-base font-black">{slide.priceValue}</strong>
+                    <span className="text-[8px] opacity-80">{slide.priceUnit}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 mt-2">
-                  <button 
-                    onClick={() => {
-                      const target = document.getElementById("featured-medicines");
-                      if (target) target.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:scale-102 uppercase tracking-wider"
+                  <Link 
+                    href={slide.link}
+                    className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:scale-102 uppercase tracking-wider text-center"
                   >
-                    Mua Ngay
-                  </button>
+                    {slide.btnText}
+                  </Link>
                   <div className="flex flex-col text-left">
                     <strong className="text-xs text-[#024ad8] font-bold">FREESHIP</strong>
                     <span className="text-[9px] text-[#6b7280] font-medium">*Khi đặt qua App</span>
@@ -1514,32 +1869,61 @@ export default function HomePage() {
                   <div className="absolute w-44 h-44 rounded-full bg-white/60 border border-cyan-100 flex items-center justify-center shadow-inner" />
                   
                   {/* Stomach/gut health indicator icon */}
-                  <div className="absolute top-2 left-6 bg-[#22c55e]/15 text-[#16a34a] p-2 rounded-full border border-green-200/50 shadow-sm animate-pulse">
+                  <div className={`absolute top-2 left-6 ${slide.accentBg} ${slide.accentText} p-2 rounded-full border border-green-200/50 shadow-sm animate-pulse`}>
                     <Activity size={20} />
                   </div>
                   
-                  {/* Enterogermina real product image from DB */}
+                  {/* Real product image */}
                   <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/enterogermina_4_ty_ong_5ml_2x10_sanofi_00030670_e8cd62ab8d.png" 
-                    alt="Enterogermina" 
+                    src={slide.imageUrl} 
+                    alt={slide.subBrand} 
                     className="w-40 h-40 object-contain drop-shadow-xl relative z-10 hover:scale-105 transition-transform duration-300"
                   />
                   
-                  {/* Mother-baby label indicator */}
+                  {/* Badge indicator */}
                   <div className="absolute -bottom-2 right-4 bg-white/90 backdrop-blur-sm border border-fog px-3 py-1.5 rounded-xl shadow-sm text-center flex items-center gap-1.5 z-20">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]" />
-                    <span className="text-[10px] font-bold text-[#374151]">Men vi sinh 4 tỷ bào tử</span>
+                    <span className="text-[10px] font-bold text-[#374151]">{slide.badgeText}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Carousel navigation arrows (aesthetic indicator) */}
-              <button className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+              {/* Carousel navigation arrows */}
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors"
+              >
                 <ChevronRight size={16} className="rotate-180" />
               </button>
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentSlide(prev => (prev + 1) % slides.length);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors"
+              >
                 <ChevronRight size={16} />
               </button>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCurrentSlide(index);
+                    }}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#024ad8] w-4' : 'bg-gray-400/50'}`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Right Side Column (2 Banners Stacked) */}
@@ -1750,404 +2134,124 @@ export default function HomePage() {
 
             {/* Grid list product items */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              
-              {/* Product 1 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
-                {/* Sale label top */}
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇻🇳 VN
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -20%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" 
-                    alt="Sữa Fohepta" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">205.600đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">257.000đ</span>
-                    </div>
-                  </div>
-
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
-                      <span className="flex items-center gap-0.5">🔥 Đã bán 6/400</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "2%" }} />
+              {FLASH_SALE_PRODUCTS.slice(flashSaleOffset, flashSaleOffset + 6).map((product) => {
+                const isOutOfStock = !product.isAvailable || product.soldQty >= product.totalQty;
+                return (
+                  <div key={product.id} className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                    {/* Sale label top */}
+                    <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                      <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                        {product.origin === "VN" ? "🇻🇳 VN" : product.origin === "US" ? "🇺🇸 US" : product.origin === "JP" ? "🇯🇵 JP" : product.origin}
+                      </span>
+                      {product.discount && (
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          {product.discount}
+                        </span>
+                      )}
                     </div>
                     
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "fohepta-milk",
-                          dbId: 0,
-                          name: "Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy (400g)",
-                          price: 205600,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg",
-                          activeIngredient: "Dinh dưỡng y học cho bệnh nhân gan",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Sữa Fohepta vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 2 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative opacity-95">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇺🇸 US
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -72kđ
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg" 
-                    alt="Sữa Ensure nước" 
-                    className="w-full h-full object-contain p-2 grayscale opacity-80"
-                  />
-                  <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
-                    <span className="bg-[#ea3829] text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wider">
-                      Đã cháy hàng
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] text-left">
-                      Sữa bổ sung dinh dưỡng hỗ trợ tiêu hóa Ensure Original nước...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">912.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Thùng</span>
+                    <Link href={`/san-pham/${product.slug}`} className="block cursor-pointer">
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img 
+                          src={product.imageUrl} 
+                          alt={product.name} 
+                          className={`w-full h-full object-contain p-2 ${isOutOfStock ? "grayscale opacity-80" : ""}`}
+                        />
+                        {isOutOfStock && (
+                          <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
+                            <span className="bg-[#ea3829] text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wider">
+                              Đã cháy hàng
+                            </span>
+                          </div>
+                        )}
                       </div>
-                      <span className="text-[9px] text-gray-400 line-through">984.000đ</span>
-                    </div>
-                  </div>
+                    </Link>
 
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="w-full h-1.5 bg-[#ea3829] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#ea3829]" style={{ width: "100%" }} />
-                    </div>
-                    
-                    <button 
-                      disabled
-                      className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 cursor-not-allowed uppercase tracking-wider"
-                    >
-                      Xem chi tiết
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 3 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇺🇸 US
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -95kđ
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
-                    alt="Sữa Ensure Gold" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <Link href={`/san-pham/${product.slug}`} className="block hover:underline">
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                            {product.name}
+                          </h4>
+                        </Link>
+                        <div className="flex flex-col mt-1 text-left">
+                          <div className="flex items-baseline gap-1">
+                            <strong className="text-[13px] font-black text-[#024ad8]">{product.price.toLocaleString("vi-VN")}đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ {product.unit}</span>
+                          </div>
+                          {product.originalPrice && (
+                            <span className="text-[9px] text-gray-400 line-through">{product.originalPrice.toLocaleString("vi-VN")}đ</span>
+                          )}
+                        </div>
                       </div>
-                      <span className="text-[9px] text-gray-400 line-through">932.000đ</span>
-                    </div>
-                  </div>
 
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
-                      <span className="flex items-center gap-0.5">🔥 Đã bán 38/50</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "76%" }} />
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "ensure-gold-800g",
-                          dbId: 0,
-                          name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold (800g)",
-                          price: 837000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
-                          activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 4 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇺🇸 US
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -95kđ
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
-                    alt="Sữa Ensure Gold" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      {/* Progress stock bar */}
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                          <span className="flex items-center gap-0.5">🔥 Đã bán {product.soldQty}/{product.totalQty}</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: `${Math.round((product.soldQty / product.totalQty) * 100)}%` }} />
+                        </div>
+                        
+                        {isOutOfStock ? (
+                          <Link 
+                            href={`/san-pham/${product.slug}`}
+                            className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 uppercase tracking-wider text-center block"
+                          >
+                            Xem chi tiết
+                          </Link>
+                        ) : (
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToCart({
+                                id: product.id,
+                                dbId: product.dbId,
+                                name: product.name,
+                                price: product.price,
+                                unit: product.unit,
+                                imageUrl: product.imageUrl,
+                                activeIngredient: product.activeIngredient || "",
+                                isAvailable: product.isAvailable
+                              });
+                              triggerToast(`Đã thêm ${product.name.split("...")[0].split("(")[0]} vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        )}
                       </div>
-                      <span className="text-[9px] text-gray-400 line-through">932.000đ</span>
                     </div>
                   </div>
-
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
-                      <span className="flex items-center gap-0.5">🔥 Đã bán 22/50</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "44%" }} />
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "ensure-gold-less-sweet-800g",
-                          dbId: 0,
-                          name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt (800g)",
-                          price: 837000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
-                          activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ (ít ngọt)",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 5 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇯🇵 JP
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -19%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg" 
-                    alt="Sữa Icreo Glico" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">933.120đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">1.152.000đ</span>
-                    </div>
-                  </div>
-
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
-                      <span className="flex items-center gap-0.5">🔥 Đã bán 1/50</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "2%" }} />
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "icreo-glico-800g",
-                          dbId: 0,
-                          name: "Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản (800g)",
-                          price: 933120,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg",
-                          activeIngredient: "Dinh dưỡng cân bằng cho bé",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Sữa Icreo Glico vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 6 */}
-              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇺🇸 US
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -80kđ
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" 
-                    alt="Sữa Glucerna" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa bổ sung dinh dưỡng đặc biệt cho người đái đường Glucerna...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">842.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">922.000đ</span>
-                    </div>
-                  </div>
-
-                  {/* Progress stock bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
-                      <span className="flex items-center gap-0.5">🔥 Đã bán 27/50</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "54%" }} />
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "glucerna-800g",
-                          dbId: 0,
-                          name: "Sữa bổ sung dinh dưỡng đặc biệt cho người đái tháo đường Glucerna (800g)",
-                          price: 842000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
-                          activeIngredient: "Dinh dưỡng đặc chế cho người tiểu đường",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Sữa Glucerna vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
+                );
+              })}
             </div>
 
             {/* Bottom link: Xem tất cả */}
             <div className="flex justify-center mt-6">
-              <span 
+              <Link 
+                href="/thuc-pham-chuc-nang"
                 className="text-[#024ad8] hover:text-[#01359c] font-black text-xs flex items-center gap-1 cursor-pointer transition-colors hover:underline"
-                onClick={() => {
-                  const target = document.getElementById("featured-medicines");
-                  if (target) target.scrollIntoView({ behavior: "smooth" });
-                }}
               >
                 Xem tất cả &gt;
-              </span>
+              </Link>
             </div>
             
-            {/* Aesthetic slide next button indicator (positioned absolute outside the slide container) */}
-            <div className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+            {/* Aesthetic slide prev button indicator */}
+            <div 
+              onClick={handleFlashSalePrev}
+              className="absolute top-[60%] left-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+            >
+              <ChevronLeft size={16} />
+            </div>
+
+            {/* Aesthetic slide next button indicator */}
+            <div 
+              onClick={handleFlashSaleNext}
+              className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+            >
               <ChevronRight size={16} />
             </div>
           </div>
@@ -2167,404 +2271,159 @@ export default function HomePage() {
 
             {/* Product Grid - Responsive layout containing 6 cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              
-              {/* Product 1: NMN */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇯🇵 Nhật Bản
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -25%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg" 
-                    alt="NMN PQQ Kenko" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">6.675.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">8.900.000đ</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      Hộp 60 Viên
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "nmn-pqq-kenko",
-                          dbId: 0,
-                          name: "Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN PQQ Kenko (Hộp 60 Viên)",
-                          price: 6675000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09707_b7893a5b10.jpg",
-                          activeIngredient: "NMN PQQ Kenko chống lão hóa",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm NMN PQQ Kenko vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 2: Kudos */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇩🇪 Đức
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -15%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg" 
-                    alt="Kudos Daily Vitamins" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">118.150đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">139.000đ</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      Tuýp 20 Viên
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "kudos-daily",
-                          dbId: 0,
-                          name: "Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins (Tuýp 20 Viên)",
-                          price: 118150,
-                          unit: "Tuýp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg",
-                          activeIngredient: "Bổ sung vitamin cho cơ thể",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Kudos Daily Vitamins vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 3: Nano Fucoidan */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇻🇳 Việt Nam
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -20%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg" 
-                    alt="Nano Fucoidan" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">792.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">990.000đ</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      Hộp 30 Viên
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "nano-fucoidan",
-                          dbId: 0,
-                          name: "Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức đề kháng Nano Fucoidan (Hộp 30 Viên)",
-                          price: 792000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg",
-                          activeIngredient: "Nano Fucoidan chống oxy hóa",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Nano Fucoidan vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 4: Brauer DHA */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇦🇺 Úc
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -20%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png" 
-                    alt="Brauer Baby & Kids" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Ki...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">388.800đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">486.000đ</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      Hộp 60 Viên
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "brauer-dha",
-                          dbId: 0,
-                          name: "Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Kids Ultra Pure DHA (Hộp 60 Viên)",
-                          price: 388800,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png",
-                          activeIngredient: "DHA phát triển não bộ cho trẻ",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Brauer DHA vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Product 5: Nước sâm Achimmadang */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇰🇷 Hàn Quốc
-                  </span>
-                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
-                    -20%
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg" 
-                    alt="Nước Sâm Achimmadang" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink...
-                    </h4>
-                    
-                    {/* Unit Switcher Tabs */}
-                    <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSamsungUnit("hop");
-                        }}
-                        className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
-                      >
-                        Hộp
-                      </button>
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSamsungUnit("chai");
-                        }}
-                        className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "chai" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
-                      >
-                        Chai
-                      </button>
-                    </div>
-
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">
-                          {samsungUnit === "hop" ? "400.000đ" : "40.000đ"}
-                        </strong>
-                        <span className="text-[9px] text-graphite font-semibold">
-                          / {samsungUnit === "hop" ? "Hộp" : "Chai"}
-                        </span>
-                      </div>
-                      <span className="text-[9px] text-gray-400 line-through">
-                        {samsungUnit === "hop" ? "500.000đ" : "50.000đ"}
+              {BEST_SELLING_PRODUCTS.slice(bestSellingOffset, bestSellingOffset + 6).map((product) => {
+                const isOutOfStock = !product.isAvailable;
+                return (
+                  <div key={product.id} className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                    <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                      <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                        {product.originLabel}
                       </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      {samsungUnit === "hop" ? "Hộp 10 Chai x 120ml" : "Chai 120ml"}
+                      {product.discount && (
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          {product.discount}
+                        </span>
+                      )}
                     </div>
                     
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
+                    <Link href={`/san-pham/${product.slug}`} className="block cursor-pointer">
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img 
+                          src={product.imageUrl} 
+                          alt={product.name} 
+                          className="w-full h-full object-contain p-2"
+                        />
+                      </div>
+                    </Link>
 
-                        const isBox = samsungUnit === "hop";
-                        addToCart({
-                          id: isBox ? "achimmadang-box" : "achimmadang-bottle",
-                          dbId: 0,
-                          name: `Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink (${isBox ? "Hộp 10 Chai x 120ml" : "Chai 120ml"})`,
-                          price: isBox ? 400000 : 40000,
-                          unit: isBox ? "Hộp" : "Chai",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg",
-                          activeIngredient: "Nước sâm nguyên củ bồi bổ sức khỏe",
-                          isAvailable: true
-                        });
-                        triggerToast(`Đã thêm Nước Sâm Achimmadang (${samsungUnit === "hop" ? "Hộp" : "Chai"}) vào giỏ hàng.`);
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <Link href={`/san-pham/${product.slug}`} className="block hover:underline">
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                            {product.name}
+                          </h4>
+                        </Link>
+                        
+                        {product.isSamsung ? (
+                          <>
+                            {/* Unit Switcher Tabs */}
+                            <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSamsungUnit("hop");
+                                }}
+                                className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                              >
+                                Hộp
+                              </button>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSamsungUnit("chai");
+                                }}
+                                className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "chai" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                              >
+                                Chai
+                              </button>
+                            </div>
 
-              {/* Product 6: Aloclair Plus */}
-              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
-                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                    🇬🇧 Anh
-                  </span>
-                </div>
-                
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" 
-                    alt="Aloclair Plus" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                            <div className="flex flex-col mt-1 text-left">
+                              <div className="flex items-baseline gap-1">
+                                <strong className="text-[13px] font-black text-[#024ad8]">
+                                  {samsungUnit === "hop" ? "400.000đ" : "40.000đ"}
+                                </strong>
+                                <span className="text-[9px] text-graphite font-semibold">
+                                  / {samsungUnit === "hop" ? "Hộp" : "Chai"}
+                                </span>
+                              </div>
+                              <span className="text-[9px] text-gray-400 line-through">
+                                {samsungUnit === "hop" ? "500.000đ" : "50.000đ"}
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex flex-col mt-1 text-left">
+                            <div className="flex items-baseline gap-1">
+                              <strong className="text-[13px] font-black text-[#024ad8]">{product.price.toLocaleString("vi-VN")}đ</strong>
+                              <span className="text-[9px] text-graphite font-semibold">/ {product.unit}</span>
+                            </div>
+                            {product.originalPrice && (
+                              <span className="text-[9px] text-gray-400 line-through">{product.originalPrice.toLocaleString("vi-VN")}đ</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
 
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
-                    </h4>
-                    <div className="flex flex-col mt-1 text-left">
-                      <div className="flex items-baseline gap-1">
-                        <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
-                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      <div>
+                        <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                          {product.isSamsung ? (samsungUnit === "hop" ? "Hộp 10 Chai x 120ml" : "Chai 120ml") : product.spec}
+                        </div>
+                        
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (product.isSamsung) {
+                              const isBox = samsungUnit === "hop";
+                              addToCart({
+                                id: isBox ? "achimmadang-box" : "achimmadang-bottle",
+                                dbId: 0,
+                                name: `Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink (${isBox ? "Hộp 10 Chai x 120ml" : "Chai 120ml"})`,
+                                price: isBox ? 400000 : 40000,
+                                unit: isBox ? "Hộp" : "Chai",
+                                imageUrl: product.imageUrl,
+                                activeIngredient: product.activeIngredient,
+                                isAvailable: true
+                              });
+                              triggerToast(`Đã thêm Nước Sâm Achimmadang (${samsungUnit === "hop" ? "Hộp" : "Chai"}) vào giỏ hàng.`);
+                            } else {
+                              addToCart({
+                                id: product.id,
+                                dbId: product.dbId,
+                                name: product.name,
+                                price: product.price,
+                                unit: product.unit,
+                                imageUrl: product.imageUrl,
+                                activeIngredient: product.activeIngredient || "",
+                                isAvailable: product.isAvailable
+                              });
+                              triggerToast(`Đã thêm ${product.name.split("...")[0].split("(")[0]} vào giỏ hàng.`);
+                            }
+                          }}
+                          className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                        >
+                          Chọn mua
+                        </button>
                       </div>
                     </div>
                   </div>
+                );
+              })}
+            </div>
 
-                  <div>
-                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
-                      Hộp x 15ml
-                    </div>
-                    
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          id: "aloclair-plus",
-                          dbId: 0,
-                          name: "Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml (Hộp x 15ml)",
-                          price: 229000,
-                          unit: "Hộp",
-                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg",
-                          activeIngredient: "Aloclair Plus xịt nhiệt miệng",
-                          isAvailable: true
-                        });
-                        triggerToast("Đã thêm Chai xịt Aloclair Plus vào giỏ hàng.");
-                      }}
-                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
-                    >
-                      Chọn mua
-                    </button>
-                  </div>
-                </div>
-              </div>
-
+            {/* Bottom link: Xem tất cả */}
+            <div className="flex justify-center mt-6">
+              <Link 
+                href="/thuc-pham-chuc-nang"
+                className="text-white hover:text-blue-100 font-black text-xs flex items-center gap-1 cursor-pointer transition-colors hover:underline"
+              >
+                Xem tất cả &gt;
+              </Link>
             </div>
             
+            {/* Aesthetic slide prev button indicator */}
+            <div 
+              onClick={handleBestSellingPrev}
+              className="absolute top-[50%] -left-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+            >
+              <ChevronLeft size={16} />
+            </div>
+
             {/* Aesthetic slide next button indicator */}
-            <div className="absolute top-[50%] -right-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+            <div 
+              onClick={handleBestSellingNext}
+              className="absolute top-[50%] -right-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+            >
               <ChevronRight size={16} />
             </div>
 
