@@ -1,0 +1,28 @@
+name: Block unauthorized PRs to main
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close-unauthorized-pr:
+    if: >
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.user.login != 'TwotNguyenVN' &&
+      github.event.pull_request.user.login != 'zTwotz'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Close unauthorized PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr close "$PR_URL" \
+            --comment "Bạn không được tạo Pull Request trực tiếp vào nhánh main. Vui lòng tạo PR vào nhánh develop."
