@@ -95,31 +95,32 @@
 
 ## US-49 — Tạo Inventory Adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-161** — Create inventory_adjustments Prisma model
-- [ ] **PAC-TASK-162** — Create inventory_adjustment_lines Prisma model
-- [ ] **PAC-TASK-163** — Implement create Inventory Adjustment API
-- [ ] **PAC-TASK-164** — Build create Inventory Adjustment screen
-- [ ] **PAC-TASK-166** — Validate adjustment type and quantity
+- `[x]` **PAC-TASK-161** — Create inventory_adjustments Prisma model
+- `[x]` **PAC-TASK-162** — Create inventory_adjustment_lines Prisma model
+- `[x]` **PAC-TASK-163** — Implement create Inventory Adjustment API
+- `[x]` **PAC-TASK-164** — Build create Inventory Adjustment screen
+- `[x]` **PAC-TASK-165** — Build MedicineBatch selector for adjustment
+- `[x]` **PAC-TASK-166** — Validate adjustment type and quantity
 
 ### Completion Criteria
 
-- [ ] Tạo được Inventory Adjustment ở trạng thái Draft.
-- [ ] Có schema adjustment và adjustment lines.
-- [ ] Draft chưa làm thay đổi MedicineBatch.
-- [ ] Admin/Warehouse có quyền tạo theo baseline.
+- `[x]` Tạo được Inventory Adjustment ở trạng thái Draft.
+- `[x]` Có schema adjustment và adjustment lines.
+- `[x]` Draft chưa làm thay đổi MedicineBatch.
+- `[x]` Admin/Warehouse có quyền tạo theo baseline.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-88 |
+| Story branch | `story/PAC-88-us-49-tao-inventory-adjustment` |
+| Task PRs → Story | Đã merge PAC-371, 372, 373, 374, 375, 376 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
