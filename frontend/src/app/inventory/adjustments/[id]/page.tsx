@@ -31,6 +31,7 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
 
   // Line form
+  // PAC-375: Build MedicineBatch selector for adjustment
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedMedicineId, setSelectedMedicineId] = useState('');
   const [batches, setBatches] = useState<MedicineBatch[]>([]);
