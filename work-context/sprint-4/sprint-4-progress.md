@@ -160,28 +160,28 @@
 
 ## US-51 — Chọn MedicineBatch cần điều chỉnh
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-165** — Build MedicineBatch selector for adjustment
-- [ ] **PAC-TASK-169** — Show batch before/after quantity preview
+- `[x]` **PAC-TASK-165** — Build MedicineBatch selector for adjustment
+- `[x]` **PAC-TASK-169** — Show batch before/after quantity preview
 
 ### Completion Criteria
 
-- [ ] Chọn được MedicineBatch cụ thể.
-- [ ] Hiển thị medicine, batch number, expiry và quantity hiện tại.
-- [ ] Có preview before/after quantity.
-- [ ] Không điều chỉnh aggregate inventory.
+- `[x]` Chọn được MedicineBatch cụ thể.
+- `[x]` Hiển thị medicine, batch number, expiry và quantity hiện tại.
+- `[x]` Có preview before/after quantity.
+- `[x]` Không điều chỉnh aggregate inventory.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-90 |
+| Story branch | `story/PAC-90-us-51-chon-medicinebatch-can-dieu-chinh` |
+| Task PRs → Story | Đã merge PAC-375, PAC-379 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
