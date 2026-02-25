@@ -130,28 +130,28 @@
 
 ## US-50 — Adjustment bắt buộc reason
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-167** — Enforce required adjustment reason in backend
-- [ ] **PAC-TASK-168** — Add required reason validation in UI
-- [ ] **PAC-TASK-183** — Add tests for required adjustment reason
+- `[x]` **PAC-TASK-167** — Enforce required adjustment reason in backend
+- `[x]` **PAC-TASK-168** — Add required reason validation in UI
+- `[x]` **PAC-TASK-183** — Add tests for required adjustment reason
 
 ### Completion Criteria
 
-- [ ] Reason là bắt buộc ở backend và frontend.
-- [ ] Reason rỗng hoặc chỉ khoảng trắng bị reject.
-- [ ] Có automated tests cho required reason.
+- `[x]` Reason là bắt buộc ở backend và frontend.
+- `[x]` Reason rỗng hoặc chỉ khoảng trắng bị reject.
+- `[x]` Có automated tests cho required reason.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-89 |
+| Story branch | `story/PAC-89-us-50-adjustment-bat-buoc-reason` |
+| Task PRs → Story | Đã merge PAC-377, 378, 393 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
