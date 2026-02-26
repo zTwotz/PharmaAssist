@@ -225,27 +225,27 @@
 
 ## US-53 — Chặn adjustment làm quantity âm
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-172** — Prevent adjustment from making quantity negative
-- [ ] **PAC-TASK-182** — Add tests for negative quantity adjustment
+- `[x]` **PAC-TASK-172** — Prevent adjustment from making quantity negative
+- `[x]` **PAC-TASK-182** — Add tests for negative quantity adjustment
 
 ### Completion Criteria
 
-- [ ] Không cho adjustment làm quantity âm.
-- [ ] Validation xảy ra ở backend trong transaction.
-- [ ] Có test cho negative quantity rejection.
+- `[x]` Không cho adjustment làm quantity âm.
+- `[x]` Validation xảy ra ở backend trong transaction.
+- `[x]` Có test cho negative quantity rejection.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-92 |
+| Story branch | `story/PAC-92-us-53-chan-adjustment-lam-quantity-am` |
+| Task PRs → Story | Đã merge PAC-382, PAC-392 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
