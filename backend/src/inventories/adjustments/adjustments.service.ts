@@ -143,6 +143,10 @@ export class AdjustmentsService {
       }
 
       for (const line of adjustment.lines) {
+        // PAC-172: Prevent adjustment from making quantity negative
+        if (line.actualQuantity < 0) {
+          throw new BadRequestException('Số lượng sau điều chỉnh không thể âm');
+        }
         // PAC-171: Update MedicineBatch through adjustment transaction only
         await tx.medicineBatch.update({
           where: { id: line.medicineBatchId },
