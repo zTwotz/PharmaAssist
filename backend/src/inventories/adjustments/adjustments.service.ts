@@ -111,6 +111,8 @@ export class AdjustmentsService {
       },
     });
   }
+  // PAC-170: Implement confirm Inventory Adjustment transaction
+  // PAC-173: Lock confirmed Inventory Adjustment
   async confirm(id: number) {
     return this.prisma.$transaction(async (tx) => {
       const adjustment = await tx.inventoryAdjustment.findUnique({
@@ -141,6 +143,7 @@ export class AdjustmentsService {
       }
 
       for (const line of adjustment.lines) {
+        // PAC-171: Update MedicineBatch through adjustment transaction only
         await tx.medicineBatch.update({
           where: { id: line.medicineBatchId },
           data: { quantity: line.actualQuantity },
@@ -160,6 +163,7 @@ export class AdjustmentsService {
 
           const totalQty = allBatches.reduce((sum, b) => sum + b.quantity, 0);
 
+          // PAC-188: Refresh Inventory Summary after adjustment confirm
           await tx.inventory.updateMany({
             where: {
               storeId: adjustment.storeId,
