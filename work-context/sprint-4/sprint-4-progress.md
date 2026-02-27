@@ -192,30 +192,30 @@
 
 ## US-52 — Confirm Inventory Adjustment transaction
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-170** — Implement confirm Inventory Adjustment transaction
-- [ ] **PAC-TASK-171** — Update MedicineBatch through adjustment transaction only
-- [ ] **PAC-TASK-173** — Lock confirmed Inventory Adjustment
-- [ ] **PAC-TASK-188** — Refresh Inventory Summary after adjustment confirm
+- `[x]` **PAC-TASK-170** — Implement confirm Inventory Adjustment transaction
+- `[x]` **PAC-TASK-171** — Update MedicineBatch through adjustment transaction only
+- `[x]` **PAC-TASK-173** — Lock confirmed Inventory Adjustment
+- `[x]` **PAC-TASK-188** — Refresh Inventory Summary after adjustment confirm
 
 ### Completion Criteria
 
-- [ ] Confirm chạy trong database transaction.
-- [ ] MedicineBatch chỉ được cập nhật qua transaction hợp lệ.
-- [ ] Một line lỗi rollback toàn bộ.
-- [ ] Confirmed adjustment bị khóa.
+- `[x]` Confirm chạy trong database transaction.
+- `[x]` MedicineBatch chỉ được cập nhật qua transaction hợp lệ.
+- `[x]` Một line lỗi rollback toàn bộ.
+- `[x]` Confirmed adjustment bị khóa.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-91 |
+| Story branch | `story/PAC-91-us-52-confirm-inventory-adjustment-transaction` |
+| Task PRs → Story | Đã merge PAC-380 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
