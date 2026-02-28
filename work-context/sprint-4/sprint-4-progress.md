@@ -285,27 +285,27 @@
 
 ## US-55 — Audit Inventory Adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-180** — Write audit log for Inventory Adjustment
-- [ ] **PAC-TASK-181** — Display adjustment audit information in UI
+- `[x]` **PAC-TASK-180** — Write audit log for Inventory Adjustment
+- `[x]` **PAC-TASK-181** — Display adjustment audit information in UI
 
 ### Completion Criteria
 
-- [ ] Confirm adjustment ghi audit log.
-- [ ] Audit có actor, reason, batch, before/after và timestamp.
-- [ ] UI hiển thị audit metadata.
+- `[x]` Confirm adjustment ghi audit log.
+- `[x]` Audit có actor, reason, batch, before/after và timestamp.
+- `[x]` UI hiển thị audit metadata.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-94 |
+| Story branch | `story/PAC-94-us-55-audit-inventory-adjustment` |
+| Task PRs → Story | Đã merge PAC-390, PAC-391 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
