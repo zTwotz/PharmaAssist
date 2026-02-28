@@ -204,6 +204,23 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
                     <span className="text-slate-500">Ngày tạo:</span>
                     <div className="font-medium">{format(new Date(adjustment.createdAt), 'dd/MM/yyyy HH:mm')}</div>
                   </div>
+                  {/* PAC-181: Display adjustment audit information in UI */}
+                  {adjustment.confirmedAt && (
+                    <div>
+                      <span className="text-slate-500">Ngày xác nhận:</span>
+                      <div className="font-medium text-green-600">
+                        {format(new Date(adjustment.confirmedAt), 'dd/MM/yyyy HH:mm')}
+                      </div>
+                    </div>
+                  )}
+                  {adjustment.cancelledAt && (
+                    <div>
+                      <span className="text-slate-500">Ngày hủy:</span>
+                      <div className="font-medium text-red-600">
+                        {format(new Date(adjustment.cancelledAt), 'dd/MM/yyyy HH:mm')}
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <span className="text-slate-500">Lý do:</span>
                     <div className="font-medium">{adjustment.reason || 'Không có'}</div>
