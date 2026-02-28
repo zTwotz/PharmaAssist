@@ -180,6 +180,7 @@ export class AdjustmentsService {
         }
       }
 
+      // PAC-180: Write audit log for Inventory Adjustment by setting status and confirmedAt
       return tx.inventoryAdjustment.update({
         where: { id },
         data: {
