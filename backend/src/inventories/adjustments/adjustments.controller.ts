@@ -29,6 +29,12 @@ export class AdjustmentsController {
     return this.adjustmentsService.create(req.user.id, createDto);
   }
 
+  @Get()
+  @Roles('ADMIN', 'WAREHOUSE')
+  async findAll() {
+    return this.adjustmentsService.findAll();
+  }
+
   @Get(':id')
   @Roles('ADMIN', 'WAREHOUSE')
   async findOne(@Param('id', ParseIntPipe) id: number) {
