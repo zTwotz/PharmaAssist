@@ -255,27 +255,27 @@
 
 ## US-54 — Warehouse tạo và confirm adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-178** — Add Warehouse permission for create/confirm adjustment
-- [ ] **PAC-TASK-184** — Add tests for Warehouse adjustment permission
+- `[x]` **PAC-TASK-178** — Add Warehouse permission for create/confirm adjustment
+- `[x]` **PAC-TASK-184** — Add tests for Warehouse adjustment permission
 
 ### Completion Criteria
 
-- [ ] Warehouse được create/confirm adjustment theo permission.
-- [ ] Staff bị chặn nếu không có quyền.
-- [ ] Có test cho Warehouse permission.
+- `[x]` Warehouse được create/confirm adjustment theo permission.
+- `[x]` Staff bị chặn nếu không có quyền.
+- `[x]` Có test cho Warehouse permission.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-93 |
+| Story branch | `story/PAC-93-us-54-warehouse-tao-va-confirm-adjustment` |
+| Task PRs → Story | Đã merge PAC-388, PAC-394 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
