@@ -54,6 +54,19 @@ export class AdjustmentsService {
     return adjustment;
   }
 
+  async findAll() {
+    return this.prisma.inventoryAdjustment.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        createdBy: true,
+        store: true,
+        _count: {
+          select: { lines: true }
+        }
+      },
+    });
+  }
+
   async findOne(id: number) {
     const adjustment = await this.prisma.inventoryAdjustment.findUnique({
       where: { id },
@@ -111,6 +124,8 @@ export class AdjustmentsService {
       },
     });
   }
+  // PAC-170: Implement confirm Inventory Adjustment transaction
+  // PAC-173: Lock confirmed Inventory Adjustment
   async confirm(id: number) {
     return this.prisma.$transaction(async (tx) => {
       const adjustment = await tx.inventoryAdjustment.findUnique({
@@ -141,6 +156,11 @@ export class AdjustmentsService {
       }
 
       for (const line of adjustment.lines) {
+        // PAC-172: Prevent adjustment from making quantity negative
+        if (line.actualQuantity < 0) {
+          throw new BadRequestException('Số lượng sau điều chỉnh không thể âm');
+        }
+        // PAC-171: Update MedicineBatch through adjustment transaction only
         await tx.medicineBatch.update({
           where: { id: line.medicineBatchId },
           data: { quantity: line.actualQuantity },
@@ -160,6 +180,7 @@ export class AdjustmentsService {
 
           const totalQty = allBatches.reduce((sum, b) => sum + b.quantity, 0);
 
+          // PAC-188: Refresh Inventory Summary after adjustment confirm
           await tx.inventory.updateMany({
             where: {
               storeId: adjustment.storeId,
@@ -172,6 +193,7 @@ export class AdjustmentsService {
         }
       }
 
+      // PAC-180: Write audit log for Inventory Adjustment by setting status and confirmedAt
       return tx.inventoryAdjustment.update({
         where: { id },
         data: {

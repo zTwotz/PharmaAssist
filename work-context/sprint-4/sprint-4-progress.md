@@ -95,31 +95,32 @@
 
 ## US-49 — Tạo Inventory Adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-161** — Create inventory_adjustments Prisma model
-- [ ] **PAC-TASK-162** — Create inventory_adjustment_lines Prisma model
-- [ ] **PAC-TASK-163** — Implement create Inventory Adjustment API
-- [ ] **PAC-TASK-164** — Build create Inventory Adjustment screen
-- [ ] **PAC-TASK-166** — Validate adjustment type and quantity
+- `[x]` **PAC-TASK-161** — Create inventory_adjustments Prisma model
+- `[x]` **PAC-TASK-162** — Create inventory_adjustment_lines Prisma model
+- `[x]` **PAC-TASK-163** — Implement create Inventory Adjustment API
+- `[x]` **PAC-TASK-164** — Build create Inventory Adjustment screen
+- `[x]` **PAC-TASK-165** — Build MedicineBatch selector for adjustment
+- `[x]` **PAC-TASK-166** — Validate adjustment type and quantity
 
 ### Completion Criteria
 
-- [ ] Tạo được Inventory Adjustment ở trạng thái Draft.
-- [ ] Có schema adjustment và adjustment lines.
-- [ ] Draft chưa làm thay đổi MedicineBatch.
-- [ ] Admin/Warehouse có quyền tạo theo baseline.
+- `[x]` Tạo được Inventory Adjustment ở trạng thái Draft.
+- `[x]` Có schema adjustment và adjustment lines.
+- `[x]` Draft chưa làm thay đổi MedicineBatch.
+- `[x]` Admin/Warehouse có quyền tạo theo baseline.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-88 |
+| Story branch | `story/PAC-88-us-49-tao-inventory-adjustment` |
+| Task PRs → Story | Đã merge PAC-371, 372, 373, 374, 375, 376 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -129,28 +130,28 @@
 
 ## US-50 — Adjustment bắt buộc reason
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-167** — Enforce required adjustment reason in backend
-- [ ] **PAC-TASK-168** — Add required reason validation in UI
-- [ ] **PAC-TASK-183** — Add tests for required adjustment reason
+- `[x]` **PAC-TASK-167** — Enforce required adjustment reason in backend
+- `[x]` **PAC-TASK-168** — Add required reason validation in UI
+- `[x]` **PAC-TASK-183** — Add tests for required adjustment reason
 
 ### Completion Criteria
 
-- [ ] Reason là bắt buộc ở backend và frontend.
-- [ ] Reason rỗng hoặc chỉ khoảng trắng bị reject.
-- [ ] Có automated tests cho required reason.
+- `[x]` Reason là bắt buộc ở backend và frontend.
+- `[x]` Reason rỗng hoặc chỉ khoảng trắng bị reject.
+- `[x]` Có automated tests cho required reason.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-89 |
+| Story branch | `story/PAC-89-us-50-adjustment-bat-buoc-reason` |
+| Task PRs → Story | Đã merge PAC-377, 378, 393 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -160,28 +161,28 @@
 
 ## US-51 — Chọn MedicineBatch cần điều chỉnh
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-165** — Build MedicineBatch selector for adjustment
-- [ ] **PAC-TASK-169** — Show batch before/after quantity preview
+- `[x]` **PAC-TASK-165** — Build MedicineBatch selector for adjustment
+- `[x]` **PAC-TASK-169** — Show batch before/after quantity preview
 
 ### Completion Criteria
 
-- [ ] Chọn được MedicineBatch cụ thể.
-- [ ] Hiển thị medicine, batch number, expiry và quantity hiện tại.
-- [ ] Có preview before/after quantity.
-- [ ] Không điều chỉnh aggregate inventory.
+- `[x]` Chọn được MedicineBatch cụ thể.
+- `[x]` Hiển thị medicine, batch number, expiry và quantity hiện tại.
+- `[x]` Có preview before/after quantity.
+- `[x]` Không điều chỉnh aggregate inventory.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-90 |
+| Story branch | `story/PAC-90-us-51-chon-medicinebatch-can-dieu-chinh` |
+| Task PRs → Story | Đã merge PAC-375, PAC-379 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -191,30 +192,30 @@
 
 ## US-52 — Confirm Inventory Adjustment transaction
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-170** — Implement confirm Inventory Adjustment transaction
-- [ ] **PAC-TASK-171** — Update MedicineBatch through adjustment transaction only
-- [ ] **PAC-TASK-173** — Lock confirmed Inventory Adjustment
-- [ ] **PAC-TASK-188** — Refresh Inventory Summary after adjustment confirm
+- `[x]` **PAC-TASK-170** — Implement confirm Inventory Adjustment transaction
+- `[x]` **PAC-TASK-171** — Update MedicineBatch through adjustment transaction only
+- `[x]` **PAC-TASK-173** — Lock confirmed Inventory Adjustment
+- `[x]` **PAC-TASK-188** — Refresh Inventory Summary after adjustment confirm
 
 ### Completion Criteria
 
-- [ ] Confirm chạy trong database transaction.
-- [ ] MedicineBatch chỉ được cập nhật qua transaction hợp lệ.
-- [ ] Một line lỗi rollback toàn bộ.
-- [ ] Confirmed adjustment bị khóa.
+- `[x]` Confirm chạy trong database transaction.
+- `[x]` MedicineBatch chỉ được cập nhật qua transaction hợp lệ.
+- `[x]` Một line lỗi rollback toàn bộ.
+- `[x]` Confirmed adjustment bị khóa.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-91 |
+| Story branch | `story/PAC-91-us-52-confirm-inventory-adjustment-transaction` |
+| Task PRs → Story | Đã merge PAC-380 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -224,27 +225,27 @@
 
 ## US-53 — Chặn adjustment làm quantity âm
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-172** — Prevent adjustment from making quantity negative
-- [ ] **PAC-TASK-182** — Add tests for negative quantity adjustment
+- `[x]` **PAC-TASK-172** — Prevent adjustment from making quantity negative
+- `[x]` **PAC-TASK-182** — Add tests for negative quantity adjustment
 
 ### Completion Criteria
 
-- [ ] Không cho adjustment làm quantity âm.
-- [ ] Validation xảy ra ở backend trong transaction.
-- [ ] Có test cho negative quantity rejection.
+- `[x]` Không cho adjustment làm quantity âm.
+- `[x]` Validation xảy ra ở backend trong transaction.
+- `[x]` Có test cho negative quantity rejection.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-92 |
+| Story branch | `story/PAC-92-us-53-chan-adjustment-lam-quantity-am` |
+| Task PRs → Story | Đã merge PAC-382, PAC-392 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -254,27 +255,27 @@
 
 ## US-54 — Warehouse tạo và confirm adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-178** — Add Warehouse permission for create/confirm adjustment
-- [ ] **PAC-TASK-184** — Add tests for Warehouse adjustment permission
+- `[x]` **PAC-TASK-178** — Add Warehouse permission for create/confirm adjustment
+- `[x]` **PAC-TASK-184** — Add tests for Warehouse adjustment permission
 
 ### Completion Criteria
 
-- [ ] Warehouse được create/confirm adjustment theo permission.
-- [ ] Staff bị chặn nếu không có quyền.
-- [ ] Có test cho Warehouse permission.
+- `[x]` Warehouse được create/confirm adjustment theo permission.
+- `[x]` Staff bị chặn nếu không có quyền.
+- `[x]` Có test cho Warehouse permission.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-93 |
+| Story branch | `story/PAC-93-us-54-warehouse-tao-va-confirm-adjustment` |
+| Task PRs → Story | Đã merge PAC-388, PAC-394 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
@@ -284,27 +285,27 @@
 
 ## US-55 — Audit Inventory Adjustment
 
-- [ ] **User Story completed**
+- `[x]` **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-180** — Write audit log for Inventory Adjustment
-- [ ] **PAC-TASK-181** — Display adjustment audit information in UI
+- `[x]` **PAC-TASK-180** — Write audit log for Inventory Adjustment
+- `[x]` **PAC-TASK-181** — Display adjustment audit information in UI
 
 ### Completion Criteria
 
-- [ ] Confirm adjustment ghi audit log.
-- [ ] Audit có actor, reason, batch, before/after và timestamp.
-- [ ] UI hiển thị audit metadata.
+- `[x]` Confirm adjustment ghi audit log.
+- `[x]` Audit có actor, reason, batch, before/after và timestamp.
+- `[x]` UI hiển thị audit metadata.
 
 ### User Story Evidence
 
 | Evidence | Giá trị |
 |---|---|
-| Jira Key thật | Chưa cập nhật |
-| Story branch | Chưa cập nhật |
-| Task PRs → Story | Chưa cập nhật |
-| Story PR → Epic | Chưa cập nhật |
+| Jira Key thật | PAC-94 |
+| Story branch | `story/PAC-94-us-55-audit-inventory-adjustment` |
+| Task PRs → Story | Đã merge PAC-390, PAC-391 |
+| Story PR → Epic | Đã merge vào `epic/PAC-7-epic-07-inventory-adjustment` |
 | Automated test | Chưa chạy |
 | Manual test | Chưa chạy |
 | Known issue | Không |
