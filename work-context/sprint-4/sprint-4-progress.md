@@ -315,27 +315,27 @@
 
 ## US-56 — Admin xem lịch sử adjustment
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
-- [ ] **PAC-TASK-174** — Create Inventory Adjustment list API
-- [ ] **PAC-TASK-175** — Build Inventory Adjustment history list UI
-- [ ] **PAC-TASK-176** — Implement Inventory Adjustment detail API
-- [ ] **PAC-TASK-177** — Build Inventory Adjustment detail screen
-- [ ] **PAC-TASK-179** — Add Admin permission for adjustment history and review
-- [ ] **PAC-TASK-186** — Implement cancel Draft Inventory Adjustment API
-- [ ] **PAC-TASK-187** — Build cancel Draft Inventory Adjustment UI
-- [ ] **PAC-TASK-189** — Add Inventory Adjustment smoke test checklist
-- [ ] **PAC-TASK-190** — Add Inventory Adjustment traceability notes
+- [x] **PAC-TASK-174** — Create Inventory Adjustment list API
+- [x] **PAC-TASK-175** — Build Inventory Adjustment history list UI
+- [x] **PAC-TASK-176** — Implement Inventory Adjustment detail API
+- [x] **PAC-TASK-177** — Build Inventory Adjustment detail screen
+- [x] **PAC-TASK-179** — Add Admin permission for adjustment history and review
+- [x] **PAC-TASK-186** — Implement cancel Draft Inventory Adjustment API
+- [x] **PAC-TASK-187** — Build cancel Draft Inventory Adjustment UI
+- [x] **PAC-TASK-189** — Add Inventory Adjustment smoke test checklist
+- [x] **PAC-TASK-190** — Add Inventory Adjustment traceability notes
 
 ### Completion Criteria
 
-- [ ] Admin xem được list và detail adjustment.
-- [ ] Có cancel Draft adjustment.
-- [ ] Cancel Draft không làm thay đổi MedicineBatch.
-- [ ] Inventory Summary refresh sau confirm.
-- [ ] Có smoke test và traceability.
+- [x] Admin xem được list và detail adjustment.
+- [x] Có cancel Draft adjustment.
+- [x] Cancel Draft không làm thay đổi MedicineBatch.
+- [x] Inventory Summary refresh sau confirm.
+- [x] Có smoke test và traceability.
 
 ### User Story Evidence
 
@@ -354,22 +354,22 @@
 
 # 13. Cross-sprint Hardening — PAC-EPIC-05 / US-38
 
-- [ ] **Cross-sprint hardening completed**
+- [x] **Cross-sprint hardening completed**
 
 > Task này nằm trong range Sprint 4 nhưng Jira parent chính thức vẫn thuộc PAC-EPIC-05 / US-38.
 > Không chuyển parent sang PAC-EPIC-07.
 
 ## Related Task
 
-- [ ] **PAC-TASK-185** — Block direct MedicineBatch quantity update service path
+- [x] **PAC-TASK-185** — Block direct MedicineBatch quantity update service path
 
 ## Completion Criteria
 
-- [ ] Không còn public API cập nhật trực tiếp MedicineBatch quantity.
-- [ ] Inventory Adjustment là workflow hợp lệ cho thay đổi thủ công.
-- [ ] Existing US-38/PAC-EPIC-05 branch history được giữ đúng.
-- [ ] Task được merge đúng branch cha theo kế hoạch cross-sprint.
-- [ ] Có test hoặc evidence xác nhận direct update bị chặn.
+- [x] Không còn public API cập nhật trực tiếp MedicineBatch quantity.
+- [x] Inventory Adjustment là workflow hợp lệ cho thay đổi thủ công.
+- [x] Existing US-38/PAC-EPIC-05 branch history được giữ đúng.
+- [x] Task được merge đúng branch cha theo kế hoạch cross-sprint.
+- [x] Có test hoặc evidence xác nhận direct update bị chặn.
 
 ## Evidence
 
@@ -388,7 +388,7 @@
 
 # 14. PAC-EPIC-08 — POS Draft Order
 
-- [ ] **Epic completed**
+- [x] **Epic completed**
 
 | Thuộc tính | Giá trị |
 |---|---|
@@ -402,21 +402,21 @@
 
 ## Epic Completion Criteria
 
-- [ ] Order và OrderItem schema hoàn chỉnh.
-- [ ] Order status chỉ gồm DRAFT, PAID, CANCELLED.
-- [ ] Tạo Draft Order tại POS.
-- [ ] Search active medicine và sellable stock hoạt động.
-- [ ] Add/update/remove item hoạt động.
-- [ ] Total deterministic và không có discount/coupon.
-- [ ] Walk-in/anonymous customer hoạt động.
-- [ ] Staff ownership đúng.
-- [ ] Admin xem tất cả orders.
-- [ ] Warehouse bị chặn khỏi POS.
-- [ ] Cancel Draft đúng lifecycle.
-- [ ] Checkout failure giữ Draft Order và items.
-- [ ] Draft flow không trừ MedicineBatch quantity.
-- [ ] Integration test và frontend smoke checklist hoàn tất.
-- [ ] Epic PR đã merge vào develop với checks pass.
+- [x] Order và OrderItem schema hoàn chỉnh.
+- [x] Order status chỉ gồm DRAFT, PAID, CANCELLED.
+- [x] Tạo Draft Order tại POS.
+- [x] Search active medicine và sellable stock hoạt động.
+- [x] Add/update/remove item hoạt động.
+- [x] Total deterministic và không có discount/coupon.
+- [x] Walk-in/anonymous customer hoạt động.
+- [x] Staff ownership đúng.
+- [x] Admin xem tất cả orders.
+- [x] Warehouse bị chặn khỏi POS.
+- [x] Cancel Draft đúng lifecycle.
+- [x] Checkout failure giữ Draft Order và items.
+- [x] Draft flow không trừ MedicineBatch quantity.
+- [x] Integration test và frontend smoke checklist hoàn tất.
+- [x] Epic PR đã merge vào develop với checks pass.
 
 ---
 
