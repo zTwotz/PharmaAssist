@@ -23,7 +23,7 @@ export class OrdersController {
   @Post()
   @Roles('ADMIN', 'STAFF')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo đơn hàng mới (POS) và trừ tồn kho' })
+  @ApiOperation({ summary: 'Tạo đơn nháp POS (Draft Order)' })
   @ApiResponse({
     status: 201,
     description: 'Đơn hàng đã được tạo thành công.',
