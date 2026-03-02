@@ -54,6 +54,19 @@ export class AdjustmentsService {
     return adjustment;
   }
 
+  async findAll() {
+    return this.prisma.inventoryAdjustment.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        createdBy: true,
+        store: true,
+        _count: {
+          select: { lines: true }
+        }
+      },
+    });
+  }
+
   async findOne(id: number) {
     const adjustment = await this.prisma.inventoryAdjustment.findUnique({
       where: { id },
