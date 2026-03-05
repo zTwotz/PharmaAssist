@@ -1,6 +1,11 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { AddOrderItemDto } from './dto/add-order-item.dto';
 
 @Injectable()
 export class OrdersService {
@@ -168,6 +173,88 @@ export class OrdersService {
       expiredCount: expiredBatchesCount,
       nearExpiryCount: nearExpiryBatchesCount,
     };
+  }
+
+  async addItemToDraftOrder(orderId: number, dto: AddOrderItemDto) {
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Get the order and check if it's DRAFT
+      const order = await tx.order.findUnique({
+        where: { id: orderId },
+        include: { details: true },
+      });
+
+      if (!order) {
+        throw new NotFoundException('Không tìm thấy đơn hàng');
+      }
+
+      if (order.status !== 'DRAFT') {
+        throw new BadRequestException(
+          'Chỉ có thể thêm sản phẩm vào đơn nháp (DRAFT)',
+        );
+      }
+
+      // 2. Validate product variant
+      const variant = await tx.productVariant.findUnique({
+        where: { id: dto.productVariantId },
+      });
+
+      if (!variant || variant.status !== 'ACTIVE') {
+        throw new BadRequestException(
+          'Sản phẩm không tồn tại hoặc đã ngừng hoạt động',
+        );
+      }
+
+      // 3. Check if the item already exists in the order
+      const existingItem = order.details.find(
+        (d) => d.productVariantId === dto.productVariantId,
+      );
+
+      if (existingItem) {
+        // Update quantity and lineTotal
+        const newQuantity = existingItem.quantity + dto.quantity;
+        const newTotal = newQuantity * Number(existingItem.unitPrice);
+
+        await tx.orderDetail.update({
+          where: { id: existingItem.id },
+          data: {
+            quantity: newQuantity,
+            lineTotal: newTotal,
+          },
+        });
+      } else {
+        // Add new item
+        await tx.orderDetail.create({
+          data: {
+            orderId: order.id,
+            productVariantId: dto.productVariantId,
+            quantity: dto.quantity,
+            unitPrice: variant.sellingPrice,
+            lineTotal: dto.quantity * Number(variant.sellingPrice),
+          },
+        });
+      }
+
+      // 4. Update order total amount
+      const updatedDetails = await tx.orderDetail.findMany({
+        where: { orderId: order.id },
+      });
+
+      const newSubtotal = updatedDetails.reduce(
+        (sum, item) => sum + Number(item.lineTotal),
+        0,
+      );
+
+      const updatedOrder = await tx.order.update({
+        where: { id: order.id },
+        data: {
+          subtotal: newSubtotal,
+          totalAmount: newSubtotal,
+        },
+        include: { details: true },
+      });
+
+      return updatedOrder;
+    });
   }
 
   async findAll() {
