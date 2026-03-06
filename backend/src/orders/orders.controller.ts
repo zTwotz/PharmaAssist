@@ -4,6 +4,7 @@ import {
   Body,
   Get,
   Patch,
+  Delete,
   Param,
   HttpCode,
   HttpStatus,
@@ -60,6 +61,16 @@ export class OrdersController {
       Number(itemId),
       updateOrderItemDto,
     );
+  }
+
+  @Delete(':id/items/:itemId')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Xóa sản phẩm khỏi Draft Order' })
+  async removeDraftOrderItem(
+    @Param('id') id: string,
+    @Param('itemId') itemId: string,
+  ) {
+    return this.ordersService.removeDraftOrderItem(Number(id), Number(itemId));
   }
 
   @Get('stats')

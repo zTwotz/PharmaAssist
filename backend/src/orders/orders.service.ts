@@ -164,6 +164,59 @@ export class OrdersService {
     });
   }
 
+  async removeDraftOrderItem(orderId: number, itemId: number) {
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Check order status
+      const order = await tx.order.findUnique({
+        where: { id: orderId },
+        include: { details: true },
+      });
+
+      if (!order) {
+        throw new NotFoundException('Không tìm thấy đơn hàng');
+      }
+
+      if (order.status !== 'DRAFT') {
+        throw new BadRequestException(
+          'Chỉ có thể xóa sản phẩm trong đơn nháp (DRAFT)',
+        );
+      }
+
+      // 2. Check item exists in order
+      const item = order.details.find((d) => d.id === itemId);
+
+      if (!item) {
+        throw new NotFoundException('Không tìm thấy sản phẩm trong đơn hàng');
+      }
+
+      // 3. Delete item
+      await tx.orderDetail.delete({
+        where: { id: itemId },
+      });
+
+      // 4. Update order total amount
+      const updatedDetails = await tx.orderDetail.findMany({
+        where: { orderId: order.id },
+      });
+
+      const newSubtotal = updatedDetails.reduce(
+        (sum, d) => sum + Number(d.lineTotal),
+        0,
+      );
+
+      const updatedOrder = await tx.order.update({
+        where: { id: order.id },
+        data: {
+          subtotal: newSubtotal,
+          totalAmount: newSubtotal,
+        },
+        include: { details: true },
+      });
+
+      return updatedOrder;
+    });
+  }
+
   async getDashboardStats() {
     // Build date range for today (midnight to now in local time)
     const todayStart = new Date();
