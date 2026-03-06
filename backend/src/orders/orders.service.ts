@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { AddOrderItemDto } from './dto/add-order-item.dto';
+import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 
 @Injectable()
 export class OrdersService {
@@ -97,6 +98,69 @@ export class OrdersService {
       });
 
       return newOrder;
+    });
+  }
+
+  async updateDraftOrderItemQuantity(
+    orderId: number,
+    itemId: number,
+    dto: UpdateOrderItemDto,
+  ) {
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Check order status
+      const order = await tx.order.findUnique({
+        where: { id: orderId },
+        include: { details: true },
+      });
+
+      if (!order) {
+        throw new NotFoundException('Không tìm thấy đơn hàng');
+      }
+
+      if (order.status !== 'DRAFT') {
+        throw new BadRequestException(
+          'Chỉ có thể cập nhật sản phẩm trong đơn nháp (DRAFT)',
+        );
+      }
+
+      // 2. Check item exists in order
+      const item = order.details.find((d) => d.id === itemId);
+
+      if (!item) {
+        throw new NotFoundException('Không tìm thấy sản phẩm trong đơn hàng');
+      }
+
+      const newTotal = dto.quantity * Number(item.unitPrice);
+
+      // 4. Update item
+      await tx.orderDetail.update({
+        where: { id: itemId },
+        data: {
+          quantity: dto.quantity,
+          lineTotal: newTotal,
+        },
+      });
+
+      // 5. Update order total amount
+      const updatedDetails = await tx.orderDetail.findMany({
+        where: { orderId: order.id },
+      });
+
+      const newSubtotal = updatedDetails.reduce(
+        (sum, d) => sum + Number(d.lineTotal),
+        0,
+      );
+
+      const updatedOrder = await tx.order.update({
+        where: { id: order.id },
+        data: {
+          subtotal: newSubtotal,
+          totalAmount: newSubtotal,
+        },
+        include: { details: true },
+      });
+
+      return updatedOrder;
     });
   }
 
