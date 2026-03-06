@@ -6,10 +6,12 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { AddOrderItemDto } from './dto/add-order-item.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -44,5 +46,15 @@ export class OrdersController {
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
   async findAll() {
     return this.ordersService.findAll();
+  }
+
+  @Post(':id/items')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
+  async addItemToDraftOrder(
+    @Param('id') id: string,
+    @Body() addOrderItemDto: AddOrderItemDto,
+  ) {
+    return this.ordersService.addItemToDraftOrder(Number(id), addOrderItemDto);
   }
 }
