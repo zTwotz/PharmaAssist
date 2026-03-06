@@ -3,13 +3,18 @@ import {
   Post,
   Body,
   Get,
+  Patch,
+  Param,
   HttpCode,
   HttpStatus,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { AddOrderItemDto } from './dto/add-order-item.dto';
+import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -23,13 +28,38 @@ export class OrdersController {
   @Post()
   @Roles('ADMIN', 'STAFF')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo đơn hàng mới (POS) và trừ tồn kho' })
+  @ApiOperation({ summary: 'Tạo đơn nháp POS (Draft Order)' })
   @ApiResponse({
     status: 201,
     description: 'Đơn hàng đã được tạo thành công.',
   })
   async createOrder(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.createOrder(createOrderDto);
+  }
+
+  @Post(':id/items')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
+  async addItemToDraftOrder(
+    @Param('id') id: string,
+    @Body() addOrderItemDto: AddOrderItemDto,
+  ) {
+    return this.ordersService.addItemToDraftOrder(Number(id), addOrderItemDto);
+  }
+
+  @Patch(':id/items/:itemId')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Cập nhật số lượng sản phẩm trong Draft Order' })
+  async updateDraftOrderItemQuantity(
+    @Param('id') id: string,
+    @Param('itemId') itemId: string,
+    @Body() updateOrderItemDto: UpdateOrderItemDto,
+  ) {
+    return this.ordersService.updateDraftOrderItemQuantity(
+      Number(id),
+      Number(itemId),
+      updateOrderItemDto,
+    );
   }
 
   @Get('stats')
@@ -44,5 +74,15 @@ export class OrdersController {
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
   async findAll() {
     return this.ordersService.findAll();
+  }
+
+  @Post(':id/items')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
+  async addItemToDraftOrder(
+    @Param('id') id: string,
+    @Body() addOrderItemDto: AddOrderItemDto,
+  ) {
+    return this.ordersService.addItemToDraftOrder(Number(id), addOrderItemDto);
   }
 }
