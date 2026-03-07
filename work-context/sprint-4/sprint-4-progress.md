@@ -638,9 +638,9 @@
 
 ---
 
-## US-64 — Hỗ trợ walk-in/anonymous customer
+## [x] US-64 — Hỗ trợ walk-in/anonymous customer
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
