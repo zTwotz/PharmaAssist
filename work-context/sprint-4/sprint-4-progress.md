@@ -608,9 +608,9 @@
 
 ---
 
-## US-63 — Validate sellable stock khi lập đơn
+## [x] US-63 — Validate sellable stock khi lập đơn
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
