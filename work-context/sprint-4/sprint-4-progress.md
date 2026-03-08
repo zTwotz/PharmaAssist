@@ -669,9 +669,9 @@
 
 ---
 
-## US-65 — Staff chỉ xem đơn trong ownership scope
+## [x] US-65 — Staff chỉ xem đơn trong ownership scope
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
