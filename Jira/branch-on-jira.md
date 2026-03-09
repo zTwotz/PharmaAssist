@@ -61,8 +61,8 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 
 | Jira Key | Logical Key | Tên Story | Nhánh Git tương ứng |
 |---|---|---|---|
-| **PAC-40** | `US-01` | US-01 - Đăng nhập bằng Supabase Auth | `story/PAC-40-us-01-ang-nhap-bang-supabase-auth` |
-| **PAC-41** | `US-02` | US-02 - Đăng xuất và dọn session | `story/PAC-41-us-02-ang-xuat-va-don-session` |
+| **PAC-40** | `US-01` | US-01 - Đăng nhập bằng Supabase Auth | `story/PAC-40-us-01-dang-nhap-bang-supabase-auth` |
+| **PAC-41** | `US-02` | US-02 - Đăng xuất và dọn session | `story/PAC-41-us-02-dang-xuat-va-don-session` |
 | **PAC-42** | `US-03` | US-03 - Xác thực session ở backend | `story/PAC-42-us-03-xac-thuc-session-o-backend` |
 | **PAC-43** | `US-04` | US-04 - Lấy thông tin người dùng hiện tại | `story/PAC-43-us-04-lay-thong-tin-nguoi-dung-hien-tai` |
 | **PAC-44** | `US-05` | US-05 - Multi-role RBAC model | `story/PAC-44-us-05-multi-role-rbac-model` |
@@ -71,7 +71,7 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-47** | `US-08` | US-08 - Staff ownership scope | `story/PAC-47-us-08-staff-ownership-scope` |
 | **PAC-48** | `US-09` | US-09 - Warehouse access restrictions | `story/PAC-48-us-09-warehouse-access-restrictions` |
 | **PAC-49** | `US-10` | US-10 - Admin tạo tài khoản nhân viên | `story/PAC-49-us-10-admin-tao-tai-khoan-nhan-vien` |
-| **PAC-50** | `US-11` | US-11 - Đổi mật khẩu lần đầu | `story/PAC-50-us-11-oi-mat-khau-lan-au` |
+| **PAC-50** | `US-11` | US-11 - Đổi mật khẩu lần đầu | `story/PAC-50-us-11-doi-mat-khau-lan-dau` |
 | **PAC-51** | `US-12` | US-12 - Cập nhật trạng thái tài khoản nhân viên | `story/PAC-51-us-12-cap-nhat-trang-thai-tai-khoan-nhan-vien` |
 | **PAC-52** | `US-13` | US-13 - Thêm thuốc mới | `story/PAC-52-us-13-them-thuoc-moi` |
 | **PAC-53** | `US-14` | US-14 - Cập nhật thông tin thuốc | `story/PAC-53-us-14-cap-nhat-thong-tin-thuoc` |
@@ -82,7 +82,7 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-58** | `US-19` | US-19 - Mapping Medicine với ActiveIngredient | `story/PAC-58-us-19-mapping-medicine-voi-activeingredient` |
 | **PAC-59** | `US-20` | US-20 - Validate mapping hoạt chất không trùng | `story/PAC-59-us-20-validate-mapping-hoat-chat-khong-trung` |
 | **PAC-60** | `US-21` | US-21 - Chuẩn h��a dữ liệu hoạt chất | `story/PAC-60-us-21-chuan-h-a-du-lieu-hoat-chat` |
-| **PAC-61** | `US-22` | US-22 - Trigger Graph Sync khi Medicine/Ingredient thay đổi | `story/PAC-61-us-22-trigger-graph-sync-khi-medicine-ingredient-thay-oi` |
+| **PAC-61** | `US-22` | US-22 - Trigger Graph Sync khi Medicine/Ingredient thay đổi | `story/PAC-61-us-22-trigger-graph-sync-khi-medicine-ingredient-thay-doi` |
 | **PAC-62** | `US-23` | US-23 - Tạo nhà cung cấp | `story/PAC-62-us-23-tao-nha-cung-cap` |
 | **PAC-63** | `US-24` | US-24 - Cập nhật và tìm kiếm nhà cung cấp | `story/PAC-63-us-24-cap-nhat-va-tim-kiem-nha-cung-cap` |
 | **PAC-64** | `US-25` | US-25 - Admin deactivate nhà cung cấp | `story/PAC-64-us-25-admin-deactivate-nha-cung-cap` |
@@ -107,11 +107,11 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-83** | `US-44` | US-44 - Confirm Stock Import transaction | `story/PAC-83-us-44-confirm-stock-import-transaction` |
 | **PAC-84** | `US-45` | US-45 - Merge batch khi medicine/batch/expiry trùng | `story/PAC-84-us-45-merge-batch-khi-medicine-batch-expiry-trung` |
 | **PAC-85** | `US-46` | US-46 - Reject batch khi cùng batch nhưng khác expiry | `story/PAC-85-us-46-reject-batch-khi-cung-batch-nhung-khac-expiry` |
-| **PAC-86** | `US-47` | US-47 - Khóa phiếu nhập đã confirmed | `story/PAC-86-us-47-khoa-phieu-nhap-a-confirmed` |
+| **PAC-86** | `US-47` | US-47 - Khóa phiếu nhập đã confirmed | `story/PAC-86-us-47-khoa-phieu-nhap-da-confirmed` |
 | **PAC-87** | `US-48` | US-48 - Audit Stock Import | `story/PAC-87-us-48-audit-stock-import` |
 | **PAC-88** | `US-49` | US-49 - Tạo Inventory Adjustment | `story/PAC-88-us-49-tao-inventory-adjustment` |
 | **PAC-89** | `US-50` | US-50 - Adjustment bắt buộc reason | `story/PAC-89-us-50-adjustment-bat-buoc-reason` |
-| **PAC-90** | `US-51` | US-51 - Chọn MedicineBatch cần điều chỉnh | `story/PAC-90-us-51-chon-medicinebatch-can-ieu-chinh` |
+| **PAC-90** | `US-51` | US-51 - Chọn MedicineBatch cần điều chỉnh | `story/PAC-90-us-51-chon-medicinebatch-can-dieu-chinh` |
 | **PAC-91** | `US-52` | US-52 - Confirm Inventory Adjustment transaction | `story/PAC-91-us-52-confirm-inventory-adjustment-transaction` |
 | **PAC-92** | `US-53` | US-53 - Chặn adjustment làm quantity âm | `story/PAC-92-us-53-chan-adjustment-lam-quantity-am` |
 | **PAC-93** | `US-54` | US-54 - Warehouse tạo và confirm adjustment | `story/PAC-93-us-54-warehouse-tao-va-confirm-adjustment` |
@@ -123,10 +123,10 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-99** | `US-60` | US-60 - Cập nhật số lượng thuốc trong Draft Order | `story/PAC-99-us-60-cap-nhat-so-luong-thuoc-trong-draft-order` |
 | **PAC-100** | `US-61` | US-61 - Xóa thuốc khỏi Draft Order | `story/PAC-100-us-61-xoa-thuoc-khoi-draft-order` |
 | **PAC-101** | `US-62` | US-62 - Tính tổng tiền Draft Order | `story/PAC-101-us-62-tinh-tong-tien-draft-order` |
-| **PAC-102** | `US-63` | US-63 - Validate sellable stock khi lập đơn | `story/PAC-102-us-63-validate-sellable-stock-khi-lap-on` |
+| **PAC-102** | `US-63` | US-63 - Validate sellable stock khi lập đơn | `story/PAC-102-us-63-validate-sellable-stock-khi-lap-don` |
 | **PAC-103** | `US-64` | US-64 - Hỗ trợ walk-in/anonymous customer | `story/PAC-103-us-64-ho-tro-walk-in-anonymous-customer` |
-| **PAC-104** | `US-65` | US-65 - Staff chỉ xem đơn trong ownership scope | `story/PAC-104-us-65-staff-chi-xem-on-trong-ownership-scope` |
-| **PAC-105** | `US-66` | US-66 - Admin xem tất cả đơn hàng | `story/PAC-105-us-66-admin-xem-tat-ca-on-hang` |
+| **PAC-104** | `US-65` | US-65 - Staff chỉ xem đơn trong ownership scope | `story/PAC-104-us-65-staff-chi-xem-don-trong-ownership-scope` |
+| **PAC-105** | `US-66` | US-66 - Admin xem tất cả đơn hàng | `story/PAC-105-us-66-admin-xem-tat-ca-don-hang` |
 | **PAC-106** | `US-67` | US-67 - Hủy Draft Order | `story/PAC-106-us-67-huy-draft-order` |
 | **PAC-107** | `US-68` | US-68 - Giữ Draft Order khi checkout fail | `story/PAC-107-us-68-giu-draft-order-khi-checkout-fail` |
 | **PAC-108** | `US-69` | US-69 - Tạo DrugInteraction Rule cấp ActiveIngredient | `story/PAC-108-us-69-tao-druginteraction-rule-cap-activeingredient` |
@@ -134,7 +134,7 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-110** | `US-71` | US-71 - Severity chỉ gồm LOW/MEDIUM/HIGH | `story/PAC-110-us-71-severity-chi-gom-low-medium-high` |
 | **PAC-111** | `US-72` | US-72 - Derive medicine interaction từ active ingredients | `story/PAC-111-us-72-derive-medicine-interaction-tu-active-ingredients` |
 | **PAC-112** | `US-73` | US-73 - Check interaction khi order có từ hai thuốc | `story/PAC-112-us-73-check-interaction-khi-order-co-tu-hai-thuoc` |
-| **PAC-113** | `US-74` | US-74 - Persist InteractionAlert đã hiển thị | `story/PAC-113-us-74-persist-interactionalert-a-hien-thi` |
+| **PAC-113** | `US-74` | US-74 - Persist InteractionAlert đã hiển thị | `story/PAC-113-us-74-persist-interactionalert-da-hien-thi` |
 | **PAC-114** | `US-75` | US-75 - Một active alert cho order_id + interaction_id | `story/PAC-114-us-75-mot-active-alert-cho-order-id-interaction-id` |
 | **PAC-115** | `US-76` | US-76 - Update last_displayed_at và display_count | `story/PAC-115-us-76-update-last-displayed-at-va-display-count` |
 | **PAC-116** | `US-77` | US-77 - Hiển thị alert LOW/MEDIUM/HIGH trong POS | `story/PAC-116-us-77-hien-thi-alert-low-medium-high-trong-pos` |
@@ -196,7 +196,7 @@ Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nh
 | **PAC-173** | `US-133` | US-133 - PostgreSQL fallback khi graph stale | `story/PAC-173-us-133-postgresql-fallback-khi-graph-stale` |
 | **PAC-174** | `US-134` | US-134 - Safe error cho graph-only query | `story/PAC-174-us-134-safe-error-cho-graph-only-query` |
 | **PAC-175** | `US-135` | US-135 - Không cho Staff submit raw Cypher | `story/PAC-175-us-135-khong-cho-staff-submit-raw-cypher` |
-| **PAC-176** | `US-136` | US-136 - Graph không quyết định checkout | `story/PAC-176-us-136-graph-khong-quyet-inh-checkout` |
+| **PAC-176** | `US-136` | US-136 - Graph không quyết định checkout | `story/PAC-176-us-136-graph-khong-quyet-dinh-checkout` |
 | **PAC-177** | `US-137` | US-137 - Revenue Report | `story/PAC-177-us-137-revenue-report` |
 | **PAC-178** | `US-138` | US-138 - Top Medicines Report | `story/PAC-178-us-138-top-medicines-report` |
 | **PAC-179** | `US-139` | US-139 - Inventory Report | `story/PAC-179-us-139-inventory-report` |
