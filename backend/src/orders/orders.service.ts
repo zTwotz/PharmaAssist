@@ -217,6 +217,32 @@ export class OrdersService {
     });
   }
 
+  async cancelOrder(orderId: number, user: { id: string; roles: string[] }) {
+    const order = await this.prisma.order.findUnique({
+      where: { id: orderId },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Không tìm thấy đơn hàng');
+    }
+
+    if (!user.roles.includes('ADMIN') && order.createdById !== user.id) {
+      throw new BadRequestException('Bạn không có quyền hủy đơn hàng này');
+    }
+
+    if (order.status === 'PAID' || order.status === 'CANCELLED') {
+      throw new BadRequestException(
+        'Không thể hủy đơn hàng đã thanh toán hoặc đã hủy',
+      );
+    }
+
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: { status: 'CANCELLED' },
+      include: { details: true },
+    });
+  }
+
   async getDashboardStats() {
     // Build date range for today (midnight to now in local time)
     const todayStart = new Date();
