@@ -294,6 +294,72 @@ async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
   return null;
 }
 
+async function fetchRelatedProducts(categoryId: number, excludeId: number): Promise<any[]> {
+  // Mock fallback for seasonal mock category 992 (Chăm sóc răng miệng / nhiệt miệng)
+  if (categoryId === 992) {
+    return [
+      {
+        id: 99003,
+        name: 'Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml',
+        slug: 'chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng',
+        imageUrl: 'https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg',
+        price: 229000,
+        unit: 'Chai'
+      }
+    ];
+  }
+
+  // Mock fallback for seasonal mock category 995 (Da liễu)
+  if (categoryId === 995) {
+    return [
+      {
+        id: 99002,
+        name: 'Gel bôi ngoài da Su Bạc kháng khuẩn, làm sạch da (25g)',
+        slug: 'gel-boi-su-bac-khang-khuan-lam-sach-da-25g',
+        imageUrl: 'https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg',
+        price: 150000,
+        unit: 'Hộp'
+      }
+    ];
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select(`
+        id, name, slug, status,
+        images:product_images (id, image_url, is_primary),
+        variants:product_variants (id, variant_name, selling_price, status, unit:medicine_units (name))
+      `)
+      .eq('category_id', categoryId)
+      .neq('id', excludeId)
+      .eq('status', 'ACTIVE')
+      .limit(4);
+
+    if (error || !data) {
+      console.error('Error fetching related products:', error);
+      return [];
+    }
+
+    return data.map((p: any) => {
+      const primaryImg = p.images?.find((img: any) => img.is_primary)?.image_url;
+      const fallbackImg = p.images?.[0]?.image_url;
+      const variant = p.variants?.find((v: any) => v.status === 'ACTIVE') || p.variants?.[0];
+      return {
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        imageUrl: primaryImg || fallbackImg || 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png',
+        price: Number(variant?.selling_price || 0),
+        unit: variant?.unit?.name || variant?.variant_name || 'Hộp'
+      };
+    });
+  } catch (err) {
+    console.error('Failed to fetch related products:', err);
+    return [];
+  }
+}
+
 export default async function ProductDetailPage({
   params,
 }: {
@@ -311,6 +377,8 @@ export default async function ProductDetailPage({
   if (!product) {
     notFound();
   }
+
+  const relatedProducts = await fetchRelatedProducts(product.category.id, product.id);
 
   return (
     <div className="bg-[#f8fafc] min-h-screen pb-16">
@@ -336,7 +404,7 @@ export default async function ProductDetailPage({
 
       {/* Main Container */}
       <div className="max-w-[1200px] mx-auto px-4 py-6">
-        <ProductDetailClient product={product} />
+        <ProductDetailClient product={product} relatedProducts={relatedProducts} />
       </div>
     </div>
   );

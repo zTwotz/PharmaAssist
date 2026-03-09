@@ -1,1250 +1,820 @@
 # branch-on-jira.md
 
-# Danh sách Nhánh Git tương ứng với Jira Issues
+# Danh sách Nhánh Git chuẩn (Đã đồng bộ từ jira-mapping.md)
 
-Tài liệu này ghi lại quy tắc đặt tên và danh sách nhánh Git tương ứng với từng **Epic**, **User Story** và **Task** trên Jira của dự án **PharmaAssist AI Intelligence**.
+Tài liệu này ghi lại danh sách nhánh Git chuẩn mực được cập nhật theo `jira-mapping.md`.
 
-Tài liệu này được tạo lại theo baseline mới của dự án:
-
-* Jira project key chính thức: `PAC`
-* Không dùng prefix cũ `PAI`
-* Tổng số issue branches: `789`
-* Tổng số Epic: `39`
-* Tổng số User Story: `170`
-* Tổng số Task: `580`
-* Frontend: `Next.js`
-* Backend: `NestJS / Node.js`
-* ORM: `Prisma`
-* Auth: `Supabase Auth`
-* Database source of truth: `PostgreSQL`
-* Graph projection: `Neo4j`
-* AI primary provider: `Google AI`
-* AI fallback provider: `MockAI`
+* Tổng số issue branches: 789
+* Tổng số Epic: 39
+* Tổng số User Story: 170
+* Tổng số Task: 580
 
 ---
 
-## 1. Quy tắc làm việc với Git và Jira
+## 1. Epic Branches
 
-> [!IMPORTANT]
-> **Quy tắc bắt buộc khi làm việc với Git:**
->
-> * Mỗi Epic, Story và Task đều có một nhánh riêng để Jira có thể liên kết branch với issue.
-> * Tên nhánh bắt buộc chứa Jira issue key thật, ví dụ `PAC-1`, `PAC-40`, `PAC-210`.
-> * Không dùng prefix `PAI` trong bất kỳ branch, commit hoặc PR nào.
-> * Tên nhánh dùng tiếng Anh không dấu, dạng `kebab-case`.
-> * Tên issue trên Jira có thể dùng tiếng Việt.
-> * Khi commit, bắt buộc chèn Jira key ở đầu commit message.
-> * Khi tạo Pull Request, tiêu đề PR phải chứa Jira key và logical key.
-> * Không merge trực tiếp vào `main`.
-> * Tất cả feature/test/docs/bugfix branch phải merge vào `develop` thông qua Pull Request.
-> * `main` chỉ nhận code từ release PR sau khi CI và smoke test đạt yêu cầu.
-
----
-
-## 2. Branch cố định của dự án
-
-Các branch dưới đây là branch hệ thống, không tính vào 789 issue branches.
-
-| Branch                           | Mục đích                      | Quy tắc                   |
-| -------------------------------- | ----------------------------- | ------------------------- |
-| `main`                           | Chứa code release/demo-ready  | Chỉ merge từ release PR   |
-| `develop`                        | Chứa code tích hợp hằng ngày  | Nhận PR từ issue branches |
-| `release/demo-freeze-2026-06-16` | Branch đóng băng demo/release | Chỉ tạo khi chuẩn bị demo |
-
----
-
-## 3. Quy tắc đánh số Jira issue key
-
-Vì dự án cần đủ branch cho toàn bộ Epic, Story và Task, Jira issue key được chia theo thứ tự cố định như sau:
-
-| Nhóm issue | Số lượng | Logical key |
-| ---------- | -------: | ------------------------------- |
-| Epic       |       39 | `PAC-EPIC-01` → `PAC-EPIC-39`   |
-| User Story |      170 | `US-01` → `US-170`              |
-| Task       |      580 | `PAC-TASK-001` → `PAC-TASK-580` |
-| **Tổng**   |  **789** | Epic + Story + Task             |
-
-> [!NOTE]
-> **THÔNG BÁO QUAN TRỌNG VỀ JIRA KEY:**
-> Vì hệ thống Jira thực tế có thể có sự sai lệch dải số (do các issue bị xóa hoặc tạo thừa trong quá trình thao tác), **TUYỆT ĐỐI KHÔNG TỰ TÍNH NHẨM MÃ JIRA** theo công thức cộng số thông thường.
-> 
-> Thay vào đó, **Bắt buộc phải tra cứu mã Jira Key chính xác** tương ứng với từng Logical Key tại file tham chiếu: **`jira-mapping.md`**.
-> *(Mọi nhánh Git phải sử dụng đúng Jira Key ghi trong bảng mapping này).*
+| Jira Key | Logical Key | Tên Epic | Nhánh Git tương ứng |
+|---|---|---|---|
+| **PAC-1** | `EPIC-01` | EPIC-01 - Auth & RBAC | `epic/PAC-1-epic-01-auth-rbac` |
+| **PAC-2** | `EPIC-02` | EPIC-02 - User / Staff Account Management | `epic/PAC-2-epic-02-user-staff-account-management` |
+| **PAC-3** | `EPIC-03` | EPIC-03 - Medicine & ActiveIngredient | `epic/PAC-3-epic-03-medicine-activeingredient` |
+| **PAC-4** | `EPIC-04` | EPIC-04 - Supplier Management | `epic/PAC-4-epic-04-supplier-management` |
+| **PAC-5** | `EPIC-05` | EPIC-05 - Inventory & MedicineBatch | `epic/PAC-5-epic-05-inventory-medicinebatch` |
+| **PAC-6** | `EPIC-06` | EPIC-06 - Stock Import | `epic/PAC-6-epic-06-stock-import` |
+| **PAC-7** | `EPIC-07` | EPIC-07 - Inventory Adjustment | `epic/PAC-7-epic-07-inventory-adjustment` |
+| **PAC-8** | `EPIC-08` | EPIC-08 - POS Draft Order | `epic/PAC-8-epic-08-pos-draft-order` |
+| **PAC-9** | `EPIC-09` | EPIC-09 - DrugInteraction Rule | `epic/PAC-9-epic-09-druginteraction-rule` |
+| **PAC-10** | `EPIC-10` | EPIC-10 - InteractionAlert Lifecycle | `epic/PAC-10-epic-10-interactionalert-lifecycle` |
+| **PAC-11** | `EPIC-11` | EPIC-11 - Checkout, FEFO, Payment & Invoice | `epic/PAC-11-epic-11-checkout-fefo-payment-invoice` |
+| **PAC-12** | `EPIC-12` | EPIC-12 - AI Copilot | `epic/PAC-12-epic-12-ai-copilot` |
+| **PAC-13** | `EPIC-13` | EPIC-13 - AI Guardrail & AI Audit | `epic/PAC-13-epic-13-ai-guardrail-ai-audit` |
+| **PAC-14** | `EPIC-14` | EPIC-14 - Graph Sync & Neo4j Projection | `epic/PAC-14-epic-14-graph-sync-neo4j-projection` |
+| **PAC-15** | `EPIC-15` | EPIC-15 - Graph-RAG | `epic/PAC-15-epic-15-graph-rag` |
+| **PAC-16** | `EPIC-16` | EPIC-16 - Reports | `epic/PAC-16-epic-16-reports` |
+| **PAC-17** | `EPIC-17` | EPIC-17 - System Settings | `epic/PAC-17-epic-17-system-settings` |
+| **PAC-18** | `EPIC-18` | EPIC-18 - Data Seed & Demo Reset | `epic/PAC-18-epic-18-data-seed-demo-reset` |
+| **PAC-19** | `EPIC-19` | EPIC-19 - Testing, Smoke Test & Release Readiness | `epic/PAC-19-epic-19-testing-smoke-test-release-readiness` |
+| **PAC-20** | `EPIC-20` | EPIC-20 - DevOps, CI & Setup | `epic/PAC-20-epic-20-devops-ci-setup` |
+| **PAC-21** | `EPIC-21` | EPIC-21 - Documentation & Traceability | `epic/PAC-21-epic-21-documentation-traceability` |
+| **PAC-22** | `EPIC-22` | EPIC-22 - Admin Graph Sync Status UI | `epic/PAC-22-epic-22-admin-graph-sync-status-ui` |
+| **PAC-23** | `EPIC-23` | EPIC-23 - Read-only Graph Explorer | `epic/PAC-23-epic-23-read-only-graph-explorer` |
+| **PAC-24** | `EPIC-24` | EPIC-24 - AI Provider & Prompt Management UI | `epic/PAC-24-epic-24-ai-provider-prompt-management-ui` |
+| **PAC-25** | `EPIC-25` | EPIC-25 - System Audit Log UI | `epic/PAC-25-epic-25-system-audit-log-ui` |
+| **PAC-26** | `EPIC-26` | EPIC-26 - Supabase Storage for Medicine Images | `epic/PAC-26-epic-26-supabase-storage-for-medicine-images` |
+| **PAC-27** | `EPIC-27` | EPIC-27 - Supabase Realtime Inventory Updates | `epic/PAC-27-epic-27-supabase-realtime-inventory-updates` |
+| **PAC-28** | `EPIC-28` | EPIC-28 - Notification Center | `epic/PAC-28-epic-28-notification-center` |
+| **PAC-29** | `EPIC-29` | EPIC-29 - AI Business Report Narrative | `epic/PAC-29-epic-29-ai-business-report-narrative` |
+| **PAC-30** | `EPIC-30` | EPIC-30 - Advanced Testing & Demo Evidence | `epic/PAC-30-epic-30-advanced-testing-demo-evidence` |
+| **PAC-31** | `EPIC-31` | EPIC-31 - Full Customer Management | `epic/PAC-31-epic-31-full-customer-management` |
+| **PAC-32** | `EPIC-32` | EPIC-32 - Online Commerce | `epic/PAC-32-epic-32-online-commerce` |
+| **PAC-33** | `EPIC-33` | EPIC-33 - Product Variant Catalog | `epic/PAC-33-epic-33-product-variant-catalog` |
+| **PAC-34** | `EPIC-34` | EPIC-34 - Multi-store / Multi-warehouse | `epic/PAC-34-epic-34-multi-store-multi-warehouse` |
+| **PAC-35** | `EPIC-35` | EPIC-35 - Stock Transfer | `epic/PAC-35-epic-35-stock-transfer` |
+| **PAC-36** | `EPIC-36` | EPIC-36 - Forecasting & Reorder Suggestions | `epic/PAC-36-epic-36-forecasting-reorder-suggestions` |
+| **PAC-37** | `EPIC-37` | EPIC-37 - Promotion / Coupon | `epic/PAC-37-epic-37-promotion-coupon` |
+| **PAC-38** | `EPIC-38` | EPIC-38 - Shipping / Delivery | `epic/PAC-38-epic-38-shipping-delivery` |
+| **PAC-39** | `EPIC-39` | EPIC-39 - Review / CMS | `epic/PAC-39-epic-39-review-cms` |
 
 ---
 
-## 4. Quy tắc đặt tên branch
+## 2. User Story Branches
 
-### 4.1. Epic branch
-
-Format:
-
-```text
-epic/<jira-key>-EPIC-<epic-number>-<short-description>
-```
-
-Ví dụ:
-
-```text
-epic/PAC-1-EPIC-01-auth-rbac
-epic/PAC-11-EPIC-11-checkout-fefo-payment-invoice
-epic/PAC-14-EPIC-14-graph-sync-neo4j-projection
-```
-
----
-
-### 4.2. Story branch
-
-Format:
-
-```text
-story/<jira-key>-US-<story-number>-<short-description>
-```
-
-Ví dụ:
-
-```text
-story/PAC-40-US-01-supabase-auth-login
-story/PAC-122-US-83-checkout-transaction
-story/PAC-209-US-170-review-cms-future-scope
-```
-
----
-
-### 4.3. Task branch
-
-Format:
-
-```text
-<type>/<jira-key>-T-<task-number>-<short-description>
-```
-
-Trong đó `<type>` có thể là:
-
-| Type      | Khi dùng                                                 |
-| --------- | -------------------------------------------------------- |
-| `feature` | Code tính năng frontend/backend/database                 |
-| `test`    | Unit test, integration test, smoke test, regression test |
-| `docs`    | README, tài liệu, demo script, future scope              |
-| `bugfix`  | Sửa bug phát sinh sau khi test/review                    |
-| `hotfix`  | Sửa lỗi khẩn cấp từ `main`                               |
-
-Ví dụ (Các số Jira Key ở đây chỉ là minh họa, vui lòng tra cứu `jira-mapping.md` cho số chính xác):
-
-```text
-feature/PAC-211-T-001-supabase-login-ui
-feature/PAC-470-T-260-checkout-controller
-test/PAC-646-T-436-backend-unit-test-setup
-docs/PAC-716-T-506-project-readme-setup-section
-docs/PAC-790-T-580-final-ai-agent-out-of-scope-guardrails
-```
-
----
-
-## 5. Quy tắc commit message
-
-Format:
-
-```text
-<PAC-issue-key> <logical-key>: <commit message>
-```
-
-Ví dụ (Tham khảo mã chính xác trong `jira-mapping.md`):
-
-```text
-PAC-211 T-001: implement Supabase login UI
-PAC-470 T-260: implement CheckoutController POST /checkout
-PAC-566 T-356: create graph sync outbox model
-PAC-716 T-506: write project README setup section
-```
-
-Không dùng:
-
-```text
-fix login
-update code
-PAI-211: implement checkout
-```
-
----
-
-## 6. Quy tắc Pull Request
-
-PR title format:
-
-```text
-<PAC-issue-key> <logical-key>: <short summary>
-```
-
-Ví dụ:
-
-```text
-PAC-469 T-260: Implement CheckoutController POST /checkout
-PAC-565 T-356: Create graph_sync_outbox Prisma model
-PAC-715 T-506: Write project README setup section
-```
-
-PR description nên có:
-
-```text
-Related Epic:
-Related Story:
-Related Task:
-Scope:
-Component:
-What changed:
-How tested:
-Risk:
-Rollback notes:
-Screenshots:
-```
-
----
-
-## 7. Epic Branches — 39 nhánh
-
-| Jira Key   | Logical Key | Tên Epic trên Jira                       | Nhánh Git tương ứng                                    |
-| ---------- | ----------- | ---------------------------------------- | ------------------------------------------------------ |
-| **PAC-1**  | EPIC-01     | Authentication & RBAC                    | `epic/PAC-1-EPIC-01-auth-rbac`                         |
-| **PAC-2**  | EPIC-02     | Admin User Management                    | `epic/PAC-2-EPIC-02-admin-user-management`             |
-| **PAC-3**  | EPIC-03     | Medicine & ActiveIngredient              | `epic/PAC-3-EPIC-03-medicine-activeingredient`         |
-| **PAC-4**  | EPIC-04     | Supplier Management                      | `epic/PAC-4-EPIC-04-supplier-management`               |
-| **PAC-5**  | EPIC-05     | Inventory & MedicineBatch                | `epic/PAC-5-EPIC-05-inventory-medicinebatch`           |
-| **PAC-6**  | EPIC-06     | Stock Import                             | `epic/PAC-6-EPIC-06-stock-import`                      |
-| **PAC-7**  | EPIC-07     | Inventory Adjustment                     | `epic/PAC-7-EPIC-07-inventory-adjustment`              |
-| **PAC-8**  | EPIC-08     | POS Draft Order                          | `epic/PAC-8-EPIC-08-pos-draft-order`                   |
-| **PAC-9**  | EPIC-09     | DrugInteraction Rule                     | `epic/PAC-9-EPIC-09-drug-interaction-rule`             |
-| **PAC-10** | EPIC-10     | InteractionAlert                         | `epic/PAC-10-EPIC-10-interaction-alert`                |
-| **PAC-11** | EPIC-11     | Checkout FEFO Payment Invoice            | `epic/PAC-11-EPIC-11-checkout-fefo-payment-invoice`    |
-| **PAC-12** | EPIC-12     | AI Copilot                               | `epic/PAC-12-EPIC-12-ai-copilot`                       |
-| **PAC-13** | EPIC-13     | AI Guardrail & Audit                     | `epic/PAC-13-EPIC-13-ai-guardrail-audit`               |
-| **PAC-14** | EPIC-14     | Graph Sync & Neo4j Projection            | `epic/PAC-14-EPIC-14-graph-sync-neo4j-projection`      |
-| **PAC-15** | EPIC-15     | Graph-RAG                                | `epic/PAC-15-EPIC-15-graph-rag`                        |
-| **PAC-16** | EPIC-16     | Reports                                  | `epic/PAC-16-EPIC-16-reports`                          |
-| **PAC-17** | EPIC-17     | System Settings                          | `epic/PAC-17-EPIC-17-system-settings`                  |
-| **PAC-18** | EPIC-18     | Data & Demo                              | `epic/PAC-18-EPIC-18-data-demo`                        |
-| **PAC-19** | EPIC-19     | Testing & Setup                          | `epic/PAC-19-EPIC-19-testing-setup`                    |
-| **PAC-20** | EPIC-20     | DevOps & CI                              | `epic/PAC-20-EPIC-20-devops-ci`                        |
-| **PAC-21** | EPIC-21     | Documentation                            | `epic/PAC-21-EPIC-21-documentation`                    |
-| **PAC-22** | EPIC-22     | Admin Graph Sync Status                  | `epic/PAC-22-EPIC-22-admin-graph-sync-status`          |
-| **PAC-23** | EPIC-23     | Graph Explorer                           | `epic/PAC-23-EPIC-23-graph-explorer`                   |
-| **PAC-24** | EPIC-24     | AI Provider Settings & Prompt Management | `epic/PAC-24-EPIC-24-ai-provider-prompt-management`    |
-| **PAC-25** | EPIC-25     | System Audit Log UI                      | `epic/PAC-25-EPIC-25-system-audit-log-ui`              |
-| **PAC-26** | EPIC-26     | Supabase Storage                         | `epic/PAC-26-EPIC-26-supabase-storage`                 |
-| **PAC-27** | EPIC-27     | Supabase Realtime                        | `epic/PAC-27-EPIC-27-supabase-realtime`                |
-| **PAC-28** | EPIC-28     | Notification & Scheduled Job             | `epic/PAC-28-EPIC-28-notification-scheduled-job`       |
-| **PAC-29** | EPIC-29     | AI Business Narrative                    | `epic/PAC-29-EPIC-29-ai-business-narrative`            |
-| **PAC-30** | EPIC-30     | Advanced Backlog Governance              | `epic/PAC-30-EPIC-30-advanced-backlog-governance`      |
-| **PAC-31** | EPIC-31     | Customer Management Future               | `epic/PAC-31-EPIC-31-customer-management-future`       |
-| **PAC-32** | EPIC-32     | Online Commerce Future                   | `epic/PAC-32-EPIC-32-online-commerce-future`           |
-| **PAC-33** | EPIC-33     | Product Variant Catalog Future           | `epic/PAC-33-EPIC-33-product-variant-catalog-future`   |
-| **PAC-34** | EPIC-34     | Multi-store Multi-warehouse Future       | `epic/PAC-34-EPIC-34-multistore-multiwarehouse-future` |
-| **PAC-35** | EPIC-35     | Stock Transfer Future                    | `epic/PAC-35-EPIC-35-stock-transfer-future`            |
-| **PAC-36** | EPIC-36     | Forecasting Future                       | `epic/PAC-36-EPIC-36-forecasting-future`               |
-| **PAC-37** | EPIC-37     | Promotion Coupon Future                  | `epic/PAC-37-EPIC-37-promotion-coupon-future`          |
-| **PAC-38** | EPIC-38     | Shipping Future                          | `epic/PAC-38-EPIC-38-shipping-future`                  |
-| **PAC-39** | EPIC-39     | Review CMS Future                        | `epic/PAC-39-EPIC-39-review-cms-future`                |
-
----
-
-## 8. User Story Branches — 170 nhánh
-
-| Jira Key    | Logical Key | Tên Story trên Jira                                 | Nhánh Git tương ứng                                               |
-| ----------- | ----------- | --------------------------------------------------- | ----------------------------------------------------------------- |
-| **PAC-40**  | US-01       | Đăng nhập bằng Supabase Auth                        | `story/PAC-40-US-01-supabase-auth-login`                          |
-| **PAC-41**  | US-02       | Đăng xuất và quản lý session                        | `story/PAC-41-US-02-logout-session-management`                    |
-| **PAC-42**  | US-03       | Bảo vệ frontend route                               | `story/PAC-42-US-03-protected-frontend-route`                     |
-| **PAC-43**  | US-04       | Validate Supabase token ở backend                   | `story/PAC-43-US-04-backend-supabase-token-validation`            |
-| **PAC-44**  | US-05       | Đồng bộ user profile với Supabase user              | `story/PAC-44-US-05-sync-user-profile-supabase`                   |
-| **PAC-45**  | US-06       | Quản lý role và permission                          | `story/PAC-45-US-06-role-permission-management`                   |
-| **PAC-46**  | US-07       | Permission guard cho API                            | `story/PAC-46-US-07-api-permission-guard`                         |
-| **PAC-47**  | US-08       | Permission-aware sidebar và UI action               | `story/PAC-47-US-08-permission-aware-ui`                          |
-| **PAC-48**  | US-09       | First-login password change flow                    | `story/PAC-48-US-09-first-login-password-change`                  |
-| **PAC-49**  | US-10       | Admin tạo tài khoản nhân viên                       | `story/PAC-49-US-10-admin-create-staff-account`                   |
-| **PAC-50**  | US-11       | Admin cập nhật role và trạng thái tài khoản         | `story/PAC-50-US-11-admin-update-user-role-status`                |
-| **PAC-51**  | US-12       | Data ownership scope cho Staff                      | `story/PAC-51-US-12-staff-data-ownership-scope`                   |
-| **PAC-52**  | US-13       | Tạo thuốc mới                                       | `story/PAC-52-US-13-create-medicine`                              |
-| **PAC-53**  | US-14       | Cập nhật thông tin thuốc                            | `story/PAC-53-US-14-update-medicine`                              |
-| **PAC-54**  | US-15       | Deactivate thuốc                                    | `story/PAC-54-US-15-deactivate-medicine`                          |
-| **PAC-55**  | US-16       | Tìm kiếm và lọc thuốc                               | `story/PAC-55-US-16-search-filter-medicine`                       |
-| **PAC-56**  | US-17       | Validate selling price lớn hơn 0                    | `story/PAC-56-US-17-selling-price-validation`                     |
-| **PAC-57**  | US-18       | Quản lý ActiveIngredient                            | `story/PAC-57-US-18-activeingredient-management`                  |
-| **PAC-58**  | US-19       | Mapping Medicine với ActiveIngredient               | `story/PAC-58-US-19-medicine-activeingredient-mapping`            |
-| **PAC-59**  | US-20       | Normalize ActiveIngredient name                     | `story/PAC-59-US-20-normalize-activeingredient-name`              |
-| **PAC-60**  | US-21       | Trigger Graph Sync khi Medicine thay đổi            | `story/PAC-60-US-21-medicine-graph-sync-event`                    |
-| **PAC-61**  | US-22       | Trigger Graph Sync khi mapping thay đổi             | `story/PAC-61-US-22-mapping-graph-sync-event`                     |
-| **PAC-62**  | US-23       | Tạo Supplier                                        | `story/PAC-62-US-23-create-supplier`                              |
-| **PAC-63**  | US-24       | Cập nhật Supplier                                   | `story/PAC-63-US-24-update-supplier`                              |
-| **PAC-64**  | US-25       | Deactivate Supplier                                 | `story/PAC-64-US-25-deactivate-supplier`                          |
-| **PAC-65**  | US-26       | Chặn dùng inactive supplier khi nhập kho            | `story/PAC-65-US-26-block-inactive-supplier-stock-import`         |
-| **PAC-66**  | US-27       | Tạo MedicineBatch                                   | `story/PAC-66-US-27-create-medicinebatch`                         |
-| **PAC-67**  | US-28       | MedicineBatch là inventory source of truth          | `story/PAC-67-US-28-medicinebatch-source-of-truth`                |
-| **PAC-68**  | US-29       | Batch identity theo medicine batch expiry           | `story/PAC-68-US-29-batch-identity-medicine-batch-expiry`         |
-| **PAC-69**  | US-30       | Inventory Summary từ MedicineBatch                  | `story/PAC-69-US-30-inventory-summary-from-medicinebatch`         |
-| **PAC-70**  | US-31       | Batch Detail screen                                 | `story/PAC-70-US-31-batch-detail-screen`                          |
-| **PAC-71**  | US-32       | Sellable quantity loại expired batch                | `story/PAC-71-US-32-sellable-quantity-exclude-expired`            |
-| **PAC-72**  | US-33       | Low-stock từ batch quantity                         | `story/PAC-72-US-33-low-stock-from-batch`                         |
-| **PAC-73**  | US-34       | Near-expiry từ threshold setting                    | `story/PAC-73-US-34-near-expiry-threshold`                        |
-| **PAC-74**  | US-35       | Default near-expiry 90 ngày                         | `story/PAC-74-US-35-default-near-expiry-90-days`                  |
-| **PAC-75**  | US-36       | Warehouse xem inventory                             | `story/PAC-75-US-36-warehouse-view-inventory`                     |
-| **PAC-76**  | US-37       | Staff chỉ xem sellable stock ở POS                  | `story/PAC-76-US-37-staff-pos-sellable-stock-only`                |
-| **PAC-77**  | US-38       | Chặn sửa trực tiếp batch quantity                   | `story/PAC-77-US-38-block-direct-batch-quantity-edit`             |
-| **PAC-78**  | US-39       | Tạo Stock Import draft                              | `story/PAC-78-US-39-create-stock-import-draft`                    |
-| **PAC-79**  | US-40       | Thêm dòng Stock Import                              | `story/PAC-79-US-40-add-stock-import-lines`                       |
-| **PAC-80**  | US-41       | Validate batch number và expiry khi nhập kho        | `story/PAC-80-US-41-validate-stock-import-batch-expiry`           |
-| **PAC-81**  | US-42       | Validate supplier trong Stock Import                | `story/PAC-81-US-42-validate-stock-import-supplier`               |
-| **PAC-82**  | US-43       | Confirm Stock Import transaction                    | `story/PAC-82-US-43-confirm-stock-import-transaction`             |
-| **PAC-83**  | US-44       | Stock Import rollback khi lỗi                       | `story/PAC-83-US-44-stock-import-rollback`                        |
-| **PAC-84**  | US-45       | Merge batch khi identity trùng                      | `story/PAC-84-US-45-stock-import-batch-merge`                     |
-| **PAC-85**  | US-46       | Reject expiry mismatch                              | `story/PAC-85-US-46-stock-import-expiry-mismatch`                 |
-| **PAC-86**  | US-47       | Confirmed Stock Import read-only                    | `story/PAC-86-US-47-confirmed-stock-import-readonly`              |
-| **PAC-87**  | US-48       | Audit Stock Import confirm                          | `story/PAC-87-US-48-stock-import-confirm-audit`                   |
-| **PAC-88**  | US-49       | Tạo Inventory Adjustment                            | `story/PAC-88-US-49-create-inventory-adjustment`                  |
-| **PAC-89**  | US-50       | Adjustment bắt buộc reason                          | `story/PAC-89-US-50-adjustment-required-reason`                   |
-| **PAC-90**  | US-51       | Chọn MedicineBatch khi adjustment                   | `story/PAC-90-US-51-adjustment-medicinebatch-selector`            |
-| **PAC-91**  | US-52       | Confirm Inventory Adjustment transaction            | `story/PAC-91-US-52-confirm-inventory-adjustment`                 |
-| **PAC-92**  | US-53       | Chặn adjustment làm quantity âm                     | `story/PAC-92-US-53-block-negative-adjustment`                    |
-| **PAC-93**  | US-54       | Warehouse tạo và confirm adjustment                 | `story/PAC-93-US-54-warehouse-adjustment-permission`              |
-| **PAC-94**  | US-55       | Audit Inventory Adjustment                          | `story/PAC-94-US-55-inventory-adjustment-audit`                   |
-| **PAC-95**  | US-56       | Inventory Adjustment history                        | `story/PAC-95-US-56-inventory-adjustment-history`                 |
-| **PAC-96**  | US-57       | Tạo POS Draft Order                                 | `story/PAC-96-US-57-create-pos-draft-order`                       |
-| **PAC-97**  | US-58       | POS medicine search                                 | `story/PAC-97-US-58-pos-medicine-search`                          |
-| **PAC-98**  | US-59       | Add medicine to Draft Order                         | `story/PAC-98-US-59-add-medicine-to-draft-order`                  |
-| **PAC-99**  | US-60       | Update Draft Order quantity                         | `story/PAC-99-US-60-update-draft-order-quantity`                  |
-| **PAC-100** | US-61       | Remove item from Draft Order                        | `story/PAC-100-US-61-remove-draft-order-item`                     |
-| **PAC-101** | US-62       | Draft Order total calculation                       | `story/PAC-101-US-62-draft-order-total-calculation`               |
-| **PAC-102** | US-63       | Validate sellable stock ở POS                       | `story/PAC-102-US-63-pos-sellable-stock-validation`               |
-| **PAC-103** | US-64       | Walk-in customer support                            | `story/PAC-103-US-64-walk-in-customer-support`                    |
-| **PAC-104** | US-65       | Staff scoped order list                             | `story/PAC-104-US-65-staff-scoped-order-list`                     |
-| **PAC-105** | US-66       | Admin all-orders list                               | `story/PAC-105-US-66-admin-all-orders-list`                       |
-| **PAC-106** | US-67       | Cancel Draft Order                                  | `story/PAC-106-US-67-cancel-draft-order`                          |
-| **PAC-107** | US-68       | Preserve Draft Order after checkout failure         | `story/PAC-107-US-68-preserve-draft-order-after-checkout-failure` |
-| **PAC-108** | US-69       | Create ActiveIngredient-level interaction rule      | `story/PAC-108-US-69-create-activeingredient-interaction-rule`    |
-| **PAC-109** | US-70       | Update and deactivate DrugInteraction Rule          | `story/PAC-109-US-70-update-deactivate-interaction-rule`          |
-| **PAC-110** | US-71       | Validate interaction severity enum                  | `story/PAC-110-US-71-validate-interaction-severity`               |
-| **PAC-111** | US-72       | Derive medicine interaction from active ingredients | `story/PAC-111-US-72-derive-interaction-from-activeingredients`   |
-| **PAC-112** | US-73       | Order-based interaction check                       | `story/PAC-112-US-73-order-interaction-check`                     |
-| **PAC-113** | US-74       | Persist InteractionAlert                            | `story/PAC-113-US-74-persist-interaction-alert`                   |
-| **PAC-114** | US-75       | One active alert per order and rule                 | `story/PAC-114-US-75-one-active-alert-per-order-rule`             |
-| **PAC-115** | US-76       | InteractionAlert display count                      | `story/PAC-115-US-76-interaction-alert-display-count`             |
-| **PAC-116** | US-77       | POS InteractionAlert panel                          | `story/PAC-116-US-77-pos-interaction-alert-panel`                 |
-| **PAC-117** | US-78       | HIGH alert acknowledgement                          | `story/PAC-117-US-78-high-alert-acknowledgement`                  |
-| **PAC-118** | US-79       | HIGH alert consultation note                        | `story/PAC-118-US-79-high-alert-consultation-note`                |
-| **PAC-119** | US-80       | Checkout blocker for unresolved HIGH alert          | `story/PAC-119-US-80-checkout-blocker-high-alert`                 |
-| **PAC-120** | US-81       | Admin InteractionAlert History                      | `story/PAC-120-US-81-admin-interaction-alert-history`             |
-| **PAC-121** | US-82       | Warehouse no-access to InteractionAlert             | `story/PAC-121-US-82-warehouse-no-access-interaction-alert`       |
-| **PAC-122** | US-83       | Checkout transaction                                | `story/PAC-122-US-83-checkout-transaction`                        |
-| **PAC-123** | US-84       | Checkout actor permission and ownership             | `story/PAC-123-US-84-checkout-actor-permission-ownership`         |
-| **PAC-124** | US-85       | Checkout only Draft Order                           | `story/PAC-124-US-85-checkout-draft-order-only`                   |
-| **PAC-125** | US-86       | Validate HIGH alerts before payment                 | `story/PAC-125-US-86-checkout-validate-high-alerts`               |
-| **PAC-126** | US-87       | Validate stock inside checkout transaction          | `story/PAC-126-US-87-checkout-validate-stock-transaction`         |
-| **PAC-127** | US-88       | FEFO allocation                                     | `story/PAC-127-US-88-fefo-allocation`                             |
-| **PAC-128** | US-89       | Persist order batch allocations                     | `story/PAC-128-US-89-persist-order-batch-allocations`             |
-| **PAC-129** | US-90       | Deduct MedicineBatch in checkout                    | `story/PAC-129-US-90-deduct-medicinebatch-checkout`               |
-| **PAC-130** | US-91       | Checkout idempotency                                | `story/PAC-130-US-91-checkout-idempotency`                        |
-| **PAC-131** | US-92       | Checkout rollback                                   | `story/PAC-131-US-92-checkout-rollback`                           |
-| **PAC-132** | US-93       | Payment handling                                    | `story/PAC-132-US-93-payment-handling`                            |
-| **PAC-133** | US-94       | Cash change amount                                  | `story/PAC-133-US-94-cash-change-amount`                          |
-| **PAC-134** | US-95       | Bank transfer transaction reference                 | `story/PAC-134-US-95-bank-transfer-transaction-reference`         |
-| **PAC-135** | US-96       | One SUCCESS payment per order                       | `story/PAC-135-US-96-one-success-payment-per-order`               |
-| **PAC-136** | US-97       | Invoice generation                                  | `story/PAC-136-US-97-invoice-generation`                          |
-| **PAC-137** | US-98       | Invoice view and print                              | `story/PAC-137-US-98-invoice-view-print`                          |
-| **PAC-138** | US-99       | AI explanation for InteractionAlert                 | `story/PAC-138-US-99-ai-interaction-explanation`                  |
-| **PAC-139** | US-100      | AI consultation note draft                          | `story/PAC-139-US-100-ai-consultation-note-draft`                 |
-| **PAC-140** | US-101      | Staff confirm AI draft as official note             | `story/PAC-140-US-101-staff-confirm-ai-draft-note`                |
-| **PAC-141** | US-102      | Safe follow-up questions                            | `story/PAC-141-US-102-safe-follow-up-questions`                   |
-| **PAC-142** | US-103      | Google AI provider integration                      | `story/PAC-142-US-103-google-ai-provider-integration`             |
-| **PAC-143** | US-104      | MockAI fallback                                     | `story/PAC-143-US-104-mockai-fallback`                            |
-| **PAC-144** | US-105      | AI input guardrail                                  | `story/PAC-144-US-105-ai-input-guardrail`                         |
-| **PAC-145** | US-106      | Block diagnosis request                             | `story/PAC-145-US-106-block-diagnosis-request`                    |
-| **PAC-146** | US-107      | Block prescribing request                           | `story/PAC-146-US-107-block-prescribing-request`                  |
-| **PAC-147** | US-108      | Block dosage advice request                         | `story/PAC-147-US-108-block-dosage-advice`                        |
-| **PAC-148** | US-109      | AI output guardrail                                 | `story/PAC-148-US-109-ai-output-guardrail`                        |
-| **PAC-149** | US-110      | Structured AI output validation                     | `story/PAC-149-US-110-structured-ai-output-validation`            |
-| **PAC-150** | US-111      | PII minimization for AI                             | `story/PAC-150-US-111-ai-pii-minimization`                        |
-| **PAC-151** | US-112      | AI safe error response                              | `story/PAC-151-US-112-ai-safe-error-response`                     |
-| **PAC-152** | US-113      | AI disclaimer                                       | `story/PAC-152-US-113-ai-disclaimer`                              |
-| **PAC-153** | US-114      | AI Audit Log                                        | `story/PAC-153-US-114-ai-audit-log`                               |
-| **PAC-154** | US-115      | Prompt template versioning                          | `story/PAC-154-US-115-prompt-template-versioning`                 |
-| **PAC-155** | US-116      | Admin AI Audit Log UI                               | `story/PAC-155-US-116-admin-ai-audit-log-ui`                      |
-| **PAC-156** | US-117      | Graph Sync Outbox events                            | `story/PAC-156-US-117-graph-sync-outbox-events`                   |
-| **PAC-157** | US-118      | Graph Sync worker                                   | `story/PAC-157-US-118-graph-sync-worker`                          |
-| **PAC-158** | US-119      | Medicine node projection                            | `story/PAC-158-US-119-medicine-node-projection`                   |
-| **PAC-159** | US-120      | ActiveIngredient node projection                    | `story/PAC-159-US-120-activeingredient-node-projection`           |
-| **PAC-160** | US-121      | CONTAINS relationship projection                    | `story/PAC-160-US-121-contains-relationship-projection`           |
-| **PAC-161** | US-122      | INTERACTS_WITH relationship projection              | `story/PAC-161-US-122-interacts-with-projection`                  |
-| **PAC-162** | US-123      | Canonical directed interaction edge                 | `story/PAC-162-US-123-canonical-directed-interaction-edge`        |
-| **PAC-163** | US-124      | Graph source version metadata                       | `story/PAC-163-US-124-graph-source-version-metadata`              |
-| **PAC-164** | US-125      | Graph Sync retry                                    | `story/PAC-164-US-125-graph-sync-retry`                           |
-| **PAC-165** | US-126      | Graph Sync failure logging                          | `story/PAC-165-US-126-graph-sync-failure-logging`                 |
-| **PAC-166** | US-127      | Graph freshness detection                           | `story/PAC-166-US-127-graph-freshness-detection`                  |
-| **PAC-167** | US-128      | Deactivated graph data isActive false               | `story/PAC-167-US-128-deactivated-graph-data-isactive-false`      |
-| **PAC-168** | US-129      | Graph-RAG interaction explanation                   | `story/PAC-168-US-129-graph-rag-interaction-explanation`          |
-| **PAC-169** | US-130      | Graph-RAG provenance metadata                       | `story/PAC-169-US-130-graph-rag-provenance`                       |
-| **PAC-170** | US-131      | Graph-RAG freshness metadata                        | `story/PAC-170-US-131-graph-rag-freshness`                        |
-| **PAC-171** | US-132      | PostgreSQL fallback when Neo4j unavailable          | `story/PAC-171-US-132-postgresql-fallback-neo4j-unavailable`      |
-| **PAC-172** | US-133      | PostgreSQL fallback when graph stale                | `story/PAC-172-US-133-postgresql-fallback-graph-stale`            |
-| **PAC-173** | US-134      | Safe error for graph-only query                     | `story/PAC-173-US-134-safe-error-graph-only-query`                |
-| **PAC-174** | US-135      | Staff cannot submit raw Cypher                      | `story/PAC-174-US-135-no-raw-cypher-for-staff`                    |
-| **PAC-175** | US-136      | Graph-RAG does not decide checkout                  | `story/PAC-175-US-136-graph-rag-not-checkout-decision`            |
-| **PAC-176** | US-137      | Revenue Report                                      | `story/PAC-176-US-137-revenue-report`                             |
-| **PAC-177** | US-138      | Top Medicines Report                                | `story/PAC-177-US-138-top-medicines-report`                       |
-| **PAC-178** | US-139      | Inventory Report                                    | `story/PAC-178-US-139-inventory-report`                           |
-| **PAC-179** | US-140      | Report filters and states                           | `story/PAC-179-US-140-report-filters-states`                      |
-| **PAC-180** | US-141      | Near-expiry System Setting                          | `story/PAC-180-US-141-near-expiry-system-setting`                 |
-| **PAC-181** | US-142      | AI provider backend config                          | `story/PAC-181-US-142-ai-provider-backend-config`                 |
-| **PAC-182** | US-143      | Seed AI prompt templates                            | `story/PAC-182-US-143-seed-ai-prompt-templates`                   |
-| **PAC-183** | US-144      | Minimal System Settings UI                          | `story/PAC-183-US-144-minimal-system-settings-ui`                 |
-| **PAC-184** | US-145      | Curated MVP seed data                               | `story/PAC-184-US-145-curated-mvp-seed-data`                      |
-| **PAC-185** | US-146      | Demo users by role                                  | `story/PAC-185-US-146-demo-users-by-role`                         |
-| **PAC-186** | US-147      | Dynamic expiry demo batches                         | `story/PAC-186-US-147-dynamic-expiry-demo-batches`                |
-| **PAC-187** | US-148      | FEFO demo scenario                                  | `story/PAC-187-US-148-fefo-demo-scenario`                         |
-| **PAC-188** | US-149      | PAID order with handled HIGH alert                  | `story/PAC-188-US-149-paid-order-handled-high-alert`              |
-| **PAC-189** | US-150      | Demo reset and release readiness                    | `story/PAC-189-US-150-demo-reset-release-readiness`               |
-| **PAC-190** | US-151      | Admin Graph Sync Status UI                          | `story/PAC-190-US-151-admin-graph-sync-status-ui`                 |
-| **PAC-191** | US-152      | Manual graph retry and rebuild                      | `story/PAC-191-US-152-manual-graph-retry-rebuild`                 |
-| **PAC-192** | US-153      | Read-only Graph Explorer                            | `story/PAC-192-US-153-readonly-graph-explorer`                    |
-| **PAC-193** | US-154      | AI Provider Settings UI                             | `story/PAC-193-US-154-ai-provider-settings-ui`                    |
-| **PAC-194** | US-155      | Prompt Management UI                                | `story/PAC-194-US-155-prompt-management-ui`                       |
-| **PAC-195** | US-156      | System Audit Log UI                                 | `story/PAC-195-US-156-system-audit-log-ui`                        |
-| **PAC-196** | US-157      | Supabase Storage medicine images                    | `story/PAC-196-US-157-supabase-storage-medicine-images`           |
-| **PAC-197** | US-158      | Supabase Realtime inventory update                  | `story/PAC-197-US-158-supabase-realtime-inventory-update`         |
-| **PAC-198** | US-159      | Notification and scheduled near-expiry scan         | `story/PAC-198-US-159-notification-scheduled-scan`                |
-| **PAC-199** | US-160      | AI Business Report Narrative                        | `story/PAC-199-US-160-ai-business-report-narrative`               |
-| **PAC-200** | US-161      | Full Customer Management future scope               | `story/PAC-200-US-161-customer-management-future`                 |
-| **PAC-201** | US-162      | Online Commerce future scope                        | `story/PAC-201-US-162-online-commerce-future`                     |
-| **PAC-202** | US-163      | Product Variant Catalog future scope                | `story/PAC-202-US-163-product-variant-catalog-future`             |
-| **PAC-203** | US-164      | Multi-store future scope                            | `story/PAC-203-US-164-multistore-future`                          |
-| **PAC-204** | US-165      | Multi-warehouse future scope                        | `story/PAC-204-US-165-multiwarehouse-future`                      |
-| **PAC-205** | US-166      | Stock Transfer future scope                         | `story/PAC-205-US-166-stock-transfer-future`                      |
-| **PAC-206** | US-167      | Forecasting future scope                            | `story/PAC-206-US-167-forecasting-future`                         |
-| **PAC-207** | US-168      | Promotion Coupon future scope                       | `story/PAC-207-US-168-promotion-coupon-future`                    |
-| **PAC-208** | US-169      | Shipping Delivery future scope                      | `story/PAC-208-US-169-shipping-delivery-future`                   |
-| **PAC-209** | US-170      | Review CMS future scope                             | `story/PAC-209-US-170-review-cms-future`                          |
+| Jira Key | Logical Key | Tên Story | Nhánh Git tương ứng |
+|---|---|---|---|
+| **PAC-40** | `US-01` | US-01 - Đăng nhập bằng Supabase Auth | `story/PAC-40-us-01-ang-nhap-bang-supabase-auth` |
+| **PAC-41** | `US-02` | US-02 - Đăng xuất và dọn session | `story/PAC-41-us-02-ang-xuat-va-don-session` |
+| **PAC-42** | `US-03` | US-03 - Xác thực session ở backend | `story/PAC-42-us-03-xac-thuc-session-o-backend` |
+| **PAC-43** | `US-04` | US-04 - Lấy thông tin người dùng hiện tại | `story/PAC-43-us-04-lay-thong-tin-nguoi-dung-hien-tai` |
+| **PAC-44** | `US-05` | US-05 - Multi-role RBAC model | `story/PAC-44-us-05-multi-role-rbac-model` |
+| **PAC-45** | `US-06` | US-06 - Permission-based API Guard | `story/PAC-45-us-06-permission-based-api-guard` |
+| **PAC-46** | `US-07` | US-07 - Permission-aware frontend UI | `story/PAC-46-us-07-permission-aware-frontend-ui` |
+| **PAC-47** | `US-08` | US-08 - Staff ownership scope | `story/PAC-47-us-08-staff-ownership-scope` |
+| **PAC-48** | `US-09` | US-09 - Warehouse access restrictions | `story/PAC-48-us-09-warehouse-access-restrictions` |
+| **PAC-49** | `US-10` | US-10 - Admin tạo tài khoản nhân viên | `story/PAC-49-us-10-admin-tao-tai-khoan-nhan-vien` |
+| **PAC-50** | `US-11` | US-11 - Đổi mật khẩu lần đầu | `story/PAC-50-us-11-oi-mat-khau-lan-au` |
+| **PAC-51** | `US-12` | US-12 - Cập nhật trạng thái tài khoản nhân viên | `story/PAC-51-us-12-cap-nhat-trang-thai-tai-khoan-nhan-vien` |
+| **PAC-52** | `US-13` | US-13 - Thêm thuốc mới | `story/PAC-52-us-13-them-thuoc-moi` |
+| **PAC-53** | `US-14` | US-14 - Cập nhật thông tin thuốc | `story/PAC-53-us-14-cap-nhat-thong-tin-thuoc` |
+| **PAC-54** | `US-15` | US-15 - Tìm kiếm và lọc thuốc | `story/PAC-54-us-15-tim-kiem-va-loc-thuoc` |
+| **PAC-55** | `US-16` | US-16 - Deactivate thuốc | `story/PAC-55-us-16-deactivate-thuoc` |
+| **PAC-56** | `US-17` | US-17 - Validate giá bán thuốc lớn hơn 0 | `story/PAC-56-us-17-validate-gia-ban-thuoc-lon-hon-0` |
+| **PAC-57** | `US-18` | US-18 - Quản lý ActiveIngredient | `story/PAC-57-us-18-quan-ly-activeingredient` |
+| **PAC-58** | `US-19` | US-19 - Mapping Medicine với ActiveIngredient | `story/PAC-58-us-19-mapping-medicine-voi-activeingredient` |
+| **PAC-59** | `US-20` | US-20 - Validate mapping hoạt chất không trùng | `story/PAC-59-us-20-validate-mapping-hoat-chat-khong-trung` |
+| **PAC-60** | `US-21` | US-21 - Chuẩn h��a dữ liệu hoạt chất | `story/PAC-60-us-21-chuan-h-a-du-lieu-hoat-chat` |
+| **PAC-61** | `US-22` | US-22 - Trigger Graph Sync khi Medicine/Ingredient thay đổi | `story/PAC-61-us-22-trigger-graph-sync-khi-medicine-ingredient-thay-oi` |
+| **PAC-62** | `US-23` | US-23 - Tạo nhà cung cấp | `story/PAC-62-us-23-tao-nha-cung-cap` |
+| **PAC-63** | `US-24` | US-24 - Cập nhật và tìm kiếm nhà cung cấp | `story/PAC-63-us-24-cap-nhat-va-tim-kiem-nha-cung-cap` |
+| **PAC-64** | `US-25` | US-25 - Admin deactivate nhà cung cấp | `story/PAC-64-us-25-admin-deactivate-nha-cung-cap` |
+| **PAC-65** | `US-26` | US-26 - Liên kết Supplier với Stock Import | `story/PAC-65-us-26-lien-ket-supplier-voi-stock-import` |
+| **PAC-66** | `US-27` | US-27 - Thiết kế MedicineBatch là source of truth | `story/PAC-66-us-27-thiet-ke-medicinebatch-la-source-of-truth` |
+| **PAC-67** | `US-28` | US-28 - Batch number bắt buộc | `story/PAC-67-us-28-batch-number-bat-buoc` |
+| **PAC-68** | `US-29` | US-29 - Batch identity theo medicine + batch + expiry | `story/PAC-68-us-29-batch-identity-theo-medicine-batch-expiry` |
+| **PAC-69** | `US-30` | US-30 - Inventory Summary từ MedicineBatch | `story/PAC-69-us-30-inventory-summary-tu-medicinebatch` |
+| **PAC-70** | `US-31` | US-31 - Batch Detail view | `story/PAC-70-us-31-batch-detail-view` |
+| **PAC-71** | `US-32` | US-32 - Tính sellable quantity | `story/PAC-71-us-32-tinh-sellable-quantity` |
+| **PAC-72** | `US-33` | US-33 - Loại trừ batch hết hạn khỏi sellable stock | `story/PAC-72-us-33-loai-tru-batch-het-han-khoi-sellable-stock` |
+| **PAC-73** | `US-34` | US-34 - Low-stock dựa trên sellable quantity | `story/PAC-73-us-34-low-stock-dua-tren-sellable-quantity` |
+| **PAC-74** | `US-35` | US-35 - Near-expiry theo threshold cấu hình | `story/PAC-74-us-35-near-expiry-theo-threshold-cau-hinh` |
+| **PAC-75** | `US-36` | US-36 - Inventory dashboard cho Admin/Warehouse | `story/PAC-75-us-36-inventory-dashboard-cho-admin-warehouse` |
+| **PAC-76** | `US-37` | US-37 - POS chỉ xem sellable stock cần bán | `story/PAC-76-us-37-pos-chi-xem-sellable-stock-can-ban` |
+| **PAC-77** | `US-38` | US-38 - Chặn sửa trực tiếp quantity trong Batch Detail | `story/PAC-77-us-38-chan-sua-truc-tiep-quantity-trong-batch-detail` |
+| **PAC-78** | `US-39` | US-39 - Tạo phiếu nhập kho draft | `story/PAC-78-us-39-tao-phieu-nhap-kho-draft` |
+| **PAC-79** | `US-40` | US-40 - Thêm dòng thuốc vào phiếu nhập | `story/PAC-79-us-40-them-dong-thuoc-vao-phieu-nhap` |
+| **PAC-80** | `US-41` | US-41 - Cập nhật/xóa dòng nhập khi còn draft | `story/PAC-80-us-41-cap-nhat-xoa-dong-nhap-khi-con-draft` |
+| **PAC-81** | `US-42` | US-42 - Validate supplier trong phiếu nhập | `story/PAC-81-us-42-validate-supplier-trong-phieu-nhap` |
+| **PAC-82** | `US-43` | US-43 - Validate batch number và expiry date | `story/PAC-82-us-43-validate-batch-number-va-expiry-date` |
+| **PAC-83** | `US-44` | US-44 - Confirm Stock Import transaction | `story/PAC-83-us-44-confirm-stock-import-transaction` |
+| **PAC-84** | `US-45` | US-45 - Merge batch khi medicine/batch/expiry trùng | `story/PAC-84-us-45-merge-batch-khi-medicine-batch-expiry-trung` |
+| **PAC-85** | `US-46` | US-46 - Reject batch khi cùng batch nhưng khác expiry | `story/PAC-85-us-46-reject-batch-khi-cung-batch-nhung-khac-expiry` |
+| **PAC-86** | `US-47` | US-47 - Khóa phiếu nhập đã confirmed | `story/PAC-86-us-47-khoa-phieu-nhap-a-confirmed` |
+| **PAC-87** | `US-48` | US-48 - Audit Stock Import | `story/PAC-87-us-48-audit-stock-import` |
+| **PAC-88** | `US-49` | US-49 - Tạo Inventory Adjustment | `story/PAC-88-us-49-tao-inventory-adjustment` |
+| **PAC-89** | `US-50` | US-50 - Adjustment bắt buộc reason | `story/PAC-89-us-50-adjustment-bat-buoc-reason` |
+| **PAC-90** | `US-51` | US-51 - Chọn MedicineBatch cần điều chỉnh | `story/PAC-90-us-51-chon-medicinebatch-can-ieu-chinh` |
+| **PAC-91** | `US-52` | US-52 - Confirm Inventory Adjustment transaction | `story/PAC-91-us-52-confirm-inventory-adjustment-transaction` |
+| **PAC-92** | `US-53` | US-53 - Chặn adjustment làm quantity âm | `story/PAC-92-us-53-chan-adjustment-lam-quantity-am` |
+| **PAC-93** | `US-54` | US-54 - Warehouse tạo và confirm adjustment | `story/PAC-93-us-54-warehouse-tao-va-confirm-adjustment` |
+| **PAC-94** | `US-55` | US-55 - Audit Inventory Adjustment | `story/PAC-94-us-55-audit-inventory-adjustment` |
+| **PAC-95** | `US-56` | US-56 - Admin xem lịch sử adjustment | `story/PAC-95-us-56-admin-xem-lich-su-adjustment` |
+| **PAC-96** | `US-57` | US-57 - Tạo Draft Order tại POS | `story/PAC-96-us-57-tao-draft-order-tai-pos` |
+| **PAC-97** | `US-58` | US-58 - Tìm thuốc trong POS | `story/PAC-97-us-58-tim-thuoc-trong-pos` |
+| **PAC-98** | `US-59` | US-59 - Thêm thuốc vào Draft Order | `story/PAC-98-us-59-them-thuoc-vao-draft-order` |
+| **PAC-99** | `US-60` | US-60 - Cập nhật số lượng thuốc trong Draft Order | `story/PAC-99-us-60-cap-nhat-so-luong-thuoc-trong-draft-order` |
+| **PAC-100** | `US-61` | US-61 - Xóa thuốc khỏi Draft Order | `story/PAC-100-us-61-xoa-thuoc-khoi-draft-order` |
+| **PAC-101** | `US-62` | US-62 - Tính tổng tiền Draft Order | `story/PAC-101-us-62-tinh-tong-tien-draft-order` |
+| **PAC-102** | `US-63` | US-63 - Validate sellable stock khi lập đơn | `story/PAC-102-us-63-validate-sellable-stock-khi-lap-on` |
+| **PAC-103** | `US-64` | US-64 - Hỗ trợ walk-in/anonymous customer | `story/PAC-103-us-64-ho-tro-walk-in-anonymous-customer` |
+| **PAC-104** | `US-65` | US-65 - Staff chỉ xem đơn trong ownership scope | `story/PAC-104-us-65-staff-chi-xem-on-trong-ownership-scope` |
+| **PAC-105** | `US-66` | US-66 - Admin xem tất cả đơn hàng | `story/PAC-105-us-66-admin-xem-tat-ca-on-hang` |
+| **PAC-106** | `US-67` | US-67 - Hủy Draft Order | `story/PAC-106-us-67-huy-draft-order` |
+| **PAC-107** | `US-68` | US-68 - Giữ Draft Order khi checkout fail | `story/PAC-107-us-68-giu-draft-order-khi-checkout-fail` |
+| **PAC-108** | `US-69` | US-69 - Tạo DrugInteraction Rule cấp ActiveIngredient | `story/PAC-108-us-69-tao-druginteraction-rule-cap-activeingredient` |
+| **PAC-109** | `US-70` | US-70 - Cập nhật/deactivate DrugInteraction Rule | `story/PAC-109-us-70-cap-nhat-deactivate-druginteraction-rule` |
+| **PAC-110** | `US-71` | US-71 - Severity chỉ gồm LOW/MEDIUM/HIGH | `story/PAC-110-us-71-severity-chi-gom-low-medium-high` |
+| **PAC-111** | `US-72` | US-72 - Derive medicine interaction từ active ingredients | `story/PAC-111-us-72-derive-medicine-interaction-tu-active-ingredients` |
+| **PAC-112** | `US-73` | US-73 - Check interaction khi order có từ hai thuốc | `story/PAC-112-us-73-check-interaction-khi-order-co-tu-hai-thuoc` |
+| **PAC-113** | `US-74` | US-74 - Persist InteractionAlert đã hiển thị | `story/PAC-113-us-74-persist-interactionalert-a-hien-thi` |
+| **PAC-114** | `US-75` | US-75 - Một active alert cho order_id + interaction_id | `story/PAC-114-us-75-mot-active-alert-cho-order-id-interaction-id` |
+| **PAC-115** | `US-76` | US-76 - Update last_displayed_at và display_count | `story/PAC-115-us-76-update-last-displayed-at-va-display-count` |
+| **PAC-116** | `US-77` | US-77 - Hiển thị alert LOW/MEDIUM/HIGH trong POS | `story/PAC-116-us-77-hien-thi-alert-low-medium-high-trong-pos` |
+| **PAC-117** | `US-78` | US-78 - HIGH alert acknowledgement | `story/PAC-117-us-78-high-alert-acknowledgement` |
+| **PAC-118** | `US-79` | US-79 - HIGH alert consultation note | `story/PAC-118-us-79-high-alert-consultation-note` |
+| **PAC-119** | `US-80` | US-80 - Block checkout nếu HIGH unresolved | `story/PAC-119-us-80-block-checkout-neu-high-unresolved` |
+| **PAC-120** | `US-81` | US-81 - Admin xem InteractionAlert History | `story/PAC-120-us-81-admin-xem-interactionalert-history` |
+| **PAC-121** | `US-82` | US-82 - Warehouse không truy cập InteractionAlert | `story/PAC-121-us-82-warehouse-khong-truy-cap-interactionalert` |
+| **PAC-122** | `US-83` | US-83 - Checkout API transaction | `story/PAC-122-us-83-checkout-api-transaction` |
+| **PAC-123** | `US-84` | US-84 - Checkout validation pipeline | `story/PAC-123-us-84-checkout-validation-pipeline` |
+| **PAC-124** | `US-85` | US-85 - Validate order status DRAFT | `story/PAC-124-us-85-validate-order-status-draft` |
+| **PAC-125** | `US-86` | US-86 - Validate unresolved HIGH alerts | `story/PAC-125-us-86-validate-unresolved-high-alerts` |
+| **PAC-126** | `US-87` | US-87 - Validate sellable stock trước checkout | `story/PAC-126-us-87-validate-sellable-stock-truoc-checkout` |
+| **PAC-128** | `US-88` | US-88 - FEFO allocation service | `story/PAC-128-us-88-fefo-allocation-service` |
+| **PAC-129** | `US-89` | US-89 - Multi-batch allocation persistence | `story/PAC-129-us-89-multi-batch-allocation-persistence` |
+| **PAC-130** | `US-90` | US-90 - Trừ batch quantity trong transaction | `story/PAC-130-us-90-tru-batch-quantity-trong-transaction` |
+| **PAC-131** | `US-91` | US-91 - Idempotent checkout | `story/PAC-131-us-91-idempotent-checkout` |
+| **PAC-132** | `US-92` | US-92 - Rollback khi checkout failure | `story/PAC-132-us-92-rollback-khi-checkout-failure` |
+| **PAC-133** | `US-93` | US-93 - Cash payment handling | `story/PAC-133-us-93-cash-payment-handling` |
+| **PAC-134** | `US-94` | US-94 - Tính change_amount cho thanh toán tiền mặt | `story/PAC-134-us-94-tinh-change-amount-cho-thanh-toan-tien-mat` |
+| **PAC-135** | `US-95` | US-95 - Simulated bank transfer transaction_reference | `story/PAC-135-us-95-simulated-bank-transfer-transaction-reference` |
+| **PAC-136** | `US-96` | US-96 - One SUCCESS payment rule | `story/PAC-136-us-96-one-success-payment-rule` |
+| **PAC-137** | `US-97` | US-97 - Invoice generated inside checkout | `story/PAC-137-us-97-invoice-generated-inside-checkout` |
+| **PAC-138** | `US-98` | US-98 - Xem/in invoice sau checkout | `story/PAC-138-us-98-xem-in-invoice-sau-checkout` |
+| **PAC-139** | `US-99` | US-99 - AI explanation for InteractionAlert | `story/PAC-139-us-99-ai-explanation-for-interactionalert` |
+| **PAC-140** | `US-100` | US-100 - AI consultation note draft | `story/PAC-140-us-100-ai-consultation-note-draft` |
+| **PAC-141** | `US-101` | US-101 - Staff confirm AI draft before official save | `story/PAC-141-us-101-staff-confirm-ai-draft-before-official-save` |
+| **PAC-142** | `US-102` | US-102 - Safe follow-up questions | `story/PAC-142-us-102-safe-follow-up-questions` |
+| **PAC-143** | `US-103` | US-103 - Google AI provider primary | `story/PAC-143-us-103-google-ai-provider-primary` |
+| **PAC-144** | `US-104` | US-104 - MockAI fallback provider | `story/PAC-144-us-104-mockai-fallback-provider` |
+| **PAC-145** | `US-105` | US-105 - AI input guardrail | `story/PAC-145-us-105-ai-input-guardrail` |
+| **PAC-146** | `US-106` | US-106 - Block diagnosis requests | `story/PAC-146-us-106-block-diagnosis-requests` |
+| **PAC-147** | `US-107` | US-107 - Block prescribing requests | `story/PAC-147-us-107-block-prescribing-requests` |
+| **PAC-148** | `US-108` | US-108 - Block dosage advice requests | `story/PAC-148-us-108-block-dosage-advice-requests` |
+| **PAC-149** | `US-109` | US-109 - AI output guardrail | `story/PAC-149-us-109-ai-output-guardrail` |
+| **PAC-150** | `US-110` | US-110 - Structured output validation | `story/PAC-150-us-110-structured-output-validation` |
+| **PAC-151** | `US-111` | US-111 - PII minimization before AI call | `story/PAC-151-us-111-pii-minimization-before-ai-call` |
+| **PAC-152** | `US-112` | US-112 - AI safe error response | `story/PAC-152-us-112-ai-safe-error-response` |
+| **PAC-153** | `US-113` | US-113 - AI disclaimer | `story/PAC-153-us-113-ai-disclaimer` |
+| **PAC-154** | `US-114` | US-114 - AI Audit metadata | `story/PAC-154-us-114-ai-audit-metadata` |
+| **PAC-155** | `US-115` | US-115 - Prompt template versioning | `story/PAC-155-us-115-prompt-template-versioning` |
+| **PAC-156** | `US-116` | US-116 - Admin AI Audit Log view | `story/PAC-156-us-116-admin-ai-audit-log-view` |
+| **PAC-157** | `US-117` | US-117 - Graph Sync Outbox | `story/PAC-157-us-117-graph-sync-outbox` |
+| **PAC-158** | `US-118` | US-118 - Graph Sync Worker | `story/PAC-158-us-118-graph-sync-worker` |
+| **PAC-159** | `US-119` | US-119 - Project Medicine node to Neo4j | `story/PAC-159-us-119-project-medicine-node-to-neo4j` |
+| **PAC-160** | `US-120` | US-120 - Project ActiveIngredient node to Neo4j | `story/PAC-160-us-120-project-activeingredient-node-to-neo4j` |
+| **PAC-161** | `US-121` | US-121 - Project CONTAINS relationship | `story/PAC-161-us-121-project-contains-relationship` |
+| **PAC-162** | `US-122` | US-122 - Project INTERACTS_WITH relationship | `story/PAC-162-us-122-project-interacts-with-relationship` |
+| **PAC-163** | `US-123` | US-123 - Canonical directed interaction edge | `story/PAC-163-us-123-canonical-directed-interaction-edge` |
+| **PAC-164** | `US-124` | US-124 - Store graph projection metadata | `story/PAC-164-us-124-store-graph-projection-metadata` |
+| **PAC-165** | `US-125` | US-125 - Retry failed graph sync jobs | `story/PAC-165-us-125-retry-failed-graph-sync-jobs` |
+| **PAC-166** | `US-126` | US-126 - Log graph sync failures | `story/PAC-166-us-126-log-graph-sync-failures` |
+| **PAC-167** | `US-127` | US-127 - Graph freshness detection | `story/PAC-167-us-127-graph-freshness-detection` |
+| **PAC-168** | `US-128` | US-128 - Deactivated graph entity with isActive=false | `story/PAC-168-us-128-deactivated-graph-entity-with-isactive-false` |
+| **PAC-169** | `US-129` | US-129 - Graph-RAG interaction explanation | `story/PAC-169-us-129-graph-rag-interaction-explanation` |
+| **PAC-170** | `US-130` | US-130 - Graph-RAG provenance metadata | `story/PAC-170-us-130-graph-rag-provenance-metadata` |
+| **PAC-171** | `US-131` | US-131 - Graph-RAG freshness metadata | `story/PAC-171-us-131-graph-rag-freshness-metadata` |
+| **PAC-172** | `US-132` | US-132 - PostgreSQL fallback khi Neo4j unavailable | `story/PAC-172-us-132-postgresql-fallback-khi-neo4j-unavailable` |
+| **PAC-173** | `US-133` | US-133 - PostgreSQL fallback khi graph stale | `story/PAC-173-us-133-postgresql-fallback-khi-graph-stale` |
+| **PAC-174** | `US-134` | US-134 - Safe error cho graph-only query | `story/PAC-174-us-134-safe-error-cho-graph-only-query` |
+| **PAC-175** | `US-135` | US-135 - Không cho Staff submit raw Cypher | `story/PAC-175-us-135-khong-cho-staff-submit-raw-cypher` |
+| **PAC-176** | `US-136` | US-136 - Graph không quyết định checkout | `story/PAC-176-us-136-graph-khong-quyet-inh-checkout` |
+| **PAC-177** | `US-137` | US-137 - Revenue Report | `story/PAC-177-us-137-revenue-report` |
+| **PAC-178** | `US-138` | US-138 - Top Medicines Report | `story/PAC-178-us-138-top-medicines-report` |
+| **PAC-179** | `US-139` | US-139 - Inventory Report | `story/PAC-179-us-139-inventory-report` |
+| **PAC-180** | `US-140` | US-140 - Basic report filters | `story/PAC-180-us-140-basic-report-filters` |
+| **PAC-181** | `US-141` | US-141 - Near-expiry threshold setting | `story/PAC-181-us-141-near-expiry-threshold-setting` |
+| **PAC-182** | `US-142` | US-142 - AI provider/model backend config | `story/PAC-182-us-142-ai-provider-model-backend-config` |
+| **PAC-183** | `US-143` | US-143 - Seed official prompt templates | `story/PAC-183-us-143-seed-official-prompt-templates` |
+| **PAC-184** | `US-144` | US-144 - System settings UI tối thiểu | `story/PAC-184-us-144-system-settings-ui-toi-thieu` |
+| **PAC-185** | `US-145` | US-145 - Curated MVP seed data | `story/PAC-185-us-145-curated-mvp-seed-data` |
+| **PAC-186** | `US-146` | US-146 - Demo users by role | `story/PAC-186-us-146-demo-users-by-role` |
+| **PAC-187** | `US-147` | US-147 - Dynamic expiry dates for demo | `story/PAC-187-us-147-dynamic-expiry-dates-for-demo` |
+| **PAC-188** | `US-148` | US-148 - FEFO multi-batch demo scenario | `story/PAC-188-us-148-fefo-multi-batch-demo-scenario` |
+| **PAC-189** | `US-149` | US-149 - Seed PAID order with HIGH alert | `story/PAC-189-us-149-seed-paid-order-with-high-alert` |
+| **PAC-190** | `US-150` | US-150 - Local-only demo reset with graph rebuild and smoke test | `story/PAC-190-us-150-local-only-demo-reset-with-graph-rebuild-and-smoke-te` |
+| **PAC-191** | `US-151` | US-151 - Admin Graph Sync Status UI | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
+| **PAC-192** | `US-152` | US-152 - Manual graph retry/rebuild UI | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
+| **PAC-193** | `US-153` | US-153 - Read-only Graph Explorer | `story/PAC-193-us-153-read-only-graph-explorer` |
+| **PAC-194** | `US-154` | US-154 - AI Provider Settings UI | `story/PAC-194-us-154-ai-provider-settings-ui` |
+| **PAC-195** | `US-155` | US-155 - Prompt Management UI | `story/PAC-195-us-155-prompt-management-ui` |
+| **PAC-196** | `US-156` | US-156 - System Audit Log UI | `story/PAC-196-us-156-system-audit-log-ui` |
+| **PAC-197** | `US-157` | US-157 - Supabase Storage for medicine images | `story/PAC-197-us-157-supabase-storage-for-medicine-images` |
+| **PAC-198** | `US-158` | US-158 - Supabase Realtime inventory updates | `story/PAC-198-us-158-supabase-realtime-inventory-updates` |
+| **PAC-199** | `US-159` | US-159 - Notification Center | `story/PAC-199-us-159-notification-center` |
+| **PAC-200** | `US-160` | US-160 - AI Business Report Narrative | `story/PAC-200-us-160-ai-business-report-narrative` |
+| **PAC-201** | `US-161` | US-161 - Full Customer Management backlog | `story/PAC-201-us-161-full-customer-management-backlog` |
+| **PAC-202** | `US-162` | US-162 - Online Commerce backlog | `story/PAC-202-us-162-online-commerce-backlog` |
+| **PAC-203** | `US-163` | US-163 - Product Variant Catalog backlog | `story/PAC-203-us-163-product-variant-catalog-backlog` |
+| **PAC-204** | `US-164` | US-164 - Multi-store support backlog | `story/PAC-204-us-164-multi-store-support-backlog` |
+| **PAC-205** | `US-165` | US-165 - Multi-warehouse support backlog | `story/PAC-205-us-165-multi-warehouse-support-backlog` |
+| **PAC-206** | `US-166` | US-166 - Stock Transfer backlog | `story/PAC-206-us-166-stock-transfer-backlog` |
+| **PAC-207** | `US-167` | US-167 - Forecasting & Reorder backlog | `story/PAC-207-us-167-forecasting-reorder-backlog` |
+| **PAC-208** | `US-168` | US-168 - Promotion / Coupon backlog | `story/PAC-208-us-168-promotion-coupon-backlog` |
+| **PAC-209** | `US-169` | US-169 - Shipping / Delivery backlog | `story/PAC-209-us-169-shipping-delivery-backlog` |
+| **PAC-210** | `US-170` | US-170 - Review / CMS backlog | `story/PAC-210-us-170-review-cms-backlog` |
 
 ---
 
-## 9. Task Branches — 580 nhánh
-
-> [!NOTE]
-> Các branch Task dưới đây dùng Jira key thật `PAC-210 → PAC-789`.
-> Logical task key vẫn giữ dạng `T-001 → T-580` để đối chiếu với bộ Task `PAC-TASK-001 → PAC-TASK-580`.
-
----
-
-### 9.1. 4A — MVP Foundation Task Branches `T-001 → T-145`
-
-| Jira Key    | Logical Key | Nhánh Git tương ứng                                          |
-| ----------- | ----------- | ------------------------------------------------------------ |
-| **PAC-210** | T-001       | `feature/PAC-210-T-001-supabase-login-ui`                    |
-| **PAC-211** | T-002       | `feature/PAC-211-T-002-supabase-login-action`                |
-| **PAC-212** | T-003       | `feature/PAC-212-T-003-login-error-state`                    |
-| **PAC-213** | T-004       | `feature/PAC-213-T-004-logout-session-clear`                 |
-| **PAC-214** | T-005       | `feature/PAC-214-T-005-protected-route-guard`                |
-| **PAC-215** | T-006       | `feature/PAC-215-T-006-supabase-session-provider`            |
-| **PAC-216** | T-007       | `feature/PAC-216-T-007-auth-layout`                          |
-| **PAC-217** | T-008       | `feature/PAC-217-T-008-first-login-password-change-ui`       |
-| **PAC-218** | T-009       | `feature/PAC-218-T-009-validate-supabase-token-backend`      |
-| **PAC-219** | T-010       | `feature/PAC-219-T-010-sync-user-profile`                    |
-| **PAC-220** | T-011       | `feature/PAC-220-T-011-auth-user-context`                    |
-| **PAC-221** | T-012       | `feature/PAC-221-T-012-backend-auth-guard`                   |
-| **PAC-222** | T-013       | `feature/PAC-222-T-013-user-profiles-model`                  |
-| **PAC-223** | T-014       | `feature/PAC-223-T-014-roles-model`                          |
-| **PAC-224** | T-015       | `feature/PAC-224-T-015-permissions-model`                    |
-| **PAC-225** | T-016       | `feature/PAC-225-T-016-user-roles-model`                     |
-| **PAC-226** | T-017       | `feature/PAC-226-T-017-role-permissions-model`               |
-| **PAC-227** | T-018       | `feature/PAC-227-T-018-seed-admin-role-permissions`          |
-| **PAC-228** | T-019       | `feature/PAC-228-T-019-seed-staff-role-permissions`          |
-| **PAC-229** | T-020       | `feature/PAC-229-T-020-seed-warehouse-role-permissions`      |
-| **PAC-230** | T-021       | `feature/PAC-230-T-021-permission-check-service`             |
-| **PAC-231** | T-022       | `feature/PAC-231-T-022-permission-decorator`                 |
-| **PAC-232** | T-023       | `feature/PAC-232-T-023-permission-guard`                     |
-| **PAC-233** | T-024       | `feature/PAC-233-T-024-rbac-error-response`                  |
-| **PAC-234** | T-025       | `feature/PAC-234-T-025-sidebar-permission-menu`              |
-| **PAC-235** | T-026       | `feature/PAC-235-T-026-action-button-permission-guard`       |
-| **PAC-236** | T-027       | `feature/PAC-236-T-027-forbidden-page`                       |
-| **PAC-237** | T-028       | `feature/PAC-237-T-028-staff-ownership-scope-service`        |
-| **PAC-238** | T-029       | `feature/PAC-238-T-029-warehouse-route-restriction`          |
-| **PAC-239** | T-030       | `test/PAC-239-T-030-auth-rbac-tests`                         |
-| **PAC-240** | T-031       | `feature/PAC-240-T-031-admin-user-list-api`                  |
-| **PAC-241** | T-032       | `feature/PAC-241-T-032-admin-user-list-ui`                   |
-| **PAC-242** | T-033       | `feature/PAC-242-T-033-create-staff-account-api`             |
-| **PAC-243** | T-034       | `feature/PAC-243-T-034-create-staff-account-ui`              |
-| **PAC-244** | T-035       | `feature/PAC-244-T-035-update-user-role-api`                 |
-| **PAC-245** | T-036       | `feature/PAC-245-T-036-update-user-status-api`               |
-| **PAC-246** | T-037       | `feature/PAC-246-T-037-user-role-status-ui`                  |
-| **PAC-247** | T-038       | `feature/PAC-247-T-038-must-change-password-flag`            |
-| **PAC-248** | T-039       | `test/PAC-248-T-039-user-management-tests`                   |
-| **PAC-249** | T-040       | `docs/PAC-249-T-040-auth-rbac-traceability-notes`            |
-| **PAC-250** | T-041       | `feature/PAC-250-T-041-medicine-model`                       |
-| **PAC-251** | T-042       | `feature/PAC-251-T-042-medicine-create-api`                  |
-| **PAC-252** | T-043       | `feature/PAC-252-T-043-medicine-create-ui`                   |
-| **PAC-253** | T-044       | `feature/PAC-253-T-044-medicine-update-api`                  |
-| **PAC-254** | T-045       | `feature/PAC-254-T-045-medicine-update-ui`                   |
-| **PAC-255** | T-046       | `feature/PAC-255-T-046-medicine-deactivate-api`              |
-| **PAC-256** | T-047       | `feature/PAC-256-T-047-medicine-list-search-api`             |
-| **PAC-257** | T-048       | `feature/PAC-257-T-048-medicine-list-ui`                     |
-| **PAC-258** | T-049       | `feature/PAC-258-T-049-selling-price-validation`             |
-| **PAC-259** | T-050       | `feature/PAC-259-T-050-medicine-permission-guards`           |
-| **PAC-260** | T-051       | `test/PAC-260-T-051-medicine-api-tests`                      |
-| **PAC-261** | T-052       | `docs/PAC-261-T-052-medicine-traceability-notes`             |
-| **PAC-262** | T-053       | `feature/PAC-262-T-053-activeingredient-model`               |
-| **PAC-263** | T-054       | `feature/PAC-263-T-054-activeingredient-create-api`          |
-| **PAC-264** | T-055       | `feature/PAC-264-T-055-activeingredient-list-ui`             |
-| **PAC-265** | T-056       | `feature/PAC-265-T-056-activeingredient-normalization`       |
-| **PAC-266** | T-057       | `feature/PAC-266-T-057-medicine-ingredient-mapping-model`    |
-| **PAC-267** | T-058       | `feature/PAC-267-T-058-medicine-ingredient-mapping-api`      |
-| **PAC-268** | T-059       | `feature/PAC-268-T-059-medicine-ingredient-mapping-ui`       |
-| **PAC-269** | T-060       | `feature/PAC-269-T-060-mapping-duplicate-validation`         |
-| **PAC-270** | T-061       | `feature/PAC-270-T-061-mapping-graph-sync-event`             |
-| **PAC-271** | T-062       | `test/PAC-271-T-062-activeingredient-mapping-tests`          |
-| **PAC-272** | T-063       | `docs/PAC-272-T-063-activeingredient-traceability-notes`     |
-| **PAC-273** | T-064       | `feature/PAC-273-T-064-supplier-model`                       |
-| **PAC-274** | T-065       | `feature/PAC-274-T-065-supplier-create-api`                  |
-| **PAC-275** | T-066       | `feature/PAC-275-T-066-supplier-create-ui`                   |
-| **PAC-276** | T-067       | `feature/PAC-276-T-067-supplier-update-api`                  |
-| **PAC-277** | T-068       | `feature/PAC-277-T-068-supplier-update-ui`                   |
-| **PAC-278** | T-069       | `feature/PAC-278-T-069-supplier-deactivate-api`              |
-| **PAC-279** | T-070       | `feature/PAC-279-T-070-supplier-list-api`                    |
-| **PAC-280** | T-071       | `feature/PAC-280-T-071-supplier-list-ui`                     |
-| **PAC-281** | T-072       | `feature/PAC-281-T-072-inactive-supplier-stock-import-block` |
-| **PAC-282** | T-073       | `test/PAC-282-T-073-supplier-api-tests`                      |
-| **PAC-283** | T-074       | `docs/PAC-283-T-074-supplier-traceability-notes`             |
-| **PAC-284** | T-075       | `feature/PAC-284-T-075-medicinebatch-model`                  |
-| **PAC-285** | T-076       | `feature/PAC-285-T-076-batch-number-normalization`           |
-| **PAC-286** | T-077       | `feature/PAC-286-T-077-batch-identity-constraint`            |
-| **PAC-287** | T-078       | `feature/PAC-287-T-078-medicinebatch-create-service`         |
-| **PAC-288** | T-079       | `feature/PAC-288-T-079-medicinebatch-list-api`               |
-| **PAC-289** | T-080       | `feature/PAC-289-T-080-medicinebatch-detail-api`             |
-| **PAC-290** | T-081       | `feature/PAC-290-T-081-medicinebatch-list-ui`                |
-| **PAC-291** | T-082       | `feature/PAC-291-T-082-medicinebatch-detail-ui`              |
-| **PAC-292** | T-083       | `feature/PAC-292-T-083-sellable-quantity-service`            |
-| **PAC-293** | T-084       | `feature/PAC-293-T-084-expired-batch-exclusion`              |
-| **PAC-294** | T-085       | `feature/PAC-294-T-085-low-stock-calculation`                |
-| **PAC-295** | T-086       | `feature/PAC-295-T-086-near-expiry-calculation`              |
-| **PAC-296** | T-087       | `feature/PAC-296-T-087-inventory-summary-api`                |
-| **PAC-297** | T-088       | `feature/PAC-297-T-088-inventory-summary-ui`                 |
-| **PAC-298** | T-089       | `feature/PAC-298-T-089-inventory-filter-search`              |
-| **PAC-299** | T-090       | `test/PAC-299-T-090-medicinebatch-source-tests`              |
-| **PAC-300** | T-091       | `test/PAC-300-T-091-sellable-expired-batch-tests`            |
-| **PAC-301** | T-092       | `docs/PAC-301-T-092-inventory-traceability-notes`            |
-| **PAC-302** | T-093       | `feature/PAC-302-T-093-stock-import-model`                   |
-| **PAC-303** | T-094       | `feature/PAC-303-T-094-stock-import-line-model`              |
-| **PAC-304** | T-095       | `feature/PAC-304-T-095-create-stock-import-api`              |
-| **PAC-305** | T-096       | `feature/PAC-305-T-096-create-stock-import-ui`               |
-| **PAC-306** | T-097       | `feature/PAC-306-T-097-add-stock-import-line-api`            |
-| **PAC-307** | T-098       | `feature/PAC-307-T-098-add-stock-import-line-ui`             |
-| **PAC-308** | T-099       | `feature/PAC-308-T-099-stock-import-line-validation`         |
-| **PAC-309** | T-100       | `feature/PAC-309-T-100-stock-import-supplier-validation`     |
-| **PAC-310** | T-101       | `feature/PAC-310-T-101-stock-import-confirm-base`            |
-| **PAC-311** | T-102       | `feature/PAC-311-T-102-stock-import-transaction-wrapper`     |
-| **PAC-312** | T-103       | `feature/PAC-312-T-103-stock-import-status-transition`       |
-| **PAC-313** | T-104       | `feature/PAC-313-T-104-stock-import-list-api`                |
-| **PAC-314** | T-105       | `feature/PAC-314-T-105-stock-import-list-ui`                 |
-| **PAC-315** | T-106       | `feature/PAC-315-T-106-stock-import-detail-api`              |
-| **PAC-316** | T-107       | `feature/PAC-316-T-107-stock-import-detail-ui`               |
-| **PAC-317** | T-108       | `feature/PAC-317-T-108-stock-import-permission-guard`        |
-| **PAC-318** | T-109       | `test/PAC-318-T-109-stock-import-draft-tests`                |
-| **PAC-319** | T-110       | `docs/PAC-319-T-110-stock-import-traceability-notes`         |
-| **PAC-320** | T-111       | `feature/PAC-320-T-111-dashboard-layout`                     |
-| **PAC-321** | T-112       | `feature/PAC-321-T-112-admin-dashboard-cards`                |
-| **PAC-322** | T-113       | `feature/PAC-322-T-113-warehouse-dashboard-cards`            |
-| **PAC-323** | T-114       | `feature/PAC-323-T-114-staff-pos-dashboard-shortcut`         |
-| **PAC-324** | T-115       | `feature/PAC-324-T-115-global-api-error-handler`             |
-| **PAC-325** | T-116       | `feature/PAC-325-T-116-global-form-validation-pattern`       |
-| **PAC-326** | T-117       | `feature/PAC-326-T-117-pagination-component`                 |
-| **PAC-327** | T-118       | `feature/PAC-327-T-118-search-filter-component`              |
-| **PAC-328** | T-119       | `feature/PAC-328-T-119-shared-loading-empty-error-states`    |
-| **PAC-329** | T-120       | `feature/PAC-329-T-120-shared-toast-notification`            |
-| **PAC-330** | T-121       | `feature/PAC-330-T-121-api-client-wrapper`                   |
-| **PAC-331** | T-122       | `feature/PAC-331-T-122-backend-response-format`              |
-| **PAC-332** | T-123       | `feature/PAC-332-T-123-audit-log-base-model`                 |
-| **PAC-333** | T-124       | `feature/PAC-333-T-124-audit-log-write-service`              |
-| **PAC-334** | T-125       | `feature/PAC-334-T-125-module-permission-seed`               |
-| **PAC-335** | T-126       | `test/PAC-335-T-126-foundation-smoke-tests`                  |
-| **PAC-336** | T-127       | `docs/PAC-336-T-127-foundation-setup-notes`                  |
-| **PAC-337** | T-128       | `feature/PAC-337-T-128-prisma-schema-validation`             |
-| **PAC-338** | T-129       | `feature/PAC-338-T-129-prisma-migration-baseline`            |
-| **PAC-339** | T-130       | `feature/PAC-339-T-130-seed-core-roles-permissions`          |
-| **PAC-340** | T-131       | `feature/PAC-340-T-131-seed-core-medicines`                  |
-| **PAC-341** | T-132       | `feature/PAC-341-T-132-seed-activeingredients`               |
-| **PAC-342** | T-133       | `feature/PAC-342-T-133-seed-suppliers`                       |
-| **PAC-343** | T-134       | `feature/PAC-343-T-134-seed-initial-batches`                 |
-| **PAC-344** | T-135       | `test/PAC-344-T-135-seed-data-smoke-tests`                   |
-| **PAC-345** | T-136       | `feature/PAC-345-T-136-api-swagger-docs-base`                |
-| **PAC-346** | T-137       | `feature/PAC-346-T-137-backend-module-structure`             |
-| **PAC-347** | T-138       | `feature/PAC-347-T-138-frontend-route-structure`             |
-| **PAC-348** | T-139       | `feature/PAC-348-T-139-layout-shell`                         |
-| **PAC-349** | T-140       | `feature/PAC-349-T-140-role-based-navigation`                |
-| **PAC-350** | T-141       | `test/PAC-350-T-141-foundation-integration-tests`            |
-| **PAC-351** | T-142       | `docs/PAC-351-T-142-foundation-module-readme`                |
-| **PAC-352** | T-143       | `feature/PAC-352-T-143-stock-import-confirm-precheck`        |
-| **PAC-353** | T-144       | `feature/PAC-353-T-144-stock-import-confirm-ui-action`       |
-| **PAC-354** | T-145       | `test/PAC-354-T-145-stock-import-confirm-integration-tests`  |
-
----
-
-### 9.2. 4B — MVP POS Interaction Checkout Task Branches `T-146 → T-290`
-
-| Jira Key    | Logical Key | Nhánh Git tương ứng                                                  |
-| ----------- | ----------- | -------------------------------------------------------------------- |
-| **PAC-355** | T-146       | `feature/PAC-355-T-146-stock-import-batch-merge`                     |
-| **PAC-356** | T-147       | `test/PAC-356-T-147-valid-batch-merge-tests`                         |
-| **PAC-357** | T-148       | `feature/PAC-357-T-148-stock-import-merge-result-ui`                 |
-| **PAC-358** | T-149       | `feature/PAC-358-T-149-expiry-mismatch-rejection`                    |
-| **PAC-359** | T-150       | `feature/PAC-359-T-150-line-level-expiry-mismatch-errors`            |
-| **PAC-360** | T-151       | `test/PAC-360-T-151-expiry-mismatch-tests`                           |
-| **PAC-361** | T-152       | `feature/PAC-361-T-152-lock-confirmed-stock-import`                  |
-| **PAC-362** | T-153       | `feature/PAC-362-T-153-confirmed-stock-import-readonly-ui`           |
-| **PAC-363** | T-154       | `feature/PAC-363-T-154-prevent-duplicate-stock-import-confirm`       |
-| **PAC-364** | T-155       | `test/PAC-364-T-155-stock-import-immutability-tests`                 |
-| **PAC-365** | T-156       | `feature/PAC-365-T-156-stock-import-confirm-audit-log`               |
-| **PAC-366** | T-157       | `feature/PAC-366-T-157-stock-import-audit-metadata-ui`               |
-| **PAC-367** | T-158       | `docs/PAC-367-T-158-stock-import-traceability-notes`                 |
-| **PAC-368** | T-159       | `test/PAC-368-T-159-stock-import-confirm-integration-tests`          |
-| **PAC-369** | T-160       | `test/PAC-369-T-160-stock-import-smoke-checklist`                    |
-| **PAC-370** | T-161       | `feature/PAC-370-T-161-inventory-adjustments-model`                  |
-| **PAC-371** | T-162       | `feature/PAC-371-T-162-inventory-adjustment-lines-model`             |
-| **PAC-372** | T-163       | `feature/PAC-372-T-163-create-inventory-adjustment-api`              |
-| **PAC-373** | T-164       | `feature/PAC-373-T-164-create-inventory-adjustment-screen`           |
-| **PAC-374** | T-165       | `feature/PAC-374-T-165-medicinebatch-selector-adjustment`            |
-| **PAC-375** | T-166       | `feature/PAC-375-T-166-adjustment-type-quantity-validation`          |
-| **PAC-376** | T-167       | `feature/PAC-376-T-167-required-adjustment-reason-backend`           |
-| **PAC-377** | T-168       | `feature/PAC-377-T-168-required-adjustment-reason-ui`                |
-| **PAC-378** | T-169       | `feature/PAC-378-T-169-batch-before-after-preview`                   |
-| **PAC-379** | T-170       | `feature/PAC-379-T-170-confirm-inventory-adjustment-transaction`     |
-| **PAC-380** | T-171       | `feature/PAC-380-T-171-update-batch-through-adjustment-only`         |
-| **PAC-381** | T-172       | `feature/PAC-381-T-172-prevent-negative-adjustment`                  |
-| **PAC-382** | T-173       | `feature/PAC-382-T-173-lock-confirmed-adjustment`                    |
-| **PAC-383** | T-174       | `feature/PAC-383-T-174-inventory-adjustment-list-api`                |
-| **PAC-384** | T-175       | `feature/PAC-384-T-175-inventory-adjustment-history-ui`              |
-| **PAC-385** | T-176       | `feature/PAC-385-T-176-inventory-adjustment-detail-api`              |
-| **PAC-386** | T-177       | `feature/PAC-386-T-177-inventory-adjustment-detail-screen`           |
-| **PAC-387** | T-178       | `feature/PAC-387-T-178-warehouse-adjustment-permission`              |
-| **PAC-388** | T-179       | `feature/PAC-388-T-179-admin-adjustment-review-permission`           |
-| **PAC-389** | T-180       | `feature/PAC-389-T-180-inventory-adjustment-audit-log`               |
-| **PAC-390** | T-181       | `feature/PAC-390-T-181-adjustment-audit-ui`                          |
-| **PAC-391** | T-182       | `test/PAC-391-T-182-negative-adjustment-tests`                       |
-| **PAC-392** | T-183       | `test/PAC-392-T-183-required-reason-tests`                           |
-| **PAC-393** | T-184       | `test/PAC-393-T-184-warehouse-adjustment-permission-tests`           |
-| **PAC-394** | T-185       | `feature/PAC-394-T-185-block-direct-batch-quantity-update`           |
-| **PAC-395** | T-186       | `feature/PAC-395-T-186-cancel-draft-adjustment-api`                  |
-| **PAC-396** | T-187       | `feature/PAC-396-T-187-cancel-draft-adjustment-ui`                   |
-| **PAC-397** | T-188       | `feature/PAC-397-T-188-refresh-inventory-after-adjustment`           |
-| **PAC-398** | T-189       | `test/PAC-398-T-189-inventory-adjustment-smoke-checklist`            |
-| **PAC-399** | T-190       | `docs/PAC-399-T-190-inventory-adjustment-traceability-notes`         |
-| **PAC-400** | T-191       | `feature/PAC-400-T-191-orders-model`                                 |
-| **PAC-401** | T-192       | `feature/PAC-401-T-192-order-items-model`                            |
-| **PAC-402** | T-193       | `feature/PAC-402-T-193-order-status-enum`                            |
-| **PAC-403** | T-194       | `feature/PAC-403-T-194-create-draft-order-api`                       |
-| **PAC-404** | T-195       | `feature/PAC-404-T-195-pos-draft-order-screen`                       |
-| **PAC-405** | T-196       | `feature/PAC-405-T-196-pos-medicine-search-api`                      |
-| **PAC-406** | T-197       | `feature/PAC-406-T-197-pos-medicine-search-component`                |
-| **PAC-407** | T-198       | `feature/PAC-407-T-198-pos-sellable-stock-display`                   |
-| **PAC-408** | T-199       | `feature/PAC-408-T-199-add-item-draft-order-api`                     |
-| **PAC-409** | T-200       | `feature/PAC-409-T-200-add-to-order-action`                          |
-| **PAC-410** | T-201       | `feature/PAC-410-T-201-active-medicine-validation-pos`               |
-| **PAC-411** | T-202       | `feature/PAC-411-T-202-update-draft-order-quantity-api`              |
-| **PAC-412** | T-203       | `feature/PAC-412-T-203-draft-order-quantity-controls-ui`             |
-| **PAC-413** | T-204       | `feature/PAC-413-T-204-draft-order-quantity-positive-validation`     |
-| **PAC-414** | T-205       | `feature/PAC-414-T-205-sellable-stock-quantity-validation`           |
-| **PAC-415** | T-206       | `feature/PAC-415-T-206-remove-item-draft-order-api`                  |
-| **PAC-416** | T-207       | `feature/PAC-416-T-207-remove-item-action-pos`                       |
-| **PAC-417** | T-208       | `feature/PAC-417-T-208-draft-order-total-service`                    |
-| **PAC-418** | T-209       | `feature/PAC-418-T-209-draft-order-total-ui`                         |
-| **PAC-419** | T-210       | `feature/PAC-419-T-210-no-coupon-discount-mvp-total`                 |
-| **PAC-420** | T-211       | `feature/PAC-420-T-211-pos-stock-validation-errors`                  |
-| **PAC-421** | T-212       | `feature/PAC-421-T-212-walk-in-customer-order-model`                 |
-| **PAC-422** | T-213       | `feature/PAC-422-T-213-walk-in-customer-pos-option`                  |
-| **PAC-423** | T-214       | `feature/PAC-423-T-214-keep-full-customer-management-out-mvp`        |
-| **PAC-424** | T-215       | `feature/PAC-424-T-215-staff-order-ownership-api`                    |
-| **PAC-425** | T-216       | `feature/PAC-425-T-216-staff-scoped-order-list-ui`                   |
-| **PAC-426** | T-217       | `feature/PAC-426-T-217-admin-all-orders-api`                         |
-| **PAC-427** | T-218       | `feature/PAC-427-T-218-admin-all-orders-ui`                          |
-| **PAC-428** | T-219       | `feature/PAC-428-T-219-cancel-draft-order-api`                       |
-| **PAC-429** | T-220       | `feature/PAC-429-T-220-cancel-draft-order-ui`                        |
-| **PAC-430** | T-221       | `feature/PAC-430-T-221-prevent-cancel-paid-cancelled-order`          |
-| **PAC-431** | T-222       | `feature/PAC-431-T-222-preserve-draft-order-checkout-failure-ui`     |
-| **PAC-432** | T-223       | `feature/PAC-432-T-223-restore-checkout-error-to-draft-order`        |
-| **PAC-433** | T-224       | `feature/PAC-433-T-224-order-detail-screen`                          |
-| **PAC-434** | T-225       | `test/PAC-434-T-225-pos-api-integration-tests`                       |
-| **PAC-435** | T-226       | `test/PAC-435-T-226-pos-frontend-smoke-checklist`                    |
-| **PAC-436** | T-227       | `feature/PAC-436-T-227-drug-interaction-rules-model`                 |
-| **PAC-437** | T-228       | `feature/PAC-437-T-228-create-activeingredient-interaction-rule-api` |
-| **PAC-438** | T-229       | `feature/PAC-438-T-229-drug-interaction-rule-management-screen`      |
-| **PAC-439** | T-230       | `feature/PAC-439-T-230-two-activeingredients-validation`             |
-| **PAC-440** | T-231       | `feature/PAC-440-T-231-update-interaction-rule-api`                  |
-| **PAC-441** | T-232       | `feature/PAC-441-T-232-deactivate-interaction-rule-api`              |
-| **PAC-442** | T-233       | `feature/PAC-442-T-233-graph-sync-event-rule-change`                 |
-| **PAC-443** | T-234       | `feature/PAC-443-T-234-severity-enum-validation`                     |
-| **PAC-444** | T-235       | `feature/PAC-444-T-235-derive-interaction-from-activeingredients`    |
-| **PAC-445** | T-236       | `test/PAC-445-T-236-derived-interaction-tests`                       |
-| **PAC-446** | T-237       | `feature/PAC-446-T-237-order-interaction-check-service`              |
-| **PAC-447** | T-238       | `feature/PAC-447-T-238-order-interactions-check-api`                 |
-| **PAC-448** | T-239       | `feature/PAC-448-T-239-interaction-alerts-model`                     |
-| **PAC-449** | T-240       | `feature/PAC-449-T-240-persist-alert-snapshot-fields`                |
-| **PAC-450** | T-241       | `feature/PAC-450-T-241-one-active-alert-per-order-rule`              |
-| **PAC-451** | T-242       | `feature/PAC-451-T-242-update-display-count-last-displayed`          |
-| **PAC-452** | T-243       | `feature/PAC-452-T-243-pos-interaction-alert-panel`                  |
-| **PAC-453** | T-244       | `feature/PAC-453-T-244-alert-severity-display-logic`                 |
-| **PAC-454** | T-245       | `feature/PAC-454-T-245-high-alert-acknowledgement-ui`                |
-| **PAC-455** | T-246       | `feature/PAC-455-T-246-acknowledge-interaction-alert-api`            |
-| **PAC-456** | T-247       | `feature/PAC-456-T-247-high-alert-consultation-note-ui`              |
-| **PAC-457** | T-248       | `feature/PAC-457-T-248-consultation-note-api-per-high-alert`         |
-| **PAC-458** | T-249       | `feature/PAC-458-T-249-high-alert-note-not-empty-validation`         |
-| **PAC-459** | T-250       | `feature/PAC-459-T-250-checkout-blocker-unresolved-high-alerts`      |
-| **PAC-460** | T-251       | `feature/PAC-460-T-251-ui-prompt-checkout-blocked-high-alert`        |
-| **PAC-461** | T-252       | `feature/PAC-461-T-252-admin-interaction-alert-history-api-ui`       |
-| **PAC-462** | T-253       | `feature/PAC-462-T-253-warehouse-no-access-interaction-alert`        |
-| **PAC-463** | T-254       | `test/PAC-463-T-254-warehouse-no-access-alert-tests`                 |
-| **PAC-464** | T-255       | `test/PAC-464-T-255-interaction-alert-lifecycle-tests`               |
-| **PAC-465** | T-256       | `test/PAC-465-T-256-high-acknowledgement-note-tests`                 |
-| **PAC-466** | T-257       | `feature/PAC-466-T-257-interaction-alert-history-filters`            |
-| **PAC-467** | T-258       | `docs/PAC-467-T-258-interaction-alert-traceability-notes`            |
-| **PAC-468** | T-259       | `feature/PAC-468-T-259-checkout-dto-validation`                      |
-| **PAC-469** | T-260       | `feature/PAC-469-T-260-checkout-controller`                          |
-| **PAC-470** | T-261       | `feature/PAC-470-T-261-checkout-service-transaction-skeleton`        |
-| **PAC-471** | T-262       | `feature/PAC-471-T-262-checkout-permission-ownership-validation`     |
-| **PAC-472** | T-263       | `feature/PAC-472-T-263-checkout-order-draft-validation`              |
-| **PAC-473** | T-264       | `feature/PAC-473-T-264-checkout-high-alert-validation`               |
-| **PAC-474** | T-265       | `feature/PAC-474-T-265-checkout-sellable-stock-validation`           |
-| **PAC-475** | T-266       | `feature/PAC-475-T-266-checkout-full-page-ui`                        |
-| **PAC-476** | T-267       | `feature/PAC-476-T-267-payment-method-selector-ui`                   |
-| **PAC-477** | T-268       | `feature/PAC-477-T-268-fefo-allocation-model`                        |
-| **PAC-478** | T-269       | `feature/PAC-478-T-269-query-sellable-batches-fefo`                  |
-| **PAC-479** | T-270       | `feature/PAC-479-T-270-sort-fefo-nearest-expiry`                     |
-| **PAC-480** | T-271       | `feature/PAC-480-T-271-multi-batch-fefo-allocation`                  |
-| **PAC-481** | T-272       | `feature/PAC-481-T-272-reject-fefo-insufficient-stock`               |
-| **PAC-482** | T-273       | `feature/PAC-482-T-273-order-batch-allocations-model`                |
-| **PAC-483** | T-274       | `feature/PAC-483-T-274-persist-order-batch-allocations`              |
-| **PAC-484** | T-275       | `feature/PAC-484-T-275-deduct-batch-quantities-checkout`             |
-| **PAC-485** | T-276       | `feature/PAC-485-T-276-idempotency-records-model`                    |
-| **PAC-486** | T-277       | `feature/PAC-486-T-277-checkout-idempotency-key-handling`            |
-| **PAC-487** | T-278       | `feature/PAC-487-T-278-checkout-rollback-on-failure`                 |
-| **PAC-488** | T-279       | `feature/PAC-488-T-279-payments-model`                               |
-| **PAC-489** | T-280       | `feature/PAC-489-T-280-cash-payment-handling-checkout`               |
-| **PAC-490** | T-281       | `feature/PAC-490-T-281-calculate-change-amount`                      |
-| **PAC-491** | T-282       | `feature/PAC-491-T-282-bank-transfer-reference-validation`           |
-| **PAC-492** | T-283       | `feature/PAC-492-T-283-one-success-payment-per-order`                |
-| **PAC-493** | T-284       | `feature/PAC-493-T-284-allow-failed-payment-attempts`                |
-| **PAC-494** | T-285       | `feature/PAC-494-T-285-invoices-model`                               |
-| **PAC-495** | T-286       | `feature/PAC-495-T-286-generate-invoice-checkout-transaction`        |
-| **PAC-496** | T-287       | `feature/PAC-496-T-287-invoice-view-print-ui`                        |
-| **PAC-497** | T-288       | `feature/PAC-497-T-288-update-order-paid-after-checkout`             |
-| **PAC-498** | T-289       | `test/PAC-498-T-289-checkout-integration-tests`                      |
-| **PAC-499** | T-290       | `test/PAC-499-T-290-fefo-idempotency-rollback-tests`                 |
-
----
-
-### 9.3. 4C — MVP AI Graph Report Demo Task Branches `T-291 → T-435`
-
-| Jira Key    | Logical Key | Nhánh Git tương ứng                                                    |
-| ----------- | ----------- | ---------------------------------------------------------------------- |
-| **PAC-500** | T-291       | `feature/PAC-500-T-291-define-ai-provider-abstraction`                 |
-| **PAC-501** | T-292       | `feature/PAC-501-T-292-ai-provider-model-settings-loader`              |
-| **PAC-502** | T-293       | `feature/PAC-502-T-293-google-ai-provider-adapter`                     |
-| **PAC-503** | T-294       | `feature/PAC-503-T-294-google-ai-timeout-error-handling`               |
-| **PAC-504** | T-295       | `feature/PAC-504-T-295-mockai-fallback-adapter`                        |
-| **PAC-505** | T-296       | `feature/PAC-505-T-296-fallback-provider-selection`                    |
-| **PAC-506** | T-297       | `feature/PAC-506-T-297-provider-tracking-metadata`                     |
-| **PAC-507** | T-298       | `feature/PAC-507-T-298-ai-interaction-explanation-api`                 |
-| **PAC-508** | T-299       | `feature/PAC-508-T-299-ai-explanation-panel-ui`                        |
-| **PAC-509** | T-300       | `feature/PAC-509-T-300-ai-disclaimer-explanation-panel`                |
-| **PAC-510** | T-301       | `feature/PAC-510-T-301-ai-explanation-loading-error-fallback`          |
-| **PAC-511** | T-302       | `feature/PAC-511-T-302-ai-consultation-note-draft-api`                 |
-| **PAC-512** | T-303       | `feature/PAC-512-T-303-ai-consultation-note-draft-panel`               |
-| **PAC-513** | T-304       | `feature/PAC-513-T-304-staff-edit-ai-draft-ui`                         |
-| **PAC-514** | T-305       | `feature/PAC-514-T-305-confirm-ai-draft-official-note`                 |
-| **PAC-515** | T-306       | `feature/PAC-515-T-306-prevent-unconfirmed-ai-draft-save`              |
-| **PAC-516** | T-307       | `feature/PAC-516-T-307-link-ai-note-to-high-alert`                     |
-| **PAC-517** | T-308       | `feature/PAC-517-T-308-safe-follow-up-question-api`                    |
-| **PAC-518** | T-309       | `feature/PAC-518-T-309-safe-follow-up-question-ui`                     |
-| **PAC-519** | T-310       | `feature/PAC-519-T-310-block-medical-record-storage`                   |
-| **PAC-520** | T-311       | `feature/PAC-520-T-311-ai-copilot-permission-checks`                   |
-| **PAC-521** | T-312       | `feature/PAC-521-T-312-ai-copilot-frontend-guards`                     |
-| **PAC-522** | T-313       | `test/PAC-522-T-313-ai-provider-unit-tests`                            |
-| **PAC-523** | T-314       | `test/PAC-523-T-314-mockai-fallback-tests`                             |
-| **PAC-524** | T-315       | `test/PAC-524-T-315-ai-copilot-smoke-checklist`                        |
-| **PAC-525** | T-316       | `feature/PAC-525-T-316-unsafe-ai-request-categories`                   |
-| **PAC-526** | T-317       | `feature/PAC-526-T-317-ai-input-guardrail-service`                     |
-| **PAC-527** | T-318       | `feature/PAC-527-T-318-block-diagnosis-requests`                       |
-| **PAC-528** | T-319       | `feature/PAC-528-T-319-block-prescribing-requests`                     |
-| **PAC-529** | T-320       | `feature/PAC-529-T-320-block-dosage-advice-requests`                   |
-| **PAC-530** | T-321       | `feature/PAC-530-T-321-safe-response-templates`                        |
-| **PAC-531** | T-322       | `feature/PAC-531-T-322-ai-pii-minimization`                            |
-| **PAC-532** | T-323       | `feature/PAC-532-T-323-redact-customer-order-data-ai`                  |
-| **PAC-533** | T-324       | `feature/PAC-533-T-324-ai-output-guardrail-service`                    |
-| **PAC-534** | T-325       | `feature/PAC-534-T-325-block-unsafe-ai-output`                         |
-| **PAC-535** | T-326       | `feature/PAC-535-T-326-structured-output-schema-validation`            |
-| **PAC-536** | T-327       | `feature/PAC-536-T-327-schema-retry-safe-fallback`                     |
-| **PAC-537** | T-328       | `feature/PAC-537-T-328-guardrail-status-object`                        |
-| **PAC-538** | T-329       | `feature/PAC-538-T-329-ai-audit-logs-model`                            |
-| **PAC-539** | T-330       | `feature/PAC-539-T-330-ai-audit-log-write-service`                     |
-| **PAC-540** | T-331       | `feature/PAC-540-T-331-ai-provider-model-prompt-metadata`              |
-| **PAC-541** | T-332       | `feature/PAC-541-T-332-ai-guardrail-status-audit`                      |
-| **PAC-542** | T-333       | `feature/PAC-542-T-333-ai-latency-request-fallback-metadata`           |
-| **PAC-543** | T-334       | `feature/PAC-543-T-334-ai-audit-no-raw-pii`                            |
-| **PAC-544** | T-335       | `feature/PAC-544-T-335-admin-ai-audit-list-api`                        |
-| **PAC-545** | T-336       | `feature/PAC-545-T-336-admin-ai-audit-log-ui`                          |
-| **PAC-546** | T-337       | `feature/PAC-546-T-337-ai-audit-filters`                               |
-| **PAC-547** | T-338       | `feature/PAC-547-T-338-prompt-templates-model`                         |
-| **PAC-548** | T-339       | `feature/PAC-548-T-339-seed-official-ai-prompts`                       |
-| **PAC-549** | T-340       | `feature/PAC-549-T-340-load-approved-prompt-template`                  |
-| **PAC-550** | T-341       | `feature/PAC-550-T-341-record-prompt-version-audit`                    |
-| **PAC-551** | T-342       | `feature/PAC-551-T-342-ai-config-validation`                           |
-| **PAC-552** | T-343       | `feature/PAC-552-T-343-ai-settings-fallback-order`                     |
-| **PAC-553** | T-344       | `feature/PAC-553-T-344-ai-timeout-circuit-rate-limit`                  |
-| **PAC-554** | T-345       | `feature/PAC-554-T-345-ai-safe-error-helper`                           |
-| **PAC-555** | T-346       | `test/PAC-555-T-346-ai-input-guardrail-tests`                          |
-| **PAC-556** | T-347       | `test/PAC-556-T-347-diagnosis-block-tests`                             |
-| **PAC-557** | T-348       | `test/PAC-557-T-348-prescribing-block-tests`                           |
-| **PAC-558** | T-349       | `test/PAC-558-T-349-dosage-advice-block-tests`                         |
-| **PAC-559** | T-350       | `test/PAC-559-T-350-ai-output-guardrail-tests`                         |
-| **PAC-560** | T-351       | `test/PAC-560-T-351-structured-output-validation-tests`                |
-| **PAC-561** | T-352       | `test/PAC-561-T-352-pii-minimization-tests`                            |
-| **PAC-562** | T-353       | `test/PAC-562-T-353-ai-audit-integration-tests`                        |
-| **PAC-563** | T-354       | `test/PAC-563-T-354-prompt-versioning-tests`                           |
-| **PAC-564** | T-355       | `docs/PAC-564-T-355-ai-safety-traceability-notes`                      |
-| **PAC-565** | T-356       | `feature/PAC-565-T-356-graph-sync-outbox-model`                        |
-| **PAC-566** | T-357       | `feature/PAC-566-T-357-graph-sync-job-status-enum`                     |
-| **PAC-567** | T-358       | `feature/PAC-567-T-358-outbox-event-medicine-changes`                  |
-| **PAC-568** | T-359       | `feature/PAC-568-T-359-outbox-event-activeingredient-changes`          |
-| **PAC-569** | T-360       | `feature/PAC-569-T-360-outbox-event-medicine-ingredient-mapping`       |
-| **PAC-570** | T-361       | `feature/PAC-570-T-361-outbox-event-interaction-rule-changes`          |
-| **PAC-571** | T-362       | `feature/PAC-571-T-362-graph-sync-worker-loop`                         |
-| **PAC-572** | T-363       | `feature/PAC-572-T-363-neo4j-connection-service`                       |
-| **PAC-573** | T-364       | `feature/PAC-573-T-364-neo4j-health-check`                             |
-| **PAC-574** | T-365       | `feature/PAC-574-T-365-idempotent-graph-job-claiming`                  |
-| **PAC-575** | T-366       | `feature/PAC-575-T-366-upsert-medicine-node-neo4j`                     |
-| **PAC-576** | T-367       | `feature/PAC-576-T-367-upsert-activeingredient-node-neo4j`             |
-| **PAC-577** | T-368       | `feature/PAC-577-T-368-upsert-contains-relationship`                   |
-| **PAC-578** | T-369       | `feature/PAC-578-T-369-upsert-interacts-with-relationship`             |
-| **PAC-579** | T-370       | `feature/PAC-579-T-370-canonical-directed-interaction-edge`            |
-| **PAC-580** | T-371       | `feature/PAC-580-T-371-interacts-with-rule-properties`                 |
-| **PAC-581** | T-372       | `feature/PAC-581-T-372-graph-source-version-metadata`                  |
-| **PAC-582** | T-373       | `feature/PAC-582-T-373-deactivated-medicine-ingredient-isactive-false` |
-| **PAC-583** | T-374       | `feature/PAC-583-T-374-deactivated-rule-edge-isactive-false`           |
-| **PAC-584** | T-375       | `feature/PAC-584-T-375-filter-active-graph-data-only`                  |
-| **PAC-585** | T-376       | `feature/PAC-585-T-376-graph-sync-retry-logic`                         |
-| **PAC-586** | T-377       | `feature/PAC-586-T-377-max-retry-failed-status`                        |
-| **PAC-587** | T-378       | `feature/PAC-587-T-378-graph-sync-failure-logging`                     |
-| **PAC-588** | T-379       | `feature/PAC-588-T-379-graph-sync-failure-audit-log`                   |
-| **PAC-589** | T-380       | `feature/PAC-589-T-380-graph-projection-source-version-tracking`       |
-| **PAC-590** | T-381       | `feature/PAC-590-T-381-graph-freshness-detection-service`              |
-| **PAC-591** | T-382       | `feature/PAC-591-T-382-detect-pending-outbox-stale-graph`              |
-| **PAC-592** | T-383       | `feature/PAC-592-T-383-detect-failed-outbox-stale-graph`               |
-| **PAC-593** | T-384       | `feature/PAC-593-T-384-detect-missing-sourceversion-stale-graph`       |
-| **PAC-594** | T-385       | `test/PAC-594-T-385-graph-sync-worker-tests`                           |
-| **PAC-595** | T-386       | `test/PAC-595-T-386-neo4j-projection-tests`                            |
-| **PAC-596** | T-387       | `test/PAC-596-T-387-interacts-with-projection-tests`                   |
-| **PAC-597** | T-388       | `test/PAC-597-T-388-graph-freshness-tests`                             |
-| **PAC-598** | T-389       | `test/PAC-598-T-389-graph-sync-retry-failure-tests`                    |
-| **PAC-599** | T-390       | `docs/PAC-599-T-390-graph-sync-traceability-notes`                     |
-| **PAC-600** | T-391       | `feature/PAC-600-T-391-graph-rag-interaction-explanation-service`      |
-| **PAC-601** | T-392       | `feature/PAC-601-T-392-allowlisted-graph-query-templates`              |
-| **PAC-602** | T-393       | `feature/PAC-602-T-393-query-medicine-contains-activeingredient`       |
-| **PAC-603** | T-394       | `feature/PAC-603-T-394-query-activeingredient-interacts-with`          |
-| **PAC-604** | T-395       | `feature/PAC-604-T-395-graph-rag-context-builder-ai-copilot`           |
-| **PAC-605** | T-396       | `feature/PAC-605-T-396-graph-rag-provenance-metadata`                  |
-| **PAC-606** | T-397       | `feature/PAC-606-T-397-graphused-flag-response`                        |
-| **PAC-607** | T-398       | `feature/PAC-607-T-398-graph-rag-freshness-metadata`                   |
-| **PAC-608** | T-399       | `feature/PAC-608-T-399-freshness-warning-response`                     |
-| **PAC-609** | T-400       | `feature/PAC-609-T-400-postgresql-fallback-neo4j-unavailable`          |
-| **PAC-610** | T-401       | `feature/PAC-610-T-401-postgresql-fallback-graph-stale`                |
-| **PAC-611** | T-402       | `feature/PAC-611-T-402-safe-error-graph-only-query`                    |
-| **PAC-612** | T-403       | `feature/PAC-612-T-403-no-raw-cypher-for-staff`                        |
-| **PAC-613** | T-404       | `feature/PAC-613-T-404-backend-guard-raw-cypher-staff`                 |
-| **PAC-614** | T-405       | `feature/PAC-614-T-405-graph-rag-not-checkout-decision`                |
-| **PAC-615** | T-406       | `feature/PAC-615-T-406-graph-rag-metadata-ui`                          |
-| **PAC-616** | T-407       | `test/PAC-616-T-407-graph-rag-postgresql-fallback-tests`               |
-| **PAC-617** | T-408       | `test/PAC-617-T-408-stale-graph-fallback-tests`                        |
-| **PAC-618** | T-409       | `test/PAC-618-T-409-raw-cypher-no-access-tests`                        |
-| **PAC-619** | T-410       | `test/PAC-619-T-410-graph-not-checkout-tests`                          |
-| **PAC-620** | T-411       | `feature/PAC-620-T-411-revenue-report-api`                             |
-| **PAC-621** | T-412       | `feature/PAC-621-T-412-revenue-report-ui`                              |
-| **PAC-622** | T-413       | `feature/PAC-622-T-413-revenue-report-filters`                         |
-| **PAC-623** | T-414       | `feature/PAC-623-T-414-top-medicines-report-api`                       |
-| **PAC-624** | T-415       | `feature/PAC-624-T-415-top-medicines-report-ui`                        |
-| **PAC-625** | T-416       | `feature/PAC-625-T-416-inventory-report-api-medicinebatch`             |
-| **PAC-626** | T-417       | `feature/PAC-626-T-417-inventory-report-ui`                            |
-| **PAC-627** | T-418       | `feature/PAC-627-T-418-report-loading-empty-error-states`              |
-| **PAC-628** | T-419       | `feature/PAC-628-T-419-report-permission-checks`                       |
-| **PAC-629** | T-420       | `feature/PAC-629-T-420-system-settings-model`                          |
-| **PAC-630** | T-421       | `feature/PAC-630-T-421-seed-near-expiry-threshold-90`                  |
-| **PAC-631** | T-422       | `feature/PAC-631-T-422-near-expiry-settings-api`                       |
-| **PAC-632** | T-423       | `feature/PAC-632-T-423-minimal-system-settings-ui`                     |
-| **PAC-633** | T-424       | `test/PAC-633-T-424-system-settings-tests`                             |
-| **PAC-634** | T-425       | `feature/PAC-634-T-425-curated-mvp-seed-dataset`                       |
-| **PAC-635** | T-426       | `feature/PAC-635-T-426-seed-demo-users-by-role`                        |
-| **PAC-636** | T-427       | `feature/PAC-636-T-427-seed-first-login-demo-account`                  |
-| **PAC-637** | T-428       | `feature/PAC-637-T-428-dynamic-expiry-demo-batches`                    |
-| **PAC-638** | T-429       | `feature/PAC-638-T-429-seed-fefo-multi-batch-demo`                     |
-| **PAC-639** | T-430       | `feature/PAC-639-T-430-seed-expired-batch-excluded`                    |
-| **PAC-640** | T-431       | `feature/PAC-640-T-431-seed-paid-order-handled-high-alert`             |
-| **PAC-641** | T-432       | `feature/PAC-641-T-432-seed-report-data-order-statuses`                |
-| **PAC-642** | T-433       | `feature/PAC-642-T-433-demo-reset-local-only-guard`                    |
-| **PAC-643** | T-434       | `feature/PAC-643-T-434-rebuild-neo4j-projection-demo-reset`            |
-| **PAC-644** | T-435       | `test/PAC-644-T-435-run-smoke-tests-after-demo-reset`                  |
-
----
-
-### 9.4. 4D — Testing Advanced Future Task Branches `T-436 → T-580`
-
-| Jira Key    | Logical Key | Nhánh Git tương ứng                                              |
-| ----------- | ----------- | ---------------------------------------------------------------- |
-| **PAC-645** | T-436       | `test/PAC-645-T-436-backend-unit-test-setup`                     |
-| **PAC-646** | T-437       | `test/PAC-646-T-437-backend-integration-test-setup`              |
-| **PAC-647** | T-438       | `test/PAC-647-T-438-frontend-component-test-setup`               |
-| **PAC-648** | T-439       | `test/PAC-648-T-439-playwright-e2e-chrome-setup`                 |
-| **PAC-649** | T-440       | `test/PAC-649-T-440-postman-api-collection-structure`            |
-| **PAC-650** | T-441       | `test/PAC-650-T-441-auth-rbac-test-suite`                        |
-| **PAC-651** | T-442       | `test/PAC-651-T-442-user-management-permission-tests`            |
-| **PAC-652** | T-443       | `test/PAC-652-T-443-medicine-management-api-tests`               |
-| **PAC-653** | T-444       | `test/PAC-653-T-444-activeingredient-mapping-tests`              |
-| **PAC-654** | T-445       | `test/PAC-654-T-445-supplier-management-api-tests`               |
-| **PAC-655** | T-446       | `test/PAC-655-T-446-medicinebatch-source-tests`                  |
-| **PAC-656** | T-447       | `test/PAC-656-T-447-sellable-expired-batch-tests`                |
-| **PAC-657** | T-448       | `test/PAC-657-T-448-near-expiry-threshold-tests`                 |
-| **PAC-658** | T-449       | `test/PAC-658-T-449-stock-import-transaction-tests`              |
-| **PAC-659** | T-450       | `test/PAC-659-T-450-stock-import-merge-expiry-tests`             |
-| **PAC-660** | T-451       | `test/PAC-660-T-451-inventory-adjustment-transaction-tests`      |
-| **PAC-661** | T-452       | `test/PAC-661-T-452-adjustment-audit-reason-tests`               |
-| **PAC-662** | T-453       | `test/PAC-662-T-453-pos-draft-order-api-tests`                   |
-| **PAC-663** | T-454       | `test/PAC-663-T-454-pos-draft-order-ui-smoke-tests`              |
-| **PAC-664** | T-455       | `test/PAC-664-T-455-staff-order-ownership-tests`                 |
-| **PAC-665** | T-456       | `test/PAC-665-T-456-draft-order-cancel-status-tests`             |
-| **PAC-666** | T-457       | `test/PAC-666-T-457-drug-interaction-rule-api-tests`             |
-| **PAC-667** | T-458       | `test/PAC-667-T-458-activeingredient-derived-interaction-tests`  |
-| **PAC-668** | T-459       | `test/PAC-668-T-459-interaction-alert-persistence-tests`         |
-| **PAC-669** | T-460       | `test/PAC-669-T-460-interaction-alert-display-count-tests`       |
-| **PAC-670** | T-461       | `test/PAC-670-T-461-high-alert-acknowledgement-tests`            |
-| **PAC-671** | T-462       | `test/PAC-671-T-462-high-alert-consultation-note-tests`          |
-| **PAC-672** | T-463       | `test/PAC-672-T-463-checkout-blocker-high-alert-tests`           |
-| **PAC-673** | T-464       | `test/PAC-673-T-464-checkout-transaction-success-tests`          |
-| **PAC-674** | T-465       | `test/PAC-674-T-465-checkout-rollback-failure-tests`             |
-| **PAC-675** | T-466       | `test/PAC-675-T-466-fefo-allocation-unit-tests`                  |
-| **PAC-676** | T-467       | `test/PAC-676-T-467-fefo-multi-batch-tests`                      |
-| **PAC-677** | T-468       | `test/PAC-677-T-468-checkout-idempotency-tests`                  |
-| **PAC-678** | T-469       | `test/PAC-678-T-469-payment-cash-handling-tests`                 |
-| **PAC-679** | T-470       | `test/PAC-679-T-470-payment-one-success-tests`                   |
-| **PAC-680** | T-471       | `test/PAC-680-T-471-invoice-generation-tests`                    |
-| **PAC-681** | T-472       | `test/PAC-681-T-472-ai-guardrail-high-risk-tests`                |
-| **PAC-682** | T-473       | `test/PAC-682-T-473-ai-audit-privacy-tests`                      |
-| **PAC-683** | T-474       | `test/PAC-683-T-474-ai-provider-fallback-tests`                  |
-| **PAC-684** | T-475       | `test/PAC-684-T-475-graph-sync-outbox-retry-tests`               |
-| **PAC-685** | T-476       | `test/PAC-685-T-476-neo4j-projection-tests`                      |
-| **PAC-686** | T-477       | `test/PAC-686-T-477-graph-freshness-tests`                       |
-| **PAC-687** | T-478       | `test/PAC-687-T-478-graph-rag-fallback-tests`                    |
-| **PAC-688** | T-479       | `test/PAC-688-T-479-reports-deterministic-tests`                 |
-| **PAC-689** | T-480       | `test/PAC-689-T-480-full-mvp-smoke-test-checklist`               |
-| **PAC-690** | T-481       | `feature/PAC-690-T-481-local-nodejs-setup-guide`                 |
-| **PAC-691** | T-482       | `feature/PAC-691-T-482-frontend-env-guide`                       |
-| **PAC-692** | T-483       | `feature/PAC-692-T-483-backend-env-guide`                        |
-| **PAC-693** | T-484       | `feature/PAC-693-T-484-supabase-setup-instructions`              |
-| **PAC-694** | T-485       | `feature/PAC-694-T-485-neo4j-auradb-setup-instructions`          |
-| **PAC-695** | T-486       | `feature/PAC-695-T-486-google-ai-api-key-setup`                  |
-| **PAC-696** | T-487       | `feature/PAC-696-T-487-mockai-fallback-setup`                    |
-| **PAC-697** | T-488       | `feature/PAC-697-T-488-prisma-generate-migrate-command`          |
-| **PAC-698** | T-489       | `feature/PAC-698-T-489-curated-mvp-seed-command`                 |
-| **PAC-699** | T-490       | `feature/PAC-699-T-490-graph-projection-rebuild-command`         |
-| **PAC-700** | T-491       | `feature/PAC-700-T-491-demo-reset-command-entrypoint`            |
-| **PAC-701** | T-492       | `feature/PAC-701-T-492-demo-reset-safety-checks`                 |
-| **PAC-702** | T-493       | `feature/PAC-702-T-493-github-actions-lint-check`                |
-| **PAC-703** | T-494       | `feature/PAC-703-T-494-github-actions-type-check`                |
-| **PAC-704** | T-495       | `feature/PAC-704-T-495-github-actions-frontend-build`            |
-| **PAC-705** | T-496       | `feature/PAC-705-T-496-github-actions-backend-build`             |
-| **PAC-706** | T-497       | `feature/PAC-706-T-497-github-actions-unit-test-check`           |
-| **PAC-707** | T-498       | `feature/PAC-707-T-498-github-actions-integration-test-check`    |
-| **PAC-708** | T-499       | `feature/PAC-708-T-499-prisma-schema-validation-check`           |
-| **PAC-709** | T-500       | `feature/PAC-709-T-500-prisma-migration-check`                   |
-| **PAC-710** | T-501       | `feature/PAC-710-T-501-ci-guard-no-destructive-demo-tests`       |
-| **PAC-711** | T-502       | `docs/PAC-711-T-502-ci-branch-protection-notes`                  |
-| **PAC-712** | T-503       | `feature/PAC-712-T-503-local-only-demo-reset-guard`              |
-| **PAC-713** | T-504       | `test/PAC-713-T-504-chrome-desktop-verification-checklist`       |
-| **PAC-714** | T-505       | `test/PAC-714-T-505-basic-responsive-checklist`                  |
-| **PAC-715** | T-506       | `docs/PAC-715-T-506-project-readme-setup-section`                |
-| **PAC-716** | T-507       | `docs/PAC-716-T-507-backend-setup-run-instructions`              |
-| **PAC-717** | T-508       | `docs/PAC-717-T-508-frontend-setup-run-instructions`             |
-| **PAC-718** | T-509       | `docs/PAC-718-T-509-database-migration-seed-instructions`        |
-| **PAC-719** | T-510       | `docs/PAC-719-T-510-supabase-auth-setup-notes`                   |
-| **PAC-720** | T-511       | `docs/PAC-720-T-511-neo4j-setup-graph-rebuild-notes`             |
-| **PAC-721** | T-512       | `docs/PAC-721-T-512-ai-provider-mockai-setup-notes`              |
-| **PAC-722** | T-513       | `docs/PAC-722-T-513-demo-account-guide`                          |
-| **PAC-723** | T-514       | `docs/PAC-723-T-514-demo-script-login-role-switching`            |
-| **PAC-724** | T-515       | `docs/PAC-724-T-515-demo-script-stock-import-medicinebatch`      |
-| **PAC-725** | T-516       | `docs/PAC-725-T-516-demo-script-pos-checkout`                    |
-| **PAC-726** | T-517       | `docs/PAC-726-T-517-demo-script-interaction-alert-high-note`     |
-| **PAC-727** | T-518       | `docs/PAC-727-T-518-demo-script-ai-copilot-audit`                |
-| **PAC-728** | T-519       | `docs/PAC-728-T-519-demo-script-graph-sync-rag`                  |
-| **PAC-729** | T-520       | `docs/PAC-729-T-520-demo-script-reports-settings`                |
-| **PAC-730** | T-521       | `docs/PAC-730-T-521-mvp-traceability-matrix-summary`             |
-| **PAC-731** | T-522       | `docs/PAC-731-T-522-release-demo-readiness-checklist`            |
-| **PAC-732** | T-523       | `docs/PAC-732-T-523-known-limitations-out-of-scope`              |
-| **PAC-733** | T-524       | `docs/PAC-733-T-524-contingency-screenshots-list`                |
-| **PAC-734** | T-525       | `docs/PAC-734-T-525-final-smoke-test-report-template`            |
-| **PAC-735** | T-526       | `feature/PAC-735-T-526-admin-graph-sync-status-list-ui`          |
-| **PAC-736** | T-527       | `feature/PAC-736-T-527-graph-sync-job-detail-ui`                 |
-| **PAC-737** | T-528       | `feature/PAC-737-T-528-admin-manual-graph-retry`                 |
-| **PAC-738** | T-529       | `feature/PAC-738-T-529-admin-manual-graph-rebuild`               |
-| **PAC-739** | T-530       | `feature/PAC-739-T-530-graph-sync-status-permission-checks`      |
-| **PAC-740** | T-531       | `feature/PAC-740-T-531-readonly-graph-explorer-ui`               |
-| **PAC-741** | T-532       | `feature/PAC-741-T-532-graph-explorer-node-detail-panel`         |
-| **PAC-742** | T-533       | `feature/PAC-742-T-533-graph-explorer-relationship-detail-panel` |
-| **PAC-743** | T-534       | `feature/PAC-743-T-534-graph-explorer-permission-checks`         |
-| **PAC-744** | T-535       | `feature/PAC-744-T-535-graph-explorer-allowlisted-templates`     |
-| **PAC-745** | T-536       | `feature/PAC-745-T-536-ai-provider-settings-ui`                  |
-| **PAC-746** | T-537       | `feature/PAC-746-T-537-ai-model-configuration-ui`                |
-| **PAC-747** | T-538       | `feature/PAC-747-T-538-prompt-management-list-ui`                |
-| **PAC-748** | T-539       | `feature/PAC-748-T-539-prompt-management-version-detail-ui`      |
-| **PAC-749** | T-540       | `feature/PAC-749-T-540-prompt-approval-status-display`           |
-| **PAC-750** | T-541       | `feature/PAC-750-T-541-system-audit-log-ui`                      |
-| **PAC-751** | T-542       | `feature/PAC-751-T-542-system-audit-log-filters`                 |
-| **PAC-752** | T-543       | `feature/PAC-752-T-543-supabase-storage-medicine-image-upload`   |
-| **PAC-753** | T-544       | `feature/PAC-753-T-544-medicine-image-upload-ui`                 |
-| **PAC-754** | T-545       | `feature/PAC-754-T-545-supabase-storage-file-validation`         |
-| **PAC-755** | T-546       | `feature/PAC-755-T-546-supabase-realtime-inventory-listener`     |
-| **PAC-756** | T-547       | `feature/PAC-756-T-547-realtime-pos-stock-refresh`               |
-| **PAC-757** | T-548       | `feature/PAC-757-T-548-realtime-fallback-polling`                |
-| **PAC-758** | T-549       | `feature/PAC-758-T-549-notification-center-ui`                   |
-| **PAC-759** | T-550       | `feature/PAC-759-T-550-low-stock-notification-generation`        |
-| **PAC-760** | T-551       | `feature/PAC-760-T-551-near-expiry-notification-generation`      |
-| **PAC-761** | T-552       | `feature/PAC-761-T-552-read-unread-notification-state`           |
-| **PAC-762** | T-553       | `feature/PAC-762-T-553-scheduled-near-expiry-scan-job`           |
-| **PAC-763** | T-554       | `feature/PAC-763-T-554-ai-business-report-narrative-api`         |
-| **PAC-764** | T-555       | `feature/PAC-764-T-555-ai-business-report-narrative-ui`          |
-| **PAC-765** | T-556       | `docs/PAC-765-T-556-full-customer-management-future-scope`       |
-| **PAC-766** | T-557       | `docs/PAC-766-T-557-customer-profile-crud-future-scope`          |
-| **PAC-767** | T-558       | `docs/PAC-767-T-558-customer-purchase-history-expansion`         |
-| **PAC-768** | T-559       | `docs/PAC-768-T-559-online-commerce-storefront-future`           |
-| **PAC-769** | T-560       | `docs/PAC-769-T-560-online-cart-wishlist-future`                 |
-| **PAC-770** | T-561       | `docs/PAC-770-T-561-online-checkout-separation-pos`              |
-| **PAC-771** | T-562       | `docs/PAC-771-T-562-product-variant-catalog-future`              |
-| **PAC-772** | T-563       | `docs/PAC-772-T-563-product-images-documents-commercial`         |
-| **PAC-773** | T-564       | `docs/PAC-773-T-564-real-catalog-data-import-future`             |
-| **PAC-774** | T-565       | `docs/PAC-774-T-565-multistore-future-scope`                     |
-| **PAC-775** | T-566       | `docs/PAC-775-T-566-default-store-assumption-mvp`                |
-| **PAC-776** | T-567       | `docs/PAC-776-T-567-multiwarehouse-future-scope`                 |
-| **PAC-777** | T-568       | `docs/PAC-777-T-568-default-warehouse-assumption-mvp`            |
-| **PAC-778** | T-569       | `docs/PAC-778-T-569-stock-transfer-future-workflow`              |
-| **PAC-779** | T-570       | `docs/PAC-779-T-570-stock-transfer-audit-future`                 |
-| **PAC-780** | T-571       | `docs/PAC-780-T-571-forecasting-reorder-future-scope`            |
-| **PAC-781** | T-572       | `docs/PAC-781-T-572-forecast-data-requirements-limitations`      |
-| **PAC-782** | T-573       | `docs/PAC-782-T-573-promotion-coupon-future-scope`               |
-| **PAC-783** | T-574       | `docs/PAC-783-T-574-discount-not-in-mvp-checkout`                |
-| **PAC-784** | T-575       | `docs/PAC-784-T-575-shipping-delivery-future-scope`              |
-| **PAC-785** | T-576       | `docs/PAC-785-T-576-delivery-status-future-workflow`             |
-| **PAC-786** | T-577       | `docs/PAC-786-T-577-review-cms-future-scope`                     |
-| **PAC-787** | T-578       | `docs/PAC-787-T-578-product-review-moderation-future`            |
-| **PAC-788** | T-579       | `docs/PAC-788-T-579-commercial-expansion-dependency-map`         |
-| **PAC-789** | T-580       | `docs/PAC-789-T-580-final-ai-agent-out-of-scope-guardrails`      |
-
----
-
-## 10. Branch merge flow
-
-### 10.1. Flow chuẩn cho MVP task
-
-```text
-feature/PAC-xxx-T-xxx-short-description
-→ Pull Request
-→ develop
-→ release/demo-freeze-2026-06-16
-→ main
-```
-
-### 10.2. Flow cho test task
-
-```text
-test/PAC-xxx-T-xxx-short-description
-→ Pull Request
-→ develop
-```
-
-### 10.3. Flow cho docs task
-
-```text
-docs/PAC-xxx-T-xxx-short-description
-→ Pull Request
-→ develop
-```
-
-### 10.4. Flow cho bugfix trước demo
-
-```text
-bugfix/PAC-xxx-T-xxx-short-description
-→ Pull Request
-→ develop
-→ release/demo-freeze-2026-06-16
-```
-
-### 10.5. Flow cho hotfix sau khi đã release
-
-```text
-hotfix/PAC-xxx-short-description
-→ Pull Request
-→ main
-→ back-merge vào develop
-```
-
----
-
-## 11. Quy tắc branch theo scope
-
-| Scope                         |        Task range | Branch type chính            | Ghi chú                        |
-| ----------------------------- | ----------------: | ---------------------------- | ------------------------------ |
-| MVP Implementation            | `T-001` → `T-435` | `feature/`, `test/`, `docs/` | Bắt buộc cho MVP               |
-| MVP Testing / Release         | `T-436` → `T-525` | `test/`, `feature/`, `docs/` | Bắt buộc cho release readiness |
-| Should-have / Advanced        | `T-526` → `T-555` | `feature/`                   | Không chặn MVP                 |
-| Future / Commercial Expansion | `T-556` → `T-580` | `docs/`                      | Không code trong MVP           |
-
----
-
-## 12. Out-of-scope branch guard
-
-Không tạo branch code MVP cho các nội dung sau:
-
-```text
-custom-jwt-auth
-password-hash-in-postgresql
-aggregate-inventory-source-of-truth
-medicine-level-interaction-rule-source-of-truth
-mockai-only-mvp
-neo4j-source-of-truth
-graph-decides-checkout
-ai-diagnosis
-ai-prescribing
-ai-dosage-advice
-online-commerce-mvp
-productvariant-sales-key-mvp
-multi-store-workflow-mvp
-multi-warehouse-workflow-mvp
-stock-transfer-mvp
-promotion-coupon-mvp
-shipping-delivery-mvp
-review-cms-mvp
-```
-
-Nếu cần ghi nhận các nội dung này, chỉ tạo branch dạng `docs/` ở Future scope.
-
----
-
-## 13. AI Agent branch instructions
-
-Khi AI agent bắt đầu làm một issue, phải làm theo quy tắc:
-
-1. Đọc Jira issue key thật, ví dụ `PAC-469`.
-2. Đọc logical task key, ví dụ `T-260`.
-3. Tạo branch đúng format:
-
-```text
-feature/PAC-469-T-260-checkout-controller
-```
-
-4. Không tạo branch thiếu Jira key.
-5. Không dùng `PAI`.
-6. Không dùng tiếng Việt có dấu trong branch name.
-7. Không gom nhiều task không liên quan vào một branch.
-8. Mỗi PR phải link đúng Epic / Story / Task.
-9. Không merge trực tiếp vào `main`.
-10. Không code Future scope trong MVP.
-
----
-
-## 14. Ví dụ quy trình làm việc đầy đủ
-
-Ví dụ với Task:
-
-```text
-PAC-TASK-260 - Implement CheckoutController POST /checkout
-```
-
-Jira key thật:
-
-```text
-PAC-469
-```
-
-Branch cần tạo:
-
-```text
-feature/PAC-469-T-260-checkout-controller
-```
-
-Commit message:
-
-```text
-PAC-469 T-260: implement checkout controller
-```
-
-PR title:
-
-```text
-PAC-469 T-260: Implement CheckoutController POST /checkout
-```
-
-PR target:
-
-```text
-develop
-```
-
-PR description:
-
-```text
-Related Epic: PAC-11 EPIC-11 Checkout FEFO Payment Invoice
-Related Story: PAC-122 US-83 Checkout transaction
-Related Task: PAC-469 T-260 Implement CheckoutController POST /checkout
-Scope: MVP
-Component: POS & Checkout
-What changed:
-- Added CheckoutController
-- Added POST /checkout endpoint
-- Connected controller to CheckoutService
-
-How tested:
-- Unit test
-- Integration test
-- Manual API call
-
-Risk:
-- Checkout transaction must not create payment/invoice outside transaction
-
-Rollback notes:
-- Revert controller and route changes
-```
-
----
-
-## 15. Kết luận
-
-Tài liệu này định nghĩa đủ:
-
-```text
-39 Epic branches
-170 Story branches
-580 Task branches
-```
-
-Tổng cộng:
-
-```text
-789 issue branches
-```
-
-Cộng thêm 3 branch hệ thống:
-
-```text
-main
-develop
-release/demo-freeze-2026-06-16
-```
-
-Nguyên tắc quan trọng nhất:
-
-```text
-Mỗi branch phải có Jira issue key PAC-xxx để Jira tự liên kết được.
-Không dùng PAI.
-Không dùng tiếng Việt có dấu trong branch name.
-Không code Future scope trong MVP.
-Không merge trực tiếp vào main.
-```
+## 3. Task Branches
+
+| Jira Key | Logical Key | Tên Task | Nhánh Git tương ứng |
+|---|---|---|---|
+| **PAC-211** | `TASK-001` | TASK-001 - Configure Supabase Auth client in Next.js | `feature/PAC-211-task-001-configure-supabase-auth-client-in-next-js` |
+| **PAC-212** | `TASK-002` | TASK-002 - Build login page UI | `feature/PAC-212-task-002-build-login-page-ui` |
+| **PAC-213** | `TASK-003` | TASK-003 - Connect login form to Supabase Auth | `feature/PAC-213-task-003-connect-login-form-to-supabase-auth` |
+| **PAC-214** | `TASK-004` | TASK-004 - Handle login loading, success and error states | `feature/PAC-214-task-004-handle-login-loading-success-and-error-states` |
+| **PAC-215** | `TASK-005` | TASK-005 - Redirect user after login based on permissions | `feature/PAC-215-task-005-redirect-user-after-login-based-on-permissions` |
+| **PAC-216** | `TASK-006` | TASK-006 - Implement logout action and Supabase session cleanup | `feature/PAC-216-task-006-implement-logout-action-and-supabase-session-cleanu` |
+| **PAC-217** | `TASK-007` | TASK-007 - Protect frontend routes after logout | `feature/PAC-217-task-007-protect-frontend-routes-after-logout` |
+| **PAC-218** | `TASK-008` | TASK-008 - Add login/logout smoke test checklist | `test/PAC-218-task-008-add-login-logout-smoke-test-checklist` |
+| **PAC-219** | `TASK-009` | TASK-009 - Configure Supabase token validation in NestJS | `feature/PAC-219-task-009-configure-supabase-token-validation-in-nestjs` |
+| **PAC-220** | `TASK-010` | TASK-010 - Implement AuthGuard for protected APIs | `feature/PAC-220-task-010-implement-authguard-for-protected-apis` |
+| **PAC-221** | `TASK-011` | TASK-011 - Return 401 for missing or invalid session | `feature/PAC-221-task-011-return-401-for-missing-or-invalid-session` |
+| **PAC-222** | `TASK-012` | TASK-012 - Add backend auth unit tests | `test/PAC-222-task-012-add-backend-auth-unit-tests` |
+| **PAC-223** | `TASK-013` | TASK-013 - Create user_profiles Prisma model | `feature/PAC-223-task-013-create-user-profiles-prisma-model` |
+| **PAC-224** | `TASK-014` | TASK-014 - Create GET /auth/me API | `feature/PAC-224-task-014-create-get-auth-me-api` |
+| **PAC-225** | `TASK-015` | TASK-015 - Return current user roles and permissions | `feature/PAC-225-task-015-return-current-user-roles-and-permissions` |
+| **PAC-226** | `TASK-016` | TASK-016 - Display current user profile in layout | `feature/PAC-226-task-016-display-current-user-profile-in-layout` |
+| **PAC-227** | `TASK-017` | TASK-017 - Create roles Prisma model | `feature/PAC-227-task-017-create-roles-prisma-model` |
+| **PAC-228** | `TASK-018` | TASK-018 - Create permissions Prisma model | `feature/PAC-228-task-018-create-permissions-prisma-model` |
+| **PAC-229** | `TASK-019` | TASK-019 - Create user_roles Prisma model | `feature/PAC-229-task-019-create-user-roles-prisma-model` |
+| **PAC-230** | `TASK-020` | TASK-020 - Create role_permissions Prisma model | `feature/PAC-230-task-020-create-role-permissions-prisma-model` |
+| **PAC-231** | `TASK-021` | TASK-021 - Seed Admin, Staff and Warehouse roles | `feature/PAC-231-task-021-seed-admin-staff-and-warehouse-roles` |
+| **PAC-232** | `TASK-022` | TASK-022 - Seed MVP permissions | `feature/PAC-232-task-022-seed-mvp-permissions` |
+| **PAC-233** | `TASK-023` | TASK-023 - Map permissions to roles | `feature/PAC-233-task-023-map-permissions-to-roles` |
+| **PAC-234** | `TASK-024` | TASK-024 - Implement permission decorator | `feature/PAC-234-task-024-implement-permission-decorator` |
+| **PAC-235** | `TASK-025` | TASK-025 - Implement permission-based API guard | `feature/PAC-235-task-025-implement-permission-based-api-guard` |
+| **PAC-236** | `TASK-026` | TASK-026 - Add permission checks to Auth and User APIs | `feature/PAC-236-task-026-add-permission-checks-to-auth-and-user-apis` |
+| **PAC-237** | `TASK-027` | TASK-027 - Add permission checks to Medicine APIs | `feature/PAC-237-task-027-add-permission-checks-to-medicine-apis` |
+| **PAC-238** | `TASK-028` | TASK-028 - Add permission checks to Inventory APIs | `feature/PAC-238-task-028-add-permission-checks-to-inventory-apis` |
+| **PAC-239** | `TASK-029` | TASK-029 - Add permission checks to POS and Checkout APIs | `feature/PAC-239-task-029-add-permission-checks-to-pos-and-checkout-apis` |
+| **PAC-240** | `TASK-030` | TASK-030 - Add 403 response format for forbidden access | `feature/PAC-240-task-030-add-403-response-format-for-forbidden-access` |
+| **PAC-241** | `TASK-031` | TASK-031 - Build permission-aware sidebar | `feature/PAC-241-task-031-build-permission-aware-sidebar` |
+| **PAC-242** | `TASK-032` | TASK-032 - Hide unauthorized action buttons | `feature/PAC-242-task-032-hide-unauthorized-action-buttons` |
+| **PAC-243** | `TASK-033` | TASK-033 - Build forbidden access page | `feature/PAC-243-task-033-build-forbidden-access-page` |
+| **PAC-244** | `TASK-034` | TASK-034 - Add frontend permission helper | `feature/PAC-244-task-034-add-frontend-permission-helper` |
+| **PAC-245** | `TASK-035` | TASK-035 - Implement Staff ownership query filter for orders | `feature/PAC-245-task-035-implement-staff-ownership-query-filter-for-orders` |
+| **PAC-246** | `TASK-036` | TASK-036 - Implement Staff ownership query filter for customer order history | `feature/PAC-246-task-036-implement-staff-ownership-query-filter-for-customer` |
+| **PAC-247** | `TASK-037` | TASK-037 - Add tests for Staff ownership scope | `test/PAC-247-task-037-add-tests-for-staff-ownership-scope` |
+| **PAC-248** | `TASK-038` | TASK-038 - Block Warehouse access to POS routes | `feature/PAC-248-task-038-block-warehouse-access-to-pos-routes` |
+| **PAC-249** | `TASK-039` | TASK-039 - Block Warehouse access to InteractionAlert APIs | `feature/PAC-249-task-039-block-warehouse-access-to-interactionalert-apis` |
+| **PAC-250** | `TASK-040` | TASK-040 - Block Warehouse access to checkout APIs | `feature/PAC-250-task-040-block-warehouse-access-to-checkout-apis` |
+| **PAC-251** | `TASK-041` | TASK-041 - Build Admin create staff account form | `feature/PAC-251-task-041-build-admin-create-staff-account-form` |
+| **PAC-252** | `TASK-042` | TASK-042 - Implement POST /admin/users using Supabase Admin | `feature/PAC-252-task-042-implement-post-admin-users-using-supabase-admin` |
+| **PAC-253** | `TASK-043` | TASK-043 - Create user profile after Supabase user creation | `feature/PAC-253-task-043-create-user-profile-after-supabase-user-creation` |
+| **PAC-254** | `TASK-044` | TASK-044 - Assign roles to new staff account | `feature/PAC-254-task-044-assign-roles-to-new-staff-account` |
+| **PAC-255** | `TASK-045` | TASK-045 - Validate staff email uniqueness through Supabase | `feature/PAC-255-task-045-validate-staff-email-uniqueness-through-supabase` |
+| **PAC-256** | `TASK-046` | TASK-046 - Implement first-login password change screen | `feature/PAC-256-task-046-implement-first-login-password-change-screen` |
+| **PAC-257** | `TASK-047` | TASK-047 - Implement must_change_password check | `feature/PAC-257-task-047-implement-must-change-password-check` |
+| **PAC-258** | `TASK-048` | TASK-048 - Implement password update through Supabase Auth | `feature/PAC-258-task-048-implement-password-update-through-supabase-auth` |
+| **PAC-259** | `TASK-049` | TASK-049 - Clear must_change_password after successful change | `feature/PAC-259-task-049-clear-must-change-password-after-successful-change` |
+| **PAC-260** | `TASK-050` | TASK-050 - Implement account active/inactive update API | `feature/PAC-260-task-050-implement-account-active-inactive-update-api` |
+| **PAC-261** | `TASK-051` | TASK-051 - Build staff account status UI | `feature/PAC-261-task-051-build-staff-account-status-ui` |
+| **PAC-262** | `TASK-052` | TASK-052 - Add audit log for staff status change | `feature/PAC-262-task-052-add-audit-log-for-staff-status-change` |
+| **PAC-263** | `TASK-053` | TASK-053 - Create medicines Prisma model | `feature/PAC-263-task-053-create-medicines-prisma-model` |
+| **PAC-264** | `TASK-054` | TASK-054 - Add medicine code uniqueness constraint | `feature/PAC-264-task-054-add-medicine-code-uniqueness-constraint` |
+| **PAC-265** | `TASK-055` | TASK-055 - Implement POST /medicines API | `feature/PAC-265-task-055-implement-post-medicines-api` |
+| **PAC-266** | `TASK-056` | TASK-056 - Build medicine create form | `feature/PAC-266-task-056-build-medicine-create-form` |
+| **PAC-267** | `TASK-057` | TASK-057 - Add medicine create success/error UI state | `feature/PAC-267-task-057-add-medicine-create-success-error-ui-state` |
+| **PAC-268** | `TASK-058` | TASK-058 - Implement PATCH /medicines/{id} API | `feature/PAC-268-task-058-implement-patch-medicines-id-api` |
+| **PAC-269** | `TASK-059` | TASK-059 - Build medicine edit form | `feature/PAC-269-task-059-build-medicine-edit-form` |
+| **PAC-270** | `TASK-060` | TASK-060 - Add medicine update validation and errors | `feature/PAC-270-task-060-add-medicine-update-validation-and-errors` |
+| **PAC-271** | `TASK-061` | TASK-061 - Implement medicine list API with pagination | `feature/PAC-271-task-061-implement-medicine-list-api-with-pagination` |
+| **PAC-272** | `TASK-062` | TASK-062 - Implement medicine search by code/name | `feature/PAC-272-task-062-implement-medicine-search-by-code-name` |
+| **PAC-273** | `TASK-063` | TASK-063 - Implement medicine filters | `feature/PAC-273-task-063-implement-medicine-filters` |
+| **PAC-274** | `TASK-064` | TASK-064 - Build medicine list table | `feature/PAC-274-task-064-build-medicine-list-table` |
+| **PAC-275** | `TASK-065` | TASK-065 - Add medicine list empty/loading/error states | `feature/PAC-275-task-065-add-medicine-list-empty-loading-error-states` |
+| **PAC-276** | `TASK-066` | TASK-066 - Implement medicine deactivate API | `feature/PAC-276-task-066-implement-medicine-deactivate-api` |
+| **PAC-277** | `TASK-067` | TASK-067 - Add deactivate action in medicine UI | `feature/PAC-277-task-067-add-deactivate-action-in-medicine-ui` |
+| **PAC-278** | `TASK-068` | TASK-068 - Prevent inactive medicines from POS selection | `feature/PAC-278-task-068-prevent-inactive-medicines-from-pos-selection` |
+| **PAC-279** | `TASK-069` | TASK-069 - Enforce selling_price greater than 0 in backend | `feature/PAC-279-task-069-enforce-selling-price-greater-than-0-in-backend` |
+| **PAC-280** | `TASK-070` | TASK-070 - Add selling price validation in UI | `feature/PAC-280-task-070-add-selling-price-validation-in-ui` |
+| **PAC-281** | `TASK-071` | TASK-071 - Add tests for medicine price validation | `test/PAC-281-task-071-add-tests-for-medicine-price-validation` |
+| **PAC-282** | `TASK-072` | TASK-072 - Create active_ingredients Prisma model | `feature/PAC-282-task-072-create-active-ingredients-prisma-model` |
+| **PAC-283** | `TASK-073` | TASK-073 - Implement ActiveIngredient create API | `feature/PAC-283-task-073-implement-activeingredient-create-api` |
+| **PAC-284** | `TASK-074` | TASK-074 - Implement ActiveIngredient update API | `feature/PAC-284-task-074-implement-activeingredient-update-api` |
+| **PAC-285** | `TASK-075` | TASK-075 - Implement ActiveIngredient list/search API | `feature/PAC-285-task-075-implement-activeingredient-list-search-api` |
+| **PAC-286** | `TASK-076` | TASK-076 - Build ActiveIngredient management screen | `feature/PAC-286-task-076-build-activeingredient-management-screen` |
+| **PAC-287** | `TASK-077` | TASK-077 - Add ActiveIngredient create/edit form validation | `feature/PAC-287-task-077-add-activeingredient-create-edit-form-validation` |
+| **PAC-288** | `TASK-078` | TASK-078 - Create medicine_active_ingredients mapping schema | `feature/PAC-288-task-078-create-medicine-active-ingredients-mapping-schema` |
+| **PAC-289** | `TASK-079` | TASK-079 - Implement Medicine-Ingredient mapping API | `feature/PAC-289-task-079-implement-medicine-ingredient-mapping-api` |
+| **PAC-290** | `TASK-080` | TASK-080 - Build ingredient mapping component in Medicine form | `feature/PAC-290-task-080-build-ingredient-mapping-component-in-medicine-form` |
+| **PAC-291** | `TASK-081` | TASK-081 - Show mapped ingredients in medicine detail | `feature/PAC-291-task-081-show-mapped-ingredients-in-medicine-detail` |
+| **PAC-292** | `TASK-082` | TASK-082 - Add unique validation for ingredient mapping | `feature/PAC-292-task-082-add-unique-validation-for-ingredient-mapping` |
+| **PAC-293** | `TASK-083` | TASK-083 - Prevent mapping inactive ingredient if not allowed | `feature/PAC-293-task-083-prevent-mapping-inactive-ingredient-if-not-allowed` |
+| **PAC-294** | `TASK-084` | TASK-084 - Normalize ActiveIngredient names | `feature/PAC-294-task-084-normalize-activeingredient-names` |
+| **PAC-295** | `TASK-085` | TASK-085 - Reject raw scraped ingredient strings in official mapping | `feature/PAC-295-task-085-reject-raw-scraped-ingredient-strings-in-official-m` |
+| **PAC-296** | `TASK-086` | TASK-086 - Add ActiveIngredient data quality review checklist | `feature/PAC-296-task-086-add-activeingredient-data-quality-review-checklist` |
+| **PAC-297** | `TASK-087` | TASK-087 - Create graph sync event when Medicine changes | `feature/PAC-297-task-087-create-graph-sync-event-when-medicine-changes` |
+| **PAC-298** | `TASK-088` | TASK-088 - Create graph sync event when ActiveIngredient changes | `feature/PAC-298-task-088-create-graph-sync-event-when-activeingredient-chang` |
+| **PAC-299** | `TASK-089` | TASK-089 - Create graph sync event when Ingredient mapping changes | `feature/PAC-299-task-089-create-graph-sync-event-when-ingredient-mapping-cha` |
+| **PAC-300** | `TASK-090` | TASK-090 - Create suppliers Prisma model | `feature/PAC-300-task-090-create-suppliers-prisma-model` |
+| **PAC-301** | `TASK-091` | TASK-091 - Implement supplier create API | `feature/PAC-301-task-091-implement-supplier-create-api` |
+| **PAC-302** | `TASK-092` | TASK-092 - Build supplier create form | `feature/PAC-302-task-092-build-supplier-create-form` |
+| **PAC-303** | `TASK-093` | TASK-093 - Validate supplier required fields | `feature/PAC-303-task-093-validate-supplier-required-fields` |
+| **PAC-304** | `TASK-094` | TASK-094 - Implement supplier list/search API | `feature/PAC-304-task-094-implement-supplier-list-search-api` |
+| **PAC-305** | `TASK-095` | TASK-095 - Implement supplier update API | `feature/PAC-305-task-095-implement-supplier-update-api` |
+| **PAC-306** | `TASK-096` | TASK-096 - Build supplier list and edit screen | `feature/PAC-306-task-096-build-supplier-list-and-edit-screen` |
+| **PAC-307** | `TASK-097` | TASK-097 - Implement Admin-only supplier deactivate API | `feature/PAC-307-task-097-implement-admin-only-supplier-deactivate-api` |
+| **PAC-308** | `TASK-098` | TASK-098 - Add supplier deactivate confirmation UI | `feature/PAC-308-task-098-add-supplier-deactivate-confirmation-ui` |
+| **PAC-309** | `TASK-099` | TASK-099 - Prevent inactive supplier in new Stock Import | `feature/PAC-309-task-099-prevent-inactive-supplier-in-new-stock-import` |
+| **PAC-310** | `TASK-100` | TASK-100 - Link active supplier selection to Stock Import | `feature/PAC-310-task-100-link-active-supplier-selection-to-stock-import` |
+| **PAC-311** | `TASK-101` | TASK-101 - Build supplier selector for Stock Import UI | `feature/PAC-311-task-101-build-supplier-selector-for-stock-import-ui` |
+| **PAC-312** | `TASK-102` | TASK-102 - Create medicine_batches Prisma model | `feature/PAC-312-task-102-create-medicine-batches-prisma-model` |
+| **PAC-313** | `TASK-103` | TASK-103 - Add MedicineBatch indexes and constraints | `feature/PAC-313-task-103-add-medicinebatch-indexes-and-constraints` |
+| **PAC-314** | `TASK-104` | TASK-104 - Remove aggregate inventory source-of-truth assumptions | `feature/PAC-314-task-104-remove-aggregate-inventory-source-of-truth-assumpti` |
+| **PAC-315** | `TASK-105` | TASK-105 - Document MedicineBatch as inventory source of truth | `docs/PAC-315-task-105-document-medicinebatch-as-inventory-source-of-truth` |
+| **PAC-316** | `TASK-106` | TASK-106 - Enforce required batch_number | `feature/PAC-316-task-106-enforce-required-batch-number` |
+| **PAC-317** | `TASK-107` | TASK-107 - Normalize batch_number before comparison | `feature/PAC-317-task-107-normalize-batch-number-before-comparison` |
+| **PAC-318** | `TASK-108` | TASK-108 - Add UI validation for batch_number | `feature/PAC-318-task-108-add-ui-validation-for-batch-number` |
+| **PAC-319** | `TASK-109` | TASK-109 - Implement batch identity validation service | `feature/PAC-319-task-109-implement-batch-identity-validation-service` |
+| **PAC-320** | `TASK-110` | TASK-110 - Add migration constraint for medicine/batch/expiry uniqueness | `feature/PAC-320-task-110-add-migration-constraint-for-medicine-batch-expiry-` |
+| **PAC-321** | `TASK-111` | TASK-111 - Add batch identity unit tests | `test/PAC-321-task-111-add-batch-identity-unit-tests` |
+| **PAC-322** | `TASK-112` | TASK-112 - Implement inventory summary query from MedicineBatch | `feature/PAC-322-task-112-implement-inventory-summary-query-from-medicinebatc` |
+| **PAC-323** | `TASK-113` | TASK-113 - Build Inventory Summary screen | `feature/PAC-323-task-113-build-inventory-summary-screen` |
+| **PAC-324** | `TASK-114` | TASK-114 - Add search/filter to Inventory Summary | `feature/PAC-324-task-114-add-search-filter-to-inventory-summary` |
+| **PAC-325** | `TASK-115` | TASK-115 - Implement Batch Detail API | `feature/PAC-325-task-115-implement-batch-detail-api` |
+| **PAC-326** | `TASK-116` | TASK-116 - Build Batch Detail screen | `feature/PAC-326-task-116-build-batch-detail-screen` |
+| **PAC-327** | `TASK-117` | TASK-117 - Display expired/near-expiry/sellable batch status | `feature/PAC-327-task-117-display-expired-near-expiry-sellable-batch-status` |
+| **PAC-328** | `TASK-118` | TASK-118 - Implement sellable quantity calculation service | `feature/PAC-328-task-118-implement-sellable-quantity-calculation-service` |
+| **PAC-329** | `TASK-119` | TASK-119 - Add tests for sellable quantity calculation | `test/PAC-329-task-119-add-tests-for-sellable-quantity-calculation` |
+| **PAC-330** | `TASK-120` | TASK-120 - Exclude expired batches from sellable stock | `feature/PAC-330-task-120-exclude-expired-batches-from-sellable-stock` |
+| **PAC-331** | `TASK-121` | TASK-121 - Add tests for expired batch exclusion | `test/PAC-331-task-121-add-tests-for-expired-batch-exclusion` |
+| **PAC-332** | `TASK-122` | TASK-122 - Implement low-stock calculation from sellable quantity | `feature/PAC-332-task-122-implement-low-stock-calculation-from-sellable-quant` |
+| **PAC-333** | `TASK-123` | TASK-123 - Display low-stock state for Admin/Warehouse | `feature/PAC-333-task-123-display-low-stock-state-for-admin-warehouse` |
+| **PAC-334** | `TASK-124` | TASK-124 - Hide general low-stock dashboard from Staff | `feature/PAC-334-task-124-hide-general-low-stock-dashboard-from-staff` |
+| **PAC-335** | `TASK-125` | TASK-125 - Implement near-expiry calculation with threshold | `feature/PAC-335-task-125-implement-near-expiry-calculation-with-threshold` |
+| **PAC-336** | `TASK-126` | TASK-126 - Display near-expiry batch state | `feature/PAC-336-task-126-display-near-expiry-batch-state` |
+| **PAC-337** | `TASK-127` | TASK-127 - Build Admin/Warehouse inventory dashboard cards | `feature/PAC-337-task-127-build-admin-warehouse-inventory-dashboard-cards` |
+| **PAC-338** | `TASK-128` | TASK-128 - Build POS sellable stock display | `feature/PAC-338-task-128-build-pos-sellable-stock-display` |
+| **PAC-339** | `TASK-129` | TASK-129 - Remove direct quantity edit from Batch Detail UI | `feature/PAC-339-task-129-remove-direct-quantity-edit-from-batch-detail-ui` |
+| **PAC-340** | `TASK-130` | TASK-130 - Ensure no public API directly edits batch quantity | `feature/PAC-340-task-130-ensure-no-public-api-directly-edits-batch-quantity` |
+| **PAC-341** | `TASK-131` | TASK-131 - Create stock_imports Prisma model | `feature/PAC-341-task-131-create-stock-imports-prisma-model` |
+| **PAC-342** | `TASK-132` | TASK-132 - Implement create Stock Import draft API | `feature/PAC-342-task-132-implement-create-stock-import-draft-api` |
+| **PAC-343** | `TASK-133` | TASK-133 - Build create Stock Import screen | `feature/PAC-343-task-133-build-create-stock-import-screen` |
+| **PAC-344** | `TASK-134` | TASK-134 - Create stock_import_lines Prisma model | `feature/PAC-344-task-134-create-stock-import-lines-prisma-model` |
+| **PAC-345** | `TASK-135` | TASK-135 - Implement add stock import line API | `feature/PAC-345-task-135-implement-add-stock-import-line-api` |
+| **PAC-346** | `TASK-136` | TASK-136 - Build stock import line editor UI | `feature/PAC-346-task-136-build-stock-import-line-editor-ui` |
+| **PAC-347** | `TASK-137` | TASK-137 - Implement update draft import line API | `feature/PAC-347-task-137-implement-update-draft-import-line-api` |
+| **PAC-348** | `TASK-138` | TASK-138 - Implement delete draft import line API | `feature/PAC-348-task-138-implement-delete-draft-import-line-api` |
+| **PAC-349** | `TASK-139` | TASK-139 - Disable edit/delete for confirmed import lines | `feature/PAC-349-task-139-disable-edit-delete-for-confirmed-import-lines` |
+| **PAC-350** | `TASK-140` | TASK-140 - Validate active supplier before confirm import | `feature/PAC-350-task-140-validate-active-supplier-before-confirm-import` |
+| **PAC-351** | `TASK-141` | TASK-141 - Validate batch number in import line | `feature/PAC-351-task-141-validate-batch-number-in-import-line` |
+| **PAC-352** | `TASK-142` | TASK-142 - Validate expiry date in import line | `feature/PAC-352-task-142-validate-expiry-date-in-import-line` |
+| **PAC-353** | `TASK-143` | TASK-143 - Implement confirm Stock Import transaction skeleton | `feature/PAC-353-task-143-implement-confirm-stock-import-transaction-skeleton` |
+| **PAC-354** | `TASK-144` | TASK-144 - Apply stock import lines to MedicineBatch | `feature/PAC-354-task-144-apply-stock-import-lines-to-medicinebatch` |
+| **PAC-355** | `TASK-145` | TASK-145 - Rollback Stock Import confirm on any invalid line | `feature/PAC-355-task-145-rollback-stock-import-confirm-on-any-invalid-line` |
+| **PAC-356** | `TASK-146` | TASK-146 - Implement batch merge when medicine/batch/expiry match | `feature/PAC-356-task-146-implement-batch-merge-when-medicine-batch-expiry-ma` |
+| **PAC-357** | `TASK-147` | TASK-147 - Add unit tests for valid batch merge rule | `test/PAC-357-task-147-add-unit-tests-for-valid-batch-merge-rule` |
+| **PAC-358** | `TASK-148` | TASK-148 - Show batch merge result after Stock Import confirm | `feature/PAC-358-task-148-show-batch-merge-result-after-stock-import-confirm` |
+| **PAC-359** | `TASK-149` | TASK-149 - Implement expiry mismatch rejection | `feature/PAC-359-task-149-implement-expiry-mismatch-rejection` |
+| **PAC-360** | `TASK-150` | TASK-150 - Return line-level expiry mismatch errors | `feature/PAC-360-task-150-return-line-level-expiry-mismatch-errors` |
+| **PAC-361** | `TASK-151` | TASK-151 - Add tests for expiry mismatch rejection | `test/PAC-361-task-151-add-tests-for-expiry-mismatch-rejection` |
+| **PAC-362** | `TASK-152` | TASK-152 - Lock confirmed Stock Import status | `feature/PAC-362-task-152-lock-confirmed-stock-import-status` |
+| **PAC-363** | `TASK-153` | TASK-153 - Build confirmed Stock Import read-only UI | `feature/PAC-363-task-153-build-confirmed-stock-import-read-only-ui` |
+| **PAC-364** | `TASK-154` | TASK-154 - Prevent duplicate Stock Import confirm | `feature/PAC-364-task-154-prevent-duplicate-stock-import-confirm` |
+| **PAC-365** | `TASK-155` | TASK-155 - Add tests for confirmed Stock Import immutability | `test/PAC-365-task-155-add-tests-for-confirmed-stock-import-immutability` |
+| **PAC-366** | `TASK-156` | TASK-156 - Write audit log for Stock Import confirm | `feature/PAC-366-task-156-write-audit-log-for-stock-import-confirm` |
+| **PAC-367** | `TASK-157` | TASK-157 - Show Stock Import audit metadata in detail UI | `feature/PAC-367-task-157-show-stock-import-audit-metadata-in-detail-ui` |
+| **PAC-368** | `TASK-158` | TASK-158 - Add Stock Import traceability notes | `feature/PAC-368-task-158-add-stock-import-traceability-notes` |
+| **PAC-369** | `TASK-159` | TASK-159 - Add Stock Import confirm integration tests | `test/PAC-369-task-159-add-stock-import-confirm-integration-tests` |
+| **PAC-370** | `TASK-160` | TASK-160 - Add Stock Import smoke test checklist | `test/PAC-370-task-160-add-stock-import-smoke-test-checklist` |
+| **PAC-371** | `TASK-161` | TASK-161 - Create inventory_adjustments Prisma model | `feature/PAC-371-task-161-create-inventory-adjustments-prisma-model` |
+| **PAC-372** | `TASK-162` | TASK-162 - Create inventory_adjustment_lines Prisma model | `feature/PAC-372-task-162-create-inventory-adjustment-lines-prisma-model` |
+| **PAC-373** | `TASK-163` | TASK-163 - Implement create Inventory Adjustment API | `feature/PAC-373-task-163-implement-create-inventory-adjustment-api` |
+| **PAC-374** | `TASK-164` | TASK-164 - Build create Inventory Adjustment screen | `feature/PAC-374-task-164-build-create-inventory-adjustment-screen` |
+| **PAC-375** | `TASK-165` | TASK-165 - Build MedicineBatch selector for adjustment | `feature/PAC-375-task-165-build-medicinebatch-selector-for-adjustment` |
+| **PAC-376** | `TASK-166` | TASK-166 - Validate adjustment type and quantity | `feature/PAC-376-task-166-validate-adjustment-type-and-quantity` |
+| **PAC-377** | `TASK-167` | TASK-167 - Enforce required adjustment reason in backend | `feature/PAC-377-task-167-enforce-required-adjustment-reason-in-backend` |
+| **PAC-378** | `TASK-168` | TASK-168 - Add required reason validation in UI | `feature/PAC-378-task-168-add-required-reason-validation-in-ui` |
+| **PAC-379** | `TASK-169` | TASK-169 - Show batch before/after quantity preview | `feature/PAC-379-task-169-show-batch-before-after-quantity-preview` |
+| **PAC-380** | `TASK-170` | TASK-170 - Implement confirm Inventory Adjustment transaction | `feature/PAC-380-task-170-implement-confirm-inventory-adjustment-transaction` |
+| **PAC-381** | `TASK-171` | TASK-171 - Update MedicineBatch through adjustment transaction only | `feature/PAC-381-task-171-update-medicinebatch-through-adjustment-transaction` |
+| **PAC-382** | `TASK-172` | TASK-172 - Prevent adjustment from making quantity negative | `feature/PAC-382-task-172-prevent-adjustment-from-making-quantity-negative` |
+| **PAC-383** | `TASK-173` | TASK-173 - Lock confirmed Inventory Adjustment | `feature/PAC-383-task-173-lock-confirmed-inventory-adjustment` |
+| **PAC-384** | `TASK-174` | TASK-174 - Create Inventory Adjustment list API | `feature/PAC-384-task-174-create-inventory-adjustment-list-api` |
+| **PAC-385** | `TASK-175` | TASK-175 - Build Inventory Adjustment history list UI | `feature/PAC-385-task-175-build-inventory-adjustment-history-list-ui` |
+| **PAC-386** | `TASK-176` | TASK-176 - Implement Inventory Adjustment detail API | `feature/PAC-386-task-176-implement-inventory-adjustment-detail-api` |
+| **PAC-387** | `TASK-177` | TASK-177 - Build Inventory Adjustment detail screen | `feature/PAC-387-task-177-build-inventory-adjustment-detail-screen` |
+| **PAC-388** | `TASK-178` | TASK-178 - Add Warehouse permission for create/confirm adjustment | `feature/PAC-388-task-178-add-warehouse-permission-for-create-confirm-adjustm` |
+| **PAC-389** | `TASK-179` | TASK-179 - Add Admin permission for adjustment history and review | `feature/PAC-389-task-179-add-admin-permission-for-adjustment-history-and-rev` |
+| **PAC-390** | `TASK-180` | TASK-180 - Write audit log for Inventory Adjustment | `feature/PAC-390-task-180-write-audit-log-for-inventory-adjustment` |
+| **PAC-391** | `TASK-181` | TASK-181 - Display adjustment audit information in UI | `feature/PAC-391-task-181-display-adjustment-audit-information-in-ui` |
+| **PAC-392** | `TASK-182` | TASK-182 - Add tests for negative quantity adjustment | `test/PAC-392-task-182-add-tests-for-negative-quantity-adjustment` |
+| **PAC-393** | `TASK-183` | TASK-183 - Add tests for required adjustment reason | `test/PAC-393-task-183-add-tests-for-required-adjustment-reason` |
+| **PAC-394** | `TASK-184` | TASK-184 - Add tests for Warehouse adjustment permission | `test/PAC-394-task-184-add-tests-for-warehouse-adjustment-permission` |
+| **PAC-395** | `TASK-185` | TASK-185 - Block direct MedicineBatch quantity update service path | `feature/PAC-395-task-185-block-direct-medicinebatch-quantity-update-service-` |
+| **PAC-396** | `TASK-186` | TASK-186 - Implement cancel Draft Inventory Adjustment API | `feature/PAC-396-task-186-implement-cancel-draft-inventory-adjustment-api` |
+| **PAC-397** | `TASK-187` | TASK-187 - Build cancel Draft Inventory Adjustment UI | `feature/PAC-397-task-187-build-cancel-draft-inventory-adjustment-ui` |
+| **PAC-398** | `TASK-188` | TASK-188 - Refresh Inventory Summary after adjustment confirm | `feature/PAC-398-task-188-refresh-inventory-summary-after-adjustment-confirm` |
+| **PAC-399** | `TASK-189` | TASK-189 - Add Inventory Adjustment smoke test checklist | `test/PAC-399-task-189-add-inventory-adjustment-smoke-test-checklist` |
+| **PAC-400** | `TASK-190` | TASK-190 - Add Inventory Adjustment traceability notes | `feature/PAC-400-task-190-add-inventory-adjustment-traceability-notes` |
+| **PAC-401** | `TASK-191` | TASK-191 - Create orders Prisma model | `feature/PAC-401-task-191-create-orders-prisma-model` |
+| **PAC-402** | `TASK-192` | TASK-192 - Create order_items Prisma model | `feature/PAC-402-task-192-create-order-items-prisma-model` |
+| **PAC-403** | `TASK-193` | TASK-193 - Add order status enum DRAFT/PAID/CANCELLED | `feature/PAC-403-task-193-add-order-status-enum-draft-paid-cancelled` |
+| **PAC-404** | `TASK-194` | TASK-194 - Implement create Draft Order API | `feature/PAC-404-task-194-implement-create-draft-order-api` |
+| **PAC-405** | `TASK-195` | TASK-195 - Build POS Draft Order screen | `feature/PAC-405-task-195-build-pos-draft-order-screen` |
+| **PAC-406** | `TASK-196` | TASK-196 - Implement POS medicine search API | `feature/PAC-406-task-196-implement-pos-medicine-search-api` |
+| **PAC-407** | `TASK-197` | TASK-197 - Build POS medicine search component | `feature/PAC-407-task-197-build-pos-medicine-search-component` |
+| **PAC-408** | `TASK-198` | TASK-198 - Display sellable stock in POS search results | `feature/PAC-408-task-198-display-sellable-stock-in-pos-search-results` |
+| **PAC-409** | `TASK-199` | TASK-199 - Implement add item to Draft Order API | `feature/PAC-409-task-199-implement-add-item-to-draft-order-api` |
+| **PAC-410** | `TASK-200` | TASK-200 - Build add-to-order action in POS | `feature/PAC-410-task-200-build-add-to-order-action-in-pos` |
+| **PAC-411** | `TASK-201` | TASK-201 - Validate active medicine when adding POS item | `feature/PAC-411-task-201-validate-active-medicine-when-adding-pos-item` |
+| **PAC-412** | `TASK-202` | TASK-202 - Implement update Draft Order item quantity API | `feature/PAC-412-task-202-implement-update-draft-order-item-quantity-api` |
+| **PAC-413** | `TASK-203` | TASK-203 - Build quantity controls in Draft Order UI | `feature/PAC-413-task-203-build-quantity-controls-in-draft-order-ui` |
+| **PAC-414** | `TASK-204` | TASK-204 - Validate Draft Order quantity greater than zero | `feature/PAC-414-task-204-validate-draft-order-quantity-greater-than-zero` |
+| **PAC-415** | `TASK-205` | TASK-205 - Validate sellable stock when updating Draft Order quantity | `feature/PAC-415-task-205-validate-sellable-stock-when-updating-draft-order-q` |
+| **PAC-416** | `TASK-206` | TASK-206 - Implement remove item from Draft Order API | `feature/PAC-416-task-206-implement-remove-item-from-draft-order-api` |
+| **PAC-417** | `TASK-207` | TASK-207 - Build remove item action in POS | `feature/PAC-417-task-207-build-remove-item-action-in-pos` |
+| **PAC-418** | `TASK-208` | TASK-208 - Implement Draft Order total calculation service | `feature/PAC-418-task-208-implement-draft-order-total-calculation-service` |
+| **PAC-419** | `TASK-209` | TASK-209 - Display Draft Order totals in POS UI | `feature/PAC-419-task-209-display-draft-order-totals-in-pos-ui` |
+| **PAC-420** | `TASK-210` | TASK-210 - Ensure no coupon or discount logic in MVP Draft Order total | `feature/PAC-420-task-210-ensure-no-coupon-or-discount-logic-in-mvp-draft-ord` |
+| **PAC-421** | `TASK-211` | TASK-211 - Show POS stock validation errors | `feature/PAC-421-task-211-show-pos-stock-validation-errors` |
+| **PAC-422** | `TASK-212` | TASK-212 - Implement walk-in customer support in order model | `feature/PAC-422-task-212-implement-walk-in-customer-support-in-order-model` |
+| **PAC-423** | `TASK-213` | TASK-213 - Display walk-in customer option in POS | `feature/PAC-423-task-213-display-walk-in-customer-option-in-pos` |
+| **PAC-424** | `TASK-214` | TASK-214 - Keep full Customer Management out of MVP POS flow | `feature/PAC-424-task-214-keep-full-customer-management-out-of-mvp-pos-flow` |
+| **PAC-425** | `TASK-215` | TASK-215 - Apply Staff ownership scope to order list API | `feature/PAC-425-task-215-apply-staff-ownership-scope-to-order-list-api` |
+| **PAC-426** | `TASK-216` | TASK-216 - Build Staff scoped order list UI | `feature/PAC-426-task-216-build-staff-scoped-order-list-ui` |
+| **PAC-427** | `TASK-217` | TASK-217 - Implement Admin all-orders list API | `feature/PAC-427-task-217-implement-admin-all-orders-list-api` |
+| **PAC-428** | `TASK-218` | TASK-218 - Build Admin all-orders UI | `feature/PAC-428-task-218-build-admin-all-orders-ui` |
+| **PAC-429** | `TASK-219` | TASK-219 - Implement cancel Draft Order API | `feature/PAC-429-task-219-implement-cancel-draft-order-api` |
+| **PAC-430** | `TASK-220` | TASK-220 - Build cancel Draft Order UI | `feature/PAC-430-task-220-build-cancel-draft-order-ui` |
+| **PAC-431** | `TASK-221` | TASK-221 - Prevent cancel PAID or already CANCELLED order | `feature/PAC-431-task-221-prevent-cancel-paid-or-already-cancelled-order` |
+| **PAC-432** | `TASK-222` | TASK-222 - Preserve Draft Order after checkout failure in UI | `feature/PAC-432-task-222-preserve-draft-order-after-checkout-failure-in-ui` |
+| **PAC-433** | `TASK-223` | TASK-223 - Restore checkout error state back to Draft Order | `feature/PAC-433-task-223-restore-checkout-error-state-back-to-draft-order` |
+| **PAC-434** | `TASK-224` | TASK-224 - Build Order Detail screen for DRAFT/PAID/CANCELLED | `feature/PAC-434-task-224-build-order-detail-screen-for-draft-paid-cancelled` |
+| **PAC-435** | `TASK-225` | TASK-225 - Add POS API integration tests | `test/PAC-435-task-225-add-pos-api-integration-tests` |
+| **PAC-436** | `TASK-226` | TASK-226 - Add POS frontend smoke test checklist | `test/PAC-436-task-226-add-pos-frontend-smoke-test-checklist` |
+| **PAC-437** | `TASK-227` | TASK-227 - Create drug_interaction_rules Prisma model | `feature/PAC-437-task-227-create-drug-interaction-rules-prisma-model` |
+| **PAC-438** | `TASK-228` | TASK-228 - Implement create ActiveIngredient-level interaction rule API | `feature/PAC-438-task-228-implement-create-activeingredient-level-interaction` |
+| **PAC-439** | `TASK-229` | TASK-229 - Build DrugInteraction Rule management screen | `feature/PAC-439-task-229-build-druginteraction-rule-management-screen` |
+| **PAC-440** | `TASK-230` | TASK-230 - Validate two active ingredients in interaction rule | `feature/PAC-440-task-230-validate-two-active-ingredients-in-interaction-rule` |
+| **PAC-441** | `TASK-231` | TASK-231 - Implement update DrugInteraction Rule API | `feature/PAC-441-task-231-implement-update-druginteraction-rule-api` |
+| **PAC-442** | `TASK-232` | TASK-232 - Implement deactivate DrugInteraction Rule API | `feature/PAC-442-task-232-implement-deactivate-druginteraction-rule-api` |
+| **PAC-443** | `TASK-233` | TASK-233 - Trigger Graph Sync event on interaction rule change | `feature/PAC-443-task-233-trigger-graph-sync-event-on-interaction-rule-change` |
+| **PAC-444** | `TASK-234` | TASK-234 - Validate severity enum LOW/MEDIUM/HIGH only | `feature/PAC-444-task-234-validate-severity-enum-low-medium-high-only` |
+| **PAC-445** | `TASK-235` | TASK-235 - Implement derive interaction from medicine active ingredients | `feature/PAC-445-task-235-implement-derive-interaction-from-medicine-active-i` |
+| **PAC-446** | `TASK-236` | TASK-236 - Add tests for derived medicine interactions | `test/PAC-446-task-236-add-tests-for-derived-medicine-interactions` |
+| **PAC-447** | `TASK-237` | TASK-237 - Implement order interaction check service | `feature/PAC-447-task-237-implement-order-interaction-check-service` |
+| **PAC-448** | `TASK-238` | TASK-238 - Implement POST /orders/{id}/interactions/check API | `feature/PAC-448-task-238-implement-post-orders-id-interactions-check-api` |
+| **PAC-449** | `TASK-239` | TASK-239 - Create interaction_alerts Prisma model | `feature/PAC-449-task-239-create-interaction-alerts-prisma-model` |
+| **PAC-450** | `TASK-240` | TASK-240 - Persist displayed InteractionAlert snapshot fields | `feature/PAC-450-task-240-persist-displayed-interactionalert-snapshot-fields` |
+| **PAC-451** | `TASK-241` | TASK-241 - Enforce one active alert per order and interaction rule | `feature/PAC-451-task-241-enforce-one-active-alert-per-order-and-interaction-` |
+| **PAC-452** | `TASK-242` | TASK-242 - Update display_count and last_displayed_at | `feature/PAC-452-task-242-update-display-count-and-last-displayed-at` |
+| **PAC-453** | `TASK-243` | TASK-243 - Build POS InteractionAlert panel | `feature/PAC-453-task-243-build-pos-interactionalert-panel` |
+| **PAC-454** | `TASK-244` | TASK-244 - Implement LOW/MEDIUM/HIGH alert display logic | `feature/PAC-454-task-244-implement-low-medium-high-alert-display-logic` |
+| **PAC-455** | `TASK-245` | TASK-245 - Build HIGH alert acknowledgement UI | `feature/PAC-455-task-245-build-high-alert-acknowledgement-ui` |
+| **PAC-456** | `TASK-246` | TASK-246 - Implement acknowledge InteractionAlert API | `feature/PAC-456-task-246-implement-acknowledge-interactionalert-api` |
+| **PAC-457** | `TASK-247` | TASK-247 - Build HIGH alert consultation note UI | `feature/PAC-457-task-247-build-high-alert-consultation-note-ui` |
+| **PAC-458** | `TASK-248` | TASK-248 - Implement consultation note API per HIGH alert | `feature/PAC-458-task-248-implement-consultation-note-api-per-high-alert` |
+| **PAC-459** | `TASK-249` | TASK-249 - Validate HIGH alert consultation note is not empty | `feature/PAC-459-task-249-validate-high-alert-consultation-note-is-not-empty` |
+| **PAC-460** | `TASK-250` | TASK-250 - Implement checkout blocker for unresolved HIGH alerts | `feature/PAC-460-task-250-implement-checkout-blocker-for-unresolved-high-aler` |
+| **PAC-461** | `TASK-251` | TASK-251 - Build UI prompt when checkout is blocked by HIGH alert | `feature/PAC-461-task-251-build-ui-prompt-when-checkout-is-blocked-by-high-al` |
+| **PAC-462** | `TASK-252` | TASK-252 - Build Admin InteractionAlert History API and UI | `feature/PAC-462-task-252-build-admin-interactionalert-history-api-and-ui` |
+| **PAC-463** | `TASK-253` | TASK-253 - Enforce Warehouse no-access to InteractionAlert APIs | `feature/PAC-463-task-253-enforce-warehouse-no-access-to-interactionalert-api` |
+| **PAC-464** | `TASK-254` | TASK-254 - Add tests for Warehouse no-access to InteractionAlert | `test/PAC-464-task-254-add-tests-for-warehouse-no-access-to-interactionale` |
+| **PAC-465** | `TASK-255` | TASK-255 - Add InteractionAlert lifecycle integration tests | `test/PAC-465-task-255-add-interactionalert-lifecycle-integration-tests` |
+| **PAC-466** | `TASK-256` | TASK-256 - Add HIGH acknowledgement and consultation note tests | `test/PAC-466-task-256-add-high-acknowledgement-and-consultation-note-test` |
+| **PAC-467** | `TASK-257` | TASK-257 - Add filters to InteractionAlert History | `feature/PAC-467-task-257-add-filters-to-interactionalert-history` |
+| **PAC-468** | `TASK-258` | TASK-258 - Add InteractionAlert snapshot and traceability notes | `feature/PAC-468-task-258-add-interactionalert-snapshot-and-traceability-note` |
+| **PAC-469** | `TASK-259` | TASK-259 - Define Checkout DTO and validation schema | `feature/PAC-469-task-259-define-checkout-dto-and-validation-schema` |
+| **PAC-470** | `TASK-260` | TASK-260 - Implement CheckoutController POST /checkout | `feature/PAC-470-task-260-implement-checkoutcontroller-post-checkout` |
+| **PAC-471** | `TASK-261` | TASK-261 - Implement CheckoutService transaction skeleton | `feature/PAC-471-task-261-implement-checkoutservice-transaction-skeleton` |
+| **PAC-472** | `TASK-262` | TASK-262 - Validate checkout actor permission and order ownership | `feature/PAC-472-task-262-validate-checkout-actor-permission-and-order-owners` |
+| **PAC-473** | `TASK-263` | TASK-263 - Validate order exists and status is DRAFT | `feature/PAC-473-task-263-validate-order-exists-and-status-is-draft` |
+| **PAC-474** | `TASK-264` | TASK-264 - Validate unresolved HIGH alerts before payment | `feature/PAC-474-task-264-validate-unresolved-high-alerts-before-payment` |
+| **PAC-475** | `TASK-265` | TASK-265 - Validate sellable stock inside checkout transaction | `feature/PAC-475-task-265-validate-sellable-stock-inside-checkout-transaction` |
+| **PAC-476** | `TASK-266` | TASK-266 - Build Checkout full page or full-height panel UI | `feature/PAC-476-task-266-build-checkout-full-page-or-full-height-panel-ui` |
+| **PAC-477** | `TASK-267` | TASK-267 - Build payment method selector in Checkout UI | `feature/PAC-477-task-267-build-payment-method-selector-in-checkout-ui` |
+| **PAC-478** | `TASK-268` | TASK-268 - Define FEFO allocation input/output model | `feature/PAC-478-task-268-define-fefo-allocation-input-output-model` |
+| **PAC-479** | `TASK-269` | TASK-269 - Query sellable MedicineBatch for FEFO | `feature/PAC-479-task-269-query-sellable-medicinebatch-for-fefo` |
+| **PAC-480** | `TASK-270` | TASK-270 - Sort FEFO batches by nearest expiry date | `feature/PAC-480-task-270-sort-fefo-batches-by-nearest-expiry-date` |
+| **PAC-481** | `TASK-271` | TASK-271 - Allocate requested quantity across multiple batches | `feature/PAC-481-task-271-allocate-requested-quantity-across-multiple-batches` |
+| **PAC-482** | `TASK-272` | TASK-272 - Reject FEFO allocation when sellable stock is insufficient | `feature/PAC-482-task-272-reject-fefo-allocation-when-sellable-stock-is-insuf` |
+| **PAC-483** | `TASK-273` | TASK-273 - Create order_batch_allocations Prisma model | `feature/PAC-483-task-273-create-order-batch-allocations-prisma-model` |
+| **PAC-484** | `TASK-274` | TASK-274 - Persist order_batch_allocations during checkout | `feature/PAC-484-task-274-persist-order-batch-allocations-during-checkout` |
+| **PAC-485** | `TASK-275` | TASK-275 - Deduct MedicineBatch quantities inside checkout transaction | `feature/PAC-485-task-275-deduct-medicinebatch-quantities-inside-checkout-tra` |
+| **PAC-486** | `TASK-276` | TASK-276 - Create idempotency_records Prisma model | `feature/PAC-486-task-276-create-idempotency-records-prisma-model` |
+| **PAC-487** | `TASK-277` | TASK-277 - Implement idempotency key handling for checkout | `feature/PAC-487-task-277-implement-idempotency-key-handling-for-checkout` |
+| **PAC-488** | `TASK-278` | TASK-278 - Rollback checkout transaction on failure | `feature/PAC-488-task-278-rollback-checkout-transaction-on-failure` |
+| **PAC-489** | `TASK-279` | TASK-279 - Create payments Prisma model | `feature/PAC-489-task-279-create-payments-prisma-model` |
+| **PAC-490** | `TASK-280` | TASK-280 - Implement cash payment handling inside checkout | `feature/PAC-490-task-280-implement-cash-payment-handling-inside-checkout` |
+| **PAC-491** | `TASK-281` | TASK-281 - Calculate and persist change_amount | `feature/PAC-491-task-281-calculate-and-persist-change-amount` |
+| **PAC-492** | `TASK-282` | TASK-282 - Implement bank transfer transaction_reference validation | `feature/PAC-492-task-282-implement-bank-transfer-transaction-reference-valid` |
+| **PAC-493** | `TASK-283` | TASK-283 - Enforce one SUCCESS payment per order | `feature/PAC-493-task-283-enforce-one-success-payment-per-order` |
+| **PAC-494** | `TASK-284` | TASK-284 - Allow failed payment attempts without creating duplicate SUCCESS payment | `feature/PAC-494-task-284-allow-failed-payment-attempts-without-creating-dupl` |
+| **PAC-495** | `TASK-285` | TASK-285 - Create invoices Prisma model | `feature/PAC-495-task-285-create-invoices-prisma-model` |
+| **PAC-496** | `TASK-286` | TASK-286 - Generate invoice inside checkout transaction | `feature/PAC-496-task-286-generate-invoice-inside-checkout-transaction` |
+| **PAC-497** | `TASK-287` | TASK-287 - Build invoice view and print UI | `feature/PAC-497-task-287-build-invoice-view-and-print-ui` |
+| **PAC-498** | `TASK-288` | TASK-288 - Update order status to PAID only after successful checkout | `feature/PAC-498-task-288-update-order-status-to-paid-only-after-successful-c` |
+| **PAC-499** | `TASK-289` | TASK-289 - Add checkout integration tests | `test/PAC-499-task-289-add-checkout-integration-tests` |
+| **PAC-500** | `TASK-290` | TASK-290 - Add FEFO, idempotency and rollback tests | `test/PAC-500-task-290-add-fefo-idempotency-and-rollback-tests` |
+| **PAC-501** | `TASK-291` | TASK-291 - Define AI provider abstraction | `feature/PAC-501-task-291-define-ai-provider-abstraction` |
+| **PAC-502** | `TASK-292` | TASK-292 - Configure backend AI provider/model settings loader | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` |
+| **PAC-503** | `TASK-293` | TASK-293 - Implement Google AI provider adapter | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` |
+| **PAC-504** | `TASK-294` | TASK-294 - Add Google AI timeout and retry-safe error handling | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` |
+| **PAC-505** | `TASK-295` | TASK-295 - Implement MockAI fallback adapter | `feature/PAC-505-task-295-implement-mockai-fallback-adapter` |
+| **PAC-506** | `TASK-296` | TASK-296 - Implement fallback provider selection logic | `feature/PAC-506-task-296-implement-fallback-provider-selection-logic` |
+| **PAC-507** | `TASK-297` | TASK-297 - Add provider_requested and provider_used tracking | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` |
+| **PAC-508** | `TASK-298` | TASK-298 - Implement AI interaction explanation API | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` |
+| **PAC-509** | `TASK-299` | TASK-299 - Build AI explanation panel in InteractionAlert UI | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` |
+| **PAC-510** | `TASK-300` | TASK-300 - Add AI disclaimer to explanation panel | `feature/PAC-510-task-300-add-ai-disclaimer-to-explanation-panel` |
+| **PAC-511** | `TASK-301` | TASK-301 - Build AI explanation loading, error and fallback states | `feature/PAC-511-task-301-build-ai-explanation-loading-error-and-fallback-sta` |
+| **PAC-512** | `TASK-302` | TASK-302 - Implement AI consultation note draft API | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` |
+| **PAC-513** | `TASK-303` | TASK-303 - Build AI consultation note draft panel | `feature/PAC-513-task-303-build-ai-consultation-note-draft-panel` |
+| **PAC-514** | `TASK-304` | TASK-304 - Build Staff edit AI draft before confirm UI | `feature/PAC-514-task-304-build-staff-edit-ai-draft-before-confirm-ui` |
+| **PAC-515** | `TASK-305` | TASK-305 - Implement Staff confirm AI draft as official consultation note | `feature/PAC-515-task-305-implement-staff-confirm-ai-draft-as-official-consul` |
+| **PAC-516** | `TASK-306` | TASK-306 - Prevent unconfirmed AI draft from saving official note | `feature/PAC-516-task-306-prevent-unconfirmed-ai-draft-from-saving-official-n` |
+| **PAC-517** | `TASK-307` | TASK-307 - Link confirmed AI note to correct HIGH InteractionAlert | `feature/PAC-517-task-307-link-confirmed-ai-note-to-correct-high-interactiona` |
+| **PAC-518** | `TASK-308` | TASK-308 - Implement safe follow-up question API | `feature/PAC-518-task-308-implement-safe-follow-up-question-api` |
+| **PAC-519** | `TASK-309` | TASK-309 - Build safe follow-up question UI field | `feature/PAC-519-task-309-build-safe-follow-up-question-ui-field` |
+| **PAC-520** | `TASK-310` | TASK-310 - Block medical-record style storage for symptom/context input | `feature/PAC-520-task-310-block-medical-record-style-storage-for-symptom-cont` |
+| **PAC-521** | `TASK-311` | TASK-311 - Add AI Copilot permission checks | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` |
+| **PAC-522** | `TASK-312` | TASK-312 - Add AI Copilot frontend route and action guards | `feature/PAC-522-task-312-add-ai-copilot-frontend-route-and-action-guards` |
+| **PAC-523** | `TASK-313` | TASK-313 - Add AI provider unit tests | `test/PAC-523-task-313-add-ai-provider-unit-tests` |
+| **PAC-524** | `TASK-314` | TASK-314 - Add MockAI fallback tests | `test/PAC-524-task-314-add-mockai-fallback-tests` |
+| **PAC-525** | `TASK-315` | TASK-315 - Add AI Copilot integration smoke checklist | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` |
+| **PAC-526** | `TASK-316` | TASK-316 - Define unsafe AI request categories | `feature/PAC-526-task-316-define-unsafe-ai-request-categories` |
+| **PAC-527** | `TASK-317` | TASK-317 - Implement AI input guardrail service | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` |
+| **PAC-528** | `TASK-318` | TASK-318 - Block diagnosis requests | `feature/PAC-528-task-318-block-diagnosis-requests` |
+| **PAC-529** | `TASK-319` | TASK-319 - Block prescribing requests | `feature/PAC-529-task-319-block-prescribing-requests` |
+| **PAC-530** | `TASK-320` | TASK-320 - Block dosage advice requests | `feature/PAC-530-task-320-block-dosage-advice-requests` |
+| **PAC-531** | `TASK-321` | TASK-321 - Add safe response templates for blocked AI input | `feature/PAC-531-task-321-add-safe-response-templates-for-blocked-ai-input` |
+| **PAC-532** | `TASK-322` | TASK-322 - Add PII minimization before AI provider call | `feature/PAC-532-task-322-add-pii-minimization-before-ai-provider-call` |
+| **PAC-533** | `TASK-323` | TASK-323 - Redact customer/order unnecessary personal data before AI call | `feature/PAC-533-task-323-redact-customer-order-unnecessary-personal-data-bef` |
+| **PAC-534** | `TASK-324` | TASK-324 - Implement AI output guardrail service | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` |
+| **PAC-535** | `TASK-325` | TASK-325 - Block unsafe AI output before rendering | `feature/PAC-535-task-325-block-unsafe-ai-output-before-rendering` |
+| **PAC-536** | `TASK-326` | TASK-326 - Implement structured output schema validation | `feature/PAC-536-task-326-implement-structured-output-schema-validation` |
+| **PAC-537** | `TASK-327` | TASK-327 - Add output schema retry or safe fallback handling | `feature/PAC-537-task-327-add-output-schema-retry-or-safe-fallback-handling` |
+| **PAC-538** | `TASK-328` | TASK-328 - Add guardrail status object to AI response | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` |
+| **PAC-539** | `TASK-329` | TASK-329 - Create ai_audit_logs Prisma model | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` |
+| **PAC-540** | `TASK-330` | TASK-330 - Implement AI audit log write service | `feature/PAC-540-task-330-implement-ai-audit-log-write-service` |
+| **PAC-541** | `TASK-331` | TASK-331 - Persist AI provider, model and prompt metadata | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` |
+| **PAC-542** | `TASK-332` | TASK-332 - Persist input and output guardrail statuses | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` |
+| **PAC-543** | `TASK-333` | TASK-333 - Persist AI latency, request id and fallback metadata | `feature/PAC-543-task-333-persist-ai-latency-request-id-and-fallback-metadata` |
+| **PAC-544** | `TASK-334` | TASK-334 - Ensure AI Audit does not store raw PII | `feature/PAC-544-task-334-ensure-ai-audit-does-not-store-raw-pii` |
+| **PAC-545** | `TASK-335` | TASK-335 - Build Admin AI Audit Log list API | `feature/PAC-545-task-335-build-admin-ai-audit-log-list-api` |
+| **PAC-546** | `TASK-336` | TASK-336 - Build Admin AI Audit Log UI | `feature/PAC-546-task-336-build-admin-ai-audit-log-ui` |
+| **PAC-547** | `TASK-337` | TASK-337 - Add AI Audit filters by provider, status and date | `feature/PAC-547-task-337-add-ai-audit-filters-by-provider-status-and-date` |
+| **PAC-548** | `TASK-338` | TASK-338 - Create prompt_templates Prisma model | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` |
+| **PAC-549** | `TASK-339` | TASK-339 - Seed official AI prompt templates with versions | `feature/PAC-549-task-339-seed-official-ai-prompt-templates-with-versions` |
+| **PAC-550** | `TASK-340` | TASK-340 - Load approved prompt template by use case | `feature/PAC-550-task-340-load-approved-prompt-template-by-use-case` |
+| **PAC-551** | `TASK-341` | TASK-341 - Record prompt version in AI audit | `feature/PAC-551-task-341-record-prompt-version-in-ai-audit` |
+| **PAC-552** | `TASK-342` | TASK-342 - Add backend AI provider/model config validation | `feature/PAC-552-task-342-add-backend-ai-provider-model-config-validation` |
+| **PAC-553** | `TASK-343` | TASK-343 - Add environment/database config fallback order for AI settings | `feature/PAC-553-task-343-add-environment-database-config-fallback-order-for-` |
+| **PAC-554** | `TASK-344` | TASK-344 - Add timeout, circuit breaker and rate-limit guard for AI calls | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` |
+| **PAC-555** | `TASK-345` | TASK-345 - Add AI safe error response helper | `feature/PAC-555-task-345-add-ai-safe-error-response-helper` |
+| **PAC-556** | `TASK-346` | TASK-346 - Add AI input guardrail unit tests | `test/PAC-556-task-346-add-ai-input-guardrail-unit-tests` |
+| **PAC-557** | `TASK-347` | TASK-347 - Add diagnosis block tests | `test/PAC-557-task-347-add-diagnosis-block-tests` |
+| **PAC-558** | `TASK-348` | TASK-348 - Add prescribing block tests | `test/PAC-558-task-348-add-prescribing-block-tests` |
+| **PAC-559** | `TASK-349` | TASK-349 - Add dosage advice block tests | `test/PAC-559-task-349-add-dosage-advice-block-tests` |
+| **PAC-560** | `TASK-350` | TASK-350 - Add AI output guardrail tests | `test/PAC-560-task-350-add-ai-output-guardrail-tests` |
+| **PAC-561** | `TASK-351` | TASK-351 - Add structured output validation tests | `test/PAC-561-task-351-add-structured-output-validation-tests` |
+| **PAC-562** | `TASK-352` | TASK-352 - Add PII minimization tests | `test/PAC-562-task-352-add-pii-minimization-tests` |
+| **PAC-563** | `TASK-353` | TASK-353 - Add AI audit integration tests | `test/PAC-563-task-353-add-ai-audit-integration-tests` |
+| **PAC-564** | `TASK-354` | TASK-354 - Add prompt versioning tests | `test/PAC-564-task-354-add-prompt-versioning-tests` |
+| **PAC-565** | `TASK-355` | TASK-355 - Add AI safety traceability notes | `feature/PAC-565-task-355-add-ai-safety-traceability-notes` |
+| **PAC-566** | `TASK-356` | TASK-356 - Create graph_sync_outbox Prisma model | `feature/PAC-566-task-356-create-graph-sync-outbox-prisma-model` |
+| **PAC-567** | `TASK-357` | TASK-357 - Add graph sync job status enum | `feature/PAC-567-task-357-add-graph-sync-job-status-enum` |
+| **PAC-568** | `TASK-358` | TASK-358 - Emit outbox event from Medicine changes | `feature/PAC-568-task-358-emit-outbox-event-from-medicine-changes` |
+| **PAC-569** | `TASK-359` | TASK-359 - Emit outbox event from ActiveIngredient changes | `feature/PAC-569-task-359-emit-outbox-event-from-activeingredient-changes` |
+| **PAC-570** | `TASK-360` | TASK-360 - Emit outbox event from Medicine-Ingredient mapping changes | `feature/PAC-570-task-360-emit-outbox-event-from-medicine-ingredient-mapping-` |
+| **PAC-571** | `TASK-361` | TASK-361 - Emit outbox event from DrugInteractionRule changes | `feature/PAC-571-task-361-emit-outbox-event-from-druginteractionrule-changes` |
+| **PAC-572** | `TASK-362` | TASK-362 - Implement Graph Sync worker loop | `feature/PAC-572-task-362-implement-graph-sync-worker-loop` |
+| **PAC-573** | `TASK-363` | TASK-363 - Configure Neo4j connection service | `feature/PAC-573-task-363-configure-neo4j-connection-service` |
+| **PAC-574** | `TASK-364` | TASK-364 - Add Neo4j health check | `feature/PAC-574-task-364-add-neo4j-health-check` |
+| **PAC-575** | `TASK-365` | TASK-365 - Implement idempotent graph job claiming | `feature/PAC-575-task-365-implement-idempotent-graph-job-claiming` |
+| **PAC-576** | `TASK-366` | TASK-366 - Upsert Medicine node to Neo4j | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` |
+| **PAC-577** | `TASK-367` | TASK-367 - Upsert ActiveIngredient node to Neo4j | `feature/PAC-577-task-367-upsert-activeingredient-node-to-neo4j` |
+| **PAC-578** | `TASK-368` | TASK-368 - Upsert CONTAINS relationship | `feature/PAC-578-task-368-upsert-contains-relationship` |
+| **PAC-579** | `TASK-369` | TASK-369 - Upsert INTERACTS_WITH relationship | `feature/PAC-579-task-369-upsert-interacts-with-relationship` |
+| **PAC-580** | `TASK-370` | TASK-370 - Implement canonical directed interaction edge logic | `feature/PAC-580-task-370-implement-canonical-directed-interaction-edge-logic` |
+| **PAC-581** | `TASK-371` | TASK-371 - Store rule properties on INTERACTS_WITH relationship | `feature/PAC-581-task-371-store-rule-properties-on-interacts-with-relationshi` |
+| **PAC-582** | `TASK-372` | TASK-372 - Store sourceVersion, sourceUpdatedAt and syncedAt metadata | `feature/PAC-582-task-372-store-sourceversion-sourceupdatedat-and-syncedat-me` |
+| **PAC-583** | `TASK-373` | TASK-373 - Mark deactivated Medicine and ActiveIngredient as isActive=false | `feature/PAC-583-task-373-mark-deactivated-medicine-and-activeingredient-as-i` |
+| **PAC-584** | `TASK-374` | TASK-374 - Mark deactivated interaction rule edge as isActive=false | `feature/PAC-584-task-374-mark-deactivated-interaction-rule-edge-as-isactive-` |
+| **PAC-585** | `TASK-375` | TASK-375 - Filter normal Neo4j queries to active data only | `feature/PAC-585-task-375-filter-normal-neo4j-queries-to-active-data-only` |
+| **PAC-586** | `TASK-376` | TASK-376 - Implement retry logic for failed graph sync jobs | `feature/PAC-586-task-376-implement-retry-logic-for-failed-graph-sync-jobs` |
+| **PAC-587** | `TASK-377` | TASK-377 - Add max retry and failed status handling | `feature/PAC-587-task-377-add-max-retry-and-failed-status-handling` |
+| **PAC-588** | `TASK-378` | TASK-378 - Log graph sync failure details | `feature/PAC-588-task-378-log-graph-sync-failure-details` |
+| **PAC-589** | `TASK-379` | TASK-379 - Write audit log for graph sync failures | `feature/PAC-589-task-379-write-audit-log-for-graph-sync-failures` |
+| **PAC-590** | `TASK-380` | TASK-380 - Implement graph projection source version tracking | `feature/PAC-590-task-380-implement-graph-projection-source-version-tracking` |
+| **PAC-591** | `TASK-381` | TASK-381 - Implement graph freshness detection service | `feature/PAC-591-task-381-implement-graph-freshness-detection-service` |
+| **PAC-592** | `TASK-382` | TASK-382 - Detect stale graph from pending outbox job | `feature/PAC-592-task-382-detect-stale-graph-from-pending-outbox-job` |
+| **PAC-593** | `TASK-383` | TASK-383 - Detect stale graph from failed relevant outbox job | `feature/PAC-593-task-383-detect-stale-graph-from-failed-relevant-outbox-job` |
+| **PAC-594** | `TASK-384` | TASK-384 - Detect stale graph from missing sourceVersion projection | `feature/PAC-594-task-384-detect-stale-graph-from-missing-sourceversion-proje` |
+| **PAC-595** | `TASK-385` | TASK-385 - Add Graph Sync worker unit tests | `test/PAC-595-task-385-add-graph-sync-worker-unit-tests` |
+| **PAC-596** | `TASK-386` | TASK-386 - Add Neo4j projection integration tests | `test/PAC-596-task-386-add-neo4j-projection-integration-tests` |
+| **PAC-597** | `TASK-387` | TASK-387 - Add INTERACTS_WITH projection tests | `test/PAC-597-task-387-add-interacts-with-projection-tests` |
+| **PAC-598** | `TASK-388` | TASK-388 - Add graph freshness detection tests | `test/PAC-598-task-388-add-graph-freshness-detection-tests` |
+| **PAC-599** | `TASK-389` | TASK-389 - Add graph sync retry and failure tests | `test/PAC-599-task-389-add-graph-sync-retry-and-failure-tests` |
+| **PAC-600** | `TASK-390` | TASK-390 - Add Graph Sync traceability notes | `feature/PAC-600-task-390-add-graph-sync-traceability-notes` |
+| **PAC-601** | `TASK-391` | TASK-391 - Implement Graph-RAG interaction explanation service | `feature/PAC-601-task-391-implement-graph-rag-interaction-explanation-service` |
+| **PAC-602** | `TASK-392` | TASK-392 - Build allowlisted graph query templates | `feature/PAC-602-task-392-build-allowlisted-graph-query-templates` |
+| **PAC-603** | `TASK-393` | TASK-393 - Query Medicine-CONTAINS-ActiveIngredient context | `feature/PAC-603-task-393-query-medicine-contains-activeingredient-context` |
+| **PAC-604** | `TASK-394` | TASK-394 - Query ActiveIngredient INTERACTS_WITH context | `feature/PAC-604-task-394-query-activeingredient-interacts-with-context` |
+| **PAC-605** | `TASK-395` | TASK-395 - Add Graph-RAG context builder for AI Copilot | `feature/PAC-605-task-395-add-graph-rag-context-builder-for-ai-copilot` |
+| **PAC-606** | `TASK-396` | TASK-396 - Return Graph-RAG provenance metadata | `feature/PAC-606-task-396-return-graph-rag-provenance-metadata` |
+| **PAC-607** | `TASK-397` | TASK-397 - Return graphUsed flag in Graph-RAG response | `feature/PAC-607-task-397-return-graphused-flag-in-graph-rag-response` |
+| **PAC-608** | `TASK-398` | TASK-398 - Return Graph-RAG freshness metadata | `feature/PAC-608-task-398-return-graph-rag-freshness-metadata` |
+| **PAC-609** | `TASK-399` | TASK-399 - Add freshness warning to Graph-RAG response | `feature/PAC-609-task-399-add-freshness-warning-to-graph-rag-response` |
+| **PAC-610** | `TASK-400` | TASK-400 - Implement PostgreSQL fallback when Neo4j unavailable | `feature/PAC-610-task-400-implement-postgresql-fallback-when-neo4j-unavailabl` |
+| **PAC-611** | `TASK-401` | TASK-401 - Implement PostgreSQL fallback when graph stale | `feature/PAC-611-task-401-implement-postgresql-fallback-when-graph-stale` |
+| **PAC-612** | `TASK-402` | TASK-402 - Implement safe error for graph-only query without fallback | `feature/PAC-612-task-402-implement-safe-error-for-graph-only-query-without-f` |
+| **PAC-613** | `TASK-403` | TASK-403 - Ensure Staff cannot submit raw Cypher | `feature/PAC-613-task-403-ensure-staff-cannot-submit-raw-cypher` |
+| **PAC-614** | `TASK-404` | TASK-404 - Add backend guard against raw Cypher APIs for Staff | `feature/PAC-614-task-404-add-backend-guard-against-raw-cypher-apis-for-staff` |
+| **PAC-615** | `TASK-405` | TASK-405 - Ensure Graph-RAG does not decide checkout | `feature/PAC-615-task-405-ensure-graph-rag-does-not-decide-checkout` |
+| **PAC-616** | `TASK-406` | TASK-406 - Build Graph-RAG explanation UI metadata display | `feature/PAC-616-task-406-build-graph-rag-explanation-ui-metadata-display` |
+| **PAC-617** | `TASK-407` | TASK-407 - Add Graph-RAG PostgreSQL fallback tests | `test/PAC-617-task-407-add-graph-rag-postgresql-fallback-tests` |
+| **PAC-618** | `TASK-408` | TASK-408 - Add stale graph fallback tests | `test/PAC-618-task-408-add-stale-graph-fallback-tests` |
+| **PAC-619** | `TASK-409` | TASK-409 - Add raw Cypher no-access tests | `test/PAC-619-task-409-add-raw-cypher-no-access-tests` |
+| **PAC-620** | `TASK-410` | TASK-410 - Add graph-not-checkout guard tests | `test/PAC-620-task-410-add-graph-not-checkout-guard-tests` |
+| **PAC-621** | `TASK-411` | TASK-411 - Implement Revenue Report API | `feature/PAC-621-task-411-implement-revenue-report-api` |
+| **PAC-622** | `TASK-412` | TASK-412 - Build Revenue Report UI | `feature/PAC-622-task-412-build-revenue-report-ui` |
+| **PAC-623** | `TASK-413` | TASK-413 - Add revenue report filters by date and status | `feature/PAC-623-task-413-add-revenue-report-filters-by-date-and-status` |
+| **PAC-624** | `TASK-414` | TASK-414 - Implement Top Medicines Report API | `feature/PAC-624-task-414-implement-top-medicines-report-api` |
+| **PAC-625** | `TASK-415` | TASK-415 - Build Top Medicines Report UI | `feature/PAC-625-task-415-build-top-medicines-report-ui` |
+| **PAC-626** | `TASK-416` | TASK-416 - Implement Inventory Report API from MedicineBatch | `feature/PAC-626-task-416-implement-inventory-report-api-from-medicinebatch` |
+| **PAC-627** | `TASK-417` | TASK-417 - Build Inventory Report UI | `feature/PAC-627-task-417-build-inventory-report-ui` |
+| **PAC-628** | `TASK-418` | TASK-418 - Add report empty, loading and error states | `feature/PAC-628-task-418-add-report-empty-loading-and-error-states` |
+| **PAC-629** | `TASK-419` | TASK-419 - Add report permission checks | `feature/PAC-629-task-419-add-report-permission-checks` |
+| **PAC-630** | `TASK-420` | TASK-420 - Create system_settings Prisma model | `feature/PAC-630-task-420-create-system-settings-prisma-model` |
+| **PAC-631** | `TASK-421` | TASK-421 - Seed default near-expiry threshold as 90 days | `feature/PAC-631-task-421-seed-default-near-expiry-threshold-as-90-days` |
+| **PAC-632** | `TASK-422` | TASK-422 - Implement near-expiry threshold settings API | `feature/PAC-632-task-422-implement-near-expiry-threshold-settings-api` |
+| **PAC-633** | `TASK-423` | TASK-423 - Build minimal System Settings UI for near-expiry threshold | `feature/PAC-633-task-423-build-minimal-system-settings-ui-for-near-expiry-th` |
+| **PAC-634** | `TASK-424` | TASK-424 - Add system settings validation and tests | `test/PAC-634-task-424-add-system-settings-validation-and-tests` |
+| **PAC-635** | `TASK-425` | TASK-425 - Create curated MVP seed dataset | `feature/PAC-635-task-425-create-curated-mvp-seed-dataset` |
+| **PAC-636** | `TASK-426` | TASK-426 - Seed demo users by role | `feature/PAC-636-task-426-seed-demo-users-by-role` |
+| **PAC-637** | `TASK-427` | TASK-427 - Seed first-login demo account | `feature/PAC-637-task-427-seed-first-login-demo-account` |
+| **PAC-638** | `TASK-428` | TASK-428 - Generate dynamic expiry dates for demo batches | `feature/PAC-638-task-428-generate-dynamic-expiry-dates-for-demo-batches` |
+| **PAC-639** | `TASK-429` | TASK-429 - Seed FEFO multi-batch demo scenario | `feature/PAC-639-task-429-seed-fefo-multi-batch-demo-scenario` |
+| **PAC-640** | `TASK-430` | TASK-430 - Seed expired batch excluded from sellable stock | `feature/PAC-640-task-430-seed-expired-batch-excluded-from-sellable-stock` |
+| **PAC-641** | `TASK-431` | TASK-431 - Seed PAID order with handled HIGH alert | `feature/PAC-641-task-431-seed-paid-order-with-handled-high-alert` |
+| **PAC-642** | `TASK-432` | TASK-432 - Seed report data with PAID, DRAFT, CANCELLED and failed-payment cases | `feature/PAC-642-task-432-seed-report-data-with-paid-draft-cancelled-and-fail` |
+| **PAC-643** | `TASK-433` | TASK-433 - Implement demo:reset local-only environment guard | `feature/PAC-643-task-433-implement-demo-reset-local-only-environment-guard` |
+| **PAC-644** | `TASK-434` | TASK-434 - Rebuild Neo4j projection during demo reset | `feature/PAC-644-task-434-rebuild-neo4j-projection-during-demo-reset` |
+| **PAC-645** | `TASK-435` | TASK-435 - Run smoke tests after demo reset | `test/PAC-645-task-435-run-smoke-tests-after-demo-reset` |
+| **PAC-646** | `TASK-436` | TASK-436 - Add backend unit test setup | `test/PAC-646-task-436-add-backend-unit-test-setup` |
+| **PAC-647** | `TASK-437` | TASK-437 - Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` |
+| **PAC-648** | `TASK-438` | TASK-438 - Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` |
+| **PAC-649** | `TASK-439` | TASK-439 - Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` |
+| **PAC-650** | `TASK-440` | TASK-440 - Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` |
+| **PAC-651** | `TASK-441` | TASK-441 - Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` |
+| **PAC-652** | `TASK-442` | TASK-442 - Add User Management permission tests | `test/PAC-652-task-442-add-user-management-permission-tests` |
+| **PAC-653** | `TASK-443` | TASK-443 - Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` |
+| **PAC-654** | `TASK-444` | TASK-444 - Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` |
+| **PAC-655** | `TASK-445` | TASK-445 - Add Supplier Management API tests | `test/PAC-655-task-445-add-supplier-management-api-tests` |
+| **PAC-656** | `TASK-446` | TASK-446 - Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` |
+| **PAC-657** | `TASK-447` | TASK-447 - Add sellable quantity and expired batch tests | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` |
+| **PAC-658** | `TASK-448` | TASK-448 - Add near-expiry threshold tests | `test/PAC-658-task-448-add-near-expiry-threshold-tests` |
+| **PAC-659** | `TASK-449` | TASK-449 - Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` |
+| **PAC-660** | `TASK-450` | TASK-450 - Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` |
+| **PAC-661** | `TASK-451` | TASK-451 - Add Inventory Adjustment transaction tests | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` |
+| **PAC-662** | `TASK-452` | TASK-452 - Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` |
+| **PAC-663** | `TASK-453` | TASK-453 - Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` |
+| **PAC-664** | `TASK-454` | TASK-454 - Add POS Draft Order UI smoke tests | `test/PAC-664-task-454-add-pos-draft-order-ui-smoke-tests` |
+| **PAC-665** | `TASK-455` | TASK-455 - Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` |
+| **PAC-666** | `TASK-456` | TASK-456 - Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` |
+| **PAC-667** | `TASK-457` | TASK-457 - Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` |
+| **PAC-668** | `TASK-458` | TASK-458 - Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` |
+| **PAC-669** | `TASK-459` | TASK-459 - Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` |
+| **PAC-670** | `TASK-460` | TASK-460 - Add InteractionAlert display_count tests | `test/PAC-670-task-460-add-interactionalert-display-count-tests` |
+| **PAC-671** | `TASK-461` | TASK-461 - Add HIGH alert acknowledgement tests | `test/PAC-671-task-461-add-high-alert-acknowledgement-tests` |
+| **PAC-672** | `TASK-462` | TASK-462 - Add HIGH alert consultation note tests | `test/PAC-672-task-462-add-high-alert-consultation-note-tests` |
+| **PAC-673** | `TASK-463` | TASK-463 - Add checkout blocker tests for unresolved HIGH alerts | `test/PAC-673-task-463-add-checkout-blocker-tests-for-unresolved-high-aler` |
+| **PAC-674** | `TASK-464` | TASK-464 - Add Checkout transaction success tests | `test/PAC-674-task-464-add-checkout-transaction-success-tests` |
+| **PAC-675** | `TASK-465` | TASK-465 - Add Checkout rollback failure tests | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` |
+| **PAC-676** | `TASK-466` | TASK-466 - Add FEFO allocation unit tests | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` |
+| **PAC-677** | `TASK-467` | TASK-467 - Add FEFO multi-batch allocation tests | `test/PAC-677-task-467-add-fefo-multi-batch-allocation-tests` |
+| **PAC-678** | `TASK-468` | TASK-468 - Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` |
+| **PAC-679** | `TASK-469` | TASK-469 - Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` |
+| **PAC-680** | `TASK-470` | TASK-470 - Add Payment one SUCCESS rule tests | `test/PAC-680-task-470-add-payment-one-success-rule-tests` |
+| **PAC-681** | `TASK-471` | TASK-471 - Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` |
+| **PAC-682** | `TASK-472` | TASK-472 - Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` |
+| **PAC-683** | `TASK-473` | TASK-473 - Add AI Audit privacy tests | `test/PAC-683-task-473-add-ai-audit-privacy-tests` |
+| **PAC-684** | `TASK-474` | TASK-474 - Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` |
+| **PAC-685** | `TASK-475` | TASK-475 - Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` |
+| **PAC-686** | `TASK-476` | TASK-476 - Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` |
+| **PAC-687** | `TASK-477` | TASK-477 - Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` |
+| **PAC-688** | `TASK-478` | TASK-478 - Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` |
+| **PAC-689** | `TASK-479` | TASK-479 - Add Reports deterministic calculation tests | `test/PAC-689-task-479-add-reports-deterministic-calculation-tests` |
+| **PAC-690** | `TASK-480` | TASK-480 - Add full MVP smoke test checklist | `test/PAC-690-task-480-add-full-mvp-smoke-test-checklist` |
+| **PAC-691** | `TASK-481` | TASK-481 - Configure local Node.js project setup guide | `feature/PAC-691-task-481-configure-local-node-js-project-setup-guide` |
+| **PAC-692** | `TASK-482` | TASK-482 - Configure frontend environment variables guide | `feature/PAC-692-task-482-configure-frontend-environment-variables-guide` |
+| **PAC-693** | `TASK-483` | TASK-483 - Configure backend environment variables guide | `feature/PAC-693-task-483-configure-backend-environment-variables-guide` |
+| **PAC-694** | `TASK-484` | TASK-484 - Configure Supabase project setup instructions | `feature/PAC-694-task-484-configure-supabase-project-setup-instructions` |
+| **PAC-695** | `TASK-485` | TASK-485 - Configure Neo4j AuraDB setup instructions | `feature/PAC-695-task-485-configure-neo4j-auradb-setup-instructions` |
+| **PAC-696** | `TASK-486` | TASK-486 - Configure Google AI API key setup instructions | `feature/PAC-696-task-486-configure-google-ai-api-key-setup-instructions` |
+| **PAC-697** | `TASK-487` | TASK-487 - Configure MockAI fallback setup instructions | `feature/PAC-697-task-487-configure-mockai-fallback-setup-instructions` |
+| **PAC-698** | `TASK-488` | TASK-488 - Add Prisma generate and migrate setup command | `feature/PAC-698-task-488-add-prisma-generate-and-migrate-setup-command` |
+| **PAC-699** | `TASK-489` | TASK-489 - Add seed command for curated MVP data | `feature/PAC-699-task-489-add-seed-command-for-curated-mvp-data` |
+| **PAC-700** | `TASK-490` | TASK-490 - Add graph projection rebuild command | `feature/PAC-700-task-490-add-graph-projection-rebuild-command` |
+| **PAC-701** | `TASK-491` | TASK-491 - Add demo reset command entrypoint | `feature/PAC-701-task-491-add-demo-reset-command-entrypoint` |
+| **PAC-702** | `TASK-492` | TASK-492 - Add demo reset environment safety checks | `feature/PAC-702-task-492-add-demo-reset-environment-safety-checks` |
+| **PAC-703** | `TASK-493` | TASK-493 - Configure GitHub Actions lint check | `feature/PAC-703-task-493-configure-github-actions-lint-check` |
+| **PAC-704** | `TASK-494` | TASK-494 - Configure GitHub Actions type check | `feature/PAC-704-task-494-configure-github-actions-type-check` |
+| **PAC-705** | `TASK-495` | TASK-495 - Configure GitHub Actions frontend build | `feature/PAC-705-task-495-configure-github-actions-frontend-build` |
+| **PAC-706** | `TASK-496` | TASK-496 - Configure GitHub Actions backend build | `feature/PAC-706-task-496-configure-github-actions-backend-build` |
+| **PAC-707** | `TASK-497` | TASK-497 - Configure GitHub Actions unit test check | `test/PAC-707-task-497-configure-github-actions-unit-test-check` |
+| **PAC-708** | `TASK-498` | TASK-498 - Configure GitHub Actions integration test check | `test/PAC-708-task-498-configure-github-actions-integration-test-check` |
+| **PAC-709** | `TASK-499` | TASK-499 - Configure Prisma schema validation check | `feature/PAC-709-task-499-configure-prisma-schema-validation-check` |
+| **PAC-710** | `TASK-500` | TASK-500 - Configure Prisma migration check | `feature/PAC-710-task-500-configure-prisma-migration-check` |
+| **PAC-711** | `TASK-501` | TASK-501 - Add CI guard to prevent destructive tests against demo database | `test/PAC-711-task-501-add-ci-guard-to-prevent-destructive-tests-against-d` |
+| **PAC-712** | `TASK-502` | TASK-502 - Add CI branch protection expectation notes | `feature/PAC-712-task-502-add-ci-branch-protection-expectation-notes` |
+| **PAC-713** | `TASK-503` | TASK-503 - Add local-only guard for demo:reset script | `feature/PAC-713-task-503-add-local-only-guard-for-demo-reset-script` |
+| **PAC-714** | `TASK-504` | TASK-504 - Add Chrome desktop target verification checklist | `feature/PAC-714-task-504-add-chrome-desktop-target-verification-checklist` |
+| **PAC-715** | `TASK-505` | TASK-505 - Add basic responsive verification checklist | `feature/PAC-715-task-505-add-basic-responsive-verification-checklist` |
+| **PAC-716** | `TASK-506` | TASK-506 - Write project README setup section | `docs/PAC-716-task-506-write-project-readme-setup-section` |
+| **PAC-717** | `TASK-507` | TASK-507 - Write backend setup and run instructions | `feature/PAC-717-task-507-write-backend-setup-and-run-instructions` |
+| **PAC-718** | `TASK-508` | TASK-508 - Write frontend setup and run instructions | `feature/PAC-718-task-508-write-frontend-setup-and-run-instructions` |
+| **PAC-719** | `TASK-509` | TASK-509 - Write database migration and seed instructions | `feature/PAC-719-task-509-write-database-migration-and-seed-instructions` |
+| **PAC-720** | `TASK-510` | TASK-510 - Write Supabase Auth setup notes | `feature/PAC-720-task-510-write-supabase-auth-setup-notes` |
+| **PAC-721** | `TASK-511` | TASK-511 - Write Neo4j setup and graph rebuild notes | `feature/PAC-721-task-511-write-neo4j-setup-and-graph-rebuild-notes` |
+| **PAC-722** | `TASK-512` | TASK-512 - Write AI provider and MockAI fallback setup notes | `feature/PAC-722-task-512-write-ai-provider-and-mockai-fallback-setup-notes` |
+| **PAC-723** | `TASK-513` | TASK-513 - Write demo account guide | `feature/PAC-723-task-513-write-demo-account-guide` |
+| **PAC-724** | `TASK-514` | TASK-514 - Write demo scenario script for login and role switching | `feature/PAC-724-task-514-write-demo-scenario-script-for-login-and-role-switc` |
+| **PAC-725** | `TASK-515` | TASK-515 - Write demo scenario script for Stock Import and MedicineBatch | `feature/PAC-725-task-515-write-demo-scenario-script-for-stock-import-and-med` |
+| **PAC-726** | `TASK-516` | TASK-516 - Write demo scenario script for POS and Checkout | `feature/PAC-726-task-516-write-demo-scenario-script-for-pos-and-checkout` |
+| **PAC-727** | `TASK-517` | TASK-517 - Write demo scenario script for InteractionAlert and HIGH note | `feature/PAC-727-task-517-write-demo-scenario-script-for-interactionalert-and` |
+| **PAC-728** | `TASK-518` | TASK-518 - Write demo scenario script for AI Copilot and AI Audit | `feature/PAC-728-task-518-write-demo-scenario-script-for-ai-copilot-and-ai-au` |
+| **PAC-729** | `TASK-519` | TASK-519 - Write demo scenario script for Graph Sync and Graph-RAG | `feature/PAC-729-task-519-write-demo-scenario-script-for-graph-sync-and-graph` |
+| **PAC-730** | `TASK-520` | TASK-520 - Write demo scenario script for Reports and Settings | `feature/PAC-730-task-520-write-demo-scenario-script-for-reports-and-settings` |
+| **PAC-731** | `TASK-521` | TASK-521 - Write MVP traceability matrix summary | `feature/PAC-731-task-521-write-mvp-traceability-matrix-summary` |
+| **PAC-732** | `TASK-522` | TASK-522 - Write release/demo readiness checklist | `feature/PAC-732-task-522-write-release-demo-readiness-checklist` |
+| **PAC-733** | `TASK-523` | TASK-523 - Write known limitations and out-of-scope guard section | `feature/PAC-733-task-523-write-known-limitations-and-out-of-scope-guard-sect` |
+| **PAC-734** | `TASK-524` | TASK-524 - Prepare contingency evidence screenshots list | `feature/PAC-734-task-524-prepare-contingency-evidence-screenshots-list` |
+| **PAC-735** | `TASK-525` | TASK-525 - Prepare final smoke test report template | `test/PAC-735-task-525-prepare-final-smoke-test-report-template` |
+| **PAC-736** | `TASK-526` | TASK-526 - Build Admin Graph Sync Status list UI | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` |
+| **PAC-737** | `TASK-527` | TASK-527 - Build Graph Sync job detail UI | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` |
+| **PAC-738** | `TASK-528` | TASK-528 - Build manual graph retry action for Admin | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` |
+| **PAC-739** | `TASK-529` | TASK-529 - Build manual graph rebuild action for Admin | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` |
+| **PAC-740** | `TASK-530` | TASK-530 - Add Graph Sync Status permission checks | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` |
+| **PAC-741** | `TASK-531` | TASK-531 - Build read-only Graph Explorer UI | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` |
+| **PAC-742** | `TASK-532` | TASK-532 - Build Graph Explorer node detail panel | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` |
+| **PAC-743** | `TASK-533` | TASK-533 - Build Graph Explorer relationship detail panel | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` |
+| **PAC-744** | `TASK-534` | TASK-534 - Add Graph Explorer permission checks | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` |
+| **PAC-745** | `TASK-535` | TASK-535 - Ensure Graph Explorer uses allowlisted templates only | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` |
+| **PAC-746** | `TASK-536` | TASK-536 - Build AI Provider Settings UI | `feature/PAC-746-task-536-build-ai-provider-settings-ui` |
+| **PAC-747** | `TASK-537` | TASK-537 - Build AI model configuration UI | `feature/PAC-747-task-537-build-ai-model-configuration-ui` |
+| **PAC-748** | `TASK-538` | TASK-538 - Build Prompt Management list UI | `feature/PAC-748-task-538-build-prompt-management-list-ui` |
+| **PAC-749** | `TASK-539` | TASK-539 - Build Prompt Management version detail UI | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` |
+| **PAC-750** | `TASK-540` | TASK-540 - Add prompt approval status display | `feature/PAC-750-task-540-add-prompt-approval-status-display` |
+| **PAC-751** | `TASK-541` | TASK-541 - Build System Audit Log UI | `feature/PAC-751-task-541-build-system-audit-log-ui` |
+| **PAC-752** | `TASK-542` | TASK-542 - Add System Audit Log filters | `feature/PAC-752-task-542-add-system-audit-log-filters` |
+| **PAC-753** | `TASK-543` | TASK-543 - Implement Supabase Storage upload flow for medicine images | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` |
+| **PAC-754** | `TASK-544` | TASK-544 - Build medicine image upload UI | `feature/PAC-754-task-544-build-medicine-image-upload-ui` |
+| **PAC-755** | `TASK-545` | TASK-545 - Add Supabase Storage file validation | `feature/PAC-755-task-545-add-supabase-storage-file-validation` |
+| **PAC-756** | `TASK-546` | TASK-546 - Implement Supabase Realtime inventory update listener | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` |
+| **PAC-757** | `TASK-547` | TASK-547 - Build realtime POS stock refresh behavior | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` |
+| **PAC-758** | `TASK-548` | TASK-548 - Add realtime fallback polling behavior | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` |
+| **PAC-759** | `TASK-549` | TASK-549 - Build Notification Center UI | `feature/PAC-759-task-549-build-notification-center-ui` |
+| **PAC-760** | `TASK-550` | TASK-550 - Implement low-stock notification generation | `feature/PAC-760-task-550-implement-low-stock-notification-generation` |
+| **PAC-761** | `TASK-551` | TASK-551 - Implement near-expiry notification generation | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` |
+| **PAC-762** | `TASK-552` | TASK-552 - Build read/unread notification state | `feature/PAC-762-task-552-build-read-unread-notification-state` |
+| **PAC-763** | `TASK-553` | TASK-553 - Implement scheduled near-expiry scan job | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` |
+| **PAC-764** | `TASK-554` | TASK-554 - Implement AI Business Report Narrative API | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` |
+| **PAC-765** | `TASK-555` | TASK-555 - Build AI Business Report Narrative UI | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` |
+| **PAC-766** | `TASK-556` | TASK-556 - Document Full Customer Management future scope | `docs/PAC-766-task-556-document-full-customer-management-future-scope` |
+| **PAC-767** | `TASK-557` | TASK-557 - Document customer profile CRUD future scope | `docs/PAC-767-task-557-document-customer-profile-crud-future-scope` |
+| **PAC-768** | `TASK-558` | TASK-558 - Document customer purchase history expansion | `docs/PAC-768-task-558-document-customer-purchase-history-expansion` |
+| **PAC-769** | `TASK-559` | TASK-559 - Document Online Commerce storefront future scope | `docs/PAC-769-task-559-document-online-commerce-storefront-future-scope` |
+| **PAC-770** | `TASK-560` | TASK-560 - Document online cart and wishlist future scope | `docs/PAC-770-task-560-document-online-cart-and-wishlist-future-scope` |
+| **PAC-771** | `TASK-561` | TASK-561 - Document online checkout separation from POS checkout | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` |
+| **PAC-772** | `TASK-562` | TASK-562 - Document Product Variant Catalog future scope | `docs/PAC-772-task-562-document-product-variant-catalog-future-scope` |
+| **PAC-773** | `TASK-563` | TASK-563 - Document product images and documents commercial scope | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` |
+| **PAC-774** | `TASK-564` | TASK-564 - Document real catalog data import future workflow | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` |
+| **PAC-775** | `TASK-565` | TASK-565 - Document Multi-store future scope | `docs/PAC-775-task-565-document-multi-store-future-scope` |
+| **PAC-776** | `TASK-566` | TASK-566 - Document default store assumption for MVP | `docs/PAC-776-task-566-document-default-store-assumption-for-mvp` |
+| **PAC-777** | `TASK-567` | TASK-567 - Document Multi-warehouse future scope | `docs/PAC-777-task-567-document-multi-warehouse-future-scope` |
+| **PAC-778** | `TASK-568` | TASK-568 - Document default warehouse assumption for MVP | `docs/PAC-778-task-568-document-default-warehouse-assumption-for-mvp` |
+| **PAC-779** | `TASK-569` | TASK-569 - Document Stock Transfer future workflow | `docs/PAC-779-task-569-document-stock-transfer-future-workflow` |
+| **PAC-780** | `TASK-570` | TASK-570 - Document stock transfer audit future requirement | `docs/PAC-780-task-570-document-stock-transfer-audit-future-requirement` |
+| **PAC-781** | `TASK-571` | TASK-571 - Document Forecasting and reorder suggestion future scope | `docs/PAC-781-task-571-document-forecasting-and-reorder-suggestion-future-` |
+| **PAC-782** | `TASK-572` | TASK-572 - Document forecast data requirements and limitations | `docs/PAC-782-task-572-document-forecast-data-requirements-and-limitations` |
+| **PAC-783** | `TASK-573` | TASK-573 - Document Promotion and Coupon future scope | `docs/PAC-783-task-573-document-promotion-and-coupon-future-scope` |
+| **PAC-784** | `TASK-574` | TASK-574 - Document discount not included in MVP checkout | `docs/PAC-784-task-574-document-discount-not-included-in-mvp-checkout` |
+| **PAC-785** | `TASK-575` | TASK-575 - Document Shipping and Delivery future scope | `docs/PAC-785-task-575-document-shipping-and-delivery-future-scope` |
+| **PAC-786** | `TASK-576` | TASK-576 - Document delivery status future workflow | `docs/PAC-786-task-576-document-delivery-status-future-workflow` |
+| **PAC-787** | `TASK-577` | TASK-577 - Document Review and CMS future scope | `docs/PAC-787-task-577-document-review-and-cms-future-scope` |
+| **PAC-788** | `TASK-578` | TASK-578 - Document product review moderation future consideration | `docs/PAC-788-task-578-document-product-review-moderation-future-considera` |
+| **PAC-789** | `TASK-579` | TASK-579 - Document commercial expansion dependency map | `docs/PAC-789-task-579-document-commercial-expansion-dependency-map` |
+| **PAC-790** | `TASK-580` | TASK-580 - Document final out-of-scope guardrails for AI agents | `docs/PAC-790-task-580-document-final-out-of-scope-guardrails-for-ai-agent` |
