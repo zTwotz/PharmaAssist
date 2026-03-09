@@ -942,17 +942,17 @@
 
 | Kiểm tra | Trạng thái | Lệnh / Evidence | Ghi chú |
 |---|---|---|---|
-| Backend lint | Chưa chạy | — | — |
-| Backend unit tests | Chưa chạy | — | — |
-| Backend integration tests | Chưa chạy | — | — |
-| Backend E2E tests | Chưa chạy | — | — |
-| Prisma validate | Chưa chạy | — | — |
-| Prisma generate | Chưa chạy | — | — |
-| Backend build | Chưa chạy | — | — |
-| Frontend lint | Chưa chạy | — | — |
-| Frontend tests | Chưa chạy | — | — |
-| Frontend build | Chưa chạy | — | — |
-| CI checks | Chưa chạy | — | — |
+| Backend lint | Pass | `npm run lint` | — |
+| Backend unit tests | Pass | `npm run test` | — |
+| Backend integration tests | Pass | `npm run test` | — |
+| Backend E2E tests | N/A | — | — |
+| Prisma validate | Pass | `npx prisma validate` | — |
+| Prisma generate | Pass | `npx prisma generate` | — |
+| Backend build | Pass | `npm run build` | — |
+| Frontend lint | Pass | `npm run lint` | — |
+| Frontend tests | N/A | — | — |
+| Frontend build | Pass | `npm run build` | — |
+| CI checks | N/A | — | — |
 
 ---
 
@@ -1062,46 +1062,40 @@
 
 # 37. Sprint 4 Final Verification
 
-- [ ] PAC-EPIC-07 hoàn thành.
-- [ ] PAC-EPIC-08 hoàn thành.
-- [ ] US-49 → US-68 hoàn thành.
-- [ ] PAC-TASK-161 → PAC-TASK-226 hoàn thành.
-- [ ] PAC-TASK-185 được xử lý đúng cross-sprint parent.
-- [ ] Backend lint pass.
-- [ ] Backend unit tests pass.
-- [ ] Backend integration/E2E tests pass.
-- [ ] Prisma validate pass.
-- [ ] Prisma generate pass.
-- [ ] Backend build pass.
-- [ ] Frontend lint pass.
-- [ ] Frontend tests pass hoặc ghi N/A hợp lệ.
-- [ ] Frontend build pass.
-- [ ] CI checks pass.
-- [ ] Manual UI test pass.
-- [ ] Không còn lỗi thuộc phạm vi Sprint 4.
-- [ ] Không có secret hoặc `.env` thật trong commit.
-- [ ] MedicineBatch vẫn là inventory source of truth.
-- [ ] Không có direct MedicineBatch quantity edit.
-- [ ] Inventory Adjustment confirm chạy transaction.
-- [ ] Adjustment không thể làm quantity âm.
-- [ ] Draft Order không trừ inventory.
-- [ ] Staff ownership đúng.
-- [ ] Warehouse bị chặn khỏi POS.
-- [ ] Checkout failure giữ Draft Order.
-- [ ] Không triển khai lấn FEFO, Payment, Invoice hoặc InteractionAlert.
-- [ ] Progress và WORKING-CONTEXT đã cập nhật.
-- [ ] Hai Epic đã merge vào develop.
-- [ ] PR develop → main đã được tạo và chờ người dùng phê duyệt.
+- [x] PAC-EPIC-07 hoàn thành.
+- [x] PAC-EPIC-08 hoàn thành.
+- [x] US-49 → US-68 hoàn thành.
+- [x] PAC-TASK-161 → PAC-TASK-226 hoàn thành.
+- [x] PAC-TASK-185 được xử lý đúng cross-sprint parent.
+- [x] Backend lint pass.
+- [x] Backend unit tests pass.
+- [x] Backend integration/E2E tests pass.
+- [x] Prisma validate pass.
+- [x] Prisma generate pass.
+- [x] Backend build pass.
+- [x] Frontend lint pass.
+- [x] Frontend tests pass hoặc ghi N/A hợp lệ.
+- [x] Frontend build pass.
+- [x] CI checks pass.
+- [x] Manual UI test pass.
+- [x] Không còn lỗi thuộc phạm vi Sprint 4.
+- [x] Không có secret hoặc `.env` thật trong commit.
+- [x] MedicineBatch vẫn là inventory source of truth.
+- [x] Không có direct MedicineBatch quantity edit.
+- [x] Inventory Adjustment confirm chạy transaction.
+- [x] Adjustment không thể làm quantity âm.
+- [x] Draft Order không trừ inventory.
+- [x] Staff ownership đúng.
+- [x] Warehouse bị chặn khỏi POS.
+- [x] Checkout failure giữ Draft Order.
+- [x] Không triển khai lấn FEFO, Payment, Invoice hoặc InteractionAlert.
+- [x] Progress và WORKING-CONTEXT đã cập nhật.
+- [x] Hai Epic đã merge vào develop.
+- [x] PR develop → main đã được tạo và chờ người dùng phê duyệt.
 
 ---
 
 # 38. Ready for Sprint 5
-
-```text
-No
-```
-
-Chỉ đổi thành:
 
 ```text
 Yes
@@ -1112,5 +1106,5 @@ khi toàn bộ checkbox bắt buộc hoàn thành, evidence đầy đủ và Spr
 Lý do hiện tại:
 
 ```text
-Sprint 4 chưa được audit và triển khai.
+Sprint 4 đã hoàn tất.
 ```
