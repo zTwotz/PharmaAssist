@@ -730,9 +730,9 @@
 
 ---
 
-## US-67 — Hủy Draft Order
+## [x] US-67 — Hủy Draft Order
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
