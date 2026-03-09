@@ -35,12 +35,12 @@ model User {
 }
 
 model UserProfile {
-  id             Int       @id @default(autoincrement())
-  userId         String    @unique @map("user_id") @db.Uuid
-  dateOfBirth    DateTime? @map("date_of_birth")
-  gender         String?
-  address        String?
-  identityNumber String?   @map("identity_number")
+  id                 Int       @id @default(autoincrement())
+  userId             String    @unique @map("user_id") @db.Uuid
+  dateOfBirth        DateTime? @map("date_of_birth")
+  gender             String?
+  address            String?
+  identityNumber     String?   @map("identity_number")
   employeeCode       String?   @map("employee_code")
   bio                String?
   mustChangePassword Boolean   @default(true) @map("must_change_password")
