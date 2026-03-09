@@ -105,7 +105,7 @@ export function MedicineSearch() {
                       </span>
                       <span className="flex items-center gap-1">
                         <PackageOpen size={12} className={isOutOfStock ? 'text-red-400' : 'text-green-500'} />
-                        Tồn kho: <strong className={isOutOfStock ? 'text-red-500' : 'text-slate-700'}>{stockQty}</strong> {variant.unit?.name}
+                        Có thể bán: <strong className={isOutOfStock ? 'text-red-500' : 'text-slate-700'}>{stockQty}</strong> {variant.unit?.name}
                       </span>
                     </div>
                   </div>

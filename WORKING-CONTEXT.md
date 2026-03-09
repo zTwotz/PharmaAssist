@@ -40,7 +40,7 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - [x] Thiết kế & migration database schema trên Supabase (Khởi tạo 100 bảng database).
 - [x] Triển khai Xác thực & Phân quyền Auth & RBAC (Sprint 1 - PAC-43 đến PAC-50).
 - [x] Triển khai Quản lý nhân viên & thuốc (Sprint 2 - PAC-51 đến PAC-67) -> **Đã hoàn thành 100% (Quality Gate Verified)**.
-- [ ] Triển khai Quản lý Tồn kho & Nhập kho (Sprint 3 - PAC-68 đến PAC-84, PAC-87 đến PAC-92).
+- [x] Triển khai Quản lý Tồn kho & Nhập kho (Sprint 3 - PAC-68 đến PAC-84, PAC-87 đến PAC-92) -> **Đã hoàn thành 100% (Quality Gate Verified)**.
 - [ ] Triển khai Luồng bán hàng POS & Kiểm tra tương tác thuốc (Sprint 4 - PAC-85, PAC-86, PAC-93 đến PAC-110).
 - [ ] Báo cáo & Dashboard tổng quan (Sprint 5 - PAC-111 đến PAC-120).
 - [ ] Triển khai AI Copilot Foundation (Sprint 6 - PAC-128 đến PAC-133, PAC-157 đến PAC-180).
@@ -59,6 +59,15 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 ---
 
 ## 📓 Latest Execution Notes
+
+### 2026-06-21 (Sprint 3 Completion)
+- **Sprint 3 Quality Gate Review & Completion:**
+  - Hoàn thành toàn diện 22 User Stories (US-27 đến US-48) và 59 tasks thuộc `PAC-EPIC-05` (Inventory & MedicineBatch) và `PAC-EPIC-06` (Stock Import).
+  - Triển khai thành công Backend API và giao diện UI cho: MedicineBatch là Source of Truth, Inventory Summary (Sellable Quantity, Low-stock, Near-expiry), Stock Import (Draft, Validations, Confirm transaction, Merge Batch, Expiry Reject), và Audit Logging.
+  - Chạy PASS 100% bộ kiểm thử tự động `StockImportsService` (18/18 Unit Tests).
+  - Biên dịch (build) thành công cả frontend Next.js và backend NestJS không còn lỗi TypeScript.
+  - Cập nhật tài liệu nghiệm thu Sprint 3 (`sprint-3-progress.md`, `sprint-3-smoke-test.md`, `WORKING-CONTEXT.md`).
+  - Toàn bộ code đã được commit và merge lên nhánh `develop`. Đã tạo Pull Request `develop -> main` chờ duyệt. Đủ điều kiện chuyển sang Sprint 4.
 
 ### 2026-06-21
 - **Sprint 2 Quality Gate Review & Completion:**
