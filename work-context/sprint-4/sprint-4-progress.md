@@ -762,9 +762,9 @@
 
 ---
 
-## US-68 — Giữ Draft Order khi checkout fail
+## [x] US-68 — Giữ Draft Order khi checkout fail
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
