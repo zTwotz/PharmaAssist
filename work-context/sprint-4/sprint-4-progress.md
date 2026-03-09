@@ -638,9 +638,9 @@
 
 ---
 
-## US-64 — Hỗ trợ walk-in/anonymous customer
+## [x] US-64 — Hỗ trợ walk-in/anonymous customer
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
@@ -669,9 +669,9 @@
 
 ---
 
-## US-65 — Staff chỉ xem đơn trong ownership scope
+## [x] US-65 — Staff chỉ xem đơn trong ownership scope
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
@@ -730,9 +730,9 @@
 
 ---
 
-## US-67 — Hủy Draft Order
+## [x] US-67 — Hủy Draft Order
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 
@@ -762,9 +762,9 @@
 
 ---
 
-## US-68 — Giữ Draft Order khi checkout fail
+## [x] US-68 — Giữ Draft Order khi checkout fail
 
-- [ ] **User Story completed**
+- [x] **User Story completed**
 
 ### Related Tasks
 

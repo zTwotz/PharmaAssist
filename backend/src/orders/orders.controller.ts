@@ -5,6 +5,7 @@ import {
   Get,
   Patch,
   Delete,
+  Post,
   Param,
   HttpCode,
   HttpStatus,
@@ -76,17 +77,26 @@ export class OrdersController {
   @Get('stats')
   @Roles('ADMIN', 'STAFF', 'WAREHOUSE')
   @ApiOperation({ summary: 'Lấy số liệu thống kê tổng quan cho Dashboard' })
-  async getStats() {
+  async getDashboardStats() {
     return this.ordersService.getDashboardStats();
   }
 
-  @Get()
+  @Post(':id/cancel')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Hủy đơn hàng' })
+  async cancelOrder(
+    @Param('id') id: string,
+    @Req() req: { user: { id: string; roles: string[] } },
+  ) {
+    return this.ordersService.cancelOrder(Number(id), req.user);
+  }
+
+  @Get(':id')
   @Roles('ADMIN', 'STAFF')
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
   async findAll() {
     return this.ordersService.findAll();
   }
-
   @Post(':id/items')
   @Roles('ADMIN', 'STAFF')
   @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
