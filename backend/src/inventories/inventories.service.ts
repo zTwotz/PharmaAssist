@@ -47,7 +47,10 @@ export class InventoriesService {
         where: { id },
         data: {
           quantity: data.quantity,
-          minQuantity: data.minQuantity !== undefined ? data.minQuantity : inventory.minQuantity,
+          minQuantity:
+            data.minQuantity !== undefined
+              ? data.minQuantity
+              : inventory.minQuantity,
         },
         include: {
           productVariant: {
@@ -78,7 +81,7 @@ export class InventoriesService {
               quantity: data.quantity,
               manufacturingDate: new Date(),
               expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year
-              importPrice: 0.00,
+              importPrice: 0.0,
               status: 'ACTIVE',
             },
           });

@@ -1,4 +1,11 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/permissions.guard';
 import { RequirePermissions } from '../auth/permissions.decorator';
@@ -21,6 +28,8 @@ export class InteractionsController {
     description: 'Trả về danh sách các tương tác thuốc nếu có.',
   })
   async checkInteractions(@Body() checkInteractionDto: CheckInteractionDto) {
-    return this.interactionsService.checkInteractions(checkInteractionDto.medicineIds);
+    return this.interactionsService.checkInteractions(
+      checkInteractionDto.medicineIds,
+    );
   }
 }

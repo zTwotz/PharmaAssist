@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -8,15 +12,19 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   private generateSlug(name: string): string {
-    return name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/[^a-z0-9 -]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim() + '-' + Date.now().toString(36);
+    return (
+      name
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/[^a-z0-9 -]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim() +
+      '-' +
+      Date.now().toString(36)
+    );
   }
 
   async findAll() {
@@ -78,7 +86,9 @@ export class CategoriesService {
         where: { id: dto.parentId },
       });
       if (!parent) {
-        throw new BadRequestException(`Danh mục cha ID ${dto.parentId} không tồn tại.`);
+        throw new BadRequestException(
+          `Danh mục cha ID ${dto.parentId} không tồn tại.`,
+        );
       }
     }
 
@@ -134,7 +144,9 @@ export class CategoriesService {
       });
       const descendantIds = descendants.map((d) => d.descendantId);
       if (descendantIds.includes(dto.parentId)) {
-        throw new BadRequestException('Danh mục cha không thể là danh mục con/cháu của danh mục này.');
+        throw new BadRequestException(
+          'Danh mục cha không thể là danh mục con/cháu của danh mục này.',
+        );
       }
     }
 
@@ -176,7 +188,9 @@ export class CategoriesService {
       where: { parentId: id },
     });
     if (childCount > 0) {
-      throw new BadRequestException('Không thể xóa danh mục này vì có danh mục con bên dưới.');
+      throw new BadRequestException(
+        'Không thể xóa danh mục này vì có danh mục con bên dưới.',
+      );
     }
 
     // Check products
@@ -184,17 +198,16 @@ export class CategoriesService {
       where: { categoryId: id },
     });
     if (productCount > 0) {
-      throw new BadRequestException('Không thể xóa danh mục này vì đang có thuốc/sản phẩm liên kết.');
+      throw new BadRequestException(
+        'Không thể xóa danh mục này vì đang có thuốc/sản phẩm liên kết.',
+      );
     }
 
     return this.prisma.$transaction(async (tx) => {
       // Delete closures first
       await tx.categoryClosure.deleteMany({
         where: {
-          OR: [
-            { ancestorId: id },
-            { descendantId: id },
-          ],
+          OR: [{ ancestorId: id }, { descendantId: id }],
         },
       });
 
@@ -228,7 +241,11 @@ export class CategoriesService {
       categoryMap.set(cat.id, cat.parentId);
     });
 
-    const closuresToCreate: { ancestorId: number; descendantId: number; depth: number }[] = [];
+    const closuresToCreate: {
+      ancestorId: number;
+      descendantId: number;
+      depth: number;
+    }[] = [];
 
     // 3. Rebuild paths
     categories.forEach((cat: { id: number; parentId: number | null }) => {
@@ -254,7 +271,6 @@ export class CategoriesService {
         depth++;
       }
     });
-
 
     // 4. Batch insert closures
     if (closuresToCreate.length > 0) {

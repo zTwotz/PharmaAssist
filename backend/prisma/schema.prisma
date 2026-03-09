@@ -503,6 +503,7 @@ model ActiveIngredient {
   id                  Int                  @id @default(autoincrement())
   code                String               @unique
   name                String
+  normalizedName      String               @unique @map("normalized_name")
   description         String?
   status              String               @default("ACTIVE")
   createdAt           DateTime             @default(now()) @map("created_at")
@@ -520,6 +521,7 @@ model MedicineIngredient {
   activeIngredient   ActiveIngredient @relation(fields: [activeIngredientId], references: [id])
   medicine           Medicine         @relation(fields: [medicineId], references: [id], onDelete: Cascade)
 
+  @@unique([medicineId, activeIngredientId])
   @@map("medicine_ingredients")
 }
 
@@ -1497,4 +1499,18 @@ model ArticleCategory {
   articles    Article[]
 
   @@map("article_categories")
+}
+
+model GraphSyncOutbox {
+  id         Int      @id @default(autoincrement())
+  entityType String   @map("entity_type")
+  entityId   Int      @map("entity_id")
+  action     String
+  payload    Json?
+  status     String   @default("PENDING")
+  error      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("graph_sync_outbox")
 }

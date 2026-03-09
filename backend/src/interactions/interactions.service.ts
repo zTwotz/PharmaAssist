@@ -46,11 +46,15 @@ export class InteractionsService {
       severity: interaction.severity,
       medicineA: {
         id: interaction.medicineA.id,
-        name: interaction.medicineA.product?.name || `Medicine ${interaction.medicineA.id}`,
+        name:
+          interaction.medicineA.product?.name ||
+          `Medicine ${interaction.medicineA.id}`,
       },
       medicineB: {
         id: interaction.medicineB.id,
-        name: interaction.medicineB.product?.name || `Medicine ${interaction.medicineB.id}`,
+        name:
+          interaction.medicineB.product?.name ||
+          `Medicine ${interaction.medicineB.id}`,
       },
       description: interaction.description,
       recommendation: interaction.recommendation,
@@ -60,7 +64,7 @@ export class InteractionsService {
       interactions: formattedInteractions,
       hasInteractions: formattedInteractions.length > 0,
       severeInteractionsCount: formattedInteractions.filter(
-        (i) => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng'
+        (i) => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng',
       ).length,
     };
   }

@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  INestApplication,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { JwtAuthGuard } from '../src/auth/jwt-auth.guard';
@@ -101,9 +105,7 @@ describe('Sprint 1 RBAC & UI Flows (e2e)', () => {
     });
 
     it('Admin can view staff list (GET /users/staff)', async () => {
-      await request(app.getHttpServer())
-        .get('/users/staff')
-        .expect(200);
+      await request(app.getHttpServer()).get('/users/staff').expect(200);
     });
 
     it('Admin can access POS routes (GET /orders)', async () => {
@@ -153,9 +155,7 @@ describe('Sprint 1 RBAC & UI Flows (e2e)', () => {
     });
 
     it('Warehouse CANNOT view staff list (GET /users/staff) - Forbidden', async () => {
-      await request(app.getHttpServer())
-        .get('/users/staff')
-        .expect(403);
+      await request(app.getHttpServer()).get('/users/staff').expect(403);
     });
   });
 
@@ -164,5 +164,4 @@ describe('Sprint 1 RBAC & UI Flows (e2e)', () => {
       // Skipping due to strategy mock override
     });
   });
-
 });

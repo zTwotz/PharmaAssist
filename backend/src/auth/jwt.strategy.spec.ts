@@ -39,20 +39,28 @@ describe('JwtStrategy', () => {
 
   describe('validate', () => {
     it('should throw UnauthorizedException if payload is invalid', async () => {
-      await expect(strategy.validate(null)).rejects.toThrow(UnauthorizedException);
-      await expect(strategy.validate({})).rejects.toThrow(UnauthorizedException);
+      await expect(strategy.validate(null)).rejects.toThrow(
+        UnauthorizedException,
+      );
+      await expect(strategy.validate({})).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should throw UnauthorizedException if user is not found in database', async () => {
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
-      await expect(strategy.validate({ sub: 'user-1' })).rejects.toThrow(UnauthorizedException);
+      await expect(strategy.validate({ sub: 'user-1' })).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should throw ForbiddenException if user status is not ACTIVE', async () => {
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue({
         status: 'INACTIVE',
       } as any);
-      await expect(strategy.validate({ sub: 'user-1' })).rejects.toThrow(ForbiddenException);
+      await expect(strategy.validate({ sub: 'user-1' })).rejects.toThrow(
+        ForbiddenException,
+      );
     });
 
     it('should return valid user payload with mustChangePassword true', async () => {
@@ -65,9 +73,7 @@ describe('JwtStrategy', () => {
           {
             role: {
               name: 'Staff',
-              rolePermissions: [
-                { permission: { code: 'pos.access' } },
-              ],
+              rolePermissions: [{ permission: { code: 'pos.access' } }],
             },
           },
         ],

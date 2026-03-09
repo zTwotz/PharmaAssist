@@ -20,7 +20,9 @@ async function bootstrap() {
   // Configure Swagger API documentation
   const config = new DocumentBuilder()
     .setTitle('PharmaAssist API')
-    .setDescription('The PharmaAssist Smart Pharmacy Management System API documentation')
+    .setDescription(
+      'The PharmaAssist Smart Pharmacy Management System API documentation',
+    )
     .setVersion('1.0')
     .addBearerAuth(
       {
@@ -40,6 +42,8 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
   console.log(`Application is running on: http://localhost:${port}/api`);
-  console.log(`Swagger documentation available at: http://localhost:${port}/api/docs`);
+  console.log(
+    `Swagger documentation available at: http://localhost:${port}/api/docs`,
+  );
 }
 bootstrap();

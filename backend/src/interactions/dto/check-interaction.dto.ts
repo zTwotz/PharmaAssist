@@ -9,6 +9,8 @@ export class CheckInteractionDto {
   })
   @IsArray()
   @IsInt({ each: true })
-  @ArrayMinSize(2, { message: 'Cần ít nhất 2 loại thuốc để kiểm tra tương tác' })
+  @ArrayMinSize(2, {
+    message: 'Cần ít nhất 2 loại thuốc để kiểm tra tương tác',
+  })
   medicineIds: number[];
 }

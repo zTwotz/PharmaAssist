@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { useAuth } from '@/context/auth-context';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,7 +23,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, CheckCircle2, Info, X } from 'lucide-react';
+import { Search, Plus, Loader2, AlertTriangle, Pill, ShieldAlert, Info, X, Edit, Lock, Unlock, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface ActiveIngredient {
@@ -90,65 +91,131 @@ interface Medicine {
 }
 
 export function MedicineList() {
+  const { hasPermission } = useAuth();
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Search and filter states
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [prescriptionFilter, setPrescriptionFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  
+  // Pagination states
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
 
   // Selected medicine for detail modal
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
 
-  useEffect(() => {
-    fetchMedicines();
-  }, []);
+  // Deactivate state
+  const [deactivateMed, setDeactivateMed] = useState<Medicine | null>(null);
+  const [deactivating, setDeactivating] = useState(false);
 
   const fetchMedicines = async () => {
     setLoading(true);
     setErrorAlert(null);
     try {
-      const response = await api.get('/medicines');
-      setMedicines(response.data);
-    } catch (err: any) {
+      const response = await api.get('/medicines', {
+        params: {
+          page,
+          limit,
+          search: debouncedSearch || undefined,
+          status: statusFilter,
+          categoryId: categoryFilter === 'ALL' ? undefined : Number(categoryFilter),
+          prescription: prescriptionFilter,
+        },
+      });
+      setMedicines(response.data.data || []);
+      setTotal(response.data.total || 0);
+      setTotalPages(response.data.totalPages || 0);
+    } catch (err: unknown) {
       console.error('Failed to fetch medicines:', err);
-      setErrorAlert(err.response?.data?.message || 'Không thể tải danh sách thuốc từ hệ thống.');
+      const error = err as { response?: { data?: { message?: string } } };
+      setErrorAlert(error.response?.data?.message || 'Không thể tải danh sách thuốc từ hệ thống.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Get unique categories from medicines to populate filter
-  const categories = Array.from(
-    new Map(
-      medicines
-        .filter(m => m.product?.category)
-        .map(m => [m.product.category.id, m.product.category])
-    ).values()
-  );
+  const fetchCategories = async () => {
+    try {
+      const res = await api.get('/medicines/reference-data');
+      setCategories(res.data.categories || []);
+    } catch (err) {
+      console.error('Failed to fetch categories:', err);
+    }
+  };
 
-  // Filtered medicines based on search and filters
-  const filteredMedicines = medicines.filter((m) => {
-    const nameMatch = m.product?.name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const codeMatch = m.medicineCode?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                      m.product?.code?.toLowerCase().includes(searchQuery.toLowerCase());
-    const ingredientMatch = m.ingredients?.some(i => 
-      i.activeIngredient?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  const handleToggleStatus = async () => {
+    if (!deactivateMed) return;
+    setDeactivating(true);
+    try {
+      const newStatus = deactivateMed.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+      await api.patch(`/medicines/${deactivateMed.id}/status`, { status: newStatus });
+      
+      // Update local state
+      setMedicines((prev) =>
+        prev.map((m) => (m.id === deactivateMed.id ? { ...m, status: newStatus } : m))
+      );
+      setDeactivateMed(null);
+    } catch (err: unknown) {
+      console.error('Failed to toggle status:', err);
+      const error = err as { response?: { data?: { message?: string } } };
+      setErrorAlert(error.response?.data?.message || 'Không thể cập nhật trạng thái thuốc.');
+    } finally {
+      setDeactivating(false);
+    }
+  };
 
-    const matchesSearch = nameMatch || codeMatch || ingredientMatch;
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-    const matchesPrescription = 
-      prescriptionFilter === 'ALL' || 
-      (prescriptionFilter === 'YES' && m.requiresPrescription) || 
-      (prescriptionFilter === 'NO' && !m.requiresPrescription);
+  // Fetch categories on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchCategories();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
-    const matchesCategory = 
-      categoryFilter === 'ALL' || 
-      m.product?.category?.id.toString() === categoryFilter;
+  // Fetch medicines when pagination or filters change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchMedicines();
+    }, 0);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit, debouncedSearch, categoryFilter, statusFilter, prescriptionFilter]);
 
-    return matchesSearch && matchesPrescription && matchesCategory;
-  });
+  const handleCategoryFilterChange = (val: string) => {
+    setCategoryFilter(val);
+    setPage(1);
+  };
+
+  const handlePrescriptionFilterChange = (val: string) => {
+    setPrescriptionFilter(val);
+    setPage(1);
+  };
+
+  const handleStatusFilterChange = (val: string) => {
+    setStatusFilter(val);
+    setPage(1);
+  };
+
+  const filteredMedicines = medicines;
 
   return (
     <div className="space-y-6">
@@ -163,12 +230,14 @@ export function MedicineList() {
             Hiển thị danh sách chi tiết các loại thuốc, thành phần dược chất và cấu hình bán hàng.
           </p>
         </div>
-        <Link href="/dashboard/medicines/new" passHref>
-          <Button className="bg-primary hover:bg-primary-deep text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-all shrink-0">
-            <Plus className="h-4 w-4" />
-            Thêm thuốc mới
-          </Button>
-        </Link>
+        {hasPermission('MANAGE_MEDICINES') && (
+          <Link href="/dashboard/medicines/new" passHref>
+            <Button className="bg-primary hover:bg-primary-deep text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-all shrink-0">
+              <Plus className="h-4 w-4" />
+              Thêm thuốc mới
+            </Button>
+          </Link>
+        )}
       </div>
 
       {errorAlert && (
@@ -197,7 +266,7 @@ export function MedicineList() {
             <div className="w-full md:w-48">
               <select
                 value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
+                onChange={(e) => handleCategoryFilterChange(e.target.value)}
                 className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="ALL">Tất cả danh mục</option>
@@ -213,12 +282,25 @@ export function MedicineList() {
             <div className="w-full md:w-44">
               <select
                 value={prescriptionFilter}
-                onChange={(e) => setPrescriptionFilter(e.target.value)}
+                onChange={(e) => handlePrescriptionFilterChange(e.target.value)}
                 className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="ALL">Đơn thuốc: Tất cả</option>
                 <option value="YES">Bắt buộc kê đơn 📄</option>
                 <option value="NO">Không kê đơn 🟢</option>
+              </select>
+            </div>
+
+            {/* Status Filter */}
+            <div className="w-full md:w-36">
+              <select
+                value={statusFilter}
+                onChange={(e) => handleStatusFilterChange(e.target.value)}
+                className="w-full h-10 border border-hairline rounded-lg px-3 text-xs text-charcoal bg-white font-medium focus:outline-none focus:ring-1 focus:ring-primary"
+              >
+                <option value="ALL">Trạng thái: Tất cả</option>
+                <option value="ACTIVE">Hoạt động 🟢</option>
+                <option value="INACTIVE">Tạm khóa 🔴</option>
               </select>
             </div>
           </div>
@@ -242,7 +324,8 @@ export function MedicineList() {
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <>
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader className="bg-cloud border-b border-hairline">
                   <TableRow>
@@ -319,22 +402,102 @@ export function MedicineList() {
                           {m.status === 'ACTIVE' ? 'Hoạt động' : 'Tạm khóa'}
                         </Badge>
                       </TableCell>
-                      <TableCell className="py-4 pr-6 text-right">
+                       <TableCell className="py-4 pr-6 text-right flex items-center justify-end gap-1.5">
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => setSelectedMedicine(m)}
                           className="h-8 w-8 text-primary hover:text-primary-deep hover:bg-primary-soft rounded-lg"
+                          title="Chi tiết"
                         >
                           <Info className="h-4 w-4" />
                         </Button>
+                        {hasPermission('MANAGE_MEDICINES') && (
+                          <Link href={`/dashboard/medicines/${m.id}/edit`} passHref>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-charcoal hover:text-ink hover:bg-fog rounded-lg"
+                              title="Sửa"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                        )}
+                        {hasPermission('MANAGE_MEDICINES') && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setDeactivateMed(m)}
+                            className={`h-8 w-8 rounded-lg ${
+                              m.status === 'ACTIVE'
+                                ? 'text-error hover:text-error-deep hover:bg-bloom-rose/25'
+                                : 'text-emerald-600 hover:text-emerald-700 hover:bg-bloom-emerald/25'
+                            }`}
+                            title={m.status === 'ACTIVE' ? 'Khóa' : 'Mở khóa'}
+                          >
+                            {m.status === 'ACTIVE' ? (
+                              <Lock className="h-4 w-4" />
+                            ) : (
+                              <Unlock className="h-4 w-4" />
+                            )}
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </div>
-          )}
+            
+            {/* Pagination Controls */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-hairline bg-cloud/50">
+              <div className="text-xs text-graphite font-medium">
+                Hiển thị <span className="font-semibold text-ink">{total > 0 ? (page - 1) * limit + 1 : 0}</span> -{' '}
+                <span className="font-semibold text-ink">{Math.min(page * limit, total)}</span> trong số{' '}
+                <span className="font-semibold text-ink">{total}</span> thuốc
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === 1}
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  className="h-8 w-8 p-0 border-hairline rounded-lg text-charcoal hover:bg-fog"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <span className="text-xs text-charcoal font-semibold px-2">
+                  Trang {page} / {totalPages || 1}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages || totalPages === 0}
+                  onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                  className="h-8 w-8 p-0 border-hairline rounded-lg text-charcoal hover:bg-fog"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+                
+                <div className="flex items-center gap-1.5 ml-2">
+                  <span className="text-[10px] text-graphite uppercase font-bold tracking-wider">Số lượng:</span>
+                  <select
+                    value={limit}
+                    onChange={(e) => {
+                      setLimit(Number(e.target.value));
+                      setPage(1);
+                    }}
+                    className="h-8 border border-hairline rounded-lg px-2 text-xs text-charcoal bg-white font-medium focus:outline-none"
+                  >
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </>)}
         </CardContent>
       </Card>
 
@@ -386,9 +549,12 @@ export function MedicineList() {
                 <div className="bg-cloud p-3 rounded-lg border border-hairline space-y-2">
                   {selectedMedicine.ingredients && selectedMedicine.ingredients.length > 0 ? (
                     selectedMedicine.ingredients.map((ing, idx) => (
-                      <div key={idx} className="flex justify-between items-center text-xs text-charcoal py-1 border-b border-hairline last:border-0 last:pb-0">
-                        <span className="font-semibold text-ink">{ing.activeIngredient?.name}</span>
-                        <span className="font-bold text-primary bg-primary-soft px-2 py-0.5 rounded">{ing.strength}</span>
+                      <div key={idx} className="flex justify-between items-start text-xs text-charcoal py-1 border-b border-hairline last:border-0 last:pb-0">
+                        <div className="flex flex-col">
+                          <span className="font-semibold text-ink">{ing.activeIngredient?.name}</span>
+                          {ing.note && <span className="text-[10px] text-graphite font-medium">Ghi chú: {ing.note}</span>}
+                        </div>
+                        <span className="font-bold text-primary bg-primary-soft px-2 py-0.5 rounded shrink-0">{ing.strength}</span>
                       </div>
                     ))
                   ) : (
@@ -486,6 +652,66 @@ export function MedicineList() {
                   Cấu hình hoặc Thêm thuốc mới
                 </Button>
               </Link>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Soft Deactivate Dialog */}
+      {deactivateMed && (
+        <Dialog open={!!deactivateMed} onOpenChange={() => setDeactivateMed(null)}>
+          <DialogContent className="max-w-md bg-white border border-hairline rounded-xl shadow-lg p-0 overflow-hidden font-sans">
+            <DialogHeader className="p-6 bg-cloud border-b border-hairline flex flex-row items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-warning" />
+                <DialogTitle className="text-base font-bold text-ink">
+                  {deactivateMed.status === 'ACTIVE' ? 'Tạm khóa thuốc' : 'Kích hoạt lại thuốc'}
+                </DialogTitle>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setDeactivateMed(null)}
+                className="h-8 w-8 text-graphite hover:text-ink hover:bg-fog rounded-full shrink-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogHeader>
+
+            <div className="p-6 text-xs text-charcoal font-medium leading-relaxed">
+              {deactivateMed.status === 'ACTIVE' ? (
+                <p>
+                  Bạn có chắc chắn muốn tạm khóa thuốc <span className="font-bold text-ink">&ldquo;{deactivateMed.product?.name}&rdquo;</span>?
+                  Khi bị khóa, thuốc này sẽ không thể dùng cho các giao dịch bán hàng mới hoặc chọn trong POS.
+                </p>
+              ) : (
+                <p>
+                  Bạn có muốn kích hoạt lại thuốc <span className="font-bold text-ink">&ldquo;{deactivateMed.product?.name}&rdquo;</span>?
+                  Sau khi kích hoạt, thuốc sẽ tiếp tục hiển thị và sử dụng bình thường trên toàn hệ thống.
+                </p>
+              )}
+            </div>
+
+            <DialogFooter className="p-4 bg-cloud border-t border-hairline flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setDeactivateMed(null)}
+                className="border-hairline text-xs font-bold h-9 hover:bg-fog"
+              >
+                Hủy
+              </Button>
+              <Button
+                disabled={deactivating}
+                onClick={handleToggleStatus}
+                className={`text-white text-xs font-bold h-9 px-4 rounded-lg flex items-center gap-2 ${
+                  deactivateMed.status === 'ACTIVE'
+                    ? 'bg-error hover:bg-error-deep'
+                    : 'bg-emerald-600 hover:bg-emerald-700'
+                }`}
+              >
+                {deactivating && <Loader2 className="h-4 w-4 animate-spin" />}
+                Xác nhận
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

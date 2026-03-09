@@ -1,4 +1,13 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsNumber,
+  Min,
+} from 'class-validator';
 
 export class CreateMedicineDto {
   // Product info
@@ -66,4 +75,9 @@ export class CreateMedicineDto {
   @IsInt()
   @IsOptional()
   shelfLifeMonths?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0.01)
+  sellingPrice?: number;
 }

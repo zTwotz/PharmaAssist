@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
@@ -7,8 +11,13 @@ import { UpdateSupplierDto } from './dto/update-supplier.dto';
 export class SuppliersService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(status?: string) {
+    const where: any = {};
+    if (status && (status === 'ACTIVE' || status === 'INACTIVE')) {
+      where.status = status;
+    }
     return this.prisma.supplier.findMany({
+      where,
       orderBy: {
         createdAt: 'desc',
       },
@@ -68,7 +77,9 @@ export class SuppliersService {
         where: { code: dto.code },
       });
       if (existing) {
-        throw new BadRequestException(`Mã nhà cung cấp ${dto.code} đã tồn tại.`);
+        throw new BadRequestException(
+          `Mã nhà cung cấp ${dto.code} đã tồn tại.`,
+        );
       }
     }
 
@@ -86,6 +97,22 @@ export class SuppliersService {
     });
   }
 
+  async deactivate(id: number) {
+    const supplier = await this.prisma.supplier.findUnique({
+      where: { id },
+    });
+    if (!supplier) {
+      throw new NotFoundException(`Nhà cung cấp ID ${id} không tồn tại.`);
+    }
+
+    return this.prisma.supplier.update({
+      where: { id },
+      data: {
+        status: 'INACTIVE',
+      },
+    });
+  }
+
   async delete(id: number) {
     const supplier = await this.prisma.supplier.findUnique({
       where: { id },
@@ -99,7 +126,9 @@ export class SuppliersService {
       where: { supplierId: id },
     });
     if (poCount > 0) {
-      throw new BadRequestException('Không thể xóa nhà cung cấp vì đã có lịch sử đặt hàng.');
+      throw new BadRequestException(
+        'Không thể xóa nhà cung cấp vì đã có lịch sử đặt hàng.',
+      );
     }
 
     // Check stock imports
@@ -107,7 +136,9 @@ export class SuppliersService {
       where: { supplierId: id },
     });
     if (importCount > 0) {
-      throw new BadRequestException('Không thể xóa nhà cung cấp vì đã có lịch sử nhập kho.');
+      throw new BadRequestException(
+        'Không thể xóa nhà cung cấp vì đã có lịch sử nhập kho.',
+      );
     }
 
     return this.prisma.supplier.delete({

@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { CreateStaffDto } from './dto/create-staff.dto';
@@ -12,7 +16,9 @@ export class UsersService {
     const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !supabaseServiceRoleKey) {
-      throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be defined');
+      throw new Error(
+        'SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be defined',
+      );
     }
 
     this.supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
@@ -34,7 +40,9 @@ export class UsersService {
     });
 
     if (existingUser) {
-      throw new BadRequestException('Email hoặc Username đã tồn tại trong hệ thống');
+      throw new BadRequestException(
+        'Email hoặc Username đã tồn tại trong hệ thống',
+      );
     }
 
     // 2. Check if role exists
@@ -44,18 +52,24 @@ export class UsersService {
     }
 
     // 3. Create user in Supabase Auth via Admin API
-    const { data: authData, error: authError } = await this.supabaseAdmin.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true,
-    });
+    const { data: authData, error: authError } =
+      await this.supabaseAdmin.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true,
+      });
 
     // Fulfills PAC-TASK-045: Validate staff email uniqueness through Supabase
     if (authError) {
-      if (authError.message.includes('User already registered') || authError.status === 422) {
+      if (
+        authError.message.includes('User already registered') ||
+        authError.status === 422
+      ) {
         throw new BadRequestException('Email đã tồn tại trên Supabase Auth');
       }
-      throw new BadRequestException(`Lỗi tạo tài khoản Supabase: ${authError.message}`);
+      throw new BadRequestException(
+        `Lỗi tạo tài khoản Supabase: ${authError.message}`,
+      );
     }
 
     const authUserId = authData.user.id;
@@ -96,7 +110,9 @@ export class UsersService {
     } catch (dbError) {
       // Rollback Supabase user if DB creation fails
       await this.supabaseAdmin.auth.admin.deleteUser(authUserId);
-      throw new InternalServerErrorException('Lỗi lưu tài khoản vào cơ sở dữ liệu, đã rollback.');
+      throw new InternalServerErrorException(
+        'Lỗi lưu tài khoản vào cơ sở dữ liệu, đã rollback.',
+      );
     }
   }
 
@@ -115,7 +131,11 @@ export class UsersService {
     });
   }
 
-  async updateStaffRoleStatus(id: string, actorId: string, dto: import('./dto/update-staff.dto').UpdateStaffRoleStatusDto) {
+  async updateStaffRoleStatus(
+    id: string,
+    actorId: string,
+    dto: import('./dto/update-staff.dto').UpdateStaffRoleStatusDto,
+  ) {
     const { roleId, status } = dto;
     const user = await this.prisma.user.findUnique({ where: { id } });
 
@@ -124,7 +144,9 @@ export class UsersService {
     }
 
     if (id === actorId && status === 'INACTIVE') {
-      throw new BadRequestException('Không thể tự vô hiệu hóa tài khoản của chính mình');
+      throw new BadRequestException(
+        'Không thể tự vô hiệu hóa tài khoản của chính mình',
+      );
     }
 
     // Nếu cập nhật trạng thái
