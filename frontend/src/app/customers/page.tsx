@@ -509,7 +509,7 @@ export default function CustomersPage() {
           </DialogHeader>
 
           <div className="py-4 text-slate-600 text-sm leading-relaxed">
-            Bạn có chắc chắn muốn xóa khách hàng <span className="font-bold text-ink">"{customerToDelete?.fullName}"</span> (Mã: {customerToDelete?.code})?
+            Bạn có chắc chắn muốn xóa khách hàng <span className="font-bold text-ink">&quot;{customerToDelete?.fullName}&quot;</span> (Mã: {customerToDelete?.code})?
             <p className="mt-2 text-rose-500 font-semibold text-xs bg-rose-50 p-2.5 rounded-lg border border-rose-100">
               * Hành động này sẽ xóa vĩnh viễn khách hàng. Chỉ có thể thực hiện nếu khách hàng chưa phát sinh đơn hàng hoặc hóa đơn trên hệ thống.
             </p>

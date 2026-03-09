@@ -26,7 +26,7 @@ export class UsersService {
         autoRefreshToken: false,
         persistSession: false,
       },
-    });
+    }) as any;
   }
 
   async createStaffAccount(dto: CreateStaffDto) {
@@ -107,7 +107,7 @@ export class UsersService {
       });
 
       return newUser;
-    } catch (dbError) {
+    } catch {
       // Rollback Supabase user if DB creation fails
       await this.supabaseAdmin.auth.admin.deleteUser(authUserId);
       throw new InternalServerErrorException(

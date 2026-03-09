@@ -11,6 +11,18 @@ export function MedicineSearch() {
   const [isSearching, setIsSearching] = useState(false);
   const addItem = usePosStore((state) => state.addItem);
 
+  async function performSearch(term: string) {
+    setIsSearching(true);
+    try {
+      const response = await api.get(`/medicines/search?term=${encodeURIComponent(term)}`);
+      setResults(response.data || []);
+    } catch (error) {
+      console.error('Error searching medicines:', error);
+    } finally {
+      setIsSearching(false);
+    }
+  }
+
   // Debounced search
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -23,18 +35,6 @@ export function MedicineSearch() {
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
-
-  const performSearch = async (term: string) => {
-    setIsSearching(true);
-    try {
-      const response = await api.get(`/medicines/search?term=${encodeURIComponent(term)}`);
-      setResults(response.data || []);
-    } catch (error) {
-      console.error('Error searching medicines:', error);
-    } finally {
-      setIsSearching(false);
-    }
-  };
 
   const handleAddItem = (variant: any) => {
     const stockQty = variant.inventories?.[0]?.quantity || 0;

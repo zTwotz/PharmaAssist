@@ -20,6 +20,7 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
 
   // Sync products when URL or category changes (new page load)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProducts(initialProducts || []);
     setOffset(initialProducts?.length || 0);
   }, [initialProducts]);

@@ -44,7 +44,7 @@ export class UsersController {
   async updateStaffRoleStatus(
     @Param('id') id: string,
     @Body() updateStaffRoleStatusDto: UpdateStaffRoleStatusDto,
-    @Request() req: any,
+    @Request() req: { user: { id: string } },
   ) {
     const updatedUser = await this.usersService.updateStaffRoleStatus(
       id,

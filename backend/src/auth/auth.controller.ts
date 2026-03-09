@@ -36,7 +36,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Get current authenticated user profile' })
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getProfile(@Request() req: any) {
+  getProfile(@Request() req: { user: any }) {
     // req.user is populated by JwtStrategy.validate
     return req.user;
   }
@@ -46,7 +46,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Clear mustChangePassword flag for current user' })
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async clearMustChangePassword(@Request() req: any) {
+  async clearMustChangePassword(@Request() req: { user: { id: string } }) {
     return this.authService.clearMustChangePassword(req.user.id);
   }
 }

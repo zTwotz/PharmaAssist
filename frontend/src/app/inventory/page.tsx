@@ -102,11 +102,7 @@ export default function InventoryPage() {
   // Form input states
   const [newMinQuantity, setNewMinQuantity] = useState(10);
 
-  useEffect(() => {
-    fetchInventory();
-  }, []);
-
-  const fetchInventory = async () => {
+  async function fetchInventory() {
     setLoading(true);
     setErrorAlert(null);
     try {
@@ -119,7 +115,12 @@ export default function InventoryPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchInventory();
+  }, []);
 
   const displayRole = user?.roles?.includes('ADMIN') 
     ? 'Quản trị viên' 

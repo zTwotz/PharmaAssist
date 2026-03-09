@@ -27,11 +27,12 @@ export function Header() {
   // Hide header on management and POS routes
   const hidePaths = ['/pos', '/login', '/dashboard', '/medicines', '/inventory', '/sales', '/customers', '/suppliers'];
   const shouldHide = hidePaths.some(path => pathname === path || pathname.startsWith('/dashboard') || pathname.startsWith('/pos'));
-  if (shouldHide) return null;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const { cartCount } = useCart();
+
+  if (shouldHide) return null;
 
   const handleCategoryClick = (e: React.MouseEvent, ...names: string[]) => {
     e.preventDefault();

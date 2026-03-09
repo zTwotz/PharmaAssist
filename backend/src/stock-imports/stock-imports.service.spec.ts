@@ -201,13 +201,21 @@ describe('StockImportsService', () => {
 
   describe('confirmImport', () => {
     it('should throw error if import not found', async () => {
-      mockPrismaService.stockImport.findUnique = jest.fn().mockResolvedValue(null);
-      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(NotFoundException);
+      mockPrismaService.stockImport.findUnique = jest
+        .fn()
+        .mockResolvedValue(null);
+      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should throw error if import is not DRAFT', async () => {
-      mockPrismaService.stockImport.findUnique = jest.fn().mockResolvedValue({ id: 1, status: 'CONFIRMED' });
-      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(BadRequestException);
+      mockPrismaService.stockImport.findUnique = jest
+        .fn()
+        .mockResolvedValue({ id: 1, status: 'CONFIRMED' });
+      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should throw error if supplier is INACTIVE', async () => {
@@ -216,7 +224,9 @@ describe('StockImportsService', () => {
         status: 'DRAFT',
         supplier: { status: 'INACTIVE' },
       });
-      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(BadRequestException);
+      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should throw error if import has no details', async () => {
@@ -226,7 +236,9 @@ describe('StockImportsService', () => {
         supplier: { status: 'ACTIVE' },
         details: [],
       });
-      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(BadRequestException);
+      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should merge batches correctly when everything is valid', async () => {
@@ -239,7 +251,13 @@ describe('StockImportsService', () => {
         warehouseId: 1,
         supplier: { status: 'ACTIVE' },
         details: [
-          { medicineId: 1, batchNumber: 'B1', quantity: 10, expiryDate: futureDate, importPrice: 100 }
+          {
+            medicineId: 1,
+            batchNumber: 'B1',
+            quantity: 10,
+            expiryDate: futureDate,
+            importPrice: 100,
+          },
         ],
       });
 
@@ -250,9 +268,11 @@ describe('StockImportsService', () => {
         batchNumber: 'B1',
         expiryDate: futureDate,
       });
-      
+
       mockPrismaService.auditLog.create = jest.fn().mockResolvedValue({});
-      mockPrismaService.stockImport.update = jest.fn().mockResolvedValue({ status: 'CONFIRMED' });
+      mockPrismaService.stockImport.update = jest
+        .fn()
+        .mockResolvedValue({ status: 'CONFIRMED' });
       mockPrismaService.medicineBatch.update = jest.fn().mockResolvedValue({});
       mockPrismaService.medicineBatch.create = jest.fn().mockResolvedValue({});
 
@@ -274,7 +294,13 @@ describe('StockImportsService', () => {
         warehouseId: 1,
         supplier: { status: 'ACTIVE' },
         details: [
-          { medicineId: 1, batchNumber: 'B1', quantity: 10, expiryDate: importExpiry, importPrice: 100 }
+          {
+            medicineId: 1,
+            batchNumber: 'B1',
+            quantity: 10,
+            expiryDate: importExpiry,
+            importPrice: 100,
+          },
         ],
       });
 
@@ -286,7 +312,9 @@ describe('StockImportsService', () => {
         expiryDate: existingExpiry,
       });
 
-      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(BadRequestException);
+      await expect(service.confirmImport(1, 'user1')).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 });
