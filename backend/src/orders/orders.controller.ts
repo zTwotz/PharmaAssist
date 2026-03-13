@@ -5,12 +5,12 @@ import {
   Get,
   Patch,
   Delete,
-  Post,
   Param,
+  ParseIntPipe,
+  Req,
   HttpCode,
   HttpStatus,
   UseGuards,
-  Param,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
@@ -97,13 +97,15 @@ export class OrdersController {
   async findAll() {
     return this.ordersService.findAll();
   }
-  @Post(':id/items')
+  @Post(':id/interactions/check')
   @Roles('ADMIN', 'STAFF')
-  @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
-  async addItemToDraftOrder(
-    @Param('id') id: string,
-    @Body() addOrderItemDto: AddOrderItemDto,
-  ) {
-    return this.ordersService.addItemToDraftOrder(Number(id), addOrderItemDto);
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Kiểm tra và lưu cảnh báo tương tác thuốc cho đơn hàng' })
+  @ApiResponse({
+    status: 200,
+    description: 'Trả về danh sách các tương tác thuốc của đơn hàng.',
+  })
+  async checkInteractions(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.checkAndPersistInteractions(id);
   }
 }

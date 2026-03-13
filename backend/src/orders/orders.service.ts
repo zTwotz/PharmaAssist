@@ -5,12 +5,16 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { InteractionsService } from '../interactions/interactions.service';
 import { AddOrderItemDto } from './dto/add-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 
 @Injectable()
 export class OrdersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private interactionsService: InteractionsService,
+  ) {}
 
   async getOrders(user: { id: string; roles?: string[] }, customerId?: number) {
     const whereClause: Record<string, string | number> = {};
@@ -226,7 +230,7 @@ export class OrdersService {
       throw new NotFoundException('Không tìm thấy đơn hàng');
     }
 
-    if (!user.roles.includes('ADMIN') && order.createdById !== user.id) {
+    if (!user.roles.includes('ADMIN') && order.staffUserId !== user.id) {
       throw new BadRequestException('Bạn không có quyền hủy đơn hàng này');
     }
 
@@ -403,5 +407,39 @@ export class OrdersService {
         createdAt: 'desc',
       },
     });
+  }
+
+  async checkAndPersistInteractions(orderId: number) {
+    const result = await this.interactionsService.checkOrderInteractions(
+      orderId,
+    );
+
+    if (!result.hasInteractions) {
+      return result;
+    }
+
+    // Persist InteractionAlert for each interaction
+    // Only persist if it doesn't already exist for this order and interaction rule
+    for (const interaction of result.interactions) {
+      const existingAlert = await this.prisma.interactionAlert.findFirst({
+        where: {
+          orderId: orderId,
+          interactionId: interaction.ruleId,
+        },
+      });
+
+      if (!existingAlert) {
+        await this.prisma.interactionAlert.create({
+          data: {
+            orderId: orderId,
+            interactionId: interaction.ruleId,
+            severity: interaction.severity,
+            alertMessage: `Tương tác thuốc: ${interaction.activeIngredientAName} và ${interaction.activeIngredientBName} - Mức độ: ${interaction.severity}. Cảnh báo: ${interaction.description}`,
+          },
+        });
+      }
+    }
+
+    return result;
   }
 }
