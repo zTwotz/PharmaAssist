@@ -12,7 +12,7 @@ export function CheckoutPanel() {
   const [completedOrder, setCompletedOrder] = useState<any>(null);
   const [invoiceCartItems, setInvoiceCartItems] = useState<PosCartItem[]>([]);
 
-  const handleCheckout = async () => {
+  const handleCreateDraft = async () => {
     setIsProcessing(true);
     try {
       const orderPayload = {
@@ -27,15 +27,13 @@ export function CheckoutPanel() {
 
       const response = await axios.post('http://localhost:3001/api/orders', orderPayload);
       
-      // Save data for receipt rendering before resetting the cart
-      setCompletedOrder(response.data);
-      setInvoiceCartItems([...cart]);
-      setIsInvoiceOpen(true);
+      // Show success message
+      alert(`Đã tạo đơn nháp thành công: ${response.data.code}`);
       
       clearCart();
     } catch (error: any) {
-      console.error('Lỗi thanh toán:', error);
-      alert(error.response?.data?.message || 'Có lỗi xảy ra khi thanh toán!');
+      console.error('Lỗi tạo đơn nháp:', error);
+      alert(error.response?.data?.message || 'Có lỗi xảy ra khi tạo đơn nháp!');
     } finally {
       setIsProcessing(false);
     }
@@ -63,7 +61,35 @@ export function CheckoutPanel() {
       </div>
 
       <button
-        onClick={handleCheckout}
+        onClick={handleCreateDraft}
+        disabled={cart.length === 0 || isProcessing}
+        className={`w-full py-3.5 px-4 rounded-xl font-bold text-slate-700 shadow-md transition-all flex items-center justify-center gap-2 mb-3 border ${
+          cart.length === 0
+            ? 'bg-slate-100 border-slate-200 cursor-not-allowed shadow-none text-slate-400'
+            : isProcessing
+            ? 'bg-slate-200 cursor-wait'
+            : 'bg-white hover:bg-slate-50 hover:shadow-lg active:scale-[0.98] border-slate-300'
+        }`}
+      >
+        {isProcessing ? (
+          <>
+            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Đang lưu nháp...
+          </>
+        ) : (
+          <>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+            </svg>
+            LƯU ĐƠN NHÁP
+          </>
+        )}
+      </button>
+
+      <button
         disabled={cart.length === 0 || isProcessing}
         className={`w-full py-3.5 px-4 rounded-xl font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 ${
           cart.length === 0
