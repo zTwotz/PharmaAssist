@@ -410,9 +410,8 @@ export class OrdersService {
   }
 
   async checkAndPersistInteractions(orderId: number) {
-    const result = await this.interactionsService.checkOrderInteractions(
-      orderId,
-    );
+    const result =
+      await this.interactionsService.checkOrderInteractions(orderId);
 
     if (!result.hasInteractions) {
       return result;

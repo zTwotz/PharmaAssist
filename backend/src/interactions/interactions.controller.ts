@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/permissions.guard';
@@ -19,6 +20,7 @@ import { InteractionsService } from './interactions.service';
 import { CheckInteractionDto } from './dto/check-interaction.dto';
 import { CreateDrugInteractionDto } from './dto/create-drug-interaction.dto';
 import { UpdateDrugInteractionDto } from './dto/update-drug-interaction.dto';
+import { AcknowledgeAlertDto } from './dto/acknowledge-alert.dto';
 
 @ApiTags('Interactions')
 @Controller('interactions')
@@ -99,7 +101,32 @@ export class InteractionsController {
     status: 200,
     description: 'Trả về danh sách các tương tác thuốc của đơn hàng.',
   })
-  async checkOrderInteractions(@Param('orderId', ParseIntPipe) orderId: number) {
+  async checkOrderInteractions(
+    @Param('orderId', ParseIntPipe) orderId: number,
+  ) {
     return this.interactionsService.checkOrderInteractions(orderId);
+  }
+
+  @Patch('alerts/:id/acknowledge')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermissions('CREATE_ORDER')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Acknowledge một cảnh báo tương tác (InteractionAlert)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Acknowledge thành công.',
+  })
+  async acknowledgeAlert(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AcknowledgeAlertDto,
+    @Req() req: any,
+  ) {
+    return this.interactionsService.acknowledgeAlert(
+      id,
+      req.user.sub,
+      dto.note,
+    );
   }
 }

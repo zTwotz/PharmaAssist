@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateDrugInteractionDto } from './dto/create-drug-interaction.dto';
 import { UpdateDrugInteractionDto } from './dto/update-drug-interaction.dto';
@@ -23,8 +27,12 @@ export class InteractionsService {
     }
 
     const [ingredientA, ingredientB] = await Promise.all([
-      this.prisma.activeIngredient.findUnique({ where: { id: dto.activeIngredientAId } }),
-      this.prisma.activeIngredient.findUnique({ where: { id: dto.activeIngredientBId } }),
+      this.prisma.activeIngredient.findUnique({
+        where: { id: dto.activeIngredientAId },
+      }),
+      this.prisma.activeIngredient.findUnique({
+        where: { id: dto.activeIngredientBId },
+      }),
     ]);
 
     if (!ingredientA || !ingredientB) {
@@ -34,14 +42,22 @@ export class InteractionsService {
     const existingRule = await this.prisma.drugInteraction.findFirst({
       where: {
         OR: [
-          { activeIngredientAId: dto.activeIngredientAId, activeIngredientBId: dto.activeIngredientBId },
-          { activeIngredientAId: dto.activeIngredientBId, activeIngredientBId: dto.activeIngredientAId },
-        ]
-      }
+          {
+            activeIngredientAId: dto.activeIngredientAId,
+            activeIngredientBId: dto.activeIngredientBId,
+          },
+          {
+            activeIngredientAId: dto.activeIngredientBId,
+            activeIngredientBId: dto.activeIngredientAId,
+          },
+        ],
+      },
     });
 
     if (existingRule) {
-      throw new BadRequestException('Luật tương tác giữa 2 hoạt chất này đã tồn tại');
+      throw new BadRequestException(
+        'Luật tương tác giữa 2 hoạt chất này đã tồn tại',
+      );
     }
 
     const code = `DI-${Date.now()}`;
@@ -83,8 +99,10 @@ export class InteractionsService {
         where: { id },
         data: {
           severity: dto.severity !== undefined ? dto.severity : undefined,
-          description: dto.description !== undefined ? dto.description : undefined,
-          recommendation: dto.recommendation !== undefined ? dto.recommendation : undefined,
+          description:
+            dto.description !== undefined ? dto.description : undefined,
+          recommendation:
+            dto.recommendation !== undefined ? dto.recommendation : undefined,
         },
       });
 
@@ -132,7 +150,11 @@ export class InteractionsService {
   async checkInteractions(medicineIds: number[]) {
     // Only check if we have at least 2 medicines
     if (!medicineIds || medicineIds.length < 2) {
-      return { interactions: [], hasInteractions: false, severeInteractionsCount: 0 };
+      return {
+        interactions: [],
+        hasInteractions: false,
+        severeInteractionsCount: 0,
+      };
     }
 
     const medicines = await this.prisma.medicine.findMany({
@@ -147,7 +169,7 @@ export class InteractionsService {
       include: {
         activeIngredientA: true,
         activeIngredientB: true,
-      }
+      },
     });
 
     const interactions = [];
@@ -158,12 +180,20 @@ export class InteractionsService {
         const medA = medicines[i];
         const medB = medicines[j];
 
-        const medAIngredients = medA.ingredients.map(ing => ing.activeIngredientId);
-        const medBIngredients = medB.ingredients.map(ing => ing.activeIngredientId);
+        const medAIngredients = medA.ingredients.map(
+          (ing) => ing.activeIngredientId,
+        );
+        const medBIngredients = medB.ingredients.map(
+          (ing) => ing.activeIngredientId,
+        );
 
         for (const rule of activeRules) {
-          const matchNormal = medAIngredients.includes(rule.activeIngredientAId) && medBIngredients.includes(rule.activeIngredientBId);
-          const matchReverse = medAIngredients.includes(rule.activeIngredientBId) && medBIngredients.includes(rule.activeIngredientAId);
+          const matchNormal =
+            medAIngredients.includes(rule.activeIngredientAId) &&
+            medBIngredients.includes(rule.activeIngredientBId);
+          const matchReverse =
+            medAIngredients.includes(rule.activeIngredientBId) &&
+            medBIngredients.includes(rule.activeIngredientAId);
 
           if (matchNormal || matchReverse) {
             interactions.push({
@@ -228,5 +258,52 @@ export class InteractionsService {
     const uniqueMedicineIds = Array.from(new Set(medicineIds));
 
     return this.checkInteractions(uniqueMedicineIds);
+  }
+
+  async acknowledgeAlert(alertId: number, staffUserId: string, note?: string) {
+    const alert = await this.prisma.interactionAlert.findUnique({
+      where: { id: alertId },
+      include: { order: true },
+    });
+
+    if (!alert) {
+      throw new NotFoundException('Không tìm thấy cảnh báo tương tác');
+    }
+
+    if (alert.isAcknowledged) {
+      throw new BadRequestException('Cảnh báo này đã được xác nhận');
+    }
+
+    if (alert.severity === 'HIGH' && (!note || note.trim().length === 0)) {
+      throw new BadRequestException(
+        'Ghi chú tư vấn là bắt buộc đối với cảnh báo HIGH',
+      );
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      const updatedAlert = await tx.interactionAlert.update({
+        where: { id: alertId },
+        data: {
+          isAcknowledged: true,
+          acknowledgedBy: staffUserId,
+          acknowledgedAt: new Date(),
+          consultationNote: note,
+        },
+      });
+
+      if (note && note.trim().length > 0 && alert.order.customerId) {
+        await tx.consultationNote.create({
+          data: {
+            orderId: alert.orderId,
+            customerId: alert.order.customerId,
+            staffUserId: staffUserId,
+            note: note,
+            source: 'SYSTEM_INTERACTION_ALERT',
+          },
+        });
+      }
+
+      return updatedAlert;
+    });
   }
 }

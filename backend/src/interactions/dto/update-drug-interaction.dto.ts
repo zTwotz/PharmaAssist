@@ -2,10 +2,14 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsIn, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDrugInteractionDto {
-  @ApiPropertyOptional({ description: 'Mức độ nghiêm trọng (LOW, MEDIUM, HIGH)' })
+  @ApiPropertyOptional({
+    description: 'Mức độ nghiêm trọng (LOW, MEDIUM, HIGH)',
+  })
   @IsString()
   @IsOptional()
-  @IsIn(['LOW', 'MEDIUM', 'HIGH'], { message: 'Severity must be one of LOW, MEDIUM, HIGH' })
+  @IsIn(['LOW', 'MEDIUM', 'HIGH'], {
+    message: 'Severity must be one of LOW, MEDIUM, HIGH',
+  })
   severity?: string;
 
   @ApiPropertyOptional({ description: 'Mô tả tương tác' })

@@ -171,14 +171,22 @@ describe('OrdersService', () => {
         orderId: 1,
         hasInteractions: true,
         interactions: [
-          { ruleId: 1, severity: 'High', activeIngredientAName: 'A', activeIngredientBName: 'B', description: 'Desc' }
-        ]
+          {
+            ruleId: 1,
+            severity: 'High',
+            activeIngredientAName: 'A',
+            activeIngredientBName: 'B',
+            description: 'Desc',
+          },
+        ],
       };
-      (service['interactionsService'] as any) = { checkOrderInteractions: jest.fn().mockResolvedValue(mockResult) };
+      (service['interactionsService'] as any) = {
+        checkOrderInteractions: jest.fn().mockResolvedValue(mockResult),
+      };
       mockPrisma.interactionAlert.findFirst.mockResolvedValue(null);
-      
+
       await service.checkAndPersistInteractions(1);
-      
+
       expect(mockPrisma.interactionAlert.create).toHaveBeenCalled();
       expect(mockPrisma.interactionAlert.update).not.toHaveBeenCalled();
     });
@@ -188,21 +196,35 @@ describe('OrdersService', () => {
         orderId: 1,
         hasInteractions: true,
         interactions: [
-          { ruleId: 1, severity: 'High', activeIngredientAName: 'A', activeIngredientBName: 'B', description: 'Desc' }
-        ]
+          {
+            ruleId: 1,
+            severity: 'High',
+            activeIngredientAName: 'A',
+            activeIngredientBName: 'B',
+            description: 'Desc',
+          },
+        ],
       };
-      (service['interactionsService'] as any) = { checkOrderInteractions: jest.fn().mockResolvedValue(mockResult) };
-      mockPrisma.interactionAlert.findFirst.mockResolvedValue({ id: 10, orderId: 1, interactionId: 1 });
-      
+      (service['interactionsService'] as any) = {
+        checkOrderInteractions: jest.fn().mockResolvedValue(mockResult),
+      };
+      mockPrisma.interactionAlert.findFirst.mockResolvedValue({
+        id: 10,
+        orderId: 1,
+        interactionId: 1,
+      });
+
       await service.checkAndPersistInteractions(1);
-      
+
       expect(mockPrisma.interactionAlert.create).not.toHaveBeenCalled();
-      expect(mockPrisma.interactionAlert.update).toHaveBeenCalledWith(expect.objectContaining({
-        where: { id: 10 },
-        data: expect.objectContaining({
-          displayCount: { increment: 1 }
-        })
-      }));
+      expect(mockPrisma.interactionAlert.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 10 },
+          data: expect.objectContaining({
+            displayCount: { increment: 1 },
+          }),
+        }),
+      );
     });
   });
 });
