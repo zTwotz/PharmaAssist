@@ -108,4 +108,11 @@ export class OrdersController {
   async checkInteractions(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.checkAndPersistInteractions(id);
   }
+
+  @Get(':id/interaction-alerts')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Lấy danh sách cảnh báo tương tác thuốc của đơn hàng' })
+  async getOrderAlerts(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.getOrderAlerts(id);
+  }
 }

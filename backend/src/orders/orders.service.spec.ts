@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrdersService } from './orders.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { InteractionsService } from '../interactions/interactions.service';
 import { BadRequestException } from '@nestjs/common';
 
 describe('OrdersService', () => {
@@ -19,6 +20,11 @@ describe('OrdersService', () => {
       findFirst: jest.fn(),
       updateMany: jest.fn(),
     },
+    interactionAlert: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
     $transaction: jest.fn((cb) => cb(mockPrisma)),
   };
 
@@ -30,11 +36,16 @@ describe('OrdersService', () => {
           provide: PrismaService,
           useValue: mockPrisma,
         },
+        {
+          provide: InteractionsService,
+          useValue: {},
+        },
       ],
     }).compile();
 
     service = module.get<OrdersService>(OrdersService);
     prisma = module.get<PrismaService>(PrismaService);
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -151,6 +162,47 @@ describe('OrdersService', () => {
       expect(result.id).toBe(100);
       // Draft orders do not decrement inventory according to Sprint 4 rules
       expect(mockPrisma.inventory.updateMany).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('checkAndPersistInteractions', () => {
+    it('should create new alert if none exists', async () => {
+      const mockResult = {
+        orderId: 1,
+        hasInteractions: true,
+        interactions: [
+          { ruleId: 1, severity: 'High', activeIngredientAName: 'A', activeIngredientBName: 'B', description: 'Desc' }
+        ]
+      };
+      (service['interactionsService'] as any) = { checkOrderInteractions: jest.fn().mockResolvedValue(mockResult) };
+      mockPrisma.interactionAlert.findFirst.mockResolvedValue(null);
+      
+      await service.checkAndPersistInteractions(1);
+      
+      expect(mockPrisma.interactionAlert.create).toHaveBeenCalled();
+      expect(mockPrisma.interactionAlert.update).not.toHaveBeenCalled();
+    });
+
+    it('should update existing alert and increment displayCount if it already exists', async () => {
+      const mockResult = {
+        orderId: 1,
+        hasInteractions: true,
+        interactions: [
+          { ruleId: 1, severity: 'High', activeIngredientAName: 'A', activeIngredientBName: 'B', description: 'Desc' }
+        ]
+      };
+      (service['interactionsService'] as any) = { checkOrderInteractions: jest.fn().mockResolvedValue(mockResult) };
+      mockPrisma.interactionAlert.findFirst.mockResolvedValue({ id: 10, orderId: 1, interactionId: 1 });
+      
+      await service.checkAndPersistInteractions(1);
+      
+      expect(mockPrisma.interactionAlert.create).not.toHaveBeenCalled();
+      expect(mockPrisma.interactionAlert.update).toHaveBeenCalledWith(expect.objectContaining({
+        where: { id: 10 },
+        data: expect.objectContaining({
+          displayCount: { increment: 1 }
+        })
+      }));
     });
   });
 });
