@@ -333,16 +333,16 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-74 | TO DO | — | `story/PAC-113-US-74-persist-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-74 | DONE | — | `story/PAC-113-US-74-persist-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-239 — Create interaction_alerts Prisma model | `PAC-448` | TO DO | — | `feature/PAC-448-T-239-interaction-alerts-model` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-240 — Persist displayed InteractionAlert snapshot fields | `PAC-449` | TO DO | — | `feature/PAC-449-T-240-persist-alert-snapshot-fields` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-255 — Add InteractionAlert lifecycle integration tests | `PAC-464` | TO DO | — | `test/PAC-464-T-255-interaction-alert-lifecycle-tests` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-258 — Add InteractionAlert snapshot and traceability notes | `PAC-467` | TO DO | — | `docs/PAC-467-T-258-interaction-alert-traceability-notes` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-239 — Create interaction_alerts Prisma model | `PAC-448` | TO DO | — | `feature/PAC-448-T-239-interaction-alerts-model` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-240 — Persist displayed InteractionAlert snapshot fields | `PAC-449` | TO DO | — | `feature/PAC-449-T-240-persist-alert-snapshot-fields` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-255 — Add InteractionAlert lifecycle integration tests | `PAC-464` | TO DO | — | `test/PAC-464-T-255-interaction-alert-lifecycle-tests` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-258 — Add InteractionAlert snapshot and traceability notes | `PAC-467` | TO DO | — | `docs/PAC-467-T-258-interaction-alert-traceability-notes` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -374,7 +374,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-241 — Enforce one active alert per Order and interaction rule | `PAC-450` | TO DO | — | `feature/PAC-450-T-241-one-active-alert-per-order-rule` | — | — | `story/PAC-114-US-75-one-active-alert-per-order-rule` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-241 — Enforce one active alert per Order and interaction rule | `PAC-450` | TO DO | — | `feature/PAC-450-T-241-one-active-alert-per-order-rule` | — | — | `story/PAC-114-US-75-one-active-alert-per-order-rule` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -406,7 +406,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-242 — Update display_count and last_displayed_at | `PAC-451` | TO DO | — | `feature/PAC-451-T-242-update-display-count-last-displayed` | — | — | `story/PAC-115-US-76-interaction-alert-display-count` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-242 — Update display_count and last_displayed_at | `PAC-451` | TO DO | — | `feature/PAC-451-T-242-update-display-count-last-displayed` | — | — | `story/PAC-115-US-76-interaction-alert-display-count` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
