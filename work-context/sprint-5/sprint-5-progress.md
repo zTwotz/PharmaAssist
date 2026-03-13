@@ -144,16 +144,16 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-69 | TO DO | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Not opened | Pending | Pending | — | — |
+| US-69 | DONE | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-227 — Create drug_interaction_rules Prisma model | `PAC-436` | TO DO | — | `feature/PAC-436-T-227-drug-interaction-rules-model` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-228 — Implement create ActiveIngredient-level interaction rule API | `PAC-437` | TO DO | — | `feature/PAC-437-T-228-create-activeingredient-interaction-rule-api` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-229 — Build DrugInteraction Rule management screen | `PAC-438` | TO DO | — | `feature/PAC-438-T-229-drug-interaction-rule-management-screen` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-230 — Validate two ActiveIngredients in interaction rule | `PAC-439` | TO DO | — | `feature/PAC-439-T-230-two-activeingredients-validation` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-227 — Create drug_interaction_rules Prisma model | `PAC-436` | TO DO | — | `feature/PAC-436-T-227-drug-interaction-rules-model` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-228 — Implement create ActiveIngredient-level interaction rule API | `PAC-437` | TO DO | — | `feature/PAC-437-T-228-create-activeingredient-interaction-rule-api` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-229 — Build DrugInteraction Rule management screen | `PAC-438` | TO DO | — | `feature/PAC-438-T-229-drug-interaction-rule-management-screen` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-230 — Validate two ActiveIngredients in interaction rule | `PAC-439` | TO DO | — | `feature/PAC-439-T-230-two-activeingredients-validation` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -179,15 +179,15 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-70 | TO DO | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Not opened | Pending | Pending | — | — |
+| US-70 | DONE | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-231 — Implement update DrugInteraction Rule API | `PAC-440` | TO DO | — | `feature/PAC-440-T-231-update-interaction-rule-api` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-232 — Implement deactivate DrugInteraction Rule API | `PAC-441` | TO DO | — | `feature/PAC-441-T-232-deactivate-interaction-rule-api` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-233 — Trigger Graph Sync event on interaction rule change | `PAC-442` | TO DO | — | `feature/PAC-442-T-233-graph-sync-event-rule-change` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-231 — Implement update DrugInteraction Rule API | `PAC-440` | TO DO | — | `feature/PAC-440-T-231-update-interaction-rule-api` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-232 — Implement deactivate DrugInteraction Rule API | `PAC-441` | TO DO | — | `feature/PAC-441-T-232-deactivate-interaction-rule-api` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-233 — Trigger Graph Sync event on interaction rule change | `PAC-442` | TO DO | — | `feature/PAC-442-T-233-graph-sync-event-rule-change` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -213,13 +213,13 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-71 | TO DO | — | `story/PAC-110-US-71-validate-interaction-severity` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Not opened | Pending | Pending | — | — |
+| US-71 | DONE | — | `story/PAC-110-US-71-validate-interaction-severity` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-234 — Validate severity enum LOW/MEDIUM/HIGH only | `PAC-443` | TO DO | — | `feature/PAC-443-T-234-severity-enum-validation` | — | — | `story/PAC-110-US-71-validate-interaction-severity` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-234 — Validate severity enum LOW/MEDIUM/HIGH only | `PAC-443` | TO DO | — | `feature/PAC-443-T-234-severity-enum-validation` | — | — | `story/PAC-110-US-71-validate-interaction-severity` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -245,14 +245,14 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-72 | TO DO | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Not opened | Pending | Pending | — | — |
+| US-72 | DONE | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | — | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-235 — Implement derive interaction from Medicine ActiveIngredients | `PAC-444` | TO DO | — | `feature/PAC-444-T-235-derive-interaction-from-activeingredients` | — | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-236 — Add tests for derived medicine interactions | `PAC-445` | TO DO | — | `test/PAC-445-T-236-derived-interaction-tests` | — | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-235 — Implement derive interaction from Medicine ActiveIngredients | `PAC-444` | TO DO | — | `feature/PAC-444-T-235-derive-interaction-from-activeingredients` | — | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | Merged | PASS | PASS | — | — |
+| PAC-TASK-236 — Add tests for derived medicine interactions | `PAC-445` | TO DO | — | `test/PAC-445-T-236-derived-interaction-tests` | — | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -300,14 +300,14 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-73 | TO DO | — | `story/PAC-112-US-73-order-interaction-check` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-73 | DONE | — | `story/PAC-112-US-73-order-interaction-check` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-237 — Implement Order interaction check service | `PAC-446` | TO DO | — | `feature/PAC-446-T-237-order-interaction-check-service` | — | — | `story/PAC-112-US-73-order-interaction-check` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-238 — Implement POST /orders/{id}/interactions/check API | `PAC-447` | TO DO | — | `feature/PAC-447-T-238-order-interactions-check-api` | — | — | `story/PAC-112-US-73-order-interaction-check` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-237 — Implement Order interaction check service | `PAC-446` | TO DO | — | `feature/PAC-446-T-237-order-interaction-check-service` | — | — | `story/PAC-112-US-73-order-interaction-check` | Merged | PASS | PASS | — | — |
+| PAC-TASK-238 — Implement POST /orders/{id}/interactions/check API | `PAC-447` | TO DO | — | `feature/PAC-447-T-238-order-interactions-check-api` | — | — | `story/PAC-112-US-73-order-interaction-check` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
