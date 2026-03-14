@@ -17,6 +17,7 @@ AI Agent must read before coding:
 ## Hard Rules
 
 - Project key is PAC.
+- Do NOT create any new branches for the planned tasks, user stories, or epics. You MUST use the exact existing branches listed in `Jira/branch-on-jira.md` under the "Nhánh Git tương ứng" column. However, you MAY create new branches for urgent bug fixes (hotfixes) or other features outside the planned scope.
 - Do not code directly on main.
 - Do not replace Supabase Auth with custom JWT.
 - Do not store password_hash in PostgreSQL.
