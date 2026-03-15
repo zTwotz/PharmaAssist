@@ -15,7 +15,9 @@ export class CreateDrugInteractionDto {
   @ApiProperty({ description: 'Mức độ nghiêm trọng (LOW, MEDIUM, HIGH)' })
   @IsString()
   @IsNotEmpty()
-  @IsIn(['LOW', 'MEDIUM', 'HIGH'], { message: 'Severity must be one of LOW, MEDIUM, HIGH' })
+  @IsIn(['LOW', 'MEDIUM', 'HIGH'], {
+    message: 'Severity must be one of LOW, MEDIUM, HIGH',
+  })
   severity: string;
 
   @ApiPropertyOptional({ description: 'Mô tả tương tác' })

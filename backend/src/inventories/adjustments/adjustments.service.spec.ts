@@ -37,7 +37,7 @@ describe('AdjustmentsService', () => {
       await expect(
         service.addLine(1, { actualQuantity: -5, expectedQuantity: 10 }),
       ).rejects.toThrow(BadRequestException);
-      
+
       await expect(
         service.addLine(1, { actualQuantity: -5, expectedQuantity: 10 }),
       ).rejects.toThrow('Quantities cannot be negative');
@@ -46,25 +46,27 @@ describe('AdjustmentsService', () => {
 
   describe('confirm', () => {
     it('PAC-TASK-182: should throw BadRequestException if any line has negative actualQuantity', async () => {
-      jest.spyOn(prisma, '$transaction').mockImplementation(async (callback) => {
-        // mock the transaction object `tx`
-        const tx = {
-          inventoryAdjustment: {
-            findUnique: jest.fn().mockResolvedValue({
-              id: 1,
-              status: 'DRAFT',
-              reason: 'Lỗi kiểm kê',
-              lines: [
-                { id: 1, actualQuantity: -1 },
-              ],
-            }),
-          },
-        };
-        return callback(tx as any);
-      });
+      jest
+        .spyOn(prisma, '$transaction')
+        .mockImplementation(async (callback) => {
+          // mock the transaction object `tx`
+          const tx = {
+            inventoryAdjustment: {
+              findUnique: jest.fn().mockResolvedValue({
+                id: 1,
+                status: 'DRAFT',
+                reason: 'Lỗi kiểm kê',
+                lines: [{ id: 1, actualQuantity: -1 }],
+              }),
+            },
+          };
+          return callback(tx as any);
+        });
 
       await expect(service.confirm(1)).rejects.toThrow(BadRequestException);
-      await expect(service.confirm(1)).rejects.toThrow('Số lượng sau điều chỉnh không thể âm');
+      await expect(service.confirm(1)).rejects.toThrow(
+        'Số lượng sau điều chỉnh không thể âm',
+      );
     });
   });
 });
