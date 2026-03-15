@@ -98,7 +98,7 @@ export default function PosPage() {
         </div>
 
         <div className="bg-white border-t border-slate-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-          <CheckoutPanel />
+          <CheckoutPanel hasUnresolvedHighAlerts={interactions.some(i => i.severity === 'HIGH')} />
         </div>
       </div>
 
