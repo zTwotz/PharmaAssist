@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
-import { ShieldAlert, AlertTriangle, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, AlertCircle, CheckCircle, Clock, Filter, Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import api from '@/lib/api';
 import { format } from 'date-fns';
 
@@ -40,18 +42,29 @@ export default function InteractionAlertHistoryPage() {
   const [history, setHistory] = useState<InteractionAlertHistory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Filters
+  const [filterSeverity, setFilterSeverity] = useState<string>('ALL');
+  const [filterAcknowledged, setFilterAcknowledged] = useState<string>('ALL');
+  const [searchOrderCode, setSearchOrderCode] = useState<string>('');
+
   useEffect(() => {
     if (!hasRole(['ADMIN'])) {
       router.push('/dashboard');
       return;
     }
     fetchHistory();
-  }, [hasRole, router]);
+  }, [hasRole, router, filterSeverity, filterAcknowledged, searchOrderCode]);
 
   const fetchHistory = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('/interactions/alerts/history');
+      
+      const params = new URLSearchParams();
+      if (filterSeverity !== 'ALL') params.append('severity', filterSeverity);
+      if (filterAcknowledged !== 'ALL') params.append('isAcknowledged', filterAcknowledged === 'ACKNOWLEDGED' ? 'true' : 'false');
+      if (searchOrderCode.trim()) params.append('orderCode', searchOrderCode.trim());
+
+      const res = await api.get(`/interactions/alerts/history?${params.toString()}`);
       setHistory(res.data);
     } catch (error) {
       console.error(error);
@@ -92,10 +105,57 @@ export default function InteractionAlertHistoryPage() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Lịch sử cảnh báo tương tác</h1>
           <p className="text-sm text-gray-500 mt-1">Quản lý lịch sử hiển thị và ghi đè cảnh báo tương tác</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 items-end">
+        <div className="w-full md:w-1/3">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Mã đơn hàng</label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-gray-400" />
+            </div>
+            <Input
+              type="text"
+              placeholder="Tìm kiếm mã đơn hàng..."
+              value={searchOrderCode}
+              onChange={(e) => setSearchOrderCode(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+
+        <div className="w-full md:w-1/4">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Mức độ</label>
+          <Select value={filterSeverity} onValueChange={(val) => setFilterSeverity(val || 'ALL')}>
+            <SelectTrigger>
+              <SelectValue placeholder="Tất cả mức độ" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Tất cả mức độ</SelectItem>
+              <SelectItem value="HIGH">Cao</SelectItem>
+              <SelectItem value="MEDIUM">Trung bình</SelectItem>
+              <SelectItem value="LOW">Thấp</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="w-full md:w-1/4">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+          <Select value={filterAcknowledged} onValueChange={(val) => setFilterAcknowledged(val || 'ALL')}>
+            <SelectTrigger>
+              <SelectValue placeholder="Tất cả trạng thái" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Tất cả trạng thái</SelectItem>
+              <SelectItem value="ACKNOWLEDGED">Đã ghi đè</SelectItem>
+              <SelectItem value="PENDING">Chưa xử lý</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
