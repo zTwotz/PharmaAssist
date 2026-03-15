@@ -306,4 +306,39 @@ export class InteractionsService {
       return updatedAlert;
     });
   }
+
+  async getAlertHistory() {
+    return this.prisma.interactionAlert.findMany({
+      include: {
+        order: {
+          select: {
+            id: true,
+            code: true,
+            status: true,
+            createdAt: true,
+            staffUserId: true,
+            customerId: true,
+            totalAmount: true,
+            customer: {
+              select: {
+                id: true,
+                fullName: true,
+                phone: true,
+              },
+            },
+          },
+        },
+        interaction: {
+          select: {
+            id: true,
+            code: true,
+            description: true,
+            activeIngredientA: true,
+            activeIngredientB: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }

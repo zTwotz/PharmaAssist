@@ -129,4 +129,16 @@ export class InteractionsController {
       dto.note,
     );
   }
+
+  @Get('alerts/history')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermissions('MANAGE_DRUG_INTERACTIONS')
+  @ApiOperation({ summary: 'Lấy lịch sử cảnh báo tương tác cho Admin' })
+  @ApiResponse({
+    status: 200,
+    description: 'Trả về danh sách lịch sử cảnh báo.',
+  })
+  async getAlertHistory() {
+    return this.interactionsService.getAlertHistory();
+  }
 }
