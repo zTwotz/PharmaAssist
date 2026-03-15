@@ -65,7 +65,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Loãng xương ở nam",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80",
     overview: "Loãng xương ở nam giới là tình trạng suy giảm mật độ xương khiến xương trở nên giòn, yếu và dễ gãy. Bệnh thường tiến triển âm thầm và chỉ được phát hiện sau khi xảy ra chấn thương hoặc gãy xương (thường là xương hông, cột sống hoặc cổ tay). Tỷ lệ tử vong sau gãy xương ở nam giới lớn tuổi cao gấp 2 lần so với nữ giới, do đó việc phòng ngừa và phát hiện sớm là cực kỳ quan trọng.",
     causes: [
       "Lão hóa tự nhiên làm giảm khả năng hấp thu canxi và suy yếu hệ khung xương.",
@@ -92,7 +92,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Di tinh, mộng tinh",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80",
     overview: "Di tinh và mộng tinh là hiện tượng xuất tinh không chủ động ở nam giới. Mộng tinh xảy ra khi đang ngủ và thường kèm theo giấc mơ tình dục. Di tinh xảy ra khi cơ thể hoàn toàn tỉnh táo mà không có kích thích tình dục lớn. Các hiện tượng này là sinh lý bình thường ở tuổi dậy thì, tuy nhiên nếu xuất hiện với tần suất dày đặc (> 3 lần/tuần) ở người trưởng thành thì có thể là dấu hiệu suy nhược cơ thể hoặc bệnh lý nam khoa.",
     causes: [
       "Suy nhược thần kinh hoặc mất cân bằng nồng độ hormone sinh dục.",
@@ -118,7 +118,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Hẹp bao quy đầu",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80",
     overview: "Hẹp bao quy đầu (Phimosis) là tình trạng bao quy đầu không thể kéo tuột xuống được để lộ đầu dương vật. Tình trạng này rất phổ biến ở trẻ sơ sinh và thường tự khỏi khi lớn lên. Tuy nhiên, nếu hẹp bao quy đầu kéo dài đến tuổi trưởng thành, nó sẽ gây khó khăn cho việc vệ sinh, gây đau đớn khi quan hệ tình dục và tăng nguy cơ viêm nhiễm nam khoa.",
     causes: [
       "Bẩm sinh: Chiếm đa số các trường hợp hẹp bao quy đầu từ nhỏ.",
@@ -143,7 +143,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Yếu sinh lý",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80",
     overview: "Yếu sinh lý là cụm từ chỉ sự suy giảm khả năng tình dục ở nam giới, bao gồm các tình trạng như rối loạn cương dương, xuất tinh sớm, giảm ham muốn hoặc không có cảm giác thỏa mãn sau quan hệ. Bệnh không đe dọa tính mạng nhưng ảnh hưởng nặng nề đến tâm lý nam giới và hạnh phúc gia đình.",
     causes: [
       "Suy giảm nồng độ nội tiết tố nam Testosterone do tuổi tác.",
@@ -169,7 +169,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Hội chứng Klinefelter",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80",
     overview: "Hội chứng Klinefelter là một rối loạn di truyền ở nam giới, xảy ra khi một bé trai sinh ra có thêm một bản sao của nhiễm sắc thể X (cấu trúc nhiễm sắc thể là 47,XXY thay vì 46,XY). Đây là nguyên nhân di truyền hàng đầu gây ra tình trạng suy sinh dục nam và vô sinh, nhưng thường không được chẩn đoán cho tới tuổi dậy thì hoặc trưởng thành.",
     causes: [
       "Lỗi phân chia ngẫu nhiên trong quá trình hình thành trứng hoặc tinh trùng ở cha mẹ (không do di truyền từ thế hệ trước).",
@@ -194,7 +194,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Vôi hóa tinh hoàn",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=400&q=80",
     overview: "Vôi hóa tinh hoàn (sỏi tinh hoàn) là tình trạng lắng đọng canxi bất thường bên trong nhu mô tinh hoàn. Tình trạng này đa phần là lành tính và được phát hiện tình cờ qua siêu âm. Tuy nhiên, trong một số ít trường hợp, vôi hóa diện rộng có thể liên quan đến các vấn đề viêm nhiễm mãn tính hoặc u tinh hoàn cần theo dõi sát sao.",
     causes: [
       "Tiền sử viêm tinh hoàn hoặc viêm mào tinh hoàn không được điều trị dứt điểm.",
@@ -217,7 +217,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Ung thư vú đa ổ ở nam giới",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1579154769741-26b54d0ca3e6?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=400&q=80",
     overview: "Ung thư vú ở nam giới là bệnh lý rất hiếm gặp (chiếm khoảng 1% tổng số ca ung thư vú). Ung thư vú đa ổ xảy ra khi có từ hai khối u trở lên xuất hiện ở các vị trí khác nhau trong cùng một bên vú. Bệnh nguy hiểm do nam giới thường chủ quan và phát hiện muộn khi đã di căn.",
     causes: [
       "Đột biến gen di truyền (đặc biệt là gen BRCA2).",
@@ -241,7 +241,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Sùi mào gà dương vật",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1584515901367-f138865a7e6c?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80",
     overview: "Sùi mào gà ở dương vật là bệnh lây truyền qua đường tình dục (STI) phổ biến gây ra bởi virus HPV (Human Papillomavirus), đặc biệt là các chủng HPV 6 và 11. Bệnh biểu hiện bằng các nốt sùi mềm như súp lơ hoặc mào gà ở thân dương vật, bìu hoặc bao quy đầu.",
     causes: [
       "Nhiễm virus HPV qua quan hệ tình dục không an toàn với người nhiễm bệnh.",
@@ -264,7 +264,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Viêm đường niệu đạo ở nam giới",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80",
     overview: "Viêm niệu đạo ở nam giới là tình trạng viêm nhiễm ống dẫn nước tiểu từ bàng quang ra ngoài cơ thể. Bệnh gây ra cảm giác tiểu buốt, tiểu rắt và chảy dịch ở lỗ sáo, ảnh hưởng nặng nề đến sinh hoạt và có thể biến chứng viêm bàng quang, viêm tinh hoàn nếu không điều trị sớm.",
     causes: [
       "Nhiễm khuẩn do vi khuẩn lậu (Neisseria gonorrhoeae) hoặc vi khuẩn Chlamydia.",
@@ -311,7 +311,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Hẹp niệu đạo",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=400&q=80",
     overview: "Hẹp niệu đạo là tình trạng sẹo xơ làm thu hẹp lòng niệu đạo, cản trở dòng chảy của nước tiểu từ bàng quang ra ngoài. Hẹp niệu đạo gây ứ đọng nước tiểu, tăng nguy cơ suy thận và viêm đường tiết niệu nếu không can thiệp nong hoặc phẫu thuật kịp thời.",
     causes: [
       "Chấn thương vùng xương chậu hoặc vùng bìu (do ngã xe, tai nạn lao động).",
@@ -358,7 +358,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Xuất tinh ngược dòng",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=400&q=80",
     overview: "Xuất tinh ngược dòng là tình trạng tinh dịch đi ngược vào bàng quang thay vì phóng ra ngoài qua niệu đạo khi đạt cực khoái. Nam giới vẫn cảm nhận được cực khoái bình thường nhưng không thấy tinh dịch phóng ra (hoặc ra rất ít), đây là nguyên nhân gây vô sinh nam.",
     causes: [
       "Cơ vòng bàng quang bị suy yếu hoặc tổn thương không thể đóng chặt khi xuất tinh.",
@@ -381,7 +381,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Tắc ống dẫn tinh",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80",
     overview: "Tắc ống dẫn tinh là tình trạng đường dẫn tinh trùng từ tinh hoàn ra ngoài bị chặn lại ở một vị trí nào đó. Trẻ vẫn xuất tinh dịch bình thường nhưng trong dịch không chứa tinh trùng, dẫn đến vô sinh nam.",
     causes: [
       "Biến chứng viêm nhiễm nam khoa (viêm mào tinh, lao mào tinh hoàn) gây tắc nghẽn cơ học.",
@@ -404,7 +404,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Suy giảm Testosterone",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9d39d66e8?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
     overview: "Suy giảm Testosterone (mãn dục nam) là sự sụt giảm nồng độ nội tiết tố nam dưới mức bình thường (dưới 300 ng/dL). Tình trạng này thường bắt đầu sau tuổi 30 và tiến triển rõ rệt sau tuổi 50, ảnh hưởng sâu sắc đến cơ bắp, xương, tinh thần và chức năng tình dục.",
     causes: [
       "Quá trình lão hóa tự nhiên làm suy giảm tế bào Leydig ở tinh hoàn.",
@@ -430,7 +430,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Viêm túi tinh",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1579684288225-76d34135f35a?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1535303311164-664fc9ec6532?auto=format&fit=crop&w=400&q=80",
     overview: "Viêm túi tinh là tình trạng nhiễm trùng ở túi tinh - nơi dự trữ tinh dịch trước khi phóng tinh. Bệnh thường gây ra triệu chứng xuất tinh ra máu rất đặc trưng và gây đau đớn khi quan hệ tình dục.",
     causes: [
       "Nhiễm khuẩn ngược dòng từ niệu đạo, bàng quang hoặc tuyến tiền liệt.",
@@ -454,7 +454,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Viêm mào tinh hoàn",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80",
     overview: "Viêm mào tinh hoàn là tình trạng viêm của ống cuộn (mào tinh hoàn) nằm ở phía sau tinh hoàn. Bệnh gây sưng đau bìu dữ dội và có thể dẫn đến vô sinh nếu chuyển sang giai đoạn mãn tính gây tắc ống mào tinh.",
     causes: [
       "Nhiễm trùng lây truyền qua đường tình dục (lậu, chlamydia) ở nam giới trẻ.",
@@ -478,7 +478,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Sa tinh hoàn",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80",
     overview: "Sa tinh hoàn là tình trạng tinh hoàn bị chảy xệ xuống thấp hơn bình thường một cách rõ rệt. Đây có thể là biến đổi sinh lý do tuổi tác hoặc là dấu hiệu cảnh báo các bệnh lý thực thể nguy hiểm như giãn tĩnh mạch thừng tinh, tràn dịch màng tinh hoàn hoặc thoát vị bẹn.",
     causes: [
       "Sự suy yếu tự nhiên của các sợi cơ treo tinh hoàn do lão hóa.",
@@ -501,7 +501,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Vú to ở nam giới",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400&q=80",
     overview: "Vú to ở nam giới (Gynecomastia) là tình trạng phát triển quá mức của mô tuyến vú ở nam giới. Rối loạn này xảy ra do sự mất cân bằng giữa lượng nội tiết tố Estrogen (nội tiết tố nữ) và Androgen (nội tiết tố nam) trong cơ thể.",
     causes: [
       "Sự sụt giảm testosterone tự nhiên hoặc tăng estrogen quá mức.",
@@ -524,7 +524,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Tăng tiết mồ hôi",
     category: "Bệnh Nam Giới",
     categorySlug: "nam-gioi",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=400&q=80",
     overview: "Tăng tiết mồ hôi (Hyperhidrosis) là tình trạng cơ thể tiết mồ hôi quá mức cần thiết cho việc điều hòa thân nhiệt bình thường. Bệnh thường xuất hiện ở lòng bàn tay, lòng bàn chân, nách hoặc bẹn, gây cản trở lớn trong công việc và giao tiếp xã hội.",
     causes: [
       "Rối loạn hoạt động hệ thần kinh giao cảm kích thích quá mức tuyến mồ hôi.",
@@ -549,7 +549,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Viêm âm đạo ở nữ giới",
     category: "Bệnh Nữ Giới",
     categorySlug: "nu-gioi",
-    image: "https://images.unsplash.com/photo-1584515901367-f138865a7e6c?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80",
     overview: "Viêm âm đạo là tình trạng viêm nhiễm xảy ra ở âm đạo của phụ nữ, gây ngứa ngáy, đau rát và thay đổi khí hư dịch tiết. Đây là bệnh phụ khoa phổ biến nhất mà hầu hết phụ nữ đều mắc phải ít nhất một lần trong đời.",
     causes: [
       "Sự mất cân bằng vi khuẩn tự nhiên ở âm đạo (viêm âm đạo do vi khuẩn).",
@@ -572,7 +572,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Hội chứng buồng trứng đa nang",
     category: "Bệnh Nữ Giới",
     categorySlug: "nu-gioi",
-    image: "https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80",
     overview: "Hội chứng buồng trứng đa nang (PCOS) là một rối loạn nội tiết phổ biến ở phụ nữ trong độ tuổi sinh sản. Bệnh đặc trưng bởi sự mất cân bằng hormone (tăng androgen), kinh nguyệt không đều và sự xuất hiện của nhiều nang nhỏ trên buồng trứng qua siêu âm, ảnh hưởng lớn đến khả năng làm mẹ.",
     causes: [
       "Đề kháng insulin làm cơ thể sản sinh quá nhiều nội tiết tố androgen.",
@@ -595,7 +595,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Lạc nội mạc tử cung",
     category: "Bệnh Nữ Giới",
     categorySlug: "nu-gioi",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&w=400&q=80",
     overview: "Lạc nội mạc tử cung là tình trạng các mô tương tự như lớp lót bên trong tử cung (nội mạc tử cung) phát triển ở bên ngoài tử cung (như trên buồng trứng, ống dẫn trứng hoặc vùng chậu). Các mô này vẫn hoạt động bình thường trong chu kỳ kinh nguyệt, gây chảy máu và đau đớn dữ dội.",
     causes: [
       "Kinh nguyệt ngược dòng: Máu kinh chứa tế bào nội mạc chảy ngược qua ống dẫn trứng vào khoang chậu.",
@@ -617,7 +617,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Ung thư cổ tử cung",
     category: "Bệnh Nữ Giới",
     categorySlug: "nu-gioi",
-    image: "https://images.unsplash.com/photo-1579154769741-26b54d0ca3e6?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=400&q=80",
     overview: "Ung thư cổ tử cung là loại ung thư ác tính phát triển từ các tế bào lót ở cổ tử cung. Gần 99% các ca bệnh có liên quan mật thiết đến việc nhiễm virus HPV (Human Papillomavirus) chủng nguy cơ cao kéo dài.",
     causes: [
       "Nhiễm virus HPV chủng 16 và 18 lây qua đường tình dục.",
@@ -642,7 +642,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Tăng huyết áp ở người cao tuổi",
     category: "Bệnh Người Già",
     categorySlug: "nguoi-gia",
-    image: "https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80",
     overview: "Tăng huyết áp (cao huyết áp) ở người cao tuổi là tình trạng áp lực máu lên thành động mạch tăng cao liên tục (huyết áp tâm thu >= 140 mmHg và/hoặc huyết áp tâm trương >= 90 mmHg). Bệnh được ví như 'kẻ giết người thầm lặng' vì có thể âm thầm gây ra đột quỵ hoặc suy tim.",
     causes: [
       "Sự xơ cứng và giảm độ đàn hồi của các mạch máu lớn do lão hóa.",
@@ -665,7 +665,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Tai biến mạch máu não",
     category: "Bệnh Người Già",
     categorySlug: "nguoi-gia",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=400&q=80",
     overview: "Tai biến mạch máu não (đột quỵ não) xảy ra khi nguồn máu cung cấp cho một phần não bộ bị gián đoạn (nhồi máu não) hoặc mạch máu não bị vỡ (xuất huyết não), dẫn đến thiếu oxy và chết tế bào não cực kỳ nhanh chóng. Đây là cấp cứu khẩn cấp nguy hiểm hàng đầu.",
     causes: [
       "Tắc nghẽn mạch máu do cục máu đông hình thành từ mảng xơ vữa động mạch.",
@@ -686,7 +686,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Thoái hóa khớp",
     category: "Bệnh Người Già",
     categorySlug: "nguoi-gia",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=400&q=80",
     overview: "Thoái hóa khớp là tình trạng mài mòn và hư tổn sụn khớp khớp (lớp đệm đầu xương) tiến triển theo thời gian. Bệnh gây đau đớn, biến dạng khớp và hạn chế vận động trầm trọng ở người cao tuổi.",
     causes: [
       "Lão hóa tự nhiên làm giảm sản sinh collagen và chất nhầy bôi trơn khớp.",
@@ -709,7 +709,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Đái tháo đường tuýp 2",
     category: "Bệnh Người Già",
     categorySlug: "nguoi-gia",
-    image: "https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80",
     overview: "Đái tháo đường tuýp 2 là bệnh rối loạn chuyển hóa mãn tính đặc trưng bởi tình trạng đường huyết tăng cao do cơ thể đề kháng với insulin. Bệnh dễ dẫn đến các biến chứng nguy hiểm ở tim, thận, mắt và thần kinh nếu không được kiểm soát tốt.",
     causes: [
       "Tình trạng đề kháng insulin của tế bào cơ thể.",
@@ -734,7 +734,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Sốt xuất huyết ở trẻ em",
     category: "Bệnh Trẻ Em",
     categorySlug: "tre-em",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=400&q=80",
     overview: "Sốt xuất huyết Dengue là bệnh truyền nhiễm cấp tính do virus Dengue lây truyền qua vết cắn của muỗi vằn Aedes aegypti. Trẻ em là đối tượng dễ gặp biến chứng nặng như sốc giảm thể tích, xuất huyết nội tạng đe dọa tính mạng.",
     causes: [
       "Virus Dengue truyền sang trẻ qua vết đốt của muỗi vằn mang mầm bệnh.",
@@ -757,7 +757,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Bệnh tay chân miệng",
     category: "Bệnh Trẻ Em",
     categorySlug: "tre-em",
-    image: "https://images.unsplash.com/photo-1584515901367-f138865a7e6c?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80",
     overview: "Tay chân miệng là bệnh truyền nhiễm thường gặp ở trẻ sơ sinh và trẻ nhỏ dưới 5 tuổi. Bệnh đặc trưng bởi tình trạng sốt, nổi phỏng nước ở lòng bàn tay, bàn chân và loét đau đớn trong khoang miệng.",
     causes: [
       "Nhiễm virus đường ruột, phổ biến nhất là Coxsackievirus A16 và Enterovirus 71 (EV71) dễ gây biến chứng não."
@@ -778,7 +778,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Suy dinh dưỡng trẻ em",
     category: "Bệnh Trẻ Em",
     categorySlug: "tre-em",
-    image: "https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?auto=format&fit=crop&w=400&q=80",
     overview: "Suy dinh dưỡng là tình trạng cơ thể trẻ thiếu hụt năng lượng và các chất dinh dưỡng cần thiết, ảnh hưởng đến sự phát triển bình thường về thể chất và trí tuệ của trẻ.",
     causes: [
       "Chế độ ăn nghèo nàn dưỡng chất, cai sữa mẹ quá sớm hoặc ăn dặm không đúng cách.",
@@ -800,7 +800,7 @@ const DISEASE_DATA: Record<string, Disease> = {
     name: "Viêm phế quan phổi",
     category: "Bệnh Trẻ Em",
     categorySlug: "tre-em",
-    image: "https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=400&q=80",
     overview: "Viêm phế quản phổi là tổn thương viêm nhiễm cấp tính ở các phế nang, phế quản phế nang và tổ chức liên kết quanh phế quản phổi của trẻ. Đây là nguyên nhân hàng đầu gây tử vong ở trẻ em dưới 5 tuổi.",
     causes: [
       "Nhiễm vi khuẩn (phế cầu, liên cầu) hoặc các virus hô hấp (RSV, cúm) lan xuống phổi."
