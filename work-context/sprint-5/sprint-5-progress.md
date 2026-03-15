@@ -472,7 +472,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-245 — Build HIGH alert acknowledgement UI | `PAC-454` | TO DO | — | `feature/PAC-454-T-245-high-alert-acknowledgement-ui` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
-| PAC-TASK-246 — Implement acknowledge InteractionAlert API | `PAC-455` | TO DO | — | `feature/PAC-455-T-246-acknowledge-interaction-alert-api` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-246 — Implement acknowledge InteractionAlert API | `PAC-455` | TO DO | — | `feature/PAC-455-T-246-acknowledge-interaction-alert-api` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
 | PAC-TASK-256 — Add HIGH acknowledgement and consultation note tests | `PAC-465` | TO DO | — | `test/PAC-465-T-256-high-acknowledgement-note-tests` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Not opened | Pending | Pending | — | — |
 
 ### Story completion checklist
@@ -506,7 +506,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-247 — Build HIGH alert consultation note UI | `PAC-456` | TO DO | — | `feature/PAC-456-T-247-high-alert-consultation-note-ui` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
-| PAC-TASK-248 — Implement consultation note API per HIGH alert | `PAC-457` | TO DO | — | `feature/PAC-457-T-248-consultation-note-api-per-high-alert` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-248 — Implement consultation note API per HIGH alert | `PAC-457` | TO DO | — | `feature/PAC-457-T-248-consultation-note-api-per-high-alert` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
 | PAC-TASK-249 — Validate HIGH alert consultation note is not empty | `PAC-458` | TO DO | — | `feature/PAC-458-T-249-high-alert-note-not-empty-validation` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Not opened | Pending | Pending | — | — |
 
 ### Story completion checklist
