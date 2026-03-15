@@ -432,7 +432,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-77 | TO DO | — | `story/PAC-116-US-77-pos-interaction-alert-panel` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-77 | DONE | — | `story/PAC-116-US-77-pos-interaction-alert-panel` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -465,7 +465,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-78 | TO DO | — | `story/PAC-117-US-78-high-alert-acknowledgement` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-78 | DONE | — | `story/PAC-117-US-78-high-alert-acknowledgement` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -473,7 +473,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-245 — Build HIGH alert acknowledgement UI | `PAC-454` | TO DO | — | `feature/PAC-454-T-245-high-alert-acknowledgement-ui` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
 | PAC-TASK-246 — Implement acknowledge InteractionAlert API | `PAC-455` | TO DO | — | `feature/PAC-455-T-246-acknowledge-interaction-alert-api` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
-| PAC-TASK-256 — Add HIGH acknowledgement and consultation note tests | `PAC-465` | TO DO | — | `test/PAC-465-T-256-high-acknowledgement-note-tests` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-256 — Add HIGH acknowledgement and consultation note tests | `PAC-465` | TO DO | — | `test/PAC-465-T-256-high-acknowledgement-note-tests` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -499,7 +499,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-79 | TO DO | — | `story/PAC-118-US-79-high-alert-consultation-note` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-79 | DONE | — | `story/PAC-118-US-79-high-alert-consultation-note` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -507,7 +507,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-247 — Build HIGH alert consultation note UI | `PAC-456` | TO DO | — | `feature/PAC-456-T-247-high-alert-consultation-note-ui` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
 | PAC-TASK-248 — Implement consultation note API per HIGH alert | `PAC-457` | TO DO | — | `feature/PAC-457-T-248-consultation-note-api-per-high-alert` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
-| PAC-TASK-249 — Validate HIGH alert consultation note is not empty | `PAC-458` | TO DO | — | `feature/PAC-458-T-249-high-alert-note-not-empty-validation` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-249 — Validate HIGH alert consultation note is not empty | `PAC-458` | TO DO | — | `feature/PAC-458-T-249-high-alert-note-not-empty-validation` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -533,14 +533,14 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-80 | TO DO | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-80 | DONE | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-250 — Implement checkout blocker for unresolved HIGH alerts | `PAC-459` | TO DO | — | `feature/PAC-459-T-250-checkout-blocker-unresolved-high-alerts` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Not opened | Pending | Pending | — | — |
-| PAC-TASK-251 — Build UI prompt when checkout is blocked by HIGH alert | `PAC-460` | TO DO | — | `feature/PAC-460-T-251-ui-prompt-checkout-blocked-high-alert` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-250 — Implement checkout blocker for unresolved HIGH alerts | `PAC-459` | TO DO | — | `feature/PAC-459-T-250-checkout-blocker-unresolved-high-alerts` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-251 — Build UI prompt when checkout is blocked by HIGH alert | `PAC-460` | TO DO | — | `feature/PAC-460-T-251-ui-prompt-checkout-blocked-high-alert` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
