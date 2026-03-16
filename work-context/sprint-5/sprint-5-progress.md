@@ -131,7 +131,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-EPIC-09 | TO DO | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | — | — | `develop` | Not opened | Pending | Pending | — | — |
+| PAC-EPIC-09 | DONE | — | `epic/PAC-9-EPIC-09-drug-interaction-rule` | — | — | `develop` | Merged | PASS | PASS | — | — |
 
 ## US-69 — Create ActiveIngredient-level interaction rule
 
@@ -287,7 +287,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-EPIC-10 | TO DO | — | `epic/PAC-10-EPIC-10-interaction-alert` | — | — | `develop` | Not opened | Pending | Pending | — | — |
+| PAC-EPIC-10 | DONE | — | `epic/PAC-10-EPIC-10-interaction-alert` | — | — | `develop` | Merged | PASS | PASS | — | — |
 
 ## US-73 — Order-based interaction check
 
@@ -333,7 +333,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-74 | DONE | — | `story/PAC-113-US-74-persist-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-74 | DONE | — | `story/PAC-113-US-74-persist-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -368,7 +368,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-75 | TO DO | — | `story/PAC-114-US-75-one-active-alert-per-order-rule` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-75 | DONE | — | `story/PAC-114-US-75-one-active-alert-per-order-rule` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -400,7 +400,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-76 | TO DO | — | `story/PAC-115-US-76-interaction-alert-display-count` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-76 | DONE | — | `story/PAC-115-US-76-interaction-alert-display-count` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -566,7 +566,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-81 | TO DO | — | `story/PAC-120-US-81-admin-interaction-alert-history` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-81 | DONE | — | `story/PAC-120-US-81-admin-interaction-alert-history` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
@@ -599,7 +599,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Issue | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-82 | TO DO | — | `story/PAC-121-US-82-warehouse-no-access-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Not opened | Pending | Pending | — | — |
+| US-82 | DONE | — | `story/PAC-121-US-82-warehouse-no-access-interaction-alert` | — | — | `epic/PAC-10-EPIC-10-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Related Tasks
 
