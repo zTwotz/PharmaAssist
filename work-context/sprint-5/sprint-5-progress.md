@@ -605,7 +605,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-253 — Enforce Warehouse no-access to InteractionAlert APIs | `PAC-462` | TO DO | — | `feature/PAC-462-T-253-warehouse-no-access-interaction-alert` | — | — | `story/PAC-121-US-82-warehouse-no-access-interaction-alert` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-253 — Enforce Warehouse no-access to InteractionAlert APIs | `PAC-462` | DONE | TO DO | `feature/PAC-463-task-253-enforce-warehouse-no-access-to-interactionalert-api` | — | — | `story/PAC-121-US-82-warehouse-no-access-interaction-alert` | Merged | PASS | PASS | — | — |
 | PAC-TASK-254 — Add tests for Warehouse no-access to InteractionAlert | `PAC-463` | TO DO | — | `test/PAC-463-T-254-warehouse-no-access-alert-tests` | — | — | `story/PAC-121-US-82-warehouse-no-access-interaction-alert` | Not opened | Pending | Pending | — | — |
 
 ### Story completion checklist
