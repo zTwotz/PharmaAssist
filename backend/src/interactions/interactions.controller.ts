@@ -144,7 +144,12 @@ export class InteractionsController {
     @Query('orderCode') orderCode?: string,
     @Query('isAcknowledged') isAcknowledged?: string,
   ) {
-    const isAck = isAcknowledged === 'true' ? true : isAcknowledged === 'false' ? false : undefined;
+    const isAck =
+      isAcknowledged === 'true'
+        ? true
+        : isAcknowledged === 'false'
+          ? false
+          : undefined;
     return this.interactionsService.getAlertHistory({
       severity,
       orderCode,

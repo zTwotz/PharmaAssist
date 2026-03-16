@@ -307,7 +307,11 @@ export class InteractionsService {
     });
   }
 
-  async getAlertHistory(query: { severity?: string; orderCode?: string; isAcknowledged?: boolean }) {
+  async getAlertHistory(query: {
+    severity?: string;
+    orderCode?: string;
+    isAcknowledged?: boolean;
+  }) {
     const where: any = {};
     if (query.severity) {
       where.severity = query.severity;
