@@ -64,7 +64,7 @@ export function Sidebar({ currentPath }: SidebarProps) {
       label: 'Tương tác thuốc',
       path: '/drug-interactions',
       icon: AlertTriangle,
-      roles: ['ADMIN', 'WAREHOUSE'],
+      roles: ['ADMIN'],
     },
     {
       label: 'Khách hàng',

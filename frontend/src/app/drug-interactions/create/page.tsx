@@ -27,7 +27,7 @@ export default function CreateDrugInteractionPage() {
   });
 
   useEffect(() => {
-    if (!hasRole(['ADMIN', 'WAREHOUSE'])) {
+    if (!hasRole(['ADMIN'])) {
       router.push('/dashboard');
       return;
     }

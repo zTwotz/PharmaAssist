@@ -29,7 +29,7 @@ export default function DrugInteractionsPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!hasRole(['ADMIN', 'WAREHOUSE'])) {
+    if (!hasRole(['ADMIN'])) {
       router.push('/dashboard');
       return;
     }
