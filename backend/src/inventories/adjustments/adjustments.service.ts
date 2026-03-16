@@ -61,8 +61,8 @@ export class AdjustmentsService {
         createdBy: true,
         store: true,
         _count: {
-          select: { lines: true }
-        }
+          select: { lines: true },
+        },
       },
     });
   }
