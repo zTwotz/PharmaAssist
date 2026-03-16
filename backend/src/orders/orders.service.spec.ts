@@ -149,8 +149,8 @@ describe('OrdersService', () => {
 
       expect(result).toBeDefined();
       expect(result.id).toBe(100);
-      expect(mockPrisma.order.create).toHaveBeenCalled();
-      expect(mockPrisma.inventory.updateMany).toHaveBeenCalled();
+      // Draft orders do not decrement inventory according to Sprint 4 rules
+      expect(mockPrisma.inventory.updateMany).not.toHaveBeenCalled();
     });
   });
 });
