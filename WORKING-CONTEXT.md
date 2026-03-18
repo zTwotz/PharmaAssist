@@ -60,6 +60,12 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## 📓 Latest Execution Notes
 
+### 2026-06-22 (Bổ sung phần Các bài viết liên quan & Sửa lỗi cấu trúc thư mục route Bệnh lý học)
+- **Sửa lỗi thư mục route bệnh lý**: Đã tái cấu trúc thư mục động từ bị lỗi cú pháp `[slug` và subfolder `]` thành thư mục Next.js dynamic route chuẩn `src/app/benh/[slug]/page.tsx`. Khôi phục hoàn toàn khả năng truy cập các trang bệnh học trực tiếp như `/benh/klinefelter` thay vì bị redirect/fallback về trang catalog sản phẩm.
+- **Thêm phần Các bài viết liên quan**: Thiết kế và triển khai thành công khu vực "Các bài viết liên quan" dạng lưới 4 cột ở dưới cùng của trang chi tiết bệnh lý, tự động lọc lấy tối đa 16 bệnh khác cùng chuyên mục (ví dụ: hiển thị các bệnh Nam giới khác khi đang xem Klinefelter). Định dạng tiêu đề chữ thường và icon quyển sách giống hệt UI Nhà thuốc Long Châu.
+- **Xử lý ảnh lỗi thông minh**: Viết component `DiseaseImage` để xử lý fallback khi link ảnh bị lỗi, thay bằng một khung gradient màu xanh-tím nhạt kèm icon ống nghe `🩺` và tên bệnh viết hoa đậm vô cùng premium.
+- **Kiểm thử & Linter**: Biên dịch TypeScript (`npx tsc --noEmit`) thành công 100% không có lỗi, linter frontend sạch sẽ và xác minh hiển thị thực tế trên trình duyệt thông qua browser agent hoạt động hoàn hảo.
+
 ### 2026-06-21 (Sprint 4 Progress - PDP Improvements, Homepage Banner Carousel & Dynamic Product Sliders)
 - **Homepage Flash Sale & Best Selling Dynamic Sliders & Redirection:**
   - Declared `FLASH_SALE_PRODUCTS` and `BEST_SELLING_PRODUCTS` arrays (8 items each) to dynamically back the homepage product listings.
@@ -194,3 +200,8 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **Jira Integration:** Tạo thành công 102 Tasks phần nâng cao (từ `T-79` đến `T-180`) trên Jira Cloud, đồng bộ hóa mã Jira Key vào file [4.1_Task.md](file:///Users/twot/Documents/HKII_NAM_3/16_Cong_Nghe_Pham_Mem/PharmaAssist/Jira/4.1_Task.md).
 - **Jira Integration (Batch 4B):** Tự động tạo 145 Tasks (PAC-368 đến PAC-512) và nối link thành công.
 - **Đã điều chỉnh Batch 4B:** Đã ghi đè lại chính xác dải PAC-356 đến PAC-500 theo đúng yêu cầu.
+
+
+## Sprint 5 Pre-Implementation Audit
+- Completed verification via Jira, GitHub, and Supabase MCPs.
+- Ready to implement Sprint 5: Yes.

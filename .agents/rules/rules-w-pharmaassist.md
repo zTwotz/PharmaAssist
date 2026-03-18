@@ -24,7 +24,7 @@ description: Quy tắc phát triển PharmaAssist (NestJS, Next.js, Prisma, Supa
 - **An toàn:** Cảnh báo tương tác mang tính tham khảo, AI Copilot không chẩn đoán y tế. Tuyệt đối KHÔNG commit `.env` hay credentials lên Git.
 
 ## 4. Quản Lý Phiên Bản (Git & Jira)
-- **Quy tắc tạo nhánh:** Bắt buộc tạo nhánh riêng từ `develop` mới nhất cho mỗi task. Tên nhánh phải chứa mã Jira (vd: `feature/PAC-xxx-slug`). Không viết đè code lên task khác.
+- **Quy tắc sử dụng nhánh:** Không tạo thêm nhánh mới cho các task, user story, hay epic đã được lên kế hoạch. Thay vào đó, AI bắt buộc checkout và sử dụng đúng nhánh tương ứng dựa theo cột "Nhánh Git tương ứng" trong file `Jira/branch-on-jira.md`. Tuy nhiên, vẫn ĐƯỢC PHÉP tạo nhánh mới nếu cần fix lỗi gấp (hotfix) hoặc thêm tính năng khác ngoài scope của file trên. Không viết đè code lên task khác.
 - **Quy trình Commit, Test và Push theo cấp độ (Task -> US -> Epic):**
   - **Cấp độ Task:** Khi thực hiện 1 task cần sử dụng các skill để lên kế hoạch, triển khai và kiểm thử. Mỗi task khi hoàn thành cần commit từ 5-10 commit tùy vào số lượng công việc của task (không cố định 1 số lượng commit nhất định) và push lên nhánh của task đó. Sau khi triển khai xong, tiến hành sử dụng các skill để kiểm thử và test xem đã hoàn thành chưa, nếu có lỗi thì sử dụng skill để debug, commit và push lên nhánh của task đó.
   - **Cấp độ User Story (US):** Sau khi hoàn thành các task bên trong 1 US, tiến hành kiểm thử bằng các skill để kiểm thử và test xem đã hoàn thành chưa. Nếu có lỗi thì sử dụng skill để debug, commit và push lên nhánh của US đó.
