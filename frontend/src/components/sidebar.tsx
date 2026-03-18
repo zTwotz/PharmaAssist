@@ -14,7 +14,8 @@ import {
   Shield,
   Users,
   Truck,
-  Receipt
+  Receipt,
+  AlertTriangle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -58,6 +59,12 @@ export function Sidebar({ currentPath }: SidebarProps) {
       path: '/inventory',
       icon: Package,
       roles: ['ADMIN', 'WAREHOUSE'],
+    },
+    {
+      label: 'Tương tác thuốc',
+      path: '/drug-interactions',
+      icon: AlertTriangle,
+      roles: ['ADMIN'],
     },
     {
       label: 'Khách hàng',

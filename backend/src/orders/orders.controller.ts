@@ -3,6 +3,11 @@ import {
   Post,
   Body,
   Get,
+  Patch,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Req,
   HttpCode,
   HttpStatus,
   UseGuards,
@@ -10,6 +15,8 @@ import {
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { AddOrderItemDto } from './dto/add-order-item.dto';
+import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -23,7 +30,7 @@ export class OrdersController {
   @Post()
   @Roles('ADMIN', 'STAFF')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo đơn hàng mới (POS) và trừ tồn kho' })
+  @ApiOperation({ summary: 'Tạo đơn nháp POS (Draft Order)' })
   @ApiResponse({
     status: 201,
     description: 'Đơn hàng đã được tạo thành công.',
@@ -32,17 +39,84 @@ export class OrdersController {
     return this.ordersService.createOrder(createOrderDto);
   }
 
+  @Post(':id/items')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Thêm sản phẩm vào Draft Order' })
+  async addItemToDraftOrder(
+    @Param('id') id: string,
+    @Body() addOrderItemDto: AddOrderItemDto,
+  ) {
+    return this.ordersService.addItemToDraftOrder(Number(id), addOrderItemDto);
+  }
+
+  @Patch(':id/items/:itemId')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Cập nhật số lượng sản phẩm trong Draft Order' })
+  async updateDraftOrderItemQuantity(
+    @Param('id') id: string,
+    @Param('itemId') itemId: string,
+    @Body() updateOrderItemDto: UpdateOrderItemDto,
+  ) {
+    return this.ordersService.updateDraftOrderItemQuantity(
+      Number(id),
+      Number(itemId),
+      updateOrderItemDto,
+    );
+  }
+
+  @Delete(':id/items/:itemId')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Xóa sản phẩm khỏi Draft Order' })
+  async removeDraftOrderItem(
+    @Param('id') id: string,
+    @Param('itemId') itemId: string,
+  ) {
+    return this.ordersService.removeDraftOrderItem(Number(id), Number(itemId));
+  }
+
   @Get('stats')
   @Roles('ADMIN', 'STAFF', 'WAREHOUSE')
   @ApiOperation({ summary: 'Lấy số liệu thống kê tổng quan cho Dashboard' })
-  async getStats() {
+  async getDashboardStats() {
     return this.ordersService.getDashboardStats();
   }
 
-  @Get()
+  @Post(':id/cancel')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({ summary: 'Hủy đơn hàng' })
+  async cancelOrder(
+    @Param('id') id: string,
+    @Req() req: { user: { id: string; roles: string[] } },
+  ) {
+    return this.ordersService.cancelOrder(Number(id), req.user);
+  }
+
+  @Get(':id')
   @Roles('ADMIN', 'STAFF')
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
   async findAll() {
     return this.ordersService.findAll();
+  }
+  @Post(':id/interactions/check')
+  @Roles('ADMIN', 'STAFF')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Kiểm tra và lưu cảnh báo tương tác thuốc cho đơn hàng',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Trả về danh sách các tương tác thuốc của đơn hàng.',
+  })
+  async checkInteractions(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.checkAndPersistInteractions(id);
+  }
+
+  @Get(':id/interaction-alerts')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({
+    summary: 'Lấy danh sách cảnh báo tương tác thuốc của đơn hàng',
+  })
+  async getOrderAlerts(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.getOrderAlerts(id);
   }
 }
