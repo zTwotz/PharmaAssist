@@ -465,8 +465,6 @@ model Medicine {
   status                   String                    @default("ACTIVE")
   createdAt                DateTime                  @default(now()) @map("created_at")
   shelfLifeMonths          Int?                      @map("shelf_life_months")
-  interactionsA            DrugInteraction[]         @relation("MedicineA")
-  interactionsB            DrugInteraction[]         @relation("MedicineB")
   groupMembers             MedicineGroupMember[]
   ingredients              MedicineIngredient[]
   dosageForm               DosageForm                @relation(fields: [dosageFormId], references: [id])
@@ -511,6 +509,8 @@ model ActiveIngredient {
   status              String               @default("ACTIVE")
   createdAt           DateTime             @default(now()) @map("created_at")
   medicineIngredients MedicineIngredient[]
+  interactionsA       DrugInteraction[]    @relation("ActiveIngredientA")
+  interactionsB       DrugInteraction[]    @relation("ActiveIngredientB")
 
   @@map("active_ingredients")
 }
@@ -551,18 +551,18 @@ model MedicineGroupMember {
 }
 
 model DrugInteraction {
-  id             Int                @id @default(autoincrement())
-  code           String             @unique
-  medicineAId    Int                @map("medicine_a_id")
-  medicineBId    Int                @map("medicine_b_id")
-  severity       String
-  description    String?
-  recommendation String?
-  isActive       Boolean            @default(true) @map("is_active")
-  createdAt      DateTime           @default(now()) @map("created_at")
-  medicineA      Medicine           @relation("MedicineA", fields: [medicineAId], references: [id], onDelete: Cascade)
-  medicineB      Medicine           @relation("MedicineB", fields: [medicineBId], references: [id], onDelete: Cascade)
-  alerts         InteractionAlert[]
+  id                  Int                @id @default(autoincrement())
+  code                String             @unique
+  activeIngredientAId Int                @map("active_ingredient_a_id")
+  activeIngredientBId Int                @map("active_ingredient_b_id")
+  severity            String
+  description         String?
+  recommendation      String?
+  isActive            Boolean            @default(true) @map("is_active")
+  createdAt           DateTime           @default(now()) @map("created_at")
+  activeIngredientA   ActiveIngredient   @relation("ActiveIngredientA", fields: [activeIngredientAId], references: [id], onDelete: Cascade)
+  activeIngredientB   ActiveIngredient   @relation("ActiveIngredientB", fields: [activeIngredientBId], references: [id], onDelete: Cascade)
+  alerts              InteractionAlert[]
 
   @@map("drug_interactions")
 }
