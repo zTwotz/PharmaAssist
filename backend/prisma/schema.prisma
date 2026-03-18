@@ -31,6 +31,7 @@ model User {
   userProfile          UserProfile?
   userRoles            UserRole[]
   inventoryAdjustments InventoryAdjustment[]
+  acknowledgedAlerts   InteractionAlert[]
 
   @@map("users")
 }
@@ -568,15 +569,21 @@ model DrugInteraction {
 }
 
 model InteractionAlert {
-  id             Int             @id @default(autoincrement())
-  orderId        Int             @map("order_id")
-  interactionId  Int             @map("interaction_id")
-  severity       String
-  alertMessage   String          @map("alert_message")
-  isAcknowledged Boolean         @default(false) @map("is_acknowledged")
-  createdAt      DateTime        @default(now()) @map("created_at")
-  interaction    DrugInteraction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
-  order          Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id               Int             @id @default(autoincrement())
+  orderId          Int             @map("order_id")
+  interactionId    Int             @map("interaction_id")
+  severity         String
+  alertMessage     String          @map("alert_message")
+  isAcknowledged   Boolean         @default(false) @map("is_acknowledged")
+  acknowledgedBy   String?         @map("acknowledged_by") @db.Uuid
+  acknowledgedAt   DateTime?       @map("acknowledged_at")
+  consultationNote String?         @map("consultation_note")
+  displayCount     Int             @default(0) @map("display_count")
+  lastDisplayedAt  DateTime?       @map("last_displayed_at")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  interaction      DrugInteraction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  staff            User?           @relation(fields: [acknowledgedBy], references: [id])
 
   @@map("interaction_alerts")
 }
