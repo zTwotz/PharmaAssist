@@ -35,7 +35,11 @@ describe('InteractionsService', () => {
   describe('checkInteractions', () => {
     it('should return empty interactions if less than 2 medicines are provided', async () => {
       const result = await service.checkInteractions([1]);
-      expect(result).toEqual({ interactions: [], hasInteractions: false, severeInteractionsCount: 0 });
+      expect(result).toEqual({
+        interactions: [],
+        hasInteractions: false,
+        severeInteractionsCount: 0,
+      });
     });
 
     it('should derive interactions from medicine active ingredients correctly', async () => {

@@ -100,12 +100,23 @@ export class OrdersController {
   @Post(':id/interactions/check')
   @Roles('ADMIN', 'STAFF')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Kiểm tra và lưu cảnh báo tương tác thuốc cho đơn hàng' })
+  @ApiOperation({
+    summary: 'Kiểm tra và lưu cảnh báo tương tác thuốc cho đơn hàng',
+  })
   @ApiResponse({
     status: 200,
     description: 'Trả về danh sách các tương tác thuốc của đơn hàng.',
   })
   async checkInteractions(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.checkAndPersistInteractions(id);
+  }
+
+  @Get(':id/interaction-alerts')
+  @Roles('ADMIN', 'STAFF')
+  @ApiOperation({
+    summary: 'Lấy danh sách cảnh báo tương tác thuốc của đơn hàng',
+  })
+  async getOrderAlerts(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.getOrderAlerts(id);
   }
 }

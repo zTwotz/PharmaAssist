@@ -410,9 +410,8 @@ export class OrdersService {
   }
 
   async checkAndPersistInteractions(orderId: number) {
-    const result = await this.interactionsService.checkOrderInteractions(
-      orderId,
-    );
+    const result =
+      await this.interactionsService.checkOrderInteractions(orderId);
 
     if (!result.hasInteractions) {
       return result;
@@ -435,11 +434,41 @@ export class OrdersService {
             interactionId: interaction.ruleId,
             severity: interaction.severity,
             alertMessage: `Tương tác thuốc: ${interaction.activeIngredientAName} và ${interaction.activeIngredientBName} - Mức độ: ${interaction.severity}. Cảnh báo: ${interaction.description}`,
+            displayCount: 1,
+            lastDisplayedAt: new Date(),
+          },
+        });
+      } else {
+        await this.prisma.interactionAlert.update({
+          where: { id: existingAlert.id },
+          data: {
+            displayCount: { increment: 1 },
+            lastDisplayedAt: new Date(),
+            severity: interaction.severity,
+            alertMessage: `Tương tác thuốc: ${interaction.activeIngredientAName} và ${interaction.activeIngredientBName} - Mức độ: ${interaction.severity}. Cảnh báo: ${interaction.description}`,
           },
         });
       }
     }
 
     return result;
+  }
+
+  async getOrderAlerts(orderId: number) {
+    return this.prisma.interactionAlert.findMany({
+      where: { orderId },
+      include: {
+        interaction: true,
+        staff: {
+          select: {
+            id: true,
+            fullName: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 }

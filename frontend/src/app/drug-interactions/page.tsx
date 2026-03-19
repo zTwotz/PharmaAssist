@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Plus, ShieldAlert, AlertTriangle, AlertCircle } from 'lucide-react';
+import { Plus, ShieldAlert, AlertTriangle, AlertCircle, Clock } from 'lucide-react';
 import api from '@/lib/api';
 
 interface ActiveIngredient {
@@ -85,10 +85,16 @@ export default function DrugInteractionsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Luật tương tác thuốc</h1>
           <p className="text-sm text-gray-500 mt-1">Quản lý các luật tương tác giữa các hoạt chất</p>
         </div>
-        <Button onClick={() => router.push('/drug-interactions/create')} className="bg-primary hover:bg-primary/90">
-          <Plus className="w-4 h-4 mr-2" />
-          Thêm luật mới
-        </Button>
+        <div className="flex gap-3">
+          <Button onClick={() => router.push('/drug-interactions/history')} variant="outline" className="border-gray-300">
+            <Clock className="w-4 h-4 mr-2" />
+            Lịch sử cảnh báo
+          </Button>
+          <Button onClick={() => router.push('/drug-interactions/create')} className="bg-primary hover:bg-primary/90">
+            <Plus className="w-4 h-4 mr-2" />
+            Thêm luật mới
+          </Button>
+        </div>
       </div>
 
       <div className="bg-white shadow-sm rounded-lg border border-gray-200">
