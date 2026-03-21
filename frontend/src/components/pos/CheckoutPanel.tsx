@@ -12,7 +12,7 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
   const [completedOrder, setCompletedOrder] = useState<any>(null);
   const [invoiceCartItems, setInvoiceCartItems] = useState<PosCartItem[]>([]);
 
-  const handleCheckout = async () => {
+  const handleCreateDraft = async () => {
     setIsProcessing(true);
     try {
       const orderPayload = {
@@ -27,15 +27,13 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
 
       const response = await axios.post('http://localhost:3001/api/orders', orderPayload);
       
-      // Save data for receipt rendering before resetting the cart
-      setCompletedOrder(response.data);
-      setInvoiceCartItems([...cart]);
-      setIsInvoiceOpen(true);
+      // Show success message
+      alert(`Đã tạo đơn nháp thành công: ${response.data.code}`);
       
       clearCart();
     } catch (error: any) {
-      console.error('Lỗi thanh toán:', error);
-      alert(error.response?.data?.message || 'Có lỗi xảy ra khi thanh toán!');
+      console.error('Lỗi tạo đơn nháp:', error);
+      alert(error.response?.data?.message || 'Có lỗi xảy ra khi tạo đơn nháp!');
     } finally {
       setIsProcessing(false);
     }
@@ -95,7 +93,6 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
 
       <div className="relative group">
         <button
-          onClick={handleCheckout}
           disabled={cart.length === 0 || isProcessing || hasUnresolvedHighAlerts}
           className={`w-full py-3.5 px-4 rounded-xl font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 ${
             cart.length === 0

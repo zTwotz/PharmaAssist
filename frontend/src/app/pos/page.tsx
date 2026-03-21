@@ -57,8 +57,9 @@ export default function PosPage() {
     checkInteractions();
   }, [cart, acknowledgedInteractionIds]);
 
-  const handleAcknowledge = () => {
+  const handleAcknowledge = (alertData: { interactionId: number; note: string; }[] = []) => {
     // Save acknowledged interaction IDs so the warning doesn't keep popping up
+    // In MVP, we might only require note for HIGH, but mark all as acknowledged locally
     const newIds = interactions.map(i => i.id);
     setAcknowledgedInteractionIds(prev => [...prev, ...newIds]);
     setShowWarning(false);
