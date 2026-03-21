@@ -3,7 +3,7 @@ import { StockImportsService } from './stock-imports.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 
-const mockPrismaService = {
+const mockPrismaService: any = {
   supplier: {
     findUnique: jest.fn(),
   },
