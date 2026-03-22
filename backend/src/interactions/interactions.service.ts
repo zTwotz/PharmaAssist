@@ -307,8 +307,25 @@ export class InteractionsService {
     });
   }
 
-  async getAlertHistory() {
+  async getAlertHistory(query: { severity?: string; orderCode?: string; isAcknowledged?: boolean }) {
+    const where: any = {};
+    if (query.severity) {
+      where.severity = query.severity;
+    }
+    if (query.orderCode) {
+      where.order = {
+        code: {
+          contains: query.orderCode,
+          mode: 'insensitive',
+        },
+      };
+    }
+    if (query.isAcknowledged !== undefined) {
+      where.isAcknowledged = query.isAcknowledged;
+    }
+
     return this.prisma.interactionAlert.findMany({
+      where,
       include: {
         order: {
           select: {

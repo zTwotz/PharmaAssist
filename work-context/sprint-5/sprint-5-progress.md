@@ -573,7 +573,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-252 — Build Admin InteractionAlert History API and UI | `PAC-461` | DONE | TO DO | `feature/PAC-462-task-252-build-admin-interactionalert-history-api-and-ui` | — | — | `story/PAC-120-US-81-admin-interaction-alert-history` | Merged | PASS | PASS | — | — |
-| PAC-TASK-257 — Add filters to InteractionAlert History | `PAC-466` | TO DO | — | `feature/PAC-466-T-257-interaction-alert-history-filters` | — | — | `story/PAC-120-US-81-admin-interaction-alert-history` | Not opened | Pending | Pending | — | — |
+| PAC-TASK-257 — Add filters to InteractionAlert History | `PAC-467` | DONE | TO DO | `feature/PAC-467-task-257-add-filters-to-interactionalert-history` | — | — | `story/PAC-120-US-81-admin-interaction-alert-history` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 

@@ -11,6 +11,7 @@ import {
   HttpStatus,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/permissions.guard';
@@ -138,7 +139,16 @@ export class InteractionsController {
     status: 200,
     description: 'Trả về danh sách lịch sử cảnh báo.',
   })
-  async getAlertHistory() {
-    return this.interactionsService.getAlertHistory();
+  async getAlertHistory(
+    @Query('severity') severity?: string,
+    @Query('orderCode') orderCode?: string,
+    @Query('isAcknowledged') isAcknowledged?: string,
+  ) {
+    const isAck = isAcknowledged === 'true' ? true : isAcknowledged === 'false' ? false : undefined;
+    return this.interactionsService.getAlertHistory({
+      severity,
+      orderCode,
+      isAcknowledged: isAck,
+    });
   }
 }
