@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Plus, ShieldAlert, AlertTriangle, AlertCircle, Clock } from 'lucide-react';
+import { Plus, ShieldAlert, AlertTriangle, AlertCircle } from 'lucide-react';
 import api from '@/lib/api';
 
 interface ActiveIngredient {
