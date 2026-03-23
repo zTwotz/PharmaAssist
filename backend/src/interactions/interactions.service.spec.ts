@@ -32,6 +32,18 @@ describe('InteractionsService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('createInteraction', () => {
+    it('should throw BadRequestException if ingredient A and B are the same', async () => {
+      await expect(
+        service.createInteraction({
+          activeIngredientAId: 1,
+          activeIngredientBId: 1,
+          severity: 'HIGH',
+        }),
+      ).rejects.toThrow('Hai hoạt chất phải khác nhau');
+    });
+  });
+
   describe('checkInteractions', () => {
     it('should return empty interactions if less than 2 medicines are provided', async () => {
       const result = await service.checkInteractions([1]);
