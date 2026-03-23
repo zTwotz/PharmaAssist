@@ -502,16 +502,16 @@ model DosageForm {
 }
 
 model ActiveIngredient {
-  id                  Int                  @id @default(autoincrement())
-  code                String               @unique
+  id                  Int                   @id @default(autoincrement())
+  code                String                @unique
   name                String
-  normalizedName      String               @unique @map("normalized_name")
+  normalizedName      String                @unique @map("normalized_name")
   description         String?
-  status              String               @default("ACTIVE")
-  createdAt           DateTime             @default(now()) @map("created_at")
+  status              String                @default("ACTIVE")
+  createdAt           DateTime              @default(now()) @map("created_at")
   medicineIngredients MedicineIngredient[]
-  interactionsA       DrugInteraction[]    @relation("ActiveIngredientA")
-  interactionsB       DrugInteraction[]    @relation("ActiveIngredientB")
+  interactionsA       DrugInteractionRule[] @relation("ActiveIngredientA")
+  interactionsB       DrugInteractionRule[] @relation("ActiveIngredientB")
 
   @@map("active_ingredients")
 }
@@ -551,7 +551,7 @@ model MedicineGroupMember {
   @@map("medicine_group_members")
 }
 
-model DrugInteraction {
+model DrugInteractionRule {
   id                  Int                @id @default(autoincrement())
   code                String             @unique
   activeIngredientAId Int                @map("active_ingredient_a_id")
@@ -565,25 +565,25 @@ model DrugInteraction {
   activeIngredientB   ActiveIngredient   @relation("ActiveIngredientB", fields: [activeIngredientBId], references: [id], onDelete: Cascade)
   alerts              InteractionAlert[]
 
-  @@map("drug_interactions")
+  @@map("drug_interaction_rules")
 }
 
 model InteractionAlert {
-  id               Int             @id @default(autoincrement())
-  orderId          Int             @map("order_id")
-  interactionId    Int             @map("interaction_id")
+  id               Int                 @id @default(autoincrement())
+  orderId          Int                 @map("order_id")
+  interactionId    Int                 @map("interaction_id")
   severity         String
-  alertMessage     String          @map("alert_message")
-  isAcknowledged   Boolean         @default(false) @map("is_acknowledged")
-  acknowledgedBy   String?         @map("acknowledged_by") @db.Uuid
-  acknowledgedAt   DateTime?       @map("acknowledged_at")
-  consultationNote String?         @map("consultation_note")
-  displayCount     Int             @default(0) @map("display_count")
-  lastDisplayedAt  DateTime?       @map("last_displayed_at")
-  createdAt        DateTime        @default(now()) @map("created_at")
-  interaction      DrugInteraction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
-  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  staff            User?           @relation(fields: [acknowledgedBy], references: [id])
+  alertMessage     String              @map("alert_message")
+  isAcknowledged   Boolean             @default(false) @map("is_acknowledged")
+  acknowledgedBy   String?             @map("acknowledged_by") @db.Uuid
+  acknowledgedAt   DateTime?           @map("acknowledged_at")
+  consultationNote String?             @map("consultation_note")
+  displayCount     Int                 @default(0) @map("display_count")
+  lastDisplayedAt  DateTime?           @map("last_displayed_at")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  interaction      DrugInteractionRule @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+  order            Order               @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  staff            User?               @relation(fields: [acknowledgedBy], references: [id])
 
   @@map("interaction_alerts")
 }

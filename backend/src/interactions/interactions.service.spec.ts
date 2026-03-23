@@ -16,7 +16,7 @@ describe('InteractionsService', () => {
             medicine: {
               findMany: jest.fn(),
             },
-            drugInteraction: {
+            drugInteractionRule: {
               findMany: jest.fn(),
             },
           },
@@ -56,7 +56,7 @@ describe('InteractionsService', () => {
         },
       ]);
 
-      (prismaService.drugInteraction.findMany as jest.Mock).mockResolvedValue([
+      (prismaService.drugInteractionRule.findMany as jest.Mock).mockResolvedValue([
         {
           id: 1,
           activeIngredientAId: 101,
@@ -75,7 +75,7 @@ describe('InteractionsService', () => {
         where: { id: { in: [1, 2] } },
         include: { ingredients: true },
       });
-      expect(prismaService.drugInteraction.findMany).toHaveBeenCalledWith({
+      expect(prismaService.drugInteractionRule.findMany).toHaveBeenCalledWith({
         where: { isActive: true },
         include: { activeIngredientA: true, activeIngredientB: true },
       });
