@@ -22,6 +22,7 @@ export class InteractionsService {
   }
 
   async createInteraction(dto: CreateDrugInteractionDto) {
+    // PAC-TASK-230: Validate that two active ingredients are not identical
     if (dto.activeIngredientAId === dto.activeIngredientBId) {
       throw new BadRequestException('Hai hoạt chất phải khác nhau');
     }
