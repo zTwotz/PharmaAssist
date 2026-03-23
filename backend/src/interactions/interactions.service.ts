@@ -74,6 +74,7 @@ export class InteractionsService {
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
@@ -107,6 +108,7 @@ export class InteractionsService {
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
@@ -136,6 +138,7 @@ export class InteractionsService {
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
