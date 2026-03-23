@@ -18,6 +18,7 @@ describe('InteractionsService', () => {
             },
             drugInteractionRule: {
               findMany: jest.fn(),
+              findUnique: jest.fn(),
             },
           },
         },
@@ -41,6 +42,15 @@ describe('InteractionsService', () => {
           severity: 'HIGH',
         }),
       ).rejects.toThrow('Hai hoạt chất phải khác nhau');
+    });
+  });
+
+  describe('updateInteraction', () => {
+    it('should throw BadRequestException if interaction rule does not exist', async () => {
+      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(null);
+      await expect(
+        service.updateInteraction(999, { severity: 'LOW' }),
+      ).rejects.toThrow('Luật tương tác không tồn tại');
     });
   });
 
