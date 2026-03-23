@@ -186,7 +186,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-231 — Implement update DrugInteraction Rule API | `PAC-441` | DONE | TO DO | `feature/PAC-441-task-231-implement-update-druginteraction-rule-api` | `f5e615a` | `#762` | `develop` | Merged | PASS | N/A | — | — |
-| PAC-TASK-232 — Implement deactivate DrugInteraction Rule API | `PAC-441` | DONE | — | `feature/PAC-441-T-232-deactivate-interaction-rule-api` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-232 — Implement deactivate DrugInteraction Rule API | `PAC-441` | DONE | TO DO | `feature/PAC-442-task-232-implement-deactivate-druginteraction-rule-api` | `55658ab` | `#763` | `develop` | Merged | PASS | N/A | — | — |
 | PAC-TASK-233 — Trigger Graph Sync event on interaction rule change | `PAC-442` | DONE | — | `feature/PAC-442-T-233-graph-sync-event-rule-change` | — | — | `story/PAC-109-US-70-update-deactivate-interaction-rule` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
