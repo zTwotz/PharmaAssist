@@ -153,7 +153,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | PAC-TASK-227 — Create drug_interaction_rules Prisma model | `PAC-437` | DONE | TO DO | `feature/PAC-437-task-227-create-drug-interaction-rules-prisma-model` | `c40e793` | `#758` | `develop` | Merged | PASS | N/A | — | — |
 | PAC-TASK-228 — Implement create ActiveIngredient-level interaction rule API | `PAC-438` | DONE | TO DO | `feature/PAC-438-task-228-implement-create-activeingredient-level-interaction` | `7704dc1` | `#759` | `develop` | Merged | PASS | N/A | — | — |
 | PAC-TASK-229 — Build DrugInteraction Rule management screen | `PAC-438` | DONE | TO DO | `feature/PAC-439-task-229-build-druginteraction-rule-management-screen` | `beed337` | `#760` | `develop` | Merged | PASS | N/A | — | — |
-| PAC-TASK-230 — Validate two ActiveIngredients in interaction rule | `PAC-439` | DONE | — | `feature/PAC-439-T-230-two-activeingredients-validation` | — | — | `story/PAC-108-US-69-create-activeingredient-interaction-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-230 — Validate two ActiveIngredients in interaction rule | `PAC-439` | DONE | TO DO | `feature/PAC-440-task-230-validate-two-active-ingredients-in-interaction-rule` | `683cae9` | `#761` | `develop` | Merged | PASS | N/A | — | — |
 
 ### Story completion checklist
 
