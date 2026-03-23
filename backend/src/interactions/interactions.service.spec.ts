@@ -54,6 +54,15 @@ describe('InteractionsService', () => {
     });
   });
 
+  describe('deactivateInteraction', () => {
+    it('should throw BadRequestException if interaction rule does not exist', async () => {
+      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(null);
+      await expect(
+        service.deactivateInteraction(999),
+      ).rejects.toThrow('Luật tương tác không tồn tại');
+    });
+  });
+
   describe('checkInteractions', () => {
     it('should return empty interactions if less than 2 medicines are provided', async () => {
       const result = await service.checkInteractions([1]);
