@@ -252,7 +252,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-235 — Implement derive interaction from Medicine ActiveIngredients | `PAC-444` | DONE | TO DO | `feature/PAC-445-task-235-implement-derive-interaction-from-medicine-active-i` | `82990a8` | `#766` | `develop` | Merged | PASS | N/A | — | — |
-| PAC-TASK-236 — Add tests for derived medicine interactions | `PAC-445` | DONE | — | `test/PAC-445-T-236-derived-interaction-tests` | — | — | `story/PAC-111-US-72-derive-interaction-from-activeingredients` | Merged | PASS | PASS | — | — |
+| PAC-TASK-236 — Add tests for derived medicine interactions | `PAC-445` | DONE | TO DO | `test/PAC-446-task-236-add-tests-for-derived-medicine-interactions` | `d950d77` | `#767` | `develop` | Merged | PASS | N/A | — | — |
 
 ### Story completion checklist
 
