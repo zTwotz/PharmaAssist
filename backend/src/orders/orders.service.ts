@@ -409,6 +409,7 @@ export class OrdersService {
     });
   }
 
+  // PAC-TASK-237: Implement Order interaction check service
   async checkAndPersistInteractions(orderId: number) {
     const result =
       await this.interactionsService.checkOrderInteractions(orderId);
