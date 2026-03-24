@@ -191,6 +191,7 @@ export class InteractionsService {
           (ing) => ing.activeIngredientId,
         );
 
+        // PAC-TASK-235: Derive interaction from medicine active ingredients
         for (const rule of activeRules) {
           const matchNormal =
             medAIngredients.includes(rule.activeIngredientAId) &&
