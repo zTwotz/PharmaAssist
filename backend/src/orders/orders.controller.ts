@@ -107,6 +107,7 @@ export class OrdersController {
     status: 200,
     description: 'Trả về danh sách các tương tác thuốc của đơn hàng.',
   })
+  // PAC-TASK-238: Implement POST /orders/{id}/interactions/check API
   async checkInteractions(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.checkAndPersistInteractions(id);
   }
