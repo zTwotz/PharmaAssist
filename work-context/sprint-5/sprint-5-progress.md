@@ -306,7 +306,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-237 — Implement Order interaction check service | `PAC-446` | DONE | — | `feature/PAC-446-T-237-order-interaction-check-service` | — | — | `story/PAC-112-US-73-order-interaction-check` | Merged | PASS | PASS | — | — |
+| PAC-TASK-237 — Implement Order interaction check service | `PAC-446` | DONE | TO DO | `feature/PAC-447-task-237-implement-order-interaction-check-service` | `ef6f2a9` | `#768` | `develop` | Merged | PASS | N/A | — | — |
 | PAC-TASK-238 — Implement POST /orders/{id}/interactions/check API | `PAC-447` | DONE | — | `feature/PAC-447-T-238-order-interactions-check-api` | — | — | `story/PAC-112-US-73-order-interaction-check` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
