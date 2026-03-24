@@ -339,7 +339,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-239 — Create interaction_alerts Prisma model | `PAC-448` | DONE | — | `feature/PAC-448-T-239-interaction-alerts-model` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-239 — Create interaction_alerts Prisma model | `PAC-448` | DONE | TO DO | `feature/PAC-449-task-239-create-interaction-alerts-prisma-model` | `609ad95` | `#770` | `develop` | Merged | PASS | PASS | — | — |
 | PAC-TASK-240 — Persist displayed InteractionAlert snapshot fields | `PAC-449` | DONE | — | `feature/PAC-449-T-240-persist-alert-snapshot-fields` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
 | PAC-TASK-255 — Add InteractionAlert lifecycle integration tests | `PAC-464` | DONE | — | `test/PAC-464-T-255-interaction-alert-lifecycle-tests` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
 | PAC-TASK-258 — Add InteractionAlert snapshot and traceability notes | `PAC-467` | DONE | — | `docs/PAC-467-T-258-interaction-alert-traceability-notes` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
