@@ -73,6 +73,7 @@ describe('InteractionsService', () => {
       });
     });
 
+    // PAC-TASK-236: Added tests for derived medicine interactions
     it('should derive interactions from medicine active ingredients correctly', async () => {
       (prismaService.medicine.findMany as jest.Mock).mockResolvedValue([
         {
