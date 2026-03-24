@@ -219,7 +219,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-234 — Validate severity enum LOW/MEDIUM/HIGH only | `PAC-443` | DONE | — | `feature/PAC-443-T-234-severity-enum-validation` | — | — | `story/PAC-110-US-71-validate-interaction-severity` | Merged | PASS | PASS | — | — |
+| PAC-TASK-234 — Validate severity enum LOW/MEDIUM/HIGH only | `PAC-443` | DONE | TO DO | `feature/PAC-444-task-234-validate-severity-enum-low-medium-high-only` | `aa981f6` | `#765` | `develop` | Merged | PASS | N/A | — | — |
 
 ### Story completion checklist
 
