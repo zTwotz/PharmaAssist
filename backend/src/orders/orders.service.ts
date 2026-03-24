@@ -421,6 +421,7 @@ export class OrdersService {
     // Persist InteractionAlert for each interaction
     // Only persist if it doesn't already exist for this order and interaction rule
     for (const interaction of result.interactions) {
+      // PAC-TASK-241: Enforce one active alert per Order and interaction rule
       const existingAlert = await this.prisma.interactionAlert.findFirst({
         where: {
           orderId: orderId,
