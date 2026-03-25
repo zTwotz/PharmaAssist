@@ -47,7 +47,9 @@ describe('InteractionsService', () => {
 
   describe('updateInteraction', () => {
     it('should throw BadRequestException if interaction rule does not exist', async () => {
-      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(null);
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(null);
       await expect(
         service.updateInteraction(999, { severity: 'LOW' }),
       ).rejects.toThrow('Luật tương tác không tồn tại');
@@ -56,10 +58,12 @@ describe('InteractionsService', () => {
 
   describe('deactivateInteraction', () => {
     it('should throw BadRequestException if interaction rule does not exist', async () => {
-      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(null);
-      await expect(
-        service.deactivateInteraction(999),
-      ).rejects.toThrow('Luật tương tác không tồn tại');
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(null);
+      await expect(service.deactivateInteraction(999)).rejects.toThrow(
+        'Luật tương tác không tồn tại',
+      );
     });
   });
 
@@ -88,7 +92,9 @@ describe('InteractionsService', () => {
         },
       ]);
 
-      (prismaService.drugInteractionRule.findMany as jest.Mock).mockResolvedValue([
+      (
+        prismaService.drugInteractionRule.findMany as jest.Mock
+      ).mockResolvedValue([
         {
           id: 1,
           activeIngredientAId: 101,

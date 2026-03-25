@@ -1,13 +1,12 @@
 import { Type } from 'class-transformer';
-import { 
-  IsEnum, 
-  IsInt, 
-  IsNotEmpty, 
-  IsOptional, 
-  IsString, 
-  Min, 
+import {
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Min,
   ValidateNested,
-  ValidateIf
+  ValidateIf,
 } from 'class-validator';
 
 export enum PaymentMethod {
@@ -20,13 +19,13 @@ export class PaymentDto {
   @IsNotEmpty()
   method: PaymentMethod;
 
-  @ValidateIf(o => o.method === PaymentMethod.CASH)
+  @ValidateIf((o) => o.method === PaymentMethod.CASH)
   @IsInt()
   @Min(0)
   @IsNotEmpty()
   amountTendered?: number;
 
-  @ValidateIf(o => o.method === PaymentMethod.BANK_TRANSFER_SIMULATION)
+  @ValidateIf((o) => o.method === PaymentMethod.BANK_TRANSFER_SIMULATION)
   @IsString()
   @IsNotEmpty()
   transactionReference?: string;
