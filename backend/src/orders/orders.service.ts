@@ -433,6 +433,7 @@ export class OrdersService {
           data: {
             orderId: orderId,
             interactionId: interaction.ruleId,
+            // PAC-TASK-240: Persist displayed InteractionAlert snapshot fields
             severity: interaction.severity,
             alertMessage: `Tương tác thuốc: ${interaction.activeIngredientAName} và ${interaction.activeIngredientBName} - Mức độ: ${interaction.severity}. Cảnh báo: ${interaction.description}`,
             displayCount: 1,
