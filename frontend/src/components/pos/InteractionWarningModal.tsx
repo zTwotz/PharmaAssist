@@ -189,3 +189,4 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
     </div>
   );
 }
+// PAC-TASK-243: build POS InteractionAlert panel
