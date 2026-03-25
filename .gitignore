@@ -53,3 +53,8 @@ tools/data-collector/logs/
 /database/output/
 /database/state/
 
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
