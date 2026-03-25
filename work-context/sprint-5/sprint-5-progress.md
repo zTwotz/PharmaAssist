@@ -374,7 +374,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-241 — Enforce one active alert per Order and interaction rule | `PAC-450` | DONE | — | `feature/PAC-450-T-241-one-active-alert-per-order-rule` | — | — | `story/PAC-114-US-75-one-active-alert-per-order-rule` | Merged | PASS | PASS | — | — |
+| PAC-TASK-241 — Enforce one active alert per Order and interaction rule | `PAC-450` | DONE | TO DO | `feature/PAC-451-TASK-241-snapshot` | `9105453` | `#773` | `develop` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -406,7 +406,7 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-242 — Update display_count and last_displayed_at | `PAC-451` | DONE | — | `feature/PAC-451-T-242-update-display-count-last-displayed` | — | — | `story/PAC-115-US-76-interaction-alert-display-count` | Merged | PASS | PASS | — | — |
+| PAC-TASK-242 — Update display_count and last_displayed_at | `PAC-451` | DONE | TO DO | `feature/PAC-452-TASK-242-snapshot` | `a542f98` | `#774` | `develop` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
