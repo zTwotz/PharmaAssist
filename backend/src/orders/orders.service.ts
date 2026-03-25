@@ -441,6 +441,7 @@ export class OrdersService {
           },
         });
       } else {
+        // PAC-TASK-242: Update display_count and last_displayed_at
         await this.prisma.interactionAlert.update({
           where: { id: existingAlert.id },
           data: {
