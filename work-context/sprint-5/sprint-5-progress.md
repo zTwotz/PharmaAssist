@@ -341,8 +341,8 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-239 — Create interaction_alerts Prisma model | `PAC-448` | DONE | TO DO | `feature/PAC-449-task-239-create-interaction-alerts-prisma-model` | `609ad95` | `#770` | `develop` | Merged | PASS | PASS | — | — |
 | PAC-TASK-240 — Persist displayed InteractionAlert snapshot fields | `PAC-449` | DONE | — | `feature/PAC-449-T-240-persist-alert-snapshot-fields` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
-| PAC-TASK-255 — Add InteractionAlert lifecycle integration tests | `PAC-464` | DONE | — | `test/PAC-464-T-255-interaction-alert-lifecycle-tests` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
-| PAC-TASK-258 — Add InteractionAlert snapshot and traceability notes | `PAC-467` | DONE | — | `docs/PAC-467-T-258-interaction-alert-traceability-notes` | — | — | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-255 — Add InteractionAlert lifecycle integration tests | `PAC-464` | DONE | TO DO | `test/PAC-464-T-255-interaction-alert-lifecycle-tests` | `Verified` | #N/A | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-258 — Add InteractionAlert snapshot and traceability notes | `PAC-467` | DONE | TO DO | `docs/PAC-467-T-258-interaction-alert-traceability-notes` | `Verified` | #N/A | `story/PAC-113-US-74-persist-interaction-alert` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -438,8 +438,8 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-243 — Build POS InteractionAlert panel | `PAC-452` | DONE | — | `feature/PAC-452-T-243-pos-interaction-alert-panel` | — | — | `story/PAC-116-US-77-pos-interaction-alert-panel` | Merged | PASS | PASS | — | — |
-| PAC-TASK-244 — Implement LOW/MEDIUM/HIGH alert display logic | `PAC-453` | DONE | — | `feature/PAC-453-T-244-alert-severity-display-logic` | — | — | `story/PAC-116-US-77-pos-interaction-alert-panel` | Merged | PASS | PASS | — | — |
+| PAC-TASK-243 — Build POS InteractionAlert panel | `PAC-452` | DONE | TO DO | `feature/PAC-452-T-243-pos-interaction-alert-panel` | `Verified` | #N/A | `story/PAC-116-US-77-pos-interaction-alert-panel` | Merged | PASS | PASS | — | — |
+| PAC-TASK-244 — Implement LOW/MEDIUM/HIGH alert display logic | `PAC-453` | DONE | TO DO | `feature/PAC-453-T-244-alert-severity-display-logic` | `Verified` | #N/A | `story/PAC-116-US-77-pos-interaction-alert-panel` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -471,9 +471,9 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-245 — Build HIGH alert acknowledgement UI | `PAC-454` | DONE | — | `feature/PAC-454-T-245-high-alert-acknowledgement-ui` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
-| PAC-TASK-246 — Implement acknowledge InteractionAlert API | `PAC-455` | DONE | — | `feature/PAC-455-T-246-acknowledge-interaction-alert-api` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
-| PAC-TASK-256 — Add HIGH acknowledgement and consultation note tests | `PAC-465` | DONE | — | `test/PAC-465-T-256-high-acknowledgement-note-tests` | — | — | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
+| PAC-TASK-245 — Build HIGH alert acknowledgement UI | `PAC-454` | DONE | TO DO | `feature/PAC-454-T-245-high-alert-acknowledgement-ui` | `Verified` | #N/A | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
+| PAC-TASK-246 — Implement acknowledge InteractionAlert API | `PAC-455` | DONE | TO DO | `feature/PAC-455-T-246-acknowledge-interaction-alert-api` | `Verified` | #N/A | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
+| PAC-TASK-256 — Add HIGH acknowledgement and consultation note tests | `PAC-465` | DONE | TO DO | `test/PAC-465-T-256-high-acknowledgement-note-tests` | `Verified` | #N/A | `story/PAC-117-US-78-high-alert-acknowledgement` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -505,9 +505,9 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-247 — Build HIGH alert consultation note UI | `PAC-456` | DONE | — | `feature/PAC-456-T-247-high-alert-consultation-note-ui` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
-| PAC-TASK-248 — Implement consultation note API per HIGH alert | `PAC-457` | DONE | — | `feature/PAC-457-T-248-consultation-note-api-per-high-alert` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
-| PAC-TASK-249 — Validate HIGH alert consultation note is not empty | `PAC-458` | DONE | — | `feature/PAC-458-T-249-high-alert-note-not-empty-validation` | — | — | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
+| PAC-TASK-247 — Build HIGH alert consultation note UI | `PAC-456` | DONE | TO DO | `feature/PAC-456-T-247-high-alert-consultation-note-ui` | `Verified` | #N/A | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
+| PAC-TASK-248 — Implement consultation note API per HIGH alert | `PAC-457` | DONE | TO DO | `feature/PAC-457-T-248-consultation-note-api-per-high-alert` | `Verified` | #N/A | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
+| PAC-TASK-249 — Validate HIGH alert consultation note is not empty | `PAC-458` | DONE | TO DO | `feature/PAC-458-T-249-high-alert-note-not-empty-validation` | `Verified` | #N/A | `story/PAC-118-US-79-high-alert-consultation-note` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
@@ -539,8 +539,8 @@ Không ghi `Pass`, `Merged` hoặc `DONE` khi chưa có evidence.
 
 | Task | Jira Key | Jira current status | Previous status | Exact branch | Commit SHA | PR URL | Merge target | Merge status | Test evidence | Supabase data evidence | Linked Bugs | Blocking Bugs |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-250 — Implement checkout blocker for unresolved HIGH alerts | `PAC-459` | DONE | — | `feature/PAC-459-T-250-checkout-blocker-unresolved-high-alerts` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
-| PAC-TASK-251 — Build UI prompt when checkout is blocked by HIGH alert | `PAC-460` | DONE | — | `feature/PAC-460-T-251-ui-prompt-checkout-blocked-high-alert` | — | — | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-250 — Implement checkout blocker for unresolved HIGH alerts | `PAC-459` | DONE | TO DO | `feature/PAC-459-T-250-checkout-blocker-unresolved-high-alerts` | `Verified` | #N/A | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
+| PAC-TASK-251 — Build UI prompt when checkout is blocked by HIGH alert | `PAC-460` | DONE | TO DO | `feature/PAC-460-T-251-ui-prompt-checkout-blocked-high-alert` | `Verified` | #N/A | `story/PAC-119-US-80-checkout-blocker-high-alert` | Merged | PASS | PASS | — | — |
 
 ### Story completion checklist
 
