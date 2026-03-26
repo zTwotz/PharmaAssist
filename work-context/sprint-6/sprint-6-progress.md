@@ -227,7 +227,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-262 — Validate checkout actor permission and order ownership | `PAC-472` | Not started | `feature/PAC-472-task-262-validate-checkout-actor-permission-and-order-owners` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-262 — Validate checkout actor permission and order ownership | `PAC-472` | DONE | `feature/PAC-472-task-262-validate-checkout-actor-permission-and-order-owners` | `67fe5ef` | `#779` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
