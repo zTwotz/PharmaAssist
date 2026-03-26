@@ -117,23 +117,60 @@ export class CheckoutService {
     });
   }
 
-  /**
-   * PAC-TASK-268: FEFO Allocation model method
-   * @param tx Prisma transaction client
-   * @param storeId Store ID to allocate from
-   * @param items List of items to allocate
-   * @returns FefoAllocationResult array
-   */
-
-  private allocateFEFO(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private async allocateFEFO(
     tx: any,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     storeId: number,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     items: FefoAllocationItem[],
-  ): FefoAllocationResult[] {
-    // Implementation will be done in subsequent tasks
-    return [];
+  ): Promise<FefoAllocationResult[]> {
+    const results: FefoAllocationResult[] = [];
+
+    const warehouse = await tx.warehouse.findFirst({
+      where: { storeId },
+    });
+
+    if (!warehouse) {
+      throw new BadRequestException(
+        `Store ${storeId} has no warehouse for FEFO allocation`,
+      );
+    }
+
+    for (const item of items) {
+      const variant = await tx.productVariant.findUnique({
+        where: { id: item.productVariantId },
+      });
+
+      if (!variant) {
+        throw new BadRequestException(
+          `Variant ${item.productVariantId} not found`,
+        );
+      }
+
+      const medicine = await tx.medicine.findFirst({
+        where: { productId: variant.productId },
+      });
+
+      // If it's not a medicine, we skip FEFO allocation (or handle it differently if needed)
+      if (!medicine) {
+        continue;
+      }
+
+      // PAC-TASK-269: Query sellable MedicineBatch for FEFO
+      // PAC-TASK-270: Sort FEFO batches by nearest expiry date
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const batches = await tx.medicineBatch.findMany({
+        where: {
+          warehouseId: warehouse.id,
+          medicineId: medicine.id,
+          quantity: { gt: 0 },
+        },
+        orderBy: {
+          expiryDate: 'asc',
+        },
+      });
+
+      // PAC-TASK-271: Allocate requested quantity across multiple batches
+    }
+
+    return results;
   }
 }
