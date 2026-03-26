@@ -329,7 +329,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-265 — Validate sellable stock inside checkout transaction | `PAC-475` | Not started | `feature/PAC-475-task-265-validate-sellable-stock-inside-checkout-transaction` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-265 — Validate sellable stock inside checkout transaction | `PAC-475` | DONE | `feature/PAC-475-task-265-validate-sellable-stock-inside-checkout-transaction` | `df37fd8` | `#782` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
