@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { CheckoutDto } from './dto/checkout.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { FefoAllocationItem, FefoAllocationResult } from './checkout.types';
 
 @Injectable()
 export class CheckoutService {
@@ -114,5 +115,25 @@ export class CheckoutService {
         },
       };
     });
+  }
+
+  /**
+   * PAC-TASK-268: FEFO Allocation model method
+   * @param tx Prisma transaction client
+   * @param storeId Store ID to allocate from
+   * @param items List of items to allocate
+   * @returns FefoAllocationResult array
+   */
+
+  private allocateFEFO(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    tx: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    storeId: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    items: FefoAllocationItem[],
+  ): FefoAllocationResult[] {
+    // Implementation will be done in subsequent tasks
+    return [];
   }
 }
