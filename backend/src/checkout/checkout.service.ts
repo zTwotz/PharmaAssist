@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { CheckoutDto } from './dto/checkout.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -6,7 +10,11 @@ import { PrismaService } from '../prisma/prisma.service';
 export class CheckoutService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async checkout(userId: string, idempotencyKey: string, dto: CheckoutDto) {
+  async checkout(
+    user: { id: string; permissions: string[] },
+    idempotencyKey: string,
+    dto: CheckoutDto,
+  ) {
     // Implement Checkout transaction skeleton
     return this.prisma.$transaction(async (tx) => {
       // 1. Check idempotency (PAC-TASK-267)
@@ -22,6 +30,14 @@ export class CheckoutService {
       }
 
       // 3. Permission & Ownership (PAC-TASK-262)
+      const hasExecuteAll = user.permissions.includes('checkout.execute_all');
+      if (!hasExecuteAll) {
+        if (order.staffUserId !== user.id) {
+          throw new ForbiddenException(
+            'You do not have permission to checkout this order',
+          );
+        }
+      }
 
       // 4. Validate DRAFT status (PAC-TASK-263)
 
