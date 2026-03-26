@@ -261,7 +261,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-263 — Validate order exists and status is DRAFT | `PAC-473` | Not started | `feature/PAC-473-task-263-validate-order-exists-and-status-is-draft` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-263 — Validate order exists and status is DRAFT | `PAC-473` | DONE | `feature/PAC-473-task-263-validate-order-exists-and-status-is-draft` | `963247a` | `#780` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
