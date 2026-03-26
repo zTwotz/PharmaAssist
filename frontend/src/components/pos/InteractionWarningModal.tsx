@@ -5,23 +5,32 @@ import { AlertTriangle, X, ShieldAlert } from 'lucide-react';
 
 export interface InteractionData {
   id: number;
-  severity: string;
+  severity: 'LOW' | 'MEDIUM' | 'HIGH';
   medicineA: { id: number; name: string };
   medicineB: { id: number; name: string };
   description: string;
   recommendation: string;
+  acknowledged?: boolean;
+  consultationNote?: string;
 }
 
 interface Props {
   interactions: InteractionData[];
   onClose: () => void;
-  onAcknowledge: () => void;
+  onAcknowledge: (alertData: { interactionId: number; note: string; }[]) => void;
   onRemoveItem: (id: string) => void;
   cartItems: any[]; // To find cart id from medicine id
 }
 
 export function InteractionWarningModal({ interactions, onClose, onAcknowledge, onRemoveItem, cartItems }: Props) {
+  const [notes, setNotes] = React.useState<Record<number, string>>({});
+  const [acks, setAcks] = React.useState<Record<number, boolean>>({});
+
   if (interactions.length === 0) return null;
+
+  const highInteractions = interactions.filter(i => i.severity === 'HIGH');
+  const allHighAcknowledged = highInteractions.every(i => acks[i.id] && notes[i.id]?.trim().length > 0);
+
 
   const handleRemoveMedicine = (medicineId: number) => {
     // Find the cart item with this medicineId
@@ -31,7 +40,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
     }
   };
 
-  const hasSevere = interactions.some(i => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng');
+  const hasSevere = interactions.some(i => i.severity === 'HIGH');
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -57,15 +66,18 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
         <div className="flex-1 overflow-auto p-4 space-y-4 bg-slate-50">
           {interactions.map((interaction, idx) => (
             <div key={idx} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 relative overflow-hidden">
-              <div className={`absolute top-0 left-0 w-1 h-full ${interaction.severity === 'SEVERE' || interaction.severity === 'Nghiêm trọng' ? 'bg-red-500' : 'bg-orange-400'}`}></div>
+              <div className={`absolute top-0 left-0 w-1 h-full ${
+                interaction.severity === 'HIGH' ? 'bg-red-500' : 
+                interaction.severity === 'MEDIUM' ? 'bg-orange-400' : 'bg-yellow-400'
+              }`}></div>
               
               <div className="flex gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase ${
-                      interaction.severity === 'SEVERE' || interaction.severity === 'Nghiêm trọng' 
-                        ? 'bg-red-100 text-red-700' 
-                        : 'bg-orange-100 text-orange-700'
+                      interaction.severity === 'HIGH' ? 'bg-red-100 text-red-700' :
+                      interaction.severity === 'MEDIUM' ? 'bg-orange-100 text-orange-700' :
+                      'bg-yellow-100 text-yellow-800'
                     }`}>
                       {interaction.severity}
                     </span>
@@ -98,6 +110,32 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                   </button>
                 </div>
               </div>
+              {interaction.severity === 'HIGH' && (
+                <div className="mt-4 pt-4 border-t border-red-100 bg-red-50/50 -mx-4 -mb-4 p-4 rounded-b-xl flex flex-col gap-3">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      className="mt-1 w-5 h-5 text-red-600 rounded border-red-300 focus:ring-red-500"
+                      checked={!!acks[interaction.id]}
+                      onChange={(e) => setAcks(prev => ({ ...prev, [interaction.id]: e.target.checked }))}
+                    />
+                    <span className="text-sm text-red-900 font-medium">
+                      Tôi xác nhận đã thông báo cho khách hàng về rủi ro này và chịu trách nhiệm chuyên môn.
+                    </span>
+                  </label>
+                  {acks[interaction.id] && (
+                    <div className="pl-8">
+                      <textarea
+                        className="w-full text-sm rounded-lg border-red-200 focus:border-red-500 focus:ring-red-500 p-2"
+                        rows={2}
+                        placeholder="Ghi chú tư vấn (Bắt buộc)..."
+                        value={notes[interaction.id] || ''}
+                        onChange={(e) => setNotes(prev => ({ ...prev, [interaction.id]: e.target.value }))}
+                      ></textarea>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
           
@@ -110,25 +148,45 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-white border-t border-slate-200 flex justify-end gap-3 shrink-0">
-          <button 
-            onClick={onClose}
-            className="px-5 py-2 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-colors"
-          >
-            Sửa lại giỏ hàng
-          </button>
-          <button 
-            onClick={onAcknowledge}
-            className={`px-5 py-2 rounded-xl text-white font-bold transition-all flex items-center gap-2 ${
-              hasSevere 
-                ? 'bg-red-600 hover:bg-red-700 shadow-md shadow-red-200' 
-                : 'bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-200'
-            }`}
-          >
-            TÔI XÁC NHẬN BỎ QUA CẢNH BÁO
-          </button>
+        <div className="p-4 bg-white border-t border-slate-200 flex justify-between items-center shrink-0">
+          <div className="text-sm text-slate-500">
+            {highInteractions.length > 0 && !allHighAcknowledged && (
+              <span className="text-red-500 font-medium flex items-center gap-1">
+                <AlertTriangle size={16} />
+                Vui lòng xác nhận và ghi chú cho tất cả cảnh báo HIGH.
+              </span>
+            )}
+          </div>
+          <div className="flex gap-3">
+            <button 
+              onClick={onClose}
+              className="px-5 py-2 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-colors"
+            >
+              Sửa lại giỏ hàng
+            </button>
+            <button 
+              onClick={() => {
+                const payload = highInteractions.map(i => ({
+                  interactionId: i.id,
+                  note: notes[i.id] || ''
+                }));
+                onAcknowledge(payload);
+              }}
+              disabled={highInteractions.length > 0 && !allHighAcknowledged}
+              className={`px-5 py-2 rounded-xl text-white font-bold transition-all flex items-center gap-2 ${
+                (highInteractions.length > 0 && !allHighAcknowledged)
+                  ? 'bg-slate-300 cursor-not-allowed shadow-none text-slate-500'
+                  : hasSevere 
+                  ? 'bg-red-600 hover:bg-red-700 shadow-md shadow-red-200' 
+                  : 'bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-200'
+              }`}
+            >
+              TÔI XÁC NHẬN BỎ QUA CẢNH BÁO
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+// PAC-TASK-243: build POS InteractionAlert panel
