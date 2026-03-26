@@ -364,7 +364,7 @@ Supabase verification = N/A — no persistent data impact
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-268 — Define FEFO allocation input/output model | `PAC-478` | DONE | `feature/PAC-478-task-268-define-fefo-allocation-input-output-model` | `4628ea8` | `#785` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-269 — Query sellable MedicineBatch for FEFO | `PAC-479` | Not started | `feature/PAC-479-task-269-query-sellable-medicinebatch-for-fefo` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-269 — Query sellable MedicineBatch for FEFO | `PAC-479` | DONE | `feature/PAC-479-task-269-query-sellable-medicinebatch-for-fefo` | `ade6f1d` | `#786` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-270 — Sort FEFO batches by nearest expiry date | `PAC-480` | Not started | `feature/PAC-480-task-270-sort-fefo-batches-by-nearest-expiry-date` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-271 — Allocate requested quantity across multiple batches | `PAC-481` | Not started | `feature/PAC-481-task-271-allocate-requested-quantity-across-multiple-batches` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-272 — Reject FEFO allocation when sellable stock is insufficient | `PAC-482` | Not started | `feature/PAC-482-task-272-reject-fefo-allocation-when-sellable-stock-is-insuf` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
