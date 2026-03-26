@@ -295,7 +295,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-264 — Validate unresolved HIGH alerts before payment | `PAC-474` | Not started | `feature/PAC-474-task-264-validate-unresolved-high-alerts-before-payment` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-264 — Validate unresolved HIGH alerts before payment | `PAC-474` | DONE | `feature/PAC-474-task-264-validate-unresolved-high-alerts-before-payment` | `37deb6f` | `#781` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
