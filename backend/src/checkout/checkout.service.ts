@@ -58,6 +58,41 @@ export class CheckoutService {
       }
 
       // 6. Sellable stock validation (PAC-TASK-265)
+      for (const item of order.details) {
+        // Find inventory for this variant at the order's store
+        const inventory = await tx.inventory.findFirst({
+          where: {
+            storeId: order.storeId,
+            productVariantId: item.productVariantId,
+          },
+        });
+
+        const totalStock = inventory ? inventory.quantity : 0;
+
+        // Find sum of quantities in OTHER draft orders
+        const otherDrafts = await tx.orderDetail.aggregate({
+          _sum: {
+            quantity: true,
+          },
+          where: {
+            productVariantId: item.productVariantId,
+            orderId: { not: order.id },
+            order: {
+              storeId: order.storeId,
+              status: 'DRAFT',
+            },
+          },
+        });
+
+        const draftReserved = otherDrafts._sum.quantity || 0;
+        const sellableStock = totalStock - draftReserved;
+
+        if (item.quantity > sellableStock) {
+          throw new BadRequestException(
+            `Cannot checkout: Item quantity ${item.quantity} exceeds sellable stock ${sellableStock} for variant ${item.productVariantId}`,
+          );
+        }
+      }
 
       // 7. FEFO Allocation (PAC-TASK-268 to 273)
 
