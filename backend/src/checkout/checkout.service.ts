@@ -22,7 +22,7 @@ export class CheckoutService {
       // 2. Lock or read order (PAC-TASK-263)
       const order = await tx.order.findUnique({
         where: { id: dto.orderId },
-        include: { items: true },
+        include: { details: true },
       });
 
       if (!order) {
@@ -40,6 +40,12 @@ export class CheckoutService {
       }
 
       // 4. Validate DRAFT status (PAC-TASK-263)
+      if (order.status !== 'DRAFT') {
+        throw new BadRequestException('Order status is not DRAFT');
+      }
+      if (!order.details || order.details.length === 0) {
+        throw new BadRequestException('Order has no items');
+      }
 
       // 5. HIGH alert gate (PAC-TASK-264)
 
