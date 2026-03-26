@@ -22,7 +22,7 @@ export class CheckoutService {
       // 2. Lock or read order (PAC-TASK-263)
       const order = await tx.order.findUnique({
         where: { id: dto.orderId },
-        include: { details: true },
+        include: { details: true, interactionAlerts: true },
       });
 
       if (!order) {
@@ -48,6 +48,14 @@ export class CheckoutService {
       }
 
       // 5. HIGH alert gate (PAC-TASK-264)
+      const hasUnresolvedHighAlerts = order.interactionAlerts?.some(
+        (alert) => alert.severity === 'HIGH' && !alert.isAcknowledged,
+      );
+      if (hasUnresolvedHighAlerts) {
+        throw new BadRequestException(
+          'Cannot checkout: Order has unresolved HIGH severity interaction alerts',
+        );
+      }
 
       // 6. Sellable stock validation (PAC-TASK-265)
 
