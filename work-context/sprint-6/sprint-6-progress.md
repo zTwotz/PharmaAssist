@@ -403,7 +403,7 @@ Supabase verification = N/A — no persistent data impact
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-273 — Create order_batch_allocations Prisma model | `PAC-483` | DONE | `feature/PAC-483-task-273-create-order-batch-allocations-prisma-model` | `41a4cbb` | `#789` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-274 — Persist order_batch_allocations during checkout | `PAC-484` | Not started | `feature/PAC-484-task-274-persist-order-batch-allocations-during-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-274 — Persist order_batch_allocations during checkout | `PAC-484` | DONE | `feature/PAC-484-task-274-persist-order-batch-allocations-during-checkout` | `c20638e` | `#790` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -437,7 +437,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-275 — Deduct MedicineBatch quantities inside checkout transaction | `PAC-485` | Not started | `feature/PAC-485-task-275-deduct-medicinebatch-quantities-inside-checkout-tra` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-275 — Deduct MedicineBatch quantities inside checkout transaction | `PAC-485` | DONE | `feature/PAC-485-task-275-deduct-medicinebatch-quantities-inside-checkout-tra` | `c20638e` | `#790` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
