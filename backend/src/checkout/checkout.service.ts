@@ -5,7 +5,11 @@ import {
 } from '@nestjs/common';
 import { CheckoutDto } from './dto/checkout.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { FefoAllocationItem, FefoAllocationResult } from './checkout.types';
+import {
+  FefoAllocationItem,
+  FefoAllocationResult,
+  AllocatedBatch,
+} from './checkout.types';
 
 @Injectable()
 export class CheckoutService {
@@ -156,7 +160,7 @@ export class CheckoutService {
 
       // PAC-TASK-269: Query sellable MedicineBatch for FEFO
       // PAC-TASK-270: Sort FEFO batches by nearest expiry date
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const batches = await tx.medicineBatch.findMany({
         where: {
           warehouseId: warehouse.id,
@@ -170,6 +174,37 @@ export class CheckoutService {
       });
 
       // PAC-TASK-271: Allocate requested quantity across multiple batches
+      let remainingQuantity = item.requiredQuantity;
+      const allocations: AllocatedBatch[] = [];
+
+      for (const batch of batches) {
+        if (remainingQuantity <= 0) break;
+
+        const allocateQty = Math.min(batch.quantity, remainingQuantity);
+        if (allocateQty > 0) {
+          allocations.push({
+            batchId: batch.id,
+            quantity: allocateQty,
+          });
+          remainingQuantity -= allocateQty;
+        }
+      }
+
+      const isFulfilled = remainingQuantity === 0;
+
+      // PAC-TASK-272: Reject FEFO allocation when sellable stock is insufficient
+      if (!isFulfilled) {
+        throw new BadRequestException(
+          `Insufficient batches to allocate ${item.requiredQuantity} for variant ${item.productVariantId}. Shortage: ${remainingQuantity}`,
+        );
+      }
+
+      results.push({
+        productVariantId: item.productVariantId,
+        isFulfilled,
+        allocations,
+        shortage: remainingQuantity,
+      });
     }
 
     return results;
