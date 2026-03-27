@@ -32,6 +32,7 @@ model User {
   userRoles            UserRole[]
   inventoryAdjustments InventoryAdjustment[]
   acknowledgedAlerts   InteractionAlert[]
+  idempotencyRecords   IdempotencyRecord[]
 
   @@map("users")
 }
@@ -1599,4 +1600,29 @@ model InventoryAdjustmentLine {
   medicineBatch MedicineBatch       @relation(fields: [medicineBatchId], references: [id])
 
   @@map("inventory_adjustment_lines")
+}
+
+enum IdempotencyStatus {
+  PROCESSING
+  SUCCEEDED
+  FAILED
+}
+
+model IdempotencyRecord {
+  id              String            @id @default(uuid()) @db.Uuid
+  idempotencyKey  String            @map("idempotency_key")
+  userId          String            @map("user_id") @db.Uuid
+  operation       String
+  requestHash     String            @map("request_hash")
+  status          IdempotencyStatus
+  resourceType    String?           @map("resource_type")
+  resourceId      String?           @map("resource_id")
+  responseSummary Json?             @map("response_summary")
+  errorCode       String?           @map("error_code")
+  createdAt       DateTime          @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, operation, idempotencyKey])
+  @@map("idempotency_records")
 }
