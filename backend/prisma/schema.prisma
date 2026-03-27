@@ -718,6 +718,7 @@ model MedicineBatch {
   medicine                 Medicine                  @relation(fields: [medicineId], references: [id], onDelete: Cascade)
   warehouse                Warehouse                 @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
   inventoryAdjustmentLines InventoryAdjustmentLine[]
+  orderBatchAllocations    OrderBatchAllocation[]
 
   @@unique([medicineId, batchNumber, expiryDate])
   @@index([medicineId])
@@ -1018,8 +1019,22 @@ model OrderDetail {
   productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
   refundDetails    RefundDetail[]
   shipmentItems    ShipmentItem[]
+  allocations      OrderBatchAllocation[]
 
   @@map("order_details")
+}
+
+model OrderBatchAllocation {
+  id              Int           @id @default(autoincrement())
+  orderDetailId   Int           @map("order_detail_id")
+  medicineBatchId Int           @map("medicine_batch_id")
+  quantity        Int
+  createdAt       DateTime      @default(now()) @map("created_at")
+
+  orderDetail     OrderDetail   @relation(fields: [orderDetailId], references: [id], onDelete: Cascade)
+  medicineBatch   MedicineBatch @relation(fields: [medicineBatchId], references: [id])
+
+  @@map("order_batch_allocations")
 }
 
 model OrderStatusHistory {
