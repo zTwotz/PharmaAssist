@@ -164,6 +164,7 @@ export class CheckoutService {
           quantity: { gt: 0 },
         },
         orderBy: {
+          // Sorted by nearest expiry date for FEFO (PAC-TASK-270)
           expiryDate: 'asc',
         },
       });
