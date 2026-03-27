@@ -100,10 +100,41 @@ export class CheckoutService {
       }
 
       // 7. FEFO Allocation (PAC-TASK-268 to 273)
+      const allocationItems = order.details.map((d) => ({
+        productVariantId: d.productVariantId,
+        requiredQuantity: d.quantity,
+      }));
+      const fefoResults = await this.allocateFEFO(
+        tx,
+        order.storeId,
+        allocationItems,
+      );
 
       // 8. OrderBatchAllocation persistence (PAC-TASK-274)
-
       // 9. MedicineBatch deduction (PAC-TASK-275)
+      for (const fefo of fefoResults) {
+        const detail = order.details.find(
+          (d) => d.productVariantId === fefo.productVariantId,
+        );
+        if (!detail) continue;
+
+        for (const alloc of fefo.allocations) {
+          await tx.orderBatchAllocation.create({
+            data: {
+              orderDetailId: detail.id,
+              medicineBatchId: alloc.batchId,
+              quantity: alloc.quantity,
+            },
+          });
+
+          await tx.medicineBatch.update({
+            where: { id: alloc.batchId },
+            data: {
+              quantity: { decrement: alloc.quantity },
+            },
+          });
+        }
+      }
 
       // 10. Payment persistence (PAC-TASK-276 to 279)
 
