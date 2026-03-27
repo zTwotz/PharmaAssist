@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { RolesGuard } from '../../auth/roles.guard';
 import { Roles } from '../../auth/roles.decorator';
 
+// PAC-178: Add Warehouse permission for create/confirm adjustment
 @Controller('inventory/adjustments')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class AdjustmentsController {
@@ -26,6 +27,12 @@ export class AdjustmentsController {
   @Roles('ADMIN', 'WAREHOUSE')
   async create(@Req() req: any, @Body() createDto: CreateAdjustmentDto) {
     return this.adjustmentsService.create(req.user.id, createDto);
+  }
+
+  @Get()
+  @Roles('ADMIN', 'WAREHOUSE')
+  async findAll() {
+    return this.adjustmentsService.findAll();
   }
 
   @Get(':id')
