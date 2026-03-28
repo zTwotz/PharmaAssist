@@ -576,7 +576,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-281 — Calculate and persist change_amount | `PAC-491` | Not started | `feature/PAC-491-task-281-calculate-and-persist-change-amount` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-281 — Calculate and persist change_amount | `PAC-491` | DONE | `feature/PAC-491-task-281-calculate-and-persist-change-amount` | `a204edd` | `#796` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
