@@ -31,6 +31,7 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
 
   // Line form
+  // PAC-375: Build MedicineBatch selector for adjustment
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedMedicineId, setSelectedMedicineId] = useState('');
   const [batches, setBatches] = useState<MedicineBatch[]>([]);
@@ -203,6 +204,23 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
                     <span className="text-slate-500">Ngày tạo:</span>
                     <div className="font-medium">{format(new Date(adjustment.createdAt), 'dd/MM/yyyy HH:mm')}</div>
                   </div>
+                  {/* PAC-181: Display adjustment audit information in UI */}
+                  {adjustment.confirmedAt && (
+                    <div>
+                      <span className="text-slate-500">Ngày xác nhận:</span>
+                      <div className="font-medium text-green-600">
+                        {format(new Date(adjustment.confirmedAt), 'dd/MM/yyyy HH:mm')}
+                      </div>
+                    </div>
+                  )}
+                  {adjustment.cancelledAt && (
+                    <div>
+                      <span className="text-slate-500">Ngày hủy:</span>
+                      <div className="font-medium text-red-600">
+                        {format(new Date(adjustment.cancelledAt), 'dd/MM/yyyy HH:mm')}
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <span className="text-slate-500">Lý do:</span>
                     <div className="font-medium">{adjustment.reason || 'Không có'}</div>
@@ -271,7 +289,17 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
                     </CardHeader>
                     <CardContent className="p-4">
                       <form onSubmit={handleAddLine} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                        <div className="space-y-2 md:col-span-2">
+                        {/* PAC-379: Batch before/after quantity preview computation */}
+                        {(() => {
+                          const selectedBatch = batches.find((b: any) => b.id.toString() === selectedBatchId);
+                          const expectedQty = selectedBatch ? selectedBatch.quantity : null;
+                          const actualParsed = actualQty ? parseInt(actualQty) : null;
+                          const hasPreview = expectedQty !== null && actualParsed !== null;
+                          const diff = hasPreview ? actualParsed - expectedQty : 0;
+                          
+                          return (
+                            <>
+                              <div className="space-y-2 md:col-span-2">
                           <label className="text-xs font-medium text-slate-700">Thuốc</label>
                           <select 
                             className="flex h-9 w-full rounded-md border border-slate-200 px-3 py-1 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
@@ -311,12 +339,25 @@ export default function InventoryAdjustmentDetailPage({ params }: { params: { id
                             required
                           />
                         </div>
-                        <div className="md:col-span-4 flex justify-end mt-2">
+                        <div className="md:col-span-4 flex justify-between items-center mt-2">
+                          <div className="text-sm">
+                            {hasPreview && (
+                              <div className={`px-3 py-2 rounded-md ${diff > 0 ? 'bg-green-50 text-green-700 border border-green-200' : diff < 0 ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>
+                                <span className="font-semibold">Preview:</span> Tồn hiện tại: <strong>{expectedQty}</strong> ➔ Thực tế: <strong>{actualParsed}</strong> 
+                                <span className="ml-2">
+                                  (Chênh lệch: {diff > 0 ? `+${diff}` : diff})
+                                </span>
+                              </div>
+                            )}
+                          </div>
                           <Button type="submit" disabled={lineLoading || !selectedBatchId} size="sm">
                             {lineLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
                             Thêm vào phiếu
                           </Button>
                         </div>
+                            </>
+                          );
+                        })()}
                       </form>
                     </CardContent>
                   </Card>
