@@ -207,12 +207,16 @@ export class CheckoutService {
             });
           }
 
+          const changeAmount = amountTendered - totalAmount;
+
           paymentRecord = await tx.payment.create({
             data: {
               code: `PAY-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
               orderId: order.id,
               paymentMethodId: cashMethod.id,
               amount: totalAmount,
+              amountTendered,
+              changeAmount,
               status: 'PAID',
               paidAt: new Date(),
             },

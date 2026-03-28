@@ -1099,6 +1099,9 @@ model Payment {
   orderId                Int                     @map("order_id")
   paymentMethodId        Int                     @map("payment_method_id")
   amount                 Decimal                 @db.Decimal(12, 2)
+  amountTendered         Decimal?                @map("amount_tendered") @db.Decimal(12, 2)
+  changeAmount           Decimal?                @map("change_amount") @db.Decimal(12, 2)
+  transactionReference   String?                 @map("transaction_reference")
   status                 String                  @default("PENDING")
   paidAt                 DateTime?               @map("paid_at")
   transactions           PaymentTransaction[]
