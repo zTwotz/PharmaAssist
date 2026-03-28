@@ -542,7 +542,7 @@ Supabase verification = N/A — no persistent data impact
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-267 — Build payment method selector in Checkout UI | `PAC-477` | DONE | `feature/PAC-477-task-267-build-payment-method-selector-in-checkout-ui` | `fd8012a` | `#784` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-279 — Create payments Prisma model | `PAC-489` | DONE | `feature/PAC-489-task-279-create-payments-prisma-model` | `244100f` | `#794` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-280 — Implement cash payment handling inside checkout | `PAC-490` | Not started | `feature/PAC-490-task-280-implement-cash-payment-handling-inside-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-280 — Implement cash payment handling inside checkout | `PAC-490` | DONE | `feature/PAC-490-task-280-implement-cash-payment-handling-inside-checkout` | `7998ce9` | `#795` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
