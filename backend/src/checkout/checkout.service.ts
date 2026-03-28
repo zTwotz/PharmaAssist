@@ -3,7 +3,7 @@ import {
   BadRequestException,
   ForbiddenException,
 } from '@nestjs/common';
-import { CheckoutDto } from './dto/checkout.dto';
+import { CheckoutDto, PaymentMethod } from './dto/checkout.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   FefoAllocationItem,
@@ -185,9 +185,55 @@ export class CheckoutService {
           }
         }
 
-        // 10. Payment persistence (PAC-TASK-276 to 279)
+        // 10. Payment persistence (PAC-TASK-280)
+        let paymentRecord;
+        if (dto.payment.method === PaymentMethod.CASH) {
+          const totalAmount = Number(order.totalAmount);
+          const amountTendered = dto.payment.amountTendered || 0;
 
-        // 11. Invoice persistence (PAC-TASK-280)
+          if (amountTendered < totalAmount) {
+            throw new BadRequestException(
+              `Insufficient cash amount. Requires ${totalAmount}, but received ${amountTendered}`,
+            );
+          }
+
+          let cashMethod = await tx.paymentMethod.findUnique({
+            where: { code: 'CASH' },
+          });
+
+          if (!cashMethod) {
+            cashMethod = await tx.paymentMethod.create({
+              data: { code: 'CASH', name: 'Cash Payment', isActive: true },
+            });
+          }
+
+          paymentRecord = await tx.payment.create({
+            data: {
+              code: `PAY-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+              orderId: order.id,
+              paymentMethodId: cashMethod.id,
+              amount: totalAmount,
+              status: 'PAID',
+              paidAt: new Date(),
+            },
+          });
+
+          await tx.paymentTransaction.create({
+            data: {
+              paymentId: paymentRecord.id,
+              transactionCode: `TXN-${paymentRecord.code}`,
+              provider: 'CASH',
+              amount: totalAmount,
+              status: 'SUCCESS',
+              rawResponse: JSON.stringify({
+                method: 'CASH',
+                tendered: amountTendered,
+              }),
+            },
+          });
+        }
+
+        // 11. Invoice persistence (PAC-TASK-285/286)
 
         // 12. Update order status to PAID (PAC-TASK-288)
 
