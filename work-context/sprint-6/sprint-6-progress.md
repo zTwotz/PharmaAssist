@@ -506,7 +506,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-278 — Rollback checkout transaction on failure | `PAC-488` | Not started | `feature/PAC-488-task-278-rollback-checkout-transaction-on-failure` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-278 — Rollback checkout transaction on failure | `PAC-488` | DONE | `feature/PAC-488-task-278-rollback-checkout-transaction-on-failure` | `8c336a3` | `#793` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
