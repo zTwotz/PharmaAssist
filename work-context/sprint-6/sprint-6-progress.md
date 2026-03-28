@@ -472,7 +472,7 @@ Supabase verification = N/A — no persistent data impact
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-276 — Create idempotency_records Prisma model | `PAC-486` | DONE | `feature/PAC-486-task-276-create-idempotency-records-prisma-model` | `d399664` | `#791` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-277 — Implement idempotency key handling for checkout | `PAC-487` | Not started | `feature/PAC-487-task-277-implement-idempotency-key-handling-for-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-277 — Implement idempotency key handling for checkout | `PAC-487` | DONE | `feature/PAC-487-task-277-implement-idempotency-key-handling-for-checkout` | `25422ed` | `#792` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
