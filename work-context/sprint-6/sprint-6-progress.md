@@ -679,7 +679,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-285 — Create invoices Prisma model | `PAC-495` | Not started | `feature/PAC-495-task-285-create-invoices-prisma-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-285 — Create invoices Prisma model | `PAC-495` | DONE | `feature/PAC-495-task-285-create-invoices-prisma-model` | `acdf55f` | `#800` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-286 — Generate invoice inside checkout transaction | `PAC-496` | Not started | `feature/PAC-496-task-286-generate-invoice-inside-checkout-transaction` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
