@@ -610,7 +610,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-282 — Implement bank transfer transaction_reference validation | `PAC-492` | Not started | `feature/PAC-492-task-282-implement-bank-transfer-transaction-reference-valid` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-282 — Implement bank transfer transaction_reference validation | `PAC-492` | DONE | `feature/PAC-492-task-282-implement-bank-transfer-transaction-reference-valid` | `a4e4cc0` | `#797` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
