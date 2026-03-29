@@ -310,7 +310,25 @@ export class CheckoutService {
         }
 
         // 11. Invoice persistence (PAC-TASK-285/286)
-
+        const invoiceCode = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        await tx.invoice.create({
+          data: {
+            code: invoiceCode,
+            orderId: order.id,
+            customerId: order.customerId,
+            totalAmount: order.totalAmount,
+            taxAmount: 0,
+            status: 'ISSUED',
+            items: {
+              create: order.details.map((detail) => ({
+                productVariantId: detail.productVariantId,
+                quantity: detail.quantity,
+                unitPrice: detail.unitPrice,
+                lineTotal: detail.lineTotal,
+              })),
+            },
+          },
+        });
         // 12. Update order status to PAID (PAC-TASK-288)
 
         return {
