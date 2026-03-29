@@ -235,6 +235,68 @@ export class CheckoutService {
               }),
             },
           });
+        } else if (
+          dto.payment.method === PaymentMethod.BANK_TRANSFER_SIMULATION
+        ) {
+          // PAC-TASK-282: Payload extraction
+          const totalAmount = Number(order.totalAmount);
+          const transactionReference = dto.payment.transactionReference;
+
+          if (!transactionReference) {
+            throw new BadRequestException(
+              'Transaction reference is required for bank transfer',
+            );
+          }
+
+          let bankMethod = await tx.paymentMethod.findUnique({
+            where: { code: 'BANK_TRANSFER' },
+          });
+
+          if (!bankMethod) {
+            bankMethod = await tx.paymentMethod.create({
+              data: {
+                code: 'BANK_TRANSFER',
+                name: 'Bank Transfer',
+                isActive: true,
+              },
+            });
+          }
+
+          // PAC-TASK-284: Validation
+          const isValidTransaction = transactionReference.length >= 6;
+
+          if (!isValidTransaction) {
+            throw new BadRequestException(
+              'Bank transfer validation failed: Invalid transaction reference',
+            );
+          }
+
+          // PAC-TASK-283: Persist transaction_reference
+          paymentRecord = await tx.payment.create({
+            data: {
+              code: `PAY-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+              orderId: order.id,
+              paymentMethodId: bankMethod.id,
+              amount: totalAmount,
+              transactionReference,
+              status: 'PAID',
+              paidAt: new Date(),
+            },
+          });
+
+          await tx.paymentTransaction.create({
+            data: {
+              paymentId: paymentRecord.id,
+              transactionCode: transactionReference,
+              provider: 'BANK_TRANSFER_SIMULATION',
+              amount: totalAmount,
+              status: 'SUCCESS',
+              rawResponse: JSON.stringify({
+                method: 'BANK_TRANSFER_SIMULATION',
+                ref: transactionReference,
+              }),
+            },
+          });
         }
 
         // 11. Invoice persistence (PAC-TASK-285/286)
