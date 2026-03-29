@@ -6,7 +6,7 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 describe('ActiveIngredientsService', () => {
   let service: ActiveIngredientsService;
 
-  const mockPrisma = {
+  const mockPrisma: any = {
     activeIngredient: {
       findUnique: jest.fn(),
       findFirst: jest.fn(),
