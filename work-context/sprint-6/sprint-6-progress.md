@@ -644,7 +644,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-283 — Enforce one SUCCESS payment per order | `PAC-493` | Not started | `feature/PAC-493-task-283-enforce-one-success-payment-per-order` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-283 — Enforce one SUCCESS payment per order | `PAC-493` | DONE | `feature/PAC-493-task-283-enforce-one-success-payment-per-order` | `6cb6983` | `#798` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-284 — Allow failed payment attempts without duplicate SUCCESS payment | `PAC-494` | Not started | `feature/PAC-494-task-284-allow-failed-payment-attempts-without-creating-dupl` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
