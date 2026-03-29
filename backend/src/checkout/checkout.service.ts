@@ -76,11 +76,21 @@ export class CheckoutService {
         // 2. Lock or read order (PAC-TASK-263)
         const order = await tx.order.findUnique({
           where: { id: dto.orderId },
-          include: { details: true, interactionAlerts: true },
+          include: { details: true, interactionAlerts: true, payments: true },
         });
 
         if (!order) {
           throw new BadRequestException('Order not found');
+        }
+
+        // PAC-TASK-283 & 284: Enforce one SUCCESS payment per order, allow failed attempts
+        const hasSuccessfulPayment = order.payments.some(
+          (p) => p.status === 'PAID' || p.status === 'SUCCESS',
+        );
+        if (hasSuccessfulPayment) {
+          throw new BadRequestException(
+            'Order already has a successful payment',
+          );
         }
 
         // 3. Permission & Ownership (PAC-TASK-262)
