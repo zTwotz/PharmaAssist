@@ -188,7 +188,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-259 — Define Checkout DTO and validation schema | `PAC-469` | Not started | `feature/PAC-469-task-259-define-checkout-dto-and-validation-schema` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-259 — Define Checkout DTO and validation schema | `PAC-469` | DONE | `feature/PAC-469-task-259-define-checkout-dto-and-validation-schema` | `eafb8f8` | `#800` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-260 — Implement CheckoutController POST /checkout | `PAC-470` | DONE | `feature/PAC-470-task-260-implement-checkoutcontroller-post-checkout` | `754dafe` | `#777` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-261 — Implement CheckoutService transaction skeleton | `PAC-471` | DONE | `feature/PAC-471-task-261-implement-checkoutservice-transaction-skeleton` | `5f23837` | `#778` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-266 — Build Checkout full page or full-height panel UI | `PAC-476` | DONE | `feature/PAC-476-task-266-build-checkout-full-page-or-full-height-panel-ui` | `be8e349` | `#783` | `develop` | Merged | PASS | N/A | — | TO DO |
