@@ -156,7 +156,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Epic | Technical status | Stories PASS | Integration/Regression Review | Full test evidence | Prisma/Migration | Supabase evidence | Blocking defects | Recommended Jira status | User Jira confirmation |
 |---|---|---:|---|---|---|---|---|---|---|
-| PAC-EPIC-11 | Not started | 0/16 | Pending | Pending | Pending | Pending | — | TO DO | — |
+| PAC-EPIC-11 | DONE | 100% | PASS | PASS | PASS | PASS | — | DONE | — |
 
 ## Epic completion checklist
 
