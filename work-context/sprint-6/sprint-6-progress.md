@@ -192,7 +192,7 @@ Supabase verification = N/A — no persistent data impact
 | PAC-TASK-260 — Implement CheckoutController POST /checkout | `PAC-470` | DONE | `feature/PAC-470-task-260-implement-checkoutcontroller-post-checkout` | `754dafe` | `#777` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-261 — Implement CheckoutService transaction skeleton | `PAC-471` | DONE | `feature/PAC-471-task-261-implement-checkoutservice-transaction-skeleton` | `5f23837` | `#778` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-266 — Build Checkout full page or full-height panel UI | `PAC-476` | DONE | `feature/PAC-476-task-266-build-checkout-full-page-or-full-height-panel-ui` | `be8e349` | `#783` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-288 — Update order status to PAID only after successful checkout | `PAC-498` | Not started | `feature/PAC-498-task-288-update-order-status-to-paid-only-after-successful-c` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-288 — Update order status to PAID only after successful checkout | `PAC-498` | DONE | `feature/PAC-498-task-288-update-order-status-to-paid-only-after-successful-c` | `6c5ad14` | `#803` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-289 — Add checkout integration tests | `PAC-499` | Not started | `test/PAC-499-task-289-add-checkout-integration-tests` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
