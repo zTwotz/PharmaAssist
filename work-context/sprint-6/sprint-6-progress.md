@@ -714,7 +714,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-287 — Build invoice view and print UI | `PAC-497` | Not started | `feature/PAC-497-task-287-build-invoice-view-and-print-ui` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-287 — Build invoice view and print UI | `PAC-497` | DONE | `feature/PAC-497-task-287-build-invoice-view-and-print-ui` | `dec4b6f` | `#802` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
