@@ -44,7 +44,10 @@ describe('CheckoutController', () => {
       orderId: 'test-order',
       payment: { method: PaymentMethod.CASH, amountTendered: 100000 },
     };
-    const req = { user: { id: 'test-user', sub: 'test-user', roles: ['STAFF'] }, headers: { 'x-idempotency-key': 'test-key' } };
+    const req = {
+      user: { id: 'test-user', sub: 'test-user', roles: ['STAFF'] },
+      headers: { 'x-idempotency-key': 'test-key' },
+    };
     const result = await controller.checkout(req, 'test-key', dto);
     expect(service.checkout).toHaveBeenCalledWith(req.user, 'test-key', dto);
     expect(result.success).toBe(true);
