@@ -330,7 +330,10 @@ export class CheckoutService {
           },
         });
         // 12. Update order status to PAID (PAC-TASK-288)
-
+        await tx.order.update({
+          where: { id: order.id },
+          data: { status: 'PAID' },
+        });
         return {
           success: true,
           data: {
