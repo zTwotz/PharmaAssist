@@ -368,7 +368,7 @@ Supabase verification = N/A — no persistent data impact
 | PAC-TASK-270 — Sort FEFO batches by nearest expiry date | `PAC-480` | DONE | `feature/PAC-480-task-270-sort-fefo-batches-by-nearest-expiry-date` | `69a5d52` | `#787` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-271 — Allocate requested quantity across multiple batches | `PAC-481` | DONE | `feature/PAC-481-task-271-allocate-requested-quantity-across-multiple-batches` | `6cf96cd` | `#788` | `develop` | Merged | PASS | N/A | — | TO DO |
 | PAC-TASK-272 — Reject FEFO allocation when sellable stock is insufficient | `PAC-482` | DONE | `feature/PAC-482-task-272-reject-fefo-allocation-when-sellable-stock-is-insuf` | `6cf96cd` | `#788` | `develop` | Merged | PASS | N/A | — | TO DO |
-| PAC-TASK-290 — Add FEFO, idempotency and rollback tests | `PAC-500` | Not started | `test/PAC-500-task-290-add-fefo-idempotency-and-rollback-tests` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-290 — Add FEFO, idempotency and rollback tests | `PAC-500` | DONE | `test/PAC-500-task-290-add-fefo-idempotency-and-rollback-tests` | `772d569` | `#805` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
