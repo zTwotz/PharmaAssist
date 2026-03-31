@@ -25,15 +25,15 @@ describe('CheckoutService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should handle idempotency correctly', async () => {
+  it('should handle idempotency correctly', () => {
     expect(true).toBe(true);
   });
 
-  it('should allocate batches and deduct stock using FEFO', async () => {
+  it('should allocate batches and deduct stock using FEFO', () => {
     expect(true).toBe(true);
   });
 
-  it('should rollback transaction on error', async () => {
+  it('should rollback transaction on error', () => {
     expect(true).toBe(true);
   });
 });
