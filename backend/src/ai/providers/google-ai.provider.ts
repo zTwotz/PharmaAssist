@@ -12,6 +12,10 @@ import {
   FollowUpQuestionsOutput,
 } from '../types/ai-payloads.type';
 import { AiConfigService } from '../ai-config.service';
+import {
+  AiProviderException,
+  AiTimeoutException,
+} from '../exceptions/ai.exception';
 
 @Injectable()
 export class GoogleAiProvider implements AiProvider {
@@ -43,7 +47,9 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
   "disclaimer": "Một câu cảnh báo rằng đây chỉ là thông tin tham khảo từ AI, dược sĩ cần tự đưa ra quyết định."
 }`;
 
-      const result = await this.model.generateContent(prompt);
+      const result = await this.executeWithTimeout(
+        this.model.generateContent(prompt),
+      );
       const text = result.response.text();
       const parsed = this.parseJsonResponse<InteractionExplanationOutput>(text);
 
@@ -60,7 +66,11 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
         `Google AI Error (generateInteractionExplanation): ${(error as Error).message}`,
         (error as Error).stack,
       );
-      throw error;
+      if (error instanceof AiProviderException) throw error;
+      throw new AiProviderException(
+        `Google AI generateInteractionExplanation failed: ${(error as Error).message}`,
+        error as Error,
+      );
     }
   }
 
@@ -80,7 +90,9 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
   "disclaimer": "Một câu cảnh báo rằng đây chỉ là gợi ý từ AI."
 }`;
 
-      const result = await this.model.generateContent(prompt);
+      const result = await this.executeWithTimeout(
+        this.model.generateContent(prompt),
+      );
       const text = result.response.text();
       const parsed = this.parseJsonResponse<ConsultationNoteDraftOutput>(text);
 
@@ -97,7 +109,11 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
         `Google AI Error (generateConsultationNoteDraft): ${(error as Error).message}`,
         (error as Error).stack,
       );
-      throw error;
+      if (error instanceof AiProviderException) throw error;
+      throw new AiProviderException(
+        `Google AI generateConsultationNoteDraft failed: ${(error as Error).message}`,
+        error as Error,
+      );
     }
   }
 
@@ -116,7 +132,9 @@ Hãy trả về định dạng JSON hợp lệ với 2 trường:
   "disclaimer": "Câu cảnh báo: thông tin chỉ mang tính tham khảo từ AI."
 }`;
 
-      const result = await this.model.generateContent(prompt);
+      const result = await this.executeWithTimeout(
+        this.model.generateContent(prompt),
+      );
       const text = result.response.text();
       const parsed = this.parseJsonResponse<FollowUpQuestionsOutput>(text);
 
@@ -133,7 +151,11 @@ Hãy trả về định dạng JSON hợp lệ với 2 trường:
         `Google AI Error (generateFollowUpQuestions): ${(error as Error).message}`,
         (error as Error).stack,
       );
-      throw error;
+      if (error instanceof AiProviderException) throw error;
+      throw new AiProviderException(
+        `Google AI generateFollowUpQuestions failed: ${(error as Error).message}`,
+        error as Error,
+      );
     }
   }
 
@@ -149,7 +171,34 @@ Hãy trả về định dạng JSON hợp lệ với 2 trường:
         `Failed to parse AI JSON response: ${text}`,
         (error as Error).stack,
       );
-      throw new Error('AI response is not valid JSON');
+      throw new AiProviderException('AI response is not valid JSON');
+    }
+  }
+
+  private async executeWithTimeout<T>(
+    promise: Promise<T>,
+    timeoutMs = 15000,
+  ): Promise<T> {
+    let timeoutId: NodeJS.Timeout;
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => {
+        reject(new AiTimeoutException(timeoutMs));
+      }, timeoutMs);
+    });
+
+    try {
+      return await Promise.race([promise, timeoutPromise]);
+    } catch (error) {
+      if (error instanceof AiTimeoutException) {
+        throw error;
+      }
+      throw new AiProviderException(
+        `AI request failed: ${(error as Error).message}`,
+        error as Error,
+      );
+    } finally {
+      clearTimeout(timeoutId!);
     }
   }
 }
