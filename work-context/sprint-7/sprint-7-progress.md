@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 64 | 0 | 0 | 1 |
+| Task implementation | 65 | 63 | 0 | 0 | 2 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -952,7 +952,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-292 — Configure backend AI provider/model settings loader | `PAC-502` | Not started | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-292 — Configure backend AI provider/model settings loader | `PAC-502` | Done | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` | `2b0c9aa` | Local | Merged | `176e795` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-342 — Add backend AI provider/model config validation | `PAC-552` | Not started | `feature/PAC-552-task-342-add-backend-ai-provider-model-config-validation` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-343 — Add environment/database config fallback order for AI settings | `PAC-553` | Not started | `feature/PAC-553-task-343-add-environment-database-config-fallback-order-for-` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
