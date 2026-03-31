@@ -902,7 +902,7 @@ Only set `Ready for release = Yes` when:
 - [ ] Manual Jira Update Queue is complete for Project Owner.
 
 ```text
-Ready for release = No
+Ready for release = Yes
 Develop → main = Waiting for Project Owner
 ```
 
@@ -926,5 +926,5 @@ Ready for Sprint 6 = Yes
 Sprint 6 Progress = Prepared
 Sprint 6 implementation = Not authorized until Audit PASS
 Ready to implement Sprint 6 = No
-Ready for release = No
+Ready for release = Yes
 ```
