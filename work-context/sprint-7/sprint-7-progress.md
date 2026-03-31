@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 61 | 0 | 0 | 4 |
+| Task implementation | 65 | 60 | 0 | 0 | 5 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -433,7 +433,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-291 — Define AI provider abstraction | `PAC-501` | Done | `feature/PAC-501-task-291-define-ai-provider-abstraction` | `8279f35` | Local | Merged | `f43019f` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-293 — Implement Google AI provider adapter | `PAC-503` | Done | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` | `15bb00e` | Local | Merged | `a7e65a5` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-294 — Add Google AI timeout and retry-safe error handling | `PAC-504` | Done | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` | `699d13f` | Local | Merged | `c6cc14e` | PASS | PASS | N/A | None | DONE |
-| PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Not started | `test/PAC-523-task-313-add-ai-provider-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Done | `test/PAC-523-task-313-add-ai-provider-unit-tests` | `12c29df` | Local | Merged | `53290d4` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-344 — Add timeout, circuit breaker and rate-limit guard for AI calls | `PAC-554` | Not started | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
