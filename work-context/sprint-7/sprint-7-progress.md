@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 65 | 0 | 0 | 0 |
+| Task implementation | 65 | 64 | 0 | 0 | 1 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -430,7 +430,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-291 — Define AI provider abstraction | `PAC-501` | Not started | `feature/PAC-501-task-291-define-ai-provider-abstraction` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-291 — Define AI provider abstraction | `PAC-501` | Done | `feature/PAC-501-task-291-define-ai-provider-abstraction` | `8279f35` | Local | Merged | `f43019f` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-293 — Implement Google AI provider adapter | `PAC-503` | Not started | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-294 — Add Google AI timeout and retry-safe error handling | `PAC-504` | Not started | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Not started | `test/PAC-523-task-313-add-ai-provider-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
