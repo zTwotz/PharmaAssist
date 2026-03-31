@@ -16,6 +16,7 @@ import { InventoriesModule } from './inventories/inventories.module';
 import { ActiveIngredientsModule } from './active-ingredients/active-ingredients.module';
 import { StockImportsModule } from './stock-imports/stock-imports.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { CheckoutModule } from './checkout/checkout.module';
     ActiveIngredientsModule,
     StockImportsModule,
     CheckoutModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
