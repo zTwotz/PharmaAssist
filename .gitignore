@@ -58,3 +58,11 @@ tools/data-collector/logs/
 coverage/
 *.lcov
 .nyc_output/
+
+# AI & Temporary Scripts
+fix_s6_progress.py
+fix_s6_stories.py
+*.pyc
+__pycache__/
+scratch/
+.tmp/
