@@ -837,7 +837,7 @@ Story scope: `US-142`, `US-143`.
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-297 — Add provider_requested and provider_used tracking | `PAC-507` | Done | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` | `310713b` | Local | Merged | `d03eb94` | PASS | PASS | N/A | None | DONE |
-| PAC-TASK-329 — Create ai_audit_logs Prisma model | `PAC-539` | Not started | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-329 — Create ai_audit_logs Prisma model | `PAC-539` | DONE | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` | `9d7eb78` | [PR #2](https://github.com/TwotNguyenVN/PharmaAssist/pull/2) | Merged | `2438d87` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-330 — Implement AI audit log write service | `PAC-540` | Not started | `feature/PAC-540-task-330-implement-ai-audit-log-write-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | Not started | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-332 — Persist input and output guardrail statuses | `PAC-542` | Not started | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
