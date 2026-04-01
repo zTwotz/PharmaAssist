@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 58 | 0 | 0 | 7 |
+| Task implementation | 65 | 57 | 0 | 0 | 8 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -463,7 +463,7 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| In progress | 2/3 | Pending | Pending | Pending/N/A | — | IN PROGRESS |
+| In progress | 3/3 | Pending | Pending | Pending/N/A | — | IN PROGRESS |
 
 ## Related Tasks
 
@@ -836,7 +836,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-297 — Add provider_requested and provider_used tracking | `PAC-507` | Not started | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-297 — Add provider_requested and provider_used tracking | `PAC-507` | Done | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` | `310713b` | Local | Merged | `d03eb94` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-329 — Create ai_audit_logs Prisma model | `PAC-539` | Not started | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-330 — Implement AI audit log write service | `PAC-540` | Not started | `feature/PAC-540-task-330-implement-ai-audit-log-write-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | Not started | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
