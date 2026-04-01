@@ -110,4 +110,40 @@ describe('AiService', () => {
     expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalled();
     expect(mockMockAiProvider.generateInteractionExplanation).not.toHaveBeenCalled(); // No fallback for generic error
   });
+
+  it('should fallback to Mock AI for generateConsultationNoteDraft', async () => {
+    const googleError = new AiProviderException('Timeout');
+    const mockResponse = {
+      data: { draftNote: 'mock note', disclaimer: 'mock' },
+      metadata: { providerRequested: AiProviderType.MOCK, providerUsed: AiProviderType.MOCK },
+    };
+
+    mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(googleError);
+    mockMockAiProvider.generateConsultationNoteDraft.mockResolvedValue(mockResponse);
+
+    const result = await service.generateConsultationNoteDraft({
+      alertContext: 'ctx', orderContext: 'order',
+    });
+
+    expect(result.data.draftNote).toEqual('mock note');
+    expect(result.metadata.fallbackReason).toEqual('Timeout');
+  });
+
+  it('should fallback to Mock AI for generateFollowUpQuestions', async () => {
+    const googleError = new AiProviderException('Quota exceeded');
+    const mockResponse = {
+      data: { questions: ['Q1'], disclaimer: 'mock' },
+      metadata: { providerRequested: AiProviderType.MOCK, providerUsed: AiProviderType.MOCK },
+    };
+
+    mockGoogleAiProvider.generateFollowUpQuestions.mockRejectedValue(googleError);
+    mockMockAiProvider.generateFollowUpQuestions.mockResolvedValue(mockResponse);
+
+    const result = await service.generateFollowUpQuestions({
+      shortContext: 'ctx',
+    });
+
+    expect(result.data.questions).toEqual(['Q1']);
+    expect(result.metadata.fallbackReason).toEqual('Quota exceeded');
+  });
 });
