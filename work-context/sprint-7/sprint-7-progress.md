@@ -830,7 +830,7 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/7 | Pending | Pending | Pending/N/A | — | TO DO |
+| In progress | 1/7 | Pending | Pending | Pending/N/A | — | IN PROGRESS |
 
 ## Related Tasks
 
