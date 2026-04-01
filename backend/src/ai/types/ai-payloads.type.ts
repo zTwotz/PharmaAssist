@@ -1,9 +1,26 @@
 import { AiProviderType } from './ai-provider.enum';
 
 export interface AiMetadata {
+  /**
+   * The provider that was initially requested by the system (e.g. from AiConfigService).
+   * Used for tracking and audit logs to understand intent vs reality.
+   */
   providerRequested: AiProviderType;
+
+  /**
+   * The provider that actually fulfilled the request.
+   * If fallback occurred, this will differ from providerRequested.
+   */
   providerUsed: AiProviderType;
+
+  /**
+   * Reason for fallback if providerUsed !== providerRequested.
+   */
   fallbackReason?: string;
+
+  /**
+   * Duration of the AI request in milliseconds.
+   */
   durationMs?: number;
 }
 
