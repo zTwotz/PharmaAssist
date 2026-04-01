@@ -4,6 +4,7 @@ import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
 import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
+import { AiAuditLogService } from './ai-audit-log.service';
 import {
   AiResponse,
   InteractionExplanationInput,
@@ -22,6 +23,7 @@ export class AiService {
     private readonly configService: AiConfigService,
     private readonly googleAiProvider: GoogleAiProvider,
     private readonly mockAiProvider: MockAiProvider,
+    private readonly aiAuditLogService: AiAuditLogService,
   ) {}
 
   private async executeWithFallback<T, U>(
@@ -29,47 +31,69 @@ export class AiService {
     input: T,
   ): Promise<AiResponse<U>> {
     const primaryProviderType = this.configService.primaryProvider;
+    let response: AiResponse<U> | null = null;
+    let errorToThrow: any = null;
+
+    const startTime = Date.now();
 
     try {
       this.logger.debug(
         `Attempting AI request ${methodName} with primary provider: ${primaryProviderType}`,
       );
 
-      // We only have Google AI as primary for now
       if (primaryProviderType === AiProviderType.GOOGLE) {
-        return (await (this.googleAiProvider as any)[methodName](
+        response = (await (this.googleAiProvider as any)[methodName](
           input,
         )) as AiResponse<U>;
+      } else {
+        throw new AiProviderException(
+          `Unsupported primary provider: ${primaryProviderType}`,
+        );
       }
-
-      throw new AiProviderException(
-        `Unsupported primary provider: ${primaryProviderType}`,
-      );
     } catch (error) {
       this.logger.warn(
         `Primary provider ${primaryProviderType} failed for ${methodName}. Error: ${(error as Error).message}`,
       );
 
-      // Only fallback for AI Provider exceptions (timeout, quota, etc)
-      // Do not fallback for validation or guardrail errors if they happen here
       if (
         this.configService.isFallbackEnabled &&
         error instanceof AiProviderException
       ) {
         this.logger.log(`Falling back to Mock AI for ${methodName}`);
-        const fallbackResponse = (await (this.mockAiProvider as any)[
-          methodName
-        ](input)) as AiResponse<U>;
+        try {
+          response = (await (this.mockAiProvider as any)[methodName](
+            input,
+          )) as AiResponse<U>;
 
-        // Decorate metadata with fallback reason
-        fallbackResponse.metadata.fallbackReason = (error as Error).message;
-        fallbackResponse.metadata.providerRequested = primaryProviderType;
-
-        return fallbackResponse;
+          response.metadata.fallbackReason = (error as Error).message;
+          response.metadata.providerRequested = primaryProviderType;
+        } catch (fallbackError) {
+          errorToThrow = fallbackError;
+        }
+      } else {
+        errorToThrow = error;
       }
-
-      throw error;
     }
+
+    const latencyMs = Date.now() - startTime;
+
+    // Fire and forget audit log
+    this.aiAuditLogService.log({
+      providerRequested: primaryProviderType,
+      providerUsed: response?.metadata?.providerUsed || primaryProviderType,
+      promptType: methodName,
+      requestSummary: JSON.stringify(input),
+      responseSummary: response ? JSON.stringify(response.data) : undefined,
+      guardrailStatus: errorToThrow ? 'blocked' : 'passed',
+      fallbackReason: response?.metadata?.fallbackReason,
+      latencyMs: response?.metadata?.durationMs || latencyMs,
+    }).catch(e => this.logger.error('Failed to invoke audit log service', e));
+
+    if (errorToThrow) {
+      throw errorToThrow;
+    }
+
+    return response!;
   }
 
   async generateInteractionExplanation(

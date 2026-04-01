@@ -5,6 +5,7 @@ import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
 import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
+import { AiAuditLogService } from './ai-audit-log.service';
 
 describe('AiService', () => {
   let service: AiService;
@@ -33,9 +34,24 @@ describe('AiService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AiService,
-        { provide: AiConfigService, useValue: mockConfigService },
-        { provide: GoogleAiProvider, useValue: mockGoogleAiProvider },
-        { provide: MockAiProvider, useValue: mockMockAiProvider },
+        {
+          provide: AiConfigService,
+          useValue: mockConfigService,
+        },
+        {
+          provide: GoogleAiProvider,
+          useValue: mockGoogleAiProvider,
+        },
+        {
+          provide: MockAiProvider,
+          useValue: mockMockAiProvider,
+        },
+        {
+          provide: AiAuditLogService,
+          useValue: {
+            log: jest.fn().mockResolvedValue(undefined),
+          },
+        },
       ],
     }).compile();
 
