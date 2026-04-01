@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 57 | 0 | 0 | 8 |
+| Task implementation | 65 | 56 | 0 | 0 | 9 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -463,7 +463,7 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| In progress | 3/3 | Pending | Pending | Pending/N/A | — | IN PROGRESS |
+| DONE | 3/3 | PASS | PASS | N/A | None | DONE |
 
 ## Related Tasks
 
@@ -471,7 +471,7 @@ Story scope: `US-142`, `US-143`.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-295 — Implement MockAI fallback adapter | `PAC-505` | Done | `feature/PAC-505-task-295-implement-mockai-fallback-adapter` | `abcdcb4` | Local | Merged | `7646af0` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-296 — Implement fallback provider selection logic | `PAC-506` | Done | `feature/PAC-506-task-296-implement-fallback-provider-selection-logic` | `4d2859a` | Local | Merged | `20155a1` | PASS | PASS | N/A | None | DONE |
-| PAC-TASK-314 — Add MockAI fallback tests | `PAC-524` | Not started | `test/PAC-524-task-314-add-mockai-fallback-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-314 — Add MockAI fallback tests | `PAC-524` | Done | `test/PAC-524-task-314-add-mockai-fallback-tests` | `5afebe4` | Local | Merged | `9da1f89` | PASS | PASS | N/A | None | DONE |
 
 ## Story completion checklist
 
