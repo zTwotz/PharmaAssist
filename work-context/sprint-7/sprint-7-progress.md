@@ -877,8 +877,8 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-338 — Create prompt_templates Prisma model | `PAC-548` | Not started | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-340 — Load approved prompt template by use case | `PAC-550` | Not started | `feature/PAC-550-task-340-load-approved-prompt-template-by-use-case` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-338 — Create prompt_templates Prisma model | `PAC-548` | DONE | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | DONE | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-341 — Record prompt version in AI audit | `PAC-551` | Not started | `feature/PAC-551-task-341-record-prompt-version-in-ai-audit` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-354 — Add prompt versioning tests | `PAC-564` | Not started | `test/PAC-564-task-354-add-prompt-versioning-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
