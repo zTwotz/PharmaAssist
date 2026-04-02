@@ -26,6 +26,30 @@ export class AiService {
     private readonly aiAuditLogService: AiAuditLogService,
   ) {}
 
+  /**
+   * Simple redaction to prevent raw PII (like customer names in orderContext)
+   * from being saved into AI audit logs.
+   */
+  private redactPii(input: any): any {
+    if (!input || typeof input !== 'object') {
+      return input;
+    }
+
+    const redacted = { ...input };
+
+    // Redact orderContext in ConsultationNoteDraftInput as it may contain PII
+    if (redacted.orderContext) {
+      redacted.orderContext = '[REDACTED_FOR_PRIVACY]';
+    }
+
+    // Redact shortContext in FollowUpQuestionsInput
+    if (redacted.shortContext) {
+      redacted.shortContext = '[REDACTED_FOR_PRIVACY]';
+    }
+
+    return redacted;
+  }
+
   private async executeWithFallback<T, U>(
     methodName: string,
     input: T,
@@ -82,7 +106,7 @@ export class AiService {
       providerRequested: primaryProviderType,
       providerUsed: response?.metadata?.providerUsed || primaryProviderType,
       promptType: methodName,
-      requestSummary: JSON.stringify(input),
+      requestSummary: JSON.stringify(this.redactPii(input)),
       responseSummary: response ? JSON.stringify(response.data) : undefined,
       guardrailStatus: errorToThrow ? 'blocked' : 'passed',
       fallbackReason: response?.metadata?.fallbackReason,
