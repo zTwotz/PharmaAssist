@@ -282,8 +282,8 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-298 — Implement AI interaction explanation API | `PAC-508` | DONE | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` | `3168929` | Local | Merged | `3944375` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-299 — Build AI explanation panel in InteractionAlert UI | `PAC-509` | DONE | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | `7248e5f` | Local | Merged | `848f9c6` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-301 — Build AI explanation loading, error and fallback states | `PAC-511` | DONE | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | `7248e5f` | Local | Merged | `848f9c6` | PASS | PASS | PASS | — | DONE |
-| PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | Not started | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-312 — Add AI Copilot frontend route and action guards | `PAC-522` | Not started | `feature/PAC-522-task-312-add-ai-copilot-frontend-route-and-action-guards` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-312 — Add AI Copilot frontend route and action guards | `PAC-522` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-315 — Add AI Copilot integration smoke checklist | `PAC-525` | Not started | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
