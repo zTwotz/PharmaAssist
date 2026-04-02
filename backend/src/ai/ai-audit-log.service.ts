@@ -38,7 +38,7 @@ export class AiAuditLogService {
   }
 
   async getLogs(query: GetAiAuditLogsDto) {
-    const { page = 1, limit = 20, providerUsed, guardrailStatus, promptType } = query;
+    const { page = 1, limit = 20, providerUsed, guardrailStatus, promptType, startDate, endDate } = query;
 
     const where: Prisma.AiAuditLogWhereInput = {};
 
@@ -52,6 +52,16 @@ export class AiAuditLogService {
 
     if (promptType) {
       where.promptType = promptType;
+    }
+
+    if (startDate || endDate) {
+      where.createdAt = {};
+      if (startDate) {
+        where.createdAt.gte = new Date(startDate);
+      }
+      if (endDate) {
+        where.createdAt.lte = new Date(endDate);
+      }
     }
 
     const [items, total] = await Promise.all([

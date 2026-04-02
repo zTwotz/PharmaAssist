@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsInt, Min } from 'class-validator';
+import { IsOptional, IsString, IsInt, Min, IsDateString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetAiAuditLogsDto {
@@ -25,4 +25,12 @@ export class GetAiAuditLogsDto {
   @IsOptional()
   @IsString()
   promptType?: string;
+
+  @IsOptional()
+  @IsDateString()
+  startDate?: string;
+
+  @IsOptional()
+  @IsDateString()
+  endDate?: string;
 }
