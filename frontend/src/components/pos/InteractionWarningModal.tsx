@@ -3,6 +3,7 @@
 import React from 'react';
 import { AlertTriangle, X, ShieldAlert, Sparkles, Loader2, AlertCircle } from 'lucide-react';
 import api from '@/lib/api';
+import { useAuth } from '@/context/auth-context';
 
 export interface InteractionData {
   id: number;
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export function InteractionWarningModal({ interactions, onClose, onAcknowledge, onRemoveItem, cartItems }: Props) {
+  const { hasPermission } = useAuth();
   const [notes, setNotes] = React.useState<Record<number, string>>({});
   const [acks, setAcks] = React.useState<Record<number, boolean>>({});
   const [aiStates, setAiStates] = React.useState<Record<number, { loading?: boolean; explanation?: string; disclaimer?: string; error?: string }>>({});
@@ -125,47 +127,49 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                   </div>
 
                   {/* AI Explanation Block */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
-                        <Sparkles size={16} />
-                        AI Copilot Giải Thích
-                      </div>
-                      {!aiStates[interaction.id]?.explanation && !aiStates[interaction.id]?.loading && (
-                        <button
-                          onClick={() => fetchAiExplanation(interaction)}
-                          className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
-                        >
-                          Hỏi AI
-                        </button>
-                      )}
-                    </div>
-
-                    {aiStates[interaction.id]?.loading && (
-                      <div className="flex items-center gap-2 text-sm text-slate-500 mt-2">
-                        <Loader2 size={14} className="animate-spin" /> Đang phân tích...
-                      </div>
-                    )}
-
-                    {aiStates[interaction.id]?.error && (
-                      <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 mt-2 rounded">
-                        <AlertCircle size={16} className="shrink-0 mt-0.5" />
-                        <span>{aiStates[interaction.id]?.error}</span>
-                        <button onClick={() => fetchAiExplanation(interaction)} className="underline ml-auto font-medium">Thử lại</button>
-                      </div>
-                    )}
-
-                    {aiStates[interaction.id]?.explanation && (
-                      <div className="mt-3 text-sm text-slate-700">
-                        <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
-                        {aiStates[interaction.id]?.disclaimer && (
-                          <div className="text-xs text-slate-500 italic border-t border-slate-200 pt-2">
-                            {aiStates[interaction.id]?.disclaimer}
-                          </div>
+                  {hasPermission('USE_AI_COPILOT') && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                          <Sparkles size={16} />
+                          AI Copilot Giải Thích
+                        </div>
+                        {!aiStates[interaction.id]?.explanation && !aiStates[interaction.id]?.loading && (
+                          <button
+                            onClick={() => fetchAiExplanation(interaction)}
+                            className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
+                          >
+                            Hỏi AI
+                          </button>
                         )}
                       </div>
-                    )}
-                  </div>
+
+                      {aiStates[interaction.id]?.loading && (
+                        <div className="flex items-center gap-2 text-sm text-slate-500 mt-2">
+                          <Loader2 size={14} className="animate-spin" /> Đang phân tích...
+                        </div>
+                      )}
+
+                      {aiStates[interaction.id]?.error && (
+                        <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 mt-2 rounded">
+                          <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                          <span>{aiStates[interaction.id]?.error}</span>
+                          <button onClick={() => fetchAiExplanation(interaction)} className="underline ml-auto font-medium">Thử lại</button>
+                        </div>
+                      )}
+
+                      {aiStates[interaction.id]?.explanation && (
+                        <div className="mt-3 text-sm text-slate-700">
+                          <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
+                          {aiStates[interaction.id]?.disclaimer && (
+                            <div className="text-xs text-slate-500 italic border-t border-slate-200 pt-2">
+                              {aiStates[interaction.id]?.disclaimer}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="flex flex-col gap-2 justify-center shrink-0 border-l border-slate-100 pl-4">
