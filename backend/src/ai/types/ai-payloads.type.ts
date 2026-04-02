@@ -19,6 +19,11 @@ export interface AiMetadata {
   fallbackReason?: string;
 
   /**
+   * Version of the prompt template used.
+   */
+  promptVersion?: string;
+
+  /**
    * Duration of the AI request in milliseconds.
    */
   durationMs?: number;

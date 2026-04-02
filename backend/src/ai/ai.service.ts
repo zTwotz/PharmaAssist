@@ -107,6 +107,7 @@ export class AiService {
       providerRequested: primaryProviderType,
       providerUsed: response?.metadata?.providerUsed || primaryProviderType,
       promptType: methodName,
+      promptVersion: response?.metadata?.promptVersion,
       requestSummary: JSON.stringify(this.redactPii(input)),
       responseSummary: response ? JSON.stringify(response.data) : undefined,
       guardrailStatus: errorToThrow ? 'blocked' : 'passed',
