@@ -7,38 +7,54 @@ import {
   AiProviderException,
   AiTimeoutException,
 } from '../exceptions/ai.exception';
+import { PromptsService } from '../prompts.service';
 
-// Mock @google/generative-ai
-jest.mock('@google/generative-ai');
+const mockGoogleGenerativeAI = {
+  getGenerativeModel: jest.fn(),
+};
+
+jest.mock('@google/generative-ai', () => ({
+  GoogleGenerativeAI: jest.fn().mockImplementation(() => mockGoogleGenerativeAI),
+}));
 
 describe('GoogleAiProvider', () => {
   let provider: GoogleAiProvider;
   let mockConfigService: jest.Mocked<AiConfigService>;
+  let mockPromptsService: jest.Mocked<PromptsService>;
   let mockModel: any;
 
   beforeEach(async () => {
     mockConfigService = {
-      googleAiApiKey: 'mock-api-key',
-      googleAiModel: 'gemini-1.5-pro',
+      googleAiApiKey: 'test-api-key',
+      googleAiModel: 'gemini-1.5-flash',
       primaryProvider: AiProviderType.GOOGLE,
       fallbackProvider: AiProviderType.MOCK,
       isFallbackEnabled: true,
-    } as any;
+    } as unknown as jest.Mocked<AiConfigService>;
+
+    mockPromptsService = {
+      getPromptTemplate: jest.fn(),
+      compilePrompt: jest.fn(),
+    } as unknown as jest.Mocked<PromptsService>;
 
     mockModel = {
       generateContent: jest.fn(),
     };
-
-    (GoogleGenerativeAI as jest.Mock).mockImplementation(() => ({
-      getGenerativeModel: jest.fn().mockReturnValue(mockModel),
-    }));
+    mockGoogleGenerativeAI.getGenerativeModel.mockReturnValue(mockModel);
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GoogleAiProvider,
         { provide: AiConfigService, useValue: mockConfigService },
+        { provide: PromptsService, useValue: mockPromptsService },
       ],
     }).compile();
+
+    mockPromptsService.getPromptTemplate.mockResolvedValue({
+      content: 'mock prompt template',
+      version: 'v1.0',
+    });
+    mockPromptsService.compilePrompt.mockReturnValue('compiled prompt');
 
     provider = module.get<GoogleAiProvider>(GoogleAiProvider);
   });
@@ -92,6 +108,7 @@ describe('GoogleAiProvider', () => {
       });
 
       const promise = provider.generateInteractionExplanation(input);
+      await Promise.resolve(); // Flush microtasks so the timeout is registered
       jest.advanceTimersByTime(16000); // Trigger 15s timeout
 
       await expect(promise).rejects.toThrow(AiTimeoutException);

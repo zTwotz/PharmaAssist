@@ -16,13 +16,17 @@ import {
   AiProviderException,
   AiTimeoutException,
 } from '../exceptions/ai.exception';
+import { PromptsService } from '../prompts.service';
 
 @Injectable()
 export class GoogleAiProvider implements AiProvider {
   private readonly logger = new Logger(GoogleAiProvider.name);
   private model: GenerativeModel;
 
-  constructor(private readonly configService: AiConfigService) {
+  constructor(
+    private readonly configService: AiConfigService,
+    private readonly promptsService: PromptsService,
+  ) {
     const genAI = new GoogleGenerativeAI(this.configService.googleAiApiKey);
     this.model = genAI.getGenerativeModel({
       model: this.configService.googleAiModel,
@@ -34,18 +38,13 @@ export class GoogleAiProvider implements AiProvider {
   ): Promise<AiResponse<InteractionExplanationOutput>> {
     const startTime = Date.now();
     try {
-      const prompt = `Bạn là một trợ lý ảo hỗ trợ dược sĩ tại nhà thuốc.
-Nhiệm vụ: Giải thích về cảnh báo tương tác thuốc sau đây.
-Hoạt chất: ${input.activeIngredients.join(', ')}.
-Thuốc: ${input.medicines.join(', ')}.
-Mô tả cảnh báo: ${input.ruleDescription}.
-Ngữ cảnh bổ sung: ${input.alertContext}.
-
-Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
-{
-  "explanation": "Giải thích ngắn gọn (2-3 câu) về lý do tương tác và hậu quả có thể xảy ra.",
-  "disclaimer": "Một câu cảnh báo rằng đây chỉ là thông tin tham khảo từ AI, dược sĩ cần tự đưa ra quyết định."
-}`;
+      const template = await this.promptsService.getPromptTemplate('interaction_explanation');
+      const prompt = this.promptsService.compilePrompt(template.content, {
+        activeIngredients: input.activeIngredients.join(', '),
+        medicines: input.medicines.join(', '),
+        ruleDescription: input.ruleDescription,
+        alertContext: input.alertContext,
+      });
 
       const result = await this.executeWithTimeout(
         this.model.generateContent(prompt),
@@ -58,6 +57,7 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
         metadata: {
           providerRequested: AiProviderType.GOOGLE,
           providerUsed: AiProviderType.GOOGLE,
+          promptVersion: template.version,
           durationMs: Date.now() - startTime,
         },
       };
@@ -79,16 +79,11 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
     const startTime = Date.now();
     try {
-      const prompt = `Bạn là một trợ lý ảo hỗ trợ dược sĩ tại nhà thuốc.
-Nhiệm vụ: Viết nháp ghi chú tư vấn cho bệnh nhân.
-Ngữ cảnh đơn hàng: ${input.orderContext}.
-Ngữ cảnh cảnh báo tương tác: ${input.alertContext}.
-
-Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
-{
-  "draftNote": "Nội dung ghi chú tư vấn (ngắn gọn, dễ hiểu, các lời khuyên khi dùng chung thuốc).",
-  "disclaimer": "Một câu cảnh báo rằng đây chỉ là gợi ý từ AI."
-}`;
+      const template = await this.promptsService.getPromptTemplate('consultation_note');
+      const prompt = this.promptsService.compilePrompt(template.content, {
+        orderContext: input.orderContext,
+        alertContext: input.alertContext,
+      });
 
       const result = await this.executeWithTimeout(
         this.model.generateContent(prompt),
@@ -101,6 +96,7 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
         metadata: {
           providerRequested: AiProviderType.GOOGLE,
           providerUsed: AiProviderType.GOOGLE,
+          promptVersion: template.version,
           durationMs: Date.now() - startTime,
         },
       };
@@ -122,15 +118,10 @@ Hãy trả về dưới định dạng JSON hợp lệ với 2 trường:
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
     const startTime = Date.now();
     try {
-      const prompt = `Bạn là trợ lý ảo cho dược sĩ.
-Nhiệm vụ: Đề xuất 3 câu hỏi ngắn gọn dược sĩ nên hỏi bệnh nhân để đảm bảo an toàn dùng thuốc.
-Ngữ cảnh: ${input.shortContext}.
-
-Hãy trả về định dạng JSON hợp lệ với 2 trường:
-{
-  "questions": ["Câu 1", "Câu 2", "Câu 3"],
-  "disclaimer": "Câu cảnh báo: thông tin chỉ mang tính tham khảo từ AI."
-}`;
+      const template = await this.promptsService.getPromptTemplate('follow_up_questions');
+      const prompt = this.promptsService.compilePrompt(template.content, {
+        shortContext: input.shortContext,
+      });
 
       const result = await this.executeWithTimeout(
         this.model.generateContent(prompt),
@@ -143,6 +134,7 @@ Hãy trả về định dạng JSON hợp lệ với 2 trường:
         metadata: {
           providerRequested: AiProviderType.GOOGLE,
           providerUsed: AiProviderType.GOOGLE,
+          promptVersion: template.version,
           durationMs: Date.now() - startTime,
         },
       };
