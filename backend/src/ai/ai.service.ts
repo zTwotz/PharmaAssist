@@ -103,6 +103,7 @@ export class AiService {
 
     // Fire and forget audit log
     this.aiAuditLogService.log({
+      userId: (input as any).userId, // Add userId from input (which extends BaseAiInput implicitly now)
       providerRequested: primaryProviderType,
       providerUsed: response?.metadata?.providerUsed || primaryProviderType,
       promptType: methodName,

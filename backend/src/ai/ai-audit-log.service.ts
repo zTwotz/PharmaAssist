@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 import { GetAiAuditLogsDto } from './dto/get-ai-audit-logs.dto';
 
 export interface CreateAiAuditLogDto {
-  userId?: string;
+  userId: string;
   orderId?: number;
   alertId?: number;
   providerRequested: string;

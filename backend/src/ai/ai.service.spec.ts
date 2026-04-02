@@ -71,6 +71,7 @@ describe('AiService', () => {
     mockGoogleAiProvider.generateInteractionExplanation.mockResolvedValue(mockResponse);
 
     const result = await service.generateInteractionExplanation({
+      userId: 'test-user',
       alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
     });
 
@@ -90,6 +91,7 @@ describe('AiService', () => {
     mockMockAiProvider.generateInteractionExplanation.mockResolvedValue(mockResponse);
 
     const result = await service.generateInteractionExplanation({
+      userId: 'test-user',
       alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
     });
 
@@ -107,6 +109,7 @@ describe('AiService', () => {
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(googleError);
 
     await expect(service.generateInteractionExplanation({
+      userId: 'test-user',
       alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
     })).rejects.toThrow('Google is down');
 
@@ -120,6 +123,7 @@ describe('AiService', () => {
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(genericError);
 
     await expect(service.generateInteractionExplanation({
+      userId: 'test-user',
       alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
     })).rejects.toThrow('Generic error');
 
@@ -138,6 +142,7 @@ describe('AiService', () => {
     mockMockAiProvider.generateConsultationNoteDraft.mockResolvedValue(mockResponse);
 
     const result = await service.generateConsultationNoteDraft({
+      userId: 'test-user',
       alertContext: 'ctx', orderContext: 'order',
     });
 
@@ -156,6 +161,7 @@ describe('AiService', () => {
     mockMockAiProvider.generateFollowUpQuestions.mockResolvedValue(mockResponse);
 
     const result = await service.generateFollowUpQuestions({
+      userId: 'test-user',
       shortContext: 'ctx',
     });
 
