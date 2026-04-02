@@ -50,6 +50,7 @@ describe('GoogleAiProvider', () => {
 
   describe('generateInteractionExplanation', () => {
     const input = {
+      userId: 'test-user',
       alertContext: 'context',
       medicines: ['Med A', 'Med B'],
       activeIngredients: ['Ing A', 'Ing B'],
@@ -99,6 +100,7 @@ describe('GoogleAiProvider', () => {
 
   describe('generateConsultationNoteDraft', () => {
     const input = {
+      userId: 'test-user',
       alertContext: 'alert context',
       orderContext: 'order context',
     };
@@ -123,6 +125,7 @@ describe('GoogleAiProvider', () => {
 
   describe('generateFollowUpQuestions', () => {
     const input = {
+      userId: 'test-user',
       shortContext: 'short context',
     };
 

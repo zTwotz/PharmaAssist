@@ -31,6 +31,7 @@ describe('AiAuditLogService', () => {
 
   it('should write audit log successfully', async () => {
     const dto = {
+      userId: 'test-user',
       providerRequested: 'google',
       providerUsed: 'google',
       promptType: 'explain_alert',
@@ -47,6 +48,7 @@ describe('AiAuditLogService', () => {
     jest.spyOn(prisma.aiAuditLog, 'create').mockRejectedValue(new Error('DB Error'));
 
     const dto = {
+      userId: 'test-user',
       providerRequested: 'google',
       providerUsed: 'google',
       promptType: 'explain_alert',

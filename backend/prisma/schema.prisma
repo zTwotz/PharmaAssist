@@ -1641,3 +1641,16 @@ model IdempotencyRecord {
   @@unique([userId, operation, idempotencyKey])
   @@map("idempotency_records")
 }
+
+model PromptTemplate {
+  id        String   @id @default(uuid())
+  code      String
+  version   String
+  content   String
+  status    String   @default("ACTIVE") // ACTIVE, DRAFT, ARCHIVED
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([code, version])
+  @@map("prompt_templates")
+}

@@ -31,6 +31,7 @@ export interface AiResponse<T> {
 
 // 1. Interaction Explanation
 export interface InteractionExplanationInput {
+  userId: string;
   alertContext: string;
   medicines: string[];
   activeIngredients: string[];
@@ -44,6 +45,7 @@ export interface InteractionExplanationOutput {
 
 // 2. Consultation Note Draft
 export interface ConsultationNoteDraftInput {
+  userId: string;
   alertContext: string;
   orderContext: string;
 }
@@ -55,6 +57,7 @@ export interface ConsultationNoteDraftOutput {
 
 // 3. Follow-up Questions
 export interface FollowUpQuestionsInput {
+  userId: string;
   shortContext: string;
 }
 
