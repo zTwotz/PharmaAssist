@@ -1,7 +1,8 @@
 "use client";
 
 import React from 'react';
-import { AlertTriangle, X, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, X, ShieldAlert, Sparkles, Loader2, AlertCircle } from 'lucide-react';
+import api from '@/lib/api';
 
 export interface InteractionData {
   id: number;
@@ -25,6 +26,35 @@ interface Props {
 export function InteractionWarningModal({ interactions, onClose, onAcknowledge, onRemoveItem, cartItems }: Props) {
   const [notes, setNotes] = React.useState<Record<number, string>>({});
   const [acks, setAcks] = React.useState<Record<number, boolean>>({});
+  const [aiStates, setAiStates] = React.useState<Record<number, { loading?: boolean; explanation?: string; disclaimer?: string; error?: string }>>({});
+
+  const fetchAiExplanation = async (interaction: InteractionData) => {
+    setAiStates(prev => ({ ...prev, [interaction.id]: { loading: true, error: undefined } }));
+    try {
+      const response = await api.post('/ai/interaction-explanation', {
+        alertContext: interaction.severity,
+        medicines: [interaction.medicineA.name, interaction.medicineB.name],
+        activeIngredients: [], // Assuming we don't have this right in the modal, empty is ok for AI prompt if it's optional
+        ruleDescription: interaction.description,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          loading: false,
+          explanation: response.data.data.explanation,
+          disclaimer: response.data.data.disclaimer,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          loading: false,
+          error: err.response?.data?.message || 'Không thể tải AI explanation',
+        }
+      }));
+    }
+  };
 
   if (interactions.length === 0) return null;
 
@@ -90,8 +120,51 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                     <strong>Hậu quả: </strong>{interaction.description}
                   </div>
                   
-                  <div className="text-sm text-slate-600 bg-blue-50 p-2 rounded-lg border border-blue-100">
+                  <div className="text-sm text-slate-600 bg-blue-50 p-2 rounded-lg border border-blue-100 mb-3">
                     <strong>Khuyến nghị: </strong>{interaction.recommendation}
+                  </div>
+
+                  {/* AI Explanation Block */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                        <Sparkles size={16} />
+                        AI Copilot Giải Thích
+                      </div>
+                      {!aiStates[interaction.id]?.explanation && !aiStates[interaction.id]?.loading && (
+                        <button
+                          onClick={() => fetchAiExplanation(interaction)}
+                          className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
+                        >
+                          Hỏi AI
+                        </button>
+                      )}
+                    </div>
+
+                    {aiStates[interaction.id]?.loading && (
+                      <div className="flex items-center gap-2 text-sm text-slate-500 mt-2">
+                        <Loader2 size={14} className="animate-spin" /> Đang phân tích...
+                      </div>
+                    )}
+
+                    {aiStates[interaction.id]?.error && (
+                      <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 mt-2 rounded">
+                        <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                        <span>{aiStates[interaction.id]?.error}</span>
+                        <button onClick={() => fetchAiExplanation(interaction)} className="underline ml-auto font-medium">Thử lại</button>
+                      </div>
+                    )}
+
+                    {aiStates[interaction.id]?.explanation && (
+                      <div className="mt-3 text-sm text-slate-700">
+                        <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
+                        {aiStates[interaction.id]?.disclaimer && (
+                          <div className="text-xs text-slate-500 italic border-t border-slate-200 pt-2">
+                            {aiStates[interaction.id]?.disclaimer}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
                 
