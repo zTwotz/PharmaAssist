@@ -279,7 +279,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-298 — Implement AI interaction explanation API | `PAC-508` | Not started | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-298 — Implement AI interaction explanation API | `PAC-508` | DONE | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` | `3168929` | Local | Merged | `3944375` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-299 — Build AI explanation panel in InteractionAlert UI | `PAC-509` | Not started | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-301 — Build AI explanation loading, error and fallback states | `PAC-511` | Not started | `feature/PAC-511-task-301-build-ai-explanation-loading-error-and-fallback-sta` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | Not started | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
