@@ -915,7 +915,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-335 — Build Admin AI Audit Log list API | `PAC-545` | Not started | `feature/PAC-545-task-335-build-admin-ai-audit-log-list-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-335 — Build Admin AI Audit Log list | `PAC-545` | DONE | `feature/PAC-545-task-335-build-admin-ai-audit-log-list-api` | `732520e` | Local | Merged | `d263adc` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-336 — Build Admin AI Audit Log UI | `PAC-546` | Not started | `feature/PAC-546-task-336-build-admin-ai-audit-log-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-337 — Add AI Audit filters by provider, status and date | `PAC-547` | Not started | `feature/PAC-547-task-337-add-ai-audit-filters-by-provider-status-and-date` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
