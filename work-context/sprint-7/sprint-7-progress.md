@@ -507,10 +507,10 @@ Story scope: `US-142`, `US-143`.
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-316 — Define unsafe AI request categories | `PAC-526` | DONE | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | `578807c` | Local | Merged | `176bbaf` | PASS | PASS | PASS | — | DONE |
-| PAC-TASK-317 — Implement AI input guardrail service | `PAC-527` | Not started | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-328 — Add guardrail status object to AI response | `PAC-538` | Not started | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-346 — Add AI input guardrail unit tests | `PAC-556` | Not started | `test/PAC-556-task-346-add-ai-input-guardrail-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-355 — Add AI safety traceability notes | `PAC-565` | Not started | `feature/PAC-565-task-355-add-ai-safety-traceability-notes` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-317 — Implement AI input guardrail service | `PAC-527` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-328 — Add guardrail status object to AI response | `PAC-538` | DONE | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-346 — Add AI input guardrail unit tests | `PAC-556` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-355 — Add AI safety traceability notes | `PAC-565` | DONE | `feature/PAC-565-task-355-add-ai-safety-traceability-notes` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -539,14 +539,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-318 — Block diagnosis requests | `PAC-528` | Not started | `feature/PAC-528-task-318-block-diagnosis-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-347 — Add diagnosis block tests | `PAC-557` | Not started | `test/PAC-557-task-347-add-diagnosis-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-318 — Block diagnosis requests | `PAC-528` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-347 — Add diagnosis block tests | `PAC-557` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -575,14 +575,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-319 — Block prescribing requests | `PAC-529` | Not started | `feature/PAC-529-task-319-block-prescribing-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-348 — Add prescribing block tests | `PAC-558` | Not started | `test/PAC-558-task-348-add-prescribing-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-319 — Block prescribing requests | `PAC-529` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-348 — Add prescribing block tests | `PAC-558` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -611,14 +611,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-320 — Block dosage advice requests | `PAC-530` | Not started | `feature/PAC-530-task-320-block-dosage-advice-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-349 — Add dosage advice block tests | `PAC-559` | Not started | `test/PAC-559-task-349-add-dosage-advice-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-320 — Block dosage advice requests | `PAC-530` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-349 — Add dosage advice block tests | `PAC-559` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -765,7 +765,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-321 — Add safe response templates for blocked AI input | `PAC-531` | Not started | `feature/PAC-531-task-321-add-safe-response-templates-for-blocked-ai-input` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-321 — Add safe response templates for blocked AI input | `PAC-531` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-345 — Add AI safe error response helper | `PAC-555` | DONE | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | `a6d0889` | PR #816 | Merged | `6f8b4e0` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
