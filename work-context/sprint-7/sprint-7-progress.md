@@ -358,7 +358,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-304 — Build Staff edit AI draft before confirm UI | `PAC-514` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-305 — Implement Staff confirm AI draft as official consultation note | `PAC-515` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-306 — Prevent unconfirmed AI draft from saving official note | `PAC-516` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
-| PAC-TASK-307 — Link confirmed AI note to correct HIGH InteractionAlert | `PAC-517` | Not started | `feature/PAC-517-task-307-link-confirmed-ai-note-to-correct-high-interactiona` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-307 — Link confirmed AI note to correct HIGH InteractionAlert | `PAC-517` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -393,9 +393,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-308 — Implement safe follow-up question API | `PAC-518` | Not started | `feature/PAC-518-task-308-implement-safe-follow-up-question-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-309 — Build safe follow-up question UI field | `PAC-519` | Not started | `feature/PAC-519-task-309-build-safe-follow-up-question-ui-field` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-310 — Block medical-record style storage for symptom/context input | `PAC-520` | Not started | `feature/PAC-520-task-310-block-medical-record-style-storage-for-symptom-cont` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-308 — Implement safe follow-up question API | `PAC-518` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-309 — Build safe follow-up question UI field | `PAC-519` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-310 — Block medical-record style storage for symptom/context input | `PAC-520` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
