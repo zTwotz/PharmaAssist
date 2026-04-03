@@ -280,7 +280,7 @@ async function main() {
     {
       code: 'follow_up_questions',
       version: 'v1.0',
-      content: 'Suggest 3 safe follow-up questions a pharmacist should ask a patient who is prescribed: {{medications}}.',
+      content: 'Suggest 3 safe follow-up questions a pharmacist should ask a patient based on this context: {{shortContext}}. Keep the questions friendly and professional. Respond in JSON format with a "questions" array and a "disclaimer".',
       status: 'ACTIVE'
     }
   ];

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { AiConfigService } from './ai-config.service';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
@@ -137,6 +137,15 @@ export class AiService {
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
+    const forbiddenKeywords = ['chẩn đoán', 'kê đơn', 'liều dùng', 'chuẩn đoán', 'điều trị', 'phác đồ'];
+    const lowerContext = input.shortContext.toLowerCase();
+    
+    for (const keyword of forbiddenKeywords) {
+      if (lowerContext.includes(keyword)) {
+        throw new BadRequestException(`Yêu cầu bị chặn bởi Guardrail: Không được phép yêu cầu "${keyword}" y tế. Vui lòng chỉ nhập thông tin chung để lấy câu hỏi follow-up an toàn.`);
+      }
+    }
+
     return this.executeWithFallback('generateFollowUpQuestions', input);
   }
 }

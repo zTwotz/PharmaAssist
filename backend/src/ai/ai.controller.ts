@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { AiService } from './ai.service';
 import { GenerateInteractionExplanationDto } from './dto/generate-interaction-explanation.dto';
 import { GenerateConsultationNoteDraftDto } from './dto/generate-consultation-note-draft.dto';
+import { GenerateFollowUpQuestionsDto } from './dto/generate-follow-up-questions.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -41,6 +42,21 @@ export class AiController {
   ) {
     const userId = req.user.id;
     return this.aiService.generateConsultationNoteDraft({
+      userId,
+      ...dto,
+    });
+  }
+
+  @Post('follow-up-questions')
+  @Roles('Admin', 'Staff')
+  @RequirePermissions('USE_AI_COPILOT')
+  @ApiOperation({ summary: 'Generate safe follow-up questions' })
+  async generateFollowUpQuestions(
+    @Req() req: any,
+    @Body() dto: GenerateFollowUpQuestionsDto,
+  ) {
+    const userId = req.user.id;
+    return this.aiService.generateFollowUpQuestions({
       userId,
       ...dto,
     });
