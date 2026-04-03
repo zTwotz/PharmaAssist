@@ -284,7 +284,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-301 — Build AI explanation loading, error and fallback states | `PAC-511` | DONE | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | `7248e5f` | Local | Merged | `848f9c6` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-312 — Add AI Copilot frontend route and action guards | `PAC-522` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
-| PAC-TASK-315 — Add AI Copilot integration smoke checklist | `PAC-525` | Not started | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-315 — Add AI Copilot integration smoke checklist | `PAC-525` | DONE | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | `578807c` | Local | Merged | `176bbaf` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -506,7 +506,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-316 — Define unsafe AI request categories | `PAC-526` | Not started | `feature/PAC-526-task-316-define-unsafe-ai-request-categories` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-316 — Define unsafe AI request categories | `PAC-526` | DONE | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | `578807c` | Local | Merged | `176bbaf` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-317 — Implement AI input guardrail service | `PAC-527` | Not started | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-328 — Add guardrail status object to AI response | `PAC-538` | Not started | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 | PAC-TASK-346 — Add AI input guardrail unit tests | `PAC-556` | Not started | `test/PAC-556-task-346-add-ai-input-guardrail-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
