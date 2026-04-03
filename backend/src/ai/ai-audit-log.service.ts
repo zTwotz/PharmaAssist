@@ -38,7 +38,15 @@ export class AiAuditLogService {
   }
 
   async getLogs(query: GetAiAuditLogsDto) {
-    const { page = 1, limit = 20, providerUsed, guardrailStatus, promptType, startDate, endDate } = query;
+    const {
+      page = 1,
+      limit = 20,
+      providerUsed,
+      guardrailStatus,
+      promptType,
+      startDate,
+      endDate,
+    } = query;
 
     const where: Prisma.AiAuditLogWhereInput = {};
 

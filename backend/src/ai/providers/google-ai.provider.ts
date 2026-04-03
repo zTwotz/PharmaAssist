@@ -38,7 +38,9 @@ export class GoogleAiProvider implements AiProvider {
   ): Promise<AiResponse<InteractionExplanationOutput>> {
     const startTime = Date.now();
     try {
-      const template = await this.promptsService.getPromptTemplate('interaction_explanation');
+      const template = await this.promptsService.getPromptTemplate(
+        'interaction_explanation',
+      );
       const prompt = this.promptsService.compilePrompt(template.content, {
         activeIngredients: input.activeIngredients.join(', '),
         medicines: input.medicines.join(', '),
@@ -79,7 +81,8 @@ export class GoogleAiProvider implements AiProvider {
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
     const startTime = Date.now();
     try {
-      const template = await this.promptsService.getPromptTemplate('consultation_note');
+      const template =
+        await this.promptsService.getPromptTemplate('consultation_note');
       const prompt = this.promptsService.compilePrompt(template.content, {
         orderContext: input.orderContext,
         alertContext: input.alertContext,
@@ -118,7 +121,9 @@ export class GoogleAiProvider implements AiProvider {
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
     const startTime = Date.now();
     try {
-      const template = await this.promptsService.getPromptTemplate('follow_up_questions');
+      const template = await this.promptsService.getPromptTemplate(
+        'follow_up_questions',
+      );
       const prompt = this.promptsService.compilePrompt(template.content, {
         shortContext: input.shortContext,
       });

@@ -30,8 +30,11 @@ describe('AiAuditLogController', () => {
 
   it('should get logs', async () => {
     const query: GetAiAuditLogsDto = { page: 1, limit: 10 };
-    const mockResult = { items: [], meta: { total: 0, page: 1, limit: 10, totalPages: 0 } };
-    
+    const mockResult = {
+      items: [],
+      meta: { total: 0, page: 1, limit: 10, totalPages: 0 },
+    };
+
     jest.spyOn(service, 'getLogs').mockResolvedValue(mockResult);
 
     const result = await controller.getLogs(query);

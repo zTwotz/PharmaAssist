@@ -13,7 +13,14 @@ import { PromptsService } from './prompts.service';
 @Module({
   imports: [ConfigModule.forRoot(), PrismaModule],
   controllers: [AiAuditLogController, AiController],
-  providers: [AiConfigService, AiService, AiAuditLogService, GoogleAiProvider, MockAiProvider, PromptsService],
+  providers: [
+    AiConfigService,
+    AiService,
+    AiAuditLogService,
+    GoogleAiProvider,
+    MockAiProvider,
+    PromptsService,
+  ],
   exports: [AiConfigService, AiService, AiAuditLogService, PromptsService],
 })
 export class AiModule {}

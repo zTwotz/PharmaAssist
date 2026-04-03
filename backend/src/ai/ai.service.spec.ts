@@ -65,85 +65,141 @@ describe('AiService', () => {
   it('should call Google AI successfully', async () => {
     const mockResponse = {
       data: { explanation: 'test', disclaimer: 'test' },
-      metadata: { providerRequested: AiProviderType.GOOGLE, providerUsed: AiProviderType.GOOGLE },
+      metadata: {
+        providerRequested: AiProviderType.GOOGLE,
+        providerUsed: AiProviderType.GOOGLE,
+      },
     };
 
-    mockGoogleAiProvider.generateInteractionExplanation.mockResolvedValue(mockResponse);
+    mockGoogleAiProvider.generateInteractionExplanation.mockResolvedValue(
+      mockResponse,
+    );
 
     const result = await service.generateInteractionExplanation({
       userId: 'test-user',
-      alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
+      alertContext: 'ctx',
+      medicines: [],
+      activeIngredients: [],
+      ruleDescription: 'desc',
     });
 
     expect(result).toEqual(mockResponse);
-    expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalled();
-    expect(mockMockAiProvider.generateInteractionExplanation).not.toHaveBeenCalled();
+    expect(
+      mockGoogleAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalled();
+    expect(
+      mockMockAiProvider.generateInteractionExplanation,
+    ).not.toHaveBeenCalled();
   });
 
   it('should fallback to Mock AI if Google AI fails with AiProviderException and fallback is enabled', async () => {
     const googleError = new AiProviderException('Google is down');
     const mockResponse = {
       data: { explanation: 'mock', disclaimer: 'mock' },
-      metadata: { providerRequested: AiProviderType.MOCK, providerUsed: AiProviderType.MOCK },
+      metadata: {
+        providerRequested: AiProviderType.MOCK,
+        providerUsed: AiProviderType.MOCK,
+      },
     };
 
-    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(googleError);
-    mockMockAiProvider.generateInteractionExplanation.mockResolvedValue(mockResponse);
+    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(
+      googleError,
+    );
+    mockMockAiProvider.generateInteractionExplanation.mockResolvedValue(
+      mockResponse,
+    );
 
     const result = await service.generateInteractionExplanation({
       userId: 'test-user',
-      alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
+      alertContext: 'ctx',
+      medicines: [],
+      activeIngredients: [],
+      ruleDescription: 'desc',
     });
 
     expect(result.data.explanation).toEqual('mock');
     expect(result.metadata.fallbackReason).toEqual('Google is down');
     expect(result.metadata.providerRequested).toEqual(AiProviderType.GOOGLE);
-    expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalled();
-    expect(mockMockAiProvider.generateInteractionExplanation).toHaveBeenCalled();
+    expect(
+      mockGoogleAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalled();
+    expect(
+      mockMockAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalled();
   });
 
   it('should throw error if Google AI fails with AiProviderException but fallback is disabled', async () => {
     mockConfigService.isFallbackEnabled = false;
     const googleError = new AiProviderException('Google is down');
 
-    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(googleError);
+    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(
+      googleError,
+    );
 
-    await expect(service.generateInteractionExplanation({
-      userId: 'test-user',
-      alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
-    })).rejects.toThrow('Google is down');
+    await expect(
+      service.generateInteractionExplanation({
+        userId: 'test-user',
+        alertContext: 'ctx',
+        medicines: [],
+        activeIngredients: [],
+        ruleDescription: 'desc',
+      }),
+    ).rejects.toThrow('Google is down');
 
-    expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalled();
-    expect(mockMockAiProvider.generateInteractionExplanation).not.toHaveBeenCalled();
+    expect(
+      mockGoogleAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalled();
+    expect(
+      mockMockAiProvider.generateInteractionExplanation,
+    ).not.toHaveBeenCalled();
   });
 
   it('should throw error immediately if error is not AiProviderException', async () => {
     const genericError = new Error('Generic error');
 
-    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(genericError);
+    mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(
+      genericError,
+    );
 
-    await expect(service.generateInteractionExplanation({
-      userId: 'test-user',
-      alertContext: 'ctx', medicines: [], activeIngredients: [], ruleDescription: 'desc',
-    })).rejects.toThrow('Generic error');
+    await expect(
+      service.generateInteractionExplanation({
+        userId: 'test-user',
+        alertContext: 'ctx',
+        medicines: [],
+        activeIngredients: [],
+        ruleDescription: 'desc',
+      }),
+    ).rejects.toThrow('Generic error');
 
-    expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalled();
-    expect(mockMockAiProvider.generateInteractionExplanation).not.toHaveBeenCalled(); // No fallback for generic error
+    expect(
+      mockGoogleAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalled();
+    expect(
+      mockMockAiProvider.generateInteractionExplanation,
+    ).not.toHaveBeenCalled(); // No fallback for generic error
   });
 
   it('should fallback to Mock AI for generateConsultationNoteDraft', async () => {
     const googleError = new AiProviderException('Timeout');
     const mockResponse = {
       data: { draftNote: 'mock note', disclaimer: 'mock' },
-      metadata: { providerRequested: AiProviderType.MOCK, providerUsed: AiProviderType.MOCK },
+      metadata: {
+        providerRequested: AiProviderType.MOCK,
+        providerUsed: AiProviderType.MOCK,
+      },
     };
 
-    mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(googleError);
-    mockMockAiProvider.generateConsultationNoteDraft.mockResolvedValue(mockResponse);
+    mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(
+      googleError,
+    );
+    mockMockAiProvider.generateConsultationNoteDraft.mockResolvedValue(
+      mockResponse,
+    );
 
     const result = await service.generateConsultationNoteDraft({
       userId: 'test-user',
-      alertContext: 'ctx', orderContext: 'order',
+      alertContext: 'ctx',
+      orderContext: 'order',
     });
 
     expect(result.data.draftNote).toEqual('mock note');
@@ -154,11 +210,18 @@ describe('AiService', () => {
     const googleError = new AiProviderException('Quota exceeded');
     const mockResponse = {
       data: { questions: ['Q1'], disclaimer: 'mock' },
-      metadata: { providerRequested: AiProviderType.MOCK, providerUsed: AiProviderType.MOCK },
+      metadata: {
+        providerRequested: AiProviderType.MOCK,
+        providerUsed: AiProviderType.MOCK,
+      },
     };
 
-    mockGoogleAiProvider.generateFollowUpQuestions.mockRejectedValue(googleError);
-    mockMockAiProvider.generateFollowUpQuestions.mockResolvedValue(mockResponse);
+    mockGoogleAiProvider.generateFollowUpQuestions.mockRejectedValue(
+      googleError,
+    );
+    mockMockAiProvider.generateFollowUpQuestions.mockResolvedValue(
+      mockResponse,
+    );
 
     const result = await service.generateFollowUpQuestions({
       userId: 'test-user',
