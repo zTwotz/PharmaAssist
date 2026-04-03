@@ -1,4 +1,8 @@
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface PromptTemplateData {
@@ -25,7 +29,9 @@ export class PromptsService {
 
     if (!template) {
       this.logger.error(`Missing active prompt template for use case: ${code}`);
-      throw new InternalServerErrorException(`AI Configuration Error: Missing prompt template for ${code}`);
+      throw new InternalServerErrorException(
+        `AI Configuration Error: Missing prompt template for ${code}`,
+      );
     }
 
     return {

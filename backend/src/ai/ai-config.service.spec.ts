@@ -39,6 +39,8 @@ describe('AiConfigService', () => {
 
   it('should throw error if google AI API key is undefined', () => {
     mockConfigService.get.mockReturnValue(undefined);
-    expect(() => service.googleAiApiKey).toThrow('GEMINI_API_KEY must be defined for Google AI provider');
+    expect(() => service.googleAiApiKey).toThrow(
+      'GEMINI_API_KEY must be defined for Google AI provider',
+    );
   });
 });

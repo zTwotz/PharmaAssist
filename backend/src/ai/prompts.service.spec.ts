@@ -53,7 +53,10 @@ describe('PromptsService', () => {
 
   it('should compile prompt with given variables', () => {
     const template = 'Hello {{name}}, you are {{age}} years old.';
-    const compiled = service.compilePrompt(template, { name: 'Alice', age: '30' });
+    const compiled = service.compilePrompt(template, {
+      name: 'Alice',
+      age: '30',
+    });
     expect(compiled).toBe('Hello Alice, you are 30 years old.');
   });
 });

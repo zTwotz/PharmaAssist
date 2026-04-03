@@ -45,7 +45,9 @@ describe('AiAuditLogService', () => {
   });
 
   it('should catch error and not throw to avoid blocking main thread', async () => {
-    jest.spyOn(prisma.aiAuditLog, 'create').mockRejectedValue(new Error('DB Error'));
+    jest
+      .spyOn(prisma.aiAuditLog, 'create')
+      .mockRejectedValue(new Error('DB Error'));
 
     const dto = {
       userId: 'test-user',

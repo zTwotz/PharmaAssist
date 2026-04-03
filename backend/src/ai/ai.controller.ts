@@ -9,6 +9,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { PermissionsGuard } from '../auth/permissions.guard';
 import { RequirePermissions } from '../auth/permissions.decorator';
+import { handleAiError } from './utils/ai-guards';
 
 @ApiTags('ai')
 @ApiBearerAuth()
@@ -25,11 +26,15 @@ export class AiController {
     @Req() req: any,
     @Body() dto: GenerateInteractionExplanationDto,
   ) {
-    const userId = req.user.id;
-    return this.aiService.generateInteractionExplanation({
-      userId,
-      ...dto,
-    });
+    try {
+      const userId = req.user.id;
+      return await this.aiService.generateInteractionExplanation({
+        userId,
+        ...dto,
+      });
+    } catch (e) {
+      handleAiError(e);
+    }
   }
 
   @Post('consultation-note-draft')
@@ -40,11 +45,15 @@ export class AiController {
     @Req() req: any,
     @Body() dto: GenerateConsultationNoteDraftDto,
   ) {
-    const userId = req.user.id;
-    return this.aiService.generateConsultationNoteDraft({
-      userId,
-      ...dto,
-    });
+    try {
+      const userId = req.user.id;
+      return await this.aiService.generateConsultationNoteDraft({
+        userId,
+        ...dto,
+      });
+    } catch (e) {
+      handleAiError(e);
+    }
   }
 
   @Post('follow-up-questions')
@@ -55,10 +64,14 @@ export class AiController {
     @Req() req: any,
     @Body() dto: GenerateFollowUpQuestionsDto,
   ) {
-    const userId = req.user.id;
-    return this.aiService.generateFollowUpQuestions({
-      userId,
-      ...dto,
-    });
+    try {
+      const userId = req.user.id;
+      return await this.aiService.generateFollowUpQuestions({
+        userId,
+        ...dto,
+      });
+    } catch (e) {
+      handleAiError(e);
+    }
   }
 }

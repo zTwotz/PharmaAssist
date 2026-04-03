@@ -14,10 +14,13 @@ import {
   FollowUpQuestionsInput,
   FollowUpQuestionsOutput,
 } from './types/ai-payloads.type';
+import { CircuitBreaker, RateLimiter } from './utils/ai-guards';
 
 @Injectable()
 export class AiService {
   private readonly logger = new Logger(AiService.name);
+  private readonly circuitBreaker = new CircuitBreaker(5, 30000); // 5 failures, 30s reset
+  private readonly rateLimiter = new RateLimiter(20, 60000); // 20 requests per minute
 
   constructor(
     private readonly configService: AiConfigService,
@@ -65,10 +68,14 @@ export class AiService {
         `Attempting AI request ${methodName} with primary provider: ${primaryProviderType}`,
       );
 
+      this.rateLimiter.checkLimit();
+
       if (primaryProviderType === AiProviderType.GOOGLE) {
-        response = (await (this.googleAiProvider as any)[methodName](
-          input,
-        )) as AiResponse<U>;
+        response = await this.circuitBreaker.fire(async () => {
+          return (await (this.googleAiProvider as any)[methodName](
+            input,
+          )) as AiResponse<U>;
+        });
       } else {
         throw new AiProviderException(
           `Unsupported primary provider: ${primaryProviderType}`,
@@ -102,18 +109,20 @@ export class AiService {
     const latencyMs = Date.now() - startTime;
 
     // Fire and forget audit log
-    this.aiAuditLogService.log({
-      userId: (input as any).userId, // Add userId from input (which extends BaseAiInput implicitly now)
-      providerRequested: primaryProviderType,
-      providerUsed: response?.metadata?.providerUsed || primaryProviderType,
-      promptType: methodName,
-      promptVersion: response?.metadata?.promptVersion,
-      requestSummary: JSON.stringify(this.redactPii(input)),
-      responseSummary: response ? JSON.stringify(response.data) : undefined,
-      guardrailStatus: errorToThrow ? 'blocked' : 'passed',
-      fallbackReason: response?.metadata?.fallbackReason,
-      latencyMs: response?.metadata?.durationMs || latencyMs,
-    }).catch(e => this.logger.error('Failed to invoke audit log service', e));
+    this.aiAuditLogService
+      .log({
+        userId: (input as any).userId, // Add userId from input (which extends BaseAiInput implicitly now)
+        providerRequested: primaryProviderType,
+        providerUsed: response?.metadata?.providerUsed || primaryProviderType,
+        promptType: methodName,
+        promptVersion: response?.metadata?.promptVersion,
+        requestSummary: JSON.stringify(this.redactPii(input)),
+        responseSummary: response ? JSON.stringify(response.data) : undefined,
+        guardrailStatus: errorToThrow ? 'blocked' : 'passed',
+        fallbackReason: response?.metadata?.fallbackReason,
+        latencyMs: response?.metadata?.durationMs || latencyMs,
+      })
+      .catch((e) => this.logger.error('Failed to invoke audit log service', e));
 
     if (errorToThrow) {
       throw errorToThrow;
@@ -137,12 +146,21 @@ export class AiService {
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
-    const forbiddenKeywords = ['chẩn đoán', 'kê đơn', 'liều dùng', 'chuẩn đoán', 'điều trị', 'phác đồ'];
+    const forbiddenKeywords = [
+      'chẩn đoán',
+      'kê đơn',
+      'liều dùng',
+      'chuẩn đoán',
+      'điều trị',
+      'phác đồ',
+    ];
     const lowerContext = input.shortContext.toLowerCase();
-    
+
     for (const keyword of forbiddenKeywords) {
       if (lowerContext.includes(keyword)) {
-        throw new BadRequestException(`Yêu cầu bị chặn bởi Guardrail: Không được phép yêu cầu "${keyword}" y tế. Vui lòng chỉ nhập thông tin chung để lấy câu hỏi follow-up an toàn.`);
+        throw new BadRequestException(
+          `Yêu cầu bị chặn bởi Guardrail: Không được phép yêu cầu "${keyword}" y tế. Vui lòng chỉ nhập thông tin chung để lấy câu hỏi follow-up an toàn.`,
+        );
       }
     }
 
