@@ -5,6 +5,7 @@ import { MockAiProvider } from './providers/mock-ai.provider';
 import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
+import { AiGuardrailService } from './ai-guardrail.service';
 import {
   AiResponse,
   InteractionExplanationInput,
@@ -27,6 +28,7 @@ export class AiService {
     private readonly googleAiProvider: GoogleAiProvider,
     private readonly mockAiProvider: MockAiProvider,
     private readonly aiAuditLogService: AiAuditLogService,
+    private readonly aiGuardrailService: AiGuardrailService,
   ) {}
 
   /**
@@ -134,36 +136,21 @@ export class AiService {
   async generateInteractionExplanation(
     input: InteractionExplanationInput,
   ): Promise<AiResponse<InteractionExplanationOutput>> {
+    this.aiGuardrailService.checkInput(JSON.stringify(input));
     return this.executeWithFallback('generateInteractionExplanation', input);
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
+    this.aiGuardrailService.checkInput(JSON.stringify(input));
     return this.executeWithFallback('generateConsultationNoteDraft', input);
   }
 
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
-    const forbiddenKeywords = [
-      'chẩn đoán',
-      'kê đơn',
-      'liều dùng',
-      'chuẩn đoán',
-      'điều trị',
-      'phác đồ',
-    ];
-    const lowerContext = input.shortContext.toLowerCase();
-
-    for (const keyword of forbiddenKeywords) {
-      if (lowerContext.includes(keyword)) {
-        throw new BadRequestException(
-          `Yêu cầu bị chặn bởi Guardrail: Không được phép yêu cầu "${keyword}" y tế. Vui lòng chỉ nhập thông tin chung để lấy câu hỏi follow-up an toàn.`,
-        );
-      }
-    }
-
+    this.aiGuardrailService.checkInput(JSON.stringify(input));
     return this.executeWithFallback('generateFollowUpQuestions', input);
   }
 }

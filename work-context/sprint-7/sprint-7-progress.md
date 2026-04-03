@@ -424,7 +424,7 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/5 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 5/5 | PASS | PASS | N/A | None | DONE |
 
 ## Related Tasks
 
@@ -434,7 +434,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-293 — Implement Google AI provider adapter | `PAC-503` | Done | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` | `15bb00e` | Local | Merged | `a7e65a5` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-294 — Add Google AI timeout and retry-safe error handling | `PAC-504` | Done | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` | `699d13f` | Local | Merged | `c6cc14e` | PASS | PASS | N/A | None | DONE |
 | PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Done | `test/PAC-523-task-313-add-ai-provider-unit-tests` | `12c29df` | Local | Merged | `53290d4` | PASS | PASS | N/A | None | DONE |
-| PAC-TASK-344 — Add timeout, circuit breaker and rate-limit guard for AI calls | `PAC-554` | Not started | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-344 — Add timeout, circuit breaker and rate-limit guard for AI calls | `PAC-554` | DONE | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | `a6d0889` | PR #816 | Merged | `6f8b4e0` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -766,7 +766,7 @@ Story scope: `US-142`, `US-143`.
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-321 — Add safe response templates for blocked AI input | `PAC-531` | Not started | `feature/PAC-531-task-321-add-safe-response-templates-for-blocked-ai-input` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-345 — Add AI safe error response helper | `PAC-555` | Not started | `feature/PAC-555-task-345-add-ai-safe-error-response-helper` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-345 — Add AI safe error response helper | `PAC-555` | DONE | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | `a6d0889` | PR #816 | Merged | `6f8b4e0` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
