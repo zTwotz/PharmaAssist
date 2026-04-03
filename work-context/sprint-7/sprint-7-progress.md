@@ -319,7 +319,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-302 — Implement AI consultation note draft API | `PAC-512` | Not started | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-302 — Implement AI consultation note draft API | `PAC-512` | DONE | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` | `3fb39fa` | Local | Merged | `5f6d5db` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-303 — Build AI consultation note draft panel | `PAC-513` | Not started | `feature/PAC-513-task-303-build-ai-consultation-note-draft-panel` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
