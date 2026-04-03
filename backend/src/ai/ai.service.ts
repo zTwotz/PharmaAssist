@@ -108,6 +108,18 @@ export class AiService {
       }
     }
 
+    if (!errorToThrow && response) {
+      try {
+        this.aiGuardrailService.checkOutput(JSON.stringify(response.data));
+      } catch (guardrailError) {
+        errorToThrow = guardrailError;
+        // Strip out the data since it was blocked
+        response.data = null as any; 
+        if (!response.metadata) response.metadata = {} as any;
+        response.metadata.guardrailStatus = 'blocked';
+      }
+    }
+
     const latencyMs = Date.now() - startTime;
 
     // Fire and forget audit log
@@ -119,8 +131,8 @@ export class AiService {
         promptType: methodName,
         promptVersion: response?.metadata?.promptVersion,
         requestSummary: JSON.stringify(this.redactPii(input)),
-        responseSummary: response ? JSON.stringify(response.data) : undefined,
-        guardrailStatus: errorToThrow ? 'blocked' : 'passed',
+        responseSummary: response?.data ? JSON.stringify(response.data) : undefined,
+        guardrailStatus: response?.metadata?.guardrailStatus || (errorToThrow ? 'blocked' : 'passed'),
         fallbackReason: response?.metadata?.fallbackReason,
         latencyMs: response?.metadata?.durationMs || latencyMs,
       })

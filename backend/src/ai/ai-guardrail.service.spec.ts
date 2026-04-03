@@ -39,4 +39,22 @@ describe('AiGuardrailService', () => {
   it('should block out-of-scope request', () => {
     expect(() => service.checkInput('Cho tôi lời khuyên về tài chính')).toThrow(BadRequestException);
   });
+
+  describe('checkOutput', () => {
+    it('should pass safe output', () => {
+      expect(() => service.checkOutput('{"answer": "Paracetamol là thuốc giảm đau an toàn"}')).not.toThrow();
+    });
+
+    it('should block output containing diagnosis advice', () => {
+      expect(() => service.checkOutput('{"answer": "Theo triệu chứng, chẩn đoán của bạn là viêm họng"}')).toThrow(BadRequestException);
+    });
+
+    it('should block output containing prescribing advice', () => {
+      expect(() => service.checkOutput('{"answer": "Bạn nên dùng Amoxicillin"}')).toThrow(BadRequestException);
+    });
+
+    it('should block output containing dosage advice', () => {
+      expect(() => service.checkOutput('{"answer": "Bạn có thể uống 2 viên một ngày"}')).toThrow(BadRequestException);
+    });
+  });
 });

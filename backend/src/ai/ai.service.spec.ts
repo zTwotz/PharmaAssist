@@ -40,6 +40,7 @@ describe('AiService', () => {
 
     mockGuardrailService = {
       checkInput: jest.fn(),
+      checkOutput: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
