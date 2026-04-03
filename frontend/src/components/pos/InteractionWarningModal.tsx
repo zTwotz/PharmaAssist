@@ -28,7 +28,16 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
   const { hasPermission } = useAuth();
   const [notes, setNotes] = React.useState<Record<number, string>>({});
   const [acks, setAcks] = React.useState<Record<number, boolean>>({});
-  const [aiStates, setAiStates] = React.useState<Record<number, { loading?: boolean; explanation?: string; disclaimer?: string; error?: string }>>({});
+  const [aiStates, setAiStates] = React.useState<Record<number, { 
+    loading?: boolean; 
+    explanation?: string; 
+    disclaimer?: string; 
+    error?: string;
+    draftLoading?: boolean;
+    draftNote?: string;
+    draftDisclaimer?: string;
+    draftError?: string;
+  }>>({});
 
   const fetchAiExplanation = async (interaction: InteractionData) => {
     setAiStates(prev => ({ ...prev, [interaction.id]: { loading: true, error: undefined } }));
@@ -53,6 +62,35 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
         [interaction.id]: {
           loading: false,
           error: err.response?.data?.message || 'Không thể tải AI explanation',
+        }
+      }));
+    }
+  };
+
+  const fetchAiDraft = async (interaction: InteractionData) => {
+    setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], draftLoading: true, draftError: undefined } }));
+    try {
+      const orderContext = cartItems.map(i => `${i.quantity} x ${i.name}`).join(', ');
+      const response = await api.post('/ai/consultation-note-draft', {
+        alertContext: `Tương tác mức độ ${interaction.severity} giữa ${interaction.medicineA.name} và ${interaction.medicineB.name}. Hậu quả: ${interaction.description}. Khuyến nghị: ${interaction.recommendation}.`,
+        orderContext,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          draftLoading: false,
+          draftNote: response.data.data.draftNote,
+          draftDisclaimer: response.data.data.disclaimer,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          draftLoading: false,
+          draftError: err.response?.data?.message || 'Không thể tạo bản nháp AI',
         }
       }));
     }
@@ -201,14 +239,75 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                     </span>
                   </label>
                   {acks[interaction.id] && (
-                    <div className="pl-8">
-                      <textarea
-                        className="w-full text-sm rounded-lg border-red-200 focus:border-red-500 focus:ring-red-500 p-2"
-                        rows={2}
-                        placeholder="Ghi chú tư vấn (Bắt buộc)..."
-                        value={notes[interaction.id] || ''}
-                        onChange={(e) => setNotes(prev => ({ ...prev, [interaction.id]: e.target.value }))}
-                      ></textarea>
+                    <div className="pl-8 space-y-3">
+                      {hasPermission('USE_AI_COPILOT') && (
+                        <div className="bg-white border border-indigo-100 rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2 text-indigo-700 font-semibold text-sm">
+                              <Sparkles size={16} />
+                              AI Draft
+                            </div>
+                            {!aiStates[interaction.id]?.draftNote && !aiStates[interaction.id]?.draftLoading && (
+                              <button
+                                onClick={() => fetchAiDraft(interaction)}
+                                className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
+                              >
+                                Tạo nháp
+                              </button>
+                            )}
+                          </div>
+                          
+                          {aiStates[interaction.id]?.draftLoading && (
+                            <div className="flex items-center gap-2 text-sm text-slate-500">
+                              <Loader2 size={14} className="animate-spin" /> Đang soạn thảo...
+                            </div>
+                          )}
+
+                          {aiStates[interaction.id]?.draftError && (
+                            <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 rounded">
+                              <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                              <span>{aiStates[interaction.id]?.draftError}</span>
+                              <button onClick={() => fetchAiDraft(interaction)} className="underline ml-auto font-medium">Thử lại</button>
+                            </div>
+                          )}
+
+                          {aiStates[interaction.id]?.draftNote && (
+                            <div className="space-y-2">
+                              <div className="p-3 bg-slate-50 border border-slate-200 rounded text-sm text-slate-700 whitespace-pre-wrap">
+                                {aiStates[interaction.id]?.draftNote}
+                              </div>
+                              <div className="text-xs text-slate-500 italic">
+                                {aiStates[interaction.id]?.draftDisclaimer}
+                              </div>
+                              <button
+                                onClick={() => setNotes(prev => ({ ...prev, [interaction.id]: aiStates[interaction.id]!.draftNote! }))}
+                                className="mt-2 px-3 py-1.5 text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors flex items-center gap-1"
+                              >
+                                Sử dụng nội dung này
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className="relative">
+                        <textarea
+                          className="w-full text-sm rounded-lg border-red-200 focus:border-red-500 focus:ring-red-500 p-3 bg-white"
+                          rows={4}
+                          placeholder="Nhập ghi chú tư vấn (Bắt buộc)..."
+                          value={notes[interaction.id] || ''}
+                          onChange={(e) => setNotes(prev => ({ ...prev, [interaction.id]: e.target.value }))}
+                        ></textarea>
+                        {notes[interaction.id]?.trim().length === 0 && (
+                          <div className="absolute top-2 right-2 flex items-center gap-1 text-xs font-medium text-red-500 bg-red-50 px-2 py-1 rounded">
+                            <AlertCircle size={12} /> Bắt buộc
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-xs text-slate-500 flex items-center gap-1">
+                        <AlertTriangle size={12} />
+                        Bạn (Staff) chịu trách nhiệm hoàn toàn về nội dung xác nhận này.
+                      </div>
                     </div>
                   )}
                 </div>

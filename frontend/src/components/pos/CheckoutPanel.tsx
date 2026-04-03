@@ -6,7 +6,13 @@ import axios from 'axios';
 import { InvoiceModal } from './InvoiceModal';
 import { CheckoutModal } from './CheckoutModal';
 
-export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolvedHighAlerts?: boolean }) {
+export function CheckoutPanel({ 
+  hasUnresolvedHighAlerts = false,
+  acknowledgedNotes 
+}: { 
+  hasUnresolvedHighAlerts?: boolean;
+  acknowledgedNotes?: Record<number, string>;
+}) {
   const { cart, totalAmount, clearCart } = usePosStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
@@ -28,7 +34,28 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
       };
 
       const response = await axios.post('http://localhost:3001/api/orders', orderPayload);
+      const orderId = response.data.id;
       
+      // PAC-TASK-305: After creating order, persist interactions and notes
+      if (acknowledgedNotes && Object.keys(acknowledgedNotes).length > 0) {
+        try {
+          const checkRes = await axios.post(`http://localhost:3001/api/orders/${orderId}/interactions/check`);
+          const persistedAlerts = checkRes.data.persistedAlerts || [];
+          
+          for (const alert of persistedAlerts) {
+            const note = acknowledgedNotes[alert.interactionId];
+            if (note) {
+              await axios.patch(`http://localhost:3001/api/interactions/alerts/${alert.id}/acknowledge`, {
+                note
+              });
+            }
+          }
+        } catch (alertError) {
+          console.error('Failed to persist alerts/notes', alertError);
+          // Don't block the order creation if alert persistence fails, just log it
+        }
+      }
+
       // Show success message
       alert(`Đã tạo đơn nháp thành công: ${response.data.code}`);
       
