@@ -27,6 +27,24 @@ export class AiGuardrailService {
     },
   ];
 
+  private readonly unsafeOutputCategories = [
+    {
+      name: 'Diagnosis Advice',
+      keywords: ['bạn bị', 'chẩn đoán của bạn là', 'bạn đang mắc', 'có thể bạn bị'],
+      message: 'AI Copilot phát sinh phản hồi có dấu hiệu chẩn đoán bệnh. Nội dung đã bị chặn để đảm bảo an toàn.',
+    },
+    {
+      name: 'Prescribing Advice',
+      keywords: ['bạn nên dùng', 'kê đơn', 'hãy uống thuốc này', 'nên mua loại thuốc'],
+      message: 'AI Copilot phát sinh phản hồi có dấu hiệu kê đơn thuốc. Nội dung đã bị chặn để đảm bảo an toàn.',
+    },
+    {
+      name: 'Dosage Advice',
+      keywords: ['uống 2 viên', 'uống 3 viên', 'uống 1 viên', 'liều dùng cho bạn là'],
+      message: 'AI Copilot phát sinh phản hồi có dấu hiệu khuyên dùng liều lượng cụ thể. Nội dung đã bị chặn để đảm bảo an toàn.',
+    },
+  ];
+
   checkInput(text: string): void {
     if (!text) return;
     const textToCheck = text.toLowerCase();
@@ -36,6 +54,20 @@ export class AiGuardrailService {
         if (textToCheck.includes(keyword)) {
           this.logger.warn(`Guardrail blocked input for category: ${category.name}. Keyword: ${keyword}`);
           throw new BadRequestException(`Yêu cầu bị chặn bởi Guardrail: ${category.message}`);
+        }
+      }
+    }
+  }
+
+  checkOutput(text: string): void {
+    if (!text) return;
+    const textToCheck = text.toLowerCase();
+
+    for (const category of this.unsafeOutputCategories) {
+      for (const keyword of category.keywords) {
+        if (textToCheck.includes(keyword)) {
+          this.logger.error(`Guardrail blocked AI OUTPUT for category: ${category.name}. Keyword: ${keyword}`);
+          throw new BadRequestException(`Phản hồi bị chặn bởi Guardrail: ${category.message}`);
         }
       }
     }
