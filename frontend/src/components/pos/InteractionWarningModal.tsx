@@ -37,6 +37,11 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
     draftNote?: string;
     draftDisclaimer?: string;
     draftError?: string;
+    followUpContext?: string;
+    followUpLoading?: boolean;
+    followUpQuestions?: string[];
+    followUpDisclaimer?: string;
+    followUpError?: string;
   }>>({});
 
   const fetchAiExplanation = async (interaction: InteractionData) => {
@@ -91,6 +96,36 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
           ...prev[interaction.id],
           draftLoading: false,
           draftError: err.response?.data?.message || 'Không thể tạo bản nháp AI',
+        }
+      }));
+    }
+  };
+
+  const fetchFollowUpQuestions = async (interaction: InteractionData) => {
+    const currentContext = aiStates[interaction.id]?.followUpContext;
+    if (!currentContext?.trim()) return;
+
+    setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], followUpLoading: true, followUpError: undefined } }));
+    try {
+      const response = await api.post('/ai/follow-up-questions', {
+        shortContext: currentContext,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          followUpLoading: false,
+          followUpQuestions: response.data.data.questions,
+          followUpDisclaimer: response.data.data.disclaimer,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          followUpLoading: false,
+          followUpError: err.response?.data?.message || 'Không thể tạo câu hỏi follow-up',
         }
       }));
     }
@@ -307,6 +342,53 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                       <div className="text-xs text-slate-500 flex items-center gap-1">
                         <AlertTriangle size={12} />
                         Bạn (Staff) chịu trách nhiệm hoàn toàn về nội dung xác nhận này.
+                      </div>
+                      
+                      {/* Follow-up Questions Section */}
+                      <div className="mt-4 border-t border-slate-100 pt-4">
+                        <div className="text-sm font-semibold text-slate-700 mb-2">Gợi ý câu hỏi khai thác (Follow-up)</div>
+                        <div className="flex gap-2 mb-2">
+                          <input
+                            type="text"
+                            className="flex-1 text-sm rounded-lg border-slate-200 p-2 border focus:outline-none focus:border-indigo-400"
+                            placeholder="Nhập bệnh lý nền, triệu chứng..."
+                            value={aiStates[interaction.id]?.followUpContext || ''}
+                            onChange={(e) => setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], followUpContext: e.target.value } }))}
+                          />
+                          <button
+                            onClick={() => fetchFollowUpQuestions(interaction)}
+                            disabled={!aiStates[interaction.id]?.followUpContext?.trim() || aiStates[interaction.id]?.followUpLoading}
+                            className="px-3 py-1.5 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors disabled:opacity-50"
+                          >
+                            Hỏi AI
+                          </button>
+                        </div>
+                        
+                        {aiStates[interaction.id]?.followUpLoading && (
+                          <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                            <Loader2 size={14} className="animate-spin" /> Đang tạo...
+                          </div>
+                        )}
+
+                        {aiStates[interaction.id]?.followUpError && (
+                          <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 rounded mb-2">
+                            <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                            <span>{aiStates[interaction.id]?.followUpError}</span>
+                          </div>
+                        )}
+
+                        {aiStates[interaction.id]?.followUpQuestions && (
+                          <div className="space-y-2 mb-2">
+                            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700 bg-slate-50 p-3 rounded border border-slate-200">
+                              {aiStates[interaction.id]!.followUpQuestions!.map((q, qId) => (
+                                <li key={qId}>{q}</li>
+                              ))}
+                            </ul>
+                            <div className="text-xs text-slate-500 italic">
+                              {aiStates[interaction.id]?.followUpDisclaimer}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
