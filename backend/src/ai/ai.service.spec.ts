@@ -6,12 +6,15 @@ import { MockAiProvider } from './providers/mock-ai.provider';
 import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
+import { AiGuardrailService } from './ai-guardrail.service';
 
 describe('AiService', () => {
   let service: AiService;
   let mockConfigService: any;
   let mockGoogleAiProvider: any;
   let mockMockAiProvider: any;
+  let mockAuditLogService: any;
+  let mockGuardrailService: any;
 
   beforeEach(async () => {
     mockConfigService = {
@@ -31,6 +34,14 @@ describe('AiService', () => {
       generateFollowUpQuestions: jest.fn(),
     };
 
+    mockAuditLogService = {
+      log: jest.fn().mockResolvedValue(undefined),
+    };
+
+    mockGuardrailService = {
+      checkInput: jest.fn(),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AiService,
@@ -48,9 +59,11 @@ describe('AiService', () => {
         },
         {
           provide: AiAuditLogService,
-          useValue: {
-            log: jest.fn().mockResolvedValue(undefined),
-          },
+          useValue: mockAuditLogService,
+        },
+        {
+          provide: AiGuardrailService,
+          useValue: mockGuardrailService,
         },
       ],
     }).compile();

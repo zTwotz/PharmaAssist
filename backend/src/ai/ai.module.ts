@@ -9,6 +9,7 @@ import { AiController } from './ai.controller';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
 import { PromptsService } from './prompts.service';
+import { AiGuardrailService } from './ai-guardrail.service';
 
 @Module({
   imports: [ConfigModule.forRoot(), PrismaModule],
@@ -20,7 +21,8 @@ import { PromptsService } from './prompts.service';
     GoogleAiProvider,
     MockAiProvider,
     PromptsService,
+    AiGuardrailService,
   ],
-  exports: [AiConfigService, AiService, AiAuditLogService, PromptsService],
+  exports: [AiConfigService, AiService, AiAuditLogService, PromptsService, AiGuardrailService],
 })
 export class AiModule {}
