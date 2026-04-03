@@ -647,15 +647,15 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/3 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 3/3 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-324 — Implement AI output guardrail service | `PAC-534` | Not started | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-325 — Block unsafe AI output before rendering | `PAC-535` | Not started | `feature/PAC-535-task-325-block-unsafe-ai-output-before-rendering` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-350 — Add AI output guardrail tests | `PAC-560` | Not started | `test/PAC-560-task-350-add-ai-output-guardrail-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-324 — Implement AI output guardrail service | `PAC-534` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-325 — Block unsafe AI output before rendering | `PAC-535` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-350 — Add AI output guardrail tests | `PAC-560` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
