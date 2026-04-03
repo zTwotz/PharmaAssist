@@ -320,7 +320,7 @@ Story scope: `US-142`, `US-143`.
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-302 — Implement AI consultation note draft API | `PAC-512` | DONE | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` | `3fb39fa` | Local | Merged | `5f6d5db` | PASS | PASS | PASS | — | DONE |
-| PAC-TASK-303 — Build AI consultation note draft panel | `PAC-513` | Not started | `feature/PAC-513-task-303-build-ai-consultation-note-draft-panel` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-303 — Build AI consultation note draft panel | `PAC-513` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -355,9 +355,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-304 — Build Staff edit AI draft before confirm UI | `PAC-514` | Not started | `feature/PAC-514-task-304-build-staff-edit-ai-draft-before-confirm-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-305 — Implement Staff confirm AI draft as official consultation note | `PAC-515` | Not started | `feature/PAC-515-task-305-implement-staff-confirm-ai-draft-as-official-consul` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-306 — Prevent unconfirmed AI draft from saving official note | `PAC-516` | Not started | `feature/PAC-516-task-306-prevent-unconfirmed-ai-draft-from-saving-official-n` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-304 — Build Staff edit AI draft before confirm UI | `PAC-514` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-305 — Implement Staff confirm AI draft as official consultation note | `PAC-515` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-306 — Prevent unconfirmed AI draft from saving official note | `PAC-516` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 | PAC-TASK-307 — Link confirmed AI note to correct HIGH InteractionAlert | `PAC-517` | Not started | `feature/PAC-517-task-307-link-confirmed-ai-note-to-correct-high-interactiona` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
 
 ## Story completion checklist
