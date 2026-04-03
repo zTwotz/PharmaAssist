@@ -2,6 +2,7 @@ import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { AiService } from './ai.service';
 import { GenerateInteractionExplanationDto } from './dto/generate-interaction-explanation.dto';
+import { GenerateConsultationNoteDraftDto } from './dto/generate-consultation-note-draft.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -25,6 +26,21 @@ export class AiController {
   ) {
     const userId = req.user.id;
     return this.aiService.generateInteractionExplanation({
+      userId,
+      ...dto,
+    });
+  }
+
+  @Post('consultation-note-draft')
+  @Roles('Admin', 'Staff')
+  @RequirePermissions('USE_AI_COPILOT')
+  @ApiOperation({ summary: 'Generate AI consultation note draft' })
+  async generateConsultationNoteDraft(
+    @Req() req: any,
+    @Body() dto: GenerateConsultationNoteDraftDto,
+  ) {
+    const userId = req.user.id;
+    return this.aiService.generateConsultationNoteDraft({
       userId,
       ...dto,
     });
