@@ -202,7 +202,6 @@ describe('SuppliersService', () => {
       };
       mockPrismaService.supplier.findUnique.mockResolvedValue(mockSupplier);
       mockPrismaService.supplier.update.mockResolvedValue({
-        id: 1,
         ...mockSupplier,
         status: 'INACTIVE',
       });
