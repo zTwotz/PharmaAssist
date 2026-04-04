@@ -5,6 +5,7 @@ import { AiConfigService } from './ai-config.service';
 import { AiService } from './ai.service';
 import { AiAuditLogService } from './ai-audit-log.service';
 import { AiAuditLogController } from './ai-audit-log.controller';
+import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
 import { AiController } from './ai.controller';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
@@ -22,7 +23,8 @@ import { AiGuardrailService } from './ai-guardrail.service';
     MockAiProvider,
     PromptsService,
     AiGuardrailService,
+    AiPiiMinimizerService,
   ],
-  exports: [AiConfigService, AiService, AiAuditLogService, PromptsService, AiGuardrailService],
+  exports: [AiConfigService, AiService, AiAuditLogService, PromptsService, AiGuardrailService, AiPiiMinimizerService],
 })
 export class AiModule {}
