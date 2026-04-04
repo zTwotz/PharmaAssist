@@ -47,7 +47,7 @@ export class AiService {
   ): Promise<AiResponse<U>> {
     let response: AiResponse<U> | null = null;
     let errorToThrow: any = null;
-    let primaryProviderType =
+    const primaryProviderType =
       (await this.configService.getPrimaryProvider()) || AiProviderType.GOOGLE;
 
     const startTime = Date.now();
@@ -144,27 +144,18 @@ export class AiService {
   async generateInteractionExplanation(
     input: InteractionExplanationInput,
   ): Promise<AiResponse<InteractionExplanationOutput>> {
-    return this.executeWithFallback(
-      'generateInteractionExplanation',
-      input,
-    );
+    return this.executeWithFallback('generateInteractionExplanation', input);
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
-    return this.executeWithFallback(
-      'generateConsultationNoteDraft',
-      input,
-    );
+    return this.executeWithFallback('generateConsultationNoteDraft', input);
   }
 
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
-    return this.executeWithFallback(
-      'generateFollowUpQuestions',
-      input,
-    );
+    return this.executeWithFallback('generateFollowUpQuestions', input);
   }
 }

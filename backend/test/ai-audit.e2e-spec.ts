@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  INestApplication,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { JwtAuthGuard } from '../src/auth/jwt-auth.guard';
@@ -45,7 +49,9 @@ describe('AI Audit Integration (e2e)', () => {
     mockAiConfigService = {
       getPrimaryProvider: jest.fn().mockResolvedValue('GOOGLE'),
       isFallbackEnabled: jest.fn().mockResolvedValue(true),
-      getCircuitBreakerConfig: jest.fn().mockResolvedValue({ failureThreshold: 3, resetTimeoutMs: 30000 }),
+      getCircuitBreakerConfig: jest
+        .fn()
+        .mockResolvedValue({ failureThreshold: 3, resetTimeoutMs: 30000 }),
     };
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -85,10 +91,10 @@ describe('AI Audit Integration (e2e)', () => {
 
   afterAll(async () => {
     await prisma.aiAuditLog.deleteMany({
-      where: { userId: mockStaffUser.id }
+      where: { userId: mockStaffUser.id },
     });
     await prisma.user.delete({
-      where: { id: mockStaffUser.id }
+      where: { id: mockStaffUser.id },
     });
     await app.close();
   });
@@ -104,14 +110,15 @@ describe('AI Audit Integration (e2e)', () => {
         providerRequested: 'GOOGLE',
         providerUsed: 'GOOGLE',
         durationMs: 150,
-      }
+      },
     });
 
     const payload = {
       medicineA: 'Aspirin',
       medicineB: 'Warfarin',
       severity: 'HIGH',
-      patientContext: 'Patient is 65 years old. Email is test@example.com. Phone is 0912345678.',
+      patientContext:
+        'Patient is 65 years old. Email is test@example.com. Phone is 0912345678.',
     };
 
     const res = await request(app.getHttpServer())
@@ -129,10 +136,10 @@ describe('AI Audit Integration (e2e)', () => {
 
     expect(auditLogs.length).toBeGreaterThan(0);
     const log = auditLogs[0];
-    
+
     expect(log.providerUsed).toBe('GOOGLE');
     expect(log.guardrailStatus).toBe('passed');
-    
+
     // Ensure no raw PII is stored
     const requestStr = log.requestSummary || '';
     expect(requestStr).not.toContain('test@example.com');
@@ -165,12 +172,14 @@ describe('AI Audit Integration (e2e)', () => {
 
   it('3. should record audit log on provider error', async () => {
     // If google throws, AiService falls back to MockAiProvider.
-    const { AiProviderException } = require('../src/ai/exceptions/ai.exception');
+    const {
+      AiProviderException,
+    } = require('../src/ai/exceptions/ai.exception');
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Google AI down', 'GOOGLE')
+      new AiProviderException('Google AI down', 'GOOGLE'),
     );
     mockMockAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Mock AI down', 'MOCK')
+      new AiProviderException('Mock AI down', 'MOCK'),
     );
 
     const payload = {
@@ -191,14 +200,21 @@ describe('AI Audit Integration (e2e)', () => {
     });
 
     // Check that we have a log for the final failure or fallback attempt
-    const failedLog = auditLogs.find(l => l.fallbackReason?.includes('Mock AI down') || l.fallbackReason?.includes('Google AI down') || true);
+    const failedLog = auditLogs.find(
+      (l) =>
+        l.fallbackReason?.includes('Mock AI down') ||
+        l.fallbackReason?.includes('Google AI down') ||
+        true,
+    );
     expect(failedLog).toBeDefined();
   });
 
   it('4. should record audit log when fallback is used', async () => {
-    const { AiProviderException } = require('../src/ai/exceptions/ai.exception');
+    const {
+      AiProviderException,
+    } = require('../src/ai/exceptions/ai.exception');
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Google AI timeout', 'GOOGLE')
+      new AiProviderException('Google AI timeout', 'GOOGLE'),
     );
     mockMockAiProvider.generateInteractionExplanation.mockResolvedValueOnce({
       data: { explanation: 'Mock text', disclaimer: 'Mock disclaimer' },
@@ -207,7 +223,7 @@ describe('AI Audit Integration (e2e)', () => {
         providerUsed: 'MOCK',
         durationMs: 10,
         fallbackReason: 'Google AI timeout',
-      }
+      },
     });
 
     const payload = {
