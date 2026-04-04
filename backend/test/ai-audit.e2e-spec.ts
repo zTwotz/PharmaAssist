@@ -179,10 +179,10 @@ describe('AI Audit Integration (e2e)', () => {
   it('3. should record audit log on provider error', async () => {
     // If google throws, AiService falls back to MockAiProvider.
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Google AI down', 'GOOGLE'),
+      new AiProviderException('Google AI down'),
     );
     mockMockAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Mock AI down', 'MOCK'),
+      new AiProviderException('Mock AI down'),
     );
 
     const payload = {
@@ -215,7 +215,7 @@ describe('AI Audit Integration (e2e)', () => {
 
   it('4. should record audit log when fallback is used', async () => {
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
-      new AiProviderException('Google AI timeout', 'GOOGLE'),
+      new AiProviderException('Google AI timeout'),
     );
     mockMockAiProvider.generateInteractionExplanation.mockResolvedValueOnce({
       data: { explanation: 'Mock text', disclaimer: 'Mock disclaimer' },
