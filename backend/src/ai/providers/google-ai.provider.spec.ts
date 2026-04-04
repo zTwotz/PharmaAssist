@@ -78,7 +78,8 @@ describe('GoogleAiProvider', () => {
     it('should return valid AiResponse when Google AI succeeds', async () => {
       const mockResponseText = JSON.stringify({
         explanation: 'This is an explanation.',
-        disclaimer: 'This is a disclaimer.',
+        severity: 'medium',
+        recommendation: 'This is a recommendation.',
       });
 
       mockModel.generateContent.mockResolvedValue({
@@ -88,7 +89,8 @@ describe('GoogleAiProvider', () => {
       const result = await provider.generateInteractionExplanation(input);
 
       expect(result.data.explanation).toEqual('This is an explanation.');
-      expect(result.data.disclaimer).toEqual('This is a disclaimer.');
+      expect(result.data.severity).toEqual('medium');
+      expect(result.data.recommendation).toEqual('This is a recommendation.');
       expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
     });
 
@@ -126,8 +128,9 @@ describe('GoogleAiProvider', () => {
 
     it('should return valid AiResponse when Google AI succeeds', async () => {
       const mockResponseText = JSON.stringify({
-        draftNote: 'Note content.',
-        disclaimer: 'Disclaimer content.',
+        symptoms: ['Symptom A'],
+        diagnosis: 'Diagnosis A',
+        recommendations: ['Recommendation A'],
       });
 
       mockModel.generateContent.mockResolvedValue({
@@ -136,8 +139,9 @@ describe('GoogleAiProvider', () => {
 
       const result = await provider.generateConsultationNoteDraft(input);
 
-      expect(result.data.draftNote).toEqual('Note content.');
-      expect(result.data.disclaimer).toEqual('Disclaimer content.');
+      expect(result.data.symptoms).toEqual(['Symptom A']);
+      expect(result.data.diagnosis).toEqual('Diagnosis A');
+      expect(result.data.recommendations).toEqual(['Recommendation A']);
       expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
     });
   });

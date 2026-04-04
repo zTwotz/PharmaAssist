@@ -52,7 +52,12 @@ export class GoogleAiProvider implements AiProvider {
         this.model.generateContent(prompt),
       );
       const text = result.response.text();
-      const parsed = this.parseJsonResponse<InteractionExplanationOutput>(text);
+      const validator = (data: any) =>
+        data &&
+        typeof data.explanation === 'string' &&
+        ['high', 'medium', 'low'].includes(data.severity) &&
+        typeof data.recommendation === 'string';
+      const parsed = this.parseJsonResponse<InteractionExplanationOutput>(text, validator);
 
       return {
         data: parsed,
@@ -92,7 +97,12 @@ export class GoogleAiProvider implements AiProvider {
         this.model.generateContent(prompt),
       );
       const text = result.response.text();
-      const parsed = this.parseJsonResponse<ConsultationNoteDraftOutput>(text);
+      const validator = (data: any) =>
+        data &&
+        Array.isArray(data.symptoms) &&
+        typeof data.diagnosis === 'string' &&
+        Array.isArray(data.recommendations);
+      const parsed = this.parseJsonResponse<ConsultationNoteDraftOutput>(text, validator);
 
       return {
         data: parsed,
@@ -132,7 +142,11 @@ export class GoogleAiProvider implements AiProvider {
         this.model.generateContent(prompt),
       );
       const text = result.response.text();
-      const parsed = this.parseJsonResponse<FollowUpQuestionsOutput>(text);
+      const validator = (data: any) =>
+        data &&
+        Array.isArray(data.questions) &&
+        data.questions.every((q: any) => typeof q === 'string');
+      const parsed = this.parseJsonResponse<FollowUpQuestionsOutput>(text, validator);
 
       return {
         data: parsed,
@@ -156,14 +170,21 @@ export class GoogleAiProvider implements AiProvider {
     }
   }
 
-  private parseJsonResponse<T>(text: string): T {
+  private parseJsonResponse<T>(text: string, validator?: (data: any) => boolean): T {
     try {
       const cleaned = text
         .replace(/```json/g, '')
         .replace(/```/g, '')
         .trim();
-      return JSON.parse(cleaned) as T;
+      const parsed = JSON.parse(cleaned);
+      
+      if (validator && !validator(parsed)) {
+        throw new AiProviderException('AI response structure is invalid');
+      }
+      
+      return parsed as T;
     } catch (error) {
+      if (error instanceof AiProviderException) throw error;
       this.logger.error(
         `Failed to parse AI JSON response: ${text}`,
         (error as Error).stack,
