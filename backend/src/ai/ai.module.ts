@@ -25,6 +25,13 @@ import { AiGuardrailService } from './ai-guardrail.service';
     AiGuardrailService,
     AiPiiMinimizerService,
   ],
-  exports: [AiConfigService, AiService, AiAuditLogService, PromptsService, AiGuardrailService, AiPiiMinimizerService],
+  exports: [
+    AiConfigService,
+    AiService,
+    AiAuditLogService,
+    PromptsService,
+    AiGuardrailService,
+    AiPiiMinimizerService,
+  ],
 })
 export class AiModule {}

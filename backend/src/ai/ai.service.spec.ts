@@ -20,17 +20,25 @@ describe('AiService', () => {
 
   beforeEach(async () => {
     mockConfigService = {
-      primaryProvider: AiProviderType.GOOGLE,
-      isFallbackEnabled: true,
+      getPrimaryProvider: jest.fn().mockResolvedValue(AiProviderType.GOOGLE),
+      isFallbackEnabled: jest.fn().mockResolvedValue(true),
     };
 
     mockGoogleAiProvider = {
       generateInteractionExplanation: jest.fn().mockResolvedValue({
-        data: { explanation: 'Google Explanation', severity: 'medium', recommendation: 'Google Rec' },
+        data: {
+          explanation: 'Google Explanation',
+          severity: 'medium',
+          recommendation: 'Google Rec',
+        },
         metadata: { providerUsed: AiProviderType.GOOGLE },
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
-        data: { symptoms: ['Google Symptom'], diagnosis: 'Google Diagnosis', recommendations: ['Google Rec'] },
+        data: {
+          symptoms: ['Google Symptom'],
+          diagnosis: 'Google Diagnosis',
+          recommendations: ['Google Rec'],
+        },
         metadata: { providerUsed: AiProviderType.GOOGLE },
       }),
       generateFollowUpQuestions: jest.fn().mockResolvedValue({
@@ -41,11 +49,19 @@ describe('AiService', () => {
 
     mockMockAiProvider = {
       generateInteractionExplanation: jest.fn().mockResolvedValue({
-        data: { explanation: 'Mock Explanation', severity: 'low', recommendation: 'Mock Rec' },
+        data: {
+          explanation: 'Mock Explanation',
+          severity: 'low',
+          recommendation: 'Mock Rec',
+        },
         metadata: { providerUsed: AiProviderType.MOCK },
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
-        data: { symptoms: ['Mock Symptom'], diagnosis: 'Mock Diagnosis', recommendations: ['Mock Rec'] },
+        data: {
+          symptoms: ['Mock Symptom'],
+          diagnosis: 'Mock Diagnosis',
+          recommendations: ['Mock Rec'],
+        },
         metadata: { providerUsed: AiProviderType.MOCK },
       }),
       generateFollowUpQuestions: jest.fn().mockResolvedValue({
@@ -102,16 +118,16 @@ describe('AiService', () => {
     };
     const result = await service.generateInteractionExplanation(input);
 
-    expect(mockGoogleAiProvider.generateInteractionExplanation).toHaveBeenCalledWith(
-      expect.objectContaining(input)
-    );
+    expect(
+      mockGoogleAiProvider.generateInteractionExplanation,
+    ).toHaveBeenCalledWith(expect.objectContaining(input));
     expect(result.data.explanation).toEqual('Google Explanation');
     expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
   });
 
   it('should fallback to Mock AI if Google AI fails with AiProviderException and fallback is enabled', async () => {
     const googleError = new AiProviderException('Google is down');
-    
+
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(
       googleError,
     );
@@ -136,7 +152,7 @@ describe('AiService', () => {
   });
 
   it('should throw error if Google AI fails with AiProviderException but fallback is disabled', async () => {
-    mockConfigService.isFallbackEnabled = false;
+    mockConfigService.isFallbackEnabled.mockResolvedValue(false);
     const googleError = new AiProviderException('Google is down');
 
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValue(
@@ -194,16 +210,16 @@ describe('AiService', () => {
     };
     const result = await service.generateConsultationNoteDraft(input);
 
-    expect(mockGoogleAiProvider.generateConsultationNoteDraft).toHaveBeenCalledWith(
-      expect.objectContaining(input)
-    );
+    expect(
+      mockGoogleAiProvider.generateConsultationNoteDraft,
+    ).toHaveBeenCalledWith(expect.objectContaining(input));
     expect(result.data.symptoms).toEqual(['Google Symptom']);
     expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
   });
 
   it('should fallback to Mock AI for generateFollowUpQuestions', async () => {
     const googleError = new AiProviderException('Quota exceeded');
-    
+
     mockGoogleAiProvider.generateFollowUpQuestions.mockRejectedValue(
       googleError,
     );
