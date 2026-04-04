@@ -7,14 +7,16 @@ import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
 import { AiGuardrailService } from './ai-guardrail.service';
+import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
 
 describe('AiService', () => {
   let service: AiService;
   let mockConfigService: any;
   let mockGoogleAiProvider: any;
-  let mockMockAiProvider: any;
-  let mockAuditLogService: any;
-  let mockGuardrailService: any;
+  let mockMockAiProvider: Partial<MockAiProvider>;
+  let mockAuditLogService: Partial<AiAuditLogService>;
+  let mockGuardrailService: Partial<AiGuardrailService>;
+  let mockPiiMinimizerService: Partial<AiPiiMinimizerService>;
 
   beforeEach(async () => {
     mockConfigService = {
@@ -61,6 +63,10 @@ describe('AiService', () => {
       checkOutput: jest.fn(),
     };
 
+    mockPiiMinimizerService = {
+      minimizeObject: jest.fn().mockImplementation((input) => input),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AiService,
@@ -72,18 +78,10 @@ describe('AiService', () => {
           provide: GoogleAiProvider,
           useValue: mockGoogleAiProvider,
         },
-        {
-          provide: MockAiProvider,
-          useValue: mockMockAiProvider,
-        },
-        {
-          provide: AiAuditLogService,
-          useValue: mockAuditLogService,
-        },
-        {
-          provide: AiGuardrailService,
-          useValue: mockGuardrailService,
-        },
+        { provide: MockAiProvider, useValue: mockMockAiProvider },
+        { provide: AiAuditLogService, useValue: mockAuditLogService },
+        { provide: AiGuardrailService, useValue: mockGuardrailService },
+        { provide: AiPiiMinimizerService, useValue: mockPiiMinimizerService },
       ],
     }).compile();
 

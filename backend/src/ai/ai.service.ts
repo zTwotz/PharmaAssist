@@ -6,6 +6,7 @@ import { AiProviderType } from './types/ai-provider.enum';
 import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
 import { AiGuardrailService } from './ai-guardrail.service';
+import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
 import {
   AiResponse,
   InteractionExplanationInput,
@@ -29,6 +30,7 @@ export class AiService {
     private readonly mockAiProvider: MockAiProvider,
     private readonly aiAuditLogService: AiAuditLogService,
     private readonly aiGuardrailService: AiGuardrailService,
+    private readonly aiPiiMinimizerService: AiPiiMinimizerService,
   ) {}
 
   /**
@@ -36,23 +38,7 @@ export class AiService {
    * from being saved into AI audit logs.
    */
   private redactPii(input: any): any {
-    if (!input || typeof input !== 'object') {
-      return input;
-    }
-
-    const redacted = { ...input };
-
-    // Redact orderContext in ConsultationNoteDraftInput as it may contain PII
-    if (redacted.orderContext) {
-      redacted.orderContext = '[REDACTED_FOR_PRIVACY]';
-    }
-
-    // Redact shortContext in FollowUpQuestionsInput
-    if (redacted.shortContext) {
-      redacted.shortContext = '[REDACTED_FOR_PRIVACY]';
-    }
-
-    return redacted;
+    return this.aiPiiMinimizerService.minimizeObject(input);
   }
 
   private async executeWithFallback<T, U>(
@@ -148,21 +134,24 @@ export class AiService {
   async generateInteractionExplanation(
     input: InteractionExplanationInput,
   ): Promise<AiResponse<InteractionExplanationOutput>> {
-    this.aiGuardrailService.checkInput(JSON.stringify(input));
-    return this.executeWithFallback('generateInteractionExplanation', input);
+    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
+    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
+    return this.executeWithFallback('generateInteractionExplanation', minimizedInput);
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
-    this.aiGuardrailService.checkInput(JSON.stringify(input));
-    return this.executeWithFallback('generateConsultationNoteDraft', input);
+    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
+    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
+    return this.executeWithFallback('generateConsultationNoteDraft', minimizedInput);
   }
 
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
-    this.aiGuardrailService.checkInput(JSON.stringify(input));
-    return this.executeWithFallback('generateFollowUpQuestions', input);
+    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
+    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
+    return this.executeWithFallback('generateFollowUpQuestions', minimizedInput);
   }
 }

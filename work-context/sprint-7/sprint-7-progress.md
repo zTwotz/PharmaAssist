@@ -690,9 +690,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-326 — Implement structured output schema validation | `PAC-536` | Not started | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-327 — Add output schema retry or safe fallback handling | `PAC-537` | Not started | `feature/PAC-537-task-327-add-output-schema-retry-or-safe-fallback-handling` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-351 — Add structured output validation tests | `PAC-561` | Not started | `test/PAC-561-task-351-add-structured-output-validation-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-326 — Implement structured output schema validation | `PAC-536` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Completed schema validations for Interaction, Consultation and Follow up endpoints | DONE |
+| PAC-TASK-327 — Add output schema retry or safe fallback handling | `PAC-537` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Fallback to Mock Provider when Google throws validation exception | DONE |
+| PAC-TASK-351 — Add structured output validation tests | `PAC-561` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Tests added for output schema validation | DONE |
 
 ## Story completion checklist
 
