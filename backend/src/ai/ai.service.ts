@@ -1,4 +1,4 @@
-import { Injectable, Logger, BadRequestException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { AiConfigService } from './ai-config.service';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
@@ -45,7 +45,7 @@ export class AiService {
     methodName: string,
     input: T,
   ): Promise<AiResponse<U>> {
-    const primaryProviderType = this.configService.primaryProvider;
+    const primaryProviderType = await this.configService.getPrimaryProvider();
     let response: AiResponse<U> | null = null;
     let errorToThrow: any = null;
 
@@ -75,7 +75,7 @@ export class AiService {
       );
 
       if (
-        this.configService.isFallbackEnabled &&
+        (await this.configService.isFallbackEnabled()) &&
         error instanceof AiProviderException
       ) {
         this.logger.log(`Falling back to Mock AI for ${methodName}`);
@@ -100,7 +100,7 @@ export class AiService {
       } catch (guardrailError) {
         errorToThrow = guardrailError;
         // Strip out the data since it was blocked
-        response.data = null as any; 
+        response.data = null as any;
         if (!response.metadata) response.metadata = {} as any;
         response.metadata.guardrailStatus = 'blocked';
       }
@@ -117,8 +117,12 @@ export class AiService {
         promptType: methodName,
         promptVersion: response?.metadata?.promptVersion,
         requestSummary: JSON.stringify(this.redactPii(input)),
-        responseSummary: response?.data ? JSON.stringify(response.data) : undefined,
-        guardrailStatus: response?.metadata?.guardrailStatus || (errorToThrow ? 'blocked' : 'passed'),
+        responseSummary: response?.data
+          ? JSON.stringify(response.data)
+          : undefined,
+        guardrailStatus:
+          response?.metadata?.guardrailStatus ||
+          (errorToThrow ? 'blocked' : 'passed'),
         fallbackReason: response?.metadata?.fallbackReason,
         latencyMs: response?.metadata?.durationMs || latencyMs,
       })
@@ -136,7 +140,10 @@ export class AiService {
   ): Promise<AiResponse<InteractionExplanationOutput>> {
     const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
     this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
-    return this.executeWithFallback('generateInteractionExplanation', minimizedInput);
+    return this.executeWithFallback(
+      'generateInteractionExplanation',
+      minimizedInput,
+    );
   }
 
   async generateConsultationNoteDraft(
@@ -144,7 +151,10 @@ export class AiService {
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
     const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
     this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
-    return this.executeWithFallback('generateConsultationNoteDraft', minimizedInput);
+    return this.executeWithFallback(
+      'generateConsultationNoteDraft',
+      minimizedInput,
+    );
   }
 
   async generateFollowUpQuestions(
@@ -152,6 +162,9 @@ export class AiService {
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
     const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
     this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
-    return this.executeWithFallback('generateFollowUpQuestions', minimizedInput);
+    return this.executeWithFallback(
+      'generateFollowUpQuestions',
+      minimizedInput,
+    );
   }
 }

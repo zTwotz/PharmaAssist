@@ -23,10 +23,7 @@ export class AiPiiMinimizerService {
     );
 
     // Redact Vietnamese ID card numbers (CMND 9 digits or CCCD 12 digits)
-    minimized = minimized.replace(
-      /\b(?:\d{9}|\d{12})\b/g,
-      '[ID_CARD]',
-    );
+    minimized = minimized.replace(/\b(?:\d{9}|\d{12})\b/g, '[ID_CARD]');
 
     return minimized;
   }
