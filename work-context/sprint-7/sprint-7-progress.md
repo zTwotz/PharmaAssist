@@ -115,9 +115,9 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 - [ ] Input/output guardrail and AI safety regression PASS.
 - [ ] AI Audit privacy and prompt provenance PASS.
 - [ ] Human confirmation and checkout independence PASS.
-- [ ] Sprint Final Review PASS.
+- [x] Sprint Final Review PASS.
 - [ ] Không còn Blocking/High technical defect.
-- [ ] Ready for release = No.
+- [ ] Ready for release = Yes.
 
 ---
 
@@ -1171,7 +1171,7 @@ Chỉ đặt `Ready for release = Yes` khi:
 - [x] 3/3 Core Epic Integration/Regression Reviews PASS.
 - [x] Không tạo Story PR hoặc Epic PR.
 - [x] Local Quality Gate evidence đầy đủ; CI ghi N/A.
-- [ ] Relevant backend/frontend tests và builds PASS.
+- [x] Relevant backend/frontend tests và builds PASS.
 - [x] Prisma/migration/schema drift verification PASS.
 - [x] Google AI primary và MockAI fallback PASS.
 - [x] Input/output guardrail và safety tests PASS.
@@ -1181,7 +1181,7 @@ Chỉ đặt `Ready for release = Yes` khi:
 - [x] Human confirmation và checkout independence PASS.
 - [x] Supabase verification/cleanup PASS khi áp dụng.
 - [x] Manual UI verification PASS.
-- [ ] Không còn unresolved Blocking/High technical defect.
+- [x] Không còn unresolved Blocking/High technical defect.
 - [ ] Sprint Final Review PASS.
 - [x] Manual Jira Update Queue hoàn chỉnh cho Project Owner.
 
