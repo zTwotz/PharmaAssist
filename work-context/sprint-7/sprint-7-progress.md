@@ -727,10 +727,10 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-322 — Add PII minimization before AI provider call | `PAC-532` | Not started | `feature/PAC-532-task-322-add-pii-minimization-before-ai-provider-call` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-323 — Redact customer/order unnecessary personal data before AI call | `PAC-533` | Not started | `feature/PAC-533-task-323-redact-customer-order-unnecessary-personal-data-bef` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-322 — Add PII minimization before AI provider call | `PAC-532` | DONE | `feature/PAC-532-task-322-add-pii-minimization-before-ai-provider-call` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-323 — Redact customer/order unnecessary personal data before AI call | `PAC-533` | DONE | `feature/PAC-533-task-323-redact-customer-order-unnecessary-personal-data-bef` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-334 — Ensure AI Audit does not store raw PII | `PAC-544` | DONE | `feature/PAC-544-task-334-ensure-ai-audit-does-not-store-raw-pii` | `970e9c0` | Local | Merged | `45fd0ed` | PASS | PASS | N/A | — | DONE |
-| PAC-TASK-352 — Add PII minimization tests | `PAC-562` | Not started | `test/PAC-562-task-352-add-pii-minimization-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-352 — Add PII minimization tests | `PAC-562` | DONE | `test/PAC-562-task-352-add-pii-minimization-tests` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
