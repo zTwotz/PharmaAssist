@@ -43,15 +43,20 @@ export class AiService {
 
   private async executeWithFallback<T, U>(
     methodName: string,
-    input: T,
+    rawInput: T,
   ): Promise<AiResponse<U>> {
-    const primaryProviderType = await this.configService.getPrimaryProvider();
     let response: AiResponse<U> | null = null;
     let errorToThrow: any = null;
+    let primaryProviderType =
+      (await this.configService.getPrimaryProvider()) || AiProviderType.GOOGLE;
 
     const startTime = Date.now();
+    const input = this.redactPii(rawInput); // Redact early
 
     try {
+      // Guardrail check
+      this.aiGuardrailService.checkInput(JSON.stringify(input));
+
       this.logger.debug(
         `Attempting AI request ${methodName} with primary provider: ${primaryProviderType}`,
       );
@@ -74,6 +79,7 @@ export class AiService {
         `Primary provider ${primaryProviderType} failed for ${methodName}. Error: ${(error as Error).message}`,
       );
 
+      // Only fallback if error is AiProviderException. Guardrail exceptions (BadRequestException) should NOT trigger fallback.
       if (
         (await this.configService.isFallbackEnabled()) &&
         error instanceof AiProviderException
@@ -111,12 +117,12 @@ export class AiService {
     // Fire and forget audit log
     this.aiAuditLogService
       .log({
-        userId: (input as any).userId, // Add userId from input (which extends BaseAiInput implicitly now)
+        userId: (rawInput as any).userId, // Add userId from raw input
         providerRequested: primaryProviderType,
         providerUsed: response?.metadata?.providerUsed || primaryProviderType,
         promptType: methodName,
         promptVersion: response?.metadata?.promptVersion,
-        requestSummary: JSON.stringify(this.redactPii(input)),
+        requestSummary: JSON.stringify(input),
         responseSummary: response?.data
           ? JSON.stringify(response.data)
           : undefined,
@@ -138,33 +144,27 @@ export class AiService {
   async generateInteractionExplanation(
     input: InteractionExplanationInput,
   ): Promise<AiResponse<InteractionExplanationOutput>> {
-    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
-    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
     return this.executeWithFallback(
       'generateInteractionExplanation',
-      minimizedInput,
+      input,
     );
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
-    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
-    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
     return this.executeWithFallback(
       'generateConsultationNoteDraft',
-      minimizedInput,
+      input,
     );
   }
 
   async generateFollowUpQuestions(
     input: FollowUpQuestionsInput,
   ): Promise<AiResponse<FollowUpQuestionsOutput>> {
-    const minimizedInput = this.aiPiiMinimizerService.minimizeObject(input);
-    this.aiGuardrailService.checkInput(JSON.stringify(minimizedInput));
     return this.executeWithFallback(
       'generateFollowUpQuestions',
-      minimizedInput,
+      input,
     );
   }
 }

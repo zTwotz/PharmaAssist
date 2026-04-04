@@ -4,7 +4,7 @@ import { AiService } from './ai.service';
 import { GenerateInteractionExplanationDto } from './dto/generate-interaction-explanation.dto';
 import { GenerateConsultationNoteDraftDto } from './dto/generate-consultation-note-draft.dto';
 import { GenerateFollowUpQuestionsDto } from './dto/generate-follow-up-questions.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { PermissionsGuard } from '../auth/permissions.guard';
@@ -13,13 +13,13 @@ import { handleAiError } from './utils/ai-guards';
 
 @ApiTags('ai')
 @ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 @Controller('ai')
 export class AiController {
   constructor(private readonly aiService: AiService) {}
 
   @Post('interaction-explanation')
-  @Roles('Admin', 'Staff')
+  @Roles('ADMIN', 'STAFF')
   @RequirePermissions('USE_AI_COPILOT')
   @ApiOperation({ summary: 'Generate AI explanation for interaction alert' })
   async generateInteractionExplanation(
@@ -38,7 +38,7 @@ export class AiController {
   }
 
   @Post('consultation-note-draft')
-  @Roles('Admin', 'Staff')
+  @Roles('ADMIN', 'STAFF')
   @RequirePermissions('USE_AI_COPILOT')
   @ApiOperation({ summary: 'Generate AI consultation note draft' })
   async generateConsultationNoteDraft(
@@ -57,7 +57,7 @@ export class AiController {
   }
 
   @Post('follow-up-questions')
-  @Roles('Admin', 'Staff')
+  @Roles('ADMIN', 'STAFF')
   @RequirePermissions('USE_AI_COPILOT')
   @ApiOperation({ summary: 'Generate safe follow-up questions' })
   async generateFollowUpQuestions(

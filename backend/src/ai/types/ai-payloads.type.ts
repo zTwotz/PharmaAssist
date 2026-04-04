@@ -27,6 +27,11 @@ export interface AiMetadata {
    * Duration of the AI request in milliseconds.
    */
   durationMs?: number;
+
+  /**
+   * Guardrail status of the output.
+   */
+  guardrailStatus?: 'passed' | 'blocked' | 'bypassed';
 }
 
 export interface AiResponse<T> {
