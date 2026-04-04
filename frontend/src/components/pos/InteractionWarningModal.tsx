@@ -4,6 +4,7 @@ import React from 'react';
 import { AlertTriangle, X, ShieldAlert, Sparkles, Loader2, AlertCircle } from 'lucide-react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/auth-context';
+import { AiDisclaimer } from '../common/AiDisclaimer';
 
 export interface InteractionData {
   id: number;
@@ -234,11 +235,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                       {aiStates[interaction.id]?.explanation && (
                         <div className="mt-3 text-sm text-slate-700">
                           <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
-                          {aiStates[interaction.id]?.disclaimer && (
-                            <div className="text-xs text-slate-500 italic border-t border-slate-200 pt-2">
-                              {aiStates[interaction.id]?.disclaimer}
-                            </div>
-                          )}
+                          <AiDisclaimer className="mt-2" />
                         </div>
                       )}
                     </div>
@@ -311,9 +308,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                               <div className="p-3 bg-slate-50 border border-slate-200 rounded text-sm text-slate-700 whitespace-pre-wrap">
                                 {aiStates[interaction.id]?.draftNote}
                               </div>
-                              <div className="text-xs text-slate-500 italic">
-                                {aiStates[interaction.id]?.draftDisclaimer}
-                              </div>
+                              <AiDisclaimer className="mt-2" />
                               <button
                                 onClick={() => setNotes(prev => ({ ...prev, [interaction.id]: aiStates[interaction.id]!.draftNote! }))}
                                 className="mt-2 px-3 py-1.5 text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors flex items-center gap-1"
@@ -384,9 +379,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                                 <li key={qId}>{q}</li>
                               ))}
                             </ul>
-                            <div className="text-xs text-slate-500 italic">
-                              {aiStates[interaction.id]?.followUpDisclaimer}
-                            </div>
+                            <AiDisclaimer className="mt-2" />
                           </div>
                         )}
                       </div>

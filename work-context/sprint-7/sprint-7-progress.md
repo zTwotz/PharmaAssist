@@ -953,8 +953,8 @@ Story scope: `US-142`, `US-143`.
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-292 — Configure backend AI provider/model settings loader | `PAC-502` | Done | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` | `2b0c9aa` | Local | Merged | `176e795` | PASS | PASS | N/A | None | DONE |
-| PAC-TASK-342 — Add backend AI provider/model config validation | `PAC-552` | Not started | `feature/PAC-552-task-342-add-backend-ai-provider-model-config-validation` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-343 — Add environment/database config fallback order for AI settings | `PAC-553` | Not started | `feature/PAC-553-task-343-add-environment-database-config-fallback-order-for-` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-342 — Add backend AI provider/model config validation | `PAC-552` | Done | `feature/PAC-TASK-342-343-dynamic-config` | `57fb825` | #821 | Merged | `76f51cbf` | PASS | PASS | PASS | None | DONE |
+| PAC-TASK-343 — Add environment/database config fallback order for AI settings | `PAC-553` | Done | `feature/PAC-TASK-342-343-dynamic-config` | `57fb825` | #821 | Merged | `76f51cbf` | PASS | PASS | PASS | None | DONE |
 
 ## Story completion checklist
 
@@ -989,7 +989,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | Not started | `feature/PAC-549-task-339-seed-official-ai-prompt-templates-with-versions` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | Done | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
