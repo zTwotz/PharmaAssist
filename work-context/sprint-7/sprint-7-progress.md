@@ -842,7 +842,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | DONE | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | `ab6ba50` | Local | Merged | `bc6d862` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-332 — Persist input and output guardrail statuses | `PAC-542` | DONE | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` | `791de6e` | Local | Merged | `aeee9f0` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-333 — Persist AI latency, request id and fallback metadata | `PAC-543` | DONE | `feature/PAC-543-task-333-persist-ai-latency-request-id-and-fallback-metadata` | `6483d53` | Local | Merged | `dc5b3ac` | PASS | PASS | N/A | — | DONE |
-| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | DONE | `test/PAC-563-task-353-add-ai-audit-integration-tests` | — | — | Not opened | — | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | DONE | `test/PAC-563-task-353-add-ai-audit-integration-tests` | `2bcd170` | #823 | Merged | `9c33a79` | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
