@@ -12,6 +12,7 @@ import { GoogleAiProvider } from '../src/ai/providers/google-ai.provider';
 import { MockAiProvider } from '../src/ai/providers/mock-ai.provider';
 
 import { AiConfigService } from '../src/ai/ai-config.service';
+import { AiProviderException } from '../src/ai/exceptions/ai.exception';
 
 jest.mock('jwks-rsa', () => ({
   passportJwtSecret: jest.fn(() => 'mock-secret'),
@@ -101,6 +102,9 @@ describe('AI Audit Integration (e2e)', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks();
+    await prisma.aiAuditLog.deleteMany({
+      where: { userId: mockStaffUser.id },
+    });
   });
 
   it('1. should record audit log on AI success and ensure no raw PII', async () => {
@@ -129,6 +133,7 @@ describe('AI Audit Integration (e2e)', () => {
     expect(res.body.data.explanation).toBe('Safe text');
 
     // Check DB for audit log
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const auditLogs = await prisma.aiAuditLog.findMany({
       orderBy: { createdAt: 'desc' },
       take: 1,
@@ -161,6 +166,7 @@ describe('AI Audit Integration (e2e)', () => {
 
     expect(res.body.message).toContain('bị chặn bởi Guardrail');
 
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const auditLogs = await prisma.aiAuditLog.findMany({
       orderBy: { createdAt: 'desc' },
       take: 1,
@@ -172,9 +178,6 @@ describe('AI Audit Integration (e2e)', () => {
 
   it('3. should record audit log on provider error', async () => {
     // If google throws, AiService falls back to MockAiProvider.
-    const {
-      AiProviderException,
-    } = require('../src/ai/exceptions/ai.exception');
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
       new AiProviderException('Google AI down', 'GOOGLE'),
     );
@@ -194,6 +197,7 @@ describe('AI Audit Integration (e2e)', () => {
       .send(payload)
       .expect(503);
 
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const auditLogs = await prisma.aiAuditLog.findMany({
       orderBy: { createdAt: 'desc' },
       take: 2,
@@ -210,9 +214,6 @@ describe('AI Audit Integration (e2e)', () => {
   });
 
   it('4. should record audit log when fallback is used', async () => {
-    const {
-      AiProviderException,
-    } = require('../src/ai/exceptions/ai.exception');
     mockGoogleAiProvider.generateInteractionExplanation.mockRejectedValueOnce(
       new AiProviderException('Google AI timeout', 'GOOGLE'),
     );
@@ -240,6 +241,7 @@ describe('AI Audit Integration (e2e)', () => {
 
     expect(res.body.data.explanation).toBe('Mock text');
 
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const auditLogs = await prisma.aiAuditLog.findMany({
       orderBy: { createdAt: 'desc' },
       take: 1,
