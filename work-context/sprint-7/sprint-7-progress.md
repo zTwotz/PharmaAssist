@@ -801,7 +801,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-300 — Add AI disclaimer to explanation panel | `PAC-510` | Not started | `feature/PAC-510-task-300-add-ai-disclaimer-to-explanation-panel` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-300 — Add AI disclaimer to explanation panel | `PAC-510` | Done | `feature/PAC-510-task-300-add-ai-disclaimer-to-explanation-panel` | `c4a5813` | #822 | Merged | `1468072` | PASS | PASS | N/A | None | DONE |
 
 ## Story completion checklist
 
@@ -842,7 +842,7 @@ Story scope: `US-142`, `US-143`.
 | PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | DONE | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | `ab6ba50` | Local | Merged | `bc6d862` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-332 — Persist input and output guardrail statuses | `PAC-542` | DONE | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` | `791de6e` | Local | Merged | `aeee9f0` | PASS | PASS | N/A | — | DONE |
 | PAC-TASK-333 — Persist AI latency, request id and fallback metadata | `PAC-543` | DONE | `feature/PAC-543-task-333-persist-ai-latency-request-id-and-fallback-metadata` | `6483d53` | Local | Merged | `dc5b3ac` | PASS | PASS | N/A | — | DONE |
-| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | Not started | `test/PAC-563-task-353-add-ai-audit-integration-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | DONE | `test/PAC-563-task-353-add-ai-audit-integration-tests` | — | — | Not opened | — | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
