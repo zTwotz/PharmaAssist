@@ -85,6 +85,26 @@ export class GraphSyncWorkerService {
           sourceUpdatedAt: job.createdAt.toISOString(),
         };
         await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT) {
+        const payload = job.payload as any;
+        const cypher = `
+          MERGE (a:ActiveIngredient {id: $id})
+          SET a.code = $code,
+              a.name = $name,
+              a.isActive = $isActive,
+              a.sourceVersion = $sourceVersion,
+              a.sourceUpdatedAt = $sourceUpdatedAt,
+              a.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          code: payload.code,
+          name: payload.name,
+          isActive: payload.status === 'ACTIVE',
+          sourceVersion: Number(job.sourceVersion),
+          sourceUpdatedAt: job.createdAt.toISOString(),
+        };
+        await this.neo4jService.write(cypher, params);
       } else {
         // Unhandled event type for now
       }
