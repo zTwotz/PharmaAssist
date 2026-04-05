@@ -105,8 +105,32 @@ export class GraphSyncWorkerService {
           sourceUpdatedAt: job.createdAt.toISOString(),
         };
         await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT) {
+        const payload = job.payload as any;
+        const cypher = `
+          MATCH (m:Medicine {id: $medicineId})
+          OPTIONAL MATCH (m)-[r:CONTAINS]->()
+          DELETE r
+          WITH m
+          UNWIND $ingredients AS ing
+          MATCH (a:ActiveIngredient {id: ing.activeIngredientId})
+          MERGE (m)-[new_r:CONTAINS]->(a)
+          SET new_r.strength = ing.strength,
+              new_r.note = ing.note,
+              new_r.sourceVersion = $sourceVersion,
+              new_r.syncedAt = timestamp()
+        `;
+        const params = {
+          medicineId: String(payload.medicineId),
+          ingredients: payload.ingredients.map((ing: any) => ({
+            activeIngredientId: String(ing.activeIngredientId),
+            strength: ing.strength,
+            note: ing.note,
+          })),
+          sourceVersion: Number(job.sourceVersion),
+        };
+        await this.neo4jService.write(cypher, params);
       } else {
-        // Unhandled event type for now
       }
 
       await this.prisma.graphSyncOutbox.update({
