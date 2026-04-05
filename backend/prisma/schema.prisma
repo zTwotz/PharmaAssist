@@ -1569,19 +1569,7 @@ model ArticleCategory {
   @@map("article_categories")
 }
 
-model GraphSyncOutbox {
-  id         Int      @id @default(autoincrement())
-  entityType String   @map("entity_type")
-  entityId   Int      @map("entity_id")
-  action     String
-  payload    Json?
-  status     String   @default("PENDING")
-  error      String?
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
 
-  @@map("graph_sync_outbox")
-}
 
 model InventoryAdjustment {
   id          Int                       @id @default(autoincrement())
@@ -1673,4 +1661,78 @@ model AiProviderConfig {
   @@index([isEnabled])
   @@index([priority])
   @@map("ai_provider_configs")
+}
+
+enum GraphSyncStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  RETRY_SCHEDULED
+  FAILED
+  SKIPPED
+}
+
+enum GraphSyncAttemptStatus {
+  SUCCESS
+  FAILED
+}
+
+enum GraphSyncEventType {
+  MEDICINE_UPSERT
+  MEDICINE_DEACTIVATE
+  ACTIVE_INGREDIENT_UPSERT
+  ACTIVE_INGREDIENT_DEACTIVATE
+  MEDICINE_INGREDIENT_MAPPING_UPSERT
+  MEDICINE_INGREDIENT_MAPPING_DEACTIVATE
+  DRUG_INTERACTION_UPSERT
+  DRUG_INTERACTION_DEACTIVATE
+  GRAPH_REBUILD_REQUESTED
+}
+
+model GraphSyncOutbox {
+  id               String             @id @default(uuid())
+  eventType        GraphSyncEventType @map("event_type")
+  aggregateType    String             @map("aggregate_type")
+  aggregateId      String             @map("aggregate_id")
+  sourceVersion    BigInt             @map("source_version")
+  payload          Json?              
+  status           GraphSyncStatus    @default(PENDING)
+  retryCount       Int                @default(0) @map("retry_count")
+  nextRetryAt      DateTime?          @map("next_retry_at")
+  lastErrorCode    String?            @map("last_error_code")
+  lastErrorMessage String?            @map("last_error_message")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  processedAt      DateTime?          @map("processed_at")
+
+  attempts         GraphSyncAttempt[]
+
+  @@index([status])
+  @@index([aggregateType])
+  @@index([aggregateId])
+  @@index([aggregateType, aggregateId, sourceVersion])
+  @@index([nextRetryAt])
+  @@index([createdAt])
+  @@map("graph_sync_outbox")
+}
+
+model GraphSyncAttempt {
+  id                    String                 @id @default(uuid())
+  outboxId              String                 @map("outbox_id")
+  attemptNumber         Int                    @map("attempt_number")
+  status                GraphSyncAttemptStatus
+  startedAt             DateTime               @map("started_at")
+  finishedAt            DateTime?              @map("finished_at")
+  durationMs            Int?                   @map("duration_ms")
+  errorCode             String?                @map("error_code")
+  errorMessage          String?                @map("error_message")
+  neo4jOperationSummary Json?                  @map("neo4j_operation_summary")
+  createdAt             DateTime               @default(now()) @map("created_at")
+
+  outbox                GraphSyncOutbox        @relation(fields: [outboxId], references: [id], onDelete: Cascade)
+
+  @@index([outboxId])
+  @@index([status])
+  @@index([startedAt])
+  @@map("graph_sync_attempts")
 }
