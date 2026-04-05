@@ -35,7 +35,25 @@ export class GraphSyncWorkerService {
         this.logger.log(`Found ${pendingJobs.length} pending graph sync jobs.`);
         
         for (const job of pendingJobs) {
-          await this.processJob(job);
+          // Idempotent claiming: try to update status from PENDING to PROCESSING
+          const claimResult = await this.prisma.graphSyncOutbox.updateMany({
+            where: {
+              id: job.id,
+              status: GraphSyncStatus.PENDING,
+            },
+            data: {
+              status: GraphSyncStatus.PROCESSING,
+              updatedAt: new Date(),
+            },
+          });
+
+          if (claimResult.count === 1) {
+            // Successfully claimed
+            await this.processJob(job);
+          } else {
+            // Job was claimed by another worker instance or already processed
+            this.logger.debug(`Job ${job.id} was already claimed or processed.`);
+          }
         }
       }
     } catch (error) {

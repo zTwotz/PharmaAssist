@@ -9,6 +9,7 @@ describe('GraphSyncWorkerService', () => {
     const mockPrismaService = {
       graphSyncOutbox: {
         findMany: jest.fn().mockResolvedValue([]),
+        updateMany: jest.fn().mockResolvedValue({ count: 1 }),
         update: jest.fn(),
       },
     };
