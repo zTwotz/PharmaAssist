@@ -1,6 +1,25 @@
-import { GraphSyncStatus, GraphSyncAttemptStatus, GraphSyncEventType } from '@prisma/client';
+export enum GraphSyncStatus {
+  PENDING = 'PENDING',
+  PROCESSING = 'PROCESSING',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+}
 
-export { GraphSyncStatus, GraphSyncAttemptStatus, GraphSyncEventType };
+export enum GraphSyncAttemptStatus {
+  IN_PROGRESS = 'IN_PROGRESS',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+}
+
+export enum GraphSyncEventType {
+  MEDICINE_UPSERT = 'MEDICINE_UPSERT',
+  MEDICINE_DEACTIVATE = 'MEDICINE_DEACTIVATE',
+  MEDICINE_INGREDIENT_MAPPING_UPSERT = 'MEDICINE_INGREDIENT_MAPPING_UPSERT',
+  ACTIVE_INGREDIENT_UPSERT = 'ACTIVE_INGREDIENT_UPSERT',
+  ACTIVE_INGREDIENT_DEACTIVATE = 'ACTIVE_INGREDIENT_DEACTIVATE',
+  DRUG_INTERACTION_RULE_UPSERT = 'DRUG_INTERACTION_RULE_UPSERT',
+  DRUG_INTERACTION_RULE_DEACTIVATE = 'DRUG_INTERACTION_RULE_DEACTIVATE',
+}
 
 export interface GraphSyncEventPayload {
   entityType: string;
