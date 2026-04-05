@@ -17,6 +17,7 @@ import { ActiveIngredientsModule } from './active-ingredients/active-ingredients
 import { StockImportsModule } from './stock-imports/stock-imports.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AiModule } from './ai/ai.module';
+import { Neo4jModule } from './neo4j/neo4j.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { AiModule } from './ai/ai.module';
     StockImportsModule,
     CheckoutModule,
     AiModule,
+    Neo4jModule,
   ],
   controllers: [AppController],
   providers: [AppService],
