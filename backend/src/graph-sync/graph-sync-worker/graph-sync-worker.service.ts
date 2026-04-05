@@ -130,6 +130,28 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_RULE_UPSERT) {
+        const payload = job.payload as any;
+        const cypher = `
+          MATCH (a:ActiveIngredient {id: $aId})
+          MATCH (b:ActiveIngredient {id: $bId})
+          MERGE (a)-[r:INTERACTS_WITH {id: $id}]-(b)
+          SET r.code = $code,
+              r.severity = $severity,
+              r.isActive = $isActive,
+              r.sourceVersion = $sourceVersion,
+              r.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          code: payload.code,
+          aId: String(payload.activeIngredientAId),
+          bId: String(payload.activeIngredientBId),
+          severity: payload.severity,
+          isActive: payload.isActive,
+          sourceVersion: Number(job.sourceVersion),
+        };
+        await this.neo4jService.write(cypher, params);
       } else {
       }
 
