@@ -249,10 +249,10 @@ Story review rules:
 | PAC-TASK-363 | PAC-573 | US-118 | Configure Neo4j connection service | `feature/PAC-573-task-363-configure-neo4j-connection-service` | Done | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-364 | PAC-574 | US-118 | Add Neo4j health check | `feature/PAC-574-task-364-add-neo4j-health-check` | Done | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-365 | PAC-575 | US-118 | Implement idempotent graph job claiming | `feature/PAC-575-task-365-implement-idempotent-graph-job-claiming` | Done | Done | Done | Done | Done | Done | Done | DONE |
-| PAC-TASK-366 | PAC-576 | US-119 | Upsert Medicine node to Neo4j | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-367 | PAC-577 | US-120 | Upsert ActiveIngredient node to Neo4j | `feature/PAC-577-task-367-upsert-activeingredient-node-to-neo4j` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-368 | PAC-578 | US-121 | Upsert CONTAINS relationship | `feature/PAC-578-task-368-upsert-contains-relationship` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-369 | PAC-579 | US-122 | Upsert INTERACTS_WITH relationship | `feature/PAC-579-task-369-upsert-interacts-with-relationship` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-366 | PAC-576 | US-119 | Upsert Medicine node to Neo4j | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-367 | PAC-577 | US-120 | Upsert ActiveIngredient node to Neo4j | `feature/PAC-577-task-367-upsert-activeingredient-node-to-neo4j` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-368 | PAC-578 | US-121 | Upsert CONTAINS relationship | `feature/PAC-578-task-368-upsert-contains-relationship` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-369 | PAC-579 | US-122 | Upsert INTERACTS_WITH relationship | `feature/PAC-579-task-369-upsert-interacts-with-relationship` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-370 | PAC-580 | US-123 | Implement canonical directed interaction edge logic | `feature/PAC-580-task-370-implement-canonical-directed-interaction-edge-logic` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-371 | PAC-581 | US-122 | Store rule properties on INTERACTS_WITH relationship | `feature/PAC-581-task-371-store-rule-properties-on-interacts-with-relationshi` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-372 | PAC-582 | US-124 | Store sourceVersion, sourceUpdatedAt and syncedAt metadata | `feature/PAC-582-task-372-store-sourceversion-sourceupdatedat-and-syncedat-me` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
@@ -429,9 +429,9 @@ AI chỉ đề xuất trạng thái. Project Owner thực hiện mọi Jira writ
 | Field | Current value |
 |---|---|
 | Current phase | Phase 1 — Transactional Outbox Foundation |
-| Current Task | PAC-TASK-366 |
-| Current Jira Key | PAC-576 |
-| Current exact branch | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` |
+| Current Task | PAC-TASK-370 |
+| Current Jira Key | PAC-580 |
+| Current exact branch | `feature/PAC-580-task-370-add-graph-sync-module-export` |
 | Current PR | None |
 | Last merged Task | PAC-TASK-357 |
 | Last merge SHA | a14db719042de81646de117352a8938f7731d181 |
