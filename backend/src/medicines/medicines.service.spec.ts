@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MedicinesService } from './medicines.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 describe('MedicinesService', () => {
   let service: MedicinesService;
@@ -407,10 +408,10 @@ describe('MedicinesService', () => {
         where: { medicineId: 1 },
       });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
-        data: {
-          entityType: 'MEDICINE_INGREDIENT',
-          entityId: 1,
-          action: 'UPDATE',
+        data: expect.objectContaining({
+          eventType: GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT,
+          aggregateType: 'MEDICINE_INGREDIENT_MAPPING',
+          aggregateId: '1',
           payload: {
             medicineId: 1,
             ingredients: [
@@ -422,7 +423,7 @@ describe('MedicinesService', () => {
               },
             ],
           },
-        },
+        }),
       });
     });
   });

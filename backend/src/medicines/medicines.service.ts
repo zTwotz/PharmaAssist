@@ -8,6 +8,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
 import { UpdateMedicineIngredientsDto } from './dto/update-medicine-ingredients.dto';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 @Injectable()
 export class MedicinesService {
@@ -370,9 +371,10 @@ export class MedicinesService {
       // Write GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'MEDICINE_INGREDIENT',
-          entityId: medicineId,
-          action: 'UPDATE',
+          eventType: GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT,
+          aggregateType: 'MEDICINE_INGREDIENT_MAPPING',
+          aggregateId: String(medicineId),
+          sourceVersion: Date.now(),
           payload: {
             medicineId,
             ingredients: createdMappings.map((cm) => ({
