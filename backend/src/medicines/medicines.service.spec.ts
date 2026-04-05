@@ -125,9 +125,10 @@ describe('MedicinesService', () => {
       expect(result).toEqual({ product: mockProduct, medicine: mockMedicine });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'CREATE',
+          eventType: 'MEDICINE_UPSERT',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123',
@@ -223,9 +224,10 @@ describe('MedicinesService', () => {
       });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'UPDATE',
+          eventType: 'MEDICINE_UPSERT',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123-U',
@@ -280,9 +282,10 @@ describe('MedicinesService', () => {
       expect(result).toEqual(mockUpdatedMed);
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'UPDATE',
+          eventType: 'MEDICINE_DEACTIVATE',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123',

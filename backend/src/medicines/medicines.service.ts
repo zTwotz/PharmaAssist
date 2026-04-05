@@ -100,9 +100,10 @@ export class MedicinesService {
       // 4. Create GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'MEDICINE',
-          entityId: medicine.id,
-          action: 'CREATE',
+          eventType: GraphSyncEventType.MEDICINE_UPSERT,
+          aggregateType: 'MEDICINE',
+          aggregateId: String(medicine.id),
+          sourceVersion: Date.now(),
           payload: {
             id: medicine.id,
             code: medicine.medicineCode,
@@ -219,9 +220,10 @@ export class MedicinesService {
       // 4. Create GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'MEDICINE',
-          entityId: id,
-          action: 'UPDATE',
+          eventType: GraphSyncEventType.MEDICINE_UPSERT,
+          aggregateType: 'MEDICINE',
+          aggregateId: String(id),
+          sourceVersion: Date.now(),
           payload: {
             id,
             code: updatedMedicine.medicineCode,
@@ -269,9 +271,10 @@ export class MedicinesService {
       // Create GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'MEDICINE',
-          entityId: id,
-          action: 'UPDATE',
+          eventType: status === 'ACTIVE' ? GraphSyncEventType.MEDICINE_UPSERT : GraphSyncEventType.MEDICINE_DEACTIVATE,
+          aggregateType: 'MEDICINE',
+          aggregateId: String(id),
+          sourceVersion: Date.now(),
           payload: {
             id,
             code: updatedMed.medicineCode,
@@ -368,7 +371,6 @@ export class MedicinesService {
         ),
       );
 
-      // Write GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
           eventType: GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT,
