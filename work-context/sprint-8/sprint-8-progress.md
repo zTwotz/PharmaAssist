@@ -241,14 +241,14 @@ Story review rules:
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-356 | PAC-566 | US-117 | Create graph_sync_outbox Prisma model | `feature/PAC-566-task-356-create-graph-sync-outbox-prisma-model` | Technically complete | 031705d | #828 | 17effadbfcefadc5f26897d48c89c7e8a2a912e4 | PASS | PASS | N/A | DONE |
 | PAC-TASK-357 | PAC-567 | US-117 | Add graph sync job status enum | `feature/PAC-567-task-357-add-graph-sync-job-status-enum` | Technically complete | 1cf00de | #829 | a14db719042de81646de117352a8938f7731d181 | PASS | N/A | N/A | DONE |
-| PAC-TASK-358 | PAC-568 | US-117 | Emit outbox event from Medicine changes | `feature/PAC-568-task-358-emit-outbox-event-from-medicine-changes` | Done | PR #830 | Pass | Pass | Done | N/A | N/A | DONE |
-| PAC-TASK-359 | PAC-569 | US-117 | Emit outbox event from ActiveIngredient changes | `feature/PAC-569-task-359-emit-outbox-event-from-activeingredient-changes` | Done | PR #831 | Pass | Pass | Done | N/A | N/A | DONE |
+| PAC-TASK-358 | PAC-568 | US-117 | Emit outbox event from Medicine changes | `feature/PAC-568-task-358-emit-outbox-event-from-medicine-changes` | Technically complete | PR #830 | Pass | Pass | Done | N/A | N/A | DONE |
+| PAC-TASK-359 | PAC-569 | US-117 | Emit outbox event from ActiveIngredient changes | `feature/PAC-569-task-359-emit-outbox-event-from-activeingredient-changes` | Technically complete | PR #831 | Pass | Pass | Done | N/A | N/A | DONE |
 | PAC-TASK-360 | PAC-570 | US-117 | Emit outbox event from Medicine-Ingredient mapping changes | `feature/PAC-570-task-360-emit-outbox-event-from-medicine-ingredient-mapping-` | Done | PR #832 | Pass | Pass | Done | N/A | N/A | DONE |
 | PAC-TASK-361 | PAC-571 | US-117 | Emit outbox event from DrugInteractionRule changes | `feature/PAC-571-task-361-emit-outbox-event-from-druginteractionrule-changes` | Done | PR #833 | Pass | Pass | Done | N/A | N/A | DONE |
-| PAC-TASK-362 | PAC-572 | US-118 | Implement Graph Sync worker loop | `feature/PAC-572-task-362-implement-graph-sync-worker-loop` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-363 | PAC-573 | US-118 | Configure Neo4j connection service | `feature/PAC-573-task-363-configure-neo4j-connection-service` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-364 | PAC-574 | US-118 | Add Neo4j health check | `feature/PAC-574-task-364-add-neo4j-health-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-365 | PAC-575 | US-118 | Implement idempotent graph job claiming | `feature/PAC-575-task-365-implement-idempotent-graph-job-claiming` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-362 | PAC-572 | US-118 | Implement Graph Sync worker loop | `feature/PAC-572-task-362-implement-graph-sync-worker-loop` | Done | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-363 | PAC-573 | US-118 | Configure Neo4j connection service | `feature/PAC-573-task-363-configure-neo4j-connection-service` | Done | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-364 | PAC-574 | US-118 | Add Neo4j health check | `feature/PAC-574-task-364-add-neo4j-health-check` | Done | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-365 | PAC-575 | US-118 | Implement idempotent graph job claiming | `feature/PAC-575-task-365-implement-idempotent-graph-job-claiming` | Done | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-366 | PAC-576 | US-119 | Upsert Medicine node to Neo4j | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-367 | PAC-577 | US-120 | Upsert ActiveIngredient node to Neo4j | `feature/PAC-577-task-367-upsert-activeingredient-node-to-neo4j` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-368 | PAC-578 | US-121 | Upsert CONTAINS relationship | `feature/PAC-578-task-368-upsert-contains-relationship` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
@@ -429,9 +429,9 @@ AI chỉ đề xuất trạng thái. Project Owner thực hiện mọi Jira writ
 | Field | Current value |
 |---|---|
 | Current phase | Phase 1 — Transactional Outbox Foundation |
-| Current Task | PAC-TASK-362 |
-| Current Jira Key | PAC-572 |
-| Current exact branch | `feature/PAC-572-task-362-implement-graph-sync-worker-loop` |
+| Current Task | PAC-TASK-366 |
+| Current Jira Key | PAC-576 |
+| Current exact branch | `feature/PAC-576-task-366-upsert-medicine-node-to-neo4j` |
 | Current PR | None |
 | Last merged Task | PAC-TASK-357 |
 | Last merge SHA | a14db719042de81646de117352a8938f7731d181 |
