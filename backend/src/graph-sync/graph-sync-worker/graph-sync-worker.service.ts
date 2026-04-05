@@ -1,14 +1,18 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../prisma/prisma.service';
-import { GraphSyncStatus } from '../types/graph-sync.types';
+import { GraphSyncEventType, GraphSyncStatus } from '../types/graph-sync.types';
+import { Neo4jService } from '../../neo4j/neo4j.service';
 
 @Injectable()
 export class GraphSyncWorkerService {
   private readonly logger = new Logger(GraphSyncWorkerService.name);
   private isProcessing = false;
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly neo4jService: Neo4jService,
+  ) {}
 
   @Cron(CronExpression.EVERY_5_SECONDS)
   async processPendingJobs() {
@@ -18,12 +22,9 @@ export class GraphSyncWorkerService {
     this.isProcessing = true;
 
     try {
-      // Find pending jobs
-      // Limit to 50 at a time to prevent memory issues
       const pendingJobs = await this.prisma.graphSyncOutbox.findMany({
         where: {
           status: GraphSyncStatus.PENDING,
-          // We will add retry logic later, for now just PENDING
         },
         orderBy: {
           createdAt: 'asc',
@@ -35,7 +36,6 @@ export class GraphSyncWorkerService {
         this.logger.log(`Found ${pendingJobs.length} pending graph sync jobs.`);
         
         for (const job of pendingJobs) {
-          // Idempotent claiming: try to update status from PENDING to PROCESSING
           const claimResult = await this.prisma.graphSyncOutbox.updateMany({
             where: {
               id: job.id,
@@ -48,10 +48,8 @@ export class GraphSyncWorkerService {
           });
 
           if (claimResult.count === 1) {
-            // Successfully claimed
             await this.processJob(job);
           } else {
-            // Job was claimed by another worker instance or already processed
             this.logger.debug(`Job ${job.id} was already claimed or processed.`);
           }
         }
@@ -64,16 +62,37 @@ export class GraphSyncWorkerService {
   }
 
   private async processJob(job: any) {
-    // Placeholder for claiming and actual processing
     this.logger.debug(`Processing job ${job.id} of type ${job.eventType}`);
     
-    // In PAC-TASK-365 we will implement idempotent claiming
-    // For now, just mark it as SUCCESS to prevent infinite loops during manual testing
     try {
+      if (job.eventType === GraphSyncEventType.MEDICINE_UPSERT) {
+        const payload = job.payload as any;
+        const cypher = `
+          MERGE (m:Medicine {id: $id})
+          SET m.code = $code,
+              m.name = $name,
+              m.isActive = $isActive,
+              m.sourceVersion = $sourceVersion,
+              m.sourceUpdatedAt = $sourceUpdatedAt,
+              m.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          code: payload.code,
+          name: payload.name,
+          isActive: payload.status === 'ACTIVE',
+          sourceVersion: Number(job.sourceVersion),
+          sourceUpdatedAt: job.createdAt.toISOString(),
+        };
+        await this.neo4jService.write(cypher, params);
+      } else {
+        // Unhandled event type for now
+      }
+
       await this.prisma.graphSyncOutbox.update({
         where: { id: job.id },
         data: {
-          status: GraphSyncStatus.SUCCESS,
+          status: GraphSyncStatus.SUCCEEDED,
           updatedAt: new Date(),
         },
       });

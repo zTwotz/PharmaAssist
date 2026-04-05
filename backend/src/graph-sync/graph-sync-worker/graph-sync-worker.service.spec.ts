@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GraphSyncWorkerService } from './graph-sync-worker.service';
 import { PrismaService } from '../../prisma/prisma.service';
+import { Neo4jService } from '../../neo4j/neo4j.service';
 
 describe('GraphSyncWorkerService', () => {
   let service: GraphSyncWorkerService;
@@ -20,6 +21,12 @@ describe('GraphSyncWorkerService', () => {
         {
           provide: PrismaService,
           useValue: mockPrismaService,
+        },
+        {
+          provide: Neo4jService,
+          useValue: {
+            write: jest.fn().mockResolvedValue({}),
+          },
         },
       ],
     }).compile();
