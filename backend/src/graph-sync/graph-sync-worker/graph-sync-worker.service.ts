@@ -156,6 +156,45 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.MEDICINE_DEACTIVATE) {
+        const payload = job.payload as any;
+        const cypher = `
+          MATCH (m:Medicine {id: $id})
+          SET m.isActive = false,
+              m.sourceVersion = $sourceVersion,
+              m.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          sourceVersion: Number(job.sourceVersion),
+        };
+        await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE) {
+        const payload = job.payload as any;
+        const cypher = `
+          MATCH (a:ActiveIngredient {id: $id})
+          SET a.isActive = false,
+              a.sourceVersion = $sourceVersion,
+              a.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          sourceVersion: Number(job.sourceVersion),
+        };
+        await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_RULE_DEACTIVATE) {
+        const payload = job.payload as any;
+        const cypher = `
+          MATCH ()-[r:INTERACTS_WITH {id: $id}]->()
+          SET r.isActive = false,
+              r.sourceVersion = $sourceVersion,
+              r.syncedAt = timestamp()
+        `;
+        const params = {
+          id: String(payload.id),
+          sourceVersion: Number(job.sourceVersion),
+        };
+        await this.neo4jService.write(cypher, params);
       } else {
       }
 
