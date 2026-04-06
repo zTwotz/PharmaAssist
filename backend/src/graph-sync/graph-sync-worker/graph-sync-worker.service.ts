@@ -135,18 +135,22 @@ export class GraphSyncWorkerService {
         const cypher = `
           MATCH (a:ActiveIngredient {id: $aId})
           MATCH (b:ActiveIngredient {id: $bId})
-          MERGE (a)-[r:INTERACTS_WITH {id: $id}]-(b)
+          MERGE (a)-[r:INTERACTS_WITH {id: $id}]->(b)
           SET r.code = $code,
               r.severity = $severity,
               r.isActive = $isActive,
               r.sourceVersion = $sourceVersion,
               r.syncedAt = timestamp()
         `;
+        const aIdNum = Number(payload.activeIngredientAId);
+        const bIdNum = Number(payload.activeIngredientBId);
+        const [aId, bId] = aIdNum < bIdNum ? [aIdNum, bIdNum] : [bIdNum, aIdNum];
+        
         const params = {
           id: String(payload.id),
           code: payload.code,
-          aId: String(payload.activeIngredientAId),
-          bId: String(payload.activeIngredientBId),
+          aId: String(aId),
+          bId: String(bId),
           severity: payload.severity,
           isActive: payload.isActive,
           sourceVersion: Number(job.sourceVersion),
