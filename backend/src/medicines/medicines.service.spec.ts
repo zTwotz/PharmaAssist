@@ -2,11 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MedicinesService } from './medicines.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 describe('MedicinesService', () => {
   let service: MedicinesService;
 
-  const mockPrismaService = {
+  const mockPrismaService: any = {
     medicine: {
       findUnique: jest.fn(),
       findMany: jest.fn(),
@@ -124,9 +125,10 @@ describe('MedicinesService', () => {
       expect(result).toEqual({ product: mockProduct, medicine: mockMedicine });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'CREATE',
+          eventType: 'MEDICINE_UPSERT',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123',
@@ -182,10 +184,12 @@ describe('MedicinesService', () => {
           slug: 'test-med',
         },
       };
-      mockPrismaService.medicine.findUnique.mockImplementation(({ where }) => {
-        if (where.id === 20) return Promise.resolve(mockExisting);
-        return Promise.resolve(null);
-      });
+      mockPrismaService.medicine.findUnique.mockImplementation(
+        ({ where }: any) => {
+          if (where.id === 20) return Promise.resolve(mockExisting);
+          return Promise.resolve(null);
+        },
+      );
       mockPrismaService.product.findUnique.mockResolvedValue(null);
 
       const mockUpdatedProduct = {
@@ -220,9 +224,10 @@ describe('MedicinesService', () => {
       });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'UPDATE',
+          eventType: 'MEDICINE_UPSERT',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123-U',
@@ -277,9 +282,10 @@ describe('MedicinesService', () => {
       expect(result).toEqual(mockUpdatedMed);
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: {
-          entityType: 'MEDICINE',
-          entityId: 20,
-          action: 'UPDATE',
+          eventType: 'MEDICINE_DEACTIVATE',
+          aggregateType: 'MEDICINE',
+          aggregateId: '20',
+          sourceVersion: expect.any(Number),
           payload: {
             id: 20,
             code: 'M-123',
@@ -405,10 +411,10 @@ describe('MedicinesService', () => {
         where: { medicineId: 1 },
       });
       expect(mockPrismaService.graphSyncOutbox.create).toHaveBeenCalledWith({
-        data: {
-          entityType: 'MEDICINE_INGREDIENT',
-          entityId: 1,
-          action: 'UPDATE',
+        data: expect.objectContaining({
+          eventType: GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT,
+          aggregateType: 'MEDICINE_INGREDIENT_MAPPING',
+          aggregateId: '1',
           payload: {
             medicineId: 1,
             ingredients: [
@@ -420,7 +426,7 @@ describe('MedicinesService', () => {
               },
             ],
           },
-        },
+        }),
       });
     });
   });
