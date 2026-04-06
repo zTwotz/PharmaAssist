@@ -253,10 +253,10 @@ Story review rules:
 | PAC-TASK-367 | PAC-577 | US-120 | Upsert ActiveIngredient node to Neo4j | `feature/PAC-577-task-367-upsert-activeingredient-node-to-neo4j` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-368 | PAC-578 | US-121 | Upsert CONTAINS relationship | `feature/PAC-578-task-368-upsert-contains-relationship` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-369 | PAC-579 | US-122 | Upsert INTERACTS_WITH relationship | `feature/PAC-579-task-369-upsert-interacts-with-relationship` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
-| PAC-TASK-370 | PAC-580 | US-123 | Implement canonical directed interaction edge logic | `feature/PAC-580-task-370-implement-canonical-directed-interaction-edge-logic` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-371 | PAC-581 | US-122 | Store rule properties on INTERACTS_WITH relationship | `feature/PAC-581-task-371-store-rule-properties-on-interacts-with-relationshi` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-372 | PAC-582 | US-124 | Store sourceVersion, sourceUpdatedAt and syncedAt metadata | `feature/PAC-582-task-372-store-sourceversion-sourceupdatedat-and-syncedat-me` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-373 | PAC-583 | US-128 | Mark deactivated Medicine and ActiveIngredient as isActive=false | `feature/PAC-583-task-373-mark-deactivated-medicine-and-activeingredient-as-i` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-370 | PAC-580 | US-123 | Implement canonical directed interaction edge logic | `feature/PAC-580-task-370-implement-canonical-directed-interaction-edge-logic` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-371 | PAC-581 | US-122 | Store rule properties on INTERACTS_WITH relationship | `feature/PAC-581-task-371-store-rule-properties-on-interacts-with-relationshi` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-372 | PAC-582 | US-124 | Store sourceVersion, sourceUpdatedAt and syncedAt metadata | `feature/PAC-582-task-372-store-sourceversion-sourceupdatedat-and-syncedat-me` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
+| PAC-TASK-373 | PAC-583 | US-128 | Mark deactivated Medicine and ActiveIngredient as isActive=false | `feature/PAC-583-task-373-mark-deactivated-medicine-and-activeingredient-as-i` | In progress | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-374 | PAC-584 | US-128 | Mark deactivated interaction rule edge as isActive=false | `feature/PAC-584-task-374-mark-deactivated-interaction-rule-edge-as-isactive-` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-375 | PAC-585 | US-128 | Filter normal Neo4j queries to active data only | `feature/PAC-585-task-375-filter-normal-neo4j-queries-to-active-data-only` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-376 | PAC-586 | US-125 | Implement retry logic for failed graph sync jobs | `feature/PAC-586-task-376-implement-retry-logic-for-failed-graph-sync-jobs` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
@@ -429,9 +429,9 @@ AI chỉ đề xuất trạng thái. Project Owner thực hiện mọi Jira writ
 | Field | Current value |
 |---|---|
 | Current phase | Phase 1 — Transactional Outbox Foundation |
-| Current Task | PAC-TASK-370 |
-| Current Jira Key | PAC-580 |
-| Current exact branch | `feature/PAC-580-task-370-add-graph-sync-module-export` |
+| Current Task | PAC-TASK-373 |
+| Current Jira Key | PAC-583 |
+| Current exact branch | `feature/PAC-583-task-373-mark-deactivated-medicine-and-activeingredient-as-i` |
 | Current PR | None |
 | Last merged Task | PAC-TASK-357 |
 | Last merge SHA | a14db719042de81646de117352a8938f7731d181 |
