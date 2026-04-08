@@ -64,7 +64,9 @@ export class Neo4jService
   }
 
   /**
-   * Helper to execute a read query
+   * Helper to execute a read query.
+   * NOTE: For PAC-TASK-375, ensure that normal domain queries filter for {isActive: true} 
+   * to exclude deactivated graph entities unless history/provenance is explicitly needed.
    */
   async read(cypher: string, params?: Record<string, any>): Promise<Result> {
     const session: Session = this.getDriver().session({
