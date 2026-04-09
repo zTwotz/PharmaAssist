@@ -176,11 +176,9 @@ async function main() {
   for (const u of demoUsers) {
     console.log(`Checking/Creating user in Supabase Auth: ${u.email}...`);
 
-    // Check if user already exists in Supabase Auth (by email list)
-    const {
-      data: { users },
-      error: listError,
-    } = await supabaseAdmin.auth.admin.listUsers();
+    const listRes = await supabaseAdmin.auth.admin.listUsers();
+    const users: SupabaseUser[] = listRes.data.users || [];
+    const listError = listRes.error;
 
     if (listError) {
       console.error(`Error listing users:`, listError);
@@ -263,6 +261,46 @@ async function main() {
       }
     }
   }
+
+  // 5. Seed Prompt Templates
+  console.log('Seeding Prompt Templates...');
+  const promptTemplates = [
+    {
+      code: 'interaction_explanation',
+      version: 'v1.0',
+      content: 'You are a clinical pharmacist. Explain the potential drug interaction between the following medications in simple terms: {{medications}}. Also provide recommendations. Respond in JSON format.',
+      status: 'ACTIVE'
+    },
+    {
+      code: 'consultation_note',
+      version: 'v1.0',
+      content: 'Draft a brief consultation note for a patient taking the following medications: {{medications}}. Include key counseling points.',
+      status: 'ACTIVE'
+    },
+    {
+      code: 'follow_up_questions',
+      version: 'v1.0',
+      content: 'Suggest 3 safe follow-up questions a pharmacist should ask a patient based on this context: {{shortContext}}. Keep the questions friendly and professional. Respond in JSON format with a "questions" array and a "disclaimer".',
+      status: 'ACTIVE'
+    }
+  ];
+
+  for (const template of promptTemplates) {
+    await prisma.promptTemplate.upsert({
+      where: {
+        code_version: {
+          code: template.code,
+          version: template.version
+        }
+      },
+      update: {
+        content: template.content,
+        status: template.status
+      },
+      create: template
+    });
+  }
+  console.log('Prompt templates seeded.');
 
   console.log('Seed completed successfully!');
 }
