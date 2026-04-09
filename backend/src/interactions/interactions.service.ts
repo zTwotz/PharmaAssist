@@ -78,7 +78,7 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          eventType: GraphSyncEventType.DRUG_INTERACTION_RULE_UPSERT,
+          eventType: GraphSyncEventType.DRUG_INTERACTION_UPSERT,
           aggregateType: 'DRUG_INTERACTION_RULE',
           aggregateId: String(interaction.id),
           sourceVersion: Date.now(),
@@ -121,7 +121,7 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          eventType: GraphSyncEventType.DRUG_INTERACTION_RULE_UPSERT,
+          eventType: GraphSyncEventType.DRUG_INTERACTION_UPSERT,
           aggregateType: 'DRUG_INTERACTION_RULE',
           aggregateId: String(interaction.id),
           sourceVersion: Date.now(),
@@ -160,7 +160,7 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          eventType: GraphSyncEventType.DRUG_INTERACTION_RULE_DEACTIVATE,
+          eventType: GraphSyncEventType.DRUG_INTERACTION_DEACTIVATE,
           aggregateType: 'DRUG_INTERACTION_RULE',
           aggregateId: String(interaction.id),
           sourceVersion: Date.now(),

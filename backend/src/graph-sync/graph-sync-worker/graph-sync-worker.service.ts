@@ -130,7 +130,7 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_RULE_UPSERT) {
+      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_UPSERT) {
         const payload = job.payload as any;
         const cypher = `
           MATCH (a:ActiveIngredient {id: $aId})
@@ -182,7 +182,7 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_RULE_DEACTIVATE) {
+      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_DEACTIVATE) {
         const payload = job.payload as any;
         const cypher = `
           MATCH ()-[r:INTERACTS_WITH {id: $id}]->()
@@ -212,7 +212,7 @@ export class GraphSyncWorkerService {
         where: { id: job.id },
         data: {
           status: GraphSyncStatus.FAILED,
-          errorSummary: error.message,
+          lastErrorMessage: error.message,
           updatedAt: new Date(),
         },
       });

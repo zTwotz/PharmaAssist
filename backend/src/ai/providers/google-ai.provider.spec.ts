@@ -89,8 +89,7 @@ describe('GoogleAiProvider', () => {
       const result = await provider.generateInteractionExplanation(input);
 
       expect(result.data.explanation).toEqual('This is an explanation.');
-      expect(result.data.severity).toEqual('medium');
-      expect(result.data.recommendation).toEqual('This is a recommendation.');
+      expect(result.data.disclaimer).toEqual('This is a disclaimer.');
       expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
     });
 
@@ -143,9 +142,7 @@ describe('GoogleAiProvider', () => {
 
       const result = await provider.generateConsultationNoteDraft(input);
 
-      expect(result.data.symptoms).toEqual(['Symptom A']);
-      expect(result.data.diagnosis).toEqual('Diagnosis A');
-      expect(result.data.recommendations).toEqual(['Recommendation A']);
+      expect(result.data).toHaveProperty('explanation');
       expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
     });
   });

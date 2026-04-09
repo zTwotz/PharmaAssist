@@ -81,7 +81,7 @@ describe('Neo4jService', () => {
 
     it('should not throw if connection fails', async () => {
       // Mock failure
-      const driver = neo4j.driver('', '');
+      const driver = neo4j.driver('', neo4j.auth.basic('user', 'pass'));
       (driver.verifyConnectivity as jest.Mock).mockRejectedValueOnce(
         new Error('Connection failed'),
       );
