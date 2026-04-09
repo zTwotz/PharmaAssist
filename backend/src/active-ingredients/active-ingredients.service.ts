@@ -9,6 +9,7 @@ import {
   CreateActiveIngredientDto,
   UpdateActiveIngredientDto,
 } from './dto/active-ingredients.dto';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 @Injectable()
 export class ActiveIngredientsService {
@@ -82,9 +83,10 @@ export class ActiveIngredientsService {
       // Write GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'ACTIVE_INGREDIENT',
-          entityId: activeIngredient.id,
-          action: 'CREATE',
+          eventType: GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT,
+          aggregateType: 'ACTIVE_INGREDIENT',
+          aggregateId: String(activeIngredient.id),
+          sourceVersion: Date.now(),
           payload: {
             id: activeIngredient.id,
             code: activeIngredient.code,
@@ -154,9 +156,10 @@ export class ActiveIngredientsService {
       // Write GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'ACTIVE_INGREDIENT',
-          entityId: updated.id,
-          action: 'UPDATE',
+          eventType: updated.status === 'ACTIVE' ? GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT : GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE,
+          aggregateType: 'ACTIVE_INGREDIENT',
+          aggregateId: String(updated.id),
+          sourceVersion: Date.now(),
           payload: {
             id: updated.id,
             code: updated.code,
