@@ -269,11 +269,11 @@ Story review rules:
 | PAC-TASK-383 | PAC-593 | US-127 | Detect stale graph from failed relevant outbox job | `feature/PAC-593-task-383-detect-stale-graph-from-failed-relevant-outbox-job` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-384 | PAC-594 | US-127 | Detect stale graph from missing sourceVersion projection | `feature/PAC-594-task-384-detect-stale-graph-from-missing-sourceversion-proje` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
 | PAC-TASK-385 | PAC-595 | US-118 | Add Graph Sync worker unit tests | `test/PAC-595-task-385-add-graph-sync-worker-unit-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-386 | PAC-596 | US-119 | Add Neo4j projection integration tests | `test/PAC-596-task-386-add-neo4j-projection-integration-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-387 | PAC-597 | US-122 | Add INTERACTS_WITH projection tests | `test/PAC-597-task-387-add-interacts-with-projection-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-388 | PAC-598 | US-127 | Add graph freshness detection tests | `test/PAC-598-task-388-add-graph-freshness-detection-tests` | Technically complete | Done | Done | Done | Done | Done | Done | DONE |
-| PAC-TASK-389 | PAC-599 | US-125 | Add graph sync retry and failure tests | `test/PAC-599-task-389-add-graph-sync-retry-and-failure-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-390 | PAC-600 | US-117 | Add Graph Sync traceability notes | `feature/PAC-600-task-390-add-graph-sync-traceability-notes` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-386 | PAC-596 | US-117 | Add Neo4j projection integration tests | `test/PAC-596-task-386-add-neo4j-projection-integration-tests` | Technically complete | 7e629b4 | 7e629b4 | — | PASS | N/A | N/A | DONE |
+| PAC-TASK-387 | PAC-597 | US-122 | Add INTERACTS_WITH projection tests | `test/PAC-597-task-387-add-interacts-with-projection-tests` | Technically complete | 5afe371 | 5afe371 | — | PASS | N/A | N/A | DONE |
+| PAC-TASK-388 | PAC-598 | US-127 | Add graph freshness detection tests | `test/PAC-598-task-388-add-graph-sync-freshness-validation-test` | Technically complete | 6b27e4e | 6b27e4e | — | PASS | N/A | N/A | DONE |
+| PAC-TASK-389 | PAC-599 | US-125 | Add graph sync retry and failure tests | `test/PAC-599-task-389-add-graph-sync-retry-and-failure-tests` | Technically complete | 24e0ca8 | 24e0ca8 | — | PASS | N/A | N/A | DONE |
+| PAC-TASK-390 | PAC-600 | US-117 | Add Graph Sync traceability notes | `feature/PAC-600-task-390-add-graph-sync-traceability-notes` | Technically complete | HEAD | HEAD | — | PASS | N/A | N/A | DONE |
 
 Status values:
 
@@ -298,7 +298,7 @@ Chỉ ghi `Technically complete` sau khi PR đã merge và merge SHA xuất hi�
 | Phase 3 — Projection and Active-data Semantics | PAC-TASK-366 → PAC-TASK-375; PAC-TASK-380 | Not started | 0/11 | — |
 | Phase 4 — Retry, Failure Logging and Audit | PAC-TASK-376 → PAC-TASK-379 | Not started | 0/4 | — |
 | Phase 5 — Freshness Detection | PAC-TASK-381 → PAC-TASK-384 | Not started | 0/4 | — |
-| Phase 6 — Tests and Traceability | PAC-TASK-385 → PAC-TASK-390 | Not started | 0/6 | — |
+| Phase 6 — Tests and Traceability | PAC-TASK-385 → PAC-TASK-390 | Technically complete | 6/6 | HEAD |
 
 # 14. Graph Sync Invariant Checklist
 
