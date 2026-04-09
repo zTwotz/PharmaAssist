@@ -10,13 +10,13 @@ describe('GraphSyncWorkerService', () => {
   let neo4jService: Neo4jService;
 
   beforeEach(async () => {
-    const mockPrismaService = {
+    const mockPrismaService: any = {
       graphSyncOutbox: {
         findMany: jest.fn().mockResolvedValue([]),
         updateMany: jest.fn().mockResolvedValue({ count: 1 }),
         update: jest.fn(),
       },
-      $transaction: jest.fn(async (args) => {
+      $transaction: jest.fn(async (args: any): Promise<any> => {
         if (typeof args === 'function') {
           return args(mockPrismaService);
         }
