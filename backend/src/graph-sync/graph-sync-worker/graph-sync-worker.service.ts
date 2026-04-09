@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { GraphSyncAttemptStatus } from '@prisma/client';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
@@ -72,6 +73,7 @@ export class GraphSyncWorkerService {
   }
 
   private async processJob(job: any) {
+    const startedAt = new Date();
     this.logger.debug(`Processing job ${job.id} of type ${job.eventType}`);
     
     try {
@@ -208,43 +210,78 @@ export class GraphSyncWorkerService {
       } else {
       }
 
-      await this.prisma.graphSyncOutbox.update({
-        where: { id: job.id },
-        data: {
-          status: GraphSyncStatus.SUCCEEDED,
-          updatedAt: new Date(),
-        },
-      });
+      const finishedAt = new Date();
+      const durationMs = finishedAt.getTime() - startedAt.getTime();
+
+      await this.prisma.$transaction([
+        this.prisma.graphSyncOutbox.update({
+          where: { id: job.id },
+          data: {
+            status: GraphSyncStatus.SUCCEEDED,
+            updatedAt: new Date(),
+          },
+        }),
+        this.prisma.graphSyncAttempt.create({
+          data: {
+            outboxId: job.id,
+            attemptNumber: job.retryCount + 1,
+            status: GraphSyncAttemptStatus.SUCCESS,
+            startedAt,
+            finishedAt,
+            durationMs,
+          },
+        }),
+      ]);
+
       this.logger.debug(`Successfully processed job ${job.id}`);
     } catch (error) {
       this.logger.error(`Failed to process job ${job.id}`, error);
       
+      const finishedAt = new Date();
+      const durationMs = finishedAt.getTime() - startedAt.getTime();
       const newRetryCount = job.retryCount + 1;
       
+      const attemptData = {
+        outboxId: job.id,
+        attemptNumber: newRetryCount,
+        status: GraphSyncAttemptStatus.FAILED,
+        startedAt,
+        finishedAt,
+        durationMs,
+        errorMessage: error.message,
+        errorCode: error.code || null,
+      };
+
       if (newRetryCount >= MAX_GRAPH_SYNC_RETRIES) {
-        await this.prisma.graphSyncOutbox.update({
-          where: { id: job.id },
-          data: {
-            status: GraphSyncStatus.FAILED,
-            retryCount: newRetryCount,
-            lastErrorMessage: error.message,
-            updatedAt: new Date(),
-          },
-        });
+        await this.prisma.$transaction([
+          this.prisma.graphSyncOutbox.update({
+            where: { id: job.id },
+            data: {
+              status: GraphSyncStatus.FAILED,
+              retryCount: newRetryCount,
+              lastErrorMessage: error.message,
+              updatedAt: new Date(),
+            },
+          }),
+          this.prisma.graphSyncAttempt.create({ data: attemptData }),
+        ]);
       } else {
         const backoffMinutes = newRetryCount === 1 ? 1 : newRetryCount === 2 ? 5 : 15;
         const nextRetryAt = new Date(Date.now() + backoffMinutes * 60000);
         
-        await this.prisma.graphSyncOutbox.update({
-          where: { id: job.id },
-          data: {
-            status: GraphSyncStatus.RETRY_SCHEDULED,
-            retryCount: newRetryCount,
-            nextRetryAt,
-            lastErrorMessage: error.message,
-            updatedAt: new Date(),
-          },
-        });
+        await this.prisma.$transaction([
+          this.prisma.graphSyncOutbox.update({
+            where: { id: job.id },
+            data: {
+              status: GraphSyncStatus.RETRY_SCHEDULED,
+              retryCount: newRetryCount,
+              nextRetryAt,
+              lastErrorMessage: error.message,
+              updatedAt: new Date(),
+            },
+          }),
+          this.prisma.graphSyncAttempt.create({ data: attemptData }),
+        ]);
       }
     }
   }
