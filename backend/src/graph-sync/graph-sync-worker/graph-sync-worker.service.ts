@@ -1,7 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../prisma/prisma.service';
-import { GraphSyncEventType, GraphSyncStatus } from '../types/graph-sync.types';
+import {
+  GraphSyncEventType,
+  GraphSyncStatus,
+  MAX_GRAPH_SYNC_RETRIES,
+} from '../types/graph-sync.types';
 import { Neo4jService } from '../../neo4j/neo4j.service';
 
 @Injectable()
@@ -24,7 +28,13 @@ export class GraphSyncWorkerService {
     try {
       const pendingJobs = await this.prisma.graphSyncOutbox.findMany({
         where: {
-          status: GraphSyncStatus.PENDING,
+          OR: [
+            { status: GraphSyncStatus.PENDING },
+            {
+              status: GraphSyncStatus.RETRY_SCHEDULED,
+              nextRetryAt: { lte: new Date() },
+            },
+          ],
         },
         orderBy: {
           createdAt: 'asc',
@@ -39,7 +49,7 @@ export class GraphSyncWorkerService {
           const claimResult = await this.prisma.graphSyncOutbox.updateMany({
             where: {
               id: job.id,
-              status: GraphSyncStatus.PENDING,
+              status: job.status,
             },
             data: {
               status: GraphSyncStatus.PROCESSING,
@@ -208,14 +218,34 @@ export class GraphSyncWorkerService {
       this.logger.debug(`Successfully processed job ${job.id}`);
     } catch (error) {
       this.logger.error(`Failed to process job ${job.id}`, error);
-      await this.prisma.graphSyncOutbox.update({
-        where: { id: job.id },
-        data: {
-          status: GraphSyncStatus.FAILED,
-          lastErrorMessage: error.message,
-          updatedAt: new Date(),
-        },
-      });
+      
+      const newRetryCount = job.retryCount + 1;
+      
+      if (newRetryCount >= MAX_GRAPH_SYNC_RETRIES) {
+        await this.prisma.graphSyncOutbox.update({
+          where: { id: job.id },
+          data: {
+            status: GraphSyncStatus.FAILED,
+            retryCount: newRetryCount,
+            lastErrorMessage: error.message,
+            updatedAt: new Date(),
+          },
+        });
+      } else {
+        const backoffMinutes = newRetryCount === 1 ? 1 : newRetryCount === 2 ? 5 : 15;
+        const nextRetryAt = new Date(Date.now() + backoffMinutes * 60000);
+        
+        await this.prisma.graphSyncOutbox.update({
+          where: { id: job.id },
+          data: {
+            status: GraphSyncStatus.RETRY_SCHEDULED,
+            retryCount: newRetryCount,
+            nextRetryAt,
+            lastErrorMessage: error.message,
+            updatedAt: new Date(),
+          },
+        });
+      }
     }
   }
 }
