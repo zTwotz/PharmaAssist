@@ -156,7 +156,10 @@ export class ActiveIngredientsService {
       // Write GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          eventType: updated.status === 'ACTIVE' ? GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT : GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE,
+          eventType:
+            updated.status === 'ACTIVE'
+              ? GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT
+              : GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE,
           aggregateType: 'ACTIVE_INGREDIENT',
           aggregateId: String(updated.id),
           sourceVersion: Date.now(),

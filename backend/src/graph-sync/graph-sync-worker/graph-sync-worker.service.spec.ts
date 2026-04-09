@@ -73,8 +73,12 @@ describe('GraphSyncWorkerService', () => {
       retryCount: 0,
       createdAt: new Date(),
     };
-    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([job]);
-    (neo4jService.write as jest.Mock).mockRejectedValue(new Error('Neo4j Error'));
+    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([
+      job,
+    ]);
+    (neo4jService.write as jest.Mock).mockRejectedValue(
+      new Error('Neo4j Error'),
+    );
 
     await service.processPendingJobs();
 
@@ -104,8 +108,12 @@ describe('GraphSyncWorkerService', () => {
       retryCount: 5,
       createdAt: new Date(),
     };
-    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([job]);
-    (neo4jService.write as jest.Mock).mockRejectedValue(new Error('Neo4j Error'));
+    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([
+      job,
+    ]);
+    (neo4jService.write as jest.Mock).mockRejectedValue(
+      new Error('Neo4j Error'),
+    );
 
     await service.processPendingJobs();
 
@@ -134,7 +142,9 @@ describe('GraphSyncWorkerService', () => {
       retryCount: 0,
       createdAt: new Date(),
     };
-    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([job]);
+    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([
+      job,
+    ]);
 
     await service.processPendingJobs();
 
@@ -168,7 +178,9 @@ describe('GraphSyncWorkerService', () => {
       retryCount: 0,
       createdAt: new Date(),
     };
-    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([job]);
+    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([
+      job,
+    ]);
 
     await service.processPendingJobs();
 
@@ -204,7 +216,9 @@ describe('GraphSyncWorkerService', () => {
       retryCount: 0,
       createdAt: new Date(),
     };
-    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([job]);
+    (prismaService.graphSyncOutbox.findMany as jest.Mock).mockResolvedValue([
+      job,
+    ]);
 
     await service.processPendingJobs();
 

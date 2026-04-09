@@ -1,4 +1,9 @@
-import { GraphSyncStatus, GraphSyncAttemptStatus, GraphSyncEventType, MAX_GRAPH_SYNC_RETRIES } from './graph-sync.types';
+import {
+  GraphSyncStatus,
+  GraphSyncAttemptStatus,
+  GraphSyncEventType,
+  MAX_GRAPH_SYNC_RETRIES,
+} from './graph-sync.types';
 
 describe('Graph Sync Types and Enums', () => {
   it('should export GraphSyncStatus correctly', () => {
@@ -21,7 +26,9 @@ describe('Graph Sync Types and Enums', () => {
     expect(GraphSyncEventType).toBeDefined();
     expect(GraphSyncEventType.MEDICINE_UPSERT).toBe('MEDICINE_UPSERT');
     expect(GraphSyncEventType.MEDICINE_DEACTIVATE).toBe('MEDICINE_DEACTIVATE');
-    expect(GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT).toBe('ACTIVE_INGREDIENT_UPSERT');
+    expect(GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT).toBe(
+      'ACTIVE_INGREDIENT_UPSERT',
+    );
   });
 
   it('should export MAX_GRAPH_SYNC_RETRIES correctly', () => {

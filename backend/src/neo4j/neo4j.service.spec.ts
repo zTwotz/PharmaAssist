@@ -56,7 +56,7 @@ describe('Neo4jService', () => {
 
     service = module.get<Neo4jService>(Neo4jService);
     configService = module.get<ConfigService>(ConfigService);
-    
+
     // Clear mocks
     jest.clearAllMocks();
   });
@@ -85,7 +85,7 @@ describe('Neo4jService', () => {
       (driver.verifyConnectivity as jest.Mock).mockRejectedValueOnce(
         new Error('Connection failed'),
       );
-      
+
       // Remock driver to return the failing driver
       (neo4j.driver as jest.Mock).mockReturnValueOnce(driver);
 
@@ -99,7 +99,9 @@ describe('Neo4jService', () => {
       await service.onApplicationBootstrap();
 
       expect(neo4j.driver).not.toHaveBeenCalled();
-      expect(() => service.getDriver()).toThrow('Neo4j Driver is not initialized.');
+      expect(() => service.getDriver()).toThrow(
+        'Neo4j Driver is not initialized.',
+      );
     });
   });
 
@@ -107,9 +109,9 @@ describe('Neo4jService', () => {
     it('should close driver if initialized', async () => {
       await service.onApplicationBootstrap();
       const driver = service.getDriver();
-      
+
       await service.onApplicationShutdown();
-      
+
       expect(driver.close).toHaveBeenCalled();
     });
 
@@ -159,7 +161,9 @@ describe('Neo4jService', () => {
       const session = driver.session();
       (session.run as jest.Mock).mockRejectedValue(new Error('Query failed'));
 
-      await expect(service.read('MATCH (n) RETURN n')).rejects.toThrow('Query failed');
+      await expect(service.read('MATCH (n) RETURN n')).rejects.toThrow(
+        'Query failed',
+      );
       expect(session.close).toHaveBeenCalled();
     });
   });

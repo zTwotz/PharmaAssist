@@ -1,4 +1,10 @@
-import { Controller, Get, UseGuards, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { Neo4jService } from './neo4j.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -19,7 +25,7 @@ export class Neo4jController {
         status: 'ok',
         message: 'Successfully connected to Neo4j AuraDB',
       };
-    } catch (error) {
+    } catch {
       throw new HttpException(
         {
           status: 'error',

@@ -45,7 +45,7 @@ export class GraphSyncWorkerService {
 
       if (pendingJobs.length > 0) {
         this.logger.log(`Found ${pendingJobs.length} pending graph sync jobs.`);
-        
+
         for (const job of pendingJobs) {
           const claimResult = await this.prisma.graphSyncOutbox.updateMany({
             where: {
@@ -61,7 +61,9 @@ export class GraphSyncWorkerService {
           if (claimResult.count === 1) {
             await this.processJob(job);
           } else {
-            this.logger.debug(`Job ${job.id} was already claimed or processed.`);
+            this.logger.debug(
+              `Job ${job.id} was already claimed or processed.`,
+            );
           }
         }
       }
@@ -75,10 +77,10 @@ export class GraphSyncWorkerService {
   private async processJob(job: any) {
     const startedAt = new Date();
     this.logger.debug(`Processing job ${job.id} of type ${job.eventType}`);
-    
+
     try {
       if (job.eventType === GraphSyncEventType.MEDICINE_UPSERT) {
-        const payload = job.payload as any;
+        const payload = job.payload;
         const cypher = `
           MERGE (m:Medicine {id: $id})
           SET m.code = $code,
@@ -97,8 +99,10 @@ export class GraphSyncWorkerService {
           sourceUpdatedAt: job.createdAt.toISOString(),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT) {
-        const payload = job.payload as any;
+      } else if (
+        job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT
+      ) {
+        const payload = job.payload;
         const cypher = `
           MERGE (a:ActiveIngredient {id: $id})
           SET a.code = $code,
@@ -117,8 +121,10 @@ export class GraphSyncWorkerService {
           sourceUpdatedAt: job.createdAt.toISOString(),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT) {
-        const payload = job.payload as any;
+      } else if (
+        job.eventType === GraphSyncEventType.MEDICINE_INGREDIENT_MAPPING_UPSERT
+      ) {
+        const payload = job.payload;
         const cypher = `
           MATCH (m:Medicine {id: $medicineId})
           OPTIONAL MATCH (m)-[r:CONTAINS]->()
@@ -143,7 +149,7 @@ export class GraphSyncWorkerService {
         };
         await this.neo4jService.write(cypher, params);
       } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_UPSERT) {
-        const payload = job.payload as any;
+        const payload = job.payload;
         const cypher = `
           MATCH (a:ActiveIngredient {id: $aId})
           MATCH (b:ActiveIngredient {id: $bId})
@@ -156,8 +162,9 @@ export class GraphSyncWorkerService {
         `;
         const aIdNum = Number(payload.activeIngredientAId);
         const bIdNum = Number(payload.activeIngredientBId);
-        const [aId, bId] = aIdNum < bIdNum ? [aIdNum, bIdNum] : [bIdNum, aIdNum];
-        
+        const [aId, bId] =
+          aIdNum < bIdNum ? [aIdNum, bIdNum] : [bIdNum, aIdNum];
+
         const params = {
           id: String(payload.id),
           code: payload.code,
@@ -169,7 +176,7 @@ export class GraphSyncWorkerService {
         };
         await this.neo4jService.write(cypher, params);
       } else if (job.eventType === GraphSyncEventType.MEDICINE_DEACTIVATE) {
-        const payload = job.payload as any;
+        const payload = job.payload;
         const cypher = `
           MATCH (m:Medicine {id: $id})
           SET m.isActive = false,
@@ -181,8 +188,10 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE) {
-        const payload = job.payload as any;
+      } else if (
+        job.eventType === GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE
+      ) {
+        const payload = job.payload;
         const cypher = `
           MATCH (a:ActiveIngredient {id: $id})
           SET a.isActive = false,
@@ -194,8 +203,10 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
-      } else if (job.eventType === GraphSyncEventType.DRUG_INTERACTION_DEACTIVATE) {
-        const payload = job.payload as any;
+      } else if (
+        job.eventType === GraphSyncEventType.DRUG_INTERACTION_DEACTIVATE
+      ) {
+        const payload = job.payload;
         const cypher = `
           MATCH ()-[r:INTERACTS_WITH {id: $id}]->()
           SET r.isActive = false,
@@ -208,6 +219,7 @@ export class GraphSyncWorkerService {
         };
         await this.neo4jService.write(cypher, params);
       } else {
+        this.logger.warn(`Unhandled event type: ${job.eventType}`);
       }
 
       const finishedAt = new Date();
@@ -236,11 +248,11 @@ export class GraphSyncWorkerService {
       this.logger.debug(`Successfully processed job ${job.id}`);
     } catch (error) {
       this.logger.error(`Failed to process job ${job.id}`, error);
-      
+
       const finishedAt = new Date();
       const durationMs = finishedAt.getTime() - startedAt.getTime();
       const newRetryCount = job.retryCount + 1;
-      
+
       const attemptData = {
         outboxId: job.id,
         attemptNumber: newRetryCount,
@@ -266,9 +278,10 @@ export class GraphSyncWorkerService {
           this.prisma.graphSyncAttempt.create({ data: attemptData }),
         ]);
       } else {
-        const backoffMinutes = newRetryCount === 1 ? 1 : newRetryCount === 2 ? 5 : 15;
+        const backoffMinutes =
+          newRetryCount === 1 ? 1 : newRetryCount === 2 ? 5 : 15;
         const nextRetryAt = new Date(Date.now() + backoffMinutes * 60000);
-        
+
         await this.prisma.$transaction([
           this.prisma.graphSyncOutbox.update({
             where: { id: job.id },

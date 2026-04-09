@@ -29,15 +29,11 @@ export class Neo4jService
     }
 
     try {
-      this.driver = neo4j.driver(
-        uri,
-        neo4j.auth.basic(username, password),
-        {
-          maxConnectionPoolSize: 50,
-          connectionTimeout: 30000,
-        },
-      );
-      
+      this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password), {
+        maxConnectionPoolSize: 50,
+        connectionTimeout: 30000,
+      });
+
       // Verify connectivity on startup
       await this.driver.verifyConnectivity();
       this.logger.log('Successfully connected to Neo4j AuraDB');
@@ -65,7 +61,7 @@ export class Neo4jService
 
   /**
    * Helper to execute a read query.
-   * NOTE: For PAC-TASK-375, ensure that normal domain queries filter for {isActive: true} 
+   * NOTE: For PAC-TASK-375, ensure that normal domain queries filter for {isActive: true}
    * to exclude deactivated graph entities unless history/provenance is explicitly needed.
    */
   async read(cypher: string, params?: Record<string, any>): Promise<Result> {

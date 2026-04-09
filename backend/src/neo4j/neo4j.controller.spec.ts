@@ -53,7 +53,9 @@ describe('Neo4jController', () => {
     });
 
     it('should throw HttpException when connectivity fails', async () => {
-      const mockVerifyConnectivity = jest.fn().mockRejectedValue(new Error('Connection error'));
+      const mockVerifyConnectivity = jest
+        .fn()
+        .mockRejectedValue(new Error('Connection error'));
       (service.getDriver as jest.Mock).mockReturnValue({
         verifyConnectivity: mockVerifyConnectivity,
       });

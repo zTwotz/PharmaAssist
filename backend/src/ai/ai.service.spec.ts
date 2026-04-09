@@ -35,9 +35,8 @@ describe('AiService', () => {
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
         data: {
-          draftNote: "Sample Note",
-          disclaimer: "Disclaimer"
-          
+          draftNote: 'Sample Note',
+          disclaimer: 'Disclaimer',
         },
         metadata: { providerUsed: AiProviderType.GOOGLE },
       }),
@@ -58,8 +57,7 @@ describe('AiService', () => {
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
         data: {
-          disclaimer: "Disclaimer"
-          
+          disclaimer: 'Disclaimer',
         },
         metadata: { providerUsed: AiProviderType.MOCK },
       }),

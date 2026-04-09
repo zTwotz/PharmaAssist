@@ -36,7 +36,9 @@ describe('GraphFreshnessService', () => {
   });
 
   it('should return stale if there is a pending job', async () => {
-    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValueOnce({ id: '1' });
+    (
+      prismaService.graphSyncOutbox.findFirst as jest.Mock
+    ).mockResolvedValueOnce({ id: '1' });
 
     const result = await service.checkFreshness();
 
@@ -56,7 +58,9 @@ describe('GraphFreshnessService', () => {
   });
 
   it('should return fresh if no pending or failed jobs and no projection to check', async () => {
-    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(null);
+    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(
+      null,
+    );
 
     const result = await service.checkFreshness();
 
@@ -64,7 +68,9 @@ describe('GraphFreshnessService', () => {
   });
 
   it('should return missing projection if Neo4j returns no records', async () => {
-    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(null);
+    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(
+      null,
+    );
     (neo4jService.read as jest.Mock).mockResolvedValueOnce({ records: [] });
 
     const result = await service.checkFreshness({
@@ -78,7 +84,9 @@ describe('GraphFreshnessService', () => {
   });
 
   it('should return stale projection if Neo4j sourceVersion is less than expected', async () => {
-    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(null);
+    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(
+      null,
+    );
     (neo4jService.read as jest.Mock).mockResolvedValueOnce({
       records: [
         {
@@ -98,7 +106,9 @@ describe('GraphFreshnessService', () => {
   });
 
   it('should return fresh if projection sourceVersion is equal or greater', async () => {
-    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(null);
+    (prismaService.graphSyncOutbox.findFirst as jest.Mock).mockResolvedValue(
+      null,
+    );
     (neo4jService.read as jest.Mock).mockResolvedValueOnce({
       records: [
         {

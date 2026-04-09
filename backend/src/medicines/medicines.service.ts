@@ -271,7 +271,10 @@ export class MedicinesService {
       // Create GraphSyncOutbox event
       await tx.graphSyncOutbox.create({
         data: {
-          eventType: status === 'ACTIVE' ? GraphSyncEventType.MEDICINE_UPSERT : GraphSyncEventType.MEDICINE_DEACTIVATE,
+          eventType:
+            status === 'ACTIVE'
+              ? GraphSyncEventType.MEDICINE_UPSERT
+              : GraphSyncEventType.MEDICINE_DEACTIVATE,
           aggregateType: 'MEDICINE',
           aggregateId: String(id),
           sourceVersion: Date.now(),

@@ -80,6 +80,7 @@ describe('GoogleAiProvider', () => {
         explanation: 'This is an explanation.',
         severity: 'medium',
         recommendation: 'This is a recommendation.',
+        disclaimer: 'This is a disclaimer.',
       });
 
       mockModel.generateContent.mockResolvedValue({
@@ -142,7 +143,7 @@ describe('GoogleAiProvider', () => {
 
       const result = await provider.generateConsultationNoteDraft(input);
 
-      expect(result.data).toHaveProperty('explanation');
+      expect(result.data).toHaveProperty('diagnosis');
       expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
     });
   });
