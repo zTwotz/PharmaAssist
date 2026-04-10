@@ -236,3 +236,7 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - Mandatory Gates: 18/18.
 - Repository, environment, dependencies, and baseline verified.
 - **Next steps**: Ready to implement Sprint 9. First task: PAC-TASK-392.
+
+## 2026-06-23 - Sprint 9 Execution
+- **PAC-TASK-392 (PAC-602)**: Completed building allowlisted graph query templates for Neo4j context retrieval (Medicine-CONTAINS-ActiveIngredient, ActiveIngredient-INTERACTS_WITH). Verified with unit tests. Merged to `develop`.
+- **Next steps**: Proceed with PAC-TASK-393.
