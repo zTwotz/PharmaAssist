@@ -223,3 +223,10 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - Code has been fully tested and audited on the `develop` branch. Defects S7-FR-BUG-001, S7-FR-BUG-002, and PAC-793 resolved.
 - All 65 Tasks implemented and merged.
 - **Next steps**: Project Owner can merge `develop` to `main`. Sprint 8 Audit may start.
+
+## 2026-06-23 - Sprint 8 Final Review
+- Sprint 8 Final Review = PASS.
+- Mandatory Gates: 16/16.
+- Code has been fully tested and audited on the `develop` branch.
+- All 35 Tasks implemented and merged.
+- **Next steps**: Project Owner can merge `develop` to `main`. Sprint 9 Audit may start.
