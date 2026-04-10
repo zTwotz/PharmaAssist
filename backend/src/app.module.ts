@@ -20,6 +20,7 @@ import { AiModule } from './ai/ai.module';
 import { Neo4jModule } from './neo4j/neo4j.module';
 import { GraphSyncModule } from './graph-sync/graph-sync.module';
 import { GraphQueryTemplateModule } from './graph-rag/graph-query-template/graph-query-template.module';
+import { GraphContextModule } from './graph-rag/graph-context/graph-context.module';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
@@ -44,6 +45,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     Neo4jModule,
     GraphSyncModule,
     GraphQueryTemplateModule,
+    GraphContextModule,
   ],
   controllers: [AppController],
   providers: [AppService],
