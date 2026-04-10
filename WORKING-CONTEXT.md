@@ -238,5 +238,7 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **Next steps**: Ready to implement Sprint 9. First task: PAC-TASK-392.
 
 ## 2026-06-23 - Sprint 9 Execution
-- **PAC-TASK-392 (PAC-602)**: Completed building allowlisted graph query templates for Neo4j context retrieval (Medicine-CONTAINS-ActiveIngredient, ActiveIngredient-INTERACTS_WITH). Verified with unit tests. Merged to `develop`.
-- **Next steps**: Proceed with PAC-TASK-393.
+- **PAC-TASK-392**: Built allowlisted graph query templates (Neo4j). Merged `a260a36` (via develop).
+- **PAC-TASK-392 (PAC-602)**: Built allowlisted graph query templates (Neo4j) for Medicine-CONTAINS-ActiveIngredient and ActiveIngredient-INTERACTS_WITH. Verified with unit tests. Merged to `develop`.
+- **PAC-TASK-393 (PAC-603)**: Implemented `GraphContextService` to query Medicine-CONTAINS-ActiveIngredient context. Evaluated bounds and data activity state. Merged to `develop`.
+- **Next steps**: Proceed with PAC-TASK-394.
