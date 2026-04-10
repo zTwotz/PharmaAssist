@@ -19,6 +19,7 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { AiModule } from './ai/ai.module';
 import { Neo4jModule } from './neo4j/neo4j.module';
 import { GraphSyncModule } from './graph-sync/graph-sync.module';
+import { GraphQueryTemplateModule } from './graph-rag/graph-query-template/graph-query-template.module';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
@@ -42,6 +43,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     AiModule,
     Neo4jModule,
     GraphSyncModule,
+    GraphQueryTemplateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
