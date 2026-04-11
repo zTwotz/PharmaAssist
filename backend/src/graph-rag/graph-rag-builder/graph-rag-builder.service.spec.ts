@@ -81,6 +81,17 @@ describe('GraphRagBuilderService', () => {
     expect(result.interactions).toHaveLength(0);
   });
 
+  it('should add a warning when graph is stale', () => {
+    const data = { medicines: [], interactions: [] };
+    const text = service.formatContextAsText(data, {
+      isStale: true,
+      staleReason: 'PENDING_OUTBOX',
+    });
+    expect(text).toContain(
+      'WARNING: The graph data may be stale (PENDING_OUTBOX)',
+    );
+  });
+
   it('should build provenance metadata correctly', () => {
     const data = {
       medicines: [
