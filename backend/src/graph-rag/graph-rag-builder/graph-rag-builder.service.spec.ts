@@ -80,4 +80,43 @@ describe('GraphRagBuilderService', () => {
     expect(result.medicines).toHaveLength(0);
     expect(result.interactions).toHaveLength(0);
   });
+
+  it('should build provenance metadata correctly', () => {
+    const data = {
+      medicines: [
+        {
+          medicine: { slug: 'med1', name: 'Med 1' },
+          activeIngredients: [
+            { slug: 'ai1', name: 'AI 1' },
+            { slug: 'ai2', name: 'AI 2' },
+          ],
+        },
+      ],
+      interactions: [
+        {
+          activeIngredient: { slug: 'ai1', name: 'AI 1' },
+          interactions: [
+            {
+              interactingIngredient: { slug: 'ai3', name: 'AI 3' },
+              severity: 'High',
+              description: 'desc',
+            },
+          ],
+        },
+      ],
+    };
+
+    const metadata = service.buildProvenanceMetadata(data);
+
+    expect(metadata.medicineSlugs).toContain('med1');
+    expect(metadata.activeIngredientSlugs).toContain('ai1');
+    expect(metadata.activeIngredientSlugs).toContain('ai2');
+    expect(metadata.activeIngredientSlugs).toContain('ai3');
+    expect(metadata.interactionPairs).toHaveLength(1);
+    expect(metadata.interactionPairs[0]).toEqual({
+      ingredient1: 'ai1',
+      ingredient2: 'ai3',
+      severity: 'High',
+    });
+  });
 });

@@ -10,6 +10,16 @@ export interface GraphRagContextData {
   interactions: ActiveIngredientContext[];
 }
 
+export interface GraphRagProvenanceMetadata {
+  medicineSlugs: string[];
+  activeIngredientSlugs: string[];
+  interactionPairs: Array<{
+    ingredient1: string;
+    ingredient2: string;
+    severity: string;
+  }>;
+}
+
 @Injectable()
 export class GraphRagBuilderService {
   private readonly logger = new Logger(GraphRagBuilderService.name);
@@ -96,5 +106,51 @@ export class GraphRagBuilderService {
 
     text += '\n====================================';
     return text;
+  }
+
+  /**
+   * Extracts structured provenance metadata from the graph context.
+   * Useful for the frontend to render citations and UI highlights.
+   */
+  buildProvenanceMetadata(
+    data: GraphRagContextData,
+  ): GraphRagProvenanceMetadata {
+    const medicineSlugs = new Set<string>();
+    const activeIngredientSlugs = new Set<string>();
+    const interactionPairs: Array<{
+      ingredient1: string;
+      ingredient2: string;
+      severity: string;
+    }> = [];
+
+    for (const med of data.medicines) {
+      medicineSlugs.add(med.medicine.slug);
+      for (const ai of med.activeIngredients) {
+        activeIngredientSlugs.add(ai.slug);
+      }
+    }
+
+    for (const interactionCtx of data.interactions) {
+      const slug1 = interactionCtx.activeIngredient.slug;
+      activeIngredientSlugs.add(slug1);
+
+      for (const int of interactionCtx.interactions) {
+        const slug2 = int.interactingIngredient.slug;
+        activeIngredientSlugs.add(slug2);
+
+        // Add interaction pair (prevent dupes regardless of ordering if needed, but here we just list them)
+        interactionPairs.push({
+          ingredient1: slug1,
+          ingredient2: slug2,
+          severity: int.severity,
+        });
+      }
+    }
+
+    return {
+      medicineSlugs: Array.from(medicineSlugs),
+      activeIngredientSlugs: Array.from(activeIngredientSlugs),
+      interactionPairs,
+    };
   }
 }
