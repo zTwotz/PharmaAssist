@@ -175,4 +175,116 @@ describe('GraphContextService', () => {
       expect(result.activeIngredients[0].slug).toBe('active2');
     });
   });
+
+  describe('getActiveIngredientInteractsWithContext', () => {
+    it('should query interactions for an active ingredient slug and return mapped context', async () => {
+      queryTemplateService.getTemplate.mockReturnValue({
+        query: 'MATCH ...',
+        params: { activeIngredientSlug: 'paracetamol' },
+      });
+
+      neo4jService.read.mockResolvedValue({
+        records: [
+          {
+            get: (key: string) => {
+              if (key === 'a1')
+                return {
+                  properties: {
+                    slug: 'paracetamol',
+                    name: 'Paracetamol',
+                    isActive: true,
+                  },
+                };
+              if (key === 'r')
+                return {
+                  properties: {
+                    severity: 'Moderate',
+                    description: 'May increase liver damage',
+                  },
+                };
+              if (key === 'a2')
+                return {
+                  properties: {
+                    slug: 'alcohol',
+                    name: 'Alcohol',
+                    isActive: true,
+                  },
+                };
+              return null;
+            },
+          },
+        ],
+      } as any);
+
+      const result =
+        await service.getActiveIngredientInteractsWithContext('paracetamol');
+
+      expect(queryTemplateService.getTemplate).toHaveBeenCalledWith(
+        AllowlistedQueryType.ACTIVE_INGREDIENT_INTERACTS_WITH,
+        { activeIngredientSlug: 'paracetamol' },
+      );
+
+      expect(result).toEqual({
+        activeIngredient: { slug: 'paracetamol', name: 'Paracetamol' },
+        interactions: [
+          {
+            interactingIngredient: { slug: 'alcohol', name: 'Alcohol' },
+            severity: 'Moderate',
+            description: 'May increase liver damage',
+          },
+        ],
+      });
+    });
+
+    it('should filter out interactions with inactive ingredients', async () => {
+      queryTemplateService.getTemplate.mockReturnValue({
+        query: '',
+        params: {},
+      });
+
+      neo4jService.read.mockResolvedValue({
+        records: [
+          {
+            get: (key: string) => {
+              if (key === 'a1')
+                return {
+                  properties: {
+                    slug: 'paracetamol',
+                    name: 'Paracetamol',
+                    isActive: true,
+                  },
+                };
+              if (key === 'r') return { properties: { severity: 'High' } };
+              if (key === 'a2')
+                return {
+                  properties: {
+                    slug: 'inactive-drug',
+                    name: 'Inactive Drug',
+                    isActive: false,
+                  },
+                };
+              return null;
+            },
+          },
+        ],
+      } as any);
+
+      const result =
+        await service.getActiveIngredientInteractsWithContext('paracetamol');
+
+      expect(result.interactions).toHaveLength(0);
+    });
+
+    it('should throw NotFoundException if a1 is inactive or not found', async () => {
+      queryTemplateService.getTemplate.mockReturnValue({
+        query: '',
+        params: {},
+      });
+      neo4jService.read.mockResolvedValue({ records: [] } as any);
+
+      await expect(
+        service.getActiveIngredientInteractsWithContext('unknown'),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
 });
