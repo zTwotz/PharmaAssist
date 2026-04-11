@@ -11,6 +11,7 @@ export interface GraphRagContextData {
 }
 
 export interface GraphRagProvenanceMetadata {
+  graphUsed: boolean;
   medicineSlugs: string[];
   activeIngredientSlugs: string[];
   interactionPairs: Array<{
@@ -115,6 +116,7 @@ export class GraphRagBuilderService {
   buildProvenanceMetadata(
     data: GraphRagContextData,
   ): GraphRagProvenanceMetadata {
+    const graphUsed = data.medicines.length > 0 || data.interactions.length > 0;
     const medicineSlugs = new Set<string>();
     const activeIngredientSlugs = new Set<string>();
     const interactionPairs: Array<{
@@ -148,6 +150,7 @@ export class GraphRagBuilderService {
     }
 
     return {
+      graphUsed,
       medicineSlugs: Array.from(medicineSlugs),
       activeIngredientSlugs: Array.from(activeIngredientSlugs),
       interactionPairs,

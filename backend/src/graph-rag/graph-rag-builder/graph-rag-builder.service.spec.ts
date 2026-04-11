@@ -108,6 +108,7 @@ describe('GraphRagBuilderService', () => {
 
     const metadata = service.buildProvenanceMetadata(data);
 
+    expect(metadata.graphUsed).toBe(true);
     expect(metadata.medicineSlugs).toContain('med1');
     expect(metadata.activeIngredientSlugs).toContain('ai1');
     expect(metadata.activeIngredientSlugs).toContain('ai2');
@@ -118,5 +119,11 @@ describe('GraphRagBuilderService', () => {
       ingredient2: 'ai3',
       severity: 'High',
     });
+  });
+
+  it('should return graphUsed false when no data exists', () => {
+    const data = { medicines: [], interactions: [] };
+    const metadata = service.buildProvenanceMetadata(data);
+    expect(metadata.graphUsed).toBe(false);
   });
 });
