@@ -109,6 +109,7 @@ describe('GraphRagBuilderService', () => {
     const metadata = service.buildProvenanceMetadata(data);
 
     expect(metadata.graphUsed).toBe(true);
+    expect(metadata.fetchedAt).toBeDefined();
     expect(metadata.medicineSlugs).toContain('med1');
     expect(metadata.activeIngredientSlugs).toContain('ai1');
     expect(metadata.activeIngredientSlugs).toContain('ai2');
@@ -125,5 +126,6 @@ describe('GraphRagBuilderService', () => {
     const data = { medicines: [], interactions: [] };
     const metadata = service.buildProvenanceMetadata(data);
     expect(metadata.graphUsed).toBe(false);
+    expect(metadata.fetchedAt).toBeDefined();
   });
 });
