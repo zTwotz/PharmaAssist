@@ -244,4 +244,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-394 (PAC-604)**: Implemented `getActiveIngredientInteractsWithContext` to retrieve INTERACTS_WITH relations. Merged `92a8d0a` to `develop`.
 - **PAC-TASK-395 (PAC-605)**: Built `GraphRagBuilderService` to aggregate context (medicines + interactions) into LLM-friendly text. Merged `0532215` to `develop`.
 - **PAC-TASK-396 (PAC-606)**: Implemented `buildProvenanceMetadata` to return structured citations (slugs, interactions). Merged `c097043` to `develop`.
-- **Next steps**: Proceed with PAC-TASK-397.
+- **PAC-TASK-397 (PAC-607)**: Added `graphUsed` boolean flag to provenance metadata. Merged `b90ecb5` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-398.
