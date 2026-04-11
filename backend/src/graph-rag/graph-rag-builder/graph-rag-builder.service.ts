@@ -79,8 +79,15 @@ export class GraphRagBuilderService {
   /**
    * Formats the structured Graph-RAG data into a textual prompt suitable for an LLM.
    */
-  formatContextAsText(data: GraphRagContextData): string {
+  formatContextAsText(
+    data: GraphRagContextData,
+    options?: { isStale?: boolean; staleReason?: string },
+  ): string {
     let text = '=== GRAPH KNOWLEDGE BASE CONTEXT ===\n\n';
+
+    if (options?.isStale) {
+      text += `WARNING: The graph data may be stale (${options.staleReason || 'unknown reason'}). Please advise the user to double check the latest information.\n\n`;
+    }
 
     text += 'MEDICINES AND INGREDIENTS:\n';
     if (data.medicines.length === 0) {
