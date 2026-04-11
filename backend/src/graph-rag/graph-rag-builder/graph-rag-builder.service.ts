@@ -12,6 +12,7 @@ export interface GraphRagContextData {
 
 export interface GraphRagProvenanceMetadata {
   graphUsed: boolean;
+  fetchedAt: string;
   medicineSlugs: string[];
   activeIngredientSlugs: string[];
   interactionPairs: Array<{
@@ -151,6 +152,7 @@ export class GraphRagBuilderService {
 
     return {
       graphUsed,
+      fetchedAt: new Date().toISOString(),
       medicineSlugs: Array.from(medicineSlugs),
       activeIngredientSlugs: Array.from(activeIngredientSlugs),
       interactionPairs,
