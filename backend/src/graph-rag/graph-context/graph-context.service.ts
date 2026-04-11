@@ -14,6 +14,21 @@ export interface MedicineContext {
   }>;
 }
 
+export interface ActiveIngredientContext {
+  activeIngredient: {
+    slug: string;
+    name: string;
+  };
+  interactions: Array<{
+    interactingIngredient: {
+      slug: string;
+      name: string;
+    };
+    severity: string;
+    description: string;
+  }>;
+}
+
 @Injectable()
 export class GraphContextService {
   constructor(
@@ -89,6 +104,84 @@ export class GraphContextService {
         name: medicineProps.name,
       },
       activeIngredients,
+    };
+  }
+
+  /**
+   * Retrieves the interactions context of an Active Ingredient.
+   * Ensures data is filtered for isActive: true.
+   */
+  async getActiveIngredientInteractsWithContext(
+    activeIngredientSlug: string,
+  ): Promise<ActiveIngredientContext> {
+    const template = this.queryTemplateService.getTemplate(
+      AllowlistedQueryType.ACTIVE_INGREDIENT_INTERACTS_WITH,
+      { activeIngredientSlug },
+    );
+
+    const result = await this.neo4jService.read(
+      template.query,
+      template.params,
+    );
+
+    if (!result.records || result.records.length === 0) {
+      throw new NotFoundException(
+        `No graph context found for active ingredient slug: ${activeIngredientSlug}`,
+      );
+    }
+
+    let primaryIngredientProps: any = null;
+    const interactions: Array<{
+      interactingIngredient: { slug: string; name: string };
+      severity: string;
+      description: string;
+    }> = [];
+
+    for (const record of result.records) {
+      const a1Node = record.get('a1');
+      const rRel = record.get('r');
+      const a2Node = record.get('a2');
+
+      if (a1Node && a1Node.properties) {
+        if (a1Node.properties.isActive !== false) {
+          if (!primaryIngredientProps) {
+            primaryIngredientProps = a1Node.properties;
+          }
+        }
+      }
+
+      if (a2Node && a2Node.properties && rRel && rRel.properties) {
+        if (a2Node.properties.isActive !== false && primaryIngredientProps) {
+          // Avoid duplicates
+          const exists = interactions.find(
+            (i) => i.interactingIngredient.slug === a2Node.properties.slug,
+          );
+          if (!exists) {
+            interactions.push({
+              interactingIngredient: {
+                slug: a2Node.properties.slug,
+                name: a2Node.properties.name,
+              },
+              severity: rRel.properties.severity || 'Unknown',
+              description: rRel.properties.description || '',
+            });
+          }
+        }
+      }
+    }
+
+    if (!primaryIngredientProps) {
+      throw new NotFoundException(
+        `Active ingredient slug: ${activeIngredientSlug} is inactive or not found in graph.`,
+      );
+    }
+
+    return {
+      activeIngredient: {
+        slug: primaryIngredientProps.slug,
+        name: primaryIngredientProps.name,
+      },
+      interactions,
     };
   }
 }
