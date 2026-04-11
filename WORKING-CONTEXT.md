@@ -241,4 +241,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-392**: Built allowlisted graph query templates (Neo4j). Merged `a260a36` (via develop).
 - **PAC-TASK-392 (PAC-602)**: Built allowlisted graph query templates (Neo4j) for Medicine-CONTAINS-ActiveIngredient and ActiveIngredient-INTERACTS_WITH. Verified with unit tests. Merged to `develop`.
 - **PAC-TASK-393 (PAC-603)**: Implemented `GraphContextService` to query Medicine-CONTAINS-ActiveIngredient context. Evaluated bounds and data activity state. Merged to `develop`.
-- **Next steps**: Proceed with PAC-TASK-394.
+- **PAC-TASK-394 (PAC-604)**: Implemented `getActiveIngredientInteractsWithContext` to retrieve INTERACTS_WITH relations. Merged `92a8d0a` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-395.
