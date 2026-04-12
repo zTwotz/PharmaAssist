@@ -247,4 +247,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-397 (PAC-607)**: Added `graphUsed` boolean flag to provenance metadata. Merged `b90ecb5` to `develop`.
 - **PAC-TASK-398 (PAC-608)**: Added `fetchedAt` ISO string to Graph-RAG provenance metadata. Merged `e4cfb45` to `develop`.
 - **PAC-TASK-399 (PAC-609)**: Added freshness warning options to `formatContextAsText` to handle stale graph cases. Merged `f3a2fc2` to `develop`.
-- **Next steps**: Proceed with PAC-TASK-400 (PostgreSQL fallback when Neo4j unavailable).
+- **PAC-TASK-400 (PAC-610)**: Implemented `PostgresContextService` and fallback logic in `GraphRagBuilderService` to fetch data from PostgreSQL when Neo4j is unavailable. Merged `4de6540` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-401 (PostgreSQL fallback when graph stale).
