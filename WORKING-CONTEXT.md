@@ -249,4 +249,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-399 (PAC-609)**: Added freshness warning options to `formatContextAsText` to handle stale graph cases. Merged `f3a2fc2` to `develop`.
 - **PAC-TASK-400 (PAC-610)**: Implemented `PostgresContextService` and fallback logic in `GraphRagBuilderService` to fetch data from PostgreSQL when Neo4j is unavailable. Merged `4de6540` to `develop`.
 - **PAC-TASK-401 (PAC-611)**: Implemented PostgreSQL fallback when graph is stale (pending outbox). Used `GraphFreshnessService` inside `GraphRagBuilderService`. Merged `46d1370` to `develop`.
-- **Next steps**: Proceed with remaining tasks for Sprint 9 (e.g. PAC-TASK-402 Implement safe error for graph-only query without fallback).
+- **PAC-TASK-402 (PAC-612)**: Implemented safe error for graph-only query without fallback. Added `GraphUnavailableException` and wrapper method `executeGraphOnlyQuery` in `GraphContextService`. Merged `c095faa` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-403 (Ensure Staff cannot submit raw Cypher).
