@@ -4,10 +4,13 @@ import {
   MedicineContext,
   ActiveIngredientContext,
 } from '../graph-context/graph-context.service';
+import { PostgresContextService } from '../graph-context/postgres-context.service';
 
 export interface GraphRagContextData {
   medicines: MedicineContext[];
   interactions: ActiveIngredientContext[];
+  fallbackUsed?: boolean;
+  fallbackReason?: string;
 }
 
 export interface GraphRagProvenanceMetadata {
@@ -20,13 +23,17 @@ export interface GraphRagProvenanceMetadata {
     ingredient2: string;
     severity: string;
   }>;
+  fallbackReason?: string;
 }
 
 @Injectable()
 export class GraphRagBuilderService {
   private readonly logger = new Logger(GraphRagBuilderService.name);
 
-  constructor(private readonly graphContextService: GraphContextService) {}
+  constructor(
+    private readonly graphContextService: GraphContextService,
+    private readonly postgresContextService: PostgresContextService,
+  ) {}
 
   /**
    * Aggregates Graph-RAG context for a list of medicine slugs.
@@ -36,6 +43,8 @@ export class GraphRagBuilderService {
   ): Promise<GraphRagContextData> {
     const medicines: MedicineContext[] = [];
     const activeIngredientsSet = new Set<string>();
+    let fallbackUsed = false;
+    let fallbackReason = '';
 
     // 1. Fetch medicine context (and collect active ingredients)
     for (const slug of medicineSlugs) {
@@ -50,8 +59,25 @@ export class GraphRagBuilderService {
         }
       } catch (error) {
         this.logger.warn(
-          `Failed to fetch medicine context for slug: ${slug} - ${error.message}`,
+          `Failed to fetch medicine context for slug: ${slug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
         );
+        try {
+          const fallbackCtx =
+            await this.postgresContextService.getMedicineContainsActiveIngredientContext(
+              slug,
+            );
+          medicines.push(fallbackCtx);
+          for (const ai of fallbackCtx.activeIngredients) {
+            activeIngredientsSet.add(ai.slug);
+          }
+          fallbackUsed = true;
+          if (!fallbackReason) fallbackReason = 'GRAPH_UNAVAILABLE';
+          this.logger.log(`Used PostgreSQL fallback for medicine: ${slug}`);
+        } catch (fallbackError) {
+          this.logger.warn(
+            `Fallback also failed for medicine slug: ${slug} - ${fallbackError.message}`,
+          );
+        }
       }
     }
 
@@ -68,12 +94,30 @@ export class GraphRagBuilderService {
         }
       } catch (error) {
         this.logger.warn(
-          `Failed to fetch interaction context for active ingredient: ${aiSlug} - ${error.message}`,
+          `Failed to fetch interaction context for active ingredient: ${aiSlug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
         );
+        try {
+          const fallbackCtx =
+            await this.postgresContextService.getActiveIngredientInteractsWithContext(
+              aiSlug,
+            );
+          if (fallbackCtx.interactions && fallbackCtx.interactions.length > 0) {
+            interactions.push(fallbackCtx);
+          }
+          fallbackUsed = true;
+          if (!fallbackReason) fallbackReason = 'GRAPH_UNAVAILABLE';
+          this.logger.log(
+            `Used PostgreSQL fallback for active ingredient interactions: ${aiSlug}`,
+          );
+        } catch (fallbackError) {
+          this.logger.warn(
+            `Fallback also failed for interaction context: ${aiSlug} - ${fallbackError.message}`,
+          );
+        }
       }
     }
 
-    return { medicines, interactions };
+    return { medicines, interactions, fallbackUsed, fallbackReason };
   }
 
   /**
@@ -163,6 +207,7 @@ export class GraphRagBuilderService {
       medicineSlugs: Array.from(medicineSlugs),
       activeIngredientSlugs: Array.from(activeIngredientSlugs),
       interactionPairs,
+      ...(data.fallbackUsed && { fallbackReason: data.fallbackReason }),
     };
   }
 }

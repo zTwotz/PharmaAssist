@@ -1,13 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GraphRagBuilderService } from './graph-rag-builder.service';
 import { GraphContextService } from '../graph-context/graph-context.service';
+import { PostgresContextService } from '../graph-context/postgres-context.service';
 
 describe('GraphRagBuilderService', () => {
   let service: GraphRagBuilderService;
   let graphContextService: jest.Mocked<GraphContextService>;
+  let postgresContextService: jest.Mocked<PostgresContextService>;
 
   beforeEach(async () => {
     graphContextService = {
+      getMedicineContainsActiveIngredientContext: jest.fn(),
+      getActiveIngredientInteractsWithContext: jest.fn(),
+    } as any;
+
+    postgresContextService = {
       getMedicineContainsActiveIngredientContext: jest.fn(),
       getActiveIngredientInteractsWithContext: jest.fn(),
     } as any;
@@ -16,6 +23,7 @@ describe('GraphRagBuilderService', () => {
       providers: [
         GraphRagBuilderService,
         { provide: GraphContextService, useValue: graphContextService },
+        { provide: PostgresContextService, useValue: postgresContextService },
       ],
     }).compile();
 
@@ -72,8 +80,40 @@ describe('GraphRagBuilderService', () => {
     expect(text).toContain('Bad interaction');
   });
 
+  it('should fallback to Postgres when graph medicine fails', async () => {
+    graphContextService.getMedicineContainsActiveIngredientContext.mockRejectedValue(
+      new Error('Neo4j connection refused'),
+    );
+    postgresContextService.getMedicineContainsActiveIngredientContext.mockResolvedValueOnce(
+      {
+        medicine: { slug: 'med1', name: 'Med 1' },
+        activeIngredients: [{ slug: 'ai1', name: 'AI 1' }],
+      },
+    );
+    postgresContextService.getActiveIngredientInteractsWithContext.mockResolvedValueOnce(
+      {
+        activeIngredient: { slug: 'ai1', name: 'AI 1' },
+        interactions: [],
+      },
+    );
+    graphContextService.getActiveIngredientInteractsWithContext.mockRejectedValue(
+      new Error('Neo4j connection refused'),
+    );
+
+    const result = await service.buildContextForMedicines(['med1']);
+    expect(result.medicines).toHaveLength(1);
+    expect(result.fallbackUsed).toBe(true);
+    expect(result.fallbackReason).toBe('GRAPH_UNAVAILABLE');
+    expect(
+      postgresContextService.getMedicineContainsActiveIngredientContext,
+    ).toHaveBeenCalledWith('med1');
+  });
+
   it('should ignore not found medicines gracefully', async () => {
     graphContextService.getMedicineContainsActiveIngredientContext.mockRejectedValue(
+      new Error('Not found'),
+    );
+    postgresContextService.getMedicineContainsActiveIngredientContext.mockRejectedValue(
       new Error('Not found'),
     );
     const result = await service.buildContextForMedicines(['unknown-med']);
