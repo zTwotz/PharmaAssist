@@ -85,4 +85,38 @@ describe('Neo4jController', () => {
       });
     });
   });
+
+  describe('executeQuery', () => {
+    it('should return mapped records on successful query', async () => {
+      const mockRead = jest.fn().mockResolvedValue({
+        records: [
+          {
+            keys: ['n'],
+            get: (key: string) => (key === 'n' ? { name: 'Test' } : null),
+          },
+        ],
+      });
+      service.read = mockRead;
+
+      const result = await controller.executeQuery({
+        cypher: 'MATCH (n) RETURN n',
+      });
+      expect(result).toEqual([{ n: { name: 'Test' } }]);
+      expect(mockRead).toHaveBeenCalledWith('MATCH (n) RETURN n', {});
+    });
+
+    it('should throw BadRequestException if query fails', async () => {
+      const mockRead = jest.fn().mockRejectedValue(new Error('Syntax Error'));
+      service.read = mockRead;
+
+      await expect(
+        controller.executeQuery({ cypher: 'INVALID CYPHER' }),
+      ).rejects.toThrow(HttpException);
+      await expect(
+        controller.executeQuery({ cypher: 'INVALID CYPHER' }),
+      ).rejects.toMatchObject({
+        status: HttpStatus.BAD_REQUEST,
+      });
+    });
+  });
 });
