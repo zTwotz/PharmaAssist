@@ -176,6 +176,8 @@ export class InteractionsService {
     });
   }
 
+  // GUARDRAIL (PAC-TASK-405): Interaction validation MUST ONLY rely on PostgreSQL.
+  // Graph-RAG / Neo4j MUST NOT be used here, as this runs during checkout.
   async checkInteractions(medicineIds: number[]) {
     // Only check if we have at least 2 medicines
     if (!medicineIds || medicineIds.length < 2) {
