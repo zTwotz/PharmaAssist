@@ -5,6 +5,7 @@ import {
   ActiveIngredientContext,
 } from '../graph-context/graph-context.service';
 import { PostgresContextService } from '../graph-context/postgres-context.service';
+import { GraphFreshnessService } from '../../graph-sync/graph-freshness.service';
 
 export interface GraphRagContextData {
   medicines: MedicineContext[];
@@ -33,6 +34,7 @@ export class GraphRagBuilderService {
   constructor(
     private readonly graphContextService: GraphContextService,
     private readonly postgresContextService: PostgresContextService,
+    private readonly graphFreshnessService: GraphFreshnessService,
   ) {}
 
   /**
@@ -46,21 +48,41 @@ export class GraphRagBuilderService {
     let fallbackUsed = false;
     let fallbackReason = '';
 
+    // Check global freshness before attempting graph queries
+    const freshness = await this.graphFreshnessService.checkFreshness();
+    const isStale = freshness.isStale;
+
+    if (isStale) {
+      fallbackUsed = true;
+      fallbackReason = freshness.reason || 'STALE_GRAPH';
+      this.logger.warn(
+        `Graph is stale (${fallbackReason}). Skipping Neo4j and using PostgreSQL fallback.`,
+      );
+    }
+
     // 1. Fetch medicine context (and collect active ingredients)
     for (const slug of medicineSlugs) {
-      try {
-        const medCtx =
-          await this.graphContextService.getMedicineContainsActiveIngredientContext(
-            slug,
+      let graphSuccess = false;
+      if (!isStale) {
+        try {
+          const medCtx =
+            await this.graphContextService.getMedicineContainsActiveIngredientContext(
+              slug,
+            );
+          medicines.push(medCtx);
+          for (const ai of medCtx.activeIngredients) {
+            activeIngredientsSet.add(ai.slug);
+          }
+          graphSuccess = true;
+        } catch (error) {
+          this.logger.warn(
+            `Failed to fetch medicine context for slug: ${slug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
           );
-        medicines.push(medCtx);
-        for (const ai of medCtx.activeIngredients) {
-          activeIngredientsSet.add(ai.slug);
         }
-      } catch (error) {
-        this.logger.warn(
-          `Failed to fetch medicine context for slug: ${slug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
-        );
+      }
+
+      // Fallback
+      if (!graphSuccess) {
         try {
           const fallbackCtx =
             await this.postgresContextService.getMedicineContainsActiveIngredientContext(
@@ -84,18 +106,26 @@ export class GraphRagBuilderService {
     // 2. Fetch interaction context for all discovered active ingredients
     const interactions: ActiveIngredientContext[] = [];
     for (const aiSlug of Array.from(activeIngredientsSet)) {
-      try {
-        const intCtx =
-          await this.graphContextService.getActiveIngredientInteractsWithContext(
-            aiSlug,
+      let graphSuccess = false;
+      if (!isStale) {
+        try {
+          const intCtx =
+            await this.graphContextService.getActiveIngredientInteractsWithContext(
+              aiSlug,
+            );
+          if (intCtx.interactions && intCtx.interactions.length > 0) {
+            interactions.push(intCtx);
+          }
+          graphSuccess = true;
+        } catch (error) {
+          this.logger.warn(
+            `Failed to fetch interaction context for active ingredient: ${aiSlug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
           );
-        if (intCtx.interactions && intCtx.interactions.length > 0) {
-          interactions.push(intCtx);
         }
-      } catch (error) {
-        this.logger.warn(
-          `Failed to fetch interaction context for active ingredient: ${aiSlug} from graph - ${error.message}. Attempting PostgreSQL fallback.`,
-        );
+      }
+
+      // Fallback
+      if (!graphSuccess) {
         try {
           const fallbackCtx =
             await this.postgresContextService.getActiveIngredientInteractsWithContext(

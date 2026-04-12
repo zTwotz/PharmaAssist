@@ -2,11 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { GraphRagBuilderService } from './graph-rag-builder.service';
 import { GraphContextService } from '../graph-context/graph-context.service';
 import { PostgresContextService } from '../graph-context/postgres-context.service';
+import { GraphFreshnessService } from '../../graph-sync/graph-freshness.service';
 
 describe('GraphRagBuilderService', () => {
   let service: GraphRagBuilderService;
   let graphContextService: jest.Mocked<GraphContextService>;
   let postgresContextService: jest.Mocked<PostgresContextService>;
+  let graphFreshnessService: jest.Mocked<GraphFreshnessService>;
 
   beforeEach(async () => {
     graphContextService = {
@@ -19,11 +21,16 @@ describe('GraphRagBuilderService', () => {
       getActiveIngredientInteractsWithContext: jest.fn(),
     } as any;
 
+    graphFreshnessService = {
+      checkFreshness: jest.fn().mockResolvedValue({ isStale: false }),
+    } as any;
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GraphRagBuilderService,
         { provide: GraphContextService, useValue: graphContextService },
         { provide: PostgresContextService, useValue: postgresContextService },
+        { provide: GraphFreshnessService, useValue: graphFreshnessService },
       ],
     }).compile();
 
@@ -107,6 +114,31 @@ describe('GraphRagBuilderService', () => {
     expect(
       postgresContextService.getMedicineContainsActiveIngredientContext,
     ).toHaveBeenCalledWith('med1');
+  });
+
+  it('should fallback to Postgres immediately when graph is stale', async () => {
+    graphFreshnessService.checkFreshness.mockResolvedValueOnce({
+      isStale: true,
+      reason: 'PENDING_OUTBOX',
+    });
+    postgresContextService.getMedicineContainsActiveIngredientContext.mockResolvedValueOnce(
+      {
+        medicine: { slug: 'med1', name: 'Med 1' },
+        activeIngredients: [],
+      },
+    );
+
+    const result = await service.buildContextForMedicines(['med1']);
+
+    // Neo4j should not be called at all
+    expect(
+      graphContextService.getMedicineContainsActiveIngredientContext,
+    ).not.toHaveBeenCalled();
+    expect(
+      postgresContextService.getMedicineContainsActiveIngredientContext,
+    ).toHaveBeenCalledWith('med1');
+    expect(result.fallbackUsed).toBe(true);
+    expect(result.fallbackReason).toBe('PENDING_OUTBOX');
   });
 
   it('should ignore not found medicines gracefully', async () => {
