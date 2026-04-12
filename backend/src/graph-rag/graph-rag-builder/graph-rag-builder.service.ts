@@ -28,6 +28,8 @@ export interface GraphRagProvenanceMetadata {
 }
 
 @Injectable()
+// GUARDRAIL (PAC-TASK-405): Graph-RAG / Neo4j is strictly for explanation/context and analytical queries.
+// It MUST NOT be used for transactional business logic such as Checkout validation.
 export class GraphRagBuilderService {
   private readonly logger = new Logger(GraphRagBuilderService.name);
 
