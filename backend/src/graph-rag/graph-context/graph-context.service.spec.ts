@@ -4,11 +4,14 @@ import { Neo4jService } from '../../neo4j/neo4j.service';
 import { GraphQueryTemplateService } from '../graph-query-template/graph-query-template.service';
 import { AllowlistedQueryType } from '../graph-query-template/graph-query-template.types';
 import { NotFoundException } from '@nestjs/common';
+import { GraphFreshnessService } from '../../graph-sync/graph-freshness.service';
+import { GraphUnavailableException } from './exceptions/graph-unavailable.exception';
 
 describe('GraphContextService', () => {
   let service: GraphContextService;
   let neo4jService: jest.Mocked<Neo4jService>;
   let queryTemplateService: jest.Mocked<GraphQueryTemplateService>;
+  let graphFreshnessService: jest.Mocked<GraphFreshnessService>;
 
   beforeEach(async () => {
     neo4jService = {
@@ -19,19 +22,76 @@ describe('GraphContextService', () => {
       getTemplate: jest.fn(),
     };
 
+    graphFreshnessService = {
+      checkFreshness: jest.fn().mockResolvedValue({ isStale: false }),
+    } as any;
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GraphContextService,
         { provide: Neo4jService, useValue: neo4jService },
         { provide: GraphQueryTemplateService, useValue: queryTemplateService },
+        { provide: GraphFreshnessService, useValue: graphFreshnessService },
       ],
     }).compile();
 
     service = module.get<GraphContextService>(GraphContextService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('executeGraphOnlyQuery', () => {
+    it('should throw GraphUnavailableException if graph is stale', async () => {
+      graphFreshnessService.checkFreshness.mockResolvedValueOnce({
+        isStale: true,
+        reason: 'Sync pending',
+      });
+
+      await expect(
+        service.executeGraphOnlyQuery(
+          AllowlistedQueryType.MEDICINE_CONTAINS_ACTIVE_INGREDIENT,
+          {},
+        ),
+      ).rejects.toThrow(GraphUnavailableException);
+      expect(neo4jService.read).not.toHaveBeenCalled();
+    });
+
+    it('should throw GraphUnavailableException if Neo4j throws', async () => {
+      graphFreshnessService.checkFreshness.mockResolvedValueOnce({
+        isStale: false,
+      });
+      queryTemplateService.getTemplate.mockReturnValueOnce({
+        query: 'MATCH (n) RETURN n',
+        params: {},
+      });
+      neo4jService.read.mockRejectedValueOnce(new Error('Connection refused'));
+
+      await expect(
+        service.executeGraphOnlyQuery(
+          AllowlistedQueryType.MEDICINE_CONTAINS_ACTIVE_INGREDIENT,
+          {},
+        ),
+      ).rejects.toThrow(GraphUnavailableException);
+    });
+
+    it('should return result if successful', async () => {
+      graphFreshnessService.checkFreshness.mockResolvedValueOnce({
+        isStale: false,
+      });
+      queryTemplateService.getTemplate.mockReturnValueOnce({
+        query: 'MATCH (n) RETURN n',
+        params: {},
+      });
+      neo4jService.read.mockResolvedValueOnce({ records: [] } as any);
+
+      const result = await service.executeGraphOnlyQuery(
+        AllowlistedQueryType.MEDICINE_CONTAINS_ACTIVE_INGREDIENT,
+        {},
+      );
+      expect(result.records).toEqual([]);
+    });
   });
 
   describe('getMedicineContainsActiveIngredientContext', () => {

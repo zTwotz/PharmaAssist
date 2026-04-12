@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Neo4jService } from '../../neo4j/neo4j.service';
 import { GraphQueryTemplateService } from '../graph-query-template/graph-query-template.service';
 import { AllowlistedQueryType } from '../graph-query-template/graph-query-template.types';
+import { GraphFreshnessService } from '../../graph-sync/graph-freshness.service';
+import { GraphUnavailableException } from './exceptions/graph-unavailable.exception';
 
 export interface MedicineContext {
   medicine: {
@@ -34,7 +36,38 @@ export class GraphContextService {
   constructor(
     private readonly neo4jService: Neo4jService,
     private readonly queryTemplateService: GraphQueryTemplateService,
+    private readonly graphFreshnessService: GraphFreshnessService,
   ) {}
+
+  /**
+   * Safe execution wrapper for graph-only queries.
+   * Ensures that if the graph is stale or unavailable, we throw a safe error (503)
+   * instead of a 500 stack trace, since these queries don't have a PostgreSQL fallback.
+   */
+  async executeGraphOnlyQuery(
+    queryType: AllowlistedQueryType,
+    params: Record<string, any>,
+  ) {
+    // 1. Check global freshness. If stale, fail fast.
+    const freshness = await this.graphFreshnessService.checkFreshness();
+    if (freshness.isStale) {
+      throw new GraphUnavailableException(freshness.reason);
+    }
+
+    const template = this.queryTemplateService.getTemplate(queryType, params);
+
+    // 2. Execute and catch Neo4j connection errors
+    try {
+      const result = await this.neo4jService.read(
+        template.query,
+        template.params,
+      );
+      return result;
+    } catch (error) {
+      // Catch any neo4j-driver errors and wrap in a safe HTTP exception
+      throw new GraphUnavailableException(error.message);
+    }
+  }
 
   /**
    * Retrieves the relational context of a Medicine containing its Active Ingredients.
