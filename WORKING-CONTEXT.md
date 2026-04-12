@@ -250,4 +250,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-400 (PAC-610)**: Implemented `PostgresContextService` and fallback logic in `GraphRagBuilderService` to fetch data from PostgreSQL when Neo4j is unavailable. Merged `4de6540` to `develop`.
 - **PAC-TASK-401 (PAC-611)**: Implemented PostgreSQL fallback when graph is stale (pending outbox). Used `GraphFreshnessService` inside `GraphRagBuilderService`. Merged `46d1370` to `develop`.
 - **PAC-TASK-402 (PAC-612)**: Implemented safe error for graph-only query without fallback. Added `GraphUnavailableException` and wrapper method `executeGraphOnlyQuery` in `GraphContextService`. Merged `c095faa` to `develop`.
-- **Next steps**: Proceed with PAC-TASK-403 (Ensure Staff cannot submit raw Cypher).
+- **PAC-TASK-403 & 404 (PAC-613, PAC-614)**: Added `POST /api/v1/neo4j/query` endpoint with `RolesGuard('ADMIN')` to ensure Staff cannot submit raw Cypher queries. Guarded by `JwtAuthGuard` and `RolesGuard`. Merged `b1f1113` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-405 (Ensure Graph-RAG does not decide checkout).
