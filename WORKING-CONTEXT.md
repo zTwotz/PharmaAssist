@@ -246,4 +246,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-396 (PAC-606)**: Implemented `buildProvenanceMetadata` to return structured citations (slugs, interactions). Merged `c097043` to `develop`.
 - **PAC-TASK-397 (PAC-607)**: Added `graphUsed` boolean flag to provenance metadata. Merged `b90ecb5` to `develop`.
 - **PAC-TASK-398 (PAC-608)**: Added `fetchedAt` ISO string to Graph-RAG provenance metadata. Merged `e4cfb45` to `develop`.
-- **Next steps**: Proceed with PAC-TASK-399.
+- **PAC-TASK-399 (PAC-609)**: Added freshness warning options to `formatContextAsText` to handle stale graph cases. Merged `f3a2fc2` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-400 (PostgreSQL fallback when Neo4j unavailable).
