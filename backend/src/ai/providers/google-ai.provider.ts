@@ -71,6 +71,8 @@ export class GoogleAiProvider implements AiProvider {
           providerUsed: AiProviderType.GOOGLE,
           promptVersion: template.version,
           durationMs: Date.now() - startTime,
+          graphUsed: true,
+          graphFresh: true,
         },
       };
     } catch (error) {
