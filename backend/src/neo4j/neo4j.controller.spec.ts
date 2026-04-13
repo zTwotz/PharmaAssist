@@ -87,6 +87,11 @@ describe('Neo4jController', () => {
   });
 
   describe('executeQuery', () => {
+    it('should require ADMIN role to execute raw Cypher', () => {
+      const roles = Reflect.getMetadata('roles', controller.executeQuery);
+      expect(roles).toEqual(['ADMIN']);
+    });
+
     it('should return mapped records on successful query', async () => {
       const mockRead = jest.fn().mockResolvedValue({
         records: [
