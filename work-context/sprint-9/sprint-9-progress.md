@@ -372,7 +372,7 @@ Story review rules:
 
 | Logical Task | Jira Key | Story | Summary | Exact branch | Status | Commit | PR | Merge SHA | Local Gate | PostgreSQL/Supabase | Neo4j | AI/Guardrail | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-391 | PAC-601 | US-129 | Implement Graph-RAG interaction explanation service | `feature/PAC-601-task-391-implement-graph-rag-interaction-explanation-service` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-391 | PAC-601 | US-129 | Implement Graph-RAG interaction explanation service | `feature/PAC-601-task-391-implement-graph-rag-interaction-explanation-service` | Completed | 7934b56 | 9a60c8c | 9a60c8c | PASS | PASS/N/A | PASS/N/A | PASS | IN REVIEW |
 | PAC-TASK-392 | PAC-602 | US-129 | Build allowlisted graph query templates | `feature/PAC-602-task-392-build-allowlisted-graph-query-templates` | Technically complete | feat(graph-rag): PAC-602 add allowlisted graph query templates | Yes | 2f94b63 | PASS | N/A | N/A | N/A | DONE |
 | PAC-TASK-393 | PAC-603 | US-129 | Query Medicine-CONTAINS-ActiveIngredient context | `feature/PAC-603-task-393-query-medicine-contains-activeingredient-context` | Technically complete | feat(graph-rag): PAC-603 query medicine-contains-activeingredient context | Yes | a260a36 | PASS | N/A | N/A | N/A | DONE |
 | PAC-TASK-394 | PAC-604 | US-129 | Query ActiveIngredient INTERACTS_WITH context | `feature/PAC-604-task-394-query-activeingredient-interacts-with-context` | Technically complete | feat(graph-rag): PAC-604 query activeingredient-interacts-with context | Yes | 92a8d0a | PASS | N/A | N/A | N/A | DONE |
