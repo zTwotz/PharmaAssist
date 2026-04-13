@@ -54,8 +54,10 @@ export interface InteractionExplanationInput {
   userId: string;
   alertContext: string;
   medicines: string[];
+  medicineIds?: number[];
   activeIngredients: string[];
   ruleDescription: string;
+  graphContext?: string;
 }
 
 export interface InteractionExplanationOutput {

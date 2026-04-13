@@ -58,6 +58,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
       const response = await api.post('/ai/interaction-explanation', {
         alertContext: interaction.severity,
         medicines: [interaction.medicineA.name, interaction.medicineB.name],
+        medicineIds: [interaction.medicineA.id, interaction.medicineB.id],
         activeIngredients: [], // Assuming we don't have this right in the modal, empty is ok for AI prompt if it's optional
         ruleDescription: interaction.description,
       });
