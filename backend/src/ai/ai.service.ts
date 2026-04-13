@@ -7,6 +7,8 @@ import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
 import { AiGuardrailService } from './ai-guardrail.service';
 import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { GraphRagBuilderService } from '../graph-rag/graph-rag-builder/graph-rag-builder.service';
 import {
   AiResponse,
   InteractionExplanationInput,
@@ -31,6 +33,8 @@ export class AiService {
     private readonly aiAuditLogService: AiAuditLogService,
     private readonly aiGuardrailService: AiGuardrailService,
     private readonly aiPiiMinimizerService: AiPiiMinimizerService,
+    private readonly prisma: PrismaService,
+    private readonly graphRagBuilderService: GraphRagBuilderService,
   ) {}
 
   /**
@@ -144,13 +148,62 @@ export class AiService {
   async generateInteractionExplanation(
     input: InteractionExplanationInput,
   ): Promise<AiResponse<InteractionExplanationOutput>> {
-    return this.executeWithFallback('generateInteractionExplanation', input);
+    // PAC-TASK-391: Build Graph-RAG Context
+    let medicineSlugs: string[] = [];
+    if (input.medicineIds && input.medicineIds.length > 0) {
+      const dbMedicines = await this.prisma.medicine.findMany({
+        where: { id: { in: input.medicineIds } },
+        include: { product: true }
+      });
+      medicineSlugs = dbMedicines.map(m => m.product.slug);
+    } else if (input.medicines && input.medicines.length > 0) {
+      const dbProducts = await this.prisma.product.findMany({
+        where: { name: { in: input.medicines } }
+      });
+      medicineSlugs = dbProducts.map(p => p.slug);
+    }
+
+    if (medicineSlugs.length > 0) {
+      const graphData =
+        await this.graphRagBuilderService.buildContextForMedicines(
+          medicineSlugs,
+        );
+      const graphText = this.graphRagBuilderService.formatContextAsText(
+        graphData,
+        {
+          isStale:
+            graphData.fallbackUsed &&
+            graphData.fallbackReason === 'STALE_GRAPH',
+          staleReason: graphData.fallbackReason,
+        },
+      );
+      input.graphContext = graphText;
+
+      const response = await this.executeWithFallback<InteractionExplanationInput, InteractionExplanationOutput>(
+        'generateInteractionExplanation',
+        input,
+      );
+
+      if (response.metadata) {
+        response.metadata.graphUsed =
+          graphData.medicines.length > 0 || graphData.interactions.length > 0;
+        response.metadata.graphFresh = !(
+          graphData.fallbackUsed && graphData.fallbackReason === 'STALE_GRAPH'
+        );
+        if (graphData.fallbackReason) {
+          response.metadata.fallbackReason = graphData.fallbackReason;
+        }
+      }
+      return response;
+    }
+
+    return this.executeWithFallback<InteractionExplanationInput, InteractionExplanationOutput>('generateInteractionExplanation', input);
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
-    return this.executeWithFallback('generateConsultationNoteDraft', input);
+    return this.executeWithFallback<ConsultationNoteDraftInput, ConsultationNoteDraftOutput>('generateConsultationNoteDraft', input);
   }
 
   async generateFollowUpQuestions(

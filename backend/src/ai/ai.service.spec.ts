@@ -8,6 +8,8 @@ import { AiProviderException } from './exceptions/ai.exception';
 import { AiAuditLogService } from './ai-audit-log.service';
 import { AiGuardrailService } from './ai-guardrail.service';
 import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { GraphRagBuilderService } from '../graph-rag/graph-rag-builder/graph-rag-builder.service';
 
 describe('AiService', () => {
   let service: AiService;
@@ -80,6 +82,25 @@ describe('AiService', () => {
       minimizeObject: jest.fn().mockImplementation((input) => input),
     };
 
+    mockPrismaService = {
+      medicine: {
+        findMany: jest.fn().mockResolvedValue([]),
+      },
+    };
+
+    mockGraphRagBuilderService = {
+      buildContextForMedicines: jest.fn().mockResolvedValue({
+        medicines: [],
+        interactions: [],
+        fallbackUsed: false,
+      }),
+      formatContextAsText: jest.fn().mockReturnValue('Mock Graph Context'),
+      buildProvenanceMetadata: jest.fn().mockReturnValue({
+        graphUsed: false,
+        fetchedAt: new Date().toISOString(),
+      }),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AiService,
@@ -95,6 +116,11 @@ describe('AiService', () => {
         { provide: AiAuditLogService, useValue: mockAuditLogService },
         { provide: AiGuardrailService, useValue: mockGuardrailService },
         { provide: AiPiiMinimizerService, useValue: mockPiiMinimizerService },
+        { provide: PrismaService, useValue: mockPrismaService },
+        {
+          provide: GraphRagBuilderService,
+          useValue: mockGraphRagBuilderService,
+        },
       ],
     }).compile();
 

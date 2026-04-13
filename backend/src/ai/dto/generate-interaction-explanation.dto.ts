@@ -1,4 +1,4 @@
-import { IsString, IsArray, IsNotEmpty } from 'class-validator';
+import { IsString, IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class GenerateInteractionExplanationDto {
@@ -11,6 +11,14 @@ export class GenerateInteractionExplanationDto {
   @IsArray()
   @IsString({ each: true })
   medicines: string[];
+
+  @ApiProperty({
+    description: 'List of medicine IDs involved',
+    required: false,
+  })
+  @IsArray()
+  @IsOptional()
+  medicineIds?: number[];
 
   @ApiProperty({ description: 'List of active ingredients involved' })
   @IsArray()

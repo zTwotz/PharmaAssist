@@ -268,7 +268,7 @@ async function main() {
     {
       code: 'interaction_explanation',
       version: 'v1.0',
-      content: 'You are a clinical pharmacist. Explain the potential drug interaction between the following medications in simple terms: {{medications}}. Also provide recommendations. Respond in JSON format.',
+      content: 'You are a clinical pharmacist. Explain the potential drug interaction between the following medications in simple terms: {{medicines}}. Rule context: {{ruleDescription}}. Alert: {{alertContext}}. Graph context: {{graphContext}}. Also provide recommendations. Respond in JSON format.',
       status: 'ACTIVE'
     },
     {
