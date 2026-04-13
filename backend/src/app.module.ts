@@ -23,6 +23,7 @@ import { GraphQueryTemplateModule } from './graph-rag/graph-query-template/graph
 import { GraphContextModule } from './graph-rag/graph-context/graph-context.module';
 import { GraphRagBuilderModule } from './graph-rag/graph-rag-builder/graph-rag-builder.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     GraphQueryTemplateModule,
     GraphContextModule,
     GraphRagBuilderModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
