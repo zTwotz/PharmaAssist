@@ -285,7 +285,7 @@ Required:
 | Layer | Task | Expected | Status | Command | Evidence |
 |---|---|---|---|---|---|
 | Backend unit | PAC-TASK-436 | Unit runner and sample | Not started | — | — |
-| Backend integration | PAC-TASK-437 | Isolated cleanup strategy | Not started | — | — |
+| Backend integration | PAC-TASK-437 | Isolated cleanup strategy | Technically complete | d5e4759 | — |
 | Frontend component | PAC-TASK-438 | Component runner and sample | Not started | — | — |
 | Playwright | PAC-TASK-439 | Chrome desktop E2E | Not started | — | — |
 | Postman | PAC-TASK-440 | Structured manual collection | Not started | — | — |
@@ -551,7 +551,7 @@ Release Story review rules:
 | PAC-TASK-434 | PAC-644 | US-150 | Rebuild Neo4j projection during demo reset | `feature/PAC-644-task-434-rebuild-neo4j-projection-during-demo-reset` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-435 | PAC-645 | US-150 | Run smoke tests after demo reset | `test/PAC-645-task-435-run-smoke-tests-after-demo-reset` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-436 | PAC-646 | US-150 | Add backend unit test setup | `test/PAC-646-task-436-add-backend-unit-test-setup` | Technically complete | — | — | 76febfa | Pass | N/A | N/A | Pass | DONE |
-| PAC-TASK-437 | PAC-647 | US-150 | Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-437 | PAC-647 | US-150 | Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` | Technically complete | d5e4759 | `test/PAC-647...` | d5e4759 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-439 | PAC-649 | US-150 | Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | None |
-| Current Jira Key | None |
-| Current exact branch | None |
-| Current PR | None |
-| Last merged Task | None |
-| Last merge SHA | None |
-| Next Task | PAC-TASK-436 |
-| Next Jira Key | PAC-646 |
-| Next exact branch | `test/PAC-646-task-436-add-backend-unit-test-setup` |
+| Current Task | PAC-TASK-437 |
+| Current Jira Key | PAC-647 |
+| Current exact branch | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` |
+| Current PR | Merged |
+| Last merged Task | PAC-TASK-437 |
+| Last merge SHA | d5e4759 |
+| Next Task | PAC-TASK-438 |
+| Next Jira Key | PAC-648 |
+| Next exact branch | `test/PAC-648-task-438-add-frontend-component-test-setup` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
