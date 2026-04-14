@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from '../prisma/prisma.module';
+import { GraphRagBuilderModule } from '../graph-rag/graph-rag-builder/graph-rag-builder.module';
 import { AiConfigService } from './ai-config.service';
 import { AiService } from './ai.service';
 import { AiAuditLogService } from './ai-audit-log.service';
@@ -13,7 +14,7 @@ import { PromptsService } from './prompts.service';
 import { AiGuardrailService } from './ai-guardrail.service';
 
 @Module({
-  imports: [ConfigModule.forRoot(), PrismaModule],
+  imports: [ConfigModule.forRoot(), PrismaModule, GraphRagBuilderModule],
   controllers: [AiAuditLogController, AiController],
   providers: [
     AiConfigService,
