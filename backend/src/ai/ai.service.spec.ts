@@ -19,6 +19,8 @@ describe('AiService', () => {
   let mockAuditLogService: Partial<AiAuditLogService>;
   let mockGuardrailService: Partial<AiGuardrailService>;
   let mockPiiMinimizerService: Partial<AiPiiMinimizerService>;
+  let mockPrismaService: any;
+  let mockGraphRagBuilderService: any;
 
   beforeEach(async () => {
     mockConfigService = {

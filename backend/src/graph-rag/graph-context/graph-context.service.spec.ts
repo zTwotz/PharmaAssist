@@ -46,7 +46,7 @@ describe('GraphContextService', () => {
     it('should throw GraphUnavailableException if graph is stale', async () => {
       graphFreshnessService.checkFreshness.mockResolvedValueOnce({
         isStale: true,
-        reason: 'Sync pending',
+        reason: 'PENDING_OUTBOX',
       });
 
       await expect(
