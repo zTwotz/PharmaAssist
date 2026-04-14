@@ -395,17 +395,17 @@ Story review rules:
 | PAC-TASK-411 | PAC-621 | US-137 | Implement Revenue Report API | `feature/PAC-621-task-411-implement-revenue-report-api` | Done | [5d0588f] | [PR#843] | [3d7a6c7] | PASS | N/A | N/A | N/A | DONE |
 | PAC-TASK-412 | PAC-622 | US-137 | Build Revenue Report UI | `feature/PAC-622-task-412-build-revenue-report-ui` | Done | [3bcb44f] | [PR#844] | [78a5426] | PASS | N/A | N/A | N/A | DONE |
 | PAC-TASK-413 | PAC-623 | US-140 | Add revenue report filters by date and status | `feature/PAC-623-task-413-add-revenue-report-filters-by-date-and-status` | Done | [40176fe] | [PR#845] | [7ac59b6] | PASS | N/A | N/A | N/A | DONE |
-| PAC-TASK-414 | PAC-624 | US-138 | Implement Top Medicines Report API | `feature/PAC-624-task-414-implement-top-medicines-report-api` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-415 | PAC-625 | US-138 | Build Top Medicines Report UI | `feature/PAC-625-task-415-build-top-medicines-report-ui` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-416 | PAC-626 | US-139 | Implement Inventory Report API from MedicineBatch | `feature/PAC-626-task-416-implement-inventory-report-api-from-medicinebatch` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-417 | PAC-627 | US-139 | Build Inventory Report UI | `feature/PAC-627-task-417-build-inventory-report-ui` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-418 | PAC-628 | US-140 | Add report empty, loading and error states | `feature/PAC-628-task-418-add-report-empty-loading-and-error-states` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-419 | PAC-629 | US-137 | Add report permission checks | `feature/PAC-629-task-419-add-report-permission-checks` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-420 | PAC-630 | US-141 | Create system_settings Prisma model | `feature/PAC-630-task-420-create-system-settings-prisma-model` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-421 | PAC-631 | US-141 | Seed default near-expiry threshold as 90 days | `feature/PAC-631-task-421-seed-default-near-expiry-threshold-as-90-days` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-422 | PAC-632 | US-141 | Implement near-expiry threshold settings API | `feature/PAC-632-task-422-implement-near-expiry-threshold-settings-api` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-423 | PAC-633 | US-144 | Build minimal System Settings UI for near-expiry threshold | `feature/PAC-633-task-423-build-minimal-system-settings-ui-for-near-expiry-th` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-424 | PAC-634 | US-141 | Add system settings validation and tests | `test/PAC-634-task-424-add-system-settings-validation-and-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-414 | PAC-624 | US-138 | Implement Top Medicines Report API | `feature/PAC-624-task-414-implement-top-medicines-report-api` | Done | [962de58] | [PR#846] | [ab34eb0] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-415 | PAC-625 | US-138 | Build Top Medicines Report UI | `feature/PAC-625-task-415-build-top-medicines-report-ui` | Done | [c3335e7] | [PR#847] | [4ab5305] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-416 | PAC-626 | US-139 | Implement Inventory Report API from MedicineBatch | `feature/PAC-626-task-416-implement-inventory-report-api-from-medicinebatch` | Done | [8d9b7ec] | [PR#848] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-417 | PAC-627 | US-139 | Build Inventory Report UI | `feature/PAC-627-task-417-build-inventory-report-ui` | Done | [f97842d] | [PR#849] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-418 | PAC-628 | US-140 | Add report empty, loading and error states | `feature/PAC-628-task-418-add-report-empty-loading-and-error-states` | Done | [bfcafd2] | [PR#850] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-419 | PAC-629 | US-137 | Add report permission checks | `feature/PAC-629-task-419-add-report-permission-checks` | Done | [161ace0] | [PR#851] | [67dcd3b] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-420 | PAC-630 | US-141 | Create system_settings Prisma model | `feature/PAC-630-task-420-create-system-settings-prisma-model` | Done | [464e63a] | [PR#852] | [7ee4937] | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-421 | PAC-631 | US-141 | Seed default near-expiry threshold as 90 days | `feature/PAC-631-task-421-seed-default-near-expiry-threshold-as-90-days` | Done | [8159650] | [PR#853] | [4fa0721] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-422 | PAC-632 | US-141 | Implement near-expiry threshold settings API | `feature/PAC-632-task-422-implement-near-expiry-threshold-settings-api` | Done | [d92cdff] | [PR#854] | [eb61119] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-423 | PAC-633 | US-144 | Build minimal System Settings UI for near-expiry threshold | `feature/PAC-633-task-423-build-minimal-system-settings-ui-for-near-expiry-th` | Done | [b3dfc70] | [PR#855] | [a0f403a] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-424 | PAC-634 | US-141 | Add system settings validation and tests | `test/PAC-634-task-424-add-system-settings-validation-and-tests` | Done | [d76af90] | [PR#856] | [0435fe9] | PASS | N/A | N/A | N/A | DONE |
 
 Status values:
 
