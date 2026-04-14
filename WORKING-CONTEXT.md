@@ -252,4 +252,11 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **PAC-TASK-402 (PAC-612)**: Implemented safe error for graph-only query without fallback. Added `GraphUnavailableException` and wrapper method `executeGraphOnlyQuery` in `GraphContextService`. Merged `c095faa` to `develop`.
 - **PAC-TASK-403 & 404 (PAC-613, PAC-614)**: Added `POST /api/v1/neo4j/query` endpoint with `RolesGuard('ADMIN')` to ensure Staff cannot submit raw Cypher queries. Guarded by `JwtAuthGuard` and `RolesGuard`. Merged `b1f1113` to `develop`.
 - **PAC-TASK-405 (PAC-615)**: Ensured Graph-RAG does not decide checkout. Verified that `OrdersService` and `InteractionsService` only depend on PostgreSQL, completely decoupled from Neo4j/Graph-RAG. Added explicit architectural guardrail comments to enforce this behavior in `orders.service.ts`, `interactions.service.ts`, and `graph-rag-builder.service.ts`. Merged `3a7e3a7` to `develop`.
-- **Next steps**: Proceed with PAC-TASK-406 (Build Graph-RAG explanation UI metadata display).
+- **Sprint 9 Final Review**: PASS. 18/18 Mandatory gates.
+- **Next steps**: Sprint 10 Audit may start.
+
+## 2026-06-23 - Sprint 10 Audit
+- Sprint 10 Audit = PASS.
+- Mandatory Gates: 20/20.
+- Repository, branches, environment, and release governance baseline verified.
+- **Next steps**: Ready to implement Sprint 10. First task: PAC-TASK-436.
