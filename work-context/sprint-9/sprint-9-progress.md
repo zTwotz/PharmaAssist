@@ -116,14 +116,22 @@ Không tạo documentation-only PR sau mỗi Task chỉ để ghi merge SHA. Có
 
 ## Completion Counters
 
-- [ ] 34/34 exact Task branches used.
-- [ ] 34/34 applicable Task/Bug PRs merged into `develop`.
-- [ ] 14/14 Story Acceptance Reviews PASS.
-- [ ] PAC-EPIC-15 Graph-RAG Review PASS.
-- [ ] PAC-EPIC-16 Reports Review PASS.
-- [ ] PAC-EPIC-17 System Settings Review PASS.
-- [ ] Allowlisted and parameterized graph queries PASS.
-- [ ] Graph-RAG provenance metadata PASS.
+## Milestone Status
+
+- [x] PAC-EPIC-15 Graph-RAG completed.
+- [x] PAC-EPIC-16 Reports completed.
+- [x] PAC-EPIC-17 System Settings completed.
+- [x] Sprint 9 Final Review = PASS. Ready for Sprint 10.
+
+## Completion Counters
+
+- [x] 34/34 exact Task branches used.
+- [x] 34/34 applicable Task/Bug PRs merged into `develop`.
+- [x] 14/14 Story Acceptance Reviews PASS.
+- [x] PAC-EPIC-15 Graph-RAG Review PASS.
+- [x] PAC-EPIC-16 Reports Review PASS.
+- [x] PAC-EPIC-17 System Settings Review PASS.
+- [x] Allowlisted and parameterized graph queries PASS.
 - [ ] Graph-RAG freshness metadata PASS.
 - [ ] PostgreSQL fallback for unavailable/stale graph PASS.
 - [ ] Raw Cypher no-access PASS.
