@@ -302,6 +302,25 @@ async function main() {
   }
   console.log('Prompt templates seeded.');
 
+  // PAC-TASK-421: Seed default system settings
+  const defaultSystemSettings = [
+    {
+      key: 'near_expiry_threshold_days',
+      value: '90',
+      valueType: 'integer',
+      label: 'Near Expiry Warning Threshold (days)'
+    }
+  ];
+
+  for (const setting of defaultSystemSettings) {
+    await prisma.systemSetting.upsert({
+      where: { key: setting.key },
+      update: { value: setting.value, label: setting.label },
+      create: setting
+    });
+  }
+  console.log('System settings seeded.');
+
   console.log('Seed completed successfully!');
 }
 
