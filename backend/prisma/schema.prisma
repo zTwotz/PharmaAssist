@@ -1736,3 +1736,15 @@ model GraphSyncAttempt {
   @@index([startedAt])
   @@map("graph_sync_attempts")
 }
+
+// PAC-TASK-420: System settings key-value store for configurable thresholds
+model SystemSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  valueType String   @default("string") @map("value_type")
+  label     String?
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}

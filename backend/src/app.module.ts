@@ -24,6 +24,7 @@ import { GraphContextModule } from './graph-rag/graph-context/graph-context.modu
 import { GraphRagBuilderModule } from './graph-rag/graph-rag-builder/graph-rag-builder.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ReportsModule } from './reports/reports.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { ReportsModule } from './reports/reports.module';
     GraphContextModule,
     GraphRagBuilderModule,
     ReportsModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
