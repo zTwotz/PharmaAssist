@@ -296,7 +296,7 @@ Required:
 |---|---|---|---|---|---|---|---|---|---|
 | PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | Technically complete | 2885cac | PASS | N/A | N/A | — |
 | PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | Technically complete | 9eb43f6 | PASS | N/A | N/A | — |
-| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Technically complete | 6b58e93 | PASS | N/A | N/A | — |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -557,7 +557,7 @@ Release Story review rules:
 | PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Technically complete | 4414f4e | `feature/PAC-650...` | 4414f4e | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Technically complete | 2885cac | `test/PAC-651...` | 2885cac | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | `test/PAC-652-task-442-add-user-management-permission-tests` | Technically complete | 9eb43f6 | `test/PAC-652...` | 9eb43f6 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Technically complete | 6b58e93 | `test/PAC-653...` | 6b58e93 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | `test/PAC-655-task-445-add-supplier-management-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-442 |
-| Current Jira Key | PAC-652 |
-| Current exact branch | `test/PAC-652-task-442-add-user-management-permission-tests` |
+| Current Task | PAC-TASK-443 |
+| Current Jira Key | PAC-653 |
+| Current exact branch | `test/PAC-653-task-443-add-medicine-management-api-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-442 |
-| Last merge SHA | 9eb43f6 |
-| Next Task | PAC-TASK-443 |
-| Next Jira Key | PAC-653 |
-| Next exact branch | `test/PAC-653-task-443-add-medicine-management-api-tests` |
+| Last merged Task | PAC-TASK-443 |
+| Last merge SHA | 6b58e93 |
+| Next Task | PAC-TASK-444 |
+| Next Jira Key | PAC-654 |
+| Next exact branch | `test/PAC-654-task-444-add-activeingredient-mapping-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
