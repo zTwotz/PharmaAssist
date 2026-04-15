@@ -13,6 +13,7 @@ export default function PosPage() {
   const [interactions, setInteractions] = useState<InteractionData[]>([]);
   const [showWarning, setShowWarning] = useState(false);
   const [acknowledgedInteractionIds, setAcknowledgedInteractionIds] = useState<number[]>([]);
+  const [acknowledgedNotes, setAcknowledgedNotes] = React.useState<Record<number, string>>({});
 
   // Check for drug interactions when cart changes
   useEffect(() => {
@@ -57,9 +58,15 @@ export default function PosPage() {
     checkInteractions();
   }, [cart, acknowledgedInteractionIds]);
 
-  const handleAcknowledge = () => {
+  const handleAcknowledge = (alertData: { interactionId: number; note: string; }[] = []) => {
     // Save acknowledged interaction IDs so the warning doesn't keep popping up
+    // In MVP, we might only require note for HIGH, but mark all as acknowledged locally
     const newIds = interactions.map(i => i.id);
+    const newNotes: Record<number, string> = {};
+    for (const item of alertData) {
+      if (item.note) newNotes[item.interactionId] = item.note;
+    }
+    setAcknowledgedNotes(prev => ({ ...prev, ...newNotes }));
     setAcknowledgedInteractionIds(prev => [...prev, ...newIds]);
     setShowWarning(false);
   };
@@ -97,7 +104,7 @@ export default function PosPage() {
         </div>
 
         <div className="bg-white border-t border-slate-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-          <CheckoutPanel />
+          <CheckoutPanel hasUnresolvedHighAlerts={interactions.some(i => i.severity === 'HIGH')} acknowledgedNotes={acknowledgedNotes} />
         </div>
       </div>
 
