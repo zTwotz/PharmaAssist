@@ -75,7 +75,7 @@ describe('MedicineBatchesService', () => {
           expiryDate: expiry,
           createdAt: new Date(),
           updatedAt: new Date(),
-        },
+        } as any,
       ]);
 
       const result = await service.validateAndGetBatchIdentity(
@@ -98,7 +98,7 @@ describe('MedicineBatchesService', () => {
           expiryDate: existingExpiry,
           createdAt: new Date(),
           updatedAt: new Date(),
-        },
+        } as any,
       ]);
 
       await expect(
