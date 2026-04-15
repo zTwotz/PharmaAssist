@@ -102,6 +102,7 @@ coverage/
 !*.config.json
 !database/**/*.json
 !Jira/**/*.json
+!postman/**/*.json
 *.pyc
 __pycache__/
 scratch/
