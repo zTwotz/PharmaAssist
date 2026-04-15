@@ -286,7 +286,7 @@ Required:
 |---|---|---|---|---|---|
 | Backend unit | PAC-TASK-436 | Unit runner and sample | Not started | — | — |
 | Backend integration | PAC-TASK-437 | Isolated cleanup strategy | Technically complete | d5e4759 | — |
-| Frontend component | PAC-TASK-438 | Component runner and sample | Not started | — | — |
+| Frontend component | PAC-TASK-438 | Component runner and sample | Technically complete | be9ac96 | — |
 | Playwright | PAC-TASK-439 | Chrome desktop E2E | Not started | — | — |
 | Postman | PAC-TASK-440 | Structured manual collection | Not started | — | — |
 
@@ -552,7 +552,7 @@ Release Story review rules:
 | PAC-TASK-435 | PAC-645 | US-150 | Run smoke tests after demo reset | `test/PAC-645-task-435-run-smoke-tests-after-demo-reset` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-436 | PAC-646 | US-150 | Add backend unit test setup | `test/PAC-646-task-436-add-backend-unit-test-setup` | Technically complete | — | — | 76febfa | Pass | N/A | N/A | Pass | DONE |
 | PAC-TASK-437 | PAC-647 | US-150 | Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` | Technically complete | d5e4759 | `test/PAC-647...` | d5e4759 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Technically complete | be9ac96 | `test/PAC-648...` | be9ac96 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-439 | PAC-649 | US-150 | Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-437 |
-| Current Jira Key | PAC-647 |
-| Current exact branch | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` |
+| Current Task | PAC-TASK-438 |
+| Current Jira Key | PAC-648 |
+| Current exact branch | `test/PAC-648-task-438-add-frontend-component-test-setup` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-437 |
-| Last merge SHA | d5e4759 |
-| Next Task | PAC-TASK-438 |
-| Next Jira Key | PAC-648 |
-| Next exact branch | `test/PAC-648-task-438-add-frontend-component-test-setup` |
+| Last merged Task | PAC-TASK-438 |
+| Last merge SHA | be9ac96 |
+| Next Task | PAC-TASK-439 |
+| Next Jira Key | PAC-649 |
+| Next exact branch | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
