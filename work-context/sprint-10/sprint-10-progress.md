@@ -294,7 +294,7 @@ Required:
 
 | Task | Jira Key | Parent Story | Module | Status | Success path | Validation/permission | Failure isolation/rollback | Idempotency/concurrency | Evidence |
 |---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | Technically complete | 2885cac | PASS | N/A | N/A | — |
 | PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -555,7 +555,7 @@ Release Story review rules:
 | PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Technically complete | be9ac96 | `test/PAC-648...` | be9ac96 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-439 | PAC-649 | US-150 | Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` | Technically complete | 898da6a | `test/PAC-649...` | 898da6a | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Technically complete | 4414f4e | `feature/PAC-650...` | 4414f4e | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Technically complete | 2885cac | `test/PAC-651...` | 2885cac | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | `test/PAC-652-task-442-add-user-management-permission-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-440 |
-| Current Jira Key | PAC-650 |
-| Current exact branch | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` |
+| Current Task | PAC-TASK-441 |
+| Current Jira Key | PAC-651 |
+| Current exact branch | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-440 |
-| Last merge SHA | 4414f4e |
-| Next Task | PAC-TASK-441 |
-| Next Jira Key | PAC-651 |
-| Next exact branch | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` |
+| Last merged Task | PAC-TASK-441 |
+| Last merge SHA | 2885cac |
+| Next Task | PAC-TASK-442 |
+| Next Jira Key | PAC-652 |
+| Next exact branch | `test/PAC-652-task-442-add-user-management-permission-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
