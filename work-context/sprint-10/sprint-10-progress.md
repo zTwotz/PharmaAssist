@@ -303,7 +303,7 @@ Required:
 | PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | Technically complete | e920841 | PASS | N/A | N/A | — |
 | PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | Technically complete | 486913d | PASS | N/A | N/A | — |
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | Technically complete | da0bc9e | PASS | N/A | N/A | — |
-| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | Technically complete | ccedd21 | PASS | N/A | N/A | — |
 | PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -564,7 +564,7 @@ Release Story review rules:
 | PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` | Technically complete | e920841 | `test/PAC-657...` | e920841 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | `test/PAC-658-task-448-add-near-expiry-threshold-tests` | Technically complete | 486913d | `test/PAC-658...` | 486913d | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` | Technically complete | da0bc9e | `test/PAC-659...` | da0bc9e | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` | Technically complete | ccedd21 | `test/PAC-660...` | ccedd21 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-449 |
-| Current Jira Key | PAC-659 |
-| Current exact branch | `test/PAC-659-task-449-add-stock-import-transaction-tests` |
+| Current Task | PAC-TASK-450 |
+| Current Jira Key | PAC-660 |
+| Current exact branch | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-449 |
-| Last merge SHA | da0bc9e |
-| Next Task | PAC-TASK-450 |
-| Next Jira Key | PAC-660 |
-| Next exact branch | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` |
+| Last merged Task | PAC-TASK-450 |
+| Last merge SHA | ccedd21 |
+| Next Task | PAC-TASK-451 |
+| Next Jira Key | PAC-661 |
+| Next exact branch | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
