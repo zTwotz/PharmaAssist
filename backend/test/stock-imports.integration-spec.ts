@@ -92,10 +92,20 @@ describe('Stock Imports Management API (e2e)', () => {
       expect(response.status).toBe(201);
     });
 
-    it('POST /stock-imports/:id/confirm should allow access with WAREHOUSE role', async () => {
+    it('POST /stock-imports/:id/confirm should allow access with WAREHOUSE role and handle batch merge', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
+      mockStockImportsService.confirmImport.mockResolvedValueOnce({ id: 1, status: 'COMPLETED' });
       const response = await request(app.getHttpServer() as any).post('/stock-imports/1/confirm');
       expect(response.status).toBe(201);
+    });
+
+    it('POST /stock-imports/:id/confirm should return 400 on expiry mismatch', async () => {
+      mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
+      const { BadRequestException } = require('@nestjs/common');
+      mockStockImportsService.confirmImport.mockRejectedValueOnce(new BadRequestException('Expiry mismatch'));
+      const response = await request(app.getHttpServer() as any).post('/stock-imports/1/confirm');
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Expiry mismatch');
     });
 
     it('POST /stock-imports/:id/lines should allow access with ADMIN role', async () => {
