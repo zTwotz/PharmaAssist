@@ -305,7 +305,7 @@ Required:
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | Technically complete | da0bc9e | PASS | N/A | N/A | — |
 | PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | Technically complete | ccedd21 | PASS | N/A | N/A | — |
 | PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | Technically complete | 9ef663b | PASS | N/A | N/A | — |
-| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | Technically complete | 9cd85bb | PASS | N/A | N/A | — |
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -566,7 +566,7 @@ Release Story review rules:
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` | Technically complete | da0bc9e | `test/PAC-659...` | da0bc9e | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` | Technically complete | ccedd21 | `test/PAC-660...` | ccedd21 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` | Technically complete | 9ef663b | `test/PAC-661...` | 9ef663b | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` | Technically complete | 9cd85bb | `test/PAC-662...` | 9cd85bb | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | `test/PAC-664-task-454-add-pos-draft-order-ui-smoke-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-451 |
-| Current Jira Key | PAC-661 |
-| Current exact branch | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` |
+| Current Task | PAC-TASK-452 |
+| Current Jira Key | PAC-662 |
+| Current exact branch | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-451 |
-| Last merge SHA | 9ef663b |
-| Next Task | PAC-TASK-452 |
-| Next Jira Key | PAC-662 |
-| Next exact branch | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` |
+| Last merged Task | PAC-TASK-452 |
+| Last merge SHA | 9cd85bb |
+| Next Task | PAC-TASK-453 |
+| Next Jira Key | PAC-663 |
+| Next exact branch | `test/PAC-663-task-453-add-pos-draft-order-api-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
