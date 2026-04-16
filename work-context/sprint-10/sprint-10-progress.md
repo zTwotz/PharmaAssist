@@ -299,7 +299,7 @@ Required:
 | PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Technically complete | 6b58e93 | PASS | N/A | N/A | — |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | Technically complete | 815151a | PASS | N/A | N/A | — |
 | PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | Technically complete | 06031ad | PASS | N/A | N/A | — |
-| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | Technically complete | 851cd85 | PASS | N/A | N/A | — |
 | PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -560,7 +560,7 @@ Release Story review rules:
 | PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Technically complete | 6b58e93 | `test/PAC-653...` | 6b58e93 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` | Technically complete | 815151a | `test/PAC-654...` | 815151a | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | `test/PAC-655-task-445-add-supplier-management-api-tests` | Technically complete | 06031ad | `test/PAC-655...` | 06031ad | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` | Technically complete | 851cd85 | `test/PAC-656...` | 851cd85 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | `test/PAC-658-task-448-add-near-expiry-threshold-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-445 |
-| Current Jira Key | PAC-655 |
-| Current exact branch | `test/PAC-655-task-445-add-supplier-management-api-tests` |
+| Current Task | PAC-TASK-446 |
+| Current Jira Key | PAC-656 |
+| Current exact branch | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-445 |
-| Last merge SHA | 06031ad |
-| Next Task | PAC-TASK-446 |
-| Next Jira Key | PAC-656 |
-| Next exact branch | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` |
+| Last merged Task | PAC-TASK-446 |
+| Last merge SHA | 851cd85 |
+| Next Task | PAC-TASK-447 |
+| Next Jira Key | PAC-657 |
+| Next exact branch | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
