@@ -122,5 +122,11 @@ describe('Orders API (e2e)', () => {
       // Let's just expect it to not be 2xx.
       expect(response.status).toBeGreaterThanOrEqual(400);
     });
+    it('POST /orders/:id/cancel should return 400 if order is already cancelled', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'] };
+      mockOrdersService.cancelOrder.mockRejectedValueOnce({ status: 400, message: 'Bad Request' });
+      const response = await request(app.getHttpServer() as any).post('/orders/1/cancel');
+      expect(response.status).toBeGreaterThanOrEqual(400);
+    });
   });
 });
