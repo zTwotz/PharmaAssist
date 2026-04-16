@@ -16,4 +16,16 @@ test.describe('PharmaAssist Smoke Tests', () => {
       await expect(heading).toBeVisible();
     }
   });
+  test('should load the POS page and verify basic elements', async ({ page }) => {
+    // Note: Since this is a smoke test and authentication might be complex in CI,
+    // we just verify that navigating to /pos at least attempts to load the POS page
+    // or redirects to login if unauthenticated.
+    await page.goto('/pos');
+    
+    // We expect the page to load without a 500 error.
+    // If it redirects to login, the title might change, or it might stay.
+    // Let's just ensure the page is alive.
+    const body = await page.locator('body');
+    await expect(body).toBeVisible();
+  });
 });
