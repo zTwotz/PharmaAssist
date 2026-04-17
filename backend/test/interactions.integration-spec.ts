@@ -99,5 +99,11 @@ describe('Interactions API (e2e)', () => {
       const response = await request(app.getHttpServer() as any).delete('/interactions/1');
       expect(response.status).toBe(200);
     });
+
+    it('POST /interactions/check should allow access with CREATE_ORDER permission', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
+      const response = await request(app.getHttpServer() as any).post('/interactions/check').send({ medicineIds: [1, 2] });
+      expect(response.status).toBe(200);
+    });
   });
 });
