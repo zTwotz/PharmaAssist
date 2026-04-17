@@ -312,7 +312,7 @@ Required:
 | PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Technically complete | fe86f1b | PASS | N/A | N/A | — |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | Technically complete | f0935a7 | PASS | N/A | N/A | — |
 | PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Technically complete | e5cd496 | PASS | N/A | N/A | — |
-| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Technically complete | 49928ca | PASS | N/A | N/A | — |
 | PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -573,7 +573,7 @@ Release Story review rules:
 | PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Technically complete | fe86f1b | `test/PAC-666...` | fe86f1b | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` | Technically complete | f0935a7 | `test/PAC-667...` | f0935a7 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Technically complete | e5cd496 | `test/PAC-668...` | e5cd496 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Technically complete | 49928ca | `test/PAC-669...` | 49928ca | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | `test/PAC-670-task-460-add-interactionalert-display-count-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | `test/PAC-671-task-461-add-high-alert-acknowledgement-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | `test/PAC-672-task-462-add-high-alert-consultation-note-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-458 |
-| Current Jira Key | PAC-668 |
-| Current exact branch | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` |
+| Current Task | PAC-TASK-459 |
+| Current Jira Key | PAC-669 |
+| Current exact branch | `test/PAC-669-task-459-add-interactionalert-persistence-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-458 |
-| Last merge SHA | e5cd496 |
-| Next Task | PAC-TASK-459 |
-| Next Jira Key | PAC-669 |
-| Next exact branch | `test/PAC-669-task-459-add-interactionalert-persistence-tests` |
+| Last merged Task | PAC-TASK-459 |
+| Last merge SHA | 49928ca |
+| Next Task | PAC-TASK-460 |
+| Next Jira Key | PAC-670 |
+| Next exact branch | `test/PAC-670-task-460-add-interactionalert-display-count-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
