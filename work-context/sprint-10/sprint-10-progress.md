@@ -318,7 +318,7 @@ Required:
 | PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | Technically complete | bbccbed | PASS | N/A | N/A | — |
 | PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | Technically complete | f14a59a | PASS | N/A | N/A | — |
 | PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | Technically complete | dd41a9e | PASS | N/A | N/A | — |
-| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | Technically complete | 3f35de7 | PASS | N/A | N/A | — |
 | PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -579,7 +579,7 @@ Release Story review rules:
 | PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | `test/PAC-672-task-462-add-high-alert-consultation-note-tests` | Technically complete | bbccbed | `test/PAC-672...` | bbccbed | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | `test/PAC-673-task-463-add-checkout-blocker-tests-for-unresolved-high-aler` | Technically complete | f14a59a | `test/PAC-673...` | f14a59a | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | `test/PAC-674-task-464-add-checkout-transaction-success-tests` | Technically complete | dd41a9e | `test/PAC-674...` | dd41a9e | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` | Technically complete | 3f35de7 | `test/PAC-675...` | 3f35de7 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | `test/PAC-677-task-467-add-fefo-multi-batch-allocation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-464 |
-| Current Jira Key | PAC-674 |
-| Current exact branch | `test/PAC-674-task-464-add-checkout-transaction-success-tests` |
+| Current Task | PAC-TASK-465 |
+| Current Jira Key | PAC-675 |
+| Current exact branch | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-464 |
-| Last merge SHA | dd41a9e |
-| Next Task | PAC-TASK-465 |
-| Next Jira Key | PAC-675 |
-| Next exact branch | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` |
+| Last merged Task | PAC-TASK-465 |
+| Last merge SHA | 3f35de7 |
+| Next Task | PAC-TASK-466 |
+| Next Jira Key | PAC-676 |
+| Next exact branch | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
