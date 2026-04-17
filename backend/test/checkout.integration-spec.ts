@@ -22,6 +22,9 @@ describe('Checkout API (e2e)', () => {
       if (dto.orderId === 1) {
         throw new BadRequestException('Cannot checkout: Order has unresolved HIGH severity interaction alerts');
       }
+      if (dto.orderId === 3) {
+        throw new Error('Database transaction rollback simulated error');
+      }
       return Promise.resolve({ success: true });
     }),
   };
@@ -75,6 +78,16 @@ describe('Checkout API (e2e)', () => {
 
       expect(response.status).toBe(201);
       expect(response.body).toEqual({ success: true });
+    });
+
+    it('POST /v1/checkout should return 500 if transaction rollback occurs', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/v1/checkout')
+        .send({ orderId: 3, payment: { method: 'CASH', amountTendered: 100 } })
+        .set('idempotency-key', 'key125');
+
+      expect(response.status).toBe(500);
+      expect(response.body.message).toContain('Internal server error');
     });
   });
 });
