@@ -309,7 +309,7 @@ Required:
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | Technically complete | b32d6d3 | PASS | N/A | N/A | — |
 | PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | Technically complete | 796f7d9 | PASS | N/A | N/A | — |
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | Technically complete | fb159ac | PASS | N/A | N/A | — |
-| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Technically complete | fe86f1b | PASS | N/A | N/A | — |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -570,7 +570,7 @@ Release Story review rules:
 | PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` | Technically complete | b32d6d3 | `test/PAC-663...` | b32d6d3 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | `test/PAC-664-task-454-add-pos-draft-order-ui-smoke-tests` | Technically complete | 796f7d9 | `test/PAC-664...` | 796f7d9 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` | Technically complete | fb159ac | `test/PAC-665...` | fb159ac | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Technically complete | fe86f1b | `test/PAC-666...` | fe86f1b | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-455 |
-| Current Jira Key | PAC-665 |
-| Current exact branch | `test/PAC-665-task-455-add-staff-order-ownership-tests` |
+| Current Task | PAC-TASK-456 |
+| Current Jira Key | PAC-666 |
+| Current exact branch | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-455 |
-| Last merge SHA | fb159ac |
-| Next Task | PAC-TASK-456 |
-| Next Jira Key | PAC-666 |
-| Next exact branch | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` |
+| Last merged Task | PAC-TASK-456 |
+| Last merge SHA | fe86f1b |
+| Next Task | PAC-TASK-457 |
+| Next Jira Key | PAC-667 |
+| Next exact branch | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
