@@ -23,6 +23,7 @@ describe('Orders API (e2e)', () => {
     getDashboardStats: jest.fn().mockResolvedValue({}),
     cancelOrder: jest.fn().mockResolvedValue({ id: 1, status: 'CANCELLED' }),
     findAll: jest.fn().mockResolvedValue([{ id: 1 }]),
+    checkAndPersistInteractions: jest.fn().mockResolvedValue({ interactions: [], hasInteractions: false }),
   };
 
   beforeAll(async () => {
@@ -127,6 +128,13 @@ describe('Orders API (e2e)', () => {
       mockOrdersService.cancelOrder.mockRejectedValueOnce({ status: 400, message: 'Bad Request' });
       const response = await request(app.getHttpServer() as any).post('/orders/1/cancel');
       expect(response.status).toBeGreaterThanOrEqual(400);
+    });
+
+    it('POST /orders/:id/interactions/check should allow access with STAFF role and increment display_count', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'] };
+      const response = await request(app.getHttpServer() as any).post('/orders/1/interactions/check');
+      expect(response.status).toBe(200);
+      expect(mockOrdersService.checkAndPersistInteractions).toHaveBeenCalledWith(1);
     });
   });
 });
