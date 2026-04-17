@@ -74,6 +74,7 @@ describe('Checkout API (e2e)', () => {
         .set('idempotency-key', 'key124');
 
       expect(response.status).toBe(201);
+      expect(response.body).toEqual({ success: true });
     });
   });
 });
