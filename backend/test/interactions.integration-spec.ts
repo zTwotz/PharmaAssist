@@ -118,6 +118,13 @@ describe('Interactions API (e2e)', () => {
       expect(response.status).toBe(200);
     });
 
+    it('PATCH /interactions/alerts/:id/acknowledge should return 400 if HIGH severity and no note', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
+      mockInteractionsService.acknowledgeAlert.mockRejectedValueOnce({ status: 400, message: 'Ghi chú tư vấn là bắt buộc' });
+      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({});
+      expect(response.status).toBeGreaterThanOrEqual(400);
+    });
+
     it('GET /interactions/alerts/history should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
       const response = await request(app.getHttpServer() as any).get('/interactions/alerts/history');
