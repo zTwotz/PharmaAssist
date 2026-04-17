@@ -125,6 +125,13 @@ describe('Interactions API (e2e)', () => {
       expect(response.status).toBeGreaterThanOrEqual(400);
     });
 
+    it('PATCH /interactions/alerts/:id/acknowledge should succeed if HIGH severity and note is provided', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
+      mockInteractionsService.acknowledgeAlert.mockResolvedValueOnce({ id: 1, isAcknowledged: true, consultationNote: 'Valid note' });
+      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({ note: 'Valid note' });
+      expect(response.status).toBe(200);
+    });
+
     it('GET /interactions/alerts/history should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
       const response = await request(app.getHttpServer() as any).get('/interactions/alerts/history');
