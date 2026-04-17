@@ -105,5 +105,23 @@ describe('Interactions API (e2e)', () => {
       const response = await request(app.getHttpServer() as any).post('/interactions/check').send({ medicineIds: [1, 2] });
       expect(response.status).toBe(200);
     });
+
+    it('GET /interactions/order/:orderId should allow access with CREATE_ORDER permission', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
+      const response = await request(app.getHttpServer() as any).get('/interactions/order/1');
+      expect(response.status).toBe(200);
+    });
+
+    it('PATCH /interactions/alerts/:id/acknowledge should allow access with CREATE_ORDER permission', async () => {
+      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
+      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({ note: 'Acknowledge note' });
+      expect(response.status).toBe(200);
+    });
+
+    it('GET /interactions/alerts/history should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
+      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
+      const response = await request(app.getHttpServer() as any).get('/interactions/alerts/history');
+      expect(response.status).toBe(200);
+    });
   });
 });
