@@ -311,7 +311,7 @@ Required:
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | Technically complete | fb159ac | PASS | N/A | N/A | — |
 | PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Technically complete | fe86f1b | PASS | N/A | N/A | — |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | Technically complete | f0935a7 | PASS | N/A | N/A | — |
-| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Technically complete | e5cd496 | PASS | N/A | N/A | — |
 | PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -572,7 +572,7 @@ Release Story review rules:
 | PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` | Technically complete | fb159ac | `test/PAC-665...` | fb159ac | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Technically complete | fe86f1b | `test/PAC-666...` | fe86f1b | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` | Technically complete | f0935a7 | `test/PAC-667...` | f0935a7 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Technically complete | e5cd496 | `test/PAC-668...` | e5cd496 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | `test/PAC-670-task-460-add-interactionalert-display-count-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | `test/PAC-671-task-461-add-high-alert-acknowledgement-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-457 |
-| Current Jira Key | PAC-667 |
-| Current exact branch | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` |
+| Current Task | PAC-TASK-458 |
+| Current Jira Key | PAC-668 |
+| Current exact branch | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-457 |
-| Last merge SHA | f0935a7 |
-| Next Task | PAC-TASK-458 |
-| Next Jira Key | PAC-668 |
-| Next exact branch | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` |
+| Last merged Task | PAC-TASK-458 |
+| Last merge SHA | e5cd496 |
+| Next Task | PAC-TASK-459 |
+| Next Jira Key | PAC-669 |
+| Next exact branch | `test/PAC-669-task-459-add-interactionalert-persistence-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
