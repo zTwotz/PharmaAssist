@@ -317,4 +317,74 @@ describe('CheckoutService', () => {
       ).rejects.toThrow('Order already has a successful payment');
     });
   });
+
+  describe('Invoice generation', () => {
+    let prisma: PrismaService;
+    beforeEach(() => {
+      prisma = service['prisma'];
+    });
+
+    it('should generate an invoice after successful payment', async () => {
+      const mockTx = {
+        order: {
+          findUnique: jest.fn().mockResolvedValue({
+            id: 1,
+            staffUserId: 'u1',
+            totalAmount: 100,
+            taxAmount: 10,
+            discountAmount: 5,
+            status: 'DRAFT',
+            payments: [],
+            details: [{ id: 1 }],
+          }),
+          update: jest.fn().mockResolvedValue({}),
+        },
+        orderDetail: {
+          findMany: jest.fn().mockResolvedValue([]),
+          aggregate: jest.fn().mockResolvedValue({ _sum: { quantity: 0 } }),
+        },
+        paymentMethod: {
+          findUnique: jest.fn().mockResolvedValue({ id: 1, code: 'CASH' }),
+        },
+        payment: {
+          create: jest.fn().mockResolvedValue({ id: 1, code: 'PAY-123' }),
+        },
+        paymentTransaction: {
+          create: jest.fn(),
+        },
+        inventory: {
+          findFirst: jest.fn().mockResolvedValue({ id: 1, quantity: 10 }),
+        },
+        invoice: {
+          create: jest.fn().mockResolvedValue({ id: 1 }),
+        },
+      };
+
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
+      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
+      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+
+      jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
+        return cb(mockTx as any);
+      });
+
+      jest.spyOn(service as any, 'allocateFEFO').mockResolvedValue([]);
+
+      const dto = {
+        orderId: 1,
+        payment: { method: 'CASH', amountTendered: 100 },
+      };
+
+      await service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any);
+
+      expect(mockTx.invoice.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          orderId: 1,
+          status: 'ISSUED',
+          totalAmount: 100,
+          taxAmount: 0,
+        }),
+      });
+    });
+  });
 });
