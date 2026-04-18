@@ -324,7 +324,7 @@ Required:
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | Technically complete | e3499c7 | PASS | N/A | N/A | — |
 | PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | Technically complete | 4b65ba1 | PASS | N/A | N/A | — |
 | PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | Technically complete | b260a1b | PASS | N/A | N/A | — |
-| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | Technically complete | cac2c48 | PASS | N/A | N/A | — |
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -585,7 +585,7 @@ Release Story review rules:
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` | Technically complete | e3499c7 | `test/PAC-678...` | e3499c7 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` | Technically complete | 4b65ba1 | `test/PAC-679...` | 4b65ba1 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | `test/PAC-680-task-470-add-payment-one-success-rule-tests` | Technically complete | b260a1b | `test/PAC-680...` | b260a1b | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` | Technically complete | cac2c48 | `test/PAC-681...` | cac2c48 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | `test/PAC-683-task-473-add-ai-audit-privacy-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-470 |
-| Current Jira Key | PAC-680 |
-| Current exact branch | `test/PAC-680-task-470-add-payment-one-success-rule-tests` |
+| Current Task | PAC-TASK-471 |
+| Current Jira Key | PAC-681 |
+| Current exact branch | `test/PAC-681-task-471-add-invoice-generation-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-470 |
-| Last merge SHA | b260a1b |
-| Next Task | PAC-TASK-471 |
-| Next Jira Key | PAC-681 |
-| Next exact branch | `test/PAC-681-task-471-add-invoice-generation-tests` |
+| Last merged Task | PAC-TASK-471 |
+| Last merge SHA | cac2c48 |
+| Next Task | PAC-TASK-472 |
+| Next Jira Key | PAC-682 |
+| Next exact branch | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
