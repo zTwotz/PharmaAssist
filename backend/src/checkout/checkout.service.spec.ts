@@ -278,4 +278,43 @@ describe('CheckoutService', () => {
       expect(mockTx.paymentTransaction.create).toHaveBeenCalled();
     });
   });
+
+  describe('Payment one SUCCESS rule', () => {
+    let prisma: PrismaService;
+    beforeEach(() => {
+      prisma = service['prisma'];
+    });
+
+    it('should throw if order already has a successful payment', async () => {
+      const mockTx = {
+        order: {
+          findUnique: jest.fn().mockResolvedValue({
+            id: 1,
+            staffUserId: 'u1',
+            totalAmount: 100,
+            status: 'DRAFT',
+            payments: [{ id: 1, status: 'PAID' }],
+            details: [{ id: 1 }],
+          }),
+        },
+      };
+
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
+      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
+      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+
+      jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
+        return cb(mockTx as any);
+      });
+
+      const dto = {
+        orderId: 1,
+        payment: { method: 'CASH', amountTendered: 100 },
+      };
+
+      await expect(
+        service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any),
+      ).rejects.toThrow('Order already has a successful payment');
+    });
+  });
 });
