@@ -41,7 +41,7 @@ export class InteractionsService {
     });
 
     // Format the response
-    const formattedInteractions = interactions.map((interaction) => ({
+    const formattedInteractions = interactions.map((interaction: any) => ({
       id: interaction.id,
       severity: interaction.severity,
       medicineA: {
@@ -64,7 +64,7 @@ export class InteractionsService {
       interactions: formattedInteractions,
       hasInteractions: formattedInteractions.length > 0,
       severeInteractionsCount: formattedInteractions.filter(
-        (i) => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng',
+        (i: any) => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng',
       ).length,
     };
   }
