@@ -297,4 +297,25 @@ describe('AiService', () => {
       );
     });
   });
+
+  describe('AI Provider Fallback (PAC-TASK-474)', () => {
+    it('should throw the fallback error if Mock AI also fails during fallback', async () => {
+      const googleError = new AiProviderException('Google API rate limit');
+      const mockError = new Error('Mock AI internal error');
+
+      mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(googleError);
+      mockMockAiProvider.generateConsultationNoteDraft.mockRejectedValue(mockError);
+
+      await expect(
+        service.generateConsultationNoteDraft({
+          userId: 'test-user',
+          alertContext: 'ctx',
+          orderContext: 'order',
+        }),
+      ).rejects.toThrow('Mock AI internal error');
+
+      expect(mockGoogleAiProvider.generateConsultationNoteDraft).toHaveBeenCalled();
+      expect(mockMockAiProvider.generateConsultationNoteDraft).toHaveBeenCalled();
+    });
+  });
 });
