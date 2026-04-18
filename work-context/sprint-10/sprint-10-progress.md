@@ -328,7 +328,7 @@ Required:
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | Technically complete | 1de1f79 | PASS | N/A | N/A | — |
 | PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | Technically complete | 95e61b9 | PASS | N/A | N/A | — |
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | Technically complete | fd5f2c0 | PASS | N/A | N/A | — |
-| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Technically complete | e822b09 | PASS | N/A | N/A | — |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -589,7 +589,7 @@ Release Story review rules:
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` | Technically complete | 1de1f79 | `test/PAC-682...` | 1de1f79 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | `test/PAC-683-task-473-add-ai-audit-privacy-tests` | Technically complete | 95e61b9 | `test/PAC-683...` | 95e61b9 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` | Technically complete | fd5f2c0 | `test/PAC-684...` | fd5f2c0 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Technically complete | e822b09 | `test/PAC-685...` | e822b09 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-474 |
-| Current Jira Key | PAC-684 |
-| Current exact branch | `test/PAC-684-task-474-add-ai-provider-fallback-tests` |
+| Current Task | PAC-TASK-475 |
+| Current Jira Key | PAC-685 |
+| Current exact branch | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-474 |
-| Last merge SHA | fd5f2c0 |
-| Next Task | PAC-TASK-475 |
-| Next Jira Key | PAC-685 |
-| Next exact branch | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` |
+| Last merged Task | PAC-TASK-475 |
+| Last merge SHA | e822b09 |
+| Next Task | PAC-TASK-476 |
+| Next Jira Key | PAC-686 |
+| Next exact branch | `test/PAC-686-task-476-add-neo4j-projection-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
