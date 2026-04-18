@@ -322,7 +322,7 @@ Required:
 | PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | Technically complete | 61dbcb7 | PASS | N/A | N/A | — |
 | PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | Technically complete | 5fa4352 | PASS | N/A | N/A | — |
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | Technically complete | e3499c7 | PASS | N/A | N/A | — |
-| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | Technically complete | 4b65ba1 | PASS | N/A | N/A | — |
 | PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
@@ -583,7 +583,7 @@ Release Story review rules:
 | PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` | Technically complete | 61dbcb7 | `test/PAC-676...` | 61dbcb7 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | `test/PAC-677-task-467-add-fefo-multi-batch-allocation-tests` | Technically complete | 5fa4352 | `test/PAC-677...` | 5fa4352 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` | Technically complete | e3499c7 | `test/PAC-678...` | e3499c7 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` | Technically complete | 4b65ba1 | `test/PAC-679...` | 4b65ba1 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | `test/PAC-680-task-470-add-payment-one-success-rule-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | PAC-TASK-468 |
-| Current Jira Key | PAC-678 |
-| Current exact branch | `test/PAC-678-task-468-add-checkout-idempotency-tests` |
+| Current Task | PAC-TASK-469 |
+| Current Jira Key | PAC-679 |
+| Current exact branch | `test/PAC-679-task-469-add-payment-cash-handling-tests` |
 | Current PR | Merged |
-| Last merged Task | PAC-TASK-468 |
-| Last merge SHA | e3499c7 |
-| Next Task | PAC-TASK-469 |
-| Next Jira Key | PAC-679 |
-| Next exact branch | `test/PAC-679-task-469-add-payment-cash-handling-tests` |
+| Last merged Task | PAC-TASK-469 |
+| Last merge SHA | 4b65ba1 |
+| Next Task | PAC-TASK-470 |
+| Next Jira Key | PAC-680 |
+| Next exact branch | `test/PAC-680-task-470-add-payment-one-success-rule-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
