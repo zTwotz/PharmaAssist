@@ -13,6 +13,10 @@ describe('CheckoutService', () => {
           provide: PrismaService,
           useValue: {
             $transaction: jest.fn(),
+            idempotencyRecord: {
+              findUnique: jest.fn(),
+              upsert: jest.fn(),
+            },
           },
         },
       ],
@@ -25,8 +29,98 @@ describe('CheckoutService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should handle idempotency correctly', () => {
-    expect(true).toBe(true);
+  describe('idempotency', () => {
+    let prisma: PrismaService;
+    beforeEach(() => {
+      prisma = service['prisma'];
+    });
+
+    it('should throw if request payload mismatch', async () => {
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+        id: '1',
+        userId: 'u1',
+        operation: 'CHECKOUT',
+        idempotencyKey: 'key',
+        requestHash: 'different-hash',
+        status: 'SUCCEEDED',
+        responseSummary: {},
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      await expect(
+        service.checkout({ id: 'u1', permissions: [] }, 'key', {
+          orderId: 1,
+          payment: { method: 'CASH', amountTendered: 100 },
+        } as any),
+      ).rejects.toThrow('IDEMPOTENCY_PAYLOAD_MISMATCH');
+    });
+
+    it('should throw if request is already processing', async () => {
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+        id: '1',
+        userId: 'u1',
+        operation: 'CHECKOUT',
+        idempotencyKey: 'key',
+        requestHash: 'c7c88034dbf2cbfb243de32ba34dc6fdf24d3dbec6e680cc42dcc830eb3bc669', // valid hash for this dto
+        status: 'PROCESSING',
+        responseSummary: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      // We need the actual hash, let's just let it be valid or bypass hash check by not mocking it strictly
+      // But actually requestHash matters. So let's mock it correctly.
+      const requestHash = require('crypto')
+        .createHash('sha256')
+        .update(JSON.stringify({ orderId: 1, payment: { method: 'CASH', amountTendered: 100 } }))
+        .digest('hex');
+
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+        id: '1',
+        userId: 'u1',
+        operation: 'CHECKOUT',
+        idempotencyKey: 'key',
+        requestHash,
+        status: 'PROCESSING',
+        responseSummary: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      await expect(
+        service.checkout({ id: 'u1', permissions: [] }, 'key', {
+          orderId: 1,
+          payment: { method: 'CASH', amountTendered: 100 },
+        } as any),
+      ).rejects.toThrow('Request is already processing');
+    });
+
+    it('should return cached response if SUCCEEDED', async () => {
+      const requestHash = require('crypto')
+        .createHash('sha256')
+        .update(JSON.stringify({ orderId: 1, payment: { method: 'CASH', amountTendered: 100 } }))
+        .digest('hex');
+
+      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+        id: '1',
+        userId: 'u1',
+        operation: 'CHECKOUT',
+        idempotencyKey: 'key',
+        requestHash,
+        status: 'SUCCEEDED',
+        responseSummary: { cached: true },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      const result = await service.checkout({ id: 'u1', permissions: [] }, 'key', {
+        orderId: 1,
+        payment: { method: 'CASH', amountTendered: 100 },
+      } as any);
+
+      expect(result).toEqual({ cached: true });
+    });
   });
 
   it('should allocate batches and deduct stock using FEFO', async () => {
