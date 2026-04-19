@@ -46,8 +46,7 @@ describe('CheckoutService', () => {
         status: 'SUCCEEDED',
         responseSummary: {},
         createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      } as any);
 
       await expect(
         service.checkout({ id: 'u1', permissions: [] }, 'key', {
@@ -67,8 +66,7 @@ describe('CheckoutService', () => {
         status: 'PROCESSING',
         responseSummary: null,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      } as any);
 
       // We need the actual hash, let's just let it be valid or bypass hash check by not mocking it strictly
       // But actually requestHash matters. So let's mock it correctly.
@@ -86,8 +84,7 @@ describe('CheckoutService', () => {
         status: 'PROCESSING',
         responseSummary: null,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      } as any);
 
       await expect(
         service.checkout({ id: 'u1', permissions: [] }, 'key', {
@@ -112,8 +109,7 @@ describe('CheckoutService', () => {
         status: 'SUCCEEDED',
         responseSummary: { cached: true },
         createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      } as any);
 
       const result = await service.checkout({ id: 'u1', permissions: [] }, 'key', {
         orderId: 1,

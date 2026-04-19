@@ -261,7 +261,7 @@ describe('AiService', () => {
   describe('AI Audit Privacy (PAC-TASK-473)', () => {
     it('should redact PII from the request payload before saving to audit log', async () => {
       // Mock the minimizer to return a redacted version of the input
-      mockPiiMinimizerService.minimizeObject.mockReturnValue({
+      (mockPiiMinimizerService.minimizeObject as jest.Mock).mockReturnValue({
         userId: 'test-user-123',
         alertContext: '[REDACTED]',
         orderContext: '[REDACTED]',
@@ -304,7 +304,7 @@ describe('AiService', () => {
       const mockError = new Error('Mock AI internal error');
 
       mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(googleError);
-      mockMockAiProvider.generateConsultationNoteDraft.mockRejectedValue(mockError);
+      (mockMockAiProvider.generateConsultationNoteDraft as jest.Mock).mockRejectedValue(mockError);
 
       await expect(
         service.generateConsultationNoteDraft({
