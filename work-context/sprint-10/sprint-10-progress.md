@@ -331,7 +331,7 @@ Required:
 | PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Technically complete | e822b09 | PASS | N/A | N/A | — |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | Technically complete | aed8789 | PASS | N/A | N/A | — |
 | PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Technically complete | b1e2156 | PASS | N/A | N/A | — |
-| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Technically complete | 6f36d0b | PASS | N/A | N/A | — |
 | PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 
 # 14. Full MVP Smoke Test Log
@@ -592,7 +592,7 @@ Release Story review rules:
 | PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Technically complete | e822b09 | `test/PAC-685...` | e822b09 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` | Technically complete | aed8789 | `test/PAC-686...` | 7849051 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Technically complete | b1e2156 | `test/PAC-687...` | b1e2156 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Technically complete | 6f36d0b | `test/PAC-688...` | 6f36d0b | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | `test/PAC-689-task-479-add-reports-deterministic-calculation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-480 | PAC-690 | US-150 | Add full MVP smoke test checklist | `test/PAC-690-task-480-add-full-mvp-smoke-test-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-481 | PAC-691 | US-150 | Configure local Node.js project setup guide | `feature/PAC-691-task-481-configure-local-node-js-project-setup-guide` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
