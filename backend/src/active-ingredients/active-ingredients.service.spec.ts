@@ -2,11 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ActiveIngredientsService } from './active-ingredients.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 describe('ActiveIngredientsService', () => {
   let service: ActiveIngredientsService;
 
-  const mockPrisma = {
+  const mockPrisma: any = {
     activeIngredient: {
       findUnique: jest.fn(),
       findFirst: jest.fn(),
@@ -103,9 +104,9 @@ describe('ActiveIngredientsService', () => {
       expect(mockPrisma.activeIngredient.create).toHaveBeenCalled();
       expect(mockPrisma.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          entityType: 'ACTIVE_INGREDIENT',
-          entityId: 10,
-          action: 'CREATE',
+          aggregateType: 'ACTIVE_INGREDIENT',
+          aggregateId: '10',
+          eventType: GraphSyncEventType.ACTIVE_INGREDIENT_UPSERT,
         }),
       });
     });
@@ -165,9 +166,9 @@ describe('ActiveIngredientsService', () => {
       expect(result.status).toBe('INACTIVE');
       expect(mockPrisma.graphSyncOutbox.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          entityType: 'ACTIVE_INGREDIENT',
-          entityId: 1,
-          action: 'UPDATE',
+          aggregateType: 'ACTIVE_INGREDIENT',
+          aggregateId: '1',
+          eventType: GraphSyncEventType.ACTIVE_INGREDIENT_DEACTIVATE,
         }),
       });
     });
