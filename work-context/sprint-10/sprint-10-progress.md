@@ -330,7 +330,7 @@ Required:
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | Technically complete | fd5f2c0 | PASS | N/A | N/A | — |
 | PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Technically complete | e822b09 | PASS | N/A | N/A | — |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | Technically complete | aed8789 | PASS | N/A | N/A | — |
-| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Technically complete | b1e2156 | PASS | N/A | N/A | — |
 | PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 | PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
 
@@ -591,7 +591,7 @@ Release Story review rules:
 | PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` | Technically complete | fd5f2c0 | `test/PAC-684...` | fd5f2c0 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Technically complete | e822b09 | `test/PAC-685...` | e822b09 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` | Technically complete | aed8789 | `test/PAC-686...` | 7849051 | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Technically complete | b1e2156 | `test/PAC-687...` | b1e2156 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | `test/PAC-689-task-479-add-reports-deterministic-calculation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-480 | PAC-690 | US-150 | Add full MVP smoke test checklist | `test/PAC-690-task-480-add-full-mvp-smoke-test-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
