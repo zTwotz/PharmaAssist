@@ -22,7 +22,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "prisma db seed",
-    "prisma:setup": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed"
+    "prisma:setup": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
+    "neo4j:rebuild": "ts-node prisma/neo4j_rebuild.ts"
   },
   "dependencies": {
     "@google/genai": "^2.6.0",
