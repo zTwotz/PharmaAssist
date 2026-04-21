@@ -34,6 +34,7 @@ export default function CreateInventoryAdjustmentPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // PAC-378: Add required reason validation in UI
     if (!formData.reason) {
       setErrorAlert('Vui lòng chọn lý do kiểm kho');
       return;
