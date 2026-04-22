@@ -11,6 +11,14 @@ export default (): void => {
     return;
   }
 
+  // SAFETY CHECK: Prevent running tests against remote/demo database
+  if (process.env.DATABASE_URL?.includes('supabase.co') && process.env.ALLOW_DEMO_RESET !== 'true') {
+    console.error('CRITICAL ERROR: Attempted to run e2e tests against a remote Supabase database!');
+    console.error('Tests should run against a local database to prevent destructive actions.');
+    console.error('To override, set ALLOW_DEMO_RESET=true.');
+    process.exit(1);
+  }
+
   // Override to test schema
   let testDbUrl = process.env.DATABASE_URL;
   if (testDbUrl.includes('?')) {

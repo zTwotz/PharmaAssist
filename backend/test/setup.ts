@@ -6,6 +6,14 @@ dotenv.config();
 // Ensure tests use an isolated schema and mock Supabase credentials
 // If the user already provided a DATABASE_URL, append the test schema.
 // Otherwise, mock it so Prisma can instantiate (though queries would fail).
+// SAFETY CHECK: Prevent running tests against remote/demo database
+if (process.env.DATABASE_URL?.includes('supabase.co') && process.env.ALLOW_DEMO_RESET !== 'true') {
+  console.error('CRITICAL ERROR: Attempted to run tests against a remote Supabase database!');
+  console.error('Tests should run against a local database to prevent destructive actions.');
+  console.error('To override, set ALLOW_DEMO_RESET=true.');
+  process.exit(1);
+}
+
 if (process.env.DATABASE_URL) {
   // Check if it already has parameters
   if (process.env.DATABASE_URL.includes('?')) {
