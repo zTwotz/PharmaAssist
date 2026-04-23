@@ -17,6 +17,15 @@ async function main() {
     process.exit(1);
   }
 
+  // LOCAL-ONLY GUARD: Ensure database URL is local
+  const dbUrl = process.env.DATABASE_URL || '';
+  const isLocalDb = dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1');
+  if (!isLocalDb && !allowReset) {
+    console.error('CRITICAL ERROR: Attempted to run demo reset against a remote database!');
+    console.error('Database URL does not appear to be local. To override, set ALLOW_DEMO_RESET=true.');
+    process.exit(1);
+  }
+
   if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test' && !allowReset) {
     console.warn('WARNING: Running in a non-development environment. Proceeding because ALLOW_DEMO_RESET=true.');
   }
