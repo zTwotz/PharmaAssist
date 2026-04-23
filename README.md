@@ -132,32 +132,56 @@ graph TD
 
 ## ⚙️ 7. Hướng dẫn cài đặt & Khởi chạy (Quick Start)
 
-Chúng tôi cung cấp script `run.js` đa nền tảng giúp thiết lập dự án chỉ với một lệnh duy nhất.
+Dự án sử dụng kiến trúc monorepo phân tách rõ ràng Backend và Frontend. Không yêu cầu Docker để chạy môi trường phát triển cục bộ (local development).
 
 ### 📋 Yêu cầu môi trường
-- **Node.js**: v18.0+
-- **Database**: Chuỗi kết nối Supabase PostgreSQL (hoặc DB nội bộ) trong tệp `.env`.
-- **Git**
+- **Node.js**: v20.0+ (Khuyến nghị dùng phiên bản LTS mới nhất)
+- **npm**: v10.0+
+- **Database**: PostgreSQL (Có thể dùng Supabase hoặc PostgreSQL cục bộ)
 
-### 🚀 Các bước thực hiện
+### 🚀 Các bước cài đặt
 
+**1. Clone dự án**
 ```bash
-# 1. Clone repository
-git clone https://github.com/your-team/pharmaassist-ai-intelligence.git
-cd pharmaassist-ai-intelligence
-
-# 2. Khởi chạy Menu tương tác thông minh (Tự động thiết lập & chạy server)
-node run.js
+git clone https://github.com/TwotNguyenVN/PharmaAssist.git
+cd PharmaAssist
 ```
 
-**Các lệnh CLI thay thế:**
-- Cài đặt & Setup DB: `node run.js setup`
-- Chạy cả Frontend & Backend: `node run.js start`
-- Dọn dẹp cache: `node run.js clean`
+**2. Thiết lập Backend (NestJS)**
+```bash
+cd backend
+npm install
 
-Sau khi chạy thành công:
-- 🌐 **Frontend (Giao diện):** `http://localhost:3000`
-- 🔌 **Backend (API):** `http://localhost:3001`
+# Tạo file .env và điền thông tin kết nối Database
+cp .env.example .env
+# (Lưu ý: Mở file .env và cập nhật DATABASE_URL)
+
+# Chạy Prisma db push để tạo cấu trúc bảng (hoặc migrate dev)
+npx prisma db push
+
+# Chạy script để reset dữ liệu demo (tùy chọn)
+# Lưu ý: Cần cấu hình ALLOW_DEMO_RESET=true trong .env nếu không phải là localhost
+npm run demo:reset
+
+# Khởi chạy server Backend
+npm run start:dev
+# Backend API sẽ chạy tại http://localhost:3001
+```
+
+**3. Thiết lập Frontend (Next.js)**
+Mở một terminal mới và chạy:
+```bash
+cd frontend
+npm install
+
+# Tạo file .env và cấu hình URL API
+cp .env.example .env.local
+# (Mặc định NEXT_PUBLIC_API_URL=http://localhost:3001)
+
+# Khởi chạy ứng dụng Frontend
+npm run dev
+# Frontend web sẽ chạy tại http://localhost:3000
+```
 
 ---
 
