@@ -41,9 +41,10 @@ export class CreateAdjustmentDto {
   @IsNotEmpty()
   storeId: number;
 
-  @IsOptional()
+  // PAC-377: Enforce required adjustment reason in backend
   @IsString()
-  reason?: string;
+  @IsNotEmpty({ message: 'Lý do kiểm kho là bắt buộc' })
+  reason: string;
 
   @IsOptional()
   @IsString()
