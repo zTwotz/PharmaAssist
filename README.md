@@ -1,543 +1,239 @@
-# PharmaAssist AI Intelligence
+<div align="center">
+  <h1>💊 PharmaAssist AI Intelligence</h1>
+  <p><strong>Hệ thống quản lý nhà thuốc thông minh, an toàn và hiệu quả</strong></p>
 
-**PharmaAssist AI Intelligence** là website quản lý nhà thuốc thông minh, hỗ trợ các nghiệp vụ như quản lý thuốc, quản lý tồn kho, nhập thuốc, bán thuốc tại quầy, thanh toán, hóa đơn, cảnh báo tương tác thuốc và báo cáo vận hành.
-
-Dự án được thực hiện trong phạm vi môn **Công Nghệ Phần Mềm**, tập trung vào quy trình phân tích, thiết kế, phát triển, kiểm thử và demo hệ thống phần mềm.
-
-> **Lưu ý an toàn:**  
-> Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.
-
----
-
-## 1. Mục tiêu dự án
-
-PharmaAssist AI Intelligence hướng đến việc hỗ trợ nhà thuốc nhỏ và vừa:
-
-- Quản lý thông tin thuốc tập trung.
-- Theo dõi tồn kho và hạn sử dụng.
-- Hỗ trợ bán thuốc tại quầy nhanh hơn.
-- Kiểm tra tồn kho khi bán.
-- Cảnh báo thuốc sắp hết hàng.
-- Cảnh báo thuốc gần hết hạn.
-- Cảnh báo tương tác thuốc bằng dữ liệu mẫu.
-- Ghi nhận thanh toán và tạo hóa đơn.
-- Quản lý khách hàng cơ bản.
-- Thống kê doanh thu, thuốc bán chạy và tồn kho.
-- Mở rộng với AI Copilot, Guardrail, Audit Log và Knowledge Graph nếu đủ thời gian.
+  <!-- Badges -->
+  <p>
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img alt="Next.js" src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+    <img alt="NestJS" src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
+    <img alt="Prisma" src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+    <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" />
+    <img alt="TailwindCSS" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  </p>
+</div>
 
 ---
 
-## 2. Chức năng chính
+**PharmaAssist AI Intelligence** là website quản lý nhà thuốc toàn diện, hỗ trợ tối ưu hóa các nghiệp vụ: quản lý danh mục thuốc, tồn kho, nhập xuất, POS bán hàng, thanh toán, hóa đơn và báo cáo thống kê. Điểm nhấn của dự án là khả năng **tự động cảnh báo tương tác thuốc** dựa trên Rule Engine và định hướng mở rộng AI Copilot.
 
-### 2.1. Chức năng MVP
+Dự án được thực hiện trong phạm vi môn **Công Nghệ Phần Mềm**, tuân thủ nghiêm ngặt quy trình phân tích, thiết kế, phát triển, và kiểm thử phần mềm chuẩn kỹ nghệ.
 
-- Đăng nhập, đăng xuất.
-- Phân quyền theo vai trò.
-- Quản lý tài khoản người dùng.
-- Quản lý thuốc.
-- Quản lý danh mục thuốc.
-- Quản lý khách hàng.
-- Quản lý nhà cung cấp.
-- Nhập thuốc.
-- Quản lý tồn kho.
-- Cảnh báo thuốc sắp hết.
-- Cảnh báo thuốc gần hết hạn.
-- Tạo đơn bán thuốc.
-- Thêm thuốc vào đơn hàng.
-- Kiểm tra tồn kho khi bán.
-- Kiểm tra tương tác thuốc rule-based.
-- Hiển thị cảnh báo tương tác thuốc.
-- Ghi chú tư vấn.
-- Thanh toán mô phỏng.
-- Tạo và xem/in hóa đơn.
-- Xem lịch sử bán hàng.
-- Báo cáo doanh thu.
-- Báo cáo thuốc bán chạy.
-- Dashboard tổng quan.
-
-### 2.2. Chức năng nâng cao
-
-- AI Pharmacist Copilot.
-- MockAI fallback để demo ổn định.
-- AI Guardrail.
-- AI Audit Log.
-- Neo4j Knowledge Graph.
-- Graph Explorer.
-- Graph-RAG.
-- Forecast tồn kho nếu có thời gian.
+> ⚠️ **Lưu ý an toàn (Disclaimer):**  
+> Mọi thông tin cảnh báo tương tác thuốc trong hệ thống chỉ mang tính chất **tham khảo (dữ liệu mẫu)**, không thay thế tư vấn y khoa chuyên môn từ dược sĩ hay bác sĩ. Hệ thống không thực hiện chức năng chẩn đoán hay kê đơn y tế.
 
 ---
 
-## 3. Vai trò người dùng
+## 📑 Bảng Mục Lục
 
-| Vai trò               | Mô tả                                                                   |
-| --------------------- | ----------------------------------------------------------------------- |
-| Admin / Chủ nhà thuốc | Quản lý toàn hệ thống, người dùng, thuốc, danh mục, báo cáo, cấu hình   |
-| Nhân viên nhà thuốc   | Bán thuốc, tạo đơn hàng, xem cảnh báo tương tác, thanh toán, in hóa đơn |
-| Nhân viên kho         | Nhập thuốc, cập nhật tồn kho, theo dõi thuốc sắp hết và gần hết hạn     |
-| Khách hàng            | Người mua thuốc tại nhà thuốc, không bắt buộc đăng nhập trong MVP       |
-
----
-
-## 4. Điểm nổi bật của hệ thống
-
-### Rule-based Drug Interaction Alert
-
-Khi nhân viên thêm từ 2 thuốc trở lên vào đơn hàng, hệ thống kiểm tra dữ liệu trong bảng `drug_interactions`.
-
-Nếu phát hiện tương tác thuốc, hệ thống hiển thị:
-
-- Tên thuốc thứ nhất.
-- Tên thuốc thứ hai.
-- Mức độ cảnh báo: `LOW`, `MEDIUM`, `HIGH`.
-- Mô tả nguy cơ.
-- Khuyến nghị xử lý mẫu.
-- Khu vực nhập ghi chú tư vấn.
-
-Dữ liệu tương tác thuốc trong dự án là **dữ liệu mẫu phục vụ đồ án**, không phải dữ liệu y khoa thật.
+- [1. Mục tiêu dự án](#1-mục-tiêu-dự-án)
+- [2. Chức năng cốt lõi (MVP) & Mở rộng](#2-chức-năng-cốt-lõi-mvp--mở-rộng)
+- [3. Phân quyền người dùng](#3-phân-quyền-người-dùng)
+- [4. Điểm nhấn: Rule-based Drug Interaction Alert](#4-điểm-nhấn-rule-based-drug-interaction-alert)
+- [5. Kiến trúc hệ thống](#5-kiến-trúc-hệ-thống)
+- [6. Công nghệ sử dụng](#6-công-nghệ-sử-dụng)
+- [7. Hướng dẫn cài đặt & Khởi chạy (Quick Start)](#7-hướng-dẫn-cài-đặt--khởi-chạy-quick-start)
+- [8. Dữ liệu & Tài khoản Demo](#8-dữ-liệu--tài-khoản-demo)
+- [9. Business Rules & An toàn hệ thống](#9-business-rules--an-toàn-hệ-thống)
+- [10. API nổi bật](#10-api-nổi-bật)
 
 ---
 
-## 5. Kiến trúc tổng quan
+## 🚀 1. Mục tiêu dự án
 
-Hệ thống được thiết kế theo mô hình web nhiều tầng:
+PharmaAssist AI Intelligence được thiết kế để giải quyết các bài toán vận hành của các nhà thuốc vừa và nhỏ thông qua:
+- Số hóa toàn diện quy trình quản lý thông tin thuốc và tồn kho.
+- Tăng tốc độ và tính chính xác khi bán hàng tại quầy (POS).
+- Giảm thiểu rủi ro y tế thông qua hệ thống cảnh báo tương tác thuốc và thuốc sắp hết hạn.
+- Cung cấp cái nhìn tổng quan về tình hình kinh doanh qua các báo cáo trực quan.
 
-```text
-Frontend Web
-    |
-    v
-Backend API
-    |
-    +-- Auth Service
-    +-- User Service
-    +-- Medicine Service
-    +-- Inventory Service
-    +-- Sales Service
-    +-- Payment Service
-    +-- Invoice Service
-    +-- Rule Engine Service
-    +-- Report Service
-    +-- AI Service / MockAI
-    +-- Graph Service / Mock Graph
-    +-- Audit Service
-    |
-    v
-Database
-    |
-    +-- Relational Database
-    +-- Neo4j Graph Database optional
+---
+
+## ✨ 2. Chức năng cốt lõi (MVP) & Mở rộng
+
+### 📦 Chức năng MVP (Cơ bản)
+- **Xác thực & Phân quyền:** Đăng nhập/Đăng xuất an toàn (JWT), kiểm soát truy cập (RBAC).
+- **Quản lý Danh mục:** Thuốc, danh mục, nhà cung cấp, khách hàng.
+- **Quản lý Tồn kho:** Theo dõi lô/hạn sử dụng, nhập thuốc, cảnh báo sắp hết hàng/gần hết hạn.
+- **Bán hàng (POS):** Tạo đơn, kiểm tra tồn kho realtime, thêm ghi chú tư vấn, thanh toán mô phỏng.
+- **Rule Engine:** Tự động phát hiện và cảnh báo tương tác thuốc khi lên đơn.
+- **Tài chính & Báo cáo:** In hóa đơn, xem lịch sử giao dịch, thống kê doanh thu và sản phẩm bán chạy.
+
+### 🤖 Tính năng mở rộng (Advanced)
+- **AI Pharmacist Copilot:** Hỗ trợ giải thích các cảnh báo tương tác thuốc phức tạp.
+- **AI Guardrail & Audit Log:** Giám sát an toàn các truy vấn AI và theo dõi lịch sử thao tác người dùng.
+- **Knowledge Graph:** Trực quan hóa mối quan hệ giữa các hoạt chất và thuốc (Neo4j).
+
+---
+
+## 👥 3. Phân quyền người dùng
+
+Hệ thống cung cấp trải nghiệm chuyên biệt cho 4 nhóm đối tượng:
+
+| Vai trò | Mô tả Quyền hạn |
+| :--- | :--- |
+| 👑 **Admin / Chủ nhà thuốc** | Quản lý toàn hệ thống, người dùng, báo cáo doanh thu, thiết lập cấu hình. |
+| 🧑‍⚕️ **Nhân viên nhà thuốc** | Lên đơn POS, tư vấn thuốc, xem cảnh báo tương tác, thanh toán & in hóa đơn. |
+| 📦 **Nhân viên kho** | Nhập thuốc, cập nhật tồn kho, theo dõi hạn sử dụng và ngưỡng an toàn. |
+| 👤 **Khách hàng** | Đối tượng mua thuốc. (Không bắt buộc tạo tài khoản trong phiên bản MVP). |
+
+---
+
+## 🚨 4. Điểm nhấn: Rule-based Drug Interaction Alert
+
+Một trong những tính năng lõi giúp giảm thiểu sai sót y khoa. Khi nhân viên thêm từ 2 loại thuốc trở lên vào đơn hàng, hệ thống tự động:
+1. Quét dữ liệu chéo trong `drug_interactions`.
+2. Hiển thị mức độ cảnh báo (`LOW`, `MEDIUM`, `HIGH`).
+3. Cung cấp chi tiết mô tả nguy cơ và khuyến nghị xử lý.
+4. Yêu cầu nhập ghi chú tư vấn trước khi thanh toán.
+
+---
+
+## 🏗 5. Kiến trúc hệ thống
+
+Ứng dụng áp dụng mô hình phân lớp rõ ràng, đảm bảo tính dễ bảo trì và mở rộng:
+
+```mermaid
+graph TD
+    UI[Frontend Web App] -->|REST API| API[Backend API Server]
+    
+    subgraph Backend Services
+        Auth[Auth Service]
+        Med[Medicine Service]
+        Inv[Inventory Service]
+        POS[Sales & Invoice Service]
+        Rule[Rule Engine]
+        Report[Report Service]
+    end
+    
+    API --> Auth
+    API --> Med
+    API --> Inv
+    API --> POS
+    API --> Rule
+    API --> Report
+    
+    Auth & Med & Inv & POS & Rule & Report --> DB[(PostgreSQL)]
 ```
 
 ---
 
-## 6. Công nghệ sử dụng
+## 🛠 6. Công nghệ sử dụng
 
-> Có thể điều chỉnh phần này theo công nghệ thực tế của nhóm.
-
-### Frontend
-
-- ReactJS hoặc Next.js
-- TypeScript
-- Tailwind CSS
-- Axios
-- React Router
-- Chart library cho dashboard/report
-
-### Backend
-
-- Node.js với NestJS hoặc ExpressJS
-- RESTful API
-- JWT Authentication
-- Role-based Authorization
-- Rule Engine xử lý tương tác thuốc
-
-### Database
-
-- PostgreSQL hoặc MySQL
-- Prisma ORM hoặc TypeORM
-- Neo4j cho Knowledge Graph nếu triển khai phần nâng cao
-
-### DevOps / Tools
-
-- GitHub
-- Docker optional
-- Jira / Trello / GitHub Projects
-- Figma
-- PlantUML
-- dbdiagram.io
-- Postman
+| Tầng / Nhiệm vụ | Công nghệ & Công cụ |
+| :--- | :--- |
+| **Frontend** | React / Next.js, TypeScript, Tailwind CSS, Axios, Chart libraries |
+| **Backend** | Node.js, NestJS (hoặc Express), JWT (Auth), REST API |
+| **Database** | PostgreSQL, Prisma ORM (TypeORM) |
+| **Hạ tầng & DevOps** | Git, GitHub, Docker (Optional), npm/yarn |
+| **Công cụ thiết kế** | Figma, PlantUML, dbdiagram.io, Postman |
 
 ---
 
-## 7. Cấu trúc thư mục đề xuất
+## ⚙️ 7. Hướng dẫn cài đặt & Khởi chạy (Quick Start)
 
-```text
-pharmaassist-ai-intelligence/
-│
-├── backend/
-│   ├── src/
-│   │   ├── auth/
-│   │   ├── users/
-│   │   ├── medicines/
-│   │   ├── categories/
-│   │   ├── inventory/
-│   │   ├── stock-imports/
-│   │   ├── customers/
-│   │   ├── sales/
-│   │   ├── payments/
-│   │   ├── invoices/
-│   │   ├── interactions/
-│   │   ├── reports/
-│   │   ├── ai/
-│   │   ├── graph/
-│   │   └── audit-logs/
-│   │
-│   ├── prisma/
-│   │   ├── schema.prisma
-│   │   └── seed.ts
-│   │
-│   ├── .env.example
-│   └── package.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── components/
-│   │   ├── layouts/
-│   │   ├── services/
-│   │   ├── hooks/
-│   │   ├── routes/
-│   │   └── utils/
-│   │
-│   ├── .env.example
-│   └── package.json
-│
-├── docs/
-│   ├── requirement/
-│   ├── uml/
-│   ├── database/
-│   ├── api/
-│   ├── testing/
-│   └── demo/
-│
-├── docker-compose.yml
-└── README.md
-```
+Dự án sử dụng kiến trúc monorepo phân tách rõ ràng Backend và Frontend. Không yêu cầu Docker để chạy môi trường phát triển cục bộ (local development).
 
----
+### 📋 Yêu cầu môi trường
+- **Node.js**: v20.0+ (Khuyến nghị dùng phiên bản LTS mới nhất)
+- **npm**: v10.0+
+- **Database**: PostgreSQL (Có thể dùng Supabase hoặc PostgreSQL cục bộ)
 
-## 8. Cài đặt và chạy dự án (Nhanh chóng với `run.js`)
+### 🚀 Các bước cài đặt
 
-Để đơn giản hóa tối đa việc cài đặt và khởi chạy dự án, hệ thống cung cấp công cụ `run.js` đa nền tảng (macOS, Linux, Windows). Công cụ này sẽ tự động hóa toàn bộ các thao tác từ việc cài đặt dependencies, thiết lập cơ sở dữ liệu đến khởi chạy song song Frontend và Backend.
-
-### 8.1. Yêu cầu môi trường
-
-- **Node.js**: Phiên bản 18 trở lên.
-- **Database**: Có kết nối đến Supabase PostgreSQL (hoặc DB nội bộ) được khai báo sẵn trong `.env`.
-- **Git**: Dùng để quản lý mã nguồn.
-
----
-
-### 8.2. Clone repository & Thiết lập biến môi trường
-
+**1. Clone dự án**
 ```bash
-# Tải mã nguồn về máy
-git clone https://github.com/your-team/pharmaassist-ai-intelligence.git
-cd pharmaassist-ai-intelligence
-
-# Lưu ý: Hãy đảm bảo bạn đã tạo và cấu hình các file .env cho backend và frontend dựa trên .env.example
+git clone https://github.com/TwotNguyenVN/PharmaAssist.git
+cd PharmaAssist
 ```
 
----
-
-### 8.3. Cài đặt và chạy nhanh (Quick Start)
-
-Bạn chỉ cần thực thi tệp tin `run.js` ở thư mục gốc của dự án:
-
-**Cách 1: Chạy Menu Tương Tác (Khuyên dùng)**
-
-```bash
-node run.js
-```
-Hệ thống sẽ hiển thị một Menu trực quan, bạn chỉ cần chọn các tùy chọn (ví dụ: `1. Cài đặt (Setup)`, `2. Khởi chạy (Start)`).
-
-**Cách 2: Chạy trực tiếp qua dòng lệnh (CLI)**
-
-- **Thiết lập ban đầu (Setup):** Tự động cài đặt npm packages cho Frontend, Backend và cấu hình Prisma.
-  ```bash
-  node run.js setup
-  ```
-- **Khởi chạy ứng dụng (Start):** Chạy đồng thời cả Frontend và Backend trên cùng một cửa sổ terminal.
-  ```bash
-  node run.js start
-  ```
-- **Dọn dẹp hệ thống (Clean):** Xóa các thư mục build, cache và logs.
-  ```bash
-  node run.js clean
-  ```
-- **Dọn dẹp triệt để (Clean All):** Xóa toàn bộ `node_modules`, cấu hình lại từ đầu.
-  ```bash
-  node run.js clean-all
-  ```
-
----
-
-### 8.4. Địa chỉ truy cập mặc định
-
-Sau khi khởi chạy thành công bằng `node run.js start`, hệ thống sẽ hoạt động tại:
-
-- **Frontend (Giao diện người dùng):** `http://localhost:3000` (hoặc cổng cấu hình trong Next.js)
-- **Backend (API Server):** `http://localhost:3001` (hoặc cổng cấu hình trong NestJS)
-
-*(Lưu ý: Mọi tiến trình sẽ tự động được thu dọn sạch sẽ khi bạn nhấn `Ctrl + C` để thoát)*
-
----
-
-## 9. Tài khoản demo
-
-| Vai trò             | Email (Đăng nhập)          | Password     |
-| ------------------- | --------------------------- | ------------ |
-| Admin               | admin@pharmaassist.com      | admin123     |
-| Nhân viên nhà thuốc | staff@pharmaassist.com      | staff123     |
-| Nhân viên kho       | warehouse@pharmaassist.com  | warehouse123 |
-| Khách hàng          | user@pharmaassist.com       | user123      |
-
----
-
-## 10. Dữ liệu demo gợi ý
-
-| Mã thuốc | Mục đích demo                                       |
-| -------- | --------------------------------------------------- |
-| MED001   | Thuốc mẫu dùng trong luồng bán hàng                 |
-| MED002   | Thuốc mẫu dùng để tạo cảnh báo tương tác với MED001 |
-| MED003   | Thuốc có tồn kho thấp để demo cảnh báo sắp hết      |
-| MED004   | Thuốc gần hết hạn để demo cảnh báo hạn sử dụng      |
-| MED005   | Thuốc thường, không có cảnh báo đặc biệt            |
-
-Tình huống demo chính:
-
-```text
-1. Đăng nhập bằng tài khoản staff01.
-2. Vào màn hình Sales POS.
-3. Tạo đơn bán thuốc mới.
-4. Thêm MED001 vào đơn hàng.
-5. Thêm MED002 vào đơn hàng.
-6. Hệ thống hiển thị cảnh báo tương tác thuốc mức HIGH.
-7. Nhân viên nhập ghi chú tư vấn.
-8. Tiến hành thanh toán.
-9. Hệ thống tạo hóa đơn.
-10. Kiểm tra tồn kho đã được cập nhật.
-```
-
----
-
-## 11. API chính
-
-| Nhóm         | Endpoint mẫu                           | Mô tả                              |
-| ------------ | -------------------------------------- | ---------------------------------- |
-| Auth         | `POST /auth/login`                     | Đăng nhập                          |
-| Auth         | `GET /auth/me`                         | Lấy thông tin người dùng hiện tại  |
-| Medicine     | `GET /medicines`                       | Danh sách thuốc                    |
-| Medicine     | `POST /medicines`                      | Thêm thuốc                         |
-| Inventory    | `GET /inventories`                     | Xem tồn kho                        |
-| Inventory    | `GET /inventory/low-stock`             | Danh sách thuốc sắp hết            |
-| Inventory    | `GET /inventory/near-expiry`           | Danh sách thuốc gần hết hạn        |
-| Stock Import | `POST /stock-imports`                  | Tạo phiếu nhập thuốc               |
-| Sales        | `POST /orders`                         | Tạo đơn hàng                       |
-| Sales        | `POST /orders/{id}/items`              | Thêm thuốc vào đơn                 |
-| Interaction  | `POST /orders/{id}/check-interactions` | Kiểm tra tương tác thuốc           |
-| Payment      | `POST /orders/{id}/pay`                | Thanh toán đơn hàng                |
-| Invoice      | `GET /orders/{id}/invoice`             | Xem hóa đơn                        |
-| Report       | `GET /reports/revenue`                 | Báo cáo doanh thu                  |
-| Report       | `GET /reports/top-medicines`           | Báo cáo thuốc bán chạy             |
-| AI           | `POST /ai/explain-alert`               | Giải thích cảnh báo bằng AI/MockAI |
-| Graph        | `GET /graph/medicine/{id}`             | Xem graph liên quan đến thuốc      |
-
----
-
-## 12. Business Rules quan trọng
-
-| Mã rule | Nội dung                                                                  |
-| ------- | ------------------------------------------------------------------------- |
-| BR-01   | Người dùng phải đăng nhập trước khi sử dụng hệ thống                      |
-| BR-02   | Người dùng chỉ được truy cập chức năng theo vai trò                       |
-| BR-03   | Mã thuốc không được trùng                                                 |
-| BR-04   | Giá bán phải lớn hơn hoặc bằng 0                                          |
-| BR-05   | Số lượng tồn không được âm                                                |
-| BR-06   | Không cho bán thuốc vượt số lượng tồn                                     |
-| BR-07   | Thuốc dưới ngưỡng tối thiểu phải hiện cảnh báo sắp hết                    |
-| BR-08   | Thuốc gần hết hạn trong X ngày phải hiện cảnh báo                         |
-| BR-09   | Đơn hàng phải có ít nhất một thuốc                                        |
-| BR-10   | Thanh toán thành công mới được trừ tồn kho                                |
-| BR-12   | Hóa đơn chỉ được tạo sau khi thanh toán thành công                        |
-| BR-13   | Khi đơn có từ 2 thuốc trở lên, hệ thống kiểm tra tương tác                |
-| BR-14   | Nếu có tương tác, hệ thống hiển thị tên thuốc, mức độ, mô tả, khuyến nghị |
-| BR-16   | Báo cáo doanh thu chỉ tính đơn đã thanh toán                              |
-
----
-
-## 13. Safety Rules
-
-- Hệ thống không chẩn đoán bệnh.
-- Hệ thống không kê đơn thuốc.
-- Cảnh báo thuốc chỉ mang tính tham khảo.
-- AI không được đưa hướng dẫn điều trị cụ thể.
-- Nội dung AI phải được người dùng kiểm tra trước khi lưu.
-- Không lưu thông tin nhạy cảm không cần thiết.
-- Không commit API key, token, mật khẩu thật.
-- Các tác vụ AI quan trọng nên được ghi log.
-
----
-
-## 14. Kiểm thử
-
-Các nhóm test chính:
-
-- Auth Test
-- Role Permission Test
-- Medicine Test
-- Inventory Test
-- Stock Import Test
-- Sales Test
-- Drug Interaction Test
-- Payment Test
-- Invoice Test
-- Report Test
-- AI Guardrail Test
-- Graph Test
-
-Một số test case bắt buộc:
-
-| Test Case   | Mô tả                          | Kết quả mong đợi              |
-| ----------- | ------------------------------ | ----------------------------- |
-| TC-AUTH-01  | Đăng nhập đúng tài khoản       | Đăng nhập thành công          |
-| TC-AUTH-02  | Staff truy cập User Management | Bị chặn quyền                 |
-| TC-MED-01   | Thêm thuốc hợp lệ              | Thuốc được tạo                |
-| TC-INV-01   | Thuốc dưới ngưỡng tồn          | Hiển thị cảnh báo sắp hết     |
-| TC-SALES-01 | Tạo đơn bán thuốc              | Đơn hàng được tạo             |
-| TC-SALES-02 | Bán vượt tồn                   | Hệ thống báo lỗi              |
-| TC-INT-01   | Thêm MED001 + MED002           | Hiển thị cảnh báo HIGH        |
-| TC-PAY-01   | Thanh toán đơn hàng            | Tạo payment và trừ tồn        |
-| TC-INVC-01  | Xem hóa đơn                    | Hóa đơn hiển thị đúng         |
-| TC-AI-01    | Yêu cầu AI kê đơn              | AI từ chối hoặc nhắc giới hạn |
-| TC-GRAPH-01 | Xem graph MED001               | Hiển thị node/edge liên quan  |
-
----
-
-## 15. Kịch bản demo đề xuất
-
-### Demo MVP
-
-```text
-1. Admin đăng nhập.
-2. Admin xem Dashboard.
-3. Admin xem danh sách thuốc.
-4. Nhân viên kho đăng nhập.
-5. Nhân viên kho xem thuốc sắp hết và thuốc gần hết hạn.
-6. Nhân viên nhà thuốc đăng nhập.
-7. Nhân viên tạo đơn bán thuốc.
-8. Nhân viên thêm MED001 và MED002.
-9. Hệ thống hiển thị cảnh báo tương tác thuốc.
-10. Nhân viên nhập ghi chú tư vấn.
-11. Nhân viên thanh toán.
-12. Hệ thống tạo hóa đơn.
-13. Admin xem báo cáo doanh thu và thuốc bán chạy.
-```
-
-### Demo nâng cao nếu có
-
-```text
-1. Mở AI Copilot.
-2. Chọn cảnh báo tương tác thuốc.
-3. AI/MockAI giải thích cảnh báo bằng ngôn ngữ dễ hiểu.
-4. AI tạo ghi chú tư vấn nháp.
-5. Guardrail chặn yêu cầu chẩn đoán hoặc kê đơn.
-6. Mở Graph Explorer.
-7. Xem quan hệ thuốc - hoạt chất - tương tác.
-8. Xem AI Audit Log.
-```
-
----
-
-## 16. Reset dữ liệu demo
-
-Khi demo nhiều lần làm giảm tồn kho hoặc phát sinh dữ liệu rác, có thể reset dữ liệu:
-
+**2. Thiết lập Backend (NestJS)**
 ```bash
 cd backend
-npm run db:reset
-npm run seed
+npm install
+
+# Tạo file .env và điền thông tin kết nối Database
+cp .env.example .env
+# (Lưu ý: Mở file .env và cập nhật DATABASE_URL)
+
+# Chạy Prisma db push để tạo cấu trúc bảng (hoặc migrate dev)
+npx prisma db push
+
+# Chạy script để reset dữ liệu demo (tùy chọn)
+# Lưu ý: Cần cấu hình ALLOW_DEMO_RESET=true trong .env nếu không phải là localhost
+npm run demo:reset
+
+# Khởi chạy server Backend
+npm run start:dev
+# Backend API sẽ chạy tại http://localhost:3001
 ```
 
-Checklist sau khi reset:
+**3. Thiết lập Frontend (Next.js)**
+Mở một terminal mới và chạy:
+```bash
+cd frontend
+npm install
 
-- Đăng nhập được các tài khoản `admin@pharmaassist.com`, `staff@pharmaassist.com`, `warehouse@pharmaassist.com`.
-- Có dữ liệu thuốc MED001 - MED005.
-- MED001 + MED002 tạo cảnh báo tương tác HIGH.
-- MED003 hiển thị cảnh báo sắp hết hàng.
-- MED004 hiển thị cảnh báo gần hết hạn.
-- Luồng POS → Alert → Payment → Invoice chạy ổn định.
+# Tạo file .env và cấu hình URL API
+cp .env.example .env.local
+# (Mặc định NEXT_PUBLIC_API_URL=http://localhost:3001)
 
----
-
-## 17. Trạng thái dự án
-
-| Hạng mục          | Trạng thái         |
-| ----------------- | ------------------ |
-| Phân tích yêu cầu | Done / In Progress |
-| Thiết kế UML      | Done / In Progress |
-| Thiết kế database | Done / In Progress |
-| Thiết kế API      | Done / In Progress |
-| Thiết kế UI/UX    | Done / In Progress |
-| Backend MVP       | In Progress        |
-| Frontend MVP      | In Progress        |
-| Rule Engine       | In Progress        |
-| AI/Graph          | Optional / Mocked  |
-| Testing           | Planned            |
-| Demo              | Planned            |
+# Khởi chạy ứng dụng Frontend
+npm run dev
+# Frontend web sẽ chạy tại http://localhost:3000
+```
 
 ---
 
-## 18. Tài liệu liên quan
+## 🔑 8. Dữ liệu & Tài khoản Demo
 
-- Project Charter
-- Vision and Scope Document
-- Business Requirement Document
-- Software Requirement Specification
-- Actor, Role and Permission Matrix
-- Business Rule and Safety Rule Document
-- Requirement Traceability Matrix
-- System Architecture Document
-- Module Design Document
-- Database Design Document
-- API Specification
-- UML Diagram Package
-- UI/UX Screen Specification
-- AI Architecture and Guardrail Document
-- Knowledge Graph and Neo4j Design Document
-- Project Management Plan
-- Testing, Demo and Setup Guide
+Để trải nghiệm trọn vẹn luồng nghiệp vụ (POS → Alert → Payment → Invoice), bạn có thể sử dụng các tài khoản và dữ liệu được seed sẵn:
+
+**Tài khoản đăng nhập:**
+| Vai trò | Email đăng nhập | Mật khẩu |
+| :--- | :--- | :--- |
+| Admin | `admin@pharmaassist.com` | `admin123` |
+| Nhân viên bán thuốc | `staff@pharmaassist.com` | `staff123` |
+| Nhân viên kho | `warehouse@pharmaassist.com` | `warehouse123` |
+
+**Thuốc Demo:**
+- **MED001** & **MED002**: Ghép chung vào đơn để kích hoạt **Cảnh báo tương tác HIGH**.
+- **MED003**: Dùng để xem cảnh báo sắp hết hàng.
+- **MED004**: Dùng để xem cảnh báo gần hết hạn.
 
 ---
 
-## 19. Thành viên nhóm
+## 📋 9. Business Rules & An toàn hệ thống
 
-| Thành viên   | Vai trò                                         | Nhiệm vụ chính                                                                                              |
-| ------------ | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Thành viên 1 | Leader / Backend Developer                      | Quản lý tiến độ, phân công task, Auth, User, Sales, Payment, Invoice                                        |
-| Thành viên 2 | Frontend Developer                              | Thiết kế và lập trình UI, Dashboard, Medicine, POS bán thuốc, Invoice, Report                               |
-| Thành viên 3 | Database / Inventory Developer                  | ERD, migration, seed data, Medicine, Category, Inventory, Stock Import, Supplier                            |
-| Thành viên 4 | Rule Engine / AI-Graph / Tester / Documentation | Interaction Alert, Rule Engine, AI Copilot/MockAI, Graph/Mock Graph, test case, báo cáo, slide, demo script |
+Các quy tắc (Rules) quan trọng được hard-coded và kiểm tra nghiêm ngặt:
 
----
+- **BR-05 / BR-06:** Không được phép bán thuốc vượt số lượng tồn kho khả dụng. Số lượng không được âm.
+- **BR-09:** Đơn hàng phải có ít nhất 1 loại thuốc trước khi checkout.
+- **BR-10 / BR-12:** Chỉ trừ tồn kho thực tế và xuất hóa đơn SAU KHI thanh toán thành công.
+- **BR-13:** Bắt buộc quét tương tác thuốc khi đơn có ≥ 2 sản phẩm.
 
-## 20. Ghi chú bảo mật
-
-- Không commit file `.env`.
-- Không commit API key thật.
-- Không commit mật khẩu thật.
-- Không lưu dữ liệu khách hàng nhạy cảm không cần thiết.
-- Không dùng dữ liệu y khoa thật nếu chưa được kiểm chứng.
-- Thanh toán trong dự án chỉ là mô phỏng, không tích hợp cổng thanh toán thật trong MVP.
+**Bảo mật:**
+- Không hard-code `.env`, credentials hoặc API Keys.
+- Validation mọi input từ phía Client ở tầng Controller (Backend).
+- Không chia sẻ dữ liệu y khoa thật.
 
 ---
+
+## 🔌 10. API nổi bật
+
+Hệ thống tuân chuẩn RESTful, dưới đây là các endpoint tiêu biểu:
+
+| Nghiệp vụ | Method | Endpoint |
+| :--- | :--- | :--- |
+| **Authentication** | `POST` | `/auth/login` |
+| **Inventory** | `GET` | `/inventory/low-stock` |
+| **Sales (POS)** | `POST` | `/orders` |
+| **Interactions** | `POST` | `/orders/{id}/check-interactions` |
+| **Payment** | `POST` | `/orders/{id}/pay` |
+| **Reports** | `GET` | `/reports/revenue` |
+
+*(Chi tiết đầy đủ xem thêm tại tài liệu API Specification / Swagger)*
+
+---
+*Built with ❤️ for Công Nghệ Phần Mềm course.*
+ 
