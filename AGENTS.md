@@ -17,7 +17,8 @@ AI Agent must read before coding:
 ## Hard Rules
 
 - Project key is PAC.
-- Do not code directly on main.
+- Do NOT create any new branches for the planned tasks, user stories, or epics. You MUST use the exact existing branches listed in `Jira/branch-on-jira.md` under the "Nhánh Git tương ứng" column. However, you MAY create new branches for urgent bug fixes (hotfixes) or other features outside the planned scope.
+- Do not code directly on `main` or `develop`. All implementation work must be performed on the exact Task/Bug branch and integrated through a Pull Request.
 - Do not replace Supabase Auth with custom JWT.
 - Do not store password_hash in PostgreSQL.
 - Do not implement all 100 tables as required Sprint 1 scope.
@@ -27,27 +28,61 @@ AI Agent must read before coding:
 - Do not delete existing working modules without evidence and explanation.
 ## PR and Merge Rule
 
-Default merge flow:
+Official merge flow:
 
-Task branch -> User Story branch -> develop
+```text
+Task/Bug branch
+→ code
+→ targeted tests
+→ Supabase verification when persistent data is affected
+→ commit and push
+→ Pull Request into develop
+→ verify CI, diff, scope and conflicts
+→ AI Agent merges into develop only when every merge gate passes
+→ update technical progress/evidence
+→ continue with the next Task
+```
 
-Do not merge task branches directly into develop unless the task is independent and approved.
+Release flow:
 
-Each task branch must contain the real Jira issue key.
+```text
+develop
+→ Story Acceptance Review on develop
+→ Epic Integration/Regression Review on develop
+→ Sprint Final Review
+→ Project Owner reviews and merges develop into main
+```
 
-Each User Story branch must also contain the real Jira issue key of the User Story.
+Rules:
 
-Example:
+- Every planned Task must use the exact existing Task branch listed in `Jira/branch-on-jira.md`.
+- Bug work must use a real Bug Jira key before creating or using a `bugfix/<BUG-JIRA-KEY>-bug-<slug>` branch.
+- Every Task/Bug branch and commit must contain the real Jira issue key.
+- Task/Bug Pull Requests target `develop`.
+- The AI Agent may merge a Task/Bug Pull Request into `develop` only after required tests, CI checks, diff review, scope review, conflict checks and Supabase verification when applicable have passed.
+- Never push directly to `develop` or `main`.
+- Never force-push to `develop` or `main`.
+- Keep Task, Story and Epic branches after merge when they are required as project evidence.
+- Existing User Story and Epic branches are retained for traceability only. They do not require implementation commits, Pull Requests or merges.
+- A User Story is completed through Acceptance Review on the latest `develop`.
+- An Epic is completed through Integration/Regression Review on the latest `develop`.
+- Do not create Story Pull Requests or Epic Pull Requests.
+- Do not merge `develop` into `main`. Only the Project Owner performs the final release merge after Sprint Final Review passes.
 
-Task branch:
-feature/PAC-251-TASK-041-admin-create-staff-form
+## Jira Management Rule
 
-User Story branch:
-feature/PAC-49-US-10-admin-create-staff-account
+Jira is managed manually by the Project Owner.
 
-PR flow:
-1. Create PR from task branch into User Story branch.
-2. Merge task PR after tests pass.
-3. After all task branches are merged, test the User Story branch.
-4. Create PR from User Story branch into develop.
-5. Merge into develop only after the User Story branch passes tests.
+The AI Agent must not:
+
+- change Jira issue status;
+- add Jira workflow comments;
+- create or link Jira Bugs;
+- treat Jira MCP write access as an implementation requirement.
+
+The AI Agent must:
+
+- preserve the correct Jira key in branches, commits, Pull Requests and evidence;
+- report the recommended Jira status;
+- record Bug candidates with reproduction evidence;
+- provide a concise manual Jira update queue for the Project Owner.
