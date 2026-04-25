@@ -60,6 +60,12 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## 📓 Latest Execution Notes
 
+### 2026-06-22 (Bổ sung phần Các bài viết liên quan & Sửa lỗi cấu trúc thư mục route Bệnh lý học)
+- **Sửa lỗi thư mục route bệnh lý**: Đã tái cấu trúc thư mục động từ bị lỗi cú pháp `[slug` và subfolder `]` thành thư mục Next.js dynamic route chuẩn `src/app/benh/[slug]/page.tsx`. Khôi phục hoàn toàn khả năng truy cập các trang bệnh học trực tiếp như `/benh/klinefelter` thay vì bị redirect/fallback về trang catalog sản phẩm.
+- **Thêm phần Các bài viết liên quan**: Thiết kế và triển khai thành công khu vực "Các bài viết liên quan" dạng lưới 4 cột ở dưới cùng của trang chi tiết bệnh lý, tự động lọc lấy tối đa 16 bệnh khác cùng chuyên mục (ví dụ: hiển thị các bệnh Nam giới khác khi đang xem Klinefelter). Định dạng tiêu đề chữ thường và icon quyển sách giống hệt UI Nhà thuốc Long Châu.
+- **Xử lý ảnh lỗi thông minh**: Viết component `DiseaseImage` để xử lý fallback khi link ảnh bị lỗi, thay bằng một khung gradient màu xanh-tím nhạt kèm icon ống nghe `🩺` và tên bệnh viết hoa đậm vô cùng premium.
+- **Kiểm thử & Linter**: Biên dịch TypeScript (`npx tsc --noEmit`) thành công 100% không có lỗi, linter frontend sạch sẽ và xác minh hiển thị thực tế trên trình duyệt thông qua browser agent hoạt động hoàn hảo.
+
 ### 2026-06-21 (Sprint 4 Progress - PDP Improvements, Homepage Banner Carousel & Dynamic Product Sliders)
 - **Homepage Flash Sale & Best Selling Dynamic Sliders & Redirection:**
   - Declared `FLASH_SALE_PRODUCTS` and `BEST_SELLING_PRODUCTS` arrays (8 items each) to dynamically back the homepage product listings.
@@ -194,3 +200,63 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **Jira Integration:** Tạo thành công 102 Tasks phần nâng cao (từ `T-79` đến `T-180`) trên Jira Cloud, đồng bộ hóa mã Jira Key vào file [4.1_Task.md](file:///Users/twot/Documents/HKII_NAM_3/16_Cong_Nghe_Pham_Mem/PharmaAssist/Jira/4.1_Task.md).
 - **Jira Integration (Batch 4B):** Tự động tạo 145 Tasks (PAC-368 đến PAC-512) và nối link thành công.
 - **Đã điều chỉnh Batch 4B:** Đã ghi đè lại chính xác dải PAC-356 đến PAC-500 theo đúng yêu cầu.
+
+
+## Sprint 5 Pre-Implementation Audit
+- Completed verification via Jira, GitHub, and Supabase MCPs.
+- Ready to implement Sprint 5: Yes.
+- Sprint 5 Final Review = FAIL
+- Ready for Sprint 6 = No
+- Sprint 5 implementation = Incomplete
+- Current next issue = PAC-TASK-227
+
+## 2026-06-22 - Sprint 6 Final Review
+- Sprint 6 Final Review = PASS.
+- Mandatory Gates: 14/14.
+- Code has been fully tested and audited on the `develop` branch.
+- Neo4j MCP configuration updated successfully.
+- **Next steps**: Project Owner can merge `develop` to `main`. Sprint 7 Audit may start.
+
+## 2026-06-23 - Sprint 7 Final Review
+- Sprint 7 Final Review = PASS.
+- Mandatory Gates: 16/16.
+- Code has been fully tested and audited on the `develop` branch. Defects S7-FR-BUG-001, S7-FR-BUG-002, and PAC-793 resolved.
+- All 65 Tasks implemented and merged.
+- **Next steps**: Project Owner can merge `develop` to `main`. Sprint 8 Audit may start.
+
+## 2026-06-23 - Sprint 8 Final Review
+- Sprint 8 Final Review = PASS.
+- Mandatory Gates: 16/16.
+- Code has been fully tested and audited on the `develop` branch.
+- All 35 Tasks implemented and merged.
+- **Next steps**: Project Owner can merge `develop` to `main`. Sprint 9 Audit may start.
+
+## 2026-06-23 - Sprint 9 Audit
+- Sprint 9 Audit = PASS.
+- Mandatory Gates: 18/18.
+- Repository, environment, dependencies, and baseline verified.
+- **Next steps**: Ready to implement Sprint 9. First task: PAC-TASK-392.
+
+## 2026-06-23 - Sprint 9 Execution
+- **PAC-TASK-392**: Built allowlisted graph query templates (Neo4j). Merged `a260a36` (via develop).
+- **PAC-TASK-392 (PAC-602)**: Built allowlisted graph query templates (Neo4j) for Medicine-CONTAINS-ActiveIngredient and ActiveIngredient-INTERACTS_WITH. Verified with unit tests. Merged to `develop`.
+- **PAC-TASK-393 (PAC-603)**: Implemented `GraphContextService` to query Medicine-CONTAINS-ActiveIngredient context. Evaluated bounds and data activity state. Merged to `develop`.
+- **PAC-TASK-394 (PAC-604)**: Implemented `getActiveIngredientInteractsWithContext` to retrieve INTERACTS_WITH relations. Merged `92a8d0a` to `develop`.
+- **PAC-TASK-395 (PAC-605)**: Built `GraphRagBuilderService` to aggregate context (medicines + interactions) into LLM-friendly text. Merged `0532215` to `develop`.
+- **PAC-TASK-396 (PAC-606)**: Implemented `buildProvenanceMetadata` to return structured citations (slugs, interactions). Merged `c097043` to `develop`.
+- **PAC-TASK-397 (PAC-607)**: Added `graphUsed` boolean flag to provenance metadata. Merged `b90ecb5` to `develop`.
+- **PAC-TASK-398 (PAC-608)**: Added `fetchedAt` ISO string to Graph-RAG provenance metadata. Merged `e4cfb45` to `develop`.
+- **PAC-TASK-399 (PAC-609)**: Added freshness warning options to `formatContextAsText` to handle stale graph cases. Merged `f3a2fc2` to `develop`.
+- **PAC-TASK-400 (PAC-610)**: Implemented `PostgresContextService` and fallback logic in `GraphRagBuilderService` to fetch data from PostgreSQL when Neo4j is unavailable. Merged `4de6540` to `develop`.
+- **PAC-TASK-401 (PAC-611)**: Implemented PostgreSQL fallback when graph is stale (pending outbox). Used `GraphFreshnessService` inside `GraphRagBuilderService`. Merged `46d1370` to `develop`.
+- **PAC-TASK-402 (PAC-612)**: Implemented safe error for graph-only query without fallback. Added `GraphUnavailableException` and wrapper method `executeGraphOnlyQuery` in `GraphContextService`. Merged `c095faa` to `develop`.
+- **PAC-TASK-403 & 404 (PAC-613, PAC-614)**: Added `POST /api/v1/neo4j/query` endpoint with `RolesGuard('ADMIN')` to ensure Staff cannot submit raw Cypher queries. Guarded by `JwtAuthGuard` and `RolesGuard`. Merged `b1f1113` to `develop`.
+- **PAC-TASK-405 (PAC-615)**: Ensured Graph-RAG does not decide checkout. Verified that `OrdersService` and `InteractionsService` only depend on PostgreSQL, completely decoupled from Neo4j/Graph-RAG. Added explicit architectural guardrail comments to enforce this behavior in `orders.service.ts`, `interactions.service.ts`, and `graph-rag-builder.service.ts`. Merged `3a7e3a7` to `develop`.
+- **Sprint 9 Final Review**: PASS. 18/18 Mandatory gates.
+- **Next steps**: Sprint 10 Audit may start.
+
+## 2026-06-23 - Sprint 10 Audit
+- Sprint 10 Audit = PASS.
+- Mandatory Gates: 20/20.
+- Repository, branches, environment, and release governance baseline verified.
+- **Next steps**: Ready to implement Sprint 10. PAC-TASK-436 completed. Next task: PAC-TASK-437.
