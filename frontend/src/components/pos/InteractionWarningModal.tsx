@@ -1,27 +1,151 @@
 "use client";
 
 import React from 'react';
-import { AlertTriangle, X, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, X, ShieldAlert, Sparkles, Loader2, AlertCircle } from 'lucide-react';
+import api from '@/lib/api';
+import { useAuth } from '@/context/auth-context';
+import { AiDisclaimer } from '../common/AiDisclaimer';
 
 export interface InteractionData {
   id: number;
-  severity: string;
+  severity: 'LOW' | 'MEDIUM' | 'HIGH';
   medicineA: { id: number; name: string };
   medicineB: { id: number; name: string };
   description: string;
   recommendation: string;
+  acknowledged?: boolean;
+  consultationNote?: string;
 }
 
 interface Props {
   interactions: InteractionData[];
   onClose: () => void;
-  onAcknowledge: () => void;
+  onAcknowledge: (alertData: { interactionId: number; note: string; }[]) => void;
   onRemoveItem: (id: string) => void;
   cartItems: any[]; // To find cart id from medicine id
 }
 
 export function InteractionWarningModal({ interactions, onClose, onAcknowledge, onRemoveItem, cartItems }: Props) {
+  const { hasPermission } = useAuth();
+  const [notes, setNotes] = React.useState<Record<number, string>>({});
+  const [acks, setAcks] = React.useState<Record<number, boolean>>({});
+  const [aiStates, setAiStates] = React.useState<Record<number, { 
+    loading?: boolean; 
+    explanation?: string; 
+    disclaimer?: string; 
+    error?: string;
+    draftLoading?: boolean;
+    draftNote?: string;
+    draftDisclaimer?: string;
+    draftError?: string;
+    followUpContext?: string;
+    followUpLoading?: boolean;
+    followUpQuestions?: string[];
+    followUpDisclaimer?: string;
+    followUpError?: string;
+    metadata?: {
+      providerRequested?: string;
+      providerUsed?: string;
+      fallbackReason?: string;
+      graphUsed?: boolean;
+      graphFresh?: boolean;
+    };
+  }>>({});
+
+  const fetchAiExplanation = async (interaction: InteractionData) => {
+    setAiStates(prev => ({ ...prev, [interaction.id]: { loading: true, error: undefined } }));
+    try {
+      const response = await api.post('/ai/interaction-explanation', {
+        alertContext: interaction.severity,
+        medicines: [interaction.medicineA.name, interaction.medicineB.name],
+        medicineIds: [interaction.medicineA.id, interaction.medicineB.id],
+        activeIngredients: [], // Assuming we don't have this right in the modal, empty is ok for AI prompt if it's optional
+        ruleDescription: interaction.description,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          loading: false,
+          explanation: response.data.data.explanation,
+          disclaimer: response.data.data.disclaimer,
+          metadata: response.data.metadata,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          loading: false,
+          error: err.response?.data?.message || 'Không thể tải AI explanation',
+        }
+      }));
+    }
+  };
+
+  const fetchAiDraft = async (interaction: InteractionData) => {
+    setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], draftLoading: true, draftError: undefined } }));
+    try {
+      const orderContext = cartItems.map(i => `${i.quantity} x ${i.name}`).join(', ');
+      const response = await api.post('/ai/consultation-note-draft', {
+        alertContext: `Tương tác mức độ ${interaction.severity} giữa ${interaction.medicineA.name} và ${interaction.medicineB.name}. Hậu quả: ${interaction.description}. Khuyến nghị: ${interaction.recommendation}.`,
+        orderContext,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          draftLoading: false,
+          draftNote: response.data.data.draftNote,
+          draftDisclaimer: response.data.data.disclaimer,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          draftLoading: false,
+          draftError: err.response?.data?.message || 'Không thể tạo bản nháp AI',
+        }
+      }));
+    }
+  };
+
+  const fetchFollowUpQuestions = async (interaction: InteractionData) => {
+    const currentContext = aiStates[interaction.id]?.followUpContext;
+    if (!currentContext?.trim()) return;
+
+    setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], followUpLoading: true, followUpError: undefined } }));
+    try {
+      const response = await api.post('/ai/follow-up-questions', {
+        shortContext: currentContext,
+      });
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          followUpLoading: false,
+          followUpQuestions: response.data.data.questions,
+          followUpDisclaimer: response.data.data.disclaimer,
+        }
+      }));
+    } catch (err: any) {
+      setAiStates(prev => ({
+        ...prev,
+        [interaction.id]: {
+          ...prev[interaction.id],
+          followUpLoading: false,
+          followUpError: err.response?.data?.message || 'Không thể tạo câu hỏi follow-up',
+        }
+      }));
+    }
+  };
+
   if (interactions.length === 0) return null;
+
+  const highInteractions = interactions.filter(i => i.severity === 'HIGH');
+  const allHighAcknowledged = highInteractions.every(i => acks[i.id] && notes[i.id]?.trim().length > 0);
+
 
   const handleRemoveMedicine = (medicineId: number) => {
     // Find the cart item with this medicineId
@@ -31,7 +155,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
     }
   };
 
-  const hasSevere = interactions.some(i => i.severity === 'SEVERE' || i.severity === 'Nghiêm trọng');
+  const hasSevere = interactions.some(i => i.severity === 'HIGH');
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -57,15 +181,18 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
         <div className="flex-1 overflow-auto p-4 space-y-4 bg-slate-50">
           {interactions.map((interaction, idx) => (
             <div key={idx} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 relative overflow-hidden">
-              <div className={`absolute top-0 left-0 w-1 h-full ${interaction.severity === 'SEVERE' || interaction.severity === 'Nghiêm trọng' ? 'bg-red-500' : 'bg-orange-400'}`}></div>
+              <div className={`absolute top-0 left-0 w-1 h-full ${
+                interaction.severity === 'HIGH' ? 'bg-red-500' : 
+                interaction.severity === 'MEDIUM' ? 'bg-orange-400' : 'bg-yellow-400'
+              }`}></div>
               
               <div className="flex gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase ${
-                      interaction.severity === 'SEVERE' || interaction.severity === 'Nghiêm trọng' 
-                        ? 'bg-red-100 text-red-700' 
-                        : 'bg-orange-100 text-orange-700'
+                      interaction.severity === 'HIGH' ? 'bg-red-100 text-red-700' :
+                      interaction.severity === 'MEDIUM' ? 'bg-orange-100 text-orange-700' :
+                      'bg-yellow-100 text-yellow-800'
                     }`}>
                       {interaction.severity}
                     </span>
@@ -78,9 +205,74 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                     <strong>Hậu quả: </strong>{interaction.description}
                   </div>
                   
-                  <div className="text-sm text-slate-600 bg-blue-50 p-2 rounded-lg border border-blue-100">
+                  <div className="text-sm text-slate-600 bg-blue-50 p-2 rounded-lg border border-blue-100 mb-3">
                     <strong>Khuyến nghị: </strong>{interaction.recommendation}
                   </div>
+
+                  {/* AI Explanation Block */}
+                  {hasPermission('USE_AI_COPILOT') && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                          <Sparkles size={16} />
+                          AI Copilot Giải Thích
+                        </div>
+                        {!aiStates[interaction.id]?.explanation && !aiStates[interaction.id]?.loading && (
+                          <button
+                            onClick={() => fetchAiExplanation(interaction)}
+                            className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
+                          >
+                            Hỏi AI
+                          </button>
+                        )}
+                      </div>
+
+                      {aiStates[interaction.id]?.loading && (
+                        <div className="flex items-center gap-2 text-sm text-slate-500 mt-2">
+                          <Loader2 size={14} className="animate-spin" /> Đang phân tích...
+                        </div>
+                      )}
+
+                      {aiStates[interaction.id]?.error && (
+                        <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 mt-2 rounded">
+                          <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                          <span>{aiStates[interaction.id]?.error}</span>
+                          <button onClick={() => fetchAiExplanation(interaction)} className="underline ml-auto font-medium">Thử lại</button>
+                        </div>
+                      )}
+
+                      {aiStates[interaction.id]?.explanation && (
+                        <div className="mt-3 text-sm text-slate-700">
+                          {aiStates[interaction.id]?.metadata && (
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {aiStates[interaction.id]?.metadata?.graphUsed && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                                  <Sparkles size={12} /> Dữ liệu Đồ thị (Neo4j)
+                                </span>
+                              )}
+                              {!aiStates[interaction.id]?.metadata?.graphUsed && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                  PostgreSQL Fallback
+                                </span>
+                              )}
+                              {aiStates[interaction.id]?.metadata?.graphUsed && !aiStates[interaction.id]?.metadata?.graphFresh && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
+                                  <AlertTriangle size={12} /> Cảnh báo: Dữ liệu chưa đồng bộ
+                                </span>
+                              )}
+                              {aiStates[interaction.id]?.metadata?.fallbackReason && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                  Lý do: {aiStates[interaction.id]?.metadata?.fallbackReason}
+                                </span>
+                              )}
+                            </div>
+                          )}
+                          <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
+                          <AiDisclaimer className="mt-2" />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="flex flex-col gap-2 justify-center shrink-0 border-l border-slate-100 pl-4">
@@ -98,6 +290,136 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
                   </button>
                 </div>
               </div>
+              {interaction.severity === 'HIGH' && (
+                <div className="mt-4 pt-4 border-t border-red-100 bg-red-50/50 -mx-4 -mb-4 p-4 rounded-b-xl flex flex-col gap-3">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      className="mt-1 w-5 h-5 text-red-600 rounded border-red-300 focus:ring-red-500"
+                      checked={!!acks[interaction.id]}
+                      onChange={(e) => setAcks(prev => ({ ...prev, [interaction.id]: e.target.checked }))}
+                    />
+                    <span className="text-sm text-red-900 font-medium">
+                      Tôi xác nhận đã thông báo cho khách hàng về rủi ro này và chịu trách nhiệm chuyên môn.
+                    </span>
+                  </label>
+                  {acks[interaction.id] && (
+                    <div className="pl-8 space-y-3">
+                      {hasPermission('USE_AI_COPILOT') && (
+                        <div className="bg-white border border-indigo-100 rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2 text-indigo-700 font-semibold text-sm">
+                              <Sparkles size={16} />
+                              AI Draft
+                            </div>
+                            {!aiStates[interaction.id]?.draftNote && !aiStates[interaction.id]?.draftLoading && (
+                              <button
+                                onClick={() => fetchAiDraft(interaction)}
+                                className="px-3 py-1 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors"
+                              >
+                                Tạo nháp
+                              </button>
+                            )}
+                          </div>
+                          
+                          {aiStates[interaction.id]?.draftLoading && (
+                            <div className="flex items-center gap-2 text-sm text-slate-500">
+                              <Loader2 size={14} className="animate-spin" /> Đang soạn thảo...
+                            </div>
+                          )}
+
+                          {aiStates[interaction.id]?.draftError && (
+                            <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 rounded">
+                              <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                              <span>{aiStates[interaction.id]?.draftError}</span>
+                              <button onClick={() => fetchAiDraft(interaction)} className="underline ml-auto font-medium">Thử lại</button>
+                            </div>
+                          )}
+
+                          {aiStates[interaction.id]?.draftNote && (
+                            <div className="space-y-2">
+                              <div className="p-3 bg-slate-50 border border-slate-200 rounded text-sm text-slate-700 whitespace-pre-wrap">
+                                {aiStates[interaction.id]?.draftNote}
+                              </div>
+                              <AiDisclaimer className="mt-2" />
+                              <button
+                                onClick={() => setNotes(prev => ({ ...prev, [interaction.id]: aiStates[interaction.id]!.draftNote! }))}
+                                className="mt-2 px-3 py-1.5 text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors flex items-center gap-1"
+                              >
+                                Sử dụng nội dung này
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className="relative">
+                        <textarea
+                          className="w-full text-sm rounded-lg border-red-200 focus:border-red-500 focus:ring-red-500 p-3 bg-white"
+                          rows={4}
+                          placeholder="Nhập ghi chú tư vấn (Bắt buộc)..."
+                          value={notes[interaction.id] || ''}
+                          onChange={(e) => setNotes(prev => ({ ...prev, [interaction.id]: e.target.value }))}
+                        ></textarea>
+                        {notes[interaction.id]?.trim().length === 0 && (
+                          <div className="absolute top-2 right-2 flex items-center gap-1 text-xs font-medium text-red-500 bg-red-50 px-2 py-1 rounded">
+                            <AlertCircle size={12} /> Bắt buộc
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-xs text-slate-500 flex items-center gap-1">
+                        <AlertTriangle size={12} />
+                        Bạn (Staff) chịu trách nhiệm hoàn toàn về nội dung xác nhận này.
+                      </div>
+                      
+                      {/* Follow-up Questions Section */}
+                      <div className="mt-4 border-t border-slate-100 pt-4">
+                        <div className="text-sm font-semibold text-slate-700 mb-2">Gợi ý câu hỏi khai thác (Follow-up)</div>
+                        <div className="flex gap-2 mb-2">
+                          <input
+                            type="text"
+                            className="flex-1 text-sm rounded-lg border-slate-200 p-2 border focus:outline-none focus:border-indigo-400"
+                            placeholder="Nhập bệnh lý nền, triệu chứng..."
+                            value={aiStates[interaction.id]?.followUpContext || ''}
+                            onChange={(e) => setAiStates(prev => ({ ...prev, [interaction.id]: { ...prev[interaction.id], followUpContext: e.target.value } }))}
+                          />
+                          <button
+                            onClick={() => fetchFollowUpQuestions(interaction)}
+                            disabled={!aiStates[interaction.id]?.followUpContext?.trim() || aiStates[interaction.id]?.followUpLoading}
+                            className="px-3 py-1.5 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-md transition-colors disabled:opacity-50"
+                          >
+                            Hỏi AI
+                          </button>
+                        </div>
+                        
+                        {aiStates[interaction.id]?.followUpLoading && (
+                          <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                            <Loader2 size={14} className="animate-spin" /> Đang tạo...
+                          </div>
+                        )}
+
+                        {aiStates[interaction.id]?.followUpError && (
+                          <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 p-2 rounded mb-2">
+                            <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                            <span>{aiStates[interaction.id]?.followUpError}</span>
+                          </div>
+                        )}
+
+                        {aiStates[interaction.id]?.followUpQuestions && (
+                          <div className="space-y-2 mb-2">
+                            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700 bg-slate-50 p-3 rounded border border-slate-200">
+                              {aiStates[interaction.id]!.followUpQuestions!.map((q, qId) => (
+                                <li key={qId}>{q}</li>
+                              ))}
+                            </ul>
+                            <AiDisclaimer className="mt-2" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
           
@@ -110,25 +432,45 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-white border-t border-slate-200 flex justify-end gap-3 shrink-0">
-          <button 
-            onClick={onClose}
-            className="px-5 py-2 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-colors"
-          >
-            Sửa lại giỏ hàng
-          </button>
-          <button 
-            onClick={onAcknowledge}
-            className={`px-5 py-2 rounded-xl text-white font-bold transition-all flex items-center gap-2 ${
-              hasSevere 
-                ? 'bg-red-600 hover:bg-red-700 shadow-md shadow-red-200' 
-                : 'bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-200'
-            }`}
-          >
-            TÔI XÁC NHẬN BỎ QUA CẢNH BÁO
-          </button>
+        <div className="p-4 bg-white border-t border-slate-200 flex justify-between items-center shrink-0">
+          <div className="text-sm text-slate-500">
+            {highInteractions.length > 0 && !allHighAcknowledged && (
+              <span className="text-red-500 font-medium flex items-center gap-1">
+                <AlertTriangle size={16} />
+                Vui lòng xác nhận và ghi chú cho tất cả cảnh báo HIGH.
+              </span>
+            )}
+          </div>
+          <div className="flex gap-3">
+            <button 
+              onClick={onClose}
+              className="px-5 py-2 rounded-xl text-slate-600 font-medium hover:bg-slate-100 transition-colors"
+            >
+              Sửa lại giỏ hàng
+            </button>
+            <button 
+              onClick={() => {
+                const payload = highInteractions.map(i => ({
+                  interactionId: i.id,
+                  note: notes[i.id] || ''
+                }));
+                onAcknowledge(payload);
+              }}
+              disabled={highInteractions.length > 0 && !allHighAcknowledged}
+              className={`px-5 py-2 rounded-xl text-white font-bold transition-all flex items-center gap-2 ${
+                (highInteractions.length > 0 && !allHighAcknowledged)
+                  ? 'bg-slate-300 cursor-not-allowed shadow-none text-slate-500'
+                  : hasSevere 
+                  ? 'bg-red-600 hover:bg-red-700 shadow-md shadow-red-200' 
+                  : 'bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-200'
+              }`}
+            >
+              TÔI XÁC NHẬN BỎ QUA CẢNH BÁO
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+// PAC-TASK-243: build POS InteractionAlert panel
