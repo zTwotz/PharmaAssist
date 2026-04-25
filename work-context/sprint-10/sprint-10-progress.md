@@ -638,7 +638,7 @@ Release Story review rules:
 | PAC-TASK-521 | PAC-731 | US-150 | Write MVP traceability matrix summary | `feature/PAC-731-task-521-write-mvp-traceability-matrix-summary` | Technically complete | 5b6d7ae | `feature/PAC-7...` | 5b6d7ae | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-522 | PAC-732 | US-150 | Write release/demo readiness checklist | `feature/PAC-732-task-522-write-release-demo-readiness-checklist` | Technically complete | 5598130 | `feature/PAC-7...` | 5598130 | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-523 | PAC-733 | US-150 | Write known limitations and out-of-scope guard section | `feature/PAC-733-task-523-write-known-limitations-and-out-of-scope-guard-sect` | Technically complete | 95ceeca | `feature/PAC-7...` | 95ceeca | PASS | N/A | N/A | N/A | Done |
-| PAC-TASK-524 | PAC-734 | US-150 | Prepare contingency evidence screenshots list | `feature/PAC-734-task-524-prepare-contingency-evidence-screenshots-list` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-524 | PAC-734 | US-150 | Prepare contingency evidence screenshots list | `feature/PAC-734-task-524-prepare-contingency-evidence-screenshots-list` | Technically complete | 46ec0ec | `feature/PAC-7...` | 46ec0ec | PASS | N/A | N/A | N/A | Done |
 | PAC-TASK-525 | PAC-735 | US-150 | Prepare final smoke test report template | `test/PAC-735-task-525-prepare-final-smoke-test-report-template` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 
 Status values:
