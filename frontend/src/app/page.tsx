@@ -875,7 +875,7 @@ const renderSubcatThumbnail = (name: string) => {
   return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" />;
 };
 
-const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: string; price: number; unit: string; imageUrl: string; activeIngredient: string; isAvailable: boolean }> = {
+export const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: string; price: number; unit: string; imageUrl: string; activeIngredient: string; isAvailable: boolean }> = {
   "fohepta-milk": {
     id: "fohepta-milk",
     dbId: 0,
@@ -3624,70 +3624,106 @@ export default function HomePage() {
               
               {/* Card 1: Bệnh Nam Giới */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <img src="/benh_nam_gioi.png" alt="Bệnh Nam Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
-                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nam Giới</h3>
+                <Link href="/benh/nam-gioi" className="block cursor-pointer">
+                  <img src="/benh_nam_gioi.png" alt="Bệnh Nam Giới" className="w-full h-[140px] object-cover rounded-xl mb-4 hover:opacity-95 transition-opacity" />
+                  <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide hover:text-[#024ad8] transition-colors">Bệnh Nam Giới</h3>
+                </Link>
                 <ul className="flex-1 flex flex-col gap-2 mb-4">
-                  {["Loãng xương ở nam", "Di tinh, mộng tinh", "Hẹp bao quy đầu", "Yếu sinh lý"].map((item, i) => (
-                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                      {item}
+                  {[
+                    { name: "Loãng xương ở nam", slug: "loang-xuong-o-nam" },
+                    { name: "Di tinh, mộng tinh", slug: "di-tinh-mong-tinh" },
+                    { name: "Hẹp bao quy đầu", slug: "hep-bao-quy-dau" },
+                    { name: "Yếu sinh lý", slug: "yeu-sinh-ly" }
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <Link href={`/benh/${item.slug}`} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] transition-colors">
+                        <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                        {item.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                <Link href="/benh/nam-gioi" className="text-[#024ad8] font-bold text-xs flex items-center gap-1 hover:underline mt-2">
                   Tìm hiểu thêm <ChevronRight size={14} />
-                </div>
+                </Link>
               </div>
 
               {/* Card 2: Bệnh Nữ Giới */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <img src="/benh_nu_gioi.png" alt="Bệnh Nữ Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
-                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nữ Giới</h3>
+                <Link href="/benh/nu-gioi" className="block cursor-pointer">
+                  <img src="/benh_nu_gioi.png" alt="Bệnh Nữ Giới" className="w-full h-[140px] object-cover rounded-xl mb-4 hover:opacity-95 transition-opacity" />
+                  <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide hover:text-[#024ad8] transition-colors">Bệnh Nữ Giới</h3>
+                </Link>
                 <ul className="flex-1 flex flex-col gap-2 mb-4">
-                  {["Hội chứng tiền kinh nguyệt", "Hội chứng tiền mãn kinh", "Chậm kinh", "Mất kinh"].map((item, i) => (
-                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                      {item}
+                  {[
+                    { name: "Hội chứng tiền kinh nguyệt", slug: "hoi-chung-tien-kinh-nguyet" },
+                    { name: "Hội chứng tiền mãn kinh", slug: "hoi-chung-tien-man-kinh" },
+                    { name: "Chậm kinh", slug: "cham-kinh" },
+                    { name: "Mất kinh", slug: "mat-kinh" }
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <Link href={`/benh/${item.slug}`} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] transition-colors">
+                        <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                        {item.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                <Link href="/benh/nu-gioi" className="text-[#024ad8] font-bold text-xs flex items-center gap-1 hover:underline mt-2">
                   Tìm hiểu thêm <ChevronRight size={14} />
-                </div>
+                </Link>
               </div>
 
               {/* Card 3: Bệnh Người Già */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <img src="/benh_nguoi_gia.png" alt="Bệnh Người Già" className="w-full h-[140px] object-cover rounded-xl mb-4" />
-                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Người Già</h3>
+                <Link href="/benh/nguoi-gia" className="block cursor-pointer">
+                  <img src="/benh_nguoi_gia.png" alt="Bệnh Người Già" className="w-full h-[140px] object-cover rounded-xl mb-4 hover:opacity-95 transition-opacity" />
+                  <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide hover:text-[#024ad8] transition-colors">Bệnh Người Già</h3>
+                </Link>
                 <ul className="flex-1 flex flex-col gap-2 mb-4">
-                  {["Alzheimer", "Parkinson", "Parkinson thứ phát", "Đục thủy tinh thể ở người già"].map((item, i) => (
-                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                      {item}
+                  {[
+                    { name: "Alzheimer", slug: "alzheimer" },
+                    { name: "Parkinson", slug: "parkinson" },
+                    { name: "Parkinson thứ phát", slug: "parkinson-thu-phat" },
+                    { name: "Đục thủy tinh thể ở người già", slug: "duc-thuy-tinh-the-o-nguoi-gia" }
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <Link href={`/benh/${item.slug}`} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] transition-colors">
+                        <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                        {item.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                <Link href="/benh/nguoi-gia" className="text-[#024ad8] font-bold text-xs flex items-center gap-1 hover:underline mt-2">
                   Tìm hiểu thêm <ChevronRight size={14} />
-                </div>
+                </Link>
               </div>
 
               {/* Card 4: Bệnh Trẻ Em */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <img src="/benh_tre_em.png" alt="Bệnh Trẻ Em" className="w-full h-[140px] object-cover rounded-xl mb-4" />
-                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Trẻ Em</h3>
+                <Link href="/benh/tre-em" className="block cursor-pointer">
+                  <img src="/benh_tre_em.png" alt="Bệnh Trẻ Em" className="w-full h-[140px] object-cover rounded-xl mb-4 hover:opacity-95 transition-opacity" />
+                  <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide hover:text-[#024ad8] transition-colors">Bệnh Trẻ Em</h3>
+                </Link>
                 <ul className="flex-1 flex flex-col gap-2 mb-4">
-                  {["Bại não trẻ em", "Tự kỷ", "Uốn ván", "Tắc ruột sơ sinh"].map((item, i) => (
-                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                      {item}
+                  {[
+                    { name: "Bại não trẻ em", slug: "bai-nao-tre-em" },
+                    { name: "Tự kỷ", slug: "tu-ky" },
+                    { name: "Uốn ván", slug: "uon-van" },
+                    { name: "Tắc ruột sơ sinh", slug: "tac-ruot-so-sinh" }
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <Link href={`/benh/${item.slug}`} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] transition-colors">
+                        <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                        {item.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                <Link href="/benh/tre-em" className="text-[#024ad8] font-bold text-xs flex items-center gap-1 hover:underline mt-2">
                   Tìm hiểu thêm <ChevronRight size={14} />
-                </div>
+                </Link>
               </div>
 
             </div>
