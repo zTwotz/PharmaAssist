@@ -1,3 +1,5 @@
+import * as ws from 'ws';
+(global as any).WebSocket = ws;
 import * as dotenv from 'dotenv';
 
 // Load environment variables from .env file if available
