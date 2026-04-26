@@ -16,7 +16,7 @@ describe('SettingsController', () => {
     value: '90',
     valueType: 'integer',
     label: 'Near Expiry Warning Threshold (days)',
-    updatedAt: new Date()
+    updatedAt: new Date(),
   };
 
   beforeEach(async () => {
@@ -28,10 +28,12 @@ describe('SettingsController', () => {
           useValue: {
             getAllSettings: jest.fn().mockResolvedValue([mockSetting]),
             getSetting: jest.fn().mockResolvedValue(mockSetting),
-            updateSetting: jest.fn().mockResolvedValue({ ...mockSetting, value: '120' })
-          }
+            updateSetting: jest
+              .fn()
+              .mockResolvedValue({ ...mockSetting, value: '120' }),
+          },
         },
-        Reflector
+        Reflector,
       ],
     })
       .overrideGuard(JwtAuthGuard)
@@ -65,9 +67,15 @@ describe('SettingsController', () => {
 
   describe('updateSetting', () => {
     it('should update a setting value', async () => {
-      const result = await controller.updateSetting('near_expiry_threshold_days', { value: '120' });
+      const result = await controller.updateSetting(
+        'near_expiry_threshold_days',
+        { value: '120' },
+      );
       expect(result.value).toBe('120');
-      expect(settingsService.updateSetting).toHaveBeenCalledWith('near_expiry_threshold_days', '120');
+      expect(settingsService.updateSetting).toHaveBeenCalledWith(
+        'near_expiry_threshold_days',
+        '120',
+      );
     });
   });
 });

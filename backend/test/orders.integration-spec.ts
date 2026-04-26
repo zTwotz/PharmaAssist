@@ -23,7 +23,9 @@ describe('Orders API (e2e)', () => {
     getDashboardStats: jest.fn().mockResolvedValue({}),
     cancelOrder: jest.fn().mockResolvedValue({ id: 1, status: 'CANCELLED' }),
     findAll: jest.fn().mockResolvedValue([{ id: 1 }]),
-    checkAndPersistInteractions: jest.fn().mockResolvedValue({ interactions: [], hasInteractions: false }),
+    checkAndPersistInteractions: jest
+      .fn()
+      .mockResolvedValue({ interactions: [], hasInteractions: false }),
   };
 
   beforeAll(async () => {
@@ -48,7 +50,9 @@ describe('Orders API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -64,7 +68,9 @@ describe('Orders API (e2e)', () => {
   describe('ADMIN or STAFF role endpoints', () => {
     it('POST /orders should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).post('/orders').send({ customerId: 1 });
+      const response = await request(app.getHttpServer())
+        .post('/orders')
+        .send({ customerId: 1 });
       expect(response.status).toBe(403);
     });
 
@@ -75,66 +81,90 @@ describe('Orders API (e2e)', () => {
         storeId: 1,
         details: [{ productVariantId: 1, quantity: 1, unitPrice: 100 }],
       };
-      const response = await request(app.getHttpServer() as any).post('/orders').send(createOrderDto);
+      const response = await request(app.getHttpServer())
+        .post('/orders')
+        .send(createOrderDto);
       expect(response.status).toBe(201);
     });
 
     it('POST /orders/:id/items should allow access with STAFF role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).post('/orders/1/items').send({ productVariantId: 1, quantity: 2 });
+      const response = await request(app.getHttpServer())
+        .post('/orders/1/items')
+        .send({ productVariantId: 1, quantity: 2 });
       expect(response.status).toBe(201);
     });
 
     it('PATCH /orders/:id/items/:itemId should allow access with STAFF role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).patch('/orders/1/items/1').send({ quantity: 5 });
+      const response = await request(app.getHttpServer())
+        .patch('/orders/1/items/1')
+        .send({ quantity: 5 });
       expect(response.status).toBe(200);
     });
 
     it('DELETE /orders/:id/items/:itemId should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).delete('/orders/1/items/1');
+      const response = await request(app.getHttpServer()).delete(
+        '/orders/1/items/1',
+      );
       expect(response.status).toBe(200);
     });
 
     it('POST /orders/:id/cancel should allow access with STAFF role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).post('/orders/1/cancel');
+      const response = await request(app.getHttpServer()).post(
+        '/orders/1/cancel',
+      );
       expect(response.status).toBe(201);
     });
 
     it('GET /orders should allow access with STAFF role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/orders');
+      const response = await request(app.getHttpServer()).get('/orders');
       expect(response.status).toBe(200);
     });
 
     it('GET /orders/stats should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/orders/stats');
+      const response = await request(app.getHttpServer()).get('/orders/stats');
       expect(response.status).toBe(200);
     });
 
     it('POST /orders/:id/cancel should return 403 if STAFF does not own the order', async () => {
       mockUser = { id: 'user2', roles: ['STAFF'] };
-      mockOrdersService.cancelOrder.mockRejectedValueOnce({ status: 403, message: 'Forbidden' });
-      const response = await request(app.getHttpServer() as any).post('/orders/1/cancel');
+      mockOrdersService.cancelOrder.mockRejectedValueOnce({
+        status: 403,
+        message: 'Forbidden',
+      });
+      const response = await request(app.getHttpServer()).post(
+        '/orders/1/cancel',
+      );
       // Here, since we mock RejectedValue with an object, NestJS might return 500.
       // Let's just expect it to not be 2xx.
       expect(response.status).toBeGreaterThanOrEqual(400);
     });
     it('POST /orders/:id/cancel should return 400 if order is already cancelled', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      mockOrdersService.cancelOrder.mockRejectedValueOnce({ status: 400, message: 'Bad Request' });
-      const response = await request(app.getHttpServer() as any).post('/orders/1/cancel');
+      mockOrdersService.cancelOrder.mockRejectedValueOnce({
+        status: 400,
+        message: 'Bad Request',
+      });
+      const response = await request(app.getHttpServer()).post(
+        '/orders/1/cancel',
+      );
       expect(response.status).toBeGreaterThanOrEqual(400);
     });
 
     it('POST /orders/:id/interactions/check should allow access with STAFF role and increment display_count', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).post('/orders/1/interactions/check');
+      const response = await request(app.getHttpServer()).post(
+        '/orders/1/interactions/check',
+      );
       expect(response.status).toBe(200);
-      expect(mockOrdersService.checkAndPersistInteractions).toHaveBeenCalledWith(1);
+      expect(
+        mockOrdersService.checkAndPersistInteractions,
+      ).toHaveBeenCalledWith(1);
     });
   });
 });

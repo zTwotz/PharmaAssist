@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CheckoutService } from './checkout.service';
 import { PrismaService } from '../prisma/prisma.service';
+import * as crypto from 'crypto';
 
 describe('CheckoutService', () => {
   let service: CheckoutService;
@@ -62,7 +63,8 @@ describe('CheckoutService', () => {
         userId: 'u1',
         operation: 'CHECKOUT',
         idempotencyKey: 'key',
-        requestHash: 'c7c88034dbf2cbfb243de32ba34dc6fdf24d3dbec6e680cc42dcc830eb3bc669', // valid hash for this dto
+        requestHash:
+          'c7c88034dbf2cbfb243de32ba34dc6fdf24d3dbec6e680cc42dcc830eb3bc669', // valid hash for this dto
         status: 'PROCESSING',
         responseSummary: null,
         createdAt: new Date(),
@@ -70,9 +72,14 @@ describe('CheckoutService', () => {
 
       // We need the actual hash, let's just let it be valid or bypass hash check by not mocking it strictly
       // But actually requestHash matters. So let's mock it correctly.
-      const requestHash = require('crypto')
+      const requestHash = crypto
         .createHash('sha256')
-        .update(JSON.stringify({ orderId: 1, payment: { method: 'CASH', amountTendered: 100 } }))
+        .update(
+          JSON.stringify({
+            orderId: 1,
+            payment: { method: 'CASH', amountTendered: 100 },
+          }),
+        )
         .digest('hex');
 
       jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
@@ -95,9 +102,14 @@ describe('CheckoutService', () => {
     });
 
     it('should return cached response if SUCCEEDED', async () => {
-      const requestHash = require('crypto')
+      const requestHash = crypto
         .createHash('sha256')
-        .update(JSON.stringify({ orderId: 1, payment: { method: 'CASH', amountTendered: 100 } }))
+        .update(
+          JSON.stringify({
+            orderId: 1,
+            payment: { method: 'CASH', amountTendered: 100 },
+          }),
+        )
         .digest('hex');
 
       jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
@@ -111,10 +123,14 @@ describe('CheckoutService', () => {
         createdAt: new Date(),
       } as any);
 
-      const result = await service.checkout({ id: 'u1', permissions: [] }, 'key', {
-        orderId: 1,
-        payment: { method: 'CASH', amountTendered: 100 },
-      } as any);
+      const result = await service.checkout(
+        { id: 'u1', permissions: [] },
+        'key',
+        {
+          orderId: 1,
+          payment: { method: 'CASH', amountTendered: 100 },
+        } as any,
+      );
 
       expect(result).toEqual({ cached: true });
     });
@@ -132,9 +148,11 @@ describe('CheckoutService', () => {
         findFirst: jest.fn().mockResolvedValue({ id: 50, productId: 100 }),
       },
       medicineBatch: {
-        findMany: jest.fn().mockResolvedValue([
-          { id: 1001, quantity: 10, expiryDate: new Date('2030-01-01') },
-        ]),
+        findMany: jest
+          .fn()
+          .mockResolvedValue([
+            { id: 1001, quantity: 10, expiryDate: new Date('2030-01-01') },
+          ]),
       },
     };
 
@@ -189,7 +207,14 @@ describe('CheckoutService', () => {
     it('should throw if amount tendered is less than total amount', async () => {
       const mockTx = {
         order: {
-          findUnique: jest.fn().mockResolvedValue({ id: 1, staffUserId: 'u1', totalAmount: 100, status: 'DRAFT', payments: [], details: [{ id: 1 }] }),
+          findUnique: jest.fn().mockResolvedValue({
+            id: 1,
+            staffUserId: 'u1',
+            totalAmount: 100,
+            status: 'DRAFT',
+            payments: [],
+            details: [{ id: 1 }],
+          }),
         },
         inventory: {
           findFirst: jest.fn().mockResolvedValue({ id: 1, quantity: 10 }),
@@ -199,9 +224,15 @@ describe('CheckoutService', () => {
         },
       };
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
-      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
-      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .mockResolvedValue(null);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .mockResolvedValue({ id: '1' } as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'update')
+        .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
         return cb(mockTx as any);
@@ -215,14 +246,27 @@ describe('CheckoutService', () => {
       };
 
       await expect(
-        service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any),
-      ).rejects.toThrow('Insufficient cash amount. Requires 100, but received 50');
+        service.checkout(
+          { id: 'u1', permissions: ['checkout.execute_own'] },
+          'key',
+          dto as any,
+        ),
+      ).rejects.toThrow(
+        'Insufficient cash amount. Requires 100, but received 50',
+      );
     });
 
     it('should process cash payment correctly when amount is sufficient', async () => {
       const mockTx = {
         order: {
-          findUnique: jest.fn().mockResolvedValue({ id: 1, staffUserId: 'u1', totalAmount: 100, status: 'DRAFT', payments: [], details: [{ id: 1 }] }),
+          findUnique: jest.fn().mockResolvedValue({
+            id: 1,
+            staffUserId: 'u1',
+            totalAmount: 100,
+            status: 'DRAFT',
+            payments: [],
+            details: [{ id: 1 }],
+          }),
           update: jest.fn().mockResolvedValue({}),
         },
         orderDetail: {
@@ -246,9 +290,15 @@ describe('CheckoutService', () => {
         },
       };
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
-      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
-      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .mockResolvedValue(null);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .mockResolvedValue({ id: '1' } as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'update')
+        .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
         return cb(mockTx as any);
@@ -261,7 +311,11 @@ describe('CheckoutService', () => {
         payment: { method: 'CASH', amountTendered: 150 },
       };
 
-      await service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any);
+      await service.checkout(
+        { id: 'u1', permissions: ['checkout.execute_own'] },
+        'key',
+        dto as any,
+      );
 
       expect(mockTx.payment.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
@@ -295,9 +349,15 @@ describe('CheckoutService', () => {
         },
       };
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
-      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
-      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .mockResolvedValue(null);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .mockResolvedValue({ id: '1' } as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'update')
+        .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
         return cb(mockTx as any);
@@ -309,7 +369,11 @@ describe('CheckoutService', () => {
       };
 
       await expect(
-        service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any),
+        service.checkout(
+          { id: 'u1', permissions: ['checkout.execute_own'] },
+          'key',
+          dto as any,
+        ),
       ).rejects.toThrow('Order already has a successful payment');
     });
   });
@@ -356,9 +420,15 @@ describe('CheckoutService', () => {
         },
       };
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue(null);
-      jest.spyOn(prisma.idempotencyRecord, 'upsert').mockResolvedValue({ id: '1' } as any);
-      jest.spyOn(prisma.idempotencyRecord, 'update').mockResolvedValue({} as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .mockResolvedValue(null);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .mockResolvedValue({ id: '1' } as any);
+      jest
+        .spyOn(prisma.idempotencyRecord, 'update')
+        .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
         return cb(mockTx as any);
@@ -371,7 +441,11 @@ describe('CheckoutService', () => {
         payment: { method: 'CASH', amountTendered: 100 },
       };
 
-      await service.checkout({ id: 'u1', permissions: ['checkout.execute_own'] }, 'key', dto as any);
+      await service.checkout(
+        { id: 'u1', permissions: ['checkout.execute_own'] },
+        'key',
+        dto as any,
+      );
 
       expect(mockTx.invoice.create).toHaveBeenCalledWith({
         data: expect.objectContaining({

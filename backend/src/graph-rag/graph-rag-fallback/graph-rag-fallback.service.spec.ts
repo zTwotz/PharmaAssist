@@ -76,7 +76,9 @@ describe('GraphRagFallbackService', () => {
       });
 
       // Mock private method getNeo4jContext to throw an error
-      jest.spyOn(service as any, 'getNeo4jContext').mockRejectedValue(new Error('Connection timeout'));
+      jest
+        .spyOn(service as any, 'getNeo4jContext')
+        .mockRejectedValue(new Error('Connection timeout'));
 
       const result = await service.getContextForQuery(query, true);
 

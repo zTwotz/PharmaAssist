@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
-import { App } from 'supertest/types';
 
 jest.mock('jwks-rsa', () => ({
   passportJwtSecret: jest.fn(() => 'mock-secret'),
@@ -20,7 +19,9 @@ describe('Checkout API (e2e)', () => {
   const mockCheckoutService = {
     checkout: jest.fn().mockImplementation((user, key, dto) => {
       if (dto.orderId === 1) {
-        throw new BadRequestException('Cannot checkout: Order has unresolved HIGH severity interaction alerts');
+        throw new BadRequestException(
+          'Cannot checkout: Order has unresolved HIGH severity interaction alerts',
+        );
       }
       if (dto.orderId === 3) {
         throw new Error('Database transaction rollback simulated error');
@@ -30,7 +31,11 @@ describe('Checkout API (e2e)', () => {
   };
 
   beforeAll(async () => {
-    mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['checkout.execute_own', 'checkout.execute_all'] };
+    mockUser = {
+      id: 'user1',
+      roles: ['ADMIN'],
+      permissions: ['checkout.execute_own', 'checkout.execute_all'],
+    };
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
@@ -51,7 +56,8 @@ describe('Checkout API (e2e)', () => {
     await app.init();
 
     // Mock the actual checkout service after module init to bypass DB constraints in unit-like integration testing
-    const checkoutModuleService = moduleFixture.get<CheckoutService>(CheckoutService);
+    const checkoutModuleService =
+      moduleFixture.get<CheckoutService>(CheckoutService);
     checkoutModuleService.checkout = mockCheckoutService.checkout;
   });
 

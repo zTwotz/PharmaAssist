@@ -16,9 +16,15 @@ describe('User Management Permissions (e2e)', () => {
   let mockUser: any;
 
   const mockUsersService = {
-    getStaffs: jest.fn().mockResolvedValue([{ id: 'staff1', email: 'staff1@test.com' }]),
-    createStaffAccount: jest.fn().mockResolvedValue({ id: 'staff2', email: 'staff2@test.com' }),
-    updateStaffRoleStatus: jest.fn().mockResolvedValue({ id: 'staff1', status: 'INACTIVE' }),
+    getStaffs: jest
+      .fn()
+      .mockResolvedValue([{ id: 'staff1', email: 'staff1@test.com' }]),
+    createStaffAccount: jest
+      .fn()
+      .mockResolvedValue({ id: 'staff2', email: 'staff2@test.com' }),
+    updateStaffRoleStatus: jest
+      .fn()
+      .mockResolvedValue({ id: 'staff1', status: 'INACTIVE' }),
   };
 
   beforeAll(async () => {
@@ -43,7 +49,9 @@ describe('User Management Permissions (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -59,16 +67,18 @@ describe('User Management Permissions (e2e)', () => {
   describe('GET /users/staff', () => {
     it('should deny access if user does not have VIEW_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/users/staff');
+      const response = await request(app.getHttpServer()).get('/users/staff');
       expect(response.status).toBe(403);
       expect(mockUsersService.getStaffs).not.toHaveBeenCalled();
     });
 
     it('should allow access if user has VIEW_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_USERS'] };
-      const response = await request(app.getHttpServer() as any).get('/users/staff');
+      const response = await request(app.getHttpServer()).get('/users/staff');
       expect(response.status).toBe(200);
-      expect(response.body).toEqual([{ id: 'staff1', email: 'staff1@test.com' }]);
+      expect(response.body).toEqual([
+        { id: 'staff1', email: 'staff1@test.com' },
+      ]);
       expect(mockUsersService.getStaffs).toHaveBeenCalled();
     });
   });
@@ -84,7 +94,7 @@ describe('User Management Permissions (e2e)', () => {
 
     it('should deny access if user does not have MANAGE_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_USERS'] };
-      const response = await request(app.getHttpServer() as any)
+      const response = await request(app.getHttpServer())
         .post('/users/staff')
         .send(createPayload);
       expect(response.status).toBe(403);
@@ -93,12 +103,14 @@ describe('User Management Permissions (e2e)', () => {
 
     it('should allow access if user has MANAGE_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_USERS'] };
-      const response = await request(app.getHttpServer() as any)
+      const response = await request(app.getHttpServer())
         .post('/users/staff')
         .send(createPayload);
       expect(response.status).toBe(201);
       expect(response.body.message).toBe('Tạo tài khoản nhân viên thành công');
-      expect(mockUsersService.createStaffAccount).toHaveBeenCalledWith(createPayload);
+      expect(mockUsersService.createStaffAccount).toHaveBeenCalledWith(
+        createPayload,
+      );
     });
   });
 
@@ -109,7 +121,7 @@ describe('User Management Permissions (e2e)', () => {
 
     it('should deny access if user does not have MANAGE_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_USERS'] };
-      const response = await request(app.getHttpServer() as any)
+      const response = await request(app.getHttpServer())
         .patch('/users/staff/staff1/role-status')
         .send(updatePayload);
       expect(response.status).toBe(403);
@@ -118,12 +130,16 @@ describe('User Management Permissions (e2e)', () => {
 
     it('should allow access if user has MANAGE_USERS permission', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_USERS'] };
-      const response = await request(app.getHttpServer() as any)
+      const response = await request(app.getHttpServer())
         .patch('/users/staff/staff1/role-status')
         .send(updatePayload);
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Cập nhật nhân viên thành công');
-      expect(mockUsersService.updateStaffRoleStatus).toHaveBeenCalledWith('staff1', 'user1', updatePayload);
+      expect(mockUsersService.updateStaffRoleStatus).toHaveBeenCalledWith(
+        'staff1',
+        'user1',
+        updatePayload,
+      );
     });
   });
 });

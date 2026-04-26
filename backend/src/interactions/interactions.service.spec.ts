@@ -60,10 +60,18 @@ describe('InteractionsService', () => {
         activeIngredientBId: 3,
         severity: 'HIGH',
       };
-      (prismaService.activeIngredient.findUnique as jest.Mock).mockResolvedValue({});
-      (prismaService.drugInteractionRule.findFirst as jest.Mock) = jest.fn().mockResolvedValue(null);
-      (prismaService.drugInteractionRule.create as jest.Mock).mockResolvedValue(mockRule);
-      ((prismaService as any).graphSyncOutbox.create as jest.Mock).mockResolvedValue({ id: 10 });
+      (
+        prismaService.activeIngredient.findUnique as jest.Mock
+      ).mockResolvedValue({});
+      (prismaService.drugInteractionRule.findFirst as jest.Mock) = jest
+        .fn()
+        .mockResolvedValue(null);
+      (prismaService.drugInteractionRule.create as jest.Mock).mockResolvedValue(
+        mockRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 10 });
 
       const result = await service.createInteraction({
         activeIngredientAId: 2,
@@ -72,7 +80,9 @@ describe('InteractionsService', () => {
       });
 
       expect(result).toEqual(mockRule);
-      expect((prismaService as any).graphSyncOutbox.create).toHaveBeenCalledWith({
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
         data: expect.objectContaining({
           eventType: 'DRUG_INTERACTION_UPSERT',
           aggregateType: 'DRUG_INTERACTION_RULE',
@@ -100,15 +110,23 @@ describe('InteractionsService', () => {
         activeIngredientBId: 3,
         severity: 'HIGH',
       };
-      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(mockRule);
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(mockRule);
       const mockUpdatedRule = { ...mockRule, severity: 'LOW' };
-      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(mockUpdatedRule);
-      ((prismaService as any).graphSyncOutbox.create as jest.Mock).mockResolvedValue({ id: 11 });
+      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(
+        mockUpdatedRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 11 });
 
       const result = await service.updateInteraction(1, { severity: 'LOW' });
 
       expect(result).toEqual(mockUpdatedRule);
-      expect((prismaService as any).graphSyncOutbox.create).toHaveBeenCalledWith({
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
         data: expect.objectContaining({
           eventType: 'DRUG_INTERACTION_UPSERT',
           aggregateType: 'DRUG_INTERACTION_RULE',
@@ -136,15 +154,23 @@ describe('InteractionsService', () => {
         activeIngredientBId: 3,
         severity: 'HIGH',
       };
-      (prismaService.drugInteractionRule.findUnique as jest.Mock).mockResolvedValue(mockRule);
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(mockRule);
       const mockUpdatedRule = { ...mockRule, isActive: false };
-      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(mockUpdatedRule);
-      ((prismaService as any).graphSyncOutbox.create as jest.Mock).mockResolvedValue({ id: 12 });
+      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(
+        mockUpdatedRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 12 });
 
       const result = await service.deactivateInteraction(1);
 
       expect(result).toEqual(mockUpdatedRule);
-      expect((prismaService as any).graphSyncOutbox.create).toHaveBeenCalledWith({
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
         data: expect.objectContaining({
           eventType: 'DRUG_INTERACTION_DEACTIVATE',
           aggregateType: 'DRUG_INTERACTION_RULE',

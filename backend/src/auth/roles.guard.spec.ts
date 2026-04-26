@@ -41,14 +41,18 @@ describe('RolesGuard', () => {
     reflector.getAllAndOverride.mockReturnValue(['Admin']);
     const context = mockExecutionContext(undefined);
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access denied: No role mapping found for this user session');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access denied: No role mapping found for this user session',
+    );
   });
 
   it('should throw ForbiddenException if user has no roles array', () => {
     reflector.getAllAndOverride.mockReturnValue(['Admin']);
     const context = mockExecutionContext({ id: 'user1' });
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access denied: No role mapping found for this user session');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access denied: No role mapping found for this user session',
+    );
   });
 
   it('should return true if user has at least one required role', () => {
@@ -67,6 +71,8 @@ describe('RolesGuard', () => {
       roles: ['Staff'],
     });
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access denied: You do not have permission to access this resource');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access denied: You do not have permission to access this resource',
+    );
   });
 });

@@ -17,21 +17,30 @@ export class GraphRagFallbackService {
    * Retrieves context for RAG. Attempts to use Neo4j Graph.
    * If Neo4j is unavailable or stale, falls back to PostgreSQL relational queries.
    */
-  async getContextForQuery(query: string, neo4jAvailable: boolean): Promise<RAGContextResult> {
+  async getContextForQuery(
+    query: string,
+    neo4jAvailable: boolean,
+  ): Promise<RAGContextResult> {
     const warnings: string[] = [];
 
     // Check availability
     if (!neo4jAvailable) {
       this.logger.warn('Neo4j is unavailable, falling back to PostgreSQL');
-      warnings.push('Graph database is unavailable. Using relational fallback. Results may lack deep relationship insights.');
+      warnings.push(
+        'Graph database is unavailable. Using relational fallback. Results may lack deep relationship insights.',
+      );
       return this.getPostgresContext(query, warnings);
     }
 
     // Check freshness
     const freshness = await this.freshnessService.evaluateFreshness();
     if (!freshness.isFresh) {
-      this.logger.warn(`Graph is stale (${freshness.reason}), falling back to PostgreSQL`);
-      warnings.push(`Graph data is stale: ${freshness.reason}. Using relational fallback to ensure accuracy.`);
+      this.logger.warn(
+        `Graph is stale (${freshness.reason}), falling back to PostgreSQL`,
+      );
+      warnings.push(
+        `Graph data is stale: ${freshness.reason}. Using relational fallback to ensure accuracy.`,
+      );
       return this.getPostgresContext(query, warnings);
     }
 
@@ -50,18 +59,21 @@ export class GraphRagFallbackService {
     }
   }
 
-  private async getNeo4jContext(query: string): Promise<string> {
+  private getNeo4jContext(query: string): Promise<string> {
     // Mock Neo4j Context Generation
-    return `[Graph Context] Found relationships for: ${query}`;
+    return Promise.resolve(`[Graph Context] Found relationships for: ${query}`);
   }
 
-  private async getPostgresContext(query: string, warnings: string[]): Promise<RAGContextResult> {
+  private getPostgresContext(
+    query: string,
+    warnings: string[],
+  ): Promise<RAGContextResult> {
     // Mock PostgreSQL Context Generation
     const pgContext = `[Relational Context] Found records for: ${query}`;
-    return {
+    return Promise.resolve({
       context: pgContext,
       graphUsed: false,
       warnings,
-    };
+    });
   }
 }

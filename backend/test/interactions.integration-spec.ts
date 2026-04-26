@@ -50,7 +50,9 @@ describe('Interactions API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -65,76 +67,145 @@ describe('Interactions API (e2e)', () => {
 
   describe('DrugInteraction Rule endpoints', () => {
     it('GET /interactions should deny access without MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      const response = await request(app.getHttpServer() as any).get('/interactions');
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      const response = await request(app.getHttpServer()).get('/interactions');
       expect(response.status).toBe(403);
     });
 
     it('GET /interactions should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
-      const response = await request(app.getHttpServer() as any).get('/interactions');
+      mockUser = {
+        id: 'user1',
+        roles: ['ADMIN'],
+        permissions: ['MANAGE_DRUG_INTERACTIONS'],
+      };
+      const response = await request(app.getHttpServer()).get('/interactions');
       expect(response.status).toBe(200);
     });
 
     it('POST /interactions should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
+      mockUser = {
+        id: 'user1',
+        roles: ['ADMIN'],
+        permissions: ['MANAGE_DRUG_INTERACTIONS'],
+      };
       const createDto = {
         activeIngredientAId: 1,
         activeIngredientBId: 2,
         severity: 'HIGH',
         description: 'Test',
       };
-      const response = await request(app.getHttpServer() as any).post('/interactions').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/interactions')
+        .send(createDto);
       expect(response.status).toBe(201);
     });
 
     it('PATCH /interactions/:id should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
-      const response = await request(app.getHttpServer() as any).patch('/interactions/1').send({ severity: 'MEDIUM' });
+      mockUser = {
+        id: 'user1',
+        roles: ['ADMIN'],
+        permissions: ['MANAGE_DRUG_INTERACTIONS'],
+      };
+      const response = await request(app.getHttpServer())
+        .patch('/interactions/1')
+        .send({ severity: 'MEDIUM' });
       expect(response.status).toBe(200);
     });
 
     it('DELETE /interactions/:id should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
-      const response = await request(app.getHttpServer() as any).delete('/interactions/1');
+      mockUser = {
+        id: 'user1',
+        roles: ['ADMIN'],
+        permissions: ['MANAGE_DRUG_INTERACTIONS'],
+      };
+      const response = await request(app.getHttpServer()).delete(
+        '/interactions/1',
+      );
       expect(response.status).toBe(200);
     });
 
     it('POST /interactions/check should allow access with CREATE_ORDER permission', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      const response = await request(app.getHttpServer() as any).post('/interactions/check').send({ medicineIds: [1, 2] });
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      const response = await request(app.getHttpServer())
+        .post('/interactions/check')
+        .send({ medicineIds: [1, 2] });
       expect(response.status).toBe(200);
     });
 
     it('GET /interactions/order/:orderId should allow access with CREATE_ORDER permission', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      const response = await request(app.getHttpServer() as any).get('/interactions/order/1');
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      const response = await request(app.getHttpServer()).get(
+        '/interactions/order/1',
+      );
       expect(response.status).toBe(200);
     });
 
     it('PATCH /interactions/alerts/:id/acknowledge should allow access with CREATE_ORDER permission', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({ note: 'Acknowledge note' });
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      const response = await request(app.getHttpServer())
+        .patch('/interactions/alerts/1/acknowledge')
+        .send({ note: 'Acknowledge note' });
       expect(response.status).toBe(200);
     });
 
     it('PATCH /interactions/alerts/:id/acknowledge should return 400 if HIGH severity and no note', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      mockInteractionsService.acknowledgeAlert.mockRejectedValueOnce({ status: 400, message: 'Ghi chú tư vấn là bắt buộc' });
-      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({});
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      mockInteractionsService.acknowledgeAlert.mockRejectedValueOnce({
+        status: 400,
+        message: 'Ghi chú tư vấn là bắt buộc',
+      });
+      const response = await request(app.getHttpServer())
+        .patch('/interactions/alerts/1/acknowledge')
+        .send({});
       expect(response.status).toBeGreaterThanOrEqual(400);
     });
 
     it('PATCH /interactions/alerts/:id/acknowledge should succeed if HIGH severity and note is provided', async () => {
-      mockUser = { id: 'user1', roles: ['STAFF'], permissions: ['CREATE_ORDER'] };
-      mockInteractionsService.acknowledgeAlert.mockResolvedValueOnce({ id: 1, isAcknowledged: true, consultationNote: 'Valid note' });
-      const response = await request(app.getHttpServer() as any).patch('/interactions/alerts/1/acknowledge').send({ note: 'Valid note' });
+      mockUser = {
+        id: 'user1',
+        roles: ['STAFF'],
+        permissions: ['CREATE_ORDER'],
+      };
+      mockInteractionsService.acknowledgeAlert.mockResolvedValueOnce({
+        id: 1,
+        isAcknowledged: true,
+        consultationNote: 'Valid note',
+      });
+      const response = await request(app.getHttpServer())
+        .patch('/interactions/alerts/1/acknowledge')
+        .send({ note: 'Valid note' });
       expect(response.status).toBe(200);
     });
 
     it('GET /interactions/alerts/history should allow access with MANAGE_DRUG_INTERACTIONS permission', async () => {
-      mockUser = { id: 'user1', roles: ['ADMIN'], permissions: ['MANAGE_DRUG_INTERACTIONS'] };
-      const response = await request(app.getHttpServer() as any).get('/interactions/alerts/history');
+      mockUser = {
+        id: 'user1',
+        roles: ['ADMIN'],
+        permissions: ['MANAGE_DRUG_INTERACTIONS'],
+      };
+      const response = await request(app.getHttpServer()).get(
+        '/interactions/alerts/history',
+      );
       expect(response.status).toBe(200);
     });
   });

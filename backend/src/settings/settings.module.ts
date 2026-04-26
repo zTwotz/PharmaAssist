@@ -7,6 +7,6 @@ import { PrismaModule } from '../prisma/prisma.module';
   imports: [PrismaModule],
   controllers: [SettingsController],
   providers: [SettingsService],
-  exports: [SettingsService]
+  exports: [SettingsService],
 })
 export class SettingsModule {}

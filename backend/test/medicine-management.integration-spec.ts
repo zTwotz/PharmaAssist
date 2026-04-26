@@ -20,7 +20,9 @@ describe('Medicine Management API (e2e)', () => {
     createMedicine: jest.fn().mockResolvedValue({ id: 1, code: 'MED001' }),
     search: jest.fn().mockResolvedValue([{ id: 1, name: 'Paracetamol' }]),
     findOne: jest.fn().mockResolvedValue({ id: 1, name: 'Paracetamol' }),
-    updateMedicine: jest.fn().mockResolvedValue({ id: 1, name: 'Paracetamol Updated' }),
+    updateMedicine: jest
+      .fn()
+      .mockResolvedValue({ id: 1, name: 'Paracetamol Updated' }),
     toggleStatus: jest.fn().mockResolvedValue({ id: 1, status: 'INACTIVE' }),
     getIngredients: jest.fn().mockResolvedValue([]),
     updateIngredients: jest.fn().mockResolvedValue({ message: 'Success' }),
@@ -49,7 +51,9 @@ describe('Medicine Management API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -65,52 +69,60 @@ describe('Medicine Management API (e2e)', () => {
   describe('VIEW_MEDICINES permission endpoints', () => {
     it('GET /medicines/search should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/search?term=para');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/search?term=para',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /medicines/search should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/search?term=para');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/search?term=para',
+      );
       expect(response.status).toBe(200);
       expect(mockMedicinesService.search).toHaveBeenCalledWith('para');
     });
 
     it('GET /medicines/:id should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/1');
+      const response = await request(app.getHttpServer()).get('/medicines/1');
       expect(response.status).toBe(403);
     });
 
     it('GET /medicines/:id should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/1');
+      const response = await request(app.getHttpServer()).get('/medicines/1');
       expect(response.status).toBe(200);
       expect(mockMedicinesService.findOne).toHaveBeenCalledWith(1);
     });
 
     it('GET /medicines/:id/active-ingredients should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/1/active-ingredients');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/1/active-ingredients',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /medicines/:id/active-ingredients should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/1/active-ingredients');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/1/active-ingredients',
+      );
       expect(response.status).toBe(200);
       expect(mockMedicinesService.getIngredients).toHaveBeenCalledWith(1);
     });
 
     it('GET /medicines should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines');
+      const response = await request(app.getHttpServer()).get('/medicines');
       expect(response.status).toBe(403);
     });
 
     it('GET /medicines should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines');
+      const response = await request(app.getHttpServer()).get('/medicines');
       expect(response.status).toBe(200);
       expect(mockMedicinesService.findAll).toHaveBeenCalled();
     });
@@ -119,13 +131,17 @@ describe('Medicine Management API (e2e)', () => {
   describe('MANAGE_MEDICINES permission endpoints', () => {
     it('GET /medicines/reference-data should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/reference-data');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/reference-data',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /medicines/reference-data should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/medicines/reference-data');
+      const response = await request(app.getHttpServer()).get(
+        '/medicines/reference-data',
+      );
       expect(response.status).toBe(200);
       expect(mockMedicinesService.getReferenceData).toHaveBeenCalled();
     });
@@ -141,7 +157,9 @@ describe('Medicine Management API (e2e)', () => {
         medicineUnitId: 1,
         requiresPrescription: true,
       };
-      const response = await request(app.getHttpServer() as any).post('/medicines').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/medicines')
+        .send(createDto);
       expect(response.status).toBe(403);
     });
 
@@ -156,50 +174,76 @@ describe('Medicine Management API (e2e)', () => {
         medicineUnitId: 1,
         requiresPrescription: true,
       };
-      const response = await request(app.getHttpServer() as any).post('/medicines').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/medicines')
+        .send(createDto);
       expect(response.status).toBe(201);
-      expect(mockMedicinesService.createMedicine).toHaveBeenCalledWith(createDto);
+      expect(mockMedicinesService.createMedicine).toHaveBeenCalledWith(
+        createDto,
+      );
     });
 
     it('PATCH /medicines/:id should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/medicines/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/medicines/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(403);
     });
 
     it('PATCH /medicines/:id should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/medicines/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/medicines/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(200);
-      expect(mockMedicinesService.updateMedicine).toHaveBeenCalledWith(1, { name: 'Updated' });
+      expect(mockMedicinesService.updateMedicine).toHaveBeenCalledWith(1, {
+        name: 'Updated',
+      });
     });
 
     it('PATCH /medicines/:id/status should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/medicines/1/status').send({ status: 'INACTIVE' });
+      const response = await request(app.getHttpServer())
+        .patch('/medicines/1/status')
+        .send({ status: 'INACTIVE' });
       expect(response.status).toBe(403);
     });
 
     it('PATCH /medicines/:id/status should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/medicines/1/status').send({ status: 'INACTIVE' });
+      const response = await request(app.getHttpServer())
+        .patch('/medicines/1/status')
+        .send({ status: 'INACTIVE' });
       expect(response.status).toBe(200);
-      expect(mockMedicinesService.toggleStatus).toHaveBeenCalledWith(1, 'INACTIVE');
+      expect(mockMedicinesService.toggleStatus).toHaveBeenCalledWith(
+        1,
+        'INACTIVE',
+      );
     });
 
     it('PUT /medicines/:id/active-ingredients should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
       const payload = { ingredients: [] };
-      const response = await request(app.getHttpServer() as any).put('/medicines/1/active-ingredients').send(payload);
+      const response = await request(app.getHttpServer())
+        .put('/medicines/1/active-ingredients')
+        .send(payload);
       expect(response.status).toBe(403);
     });
 
     it('PUT /medicines/:id/active-ingredients should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const payload = { ingredients: [{ activeIngredientId: 1, strength: '500mg' }] };
-      const response = await request(app.getHttpServer() as any).put('/medicines/1/active-ingredients').send(payload);
+      const payload = {
+        ingredients: [{ activeIngredientId: 1, strength: '500mg' }],
+      };
+      const response = await request(app.getHttpServer())
+        .put('/medicines/1/active-ingredients')
+        .send(payload);
       expect(response.status).toBe(200);
-      expect(mockMedicinesService.updateIngredients).toHaveBeenCalledWith(1, payload);
+      expect(mockMedicinesService.updateIngredients).toHaveBeenCalledWith(
+        1,
+        payload,
+      );
     });
   });
 });

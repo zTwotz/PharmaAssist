@@ -88,18 +88,26 @@ describe('AiGuardrailService', () => {
 
   describe('High-risk edge cases (PAC-TASK-472)', () => {
     it('should block case-insensitive high-risk keywords', () => {
-      expect(() => service.checkInput('CHẨN ĐOÁN bệnh này giúp tôi')).toThrow(BadRequestException);
-      expect(() => service.checkInput('Cho tôi xin PHÁC ĐỒ điều trị')).toThrow(BadRequestException);
+      expect(() => service.checkInput('CHẨN ĐOÁN bệnh này giúp tôi')).toThrow(
+        BadRequestException,
+      );
+      expect(() => service.checkInput('Cho tôi xin PHÁC ĐỒ điều trị')).toThrow(
+        BadRequestException,
+      );
     });
 
     it('should block keywords mixed with punctuation', () => {
       // It currently doesn't strip punctuation before checking includes, but the exact keyword matches.
       // If the user types "kê đơn, nhé", it includes "kê đơn".
-      expect(() => service.checkInput('Bạn có thể kê đơn, được không?')).toThrow(BadRequestException);
+      expect(() =>
+        service.checkInput('Bạn có thể kê đơn, được không?'),
+      ).toThrow(BadRequestException);
     });
 
     it('should pass harmless words that partially resemble high-risk words', () => {
-      expect(() => service.checkInput('Tôi đang thiết kế đơn thuốc mẫu')).not.toThrow(); // 'kế đơn' is not 'kê đơn'
+      expect(() =>
+        service.checkInput('Tôi đang thiết kế đơn thuốc mẫu'),
+      ).not.toThrow(); // 'kế đơn' is not 'kê đơn'
     });
   });
 });

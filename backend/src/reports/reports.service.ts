@@ -1,6 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { RevenueReportQueryDto, TopMedicinesQueryDto, InventoryReportQueryDto } from './dto/revenue-report.dto';
+import {
+  RevenueReportQueryDto,
+  TopMedicinesQueryDto,
+  InventoryReportQueryDto,
+} from './dto/revenue-report.dto';
 
 @Injectable()
 export class ReportsService {
@@ -33,12 +37,12 @@ export class ReportsService {
             allocations: {
               select: {
                 quantity: true,
-                medicineBatch: { select: { importPrice: true } }
-              }
-            }
-          }
-        }
-      }
+                medicineBatch: { select: { importPrice: true } },
+              },
+            },
+          },
+        },
+      },
     });
 
     let totalRevenue = 0;
@@ -48,7 +52,8 @@ export class ReportsService {
       totalRevenue += Number(order.totalAmount);
       for (const detail of order.details) {
         for (const allocation of detail.allocations) {
-          totalCogs += allocation.quantity * Number(allocation.medicineBatch.importPrice);
+          totalCogs +=
+            allocation.quantity * Number(allocation.medicineBatch.importPrice);
         }
       }
     }
@@ -79,14 +84,17 @@ export class ReportsService {
           select: {
             sku: true,
             variantName: true,
-            product: { select: { name: true } }
-          }
-        }
-      }
+            product: { select: { name: true } },
+          },
+        },
+      },
     });
 
     // Aggregate by SKU
-    const aggregated = new Map<string, { name: string; sku: string; quantitySold: number; revenue: number }>();
+    const aggregated = new Map<
+      string,
+      { name: string; sku: string; quantitySold: number; revenue: number }
+    >();
     for (const detail of orderDetails) {
       const sku = detail.productVariant.sku;
       const existing = aggregated.get(sku);
@@ -98,7 +106,7 @@ export class ReportsService {
           name: `${detail.productVariant.product.name} - ${detail.productVariant.variantName}`,
           sku,
           quantitySold: detail.quantity,
-          revenue: Number(detail.lineTotal)
+          revenue: Number(detail.lineTotal),
         });
       }
     }
@@ -129,16 +137,17 @@ export class ReportsService {
           select: {
             sku: true,
             variantName: true,
-            product: { select: { name: true, slug: true } }
-          }
-        }
-      }
+            product: { select: { name: true, slug: true } },
+          },
+        },
+      },
     });
 
     // Map and compute stock status
-    const items = inventories.map(inv => {
+    const items = inventories.map((inv) => {
       const availableQty = inv.quantity - inv.reservedQuantity;
-      const computedStatus: string = availableQty <= inv.minQuantity ? 'low' : 'normal';
+      const computedStatus: string =
+        availableQty <= inv.minQuantity ? 'low' : 'normal';
       return {
         sku: inv.productVariant.sku,
         medicineName: `${inv.productVariant.product.name} - ${inv.productVariant.variantName}`,
@@ -148,18 +157,19 @@ export class ReportsService {
         reservedQuantity: inv.reservedQuantity,
         availableQuantity: availableQty,
         minQuantity: inv.minQuantity,
-        stockStatus: computedStatus
+        stockStatus: computedStatus,
       };
     });
 
     // Filter by stockStatus if requested
-    const filtered = stockStatus && stockStatus !== 'all'
-      ? items.filter(i => i.stockStatus === stockStatus)
-      : items;
+    const filtered =
+      stockStatus && stockStatus !== 'all'
+        ? items.filter((i) => i.stockStatus === stockStatus)
+        : items;
 
     return {
       items: filtered.sort((a, b) => a.availableQuantity - b.availableQuantity),
-      total: filtered.length
+      total: filtered.length,
     };
   }
 }

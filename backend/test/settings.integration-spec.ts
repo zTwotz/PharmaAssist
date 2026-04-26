@@ -16,9 +16,15 @@ describe('Settings Management API (e2e)', () => {
   let mockUser: any;
 
   const mockSettingsService = {
-    getAllSettings: jest.fn().mockResolvedValue([{ key: 'near_expiry_threshold_days', value: '90' }]),
-    getSetting: jest.fn().mockResolvedValue({ key: 'near_expiry_threshold_days', value: '90' }),
-    updateSetting: jest.fn().mockResolvedValue({ key: 'near_expiry_threshold_days', value: '120' }),
+    getAllSettings: jest
+      .fn()
+      .mockResolvedValue([{ key: 'near_expiry_threshold_days', value: '90' }]),
+    getSetting: jest
+      .fn()
+      .mockResolvedValue({ key: 'near_expiry_threshold_days', value: '90' }),
+    updateSetting: jest
+      .fn()
+      .mockResolvedValue({ key: 'near_expiry_threshold_days', value: '120' }),
   };
 
   beforeAll(async () => {
@@ -43,7 +49,9 @@ describe('Settings Management API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -59,35 +67,46 @@ describe('Settings Management API (e2e)', () => {
   describe('ADMIN role endpoints', () => {
     it('GET /settings should deny access without ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/settings');
+      const response = await request(app.getHttpServer()).get('/settings');
       expect(response.status).toBe(403);
     });
 
     it('GET /settings should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/settings');
+      const response = await request(app.getHttpServer()).get('/settings');
       expect(response.status).toBe(200);
       expect(mockSettingsService.getAllSettings).toHaveBeenCalled();
     });
 
     it('GET /settings/:key should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/settings/near_expiry_threshold_days');
+      const response = await request(app.getHttpServer()).get(
+        '/settings/near_expiry_threshold_days',
+      );
       expect(response.status).toBe(200);
-      expect(mockSettingsService.getSetting).toHaveBeenCalledWith('near_expiry_threshold_days');
+      expect(mockSettingsService.getSetting).toHaveBeenCalledWith(
+        'near_expiry_threshold_days',
+      );
     });
 
     it('PATCH /settings/:key should deny access without ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).patch('/settings/near_expiry_threshold_days').send({ value: '120' });
+      const response = await request(app.getHttpServer())
+        .patch('/settings/near_expiry_threshold_days')
+        .send({ value: '120' });
       expect(response.status).toBe(403);
     });
 
     it('PATCH /settings/:key should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).patch('/settings/near_expiry_threshold_days').send({ value: '120' });
+      const response = await request(app.getHttpServer())
+        .patch('/settings/near_expiry_threshold_days')
+        .send({ value: '120' });
       expect(response.status).toBe(200);
-      expect(mockSettingsService.updateSetting).toHaveBeenCalledWith('near_expiry_threshold_days', '120');
+      expect(mockSettingsService.updateSetting).toHaveBeenCalledWith(
+        'near_expiry_threshold_days',
+        '120',
+      );
     });
   });
 });

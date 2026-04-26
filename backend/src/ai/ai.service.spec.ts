@@ -276,7 +276,9 @@ describe('AiService', () => {
       await service.generateConsultationNoteDraft(input);
 
       // Both the provider and the audit log should receive the redacted input from minimizeObject
-      expect(mockGoogleAiProvider.generateConsultationNoteDraft).toHaveBeenCalledWith(
+      expect(
+        mockGoogleAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalledWith(
         expect.objectContaining({
           userId: 'test-user-123',
           alertContext: '[REDACTED]',
@@ -303,8 +305,12 @@ describe('AiService', () => {
       const googleError = new AiProviderException('Google API rate limit');
       const mockError = new Error('Mock AI internal error');
 
-      mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(googleError);
-      (mockMockAiProvider.generateConsultationNoteDraft as jest.Mock).mockRejectedValue(mockError);
+      mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(
+        googleError,
+      );
+      (
+        mockMockAiProvider.generateConsultationNoteDraft as jest.Mock
+      ).mockRejectedValue(mockError);
 
       await expect(
         service.generateConsultationNoteDraft({
@@ -314,8 +320,12 @@ describe('AiService', () => {
         }),
       ).rejects.toThrow('Mock AI internal error');
 
-      expect(mockGoogleAiProvider.generateConsultationNoteDraft).toHaveBeenCalled();
-      expect(mockMockAiProvider.generateConsultationNoteDraft).toHaveBeenCalled();
+      expect(
+        mockGoogleAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalled();
+      expect(
+        mockMockAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalled();
     });
   });
 });

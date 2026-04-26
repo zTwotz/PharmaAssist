@@ -133,13 +133,15 @@ describe('ReportsService', () => {
         },
       ];
 
-      (prismaService.orderDetail.findMany as jest.Mock).mockResolvedValue(mockOrderDetails);
+      (prismaService.orderDetail.findMany as jest.Mock).mockResolvedValue(
+        mockOrderDetails,
+      );
 
       const result = await service.getTopMedicinesReport({ limit: 5 });
 
       expect(result.total).toBe(2);
       expect(result.items.length).toBe(2);
-      
+
       // SKU-002: 20 sold
       // SKU-001: 15 sold
       expect(result.items[0].sku).toBe('SKU-002');
@@ -179,17 +181,19 @@ describe('ReportsService', () => {
         },
       ];
 
-      (prismaService.inventory.findMany as jest.Mock).mockResolvedValue(mockInventories);
+      (prismaService.inventory.findMany as jest.Mock).mockResolvedValue(
+        mockInventories,
+      );
 
       const result = await service.getInventoryReport({});
 
       expect(result.total).toBe(2);
       expect(result.items.length).toBe(2);
-      
+
       // Sorted by availableQuantity asc
       // SKU-B available = 10 (low)
       // SKU-A available = 80 (normal)
-      
+
       expect(result.items[0].sku).toBe('SKU-B');
       expect(result.items[0].availableQuantity).toBe(10);
       expect(result.items[0].stockStatus).toBe('low');
@@ -206,18 +210,28 @@ describe('ReportsService', () => {
           reservedQuantity: 40,
           minQuantity: 20, // available 10 <= 20 => low
           warehouse: { name: 'Main' },
-          productVariant: { sku: 'SKU-B', variantName: 'Box', product: { name: 'B', slug: 'b' } },
+          productVariant: {
+            sku: 'SKU-B',
+            variantName: 'Box',
+            product: { name: 'B', slug: 'b' },
+          },
         },
         {
           quantity: 100,
           reservedQuantity: 10,
           minQuantity: 20, // available 90 > 20 => normal
           warehouse: { name: 'Main' },
-          productVariant: { sku: 'SKU-C', variantName: 'Box', product: { name: 'C', slug: 'c' } },
+          productVariant: {
+            sku: 'SKU-C',
+            variantName: 'Box',
+            product: { name: 'C', slug: 'c' },
+          },
         },
       ];
 
-      (prismaService.inventory.findMany as jest.Mock).mockResolvedValue(mockInventories);
+      (prismaService.inventory.findMany as jest.Mock).mockResolvedValue(
+        mockInventories,
+      );
 
       const result = await service.getInventoryReport({ stockStatus: 'low' });
 

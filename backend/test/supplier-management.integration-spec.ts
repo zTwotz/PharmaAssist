@@ -20,7 +20,9 @@ describe('Supplier Management API (e2e)', () => {
     findOne: jest.fn().mockResolvedValue({ id: 1, name: 'Supplier A' }),
     create: jest.fn().mockResolvedValue({ id: 1, name: 'Supplier A' }),
     update: jest.fn().mockResolvedValue({ id: 1, name: 'Supplier A Updated' }),
-    deactivate: jest.fn().mockResolvedValue({ id: 1, name: 'Supplier A', status: 'INACTIVE' }),
+    deactivate: jest
+      .fn()
+      .mockResolvedValue({ id: 1, name: 'Supplier A', status: 'INACTIVE' }),
     delete: jest.fn().mockResolvedValue({ message: 'Supplier deleted' }),
   };
 
@@ -46,7 +48,9 @@ describe('Supplier Management API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -62,13 +66,17 @@ describe('Supplier Management API (e2e)', () => {
   describe('ADMIN role endpoints', () => {
     it('PATCH /suppliers/:id/deactivate should deny access without ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).patch('/suppliers/1/deactivate');
+      const response = await request(app.getHttpServer()).patch(
+        '/suppliers/1/deactivate',
+      );
       expect(response.status).toBe(403);
     });
 
     it('PATCH /suppliers/:id/deactivate should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).patch('/suppliers/1/deactivate');
+      const response = await request(app.getHttpServer()).patch(
+        '/suppliers/1/deactivate',
+      );
       expect(response.status).toBe(200);
       expect(mockSuppliersService.deactivate).toHaveBeenCalledWith(1);
     });
@@ -81,53 +89,65 @@ describe('Supplier Management API (e2e)', () => {
 
     it('GET /suppliers should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/suppliers');
+      const response = await request(app.getHttpServer()).get('/suppliers');
       expect(response.status).toBe(403);
     });
 
     it('GET /suppliers should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/suppliers');
+      const response = await request(app.getHttpServer()).get('/suppliers');
       expect(response.status).toBe(200);
       expect(mockSuppliersService.findAll).toHaveBeenCalled();
     });
 
     it('GET /suppliers/:id should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/suppliers/1');
+      const response = await request(app.getHttpServer()).get('/suppliers/1');
       expect(response.status).toBe(200);
       expect(mockSuppliersService.findOne).toHaveBeenCalledWith(1);
     });
 
     it('POST /suppliers should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).post('/suppliers').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/suppliers')
+        .send(createDto);
       expect(response.status).toBe(403);
     });
 
     it('POST /suppliers should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).post('/suppliers').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/suppliers')
+        .send(createDto);
       expect(response.status).toBe(201);
       expect(mockSuppliersService.create).toHaveBeenCalledWith(createDto);
     });
 
     it('PATCH /suppliers/:id should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).patch('/suppliers/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/suppliers/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(403);
     });
 
     it('PATCH /suppliers/:id should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).patch('/suppliers/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/suppliers/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(200);
-      expect(mockSuppliersService.update).toHaveBeenCalledWith(1, { name: 'Updated' });
+      expect(mockSuppliersService.update).toHaveBeenCalledWith(1, {
+        name: 'Updated',
+      });
     });
 
     it('DELETE /suppliers/:id should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).delete('/suppliers/1');
+      const response = await request(app.getHttpServer()).delete(
+        '/suppliers/1',
+      );
       expect(response.status).toBe(200);
       expect(mockSuppliersService.delete).toHaveBeenCalledWith(1);
     });

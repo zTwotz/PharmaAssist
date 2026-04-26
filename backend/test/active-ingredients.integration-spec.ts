@@ -44,7 +44,9 @@ describe('Active Ingredient Mapping API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -60,26 +62,34 @@ describe('Active Ingredient Mapping API (e2e)', () => {
   describe('VIEW_MEDICINES permission endpoints', () => {
     it('GET /active-ingredients/:id should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/active-ingredients/1');
+      const response = await request(app.getHttpServer()).get(
+        '/active-ingredients/1',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /active-ingredients/:id should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/active-ingredients/1');
+      const response = await request(app.getHttpServer()).get(
+        '/active-ingredients/1',
+      );
       expect(response.status).toBe(200);
       expect(mockActiveIngredientsService.findOne).toHaveBeenCalledWith(1);
     });
 
     it('GET /active-ingredients should deny access without VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['OTHER_PERM'] };
-      const response = await request(app.getHttpServer() as any).get('/active-ingredients');
+      const response = await request(app.getHttpServer()).get(
+        '/active-ingredients',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /active-ingredients should allow access with VIEW_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).get('/active-ingredients');
+      const response = await request(app.getHttpServer()).get(
+        '/active-ingredients',
+      );
       expect(response.status).toBe(200);
       expect(mockActiveIngredientsService.findAll).toHaveBeenCalled();
     });
@@ -93,28 +103,40 @@ describe('Active Ingredient Mapping API (e2e)', () => {
 
     it('POST /active-ingredients should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).post('/active-ingredients').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/active-ingredients')
+        .send(createDto);
       expect(response.status).toBe(403);
     });
 
     it('POST /active-ingredients should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).post('/active-ingredients').send(createDto);
+      const response = await request(app.getHttpServer())
+        .post('/active-ingredients')
+        .send(createDto);
       expect(response.status).toBe(201);
-      expect(mockActiveIngredientsService.create).toHaveBeenCalledWith(createDto);
+      expect(mockActiveIngredientsService.create).toHaveBeenCalledWith(
+        createDto,
+      );
     });
 
     it('PATCH /active-ingredients/:id should deny access without MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['VIEW_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/active-ingredients/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/active-ingredients/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(403);
     });
 
     it('PATCH /active-ingredients/:id should allow access with MANAGE_MEDICINES', async () => {
       mockUser = { id: 'user1', permissions: ['MANAGE_MEDICINES'] };
-      const response = await request(app.getHttpServer() as any).patch('/active-ingredients/1').send({ name: 'Updated' });
+      const response = await request(app.getHttpServer())
+        .patch('/active-ingredients/1')
+        .send({ name: 'Updated' });
       expect(response.status).toBe(200);
-      expect(mockActiveIngredientsService.update).toHaveBeenCalledWith(1, { name: 'Updated' });
+      expect(mockActiveIngredientsService.update).toHaveBeenCalledWith(1, {
+        name: 'Updated',
+      });
     });
   });
 });

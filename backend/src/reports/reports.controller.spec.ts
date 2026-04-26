@@ -16,12 +16,21 @@ describe('ReportsController', () => {
         {
           provide: ReportsService,
           useValue: {
-            getRevenueReport: jest.fn().mockResolvedValue({ totalRevenue: 0, totalCogs: 0, grossProfit: 0, orderCount: 0 }),
-            getTopMedicinesReport: jest.fn().mockResolvedValue({ items: [], total: 0 }),
-            getInventoryReport: jest.fn().mockResolvedValue({ items: [], total: 0 })
-          }
+            getRevenueReport: jest.fn().mockResolvedValue({
+              totalRevenue: 0,
+              totalCogs: 0,
+              grossProfit: 0,
+              orderCount: 0,
+            }),
+            getTopMedicinesReport: jest
+              .fn()
+              .mockResolvedValue({ items: [], total: 0 }),
+            getInventoryReport: jest
+              .fn()
+              .mockResolvedValue({ items: [], total: 0 }),
+          },
         },
-        Reflector
+        Reflector,
       ],
     })
       .overrideGuard(JwtAuthGuard)
@@ -46,13 +55,19 @@ describe('ReportsController', () => {
   });
 
   it('top-medicines endpoint has Roles decorator with ADMIN and MANAGER', () => {
-    const roles = reflector.get<string[]>('roles', controller.getTopMedicinesReport);
+    const roles = reflector.get<string[]>(
+      'roles',
+      controller.getTopMedicinesReport,
+    );
     expect(roles).toContain('ADMIN');
     expect(roles).toContain('MANAGER');
   });
 
   it('inventory endpoint has Roles decorator with ADMIN, MANAGER and WAREHOUSE', () => {
-    const roles = reflector.get<string[]>('roles', controller.getInventoryReport);
+    const roles = reflector.get<string[]>(
+      'roles',
+      controller.getInventoryReport,
+    );
     expect(roles).toContain('ADMIN');
     expect(roles).toContain('MANAGER');
     expect(roles).toContain('WAREHOUSE');

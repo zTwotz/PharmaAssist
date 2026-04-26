@@ -1,6 +1,10 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ReportsService } from './reports.service';
-import { RevenueReportQueryDto, TopMedicinesQueryDto, InventoryReportQueryDto } from './dto/revenue-report.dto';
+import {
+  RevenueReportQueryDto,
+  TopMedicinesQueryDto,
+  InventoryReportQueryDto,
+} from './dto/revenue-report.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';

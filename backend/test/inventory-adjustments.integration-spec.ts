@@ -45,7 +45,9 @@ describe('Inventory Adjustments API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -61,32 +63,44 @@ describe('Inventory Adjustments API (e2e)', () => {
   describe('ADMIN or WAREHOUSE role endpoints', () => {
     it('POST /inventory/adjustments should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).post('/inventory/adjustments').send({ storeId: 1, reason: 'Lost' });
+      const response = await request(app.getHttpServer())
+        .post('/inventory/adjustments')
+        .send({ storeId: 1, reason: 'Lost' });
       expect(response.status).toBe(403);
     });
 
     it('POST /inventory/adjustments should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).post('/inventory/adjustments').send({ storeId: 1, reason: 'Lost' });
+      const response = await request(app.getHttpServer())
+        .post('/inventory/adjustments')
+        .send({ storeId: 1, reason: 'Lost' });
       expect(response.status).toBe(201);
     });
 
     it('POST /inventory/adjustments should return 400 if reason is missing', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).post('/inventory/adjustments').send({ storeId: 1 });
+      const response = await request(app.getHttpServer())
+        .post('/inventory/adjustments')
+        .send({ storeId: 1 });
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual(expect.arrayContaining(['Lý do kiểm kho là bắt buộc']));
+      expect(response.body.message).toEqual(
+        expect.arrayContaining(['Lý do kiểm kho là bắt buộc']),
+      );
     });
 
     it('GET /inventory/adjustments should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/inventory/adjustments');
+      const response = await request(app.getHttpServer()).get(
+        '/inventory/adjustments',
+      );
       expect(response.status).toBe(200);
     });
 
     it('GET /inventory/adjustments/:id should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/inventory/adjustments/1');
+      const response = await request(app.getHttpServer()).get(
+        '/inventory/adjustments/1',
+      );
       expect(response.status).toBe(200);
     });
 
@@ -99,13 +113,17 @@ describe('Inventory Adjustments API (e2e)', () => {
         actualQuantity: 8,
         adjustmentType: 'DECREASE',
       };
-      const response = await request(app.getHttpServer() as any).post('/inventory/adjustments/1/lines').send(addLineDto);
+      const response = await request(app.getHttpServer())
+        .post('/inventory/adjustments/1/lines')
+        .send(addLineDto);
       expect(response.status).toBe(201);
     });
 
     it('POST /inventory/adjustments/:id/confirm should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).post('/inventory/adjustments/1/confirm');
+      const response = await request(app.getHttpServer()).post(
+        '/inventory/adjustments/1/confirm',
+      );
       expect(response.status).toBe(201);
     });
   });

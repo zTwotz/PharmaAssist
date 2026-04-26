@@ -41,14 +41,18 @@ describe('PermissionsGuard', () => {
     reflector.getAllAndOverride.mockReturnValue(['read:data']);
     const context = mockExecutionContext(undefined);
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access Denied: Missing permissions');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access Denied: Missing permissions',
+    );
   });
 
   it('should throw ForbiddenException if user has no permissions array', () => {
     reflector.getAllAndOverride.mockReturnValue(['read:data']);
     const context = mockExecutionContext({ id: 'user1' });
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access Denied: Missing permissions');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access Denied: Missing permissions',
+    );
   });
 
   it('should return true if user has all required permissions', () => {
@@ -67,6 +71,8 @@ describe('PermissionsGuard', () => {
       permissions: ['read:data'], // Missing write:data
     });
     expect(() => guard.canActivate(context)).toThrow(ForbiddenException);
-    expect(() => guard.canActivate(context)).toThrow('Access Denied: You do not have the required permissions for this action');
+    expect(() => guard.canActivate(context)).toThrow(
+      'Access Denied: You do not have the required permissions for this action',
+    );
   });
 });

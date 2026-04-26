@@ -16,10 +16,18 @@ describe('Inventories Management API (e2e)', () => {
   let mockUser: any;
 
   const mockInventoriesService = {
-    findAll: jest.fn().mockResolvedValue([{ id: 1, medicineId: 1, sellableQuantity: 100 }]),
-    findOne: jest.fn().mockResolvedValue({ id: 1, medicineId: 1, sellableQuantity: 100 }),
-    update: jest.fn().mockResolvedValue({ id: 1, medicineId: 1, sellableQuantity: 150 }),
-    findBatchesByInventory: jest.fn().mockResolvedValue([{ id: 1, batchNumber: 'BATCH-001' }]),
+    findAll: jest
+      .fn()
+      .mockResolvedValue([{ id: 1, medicineId: 1, sellableQuantity: 100 }]),
+    findOne: jest
+      .fn()
+      .mockResolvedValue({ id: 1, medicineId: 1, sellableQuantity: 100 }),
+    update: jest
+      .fn()
+      .mockResolvedValue({ id: 1, medicineId: 1, sellableQuantity: 150 }),
+    findBatchesByInventory: jest
+      .fn()
+      .mockResolvedValue([{ id: 1, batchNumber: 'BATCH-001' }]),
   };
 
   beforeAll(async () => {
@@ -44,7 +52,9 @@ describe('Inventories Management API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -60,42 +70,52 @@ describe('Inventories Management API (e2e)', () => {
   describe('ADMIN or WAREHOUSE role endpoints', () => {
     it('GET /inventories should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/inventories');
+      const response = await request(app.getHttpServer()).get('/inventories');
       expect(response.status).toBe(403);
     });
 
     it('GET /inventories should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/inventories');
+      const response = await request(app.getHttpServer()).get('/inventories');
       expect(response.status).toBe(200);
       expect(mockInventoriesService.findAll).toHaveBeenCalled();
     });
 
     it('GET /inventories/:id should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/inventories/1');
+      const response = await request(app.getHttpServer()).get('/inventories/1');
       expect(response.status).toBe(200);
       expect(mockInventoriesService.findOne).toHaveBeenCalledWith(1);
     });
 
     it('PUT /inventories/:id should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).put('/inventories/1').send({ minQuantity: 150 });
+      const response = await request(app.getHttpServer())
+        .put('/inventories/1')
+        .send({ minQuantity: 150 });
       expect(response.status).toBe(403);
     });
 
     it('PUT /inventories/:id should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).put('/inventories/1').send({ minQuantity: 150 });
+      const response = await request(app.getHttpServer())
+        .put('/inventories/1')
+        .send({ minQuantity: 150 });
       expect(response.status).toBe(200);
-      expect(mockInventoriesService.update).toHaveBeenCalledWith(1, { minQuantity: 150 });
+      expect(mockInventoriesService.update).toHaveBeenCalledWith(1, {
+        minQuantity: 150,
+      });
     });
 
     it('GET /inventories/:id/batches should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/inventories/1/batches');
+      const response = await request(app.getHttpServer()).get(
+        '/inventories/1/batches',
+      );
       expect(response.status).toBe(200);
-      expect(mockInventoriesService.findBatchesByInventory).toHaveBeenCalledWith(1);
+      expect(
+        mockInventoriesService.findBatchesByInventory,
+      ).toHaveBeenCalledWith(1);
     });
   });
 });

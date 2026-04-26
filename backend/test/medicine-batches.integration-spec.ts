@@ -16,7 +16,9 @@ describe('MedicineBatch Management API (e2e)', () => {
   let mockUser: any;
 
   const mockMedicineBatchesService = {
-    findAllByMedicine: jest.fn().mockResolvedValue([{ id: 1, batchNumber: 'BATCH-001' }]),
+    findAllByMedicine: jest
+      .fn()
+      .mockResolvedValue([{ id: 1, batchNumber: 'BATCH-001' }]),
     findOne: jest.fn().mockResolvedValue({ id: 1, batchNumber: 'BATCH-001' }),
   };
 
@@ -42,7 +44,9 @@ describe('MedicineBatch Management API (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -58,39 +62,53 @@ describe('MedicineBatch Management API (e2e)', () => {
   describe('ADMIN or WAREHOUSE role endpoints', () => {
     it('GET /medicine-batches/medicine/:medicineId should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/medicine/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/medicine/1',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /medicine-batches/medicine/:medicineId should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/medicine/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/medicine/1',
+      );
       expect(response.status).toBe(200);
-      expect(mockMedicineBatchesService.findAllByMedicine).toHaveBeenCalledWith(1);
+      expect(mockMedicineBatchesService.findAllByMedicine).toHaveBeenCalledWith(
+        1,
+      );
     });
 
     it('GET /medicine-batches/medicine/:medicineId should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/medicine/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/medicine/1',
+      );
       expect(response.status).toBe(200);
     });
 
     it('GET /medicine-batches/:id should deny access without proper role', async () => {
       mockUser = { id: 'user1', roles: ['STAFF'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/1',
+      );
       expect(response.status).toBe(403);
     });
 
     it('GET /medicine-batches/:id should allow access with ADMIN role', async () => {
       mockUser = { id: 'user1', roles: ['ADMIN'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/1',
+      );
       expect(response.status).toBe(200);
       expect(mockMedicineBatchesService.findOne).toHaveBeenCalledWith(1);
     });
 
     it('GET /medicine-batches/:id should allow access with WAREHOUSE role', async () => {
       mockUser = { id: 'user1', roles: ['WAREHOUSE'] };
-      const response = await request(app.getHttpServer() as any).get('/medicine-batches/1');
+      const response = await request(app.getHttpServer()).get(
+        '/medicine-batches/1',
+      );
       expect(response.status).toBe(200);
     });
   });
