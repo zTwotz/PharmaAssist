@@ -684,7 +684,7 @@ Mỗi Task/Bug PR cần:
 - Exact branch đúng.
 - PR target `develop`.
 - Local Quality Gate PASS.
-- Applicable GitHub Actions checks PASS.
+- GitHub Actions = N/A — full CI reserved for main/release by approved project policy.
 - Targeted tests PASS.
 - Build PASS.
 - Security/diff review PASS.
@@ -861,7 +861,7 @@ Notifications deterministic and deduplicated
 AI narrative uses deterministic report data
 
 Local Quality Gate PASS
-Applicable GitHub Actions PASS
+GitHub Actions = N/A — full CI reserved for main/release
 Blocking findings = 0
 High findings = 0
 
@@ -887,7 +887,7 @@ Sprint 11 completion không phải điều kiện để MVP Release Ready.
 - [ ] Permission and security tests PASS.
 - [ ] MVP regression tests PASS.
 - [ ] Local Quality Gate PASS.
-- [ ] GitHub Actions PASS.
+- [ ] GitHub Actions = N/A — full CI reserved for main/release.
 - [ ] Blocking findings = 0.
 - [ ] High findings = 0.
 - [ ] Sprint 11 Final Review PASS.

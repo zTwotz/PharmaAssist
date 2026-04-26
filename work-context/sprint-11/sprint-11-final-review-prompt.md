@@ -183,7 +183,7 @@ Branches reconciled = 48/48
 Applicable PRs merged = All
 
 Local Quality Gate = PASS
-Applicable GitHub Actions checks = PASS
+GitHub Actions = N/A — full CI reserved for main/release
 
 Blocking findings = 0
 High findings = 0
@@ -986,7 +986,7 @@ Branches reconciled = 48/48
 Applicable PRs merged = All
 
 Local Quality Gate = PASS
-Applicable GitHub Actions checks = PASS
+GitHub Actions = N/A — full CI reserved for main/release
 
 Blocking findings = 0
 High findings = 0
