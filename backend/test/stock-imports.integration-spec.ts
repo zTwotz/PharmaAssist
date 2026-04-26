@@ -15,7 +15,7 @@ import { JwtAuthGuard } from '../src/auth/jwt-auth.guard';
 import { StockImportsService } from '../src/stock-imports/stock-imports.service';
 
 describe('Stock Imports Management API (e2e)', () => {
-  let app: INestApplication<App>;
+  let app: INestApplication;
   let mockUser: any;
 
   const mockStockImportsService = {

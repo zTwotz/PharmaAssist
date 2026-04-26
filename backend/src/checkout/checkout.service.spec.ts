@@ -38,7 +38,7 @@ describe('CheckoutService', () => {
     });
 
     it('should throw if request payload mismatch', async () => {
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
         id: '1',
         userId: 'u1',
         operation: 'CHECKOUT',
@@ -58,7 +58,7 @@ describe('CheckoutService', () => {
     });
 
     it('should throw if request is already processing', async () => {
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
         id: '1',
         userId: 'u1',
         operation: 'CHECKOUT',
@@ -82,7 +82,7 @@ describe('CheckoutService', () => {
         )
         .digest('hex');
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
         id: '1',
         userId: 'u1',
         operation: 'CHECKOUT',
@@ -112,7 +112,7 @@ describe('CheckoutService', () => {
         )
         .digest('hex');
 
-      jest.spyOn(prisma.idempotencyRecord, 'findUnique').mockResolvedValue({
+      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
         id: '1',
         userId: 'u1',
         operation: 'CHECKOUT',
@@ -225,13 +225,13 @@ describe('CheckoutService', () => {
       };
 
       jest
-        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
         .mockResolvedValue(null);
       jest
-        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .spyOn((prisma as any).idempotencyRecord, 'upsert')
         .mockResolvedValue({ id: '1' } as any);
       jest
-        .spyOn(prisma.idempotencyRecord, 'update')
+        .spyOn((prisma as any).idempotencyRecord, 'update')
         .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
@@ -291,13 +291,13 @@ describe('CheckoutService', () => {
       };
 
       jest
-        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
         .mockResolvedValue(null);
       jest
-        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .spyOn((prisma as any).idempotencyRecord, 'upsert')
         .mockResolvedValue({ id: '1' } as any);
       jest
-        .spyOn(prisma.idempotencyRecord, 'update')
+        .spyOn((prisma as any).idempotencyRecord, 'update')
         .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
@@ -350,13 +350,13 @@ describe('CheckoutService', () => {
       };
 
       jest
-        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
         .mockResolvedValue(null);
       jest
-        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .spyOn((prisma as any).idempotencyRecord, 'upsert')
         .mockResolvedValue({ id: '1' } as any);
       jest
-        .spyOn(prisma.idempotencyRecord, 'update')
+        .spyOn((prisma as any).idempotencyRecord, 'update')
         .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
@@ -421,13 +421,13 @@ describe('CheckoutService', () => {
       };
 
       jest
-        .spyOn(prisma.idempotencyRecord, 'findUnique')
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
         .mockResolvedValue(null);
       jest
-        .spyOn(prisma.idempotencyRecord, 'upsert')
+        .spyOn((prisma as any).idempotencyRecord, 'upsert')
         .mockResolvedValue({ id: '1' } as any);
       jest
-        .spyOn(prisma.idempotencyRecord, 'update')
+        .spyOn((prisma as any).idempotencyRecord, 'update')
         .mockResolvedValue({} as any);
 
       jest.spyOn(prisma, '$transaction').mockImplementation(async (cb) => {
