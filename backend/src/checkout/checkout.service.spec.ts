@@ -38,16 +38,18 @@ describe('CheckoutService', () => {
     });
 
     it('should throw if request payload mismatch', async () => {
-      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
-        id: '1',
-        userId: 'u1',
-        operation: 'CHECKOUT',
-        idempotencyKey: 'key',
-        requestHash: 'different-hash',
-        status: 'SUCCEEDED',
-        responseSummary: {},
-        createdAt: new Date(),
-      } as any);
+      jest
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
+        .mockResolvedValue({
+          id: '1',
+          userId: 'u1',
+          operation: 'CHECKOUT',
+          idempotencyKey: 'key',
+          requestHash: 'different-hash',
+          status: 'SUCCEEDED',
+          responseSummary: {},
+          createdAt: new Date(),
+        } as any);
 
       await expect(
         service.checkout({ id: 'u1', permissions: [] }, 'key', {
@@ -58,17 +60,19 @@ describe('CheckoutService', () => {
     });
 
     it('should throw if request is already processing', async () => {
-      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
-        id: '1',
-        userId: 'u1',
-        operation: 'CHECKOUT',
-        idempotencyKey: 'key',
-        requestHash:
-          'c7c88034dbf2cbfb243de32ba34dc6fdf24d3dbec6e680cc42dcc830eb3bc669', // valid hash for this dto
-        status: 'PROCESSING',
-        responseSummary: null,
-        createdAt: new Date(),
-      } as any);
+      jest
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
+        .mockResolvedValue({
+          id: '1',
+          userId: 'u1',
+          operation: 'CHECKOUT',
+          idempotencyKey: 'key',
+          requestHash:
+            'c7c88034dbf2cbfb243de32ba34dc6fdf24d3dbec6e680cc42dcc830eb3bc669', // valid hash for this dto
+          status: 'PROCESSING',
+          responseSummary: null,
+          createdAt: new Date(),
+        } as any);
 
       // We need the actual hash, let's just let it be valid or bypass hash check by not mocking it strictly
       // But actually requestHash matters. So let's mock it correctly.
@@ -82,16 +86,18 @@ describe('CheckoutService', () => {
         )
         .digest('hex');
 
-      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
-        id: '1',
-        userId: 'u1',
-        operation: 'CHECKOUT',
-        idempotencyKey: 'key',
-        requestHash,
-        status: 'PROCESSING',
-        responseSummary: null,
-        createdAt: new Date(),
-      } as any);
+      jest
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
+        .mockResolvedValue({
+          id: '1',
+          userId: 'u1',
+          operation: 'CHECKOUT',
+          idempotencyKey: 'key',
+          requestHash,
+          status: 'PROCESSING',
+          responseSummary: null,
+          createdAt: new Date(),
+        } as any);
 
       await expect(
         service.checkout({ id: 'u1', permissions: [] }, 'key', {
@@ -112,16 +118,18 @@ describe('CheckoutService', () => {
         )
         .digest('hex');
 
-      jest.spyOn((prisma as any).idempotencyRecord, 'findUnique').mockResolvedValue({
-        id: '1',
-        userId: 'u1',
-        operation: 'CHECKOUT',
-        idempotencyKey: 'key',
-        requestHash,
-        status: 'SUCCEEDED',
-        responseSummary: { cached: true },
-        createdAt: new Date(),
-      } as any);
+      jest
+        .spyOn((prisma as any).idempotencyRecord, 'findUnique')
+        .mockResolvedValue({
+          id: '1',
+          userId: 'u1',
+          operation: 'CHECKOUT',
+          idempotencyKey: 'key',
+          requestHash,
+          status: 'SUCCEEDED',
+          responseSummary: { cached: true },
+          createdAt: new Date(),
+        } as any);
 
       const result = await service.checkout(
         { id: 'u1', permissions: [] },
