@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { GraphSyncWorkerService } from './graph-sync-worker/graph-sync-worker.service';
 import { GraphFreshnessService } from './graph-freshness.service';
+import { GraphSyncController } from './graph-sync.controller';
 
 @Module({
+  controllers: [GraphSyncController],
   providers: [GraphSyncWorkerService, GraphFreshnessService],
   exports: [GraphFreshnessService],
 })
