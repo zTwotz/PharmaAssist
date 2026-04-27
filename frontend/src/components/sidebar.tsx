@@ -16,7 +16,8 @@ import {
   Truck,
   Receipt,
   AlertTriangle,
-  Activity
+  Activity,
+  Share2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -83,12 +84,14 @@ export function Sidebar({ currentPath }: SidebarProps) {
       label: 'AI Audit Logs',
       path: '/dashboard/ai-audit-logs',
       icon: Activity,
+  Share2,
       roles: ['ADMIN'],
     },
     {
       label: 'Graph Sync Status',
       path: '/dashboard/graph-sync',
       icon: Activity,
+  Share2,
       roles: ['ADMIN'],
     },
   ];

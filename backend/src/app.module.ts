@@ -26,6 +26,7 @@ import { GraphRagBuilderModule } from './graph-rag/graph-rag-builder/graph-rag-b
 import { ScheduleModule } from '@nestjs/schedule';
 import { ReportsModule } from './reports/reports.module';
 import { SettingsModule } from './settings/settings.module';
+import { GraphExplorerModule } from './graph-explorer/graph-explorer.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { SettingsModule } from './settings/settings.module';
     GraphRagBuilderModule,
     ReportsModule,
     SettingsModule,
+    GraphExplorerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
