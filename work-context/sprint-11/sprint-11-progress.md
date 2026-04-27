@@ -617,7 +617,7 @@ Deferred
 |---|---|---:|---|---|---|---|---|
 | US-151 | PAC-191 | 3 | PAC-TASK-526, PAC-TASK-527, PAC-TASK-530 | 3/3 | Pending | — | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
 | US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 2/2 | Pass | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
-| US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 3/5 | Pending | — | `story/PAC-193-us-153-read-only-graph-explorer` |
+| US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 5/5 | PASS | — | `story/PAC-193-us-153-read-only-graph-explorer` |
 | US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 0/2 | Pending | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
 | US-155 | PAC-195 | 3 | PAC-TASK-538, PAC-TASK-539, PAC-TASK-540 | 0/3 | Pending | — | `story/PAC-195-us-155-prompt-management-ui` |
 | US-156 | PAC-196 | 3 | PAC-TASK-541, PAC-TASK-542 | 0/2 | Pending | — | `story/PAC-196-us-156-system-audit-log-ui` |
@@ -777,7 +777,7 @@ Project Leader approval = Pending
 Ready to implement Sprint 11 = No
 
 Current Task = PAC-TASK-528 (Done)
-Next technical Task = PAC-TASK-534 / PAC-744
+Next technical Task = PAC-TASK-536 / PAC-746
 ```
 
 ## Required handoff fields
