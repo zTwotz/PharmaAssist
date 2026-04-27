@@ -85,6 +85,12 @@ export function Sidebar({ currentPath }: SidebarProps) {
       icon: Activity,
       roles: ['ADMIN'],
     },
+    {
+      label: 'Graph Sync Status',
+      path: '/dashboard/graph-sync',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
   ];
 
 
