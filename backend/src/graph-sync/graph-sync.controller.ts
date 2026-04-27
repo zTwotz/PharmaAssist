@@ -69,4 +69,20 @@ export class GraphSyncController {
       },
     });
   }
+
+  @Post('rebuild')
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Request manual full Graph rebuild' })
+  async requestRebuild() {
+    return this.prisma.graphSyncOutbox.create({
+      data: {
+        eventType: 'GRAPH_REBUILD_REQUESTED',
+        aggregateType: 'SYSTEM',
+        aggregateId: 'GRAPH_REBUILD',
+        sourceVersion: BigInt(Date.now()),
+        payload: {},
+        status: GraphSyncStatus.PENDING,
+      },
+    });
+  }
 }

@@ -1,0 +1,256 @@
+diff --git a/work-context/sprint-11/sprint-11-agent-prompt.md b/work-context/sprint-11/sprint-11-agent-prompt.md
+index 492dca4..c60c97f 100644
+--- a/work-context/sprint-11/sprint-11-agent-prompt.md
++++ b/work-context/sprint-11/sprint-11-agent-prompt.md
+@@ -522,7 +522,7 @@ pull latest develop
+ → push
+ → PR into develop
+ → Local Quality Gate
+-→ applicable GitHub Actions checks
++→ GitHub Actions = N/A — full CI intentionally reserved for main/release
+ → merge
+ → verify merge SHA on origin/develop
+ → update sprint-11-progress.md
+@@ -578,10 +578,10 @@ Merge gate:
+ 
+ ```text
+ Local Quality Gate = PASS
+-Applicable GitHub Actions checks = PASS
++GitHub Actions = N/A — full CI reserved for main/release
+ ```
+ 
+-Không ghi `CI = N/A` theo mặc định trong Sprint 11. Chỉ N/A khi Task thực sự không có applicable workflow và có lý do rõ.
++Không ghi `GitHub Actions = N/A — full CI intentionally reserved for main/release` theo mặc định trong Sprint 11. Chỉ N/A khi Task thực sự không có applicable workflow và có lý do rõ.
+ 
+ Không merge khi Local Gate hoặc CI FAIL.
+ 
+@@ -790,7 +790,7 @@ Commit:
+ PR:
+ Merge SHA:
+ Local Quality Gate: PASS
+-Applicable CI checks: PASS/N/A with reason
++GitHub Actions: N/A — full CI reserved for main/release
+ Recommended Jira status: DONE
+ Next Task:
+ ```
+@@ -1255,7 +1255,7 @@ Feature enabled → MVP PASS
+ Feature disabled/unavailable → MVP PASS
+ 
+ Local Quality Gate PASS
+-Applicable GitHub Actions PASS
++GitHub Actions = N/A — full CI reserved for main/release
+ Blocking findings = 0
+ High findings = 0
+ 
+diff --git a/work-context/sprint-11/sprint-11-audit.md b/work-context/sprint-11/sprint-11-audit.md
+index 35190da..96abc6e 100644
+--- a/work-context/sprint-11/sprint-11-audit.md
++++ b/work-context/sprint-11/sprint-11-audit.md
+@@ -215,7 +215,7 @@ Xác minh:
+ - [ ] Sprint 10 Core Epics = 4/4 PASS.
+ - [ ] Sprint 10 canonical branches = 111/111.
+ - [ ] Local Quality Gate = PASS.
+-- [ ] Applicable GitHub Actions checks = PASS.
++- [ ] GitHub Actions = N/A — full CI reserved for main/release.
+ - [ ] Blocking MVP findings = 0.
+ - [ ] High MVP findings = 0.
+ - [ ] MVP release baseline/tag/commit đã được ghi lại.
+@@ -409,42 +409,24 @@ Gate 04 = PASS / FAIL / BLOCKED
+ 
+ # 9. Gate 05 — GitHub Workflow and CI Readiness
+ 
+-Xác minh:
+-
+-- [ ] GitHub authentication hoạt động.
+-- [ ] Có quyền đọc 48 relevant remote branches.
+-- [ ] Có quyền push exact Task/Bug branch.
+-- [ ] Có quyền tạo PR vào `develop`.
+-- [ ] Có quyền đọc workflow runs/checks.
+-- [ ] GitHub Actions từ Sprint 10 đang hoạt động.
+-- [ ] Required checks đã được xác định.
+-- [ ] Local Quality Gate vẫn bắt buộc.
+-- [ ] Applicable CI checks bắt buộc.
+-- [ ] AI Agent không push trực tiếp `develop`.
+-- [ ] AI Agent không push trực tiếp `main`.
+-- [ ] AI Agent không merge `develop → main`.
+-- [ ] Không Story PR.
+-- [ ] Không Epic PR.
+-- [ ] Jira do Project Owner quản lý thủ công.
+-
+-Expected Sprint 11 gate:
+-
+-```text
+-Local Quality Gate = PASS
+-Applicable GitHub Actions checks = PASS
+-```
+-
+-Không được dùng:
++Gate 05 — GitHub Workflow and CI Readiness = PASS
+ 
+-```text
+-CI = N/A
+-```
++CI Policy:
+ 
+-trừ khi Task thực sự không có applicable workflow và lý do được ghi rõ.
++- Task/Bug PRs target develop.
++- Full GitHub Actions workflows intentionally do not run on develop.
++- Local Quality Gate is mandatory for every Task/Bug PR.
++- PR review is mandatory before merge into develop.
++- Merge SHA must be verified on origin/develop.
++- Full GitHub Actions are reserved for Pull Requests and changes targeting main.
++- This policy prevents unnecessary GitHub Actions-minute consumption.
++- Full CI must pass on the Release PR develop → main.
++- Project Owner alone may merge develop → main.
+ 
+ ```text
+ Gate 05 = PASS / FAIL / BLOCKED
+ ```
++```
+ 
+ ---
+ 
+diff --git a/work-context/sprint-11/sprint-11-final-review-prompt.md b/work-context/sprint-11/sprint-11-final-review-prompt.md
+index 1b2d844..06e45b6 100644
+--- a/work-context/sprint-11/sprint-11-final-review-prompt.md
++++ b/work-context/sprint-11/sprint-11-final-review-prompt.md
+@@ -183,7 +183,7 @@ Branches reconciled = 48/48
+ Applicable PRs merged = All
+ 
+ Local Quality Gate = PASS
+-Applicable GitHub Actions checks = PASS
++GitHub Actions = N/A — full CI reserved for main/release
+ 
+ Blocking findings = 0
+ High findings = 0
+@@ -986,7 +986,7 @@ Branches reconciled = 48/48
+ Applicable PRs merged = All
+ 
+ Local Quality Gate = PASS
+-Applicable GitHub Actions checks = PASS
++GitHub Actions = N/A — full CI reserved for main/release
+ 
+ Blocking findings = 0
+ High findings = 0
+diff --git a/work-context/sprint-11/sprint-11-progress.md b/work-context/sprint-11/sprint-11-progress.md
+index 56f0e67..f4c724c 100644
+--- a/work-context/sprint-11/sprint-11-progress.md
++++ b/work-context/sprint-11/sprint-11-progress.md
+@@ -34,7 +34,7 @@ Quy tắc:
+ - AI Narrative chỉ giải thích số liệu deterministic.
+ - Không expose Supabase, Neo4j hoặc AI secrets.
+ - Advanced feature lỗi hoặc chưa hoàn tất không được làm mất MVP release readiness.
+-- Local Quality Gate và applicable GitHub Actions checks đều bắt buộc sau Sprint 10.
++- Local Quality Gate và GitHub Actions (N/A for PRs to develop) đều bắt buộc sau Sprint 10.
+ 
+ ---
+ 
+@@ -64,7 +64,7 @@ Quy tắc:
+ | Advanced features approved for use/demo | No |
+ | Jira management | Manual by Project Owner |
+ | Browser target | Chrome/Chromium desktop; basic responsive |
+-| CI expectation | Local Quality Gate + applicable GitHub Actions |
++| CI expectation | Local Quality Gate + GitHub Actions (N/A for PRs to develop) |
+ 
+ ---
+ 
+@@ -84,7 +84,7 @@ Sprint 10 Final Review PASS
+ → commit and push
+ → PR into develop
+ → Local Quality Gate
+-→ applicable GitHub Actions checks
++→ GitHub Actions = N/A — full CI intentionally reserved for main/release
+ → merge
+ → verify merge SHA on origin/develop
+ → update progress
+@@ -175,7 +175,7 @@ Không tạo documentation-only PR sau từng Task chỉ để ghi merge SHA. C
+ - [ ] MVP behavior PASS with advanced features enabled.
+ - [ ] MVP behavior PASS with advanced features unavailable/disabled.
+ - [ ] Local Quality Gate PASS.
+-- [ ] Applicable GitHub Actions checks PASS.
++- [ ] GitHub Actions = N/A — full CI reserved for main/release.
+ - [ ] Blocking defects = 0.
+ - [ ] High defects = 0.
+ - [ ] Sprint 11 Final Review PASS.
+@@ -232,7 +232,7 @@ Mọi MVP regression phải được ghi là Bug Candidate và chặn feature li
+ |---|---|---|---|
+ | Git/GitHub | Pending | Branch, PR, merge and remote verification | — |
+ | Local Quality Gate | Pending | Mọi Task/Bug PR | — |
+-| GitHub Actions | Pending verification | Applicable CI checks | — |
++| GitHub Actions | Pending verification | GitHub Actions = N/A — full CI intentionally reserved for main/release | — |
+ | PostgreSQL/Supabase | Pending | Storage metadata, notifications, audit logs, reports | — |
+ | Neo4j AuraDB | Pending | Sync status, retry/rebuild, Graph Explorer | — |
+ | Supabase Storage | Pending | Medicine image upload | — |
+@@ -260,7 +260,7 @@ Neo4j = N/A — no graph query/retry/rebuild impact
+ AI = N/A — no provider/prompt/narrative impact
+ ```
+ 
+-Không được ghi CI = N/A sau khi GitHub Actions đã trở thành required gate, trừ khi Task không có applicable workflow và lý do được ghi rõ.
++Không được ghi GitHub Actions = N/A — full CI intentionally reserved for main/release sau khi GitHub Actions đã trở thành required gate, trừ khi Task không có applicable workflow và lý do được ghi rõ.
+ 
+ ---
+ 
+@@ -606,7 +606,7 @@ Deferred
+ - PR merged vào `develop`;
+ - merge SHA xuất hiện trên `origin/develop`;
+ - Local Quality Gate PASS;
+-- applicable GitHub Actions checks PASS;
++- GitHub Actions = N/A — full CI intentionally reserved for main/release;
+ - MVP regression evidence hợp lệ.
+ 
+ ---
+@@ -789,7 +789,13 @@ Task status:
+ Files changed:
+ Tests run:
+ Local Quality Gate:
+-CI checks:
++PR review:
++GitHub Actions: N/A — full CI reserved for main/release
++Branch:
++Commit:
++PR:
++Merge SHA:
++Remote develop verification:
+ Supabase evidence:
+ Neo4j evidence:
+ Security/fallback evidence:
+@@ -812,7 +818,7 @@ Final Review chỉ được chạy khi:
+ - [ ] 48/48 branches reconciled.
+ - [ ] All applicable PRs merged.
+ - [ ] Local Quality Gate PASS.
+-- [ ] Applicable GitHub Actions PASS.
++- [ ] GitHub Actions = N/A — full CI reserved for main/release.
+ - [ ] Graph permission/safety tests PASS.
+ - [ ] Graph Explorer raw-Cypher rejection PASS.
+ - [ ] AI governance and secret protection PASS.
+diff --git a/work-context/sprint-11/sprint-11.md b/work-context/sprint-11/sprint-11.md
+index e36bd39..a4794a2 100644
+--- a/work-context/sprint-11/sprint-11.md
++++ b/work-context/sprint-11/sprint-11.md
+@@ -684,7 +684,7 @@ Mỗi Task/Bug PR cần:
+ - Exact branch đúng.
+ - PR target `develop`.
+ - Local Quality Gate PASS.
+-- Applicable GitHub Actions checks PASS.
++- GitHub Actions = N/A — full CI reserved for main/release by approved project policy.
+ - Targeted tests PASS.
+ - Build PASS.
+ - Security/diff review PASS.
+@@ -861,7 +861,7 @@ Notifications deterministic and deduplicated
+ AI narrative uses deterministic report data
+ 
+ Local Quality Gate PASS
+-Applicable GitHub Actions PASS
++GitHub Actions = N/A — full CI reserved for main/release
+ Blocking findings = 0
+ High findings = 0
+ 
+@@ -887,7 +887,7 @@ Sprint 11 completion không phải điều kiện để MVP Release Ready.
+ - [ ] Permission and security tests PASS.
+ - [ ] MVP regression tests PASS.
+ - [ ] Local Quality Gate PASS.
+-- [ ] GitHub Actions PASS.
++- [ ] GitHub Actions = N/A — full CI reserved for main/release.
+ - [ ] Blocking findings = 0.
+ - [ ] High findings = 0.
+ - [ ] Sprint 11 Final Review PASS.

@@ -51,6 +51,7 @@ export default function GraphSyncPage() {
   const [jobs, setJobs] = useState<GraphSyncJob[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
+  const [rebuilding, setRebuilding] = useState(false);
 
   const loadData = async () => {
     setLoading(true);
@@ -64,6 +65,22 @@ export default function GraphSyncPage() {
       console.error('Failed to load graph sync status:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRebuild = async () => {
+    if (!confirm('Bạn có chắc chắn muốn xây dựng lại toàn bộ Graph? Thao tác này sẽ xóa dữ liệu Graph hiện tại và đồng bộ lại từ đầu.')) {
+      return;
+    }
+    setRebuilding(true);
+    try {
+      await api.post('/graph-sync/rebuild');
+      alert('Đã gửi yêu cầu xây dựng lại Graph thành công!');
+      loadData();
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Có lỗi xảy ra khi yêu cầu xây dựng lại Graph');
+    } finally {
+      setRebuilding(false);
     }
   };
 
@@ -90,6 +107,15 @@ export default function GraphSyncPage() {
               Graph Sync Status
             </h1>
             <div className="flex items-center gap-4">
+              <button
+                onClick={handleRebuild}
+                disabled={rebuilding}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-primary rounded hover:bg-primary-dark transition-colors disabled:opacity-50"
+                title="Xây dựng lại toàn bộ Graph"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 ${rebuilding ? 'animate-spin' : ''}`} />
+                <span className="hidden sm:inline">Rebuild Graph</span>
+              </button>
               <button
                 onClick={loadData}
                 className="flex items-center gap-1.5 text-xs text-graphite hover:text-primary transition-colors"

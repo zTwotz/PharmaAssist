@@ -218,6 +218,56 @@ export class GraphSyncWorkerService {
           sourceVersion: Number(job.sourceVersion),
         };
         await this.neo4jService.write(cypher, params);
+      } else if (job.eventType === GraphSyncEventType.GRAPH_REBUILD_REQUESTED) {
+        this.logger.log('Executing GRAPH_REBUILD_REQUESTED: clearing Neo4j and rebuilding...');
+        
+        // 1. Clear Graph
+        await this.neo4jService.write('MATCH (n) WHERE n:Medicine OR n:ActiveIngredient DETACH DELETE n');
+
+        // 2. Active Ingredients
+        const ingredients = await this.prisma.activeIngredient.findMany({ where: { status: 'ACTIVE' } });
+        for (const ing of ingredients) {
+          await this.neo4jService.write(`
+            MERGE (a:ActiveIngredient {id: $id})
+            SET a.code = $code, a.name = $name, a.isActive = true, a.sourceVersion = 1, a.sourceUpdatedAt = $u, a.syncedAt = timestamp()
+          `, { id: String(ing.id), code: ing.code, name: ing.name, u: ing.createdAt.toISOString() });
+        }
+
+        // 3. Medicines
+        const medicines = await this.prisma.medicine.findMany({
+          where: { status: 'ACTIVE' },
+          include: { product: true, ingredients: true },
+        });
+
+        for (const med of medicines) {
+          await this.neo4jService.write(`
+            MERGE (m:Medicine {id: $id})
+            SET m.code = $code, m.name = $name, m.isActive = true, m.sourceVersion = 1, m.sourceUpdatedAt = $u, m.syncedAt = timestamp()
+          `, { id: String(med.id), code: med.product?.code || '', name: med.product?.name || '', u: med.createdAt.toISOString() });
+
+          for (const map of med.ingredients) {
+            await this.neo4jService.write(`
+              MATCH (m:Medicine {id: $mId}), (a:ActiveIngredient {id: $aId})
+              MERGE (m)-[r:CONTAINS]->(a)
+              SET r.strength = $strength, r.syncedAt = timestamp()
+            `, { mId: String(med.id), aId: String(map.activeIngredientId), strength: map.strength || '' });
+          }
+        }
+
+        // 4. Drug Interactions
+        const interactions = await this.prisma.drugInteractionRule.findMany({ where: { isActive: true } });
+        for (const ix of interactions) {
+          const aIdNum = Number(ix.activeIngredientAId);
+          const bIdNum = Number(ix.activeIngredientBId);
+          const [aId, bId] = aIdNum < bIdNum ? [aIdNum, bIdNum] : [bIdNum, aIdNum];
+          await this.neo4jService.write(`
+            MATCH (a:ActiveIngredient {id: $aId}), (b:ActiveIngredient {id: $bId})
+            MERGE (a)-[r:INTERACTS_WITH {id: $id}]->(b)
+            SET r.code = $code, r.severity = $severity, r.isActive = true, r.syncedAt = timestamp()
+          `, { id: String(ix.id), code: ix.code, aId: String(aId), bId: String(bId), severity: ix.severity });
+        }
+        
+        this.logger.log('Graph rebuild completed.');
       } else {
         this.logger.warn(`Unhandled event type: ${job.eventType}`);
       }
