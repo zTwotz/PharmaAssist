@@ -8,6 +8,7 @@ import { AiAuditLogService } from './ai-audit-log.service';
 import { AiAuditLogController } from './ai-audit-log.controller';
 import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
 import { AiController } from './ai.controller';
+import { AiConfigController } from './ai-config.controller';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';
 import { PromptsService } from './prompts.service';
@@ -15,7 +16,7 @@ import { AiGuardrailService } from './ai-guardrail.service';
 
 @Module({
   imports: [ConfigModule.forRoot(), PrismaModule, GraphRagBuilderModule],
-  controllers: [AiAuditLogController, AiController],
+  controllers: [AiAuditLogController, AiController, AiConfigController],
   providers: [
     AiConfigService,
     AiService,
