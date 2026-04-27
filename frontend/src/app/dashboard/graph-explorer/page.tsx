@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import api from '@/lib/api';
+import GraphDetailPanel from '@/components/GraphDetailPanel';
 
 // Dynamically import GraphExplorer without SSR
 const GraphExplorer = dynamic(() => import('@/components/GraphExplorer'), {
@@ -14,6 +15,24 @@ export default function GraphExplorerPage() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedItem, setSelectedItem] = useState<any | null>(null);
+  const [itemType, setItemType] = useState<'node' | 'link' | null>(null);
+
+  
+  const handleNodeClick = (node: any) => {
+    setSelectedItem(node);
+    setItemType('node');
+  };
+
+  const handleLinkClick = (link: any) => {
+    setSelectedItem(link);
+    setItemType('link');
+  };
+
+  const handleClosePanel = () => {
+    setSelectedItem(null);
+    setItemType(null);
+  };
 
   useEffect(() => {
     async function fetchGraph() {
@@ -54,7 +73,8 @@ export default function GraphExplorerPage() {
 
         {!loading && !error && (
           <div className="w-full h-full bg-zinc-50 dark:bg-zinc-900 overflow-hidden">
-            <GraphExplorer graphData={graphData} />
+            <GraphExplorer graphData={graphData} onNodeClick={handleNodeClick} onLinkClick={handleLinkClick} />
+            <GraphDetailPanel selectedItem={selectedItem} itemType={itemType} onClose={handleClosePanel} />
           </div>
         )}
       </div>

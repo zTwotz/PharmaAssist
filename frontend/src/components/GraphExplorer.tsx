@@ -8,9 +8,11 @@ interface GraphExplorerProps {
     nodes: any[];
     links: any[];
   };
+  onNodeClick?: (node: any) => void;
+  onLinkClick?: (link: any) => void;
 }
 
-export default function GraphExplorer({ graphData }: GraphExplorerProps) {
+export default function GraphExplorer({ graphData, onNodeClick, onLinkClick }: GraphExplorerProps) {
   const fgRef = useRef<any>(null);
 
   useEffect(() => {
@@ -31,6 +33,8 @@ export default function GraphExplorer({ graphData }: GraphExplorerProps) {
       linkDirectionalArrowLength={3.5}
       linkDirectionalArrowRelPos={1}
       linkLabel={(link: any) => link.type}
+      onNodeClick={onNodeClick}
+      onLinkClick={onLinkClick}
       // Set width/height or make it responsive
       width={typeof window !== 'undefined' ? window.innerWidth - 300 : 800}
       height={typeof window !== 'undefined' ? window.innerHeight - 150 : 600}
