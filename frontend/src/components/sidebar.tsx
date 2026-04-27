@@ -98,6 +98,19 @@ export function Sidebar({ currentPath }: SidebarProps) {
       icon: Share2,
       roles: ['ADMIN', 'STAFF'],
     },
+    {
+      label: 'Cấu hình AI',
+      path: '/dashboard/ai-settings',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
+    {
+      label: 'Quản lý Prompt',
+      path: '/dashboard/prompts',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
+
   ];
 
 
