@@ -567,8 +567,8 @@ Required scenarios:
 | 8 | PAC-TASK-533 | PAC-743 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — | Pending |
 | 9 | PAC-TASK-534 | PAC-744 | US-153 | PAC-EPIC-23 | Medium | Not started | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — | Pending |
 | 10 | PAC-TASK-535 | PAC-745 | US-153 | PAC-EPIC-23 | High | Not started | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — | Pending |
-| 11 | PAC-TASK-536 | PAC-746 | US-154 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — | Pending |
-| 12 | PAC-TASK-537 | PAC-747 | US-154 | PAC-EPIC-24 | Low | Not started | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — | Pending |
+| 11 | PAC-TASK-536 | PAC-746 | US-154 | PAC-EPIC-24 | Medium | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
+| 12 | PAC-TASK-537 | PAC-747 | US-154 | PAC-EPIC-24 | Low | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
 | 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — | Pending |
 | 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — | Pending |
 | 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — | Pending |
@@ -618,7 +618,7 @@ Deferred
 | US-151 | PAC-191 | 3 | PAC-TASK-526, PAC-TASK-527, PAC-TASK-530 | 3/3 | Pending | — | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
 | US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 2/2 | Pass | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
 | US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 5/5 | PASS | — | `story/PAC-193-us-153-read-only-graph-explorer` |
-| US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 0/2 | Pending | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
+| US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 2/2 | PASS | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
 | US-155 | PAC-195 | 3 | PAC-TASK-538, PAC-TASK-539, PAC-TASK-540 | 0/3 | Pending | — | `story/PAC-195-us-155-prompt-management-ui` |
 | US-156 | PAC-196 | 3 | PAC-TASK-541, PAC-TASK-542 | 0/2 | Pending | — | `story/PAC-196-us-156-system-audit-log-ui` |
 | US-157 | PAC-197 | 3 | PAC-TASK-543, PAC-TASK-544, PAC-TASK-545 | 0/3 | Pending | — | `story/PAC-197-us-157-supabase-storage-for-medicine-images` |
@@ -777,7 +777,7 @@ Project Leader approval = Pending
 Ready to implement Sprint 11 = No
 
 Current Task = PAC-TASK-528 (Done)
-Next technical Task = PAC-TASK-536 / PAC-746
+Next technical Task = PAC-TASK-538 / PAC-748
 ```
 
 ## Required handoff fields
