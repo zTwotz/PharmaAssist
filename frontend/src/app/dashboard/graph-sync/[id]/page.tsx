@@ -8,7 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
-import { Loader2, ArrowLeft, Activity, Calendar, AlertCircle } from 'lucide-react';
+import { Loader2, ArrowLeft, Activity, Calendar, AlertCircle, RefreshCw } from 'lucide-react';
 import api from '@/lib/api';
 
 interface GraphSyncAttempt {
@@ -59,6 +59,7 @@ export default function GraphSyncJobDetailPage({ params }: { params: { id: strin
   const router = useRouter();
   const [job, setJob] = useState<GraphSyncJob | null>(null);
   const [loading, setLoading] = useState(true);
+  const [retrying, setRetrying] = useState(false);
 
   useEffect(() => {
     const loadJob = async () => {
@@ -74,6 +75,23 @@ export default function GraphSyncJobDetailPage({ params }: { params: { id: strin
     loadJob();
   }, [params.id]);
 
+  const handleRetry = async () => {
+    if (!job) return;
+    setRetrying(true);
+    try {
+      await api.post(`/graph-sync/status/${job.id}/retry`);
+      alert('Đã yêu cầu thử lại tác vụ đồng bộ thành công');
+      // Reload job details to show new status
+      const res = await api.get(`/graph-sync/status/${params.id}`);
+      setJob(res.data);
+    } catch (err) {
+      console.error('Failed to retry job:', err);
+      alert('Không thể thử lại tác vụ này');
+    } finally {
+      setRetrying(false);
+    }
+  };
+
   return (
     <RouteGuard allowedRoles={['ADMIN']}>
       <div className="flex min-h-screen bg-cloud font-sans">
@@ -84,10 +102,16 @@ export default function GraphSyncJobDetailPage({ params }: { params: { id: strin
             <Button variant="ghost" size="icon" onClick={() => router.push('/dashboard/graph-sync')}>
               <ArrowLeft className="w-5 h-5 text-graphite" />
             </Button>
-            <h1 className="text-base font-bold text-ink uppercase tracking-wider flex items-center gap-2">
+            <h1 className="text-base font-bold text-ink uppercase tracking-wider flex items-center gap-2 flex-1">
               <Activity className="w-5 h-5 text-primary" />
               Chi tiết tác vụ đồng bộ
             </h1>
+            {job && (job.status === 'FAILED' || job.status === 'DEAD_LETTER') && (
+              <Button onClick={handleRetry} disabled={retrying} className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2">
+                {retrying ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+                Thử lại tác vụ
+              </Button>
+            )}
           </header>
 
           <main className="p-8 space-y-6 flex-1 overflow-y-auto max-w-[1366px] w-full mx-auto">
