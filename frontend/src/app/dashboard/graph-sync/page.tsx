@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/sidebar';
 import { RouteGuard } from '@/components/route-guard';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -46,6 +47,7 @@ function formatTime(dateStr: string): string {
 }
 
 export default function GraphSyncPage() {
+  const router = useRouter();
   const [jobs, setJobs] = useState<GraphSyncJob[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -167,7 +169,7 @@ export default function GraphSyncPage() {
                       </TableRow>
                     ) : (
                       jobs.map((job) => (
-                        <TableRow key={job.id} className="hover:bg-slate-50/50 cursor-pointer">
+                        <TableRow key={job.id} className="hover:bg-slate-50/50 cursor-pointer" onClick={() => router.push('/dashboard/graph-sync/' + job.id)}>
                           <TableCell>
                             <p className="font-semibold text-ink text-xs">{job.entityType}</p>
                             <p className="text-[10px] text-graphite truncate max-w-[200px]" title={job.entityId}>
