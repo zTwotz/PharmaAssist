@@ -560,7 +560,7 @@ Required scenarios:
 | 1 | PAC-TASK-526 | PAC-736 | US-151 | PAC-EPIC-22 | Medium | Completed | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` | merged | 2c94e39 | PASS |
 | 2 | PAC-TASK-527 | PAC-737 | US-151 | PAC-EPIC-22 | Low | Completed | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` | merged | c2fc0ce | PASS |
 | 3 | PAC-TASK-528 | PAC-738 | US-152 | PAC-EPIC-22 | Medium | Completed | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | merged | dc22a90 | PASS |
-| 4 | PAC-TASK-529 | PAC-739 | US-152 | PAC-EPIC-22 | Medium | Not started | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — | Pending |
+| 4 | PAC-TASK-529 | PAC-739 | US-152 | PAC-EPIC-22 | Medium | Done | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | - | dea264a9463e2b2ca9b98ccd08fe6fefa04d7a49 | In Review |
 | 5 | PAC-TASK-530 | PAC-740 | US-151 | PAC-EPIC-22 | Medium | Done | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | #865 | e23b59e31e7e3c305b21f96fdbd1024288fa00db | In Review |
 | 6 | PAC-TASK-531 | PAC-741 | US-153 | PAC-EPIC-23 | Medium | Not started | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — | Pending |
 | 7 | PAC-TASK-532 | PAC-742 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — | Pending |
@@ -616,7 +616,7 @@ Deferred
 | Story | Jira Key | Points | Direct Tasks | Task completion | Acceptance Review | Findings | Exact branch |
 |---|---|---:|---|---|---|---|---|
 | US-151 | PAC-191 | 3 | PAC-TASK-526, PAC-TASK-527, PAC-TASK-530 | 3/3 | Pending | — | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
-| US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 1/2 | Pending | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
+| US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 2/2 | Pass | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
 | US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 0/5 | Pending | — | `story/PAC-193-us-153-read-only-graph-explorer` |
 | US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 0/2 | Pending | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
 | US-155 | PAC-195 | 3 | PAC-TASK-538, PAC-TASK-539, PAC-TASK-540 | 0/3 | Pending | — | `story/PAC-195-us-155-prompt-management-ui` |
@@ -777,7 +777,7 @@ Project Leader approval = Pending
 Ready to implement Sprint 11 = No
 
 Current Task = PAC-TASK-528 (Done)
-Next technical Task = PAC-TASK-529 / PAC-739
+Next technical Task = PAC-TASK-531 / PAC-741
 ```
 
 ## Required handoff fields
