@@ -84,15 +84,19 @@ export function Sidebar({ currentPath }: SidebarProps) {
       label: 'AI Audit Logs',
       path: '/dashboard/ai-audit-logs',
       icon: Activity,
-  Share2,
       roles: ['ADMIN'],
     },
     {
       label: 'Graph Sync Status',
       path: '/dashboard/graph-sync',
       icon: Activity,
-  Share2,
       roles: ['ADMIN'],
+    },
+    {
+      label: 'Graph Explorer',
+      path: '/dashboard/graph-explorer',
+      icon: Share2,
+      roles: ['ADMIN', 'STAFF'],
     },
   ];
 
