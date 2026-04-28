@@ -563,15 +563,15 @@ Required scenarios:
 | 4 | PAC-TASK-529 | PAC-739 | US-152 | PAC-EPIC-22 | Medium | Done | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | - | dea264a9463e2b2ca9b98ccd08fe6fefa04d7a49 | In Review |
 | 5 | PAC-TASK-530 | PAC-740 | US-151 | PAC-EPIC-22 | Medium | Done | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | #865 | e23b59e31e7e3c305b21f96fdbd1024288fa00db | In Review |
 | 6 | PAC-TASK-531 | PAC-741 | US-153 | PAC-EPIC-23 | Medium | Done | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | - | d9532a5cb5f9c9b787566d99fdb2b398f8b28162 | In Review |
-| 7 | PAC-TASK-532 | PAC-742 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — | Pending |
-| 8 | PAC-TASK-533 | PAC-743 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — | Pending |
-| 9 | PAC-TASK-534 | PAC-744 | US-153 | PAC-EPIC-23 | Medium | Not started | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — | Pending |
-| 10 | PAC-TASK-535 | PAC-745 | US-153 | PAC-EPIC-23 | High | Not started | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — | Pending |
+| 7 | PAC-TASK-532 | PAC-742 | US-153 | PAC-EPIC-23 | Low | Done | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 8 | PAC-TASK-533 | PAC-743 | US-153 | PAC-EPIC-23 | Low | Done | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 9 | PAC-TASK-534 | PAC-744 | US-153 | PAC-EPIC-23 | Medium | Done | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 10 | PAC-TASK-535 | PAC-745 | US-153 | PAC-EPIC-23 | High | Done | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
 | 11 | PAC-TASK-536 | PAC-746 | US-154 | PAC-EPIC-24 | Medium | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
 | 12 | PAC-TASK-537 | PAC-747 | US-154 | PAC-EPIC-24 | Low | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
-| 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — | Pending |
-| 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — | Pending |
-| 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — | Pending |
+| 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Done | `feature/PAC-748-task-538-build-prompt-management-list-ui` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Done | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Done | `feature/PAC-750-task-540-add-prompt-approval-status-display` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
 | 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
 | 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | merged with 541 | PASS |
 | 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
