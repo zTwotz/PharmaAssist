@@ -798,6 +798,12 @@ Rules:
 ```text
 Audit status = Completed
 Ready to implement Sprint 5 = Yes
+
+Sprint 5 Final Review = FAIL
+Ready for Sprint 6 = No
+Sprint 5 implementation = Incomplete
+Current next issue = PAC-TASK-227
+```
 ```
 
 After audit, replace with exactly one valid decision:
