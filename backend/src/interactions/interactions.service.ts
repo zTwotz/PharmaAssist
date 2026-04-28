@@ -12,7 +12,7 @@ export class InteractionsService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.drugInteraction.findMany({
+    return this.prisma.drugInteractionRule.findMany({
       include: {
         activeIngredientA: true,
         activeIngredientB: true,
@@ -22,6 +22,7 @@ export class InteractionsService {
   }
 
   async createInteraction(dto: CreateDrugInteractionDto) {
+    // PAC-TASK-230: Validate that two active ingredients are not identical
     if (dto.activeIngredientAId === dto.activeIngredientBId) {
       throw new BadRequestException('Hai hoạt chất phải khác nhau');
     }
@@ -39,7 +40,7 @@ export class InteractionsService {
       throw new BadRequestException('Hoạt chất không tồn tại');
     }
 
-    const existingRule = await this.prisma.drugInteraction.findFirst({
+    const existingRule = await this.prisma.drugInteractionRule.findFirst({
       where: {
         OR: [
           {
@@ -62,7 +63,7 @@ export class InteractionsService {
 
     const code = `DI-${Date.now()}`;
     return this.prisma.$transaction(async (tx) => {
-      const interaction = await tx.drugInteraction.create({
+      const interaction = await tx.drugInteractionRule.create({
         data: {
           code,
           activeIngredientAId: dto.activeIngredientAId,
@@ -73,6 +74,7 @@ export class InteractionsService {
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
@@ -86,7 +88,7 @@ export class InteractionsService {
   }
 
   async updateInteraction(id: number, dto: UpdateDrugInteractionDto) {
-    const existingRule = await this.prisma.drugInteraction.findUnique({
+    const existingRule = await this.prisma.drugInteractionRule.findUnique({
       where: { id },
     });
 
@@ -95,7 +97,7 @@ export class InteractionsService {
     }
 
     return this.prisma.$transaction(async (tx) => {
-      const interaction = await tx.drugInteraction.update({
+      const interaction = await tx.drugInteractionRule.update({
         where: { id },
         data: {
           severity: dto.severity !== undefined ? dto.severity : undefined,
@@ -106,6 +108,7 @@ export class InteractionsService {
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
@@ -119,7 +122,7 @@ export class InteractionsService {
   }
 
   async deactivateInteraction(id: number) {
-    const existingRule = await this.prisma.drugInteraction.findUnique({
+    const existingRule = await this.prisma.drugInteractionRule.findUnique({
       where: { id },
     });
 
@@ -128,13 +131,14 @@ export class InteractionsService {
     }
 
     return this.prisma.$transaction(async (tx) => {
-      const interaction = await tx.drugInteraction.update({
+      const interaction = await tx.drugInteractionRule.update({
         where: { id },
         data: {
           isActive: false,
         },
       });
 
+      // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
           entityType: 'InteractionRule',
@@ -164,7 +168,7 @@ export class InteractionsService {
       },
     });
 
-    const activeRules = await this.prisma.drugInteraction.findMany({
+    const activeRules = await this.prisma.drugInteractionRule.findMany({
       where: { isActive: true },
       include: {
         activeIngredientA: true,
@@ -187,6 +191,7 @@ export class InteractionsService {
           (ing) => ing.activeIngredientId,
         );
 
+        // PAC-TASK-235: Derive interaction from medicine active ingredients
         for (const rule of activeRules) {
           const matchNormal =
             medAIngredients.includes(rule.activeIngredientAId) &&

@@ -55,6 +55,7 @@ export default function CreateDrugInteractionPage() {
       alert('Vui lòng chọn 2 hoạt chất');
       return;
     }
+    // PAC-TASK-230: Validate that two active ingredients are not identical
     if (formData.activeIngredientAId === formData.activeIngredientBId) {
       alert('Hoạt chất A và B không được giống nhau');
       return;

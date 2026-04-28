@@ -409,6 +409,7 @@ export class OrdersService {
     });
   }
 
+  // PAC-TASK-237: Implement Order interaction check service
   async checkAndPersistInteractions(orderId: number) {
     const result =
       await this.interactionsService.checkOrderInteractions(orderId);
@@ -420,6 +421,7 @@ export class OrdersService {
     // Persist InteractionAlert for each interaction
     // Only persist if it doesn't already exist for this order and interaction rule
     for (const interaction of result.interactions) {
+      // PAC-TASK-241: Enforce one active alert per Order and interaction rule
       const existingAlert = await this.prisma.interactionAlert.findFirst({
         where: {
           orderId: orderId,
@@ -439,6 +441,7 @@ export class OrdersService {
           },
         });
       } else {
+        // PAC-TASK-242: Update display_count and last_displayed_at
         await this.prisma.interactionAlert.update({
           where: { id: existingAlert.id },
           data: {
@@ -472,3 +475,4 @@ export class OrdersService {
     });
   }
 }
+ 
