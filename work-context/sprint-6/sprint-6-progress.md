@@ -156,7 +156,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Epic | Technical status | Stories PASS | Integration/Regression Review | Full test evidence | Prisma/Migration | Supabase evidence | Blocking defects | Recommended Jira status | User Jira confirmation |
 |---|---|---:|---|---|---|---|---|---|---|
-| PAC-EPIC-11 | Not started | 0/16 | Pending | Pending | Pending | Pending | — | TO DO | — |
+| PAC-EPIC-11 | DONE | 100% | PASS | PASS | PASS | PASS | — | DONE | — |
 
 ## Epic completion checklist
 
@@ -188,12 +188,12 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-259 — Define Checkout DTO and validation schema | `PAC-469` | Not started | `feature/PAC-469-task-259-define-checkout-dto-and-validation-schema` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-260 — Implement CheckoutController POST /checkout | `PAC-470` | Not started | `feature/PAC-470-task-260-implement-checkoutcontroller-post-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-261 — Implement CheckoutService transaction skeleton | `PAC-471` | Not started | `feature/PAC-471-task-261-implement-checkoutservice-transaction-skeleton` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-266 — Build Checkout full page or full-height panel UI | `PAC-476` | Not started | `feature/PAC-476-task-266-build-checkout-full-page-or-full-height-panel-ui` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-288 — Update order status to PAID only after successful checkout | `PAC-498` | Not started | `feature/PAC-498-task-288-update-order-status-to-paid-only-after-successful-c` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-289 — Add checkout integration tests | `PAC-499` | Not started | `test/PAC-499-task-289-add-checkout-integration-tests` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-259 — Define Checkout DTO and validation schema | `PAC-469` | DONE | `feature/PAC-469-task-259-define-checkout-dto-and-validation-schema` | `eafb8f8` | `#800` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-260 — Implement CheckoutController POST /checkout | `PAC-470` | DONE | `feature/PAC-470-task-260-implement-checkoutcontroller-post-checkout` | `754dafe` | `#777` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-261 — Implement CheckoutService transaction skeleton | `PAC-471` | DONE | `feature/PAC-471-task-261-implement-checkoutservice-transaction-skeleton` | `5f23837` | `#778` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-266 — Build Checkout full page or full-height panel UI | `PAC-476` | DONE | `feature/PAC-476-task-266-build-checkout-full-page-or-full-height-panel-ui` | `be8e349` | `#783` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-288 — Update order status to PAID only after successful checkout | `PAC-498` | DONE | `feature/PAC-498-task-288-update-order-status-to-paid-only-after-successful-c` | `6c5ad14` | `#803` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-289 — Add checkout integration tests | `PAC-499` | DONE | `test/PAC-499-task-289-add-checkout-integration-tests` | `b499c4a` | `#804` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -227,7 +227,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-262 — Validate checkout actor permission and order ownership | `PAC-472` | Not started | `feature/PAC-472-task-262-validate-checkout-actor-permission-and-order-owners` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-262 — Validate checkout actor permission and order ownership | `PAC-472` | DONE | `feature/PAC-472-task-262-validate-checkout-actor-permission-and-order-owners` | `67fe5ef` | `#779` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -261,7 +261,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-263 — Validate order exists and status is DRAFT | `PAC-473` | Not started | `feature/PAC-473-task-263-validate-order-exists-and-status-is-draft` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-263 — Validate order exists and status is DRAFT | `PAC-473` | DONE | `feature/PAC-473-task-263-validate-order-exists-and-status-is-draft` | `963247a` | `#780` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -295,7 +295,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-264 — Validate unresolved HIGH alerts before payment | `PAC-474` | Not started | `feature/PAC-474-task-264-validate-unresolved-high-alerts-before-payment` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-264 — Validate unresolved HIGH alerts before payment | `PAC-474` | DONE | `feature/PAC-474-task-264-validate-unresolved-high-alerts-before-payment` | `37deb6f` | `#781` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -329,7 +329,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-265 — Validate sellable stock inside checkout transaction | `PAC-475` | Not started | `feature/PAC-475-task-265-validate-sellable-stock-inside-checkout-transaction` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-265 — Validate sellable stock inside checkout transaction | `PAC-475` | DONE | `feature/PAC-475-task-265-validate-sellable-stock-inside-checkout-transaction` | `df37fd8` | `#782` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -363,12 +363,12 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-268 — Define FEFO allocation input/output model | `PAC-478` | Not started | `feature/PAC-478-task-268-define-fefo-allocation-input-output-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-269 — Query sellable MedicineBatch for FEFO | `PAC-479` | Not started | `feature/PAC-479-task-269-query-sellable-medicinebatch-for-fefo` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-270 — Sort FEFO batches by nearest expiry date | `PAC-480` | Not started | `feature/PAC-480-task-270-sort-fefo-batches-by-nearest-expiry-date` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-271 — Allocate requested quantity across multiple batches | `PAC-481` | Not started | `feature/PAC-481-task-271-allocate-requested-quantity-across-multiple-batches` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-272 — Reject FEFO allocation when sellable stock is insufficient | `PAC-482` | Not started | `feature/PAC-482-task-272-reject-fefo-allocation-when-sellable-stock-is-insuf` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-290 — Add FEFO, idempotency and rollback tests | `PAC-500` | Not started | `test/PAC-500-task-290-add-fefo-idempotency-and-rollback-tests` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-268 — Define FEFO allocation input/output model | `PAC-478` | DONE | `feature/PAC-478-task-268-define-fefo-allocation-input-output-model` | `4628ea8` | `#785` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-269 — Query sellable MedicineBatch for FEFO | `PAC-479` | DONE | `feature/PAC-479-task-269-query-sellable-medicinebatch-for-fefo` | `ade6f1d` | `#786` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-270 — Sort FEFO batches by nearest expiry date | `PAC-480` | DONE | `feature/PAC-480-task-270-sort-fefo-batches-by-nearest-expiry-date` | `69a5d52` | `#787` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-271 — Allocate requested quantity across multiple batches | `PAC-481` | DONE | `feature/PAC-481-task-271-allocate-requested-quantity-across-multiple-batches` | `6cf96cd` | `#788` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-272 — Reject FEFO allocation when sellable stock is insufficient | `PAC-482` | DONE | `feature/PAC-482-task-272-reject-fefo-allocation-when-sellable-stock-is-insuf` | `6cf96cd` | `#788` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-290 — Add FEFO, idempotency and rollback tests | `PAC-500` | DONE | `test/PAC-500-task-290-add-fefo-idempotency-and-rollback-tests` | `772d569` | `#805` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -402,8 +402,8 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-273 — Create order_batch_allocations Prisma model | `PAC-483` | Not started | `feature/PAC-483-task-273-create-order-batch-allocations-prisma-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-274 — Persist order_batch_allocations during checkout | `PAC-484` | Not started | `feature/PAC-484-task-274-persist-order-batch-allocations-during-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-273 — Create order_batch_allocations Prisma model | `PAC-483` | DONE | `feature/PAC-483-task-273-create-order-batch-allocations-prisma-model` | `41a4cbb` | `#789` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-274 — Persist order_batch_allocations during checkout | `PAC-484` | DONE | `feature/PAC-484-task-274-persist-order-batch-allocations-during-checkout` | `c20638e` | `#790` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -437,7 +437,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-275 — Deduct MedicineBatch quantities inside checkout transaction | `PAC-485` | Not started | `feature/PAC-485-task-275-deduct-medicinebatch-quantities-inside-checkout-tra` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-275 — Deduct MedicineBatch quantities inside checkout transaction | `PAC-485` | DONE | `feature/PAC-485-task-275-deduct-medicinebatch-quantities-inside-checkout-tra` | `c20638e` | `#790` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -471,8 +471,8 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-276 — Create idempotency_records Prisma model | `PAC-486` | Not started | `feature/PAC-486-task-276-create-idempotency-records-prisma-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-277 — Implement idempotency key handling for checkout | `PAC-487` | Not started | `feature/PAC-487-task-277-implement-idempotency-key-handling-for-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-276 — Create idempotency_records Prisma model | `PAC-486` | DONE | `feature/PAC-486-task-276-create-idempotency-records-prisma-model` | `d399664` | `#791` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-277 — Implement idempotency key handling for checkout | `PAC-487` | DONE | `feature/PAC-487-task-277-implement-idempotency-key-handling-for-checkout` | `25422ed` | `#792` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -506,7 +506,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-278 — Rollback checkout transaction on failure | `PAC-488` | Not started | `feature/PAC-488-task-278-rollback-checkout-transaction-on-failure` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-278 — Rollback checkout transaction on failure | `PAC-488` | DONE | `feature/PAC-488-task-278-rollback-checkout-transaction-on-failure` | `8c336a3` | `#793` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -540,9 +540,9 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-267 — Build payment method selector in Checkout UI | `PAC-477` | Not started | `feature/PAC-477-task-267-build-payment-method-selector-in-checkout-ui` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-279 — Create payments Prisma model | `PAC-489` | Not started | `feature/PAC-489-task-279-create-payments-prisma-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-280 — Implement cash payment handling inside checkout | `PAC-490` | Not started | `feature/PAC-490-task-280-implement-cash-payment-handling-inside-checkout` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-267 — Build payment method selector in Checkout UI | `PAC-477` | DONE | `feature/PAC-477-task-267-build-payment-method-selector-in-checkout-ui` | `fd8012a` | `#784` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-279 — Create payments Prisma model | `PAC-489` | DONE | `feature/PAC-489-task-279-create-payments-prisma-model` | `244100f` | `#794` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-280 — Implement cash payment handling inside checkout | `PAC-490` | DONE | `feature/PAC-490-task-280-implement-cash-payment-handling-inside-checkout` | `7998ce9` | `#795` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -576,7 +576,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-281 — Calculate and persist change_amount | `PAC-491` | Not started | `feature/PAC-491-task-281-calculate-and-persist-change-amount` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-281 — Calculate and persist change_amount | `PAC-491` | DONE | `feature/PAC-491-task-281-calculate-and-persist-change-amount` | `a204edd` | `#796` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -610,7 +610,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-282 — Implement bank transfer transaction_reference validation | `PAC-492` | Not started | `feature/PAC-492-task-282-implement-bank-transfer-transaction-reference-valid` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-282 — Implement bank transfer transaction_reference validation | `PAC-492` | DONE | `feature/PAC-492-task-282-implement-bank-transfer-transaction-reference-valid` | `a4e4cc0` | `#797` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -644,8 +644,8 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-283 — Enforce one SUCCESS payment per order | `PAC-493` | Not started | `feature/PAC-493-task-283-enforce-one-success-payment-per-order` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-284 — Allow failed payment attempts without duplicate SUCCESS payment | `PAC-494` | Not started | `feature/PAC-494-task-284-allow-failed-payment-attempts-without-creating-dupl` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-283 — Enforce one SUCCESS payment per order | `PAC-493` | DONE | `feature/PAC-493-task-283-enforce-one-success-payment-per-order` | `6cb6983` | `#798` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-284 — Allow failed payment attempts without duplicate SUCCESS payment | `PAC-494` | DONE | `feature/PAC-494-task-284-allow-failed-payment-attempts-without-creating-dupl` | `35b57b9` | `#799` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -679,8 +679,8 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-285 — Create invoices Prisma model | `PAC-495` | Not started | `feature/PAC-495-task-285-create-invoices-prisma-model` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-286 — Generate invoice inside checkout transaction | `PAC-496` | Not started | `feature/PAC-496-task-286-generate-invoice-inside-checkout-transaction` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-285 — Create invoices Prisma model | `PAC-495` | DONE | `feature/PAC-495-task-285-create-invoices-prisma-model` | `acdf55f` | `#800` | `develop` | Merged | PASS | N/A | — | TO DO |
+| PAC-TASK-286 — Generate invoice inside checkout transaction | `PAC-496` | DONE | `feature/PAC-496-task-286-generate-invoice-inside-checkout-transaction` | `8c24663` | `#801` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 
@@ -714,7 +714,7 @@ Supabase verification = N/A — no persistent data impact
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-287 — Build invoice view and print UI | `PAC-497` | Not started | `feature/PAC-497-task-287-build-invoice-view-and-print-ui` | — | — | Not opened | — | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-287 — Build invoice view and print UI | `PAC-497` | DONE | `feature/PAC-497-task-287-build-invoice-view-and-print-ui` | `dec4b6f` | `#802` | `develop` | Merged | PASS | N/A | — | TO DO |
 
 ## Story completion checklist
 

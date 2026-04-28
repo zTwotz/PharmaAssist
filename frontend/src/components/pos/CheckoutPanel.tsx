@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { usePosStore, PosCartItem } from '@/store/usePosStore';
 import axios from 'axios';
 import { InvoiceModal } from './InvoiceModal';
+import { CheckoutModal } from './CheckoutModal';
 
 export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolvedHighAlerts?: boolean }) {
   const { cart, totalAmount, clearCart } = usePosStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<any>(null);
   const [invoiceCartItems, setInvoiceCartItems] = useState<PosCartItem[]>([]);
 
@@ -93,6 +95,7 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
 
       <div className="relative group">
         <button
+          onClick={() => setIsCheckoutModalOpen(true)}
           disabled={cart.length === 0 || isProcessing || hasUnresolvedHighAlerts}
           className={`w-full py-3.5 px-4 rounded-xl font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 ${
             cart.length === 0
@@ -140,6 +143,12 @@ export function CheckoutPanel({ hasUnresolvedHighAlerts = false }: { hasUnresolv
           cartItems={invoiceCartItems}
         />
       )}
+
+      <CheckoutModal 
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        totalAmount={totalAmount}
+      />
     </div>
   );
 }
