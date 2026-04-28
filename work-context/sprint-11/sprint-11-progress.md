@@ -279,67 +279,67 @@ Không được ghi GitHub Actions = N/A — full CI intentionally reserved for 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
 | PAC-TASK-528 | PAC-738 | Build manual graph retry action for Admin | Completed | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | — | dc22a90 |
-| PAC-TASK-529 | PAC-739 | Build manual graph rebuild action for Admin | Not started | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — |
+| PAC-TASK-529 | PAC-739 | Build manual graph rebuild action for Admin | Done | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — |
 
 ## Phase 3 — Read-only Graph Explorer
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-535 | PAC-745 | Ensure Graph Explorer uses allowlisted templates only | Not started | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — |
-| PAC-TASK-534 | PAC-744 | Add Graph Explorer permission checks | Not started | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — |
-| PAC-TASK-531 | PAC-741 | Build read-only Graph Explorer UI | Not started | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — |
-| PAC-TASK-532 | PAC-742 | Build Graph Explorer node detail panel | Not started | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — |
-| PAC-TASK-533 | PAC-743 | Build Graph Explorer relationship detail panel | Not started | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — |
+| PAC-TASK-535 | PAC-745 | Ensure Graph Explorer uses allowlisted templates only | Done | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — |
+| PAC-TASK-534 | PAC-744 | Add Graph Explorer permission checks | Done | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — |
+| PAC-TASK-531 | PAC-741 | Build read-only Graph Explorer UI | Done | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — |
+| PAC-TASK-532 | PAC-742 | Build Graph Explorer node detail panel | Done | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — |
+| PAC-TASK-533 | PAC-743 | Build Graph Explorer relationship detail panel | Done | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — |
 
 ## Phase 4 — AI Provider and Prompt Governance UI
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-536 | PAC-746 | Build AI Provider Settings UI | Not started | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — |
-| PAC-TASK-537 | PAC-747 | Build AI model configuration UI | Not started | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — |
-| PAC-TASK-538 | PAC-748 | Build Prompt Management list UI | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — |
-| PAC-TASK-539 | PAC-749 | Build Prompt Management version detail UI | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — |
-| PAC-TASK-540 | PAC-750 | Add prompt approval status display | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — |
+| PAC-TASK-536 | PAC-746 | Build AI Provider Settings UI | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — |
+| PAC-TASK-537 | PAC-747 | Build AI model configuration UI | Done | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — |
+| PAC-TASK-538 | PAC-748 | Build Prompt Management list UI | Done | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — |
+| PAC-TASK-539 | PAC-749 | Build Prompt Management version detail UI | Done | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — |
+| PAC-TASK-540 | PAC-750 | Add prompt approval status display | Done | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — |
 
 ## Phase 5 — System Audit Log UI
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-541 | PAC-751 | Build System Audit Log UI | Not started | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — |
-| PAC-TASK-542 | PAC-752 | Add System Audit Log filters | Not started | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — |
+| PAC-TASK-541 | PAC-751 | Build System Audit Log UI | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — |
+| PAC-TASK-542 | PAC-752 | Add System Audit Log filters | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — |
 
 ## Phase 6 — Supabase Storage for Medicine Images
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-545 | PAC-755 | Add Supabase Storage file validation | Not started | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — |
-| PAC-TASK-543 | PAC-753 | Implement Supabase Storage upload flow for medicine images | Not started | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — |
-| PAC-TASK-544 | PAC-754 | Build medicine image upload UI | Not started | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — |
+| PAC-TASK-545 | PAC-755 | Add Supabase Storage file validation | Done | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — |
+| PAC-TASK-543 | PAC-753 | Implement Supabase Storage upload flow for medicine images | Done | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — |
+| PAC-TASK-544 | PAC-754 | Build medicine image upload UI | Done | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — |
 
 ## Phase 7 — Supabase Realtime Inventory UX
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-546 | PAC-756 | Implement Supabase Realtime inventory update listener | Not started | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — |
-| PAC-TASK-548 | PAC-758 | Add realtime fallback polling behavior | Not started | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — |
-| PAC-TASK-547 | PAC-757 | Build realtime POS stock refresh behavior | Not started | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — |
+| PAC-TASK-546 | PAC-756 | Implement Supabase Realtime inventory update listener | Done | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — |
+| PAC-TASK-548 | PAC-758 | Add realtime fallback polling behavior | Done | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — |
+| PAC-TASK-547 | PAC-757 | Build realtime POS stock refresh behavior | Done | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — |
 
 ## Phase 8 — Notification Center and Scheduled Near-expiry Scan
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-550 | PAC-760 | Implement low-stock notification generation | Not started | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — |
-| PAC-TASK-551 | PAC-761 | Implement near-expiry notification generation | Not started | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — |
-| PAC-TASK-553 | PAC-763 | Implement scheduled near-expiry scan job | Not started | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — |
-| PAC-TASK-549 | PAC-759 | Build Notification Center UI | Not started | `feature/PAC-759-task-549-build-notification-center-ui` | — | — |
-| PAC-TASK-552 | PAC-762 | Build read/unread notification state | Not started | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — |
+| PAC-TASK-550 | PAC-760 | Implement low-stock notification generation | Done | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — |
+| PAC-TASK-551 | PAC-761 | Implement near-expiry notification generation | Done | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — |
+| PAC-TASK-553 | PAC-763 | Implement scheduled near-expiry scan job | Done | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — |
+| PAC-TASK-549 | PAC-759 | Build Notification Center UI | Done | `feature/PAC-759-task-549-build-notification-center-ui` | — | — |
+| PAC-TASK-552 | PAC-762 | Build read/unread notification state | Done | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — |
 
 ## Phase 9 — AI Business Report Narrative
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-554 | PAC-764 | Implement AI Business Report Narrative API | Not started | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — |
-| PAC-TASK-555 | PAC-765 | Build AI Business Report Narrative UI | Not started | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — |
+| PAC-TASK-554 | PAC-764 | Implement AI Business Report Narrative API | Done | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — |
+| PAC-TASK-555 | PAC-765 | Build AI Business Report Narrative UI | Done | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — |
 
 ---
 
