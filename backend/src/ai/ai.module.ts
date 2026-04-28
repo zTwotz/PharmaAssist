@@ -9,6 +9,8 @@ import { AiAuditLogController } from './ai-audit-log.controller';
 import { AiPiiMinimizerService } from './ai-pii-minimizer.service';
 import { AiController } from './ai.controller';
 import { PromptsController } from './prompts.controller';
+import { AiReportController } from './ai-report.controller';
+import { AiReportService } from './ai-report.service';
 import { AiConfigController } from './ai-config.controller';
 import { GoogleAiProvider } from './providers/google-ai.provider';
 import { MockAiProvider } from './providers/mock-ai.provider';

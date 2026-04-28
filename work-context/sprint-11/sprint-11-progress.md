@@ -572,8 +572,8 @@ Required scenarios:
 | 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — | Pending |
 | 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — | Pending |
 | 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — | Pending |
-| 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Not started | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — | Pending |
-| 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Not started | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — | Pending |
+| 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | merged with 541 | PASS |
 | 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — | Pending |
 | 19 | PAC-TASK-544 | PAC-754 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — | Pending |
 | 20 | PAC-TASK-545 | PAC-755 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — | Pending |
