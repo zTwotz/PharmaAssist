@@ -574,19 +574,19 @@ Required scenarios:
 | 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — | Pending |
 | 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
 | 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | merged with 541 | PASS |
-| 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — | Pending |
-| 19 | PAC-TASK-544 | PAC-754 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — | Pending |
-| 20 | PAC-TASK-545 | PAC-755 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — | Pending |
-| 21 | PAC-TASK-546 | PAC-756 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — | Pending |
-| 22 | PAC-TASK-547 | PAC-757 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — | Pending |
-| 23 | PAC-TASK-548 | PAC-758 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — | Pending |
-| 24 | PAC-TASK-549 | PAC-759 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-759-task-549-build-notification-center-ui` | — | — | Pending |
-| 25 | PAC-TASK-550 | PAC-760 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — | Pending |
-| 26 | PAC-TASK-551 | PAC-761 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — | Pending |
-| 27 | PAC-TASK-552 | PAC-762 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — | Pending |
-| 28 | PAC-TASK-553 | PAC-763 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — | Pending |
-| 29 | PAC-TASK-554 | PAC-764 | US-160 | PAC-EPIC-29 | Low | Not started | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — | Pending |
-| 30 | PAC-TASK-555 | PAC-765 | US-160 | PAC-EPIC-29 | Low | Not started | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — | Pending |
+| 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 19 | PAC-TASK-544 | PAC-754 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 20 | PAC-TASK-545 | PAC-755 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 21 | PAC-TASK-546 | PAC-756 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 22 | PAC-TASK-547 | PAC-757 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 23 | PAC-TASK-548 | PAC-758 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 24 | PAC-TASK-549 | PAC-759 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-759-task-549-build-notification-center-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 25 | PAC-TASK-550 | PAC-760 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 26 | PAC-TASK-551 | PAC-761 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 27 | PAC-TASK-552 | PAC-762 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-762-task-552-build-read-unread-notification-state` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 28 | PAC-TASK-553 | PAC-763 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 29 | PAC-TASK-554 | PAC-764 | US-160 | PAC-EPIC-29 | Low | Done | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 30 | PAC-TASK-555 | PAC-765 | US-160 | PAC-EPIC-29 | Low | Done | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
 
 Status definitions:
 
