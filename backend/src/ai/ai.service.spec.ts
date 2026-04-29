@@ -35,9 +35,8 @@ describe('AiService', () => {
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
         data: {
-          symptoms: ['Google Symptom'],
-          diagnosis: 'Google Diagnosis',
-          recommendations: ['Google Rec'],
+          draftNote: 'Sample Note',
+          disclaimer: 'Disclaimer',
         },
         metadata: { providerUsed: AiProviderType.GOOGLE },
       }),
@@ -58,9 +57,7 @@ describe('AiService', () => {
       }),
       generateConsultationNoteDraft: jest.fn().mockResolvedValue({
         data: {
-          symptoms: ['Mock Symptom'],
-          diagnosis: 'Mock Diagnosis',
-          recommendations: ['Mock Rec'],
+          disclaimer: 'Disclaimer',
         },
         metadata: { providerUsed: AiProviderType.MOCK },
       }),
@@ -213,7 +210,7 @@ describe('AiService', () => {
     expect(
       mockGoogleAiProvider.generateConsultationNoteDraft,
     ).toHaveBeenCalledWith(expect.objectContaining(input));
-    expect(result.data.symptoms).toEqual(['Google Symptom']);
+    expect(result.data).toHaveProperty('draftNote');
     expect(result.metadata.providerUsed).toEqual(AiProviderType.GOOGLE);
   });
 

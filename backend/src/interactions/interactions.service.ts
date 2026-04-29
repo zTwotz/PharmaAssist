@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateDrugInteractionDto } from './dto/create-drug-interaction.dto';
 import { UpdateDrugInteractionDto } from './dto/update-drug-interaction.dto';
+import { GraphSyncEventType } from '../graph-sync/types/graph-sync.types';
 
 @Injectable()
 export class InteractionsService {
@@ -77,9 +78,18 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'InteractionRule',
-          entityId: interaction.id,
-          action: 'CREATE',
+          eventType: GraphSyncEventType.DRUG_INTERACTION_UPSERT,
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: String(interaction.id),
+          sourceVersion: Date.now(),
+          payload: {
+            id: interaction.id,
+            code: interaction.code,
+            activeIngredientAId: interaction.activeIngredientAId,
+            activeIngredientBId: interaction.activeIngredientBId,
+            severity: interaction.severity,
+            isActive: interaction.isActive,
+          },
         },
       });
 
@@ -111,9 +121,18 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'InteractionRule',
-          entityId: interaction.id,
-          action: 'UPDATE',
+          eventType: GraphSyncEventType.DRUG_INTERACTION_UPSERT,
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: String(interaction.id),
+          sourceVersion: Date.now(),
+          payload: {
+            id: interaction.id,
+            code: interaction.code,
+            activeIngredientAId: interaction.activeIngredientAId,
+            activeIngredientBId: interaction.activeIngredientBId,
+            severity: interaction.severity,
+            isActive: interaction.isActive,
+          },
         },
       });
 
@@ -141,9 +160,15 @@ export class InteractionsService {
       // PAC-TASK-233: Trigger Graph Sync event on interaction rule change
       await tx.graphSyncOutbox.create({
         data: {
-          entityType: 'InteractionRule',
-          entityId: interaction.id,
-          action: 'DEACTIVATE',
+          eventType: GraphSyncEventType.DRUG_INTERACTION_DEACTIVATE,
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: String(interaction.id),
+          sourceVersion: Date.now(),
+          payload: {
+            id: interaction.id,
+            code: interaction.code,
+            isActive: interaction.isActive,
+          },
         },
       });
 

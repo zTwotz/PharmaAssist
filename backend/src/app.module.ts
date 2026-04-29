@@ -17,9 +17,13 @@ import { ActiveIngredientsModule } from './active-ingredients/active-ingredients
 import { StockImportsModule } from './stock-imports/stock-imports.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AiModule } from './ai/ai.module';
+import { Neo4jModule } from './neo4j/neo4j.module';
+import { GraphSyncModule } from './graph-sync/graph-sync.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     PrismaModule,
     AuthModule,
     UsersModule,
@@ -36,6 +40,8 @@ import { AiModule } from './ai/ai.module';
     StockImportsModule,
     CheckoutModule,
     AiModule,
+    Neo4jModule,
+    GraphSyncModule,
   ],
   controllers: [AppController],
   providers: [AppService],
