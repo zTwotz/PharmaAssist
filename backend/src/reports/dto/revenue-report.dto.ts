@@ -1,4 +1,10 @@
-import { IsOptional, IsString, IsDateString, IsInt, Min } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsDateString,
+  IsInt,
+  Min,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -20,7 +26,11 @@ export class RevenueReportQueryDto {
 }
 
 export class TopMedicinesQueryDto extends RevenueReportQueryDto {
-  @ApiProperty({ required: false, description: 'Number of top medicines to return', default: 10 })
+  @ApiProperty({
+    required: false,
+    description: 'Number of top medicines to return',
+    default: 10,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()

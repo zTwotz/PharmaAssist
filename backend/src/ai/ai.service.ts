@@ -153,14 +153,14 @@ export class AiService {
     if (input.medicineIds && input.medicineIds.length > 0) {
       const dbMedicines = await this.prisma.medicine.findMany({
         where: { id: { in: input.medicineIds } },
-        include: { product: true }
+        include: { product: true },
       });
-      medicineSlugs = dbMedicines.map(m => m.product.slug);
+      medicineSlugs = dbMedicines.map((m) => m.product.slug);
     } else if (input.medicines && input.medicines.length > 0) {
       const dbProducts = await this.prisma.product.findMany({
-        where: { name: { in: input.medicines } }
+        where: { name: { in: input.medicines } },
       });
-      medicineSlugs = dbProducts.map(p => p.slug);
+      medicineSlugs = dbProducts.map((p) => p.slug);
     }
 
     if (medicineSlugs.length > 0) {
@@ -179,10 +179,10 @@ export class AiService {
       );
       input.graphContext = graphText;
 
-      const response = await this.executeWithFallback<InteractionExplanationInput, InteractionExplanationOutput>(
-        'generateInteractionExplanation',
-        input,
-      );
+      const response = await this.executeWithFallback<
+        InteractionExplanationInput,
+        InteractionExplanationOutput
+      >('generateInteractionExplanation', input);
 
       if (response.metadata) {
         response.metadata.graphUsed =
@@ -197,13 +197,19 @@ export class AiService {
       return response;
     }
 
-    return this.executeWithFallback<InteractionExplanationInput, InteractionExplanationOutput>('generateInteractionExplanation', input);
+    return this.executeWithFallback<
+      InteractionExplanationInput,
+      InteractionExplanationOutput
+    >('generateInteractionExplanation', input);
   }
 
   async generateConsultationNoteDraft(
     input: ConsultationNoteDraftInput,
   ): Promise<AiResponse<ConsultationNoteDraftOutput>> {
-    return this.executeWithFallback<ConsultationNoteDraftInput, ConsultationNoteDraftOutput>('generateConsultationNoteDraft', input);
+    return this.executeWithFallback<
+      ConsultationNoteDraftInput,
+      ConsultationNoteDraftOutput
+    >('generateConsultationNoteDraft', input);
   }
 
   async generateFollowUpQuestions(

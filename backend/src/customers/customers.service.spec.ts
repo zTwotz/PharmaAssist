@@ -9,7 +9,9 @@ describe('CustomersService', () => {
   beforeEach(async () => {
     mockPrismaService = {
       customer: {
-        findMany: jest.fn().mockResolvedValue([{ id: 1, fullName: 'Test Customer' }]),
+        findMany: jest
+          .fn()
+          .mockResolvedValue([{ id: 1, fullName: 'Test Customer' }]),
       },
     };
 

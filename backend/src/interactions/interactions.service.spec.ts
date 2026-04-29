@@ -19,7 +19,16 @@ describe('InteractionsService', () => {
             drugInteractionRule: {
               findMany: jest.fn(),
               findUnique: jest.fn(),
+              create: jest.fn(),
+              update: jest.fn(),
             },
+            activeIngredient: {
+              findUnique: jest.fn(),
+            },
+            graphSyncOutbox: {
+              create: jest.fn(),
+            },
+            $transaction: jest.fn((cb: any) => cb(prismaService)),
           },
         },
       ],
@@ -43,6 +52,45 @@ describe('InteractionsService', () => {
         }),
       ).rejects.toThrow('Hai hoạt chất phải khác nhau');
     });
+
+    it('should successfully create interaction and write to graphSyncOutbox (PAC-TASK-475)', async () => {
+      const mockRule = {
+        id: 1,
+        activeIngredientAId: 2,
+        activeIngredientBId: 3,
+        severity: 'HIGH',
+      };
+      (
+        prismaService.activeIngredient.findUnique as jest.Mock
+      ).mockResolvedValue({});
+      (prismaService.drugInteractionRule.findFirst as jest.Mock) = jest
+        .fn()
+        .mockResolvedValue(null);
+      (prismaService.drugInteractionRule.create as jest.Mock).mockResolvedValue(
+        mockRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 10 });
+
+      const result = await service.createInteraction({
+        activeIngredientAId: 2,
+        activeIngredientBId: 3,
+        severity: 'HIGH',
+      });
+
+      expect(result).toEqual(mockRule);
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          eventType: 'DRUG_INTERACTION_UPSERT',
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: '1',
+          payload: expect.any(Object),
+        }),
+      });
+    });
   });
 
   describe('updateInteraction', () => {
@@ -54,6 +102,39 @@ describe('InteractionsService', () => {
         service.updateInteraction(999, { severity: 'LOW' }),
       ).rejects.toThrow('Luật tương tác không tồn tại');
     });
+
+    it('should successfully update interaction and write to graphSyncOutbox (PAC-TASK-475)', async () => {
+      const mockRule = {
+        id: 1,
+        activeIngredientAId: 2,
+        activeIngredientBId: 3,
+        severity: 'HIGH',
+      };
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(mockRule);
+      const mockUpdatedRule = { ...mockRule, severity: 'LOW' };
+      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(
+        mockUpdatedRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 11 });
+
+      const result = await service.updateInteraction(1, { severity: 'LOW' });
+
+      expect(result).toEqual(mockUpdatedRule);
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          eventType: 'DRUG_INTERACTION_UPSERT',
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: '1',
+          payload: expect.any(Object),
+        }),
+      });
+    });
   });
 
   describe('deactivateInteraction', () => {
@@ -64,6 +145,39 @@ describe('InteractionsService', () => {
       await expect(service.deactivateInteraction(999)).rejects.toThrow(
         'Luật tương tác không tồn tại',
       );
+    });
+
+    it('should successfully deactivate interaction and write to graphSyncOutbox (PAC-TASK-475)', async () => {
+      const mockRule = {
+        id: 1,
+        activeIngredientAId: 2,
+        activeIngredientBId: 3,
+        severity: 'HIGH',
+      };
+      (
+        prismaService.drugInteractionRule.findUnique as jest.Mock
+      ).mockResolvedValue(mockRule);
+      const mockUpdatedRule = { ...mockRule, isActive: false };
+      (prismaService.drugInteractionRule.update as jest.Mock).mockResolvedValue(
+        mockUpdatedRule,
+      );
+      (
+        (prismaService as any).graphSyncOutbox.create as jest.Mock
+      ).mockResolvedValue({ id: 12 });
+
+      const result = await service.deactivateInteraction(1);
+
+      expect(result).toEqual(mockUpdatedRule);
+      expect(
+        (prismaService as any).graphSyncOutbox.create,
+      ).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          eventType: 'DRUG_INTERACTION_DEACTIVATE',
+          aggregateType: 'DRUG_INTERACTION_RULE',
+          aggregateId: '1',
+          payload: expect.any(Object),
+        }),
+      });
     });
   });
 

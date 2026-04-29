@@ -285,54 +285,54 @@ Required:
 | Layer | Task | Expected | Status | Command | Evidence |
 |---|---|---|---|---|---|
 | Backend unit | PAC-TASK-436 | Unit runner and sample | Not started | — | — |
-| Backend integration | PAC-TASK-437 | Isolated cleanup strategy | Not started | — | — |
-| Frontend component | PAC-TASK-438 | Component runner and sample | Not started | — | — |
-| Playwright | PAC-TASK-439 | Chrome desktop E2E | Not started | — | — |
-| Postman | PAC-TASK-440 | Structured manual collection | Not started | — | — |
+| Backend integration | PAC-TASK-437 | Isolated cleanup strategy | Technically complete | d5e4759 | — |
+| Frontend component | PAC-TASK-438 | Component runner and sample | Technically complete | be9ac96 | — |
+| Playwright | PAC-TASK-439 | Chrome desktop E2E | Technically complete | 898da6a | — |
+| Postman | PAC-TASK-440 | Structured manual collection | Technically complete | 4414f4e | — |
 
 # 13. High-risk Regression Verification Register
 
 | Task | Jira Key | Parent Story | Module | Status | Success path | Validation/permission | Failure isolation/rollback | Idempotency/concurrency | Evidence |
 |---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
-| PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | Not started | Pending | Pending | Pending/N/A | Pending/N/A | — |
+| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | Technically complete | 2885cac | PASS | N/A | N/A | — |
+| PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | Technically complete | 9eb43f6 | PASS | N/A | N/A | — |
+| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | Technically complete | 6b58e93 | PASS | N/A | N/A | — |
+| PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | Technically complete | 815151a | PASS | N/A | N/A | — |
+| PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | Technically complete | 06031ad | PASS | N/A | N/A | — |
+| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | Technically complete | 851cd85 | PASS | N/A | N/A | — |
+| PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | Technically complete | e920841 | PASS | N/A | N/A | — |
+| PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | Technically complete | 486913d | PASS | N/A | N/A | — |
+| PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | Technically complete | da0bc9e | PASS | N/A | N/A | — |
+| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | Technically complete | ccedd21 | PASS | N/A | N/A | — |
+| PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | Technically complete | 9ef663b | PASS | N/A | N/A | — |
+| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | Technically complete | 9cd85bb | PASS | N/A | N/A | — |
+| PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | Technically complete | b32d6d3 | PASS | N/A | N/A | — |
+| PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | Technically complete | 796f7d9 | PASS | N/A | N/A | — |
+| PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | Technically complete | fb159ac | PASS | N/A | N/A | — |
+| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | Technically complete | fe86f1b | PASS | N/A | N/A | — |
+| PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | Technically complete | f0935a7 | PASS | N/A | N/A | — |
+| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | Technically complete | e5cd496 | PASS | N/A | N/A | — |
+| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | Technically complete | 49928ca | PASS | N/A | N/A | — |
+| PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | Technically complete | 75bb2c2 | PASS | N/A | N/A | — |
+| PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | Technically complete | 283218c | PASS | N/A | N/A | — |
+| PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | Technically complete | bbccbed | PASS | N/A | N/A | — |
+| PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | Technically complete | f14a59a | PASS | N/A | N/A | — |
+| PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | Technically complete | dd41a9e | PASS | N/A | N/A | — |
+| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | Technically complete | 3f35de7 | PASS | N/A | N/A | — |
+| PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | Technically complete | 61dbcb7 | PASS | N/A | N/A | — |
+| PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | Technically complete | 5fa4352 | PASS | N/A | N/A | — |
+| PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | Technically complete | e3499c7 | PASS | N/A | N/A | — |
+| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | Technically complete | 4b65ba1 | PASS | N/A | N/A | — |
+| PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | Technically complete | b260a1b | PASS | N/A | N/A | — |
+| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | Technically complete | cac2c48 | PASS | N/A | N/A | — |
+| PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | Technically complete | 1de1f79 | PASS | N/A | N/A | — |
+| PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | Technically complete | 95e61b9 | PASS | N/A | N/A | — |
+| PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | Technically complete | fd5f2c0 | PASS | N/A | N/A | — |
+| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | Technically complete | e822b09 | PASS | N/A | N/A | — |
+| PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | Technically complete | aed8789 | PASS | N/A | N/A | — |
+| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | Technically complete | b1e2156 | PASS | N/A | N/A | — |
+| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | Technically complete | 6f36d0b | PASS | N/A | N/A | — |
+| PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | Technically complete | 6205a48 | PASS | N/A | N/A | — |
 
 # 14. Full MVP Smoke Test Log
 
@@ -551,95 +551,95 @@ Release Story review rules:
 | PAC-TASK-434 | PAC-644 | US-150 | Rebuild Neo4j projection during demo reset | `feature/PAC-644-task-434-rebuild-neo4j-projection-during-demo-reset` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-435 | PAC-645 | US-150 | Run smoke tests after demo reset | `test/PAC-645-task-435-run-smoke-tests-after-demo-reset` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
 | PAC-TASK-436 | PAC-646 | US-150 | Add backend unit test setup | `test/PAC-646-task-436-add-backend-unit-test-setup` | Technically complete | — | — | 76febfa | Pass | N/A | N/A | Pass | DONE |
-| PAC-TASK-437 | PAC-647 | US-150 | Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-439 | PAC-649 | US-150 | Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | `test/PAC-652-task-442-add-user-management-permission-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | `test/PAC-655-task-445-add-supplier-management-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | `test/PAC-658-task-448-add-near-expiry-threshold-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | `test/PAC-664-task-454-add-pos-draft-order-ui-smoke-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | `test/PAC-670-task-460-add-interactionalert-display-count-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | `test/PAC-671-task-461-add-high-alert-acknowledgement-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | `test/PAC-672-task-462-add-high-alert-consultation-note-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | `test/PAC-673-task-463-add-checkout-blocker-tests-for-unresolved-high-aler` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | `test/PAC-674-task-464-add-checkout-transaction-success-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | `test/PAC-677-task-467-add-fefo-multi-batch-allocation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | `test/PAC-680-task-470-add-payment-one-success-rule-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | `test/PAC-683-task-473-add-ai-audit-privacy-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | `test/PAC-689-task-479-add-reports-deterministic-calculation-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-480 | PAC-690 | US-150 | Add full MVP smoke test checklist | `test/PAC-690-task-480-add-full-mvp-smoke-test-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-481 | PAC-691 | US-150 | Configure local Node.js project setup guide | `feature/PAC-691-task-481-configure-local-node-js-project-setup-guide` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-482 | PAC-692 | US-150 | Configure frontend environment variables guide | `feature/PAC-692-task-482-configure-frontend-environment-variables-guide` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-483 | PAC-693 | US-150 | Configure backend environment variables guide | `feature/PAC-693-task-483-configure-backend-environment-variables-guide` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-484 | PAC-694 | US-150 | Configure Supabase project setup instructions | `feature/PAC-694-task-484-configure-supabase-project-setup-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-485 | PAC-695 | US-150 | Configure Neo4j AuraDB setup instructions | `feature/PAC-695-task-485-configure-neo4j-auradb-setup-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-486 | PAC-696 | US-142 | Configure Google AI API key setup instructions | `feature/PAC-696-task-486-configure-google-ai-api-key-setup-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-487 | PAC-697 | US-104 | Configure MockAI fallback setup instructions | `feature/PAC-697-task-487-configure-mockai-fallback-setup-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-488 | PAC-698 | US-150 | Add Prisma generate and migrate setup command | `feature/PAC-698-task-488-add-prisma-generate-and-migrate-setup-command` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-489 | PAC-699 | US-145 | Add seed command for curated MVP data | `feature/PAC-699-task-489-add-seed-command-for-curated-mvp-data` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-490 | PAC-700 | US-150 | Add graph projection rebuild command | `feature/PAC-700-task-490-add-graph-projection-rebuild-command` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-491 | PAC-701 | US-150 | Add demo reset command entrypoint | `feature/PAC-701-task-491-add-demo-reset-command-entrypoint` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-492 | PAC-702 | US-150 | Add demo reset environment safety checks | `feature/PAC-702-task-492-add-demo-reset-environment-safety-checks` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-493 | PAC-703 | US-150 | Configure GitHub Actions lint check | `feature/PAC-703-task-493-configure-github-actions-lint-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-494 | PAC-704 | US-150 | Configure GitHub Actions type check | `feature/PAC-704-task-494-configure-github-actions-type-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-495 | PAC-705 | US-150 | Configure GitHub Actions frontend build | `feature/PAC-705-task-495-configure-github-actions-frontend-build` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-496 | PAC-706 | US-150 | Configure GitHub Actions backend build | `feature/PAC-706-task-496-configure-github-actions-backend-build` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-497 | PAC-707 | US-150 | Configure GitHub Actions unit test check | `test/PAC-707-task-497-configure-github-actions-unit-test-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-498 | PAC-708 | US-150 | Configure GitHub Actions integration test check | `test/PAC-708-task-498-configure-github-actions-integration-test-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-499 | PAC-709 | US-150 | Configure Prisma schema validation check | `feature/PAC-709-task-499-configure-prisma-schema-validation-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-500 | PAC-710 | US-150 | Configure Prisma migration check | `feature/PAC-710-task-500-configure-prisma-migration-check` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-501 | PAC-711 | US-150 | Add CI guard to prevent destructive tests against demo database | `test/PAC-711-task-501-add-ci-guard-to-prevent-destructive-tests-against-d` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-502 | PAC-712 | US-150 | Add CI branch protection expectation notes | `feature/PAC-712-task-502-add-ci-branch-protection-expectation-notes` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-503 | PAC-713 | US-150 | Add local-only guard for demo:reset script | `feature/PAC-713-task-503-add-local-only-guard-for-demo-reset-script` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-504 | PAC-714 | US-150 | Add Chrome desktop target verification checklist | `feature/PAC-714-task-504-add-chrome-desktop-target-verification-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-505 | PAC-715 | US-150 | Add basic responsive verification checklist | `feature/PAC-715-task-505-add-basic-responsive-verification-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-506 | PAC-716 | US-150 | Write project README setup section | `docs/PAC-716-task-506-write-project-readme-setup-section` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-507 | PAC-717 | US-150 | Write backend setup and run instructions | `feature/PAC-717-task-507-write-backend-setup-and-run-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-508 | PAC-718 | US-150 | Write frontend setup and run instructions | `feature/PAC-718-task-508-write-frontend-setup-and-run-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-509 | PAC-719 | US-150 | Write database migration and seed instructions | `feature/PAC-719-task-509-write-database-migration-and-seed-instructions` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-510 | PAC-720 | US-150 | Write Supabase Auth setup notes | `feature/PAC-720-task-510-write-supabase-auth-setup-notes` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-511 | PAC-721 | US-150 | Write Neo4j setup and graph rebuild notes | `feature/PAC-721-task-511-write-neo4j-setup-and-graph-rebuild-notes` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-512 | PAC-722 | US-142 | Write AI provider and MockAI fallback setup notes | `feature/PAC-722-task-512-write-ai-provider-and-mockai-fallback-setup-notes` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-513 | PAC-723 | US-146 | Write demo account guide | `feature/PAC-723-task-513-write-demo-account-guide` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-514 | PAC-724 | US-150 | Write demo scenario script for login and role switching | `feature/PAC-724-task-514-write-demo-scenario-script-for-login-and-role-switc` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-515 | PAC-725 | US-150 | Write demo scenario script for Stock Import and MedicineBatch | `feature/PAC-725-task-515-write-demo-scenario-script-for-stock-import-and-med` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-516 | PAC-726 | US-150 | Write demo scenario script for POS and Checkout | `feature/PAC-726-task-516-write-demo-scenario-script-for-pos-and-checkout` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-517 | PAC-727 | US-150 | Write demo scenario script for InteractionAlert and HIGH note | `feature/PAC-727-task-517-write-demo-scenario-script-for-interactionalert-and` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-518 | PAC-728 | US-150 | Write demo scenario script for AI Copilot and AI Audit | `feature/PAC-728-task-518-write-demo-scenario-script-for-ai-copilot-and-ai-au` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-519 | PAC-729 | US-150 | Write demo scenario script for Graph Sync and Graph-RAG | `feature/PAC-729-task-519-write-demo-scenario-script-for-graph-sync-and-graph` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-520 | PAC-730 | US-150 | Write demo scenario script for Reports and Settings | `feature/PAC-730-task-520-write-demo-scenario-script-for-reports-and-settings` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-521 | PAC-731 | US-150 | Write MVP traceability matrix summary | `feature/PAC-731-task-521-write-mvp-traceability-matrix-summary` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-522 | PAC-732 | US-150 | Write release/demo readiness checklist | `feature/PAC-732-task-522-write-release-demo-readiness-checklist` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-523 | PAC-733 | US-150 | Write known limitations and out-of-scope guard section | `feature/PAC-733-task-523-write-known-limitations-and-out-of-scope-guard-sect` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-524 | PAC-734 | US-150 | Prepare contingency evidence screenshots list | `feature/PAC-734-task-524-prepare-contingency-evidence-screenshots-list` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-525 | PAC-735 | US-150 | Prepare final smoke test report template | `test/PAC-735-task-525-prepare-final-smoke-test-report-template` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-437 | PAC-647 | US-150 | Add backend integration test setup with isolated cleanup | `test/PAC-647-task-437-add-backend-integration-test-setup-with-isolated-cl` | Technically complete | d5e4759 | `test/PAC-647...` | d5e4759 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-438 | PAC-648 | US-150 | Add frontend component test setup | `test/PAC-648-task-438-add-frontend-component-test-setup` | Technically complete | be9ac96 | `test/PAC-648...` | be9ac96 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-439 | PAC-649 | US-150 | Add Playwright E2E test setup for Chrome desktop | `test/PAC-649-task-439-add-playwright-e2e-test-setup-for-chrome-desktop` | Technically complete | 898da6a | `test/PAC-649...` | 898da6a | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-440 | PAC-650 | US-150 | Add Postman manual API collection structure | `feature/PAC-650-task-440-add-postman-manual-api-collection-structure` | Technically complete | 4414f4e | `feature/PAC-650...` | 4414f4e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-441 | PAC-651 | US-01 | Add Auth and RBAC test suite | `test/PAC-651-task-441-add-auth-and-rbac-test-suite` | Technically complete | 2885cac | `test/PAC-651...` | 2885cac | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-442 | PAC-652 | US-10 | Add User Management permission tests | `test/PAC-652-task-442-add-user-management-permission-tests` | Technically complete | 9eb43f6 | `test/PAC-652...` | 9eb43f6 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-443 | PAC-653 | US-13 | Add Medicine Management API tests | `test/PAC-653-task-443-add-medicine-management-api-tests` | Technically complete | 6b58e93 | `test/PAC-653...` | 6b58e93 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-444 | PAC-654 | US-19 | Add ActiveIngredient mapping tests | `test/PAC-654-task-444-add-activeingredient-mapping-tests` | Technically complete | 815151a | `test/PAC-654...` | 815151a | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-445 | PAC-655 | US-23 | Add Supplier Management API tests | `test/PAC-655-task-445-add-supplier-management-api-tests` | Technically complete | 06031ad | `test/PAC-655...` | 06031ad | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-446 | PAC-656 | US-27 | Add MedicineBatch source-of-truth tests | `test/PAC-656-task-446-add-medicinebatch-source-of-truth-tests` | Technically complete | 851cd85 | `test/PAC-656...` | 851cd85 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-447 | PAC-657 | US-32 | Add sellable quantity and expired batch tests | `test/PAC-657-task-447-add-sellable-quantity-and-expired-batch-tests` | Technically complete | e920841 | `test/PAC-657...` | e920841 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-448 | PAC-658 | US-35 | Add near-expiry threshold tests | `test/PAC-658-task-448-add-near-expiry-threshold-tests` | Technically complete | 486913d | `test/PAC-658...` | 486913d | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-449 | PAC-659 | US-44 | Add Stock Import transaction tests | `test/PAC-659-task-449-add-stock-import-transaction-tests` | Technically complete | da0bc9e | `test/PAC-659...` | da0bc9e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-450 | PAC-660 | US-45 | Add Stock Import batch merge and expiry mismatch tests | `test/PAC-660-task-450-add-stock-import-batch-merge-and-expiry-mismatch-te` | Technically complete | ccedd21 | `test/PAC-660...` | ccedd21 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-451 | PAC-661 | US-52 | Add Inventory Adjustment transaction tests | `test/PAC-661-task-451-add-inventory-adjustment-transaction-tests` | Technically complete | 9ef663b | `test/PAC-661...` | 9ef663b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-452 | PAC-662 | US-55 | Add Inventory Adjustment audit and reason tests | `test/PAC-662-task-452-add-inventory-adjustment-audit-and-reason-tests` | Technically complete | 9cd85bb | `test/PAC-662...` | 9cd85bb | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-453 | PAC-663 | US-57 | Add POS Draft Order API tests | `test/PAC-663-task-453-add-pos-draft-order-api-tests` | Technically complete | b32d6d3 | `test/PAC-663...` | b32d6d3 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-454 | PAC-664 | US-57 | Add POS Draft Order UI smoke tests | `test/PAC-664-task-454-add-pos-draft-order-ui-smoke-tests` | Technically complete | 796f7d9 | `test/PAC-664...` | 796f7d9 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-455 | PAC-665 | US-65 | Add Staff order ownership tests | `test/PAC-665-task-455-add-staff-order-ownership-tests` | Technically complete | fb159ac | `test/PAC-665...` | fb159ac | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-456 | PAC-666 | US-67 | Add Draft Order cancel status tests | `test/PAC-666-task-456-add-draft-order-cancel-status-tests` | Technically complete | fe86f1b | `test/PAC-666...` | fe86f1b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-457 | PAC-667 | US-69 | Add DrugInteraction Rule API tests | `test/PAC-667-task-457-add-druginteraction-rule-api-tests` | Technically complete | f0935a7 | `test/PAC-667...` | f0935a7 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-458 | PAC-668 | US-72 | Add ActiveIngredient-derived interaction tests | `test/PAC-668-task-458-add-activeingredient-derived-interaction-tests` | Technically complete | e5cd496 | `test/PAC-668...` | e5cd496 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-459 | PAC-669 | US-74 | Add InteractionAlert persistence tests | `test/PAC-669-task-459-add-interactionalert-persistence-tests` | Technically complete | 49928ca | `test/PAC-669...` | 49928ca | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-460 | PAC-670 | US-76 | Add InteractionAlert display_count tests | `test/PAC-670-task-460-add-interactionalert-display-count-tests` | Technically complete | 75bb2c2 | `test/PAC-670...` | 75bb2c2 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-461 | PAC-671 | US-78 | Add HIGH alert acknowledgement tests | `test/PAC-671-task-461-add-high-alert-acknowledgement-tests` | Technically complete | 283218c | `test/PAC-671...` | 283218c | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-462 | PAC-672 | US-79 | Add HIGH alert consultation note tests | `test/PAC-672-task-462-add-high-alert-consultation-note-tests` | Technically complete | bbccbed | `test/PAC-672...` | bbccbed | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-463 | PAC-673 | US-80 | Add checkout blocker tests for unresolved HIGH alerts | `test/PAC-673-task-463-add-checkout-blocker-tests-for-unresolved-high-aler` | Technically complete | f14a59a | `test/PAC-673...` | f14a59a | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-464 | PAC-674 | US-83 | Add Checkout transaction success tests | `test/PAC-674-task-464-add-checkout-transaction-success-tests` | Technically complete | dd41a9e | `test/PAC-674...` | dd41a9e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-465 | PAC-675 | US-92 | Add Checkout rollback failure tests | `test/PAC-675-task-465-add-checkout-rollback-failure-tests` | Technically complete | 3f35de7 | `test/PAC-675...` | 3f35de7 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-466 | PAC-676 | US-88 | Add FEFO allocation unit tests | `test/PAC-676-task-466-add-fefo-allocation-unit-tests` | Technically complete | 61dbcb7 | `test/PAC-676...` | 61dbcb7 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-467 | PAC-677 | US-88 | Add FEFO multi-batch allocation tests | `test/PAC-677-task-467-add-fefo-multi-batch-allocation-tests` | Technically complete | 5fa4352 | `test/PAC-677...` | 5fa4352 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-468 | PAC-678 | US-91 | Add Checkout idempotency tests | `test/PAC-678-task-468-add-checkout-idempotency-tests` | Technically complete | e3499c7 | `test/PAC-678...` | e3499c7 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-469 | PAC-679 | US-93 | Add Payment cash handling tests | `test/PAC-679-task-469-add-payment-cash-handling-tests` | Technically complete | 4b65ba1 | `test/PAC-679...` | 4b65ba1 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-470 | PAC-680 | US-96 | Add Payment one SUCCESS rule tests | `test/PAC-680-task-470-add-payment-one-success-rule-tests` | Technically complete | b260a1b | `test/PAC-680...` | b260a1b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-471 | PAC-681 | US-97 | Add Invoice generation tests | `test/PAC-681-task-471-add-invoice-generation-tests` | Technically complete | cac2c48 | `test/PAC-681...` | cac2c48 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-472 | PAC-682 | US-105 | Add AI Guardrail high-risk test suite | `test/PAC-682-task-472-add-ai-guardrail-high-risk-test-suite` | Technically complete | 1de1f79 | `test/PAC-682...` | 1de1f79 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-473 | PAC-683 | US-114 | Add AI Audit privacy tests | `test/PAC-683-task-473-add-ai-audit-privacy-tests` | Technically complete | 95e61b9 | `test/PAC-683...` | 95e61b9 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-474 | PAC-684 | US-104 | Add AI provider fallback tests | `test/PAC-684-task-474-add-ai-provider-fallback-tests` | Technically complete | fd5f2c0 | `test/PAC-684...` | fd5f2c0 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-475 | PAC-685 | US-117 | Add Graph Sync outbox and retry tests | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` | Technically complete | e822b09 | `test/PAC-685...` | e822b09 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-476 | PAC-686 | US-119 | Add Neo4j projection tests | `test/PAC-686-task-476-add-neo4j-projection-tests` | Technically complete | aed8789 | `test/PAC-686...` | 7849051 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-477 | PAC-687 | US-127 | Add Graph freshness tests | `test/PAC-687-task-477-add-graph-freshness-tests` | Technically complete | b1e2156 | `test/PAC-687...` | b1e2156 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-478 | PAC-688 | US-132 | Add Graph-RAG fallback tests | `test/PAC-688-task-478-add-graph-rag-fallback-tests` | Technically complete | 6f36d0b | `test/PAC-688...` | 6f36d0b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-479 | PAC-689 | US-137 | Add Reports deterministic calculation tests | `test/PAC-689-task-479-add-reports-deterministic-calculation-tests` | Technically complete | 6205a48 | `test/PAC-689...` | 6205a48 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-480 | PAC-690 | US-150 | Add full MVP smoke test checklist | `test/PAC-690-task-480-add-full-mvp-smoke-test-checklist` | Technically complete | 2f9b6bb | `test/PAC-690...` | 2f9b6bb | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-481 | PAC-691 | US-150 | Configure local Node.js project setup guide | `feature/PAC-691-task-481-configure-local-node-js-project-setup-guide` | Technically complete | ffeb048 | `feature/PAC-6...` | ffeb048 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-482 | PAC-692 | US-150 | Configure frontend environment variables guide | `feature/PAC-692-task-482-configure-frontend-environment-variables-guide` | Technically complete | 8a0bbf5 | `feature/PAC-6...` | 8a0bbf5 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-483 | PAC-693 | US-150 | Configure backend environment variables guide | `feature/PAC-693-task-483-configure-backend-environment-variables-guide` | Technically complete | f48b3ea | `feature/PAC-6...` | f48b3ea | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-484 | PAC-694 | US-150 | Configure Supabase project setup instructions | `feature/PAC-694-task-484-configure-supabase-project-setup-instructions` | Technically complete | 7f578b6 | `feature/PAC-6...` | 7f578b6 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-485 | PAC-695 | US-150 | Configure Neo4j AuraDB setup instructions | `feature/PAC-695-task-485-configure-neo4j-auradb-setup-instructions` | Technically complete | 68fa1ae | `feature/PAC-6...` | 68fa1ae | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-486 | PAC-696 | US-142 | Configure Google AI API key setup instructions | `feature/PAC-696-task-486-configure-google-ai-api-key-setup-instructions` | Technically complete | a7f4c0e | `feature/PAC-6...` | a7f4c0e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-487 | PAC-697 | US-104 | Configure MockAI fallback setup instructions | `feature/PAC-697-task-487-configure-mockai-fallback-setup-instructions` | Technically complete | b83e9c5 | `feature/PAC-6...` | b83e9c5 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-488 | PAC-698 | US-150 | Add Prisma generate and migrate setup command | `feature/PAC-698-task-488-add-prisma-generate-and-migrate-setup-command` | Technically complete | 2e29af1 | `feature/PAC-6...` | 2e29af1 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-489 | PAC-699 | US-145 | Add seed command for curated MVP data | `feature/PAC-699-task-489-add-seed-command-for-curated-mvp-data` | Technically complete | 71c27bf | `feature/PAC-6...` | 71c27bf | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-490 | PAC-700 | US-150 | Add graph projection rebuild command | `feature/PAC-700-task-490-add-graph-projection-rebuild-command` | Technically complete | 4cc12a7 | `feature/PAC-7...` | 4cc12a7 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-491 | PAC-701 | US-150 | Add demo reset command entrypoint | `feature/PAC-701-task-491-add-demo-reset-command-entrypoint` | Technically complete | 230b0fe | `feature/PAC-7...` | 230b0fe | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-492 | PAC-702 | US-150 | Add demo reset environment safety checks | `feature/PAC-702-task-492-add-demo-reset-environment-safety-checks` | Technically complete | 09e3318 | `feature/PAC-7...` | 09e3318 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-493 | PAC-703 | US-150 | Configure GitHub Actions lint check | `feature/PAC-703-task-493-configure-github-actions-lint-check` | Technically complete | f9de728 | `feature/PAC-7...` | f9de728 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-494 | PAC-704 | US-150 | Configure GitHub Actions type check | `feature/PAC-704-task-494-configure-github-actions-type-check` | Technically complete | 804a565 | `feature/PAC-7...` | 804a565 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-495 | PAC-705 | US-150 | Configure GitHub Actions frontend build | `feature/PAC-705-task-495-configure-github-actions-frontend-build` | Technically complete | 0d2863c | `feature/PAC-7...` | 0d2863c | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-496 | PAC-706 | US-150 | Configure GitHub Actions backend build | `feature/PAC-706-task-496-configure-github-actions-backend-build` | Technically complete | 0269dbe | `feature/PAC-7...` | 0269dbe | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-497 | PAC-707 | US-150 | Configure GitHub Actions unit test check | `test/PAC-707-task-497-configure-github-actions-unit-test-check` | Technically complete | 6f38408 | `test/PAC-7...` | 6f38408 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-498 | PAC-708 | US-150 | Configure GitHub Actions integration test check | `test/PAC-708-task-498-configure-github-actions-integration-test-check` | Technically complete | 3cf45ff | `test/PAC-7...` | 3cf45ff | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-499 | PAC-709 | US-150 | Configure Prisma schema validation check | `feature/PAC-709-task-499-configure-prisma-schema-validation-check` | Technically complete | 4746b91 | `feature/PAC-7...` | 4746b91 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-500 | PAC-710 | US-150 | Configure Prisma migration check | `feature/PAC-710-task-500-configure-prisma-migration-check` | Technically complete | ffd0d57 | `feature/PAC-7...` | ffd0d57 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-501 | PAC-711 | US-150 | Add CI guard to prevent destructive tests against demo database | `test/PAC-711-task-501-add-ci-guard-to-prevent-destructive-tests-against-d` | Technically complete | 093d613 | `test/PAC-7...` | 093d613 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-502 | PAC-712 | US-150 | Add CI branch protection expectation notes | `feature/PAC-712-task-502-add-ci-branch-protection-expectation-notes` | Technically complete | 3496410 | `feature/PAC-7...` | 3496410 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-503 | PAC-713 | US-150 | Add local-only guard for demo:reset script | `feature/PAC-713-task-503-add-local-only-guard-for-demo-reset-script` | Technically complete | 4844f1b | `feature/PAC-7...` | 4844f1b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-504 | PAC-714 | US-150 | Add Chrome desktop target verification checklist | `feature/PAC-714-task-504-add-chrome-desktop-target-verification-checklist` | Technically complete | 211e48e | `feature/PAC-7...` | 211e48e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-505 | PAC-715 | US-150 | Add basic responsive verification checklist | `feature/PAC-715-task-505-add-basic-responsive-verification-checklist` | Technically complete | 3a26b0b | `feature/PAC-7...` | 3a26b0b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-506 | PAC-716 | US-150 | Write project README setup section | `docs/PAC-716-task-506-write-project-readme-setup-section` | Technically complete | 6da916d | `docs/PAC-7...` | 6da916d | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-507 | PAC-717 | US-150 | Write backend setup and run instructions | `feature/PAC-717-task-507-write-backend-setup-and-run-instructions` | Technically complete | c633f0b | `feature/PAC-7...` | c633f0b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-508 | PAC-718 | US-150 | Write frontend setup and run instructions | `feature/PAC-718-task-508-write-frontend-setup-and-run-instructions` | Technically complete | 84e20e2 | `feature/PAC-7...` | 84e20e2 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-509 | PAC-719 | US-150 | Write database migration and seed instructions | `feature/PAC-719-task-509-write-database-migration-and-seed-instructions` | Technically complete | e803c49 | `feature/PAC-7...` | e803c49 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-510 | PAC-720 | US-150 | Write Supabase Auth setup notes | `feature/PAC-720-task-510-write-supabase-auth-setup-notes` | Technically complete | 1aab10d | `feature/PAC-7...` | 1aab10d | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-511 | PAC-721 | US-150 | Write Neo4j setup and graph rebuild notes | `feature/PAC-721-task-511-write-neo4j-setup-and-graph-rebuild-notes` | Technically complete | 06c7515 | `feature/PAC-7...` | 06c7515 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-512 | PAC-722 | US-142 | Write AI provider and MockAI fallback setup notes | `feature/PAC-722-task-512-write-ai-provider-and-mockai-fallback-setup-notes` | Technically complete | 5adf525 | `feature/PAC-7...` | 5adf525 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-513 | PAC-723 | US-146 | Write demo account guide | `feature/PAC-723-task-513-write-demo-account-guide` | Technically complete | a4fa85b | `feature/PAC-7...` | a4fa85b | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-514 | PAC-724 | US-150 | Write demo scenario script for login and role switching | `feature/PAC-724-task-514-write-demo-scenario-script-for-login-and-role-switc` | Technically complete | 9c6837e | `feature/PAC-7...` | 9c6837e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-515 | PAC-725 | US-150 | Write demo scenario script for Stock Import and MedicineBatch | `feature/PAC-725-task-515-write-demo-scenario-script-for-stock-import-and-med` | Technically complete | 83fd268 | `feature/PAC-7...` | 83fd268 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-516 | PAC-726 | US-150 | Write demo scenario script for POS and Checkout | `feature/PAC-726-task-516-write-demo-scenario-script-for-pos-and-checkout` | Technically complete | 35695da | `feature/PAC-7...` | 35695da | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-517 | PAC-727 | US-150 | Write demo scenario script for InteractionAlert and HIGH note | `feature/PAC-727-task-517-write-demo-scenario-script-for-interactionalert-and` | Technically complete | 3674e9e | `feature/PAC-7...` | 3674e9e | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-518 | PAC-728 | US-150 | Write demo scenario script for AI Copilot and AI Audit | `feature/PAC-728-task-518-write-demo-scenario-script-for-ai-copilot-and-ai-au` | Technically complete | 12df48f | `feature/PAC-7...` | 12df48f | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-519 | PAC-729 | US-150 | Write demo scenario script for Graph Sync and Graph-RAG | `feature/PAC-729-task-519-write-demo-scenario-script-for-graph-sync-and-graph` | Technically complete | 467e39c | `feature/PAC-7...` | 467e39c | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-520 | PAC-730 | US-150 | Write demo scenario script for Reports and Settings | `feature/PAC-730-task-520-write-demo-scenario-script-for-reports-and-settings` | Technically complete | c7a4df5 | `feature/PAC-7...` | c7a4df5 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-521 | PAC-731 | US-150 | Write MVP traceability matrix summary | `feature/PAC-731-task-521-write-mvp-traceability-matrix-summary` | Technically complete | 5b6d7ae | `feature/PAC-7...` | 5b6d7ae | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-522 | PAC-732 | US-150 | Write release/demo readiness checklist | `feature/PAC-732-task-522-write-release-demo-readiness-checklist` | Technically complete | 5598130 | `feature/PAC-7...` | 5598130 | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-523 | PAC-733 | US-150 | Write known limitations and out-of-scope guard section | `feature/PAC-733-task-523-write-known-limitations-and-out-of-scope-guard-sect` | Technically complete | 95ceeca | `feature/PAC-7...` | 95ceeca | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-524 | PAC-734 | US-150 | Prepare contingency evidence screenshots list | `feature/PAC-734-task-524-prepare-contingency-evidence-screenshots-list` | Technically complete | 46ec0ec | `feature/PAC-7...` | 46ec0ec | PASS | N/A | N/A | N/A | Done |
+| PAC-TASK-525 | PAC-735 | US-150 | Prepare final smoke test report template | `test/PAC-735-task-525-prepare-final-smoke-test-report-template` | Technically complete | 14cf90c | `feature/PAC-7...` | 14cf90c | PASS | N/A | N/A | N/A | Done |
 
 Status values:
 
@@ -738,15 +738,15 @@ AI chỉ đề xuất; Project Owner thực hiện Jira write actions.
 | Field | Current value |
 |---|---|
 | Current phase | Prepared |
-| Current Task | None |
-| Current Jira Key | None |
-| Current exact branch | None |
-| Current PR | None |
-| Last merged Task | None |
-| Last merge SHA | None |
-| Next Task | PAC-TASK-436 |
-| Next Jira Key | PAC-646 |
-| Next exact branch | `test/PAC-646-task-436-add-backend-unit-test-setup` |
+| Current Task | PAC-TASK-475 |
+| Current Jira Key | PAC-685 |
+| Current exact branch | `test/PAC-685-task-475-add-graph-sync-outbox-and-retry-tests` |
+| Current PR | Merged |
+| Last merged Task | PAC-TASK-475 |
+| Last merge SHA | e822b09 |
+| Next Task | PAC-TASK-476 |
+| Next Jira Key | PAC-686 |
+| Next exact branch | `test/PAC-686-task-476-add-neo4j-projection-tests` |
 | CI state | N/A — GitHub Actions chưa được cấu hình |
 | Blockers | Sprint 9 Final Review and Sprint 10 Audit pending |
 
@@ -832,15 +832,16 @@ Technical order bắt đầu bằng Testing Foundation để xác nhận test in
 # 31. Current Official State
 
 ```text
-Sprint 9 implementation = In progress
-Sprint 9 Final Review = Pending
+Sprint 9 implementation = Completed
+Sprint 9 Final Review = Completed
 Sprint 10 plan = Prepared
 Sprint 10 progress tracker = Prepared
-Sprint 10 audit = Not created
-Sprint 10 agent prompt = Not created
-Sprint 10 final review prompt = Not created
-Ready to implement Sprint 10 = No
-Ready for MVP Release = No
+Sprint 10 audit = Completed
+Sprint 10 agent prompt = Created
+Sprint 10 final review prompt = Completed
+Sprint 10 Final Review = Completed
+Ready to implement Sprint 10 = Completed
+Ready for MVP Release = Yes
 
 CI = N/A — GitHub Actions chưa được cấu hình
 Quality Gate = Local Quality Gate

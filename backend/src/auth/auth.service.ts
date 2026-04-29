@@ -12,7 +12,8 @@ export class AuthService {
 
   constructor(private prisma: PrismaService) {
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_PUBLISHABLE_KEY;
+    const supabaseAnonKey =
+      process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_PUBLISHABLE_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
       throw new Error(

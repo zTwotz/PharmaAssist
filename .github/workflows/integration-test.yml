@@ -1,0 +1,81 @@
+name: Integration Test Check
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  integration-test-backend:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: pharmaassist_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Backend)
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Setup Prisma
+        working-directory: ./backend
+        env:
+          DATABASE_URL: "postgresql://postgres:password@localhost:5432/pharmaassist_test?schema=public"
+          DIRECT_URL: "postgresql://postgres:password@localhost:5432/pharmaassist_test?schema=public"
+        run: |
+          npm run prisma:generate
+          npx prisma migrate deploy
+
+      - name: Run Integration Tests (Backend)
+        working-directory: ./backend
+        env:
+          DATABASE_URL: "postgresql://postgres:password@localhost:5432/pharmaassist_test?schema=public"
+          DIRECT_URL: "postgresql://postgres:password@localhost:5432/pharmaassist_test?schema=public"
+          USE_MOCK_AI: "true"
+        run: npm run test:e2e
+  integration-test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Frontend)
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        working-directory: ./frontend
+        run: npx playwright install --with-deps
+
+      - name: Run Integration Tests (Frontend)
+        working-directory: ./frontend
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: "http://localhost:54321"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlc3QiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcxNjM5Mzk1MSwiZXhwIjoyMDMyMTkzOTUxfQ.xxxx"
+        run: npm run test:e2e

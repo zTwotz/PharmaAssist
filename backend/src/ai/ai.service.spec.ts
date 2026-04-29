@@ -257,4 +257,75 @@ describe('AiService', () => {
     expect(result.data.questions).toEqual(['Mock Q1?']);
     expect(result.metadata.fallbackReason).toEqual('Quota exceeded');
   });
+
+  describe('AI Audit Privacy (PAC-TASK-473)', () => {
+    it('should redact PII from the request payload before saving to audit log', async () => {
+      // Mock the minimizer to return a redacted version of the input
+      (mockPiiMinimizerService.minimizeObject as jest.Mock).mockReturnValue({
+        userId: 'test-user-123',
+        alertContext: '[REDACTED]',
+        orderContext: '[REDACTED]',
+      });
+
+      const input = {
+        userId: 'test-user-123',
+        alertContext: 'Patient Name: John Doe',
+        orderContext: 'Customer Phone: 0901234567',
+      };
+
+      await service.generateConsultationNoteDraft(input);
+
+      // Both the provider and the audit log should receive the redacted input from minimizeObject
+      expect(
+        mockGoogleAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userId: 'test-user-123',
+          alertContext: '[REDACTED]',
+          orderContext: '[REDACTED]',
+        }),
+      );
+
+      // But the audit log should receive the redacted input from minimizeObject
+      expect(mockAuditLogService.log).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userId: 'test-user-123',
+          requestSummary: JSON.stringify({
+            userId: 'test-user-123',
+            alertContext: '[REDACTED]',
+            orderContext: '[REDACTED]',
+          }),
+        }),
+      );
+    });
+  });
+
+  describe('AI Provider Fallback (PAC-TASK-474)', () => {
+    it('should throw the fallback error if Mock AI also fails during fallback', async () => {
+      const googleError = new AiProviderException('Google API rate limit');
+      const mockError = new Error('Mock AI internal error');
+
+      mockGoogleAiProvider.generateConsultationNoteDraft.mockRejectedValue(
+        googleError,
+      );
+      (
+        mockMockAiProvider.generateConsultationNoteDraft as jest.Mock
+      ).mockRejectedValue(mockError);
+
+      await expect(
+        service.generateConsultationNoteDraft({
+          userId: 'test-user',
+          alertContext: 'ctx',
+          orderContext: 'order',
+        }),
+      ).rejects.toThrow('Mock AI internal error');
+
+      expect(
+        mockGoogleAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalled();
+      expect(
+        mockMockAiProvider.generateConsultationNoteDraft,
+      ).toHaveBeenCalled();
+    });
+  });
 });
