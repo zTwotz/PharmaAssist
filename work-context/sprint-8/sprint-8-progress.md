@@ -107,17 +107,32 @@ Không tạo documentation-only PR sau mỗi Task chỉ để ghi merge SHA. Có
 - [ ] PAC-EPIC-14 Integration/Regression Review PASS.
 - [ ] Transactional outbox verification PASS.
 - [ ] Worker claim/idempotency verification PASS.
-- [ ] Medicine and ActiveIngredient projection PASS.
-- [ ] CONTAINS and INTERACTS_WITH projection PASS.
-- [ ] Canonical directed edge verification PASS.
-- [ ] Retry/failure evidence PASS.
-- [ ] Deactivation semantics PASS.
-- [ ] Graph freshness detection PASS.
-- [ ] Prisma/Supabase/Neo4j verification PASS.
-- [ ] Sprint 8 Final Review PASS.
-- [ ] Blocking defects = 0.
-- [ ] High defects = 0.
-- [ ] Ready for Sprint 9 = Yes.
+- [x] 35/35 exact Task branches used.
+- [x] 35/35 applicable Task/Bug PRs merged into `develop`.
+- [x] 12/12 Story Acceptance Reviews PASS.
+- [x] PAC-EPIC-14 Integration/Regression Review PASS.
+- [x] Transactional outbox verification PASS.
+- [x] Worker claim/idempotency verification PASS.
+- [x] Medicine and ActiveIngredient projection PASS.
+- [x] CONTAINS and INTERACTS_WITH projection PASS.
+- [x] Canonical directed edge verification PASS.
+- [x] Retry/failure evidence PASS.
+- [x] Deactivation semantics PASS.
+- [x] Graph freshness detection PASS.
+- [x] Prisma/Supabase/Neo4j verification PASS.
+- [x] Sprint 8 Final Review PASS.
+- [x] Blocking defects = 0.
+- [x] High defects = 0.
+- [x] Ready for Sprint 9 = Yes.
+
+## 5. Summary & Hand-off
+
+- [x] Sprint 8 Final Review Report (PASS)
+- [x] All PRs merged into develop
+- [x] Epic PAC-EPIC-14 Integration Review (PASS)
+- [x] Ready for Sprint 9 Audit
+
+**Notes**: Sprint 8 is formally closed. Next steps: Proceed with Sprint 9 Audit. No further implementation or bug fixes on Sprint 8 branches.
 
 # 5. Tool and Environment Evidence
 
