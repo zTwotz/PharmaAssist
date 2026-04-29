@@ -13,8 +13,8 @@ Blocking reason = Release PR và full main/release CI chưa được thực hi�
 Advanced features approved for use/demo = Pending release CI
 MVP release readiness remains = Yes
 
-Local develop SHA = d17315ed33fd210dcad898ab9cf37dbf2c3afe55
-Remote develop SHA = d17315ed33fd210dcad898ab9cf37dbf2c3afe55
+Local develop SHA = 4e37eb258e830a1f8d94e8bd0ffc02fbe46bf060
+Remote develop SHA = 4e37eb258e830a1f8d94e8bd0ffc02fbe46bf060
 Release PR = N/A (Project Owner to create)
 Release PR head SHA = N/A
 MVP baseline = d7db00225807f2b673f3ebf72f1ea2ba07e898c9
