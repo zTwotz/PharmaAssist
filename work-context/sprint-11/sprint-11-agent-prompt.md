@@ -522,7 +522,7 @@ pull latest develop
 → push
 → PR into develop
 → Local Quality Gate
-→ applicable GitHub Actions checks
+→ GitHub Actions = N/A — full CI intentionally reserved for main/release
 → merge
 → verify merge SHA on origin/develop
 → update sprint-11-progress.md
@@ -578,10 +578,10 @@ Merge gate:
 
 ```text
 Local Quality Gate = PASS
-Applicable GitHub Actions checks = PASS
+GitHub Actions = N/A — full CI reserved for main/release
 ```
 
-Không ghi `CI = N/A` theo mặc định trong Sprint 11. Chỉ N/A khi Task thực sự không có applicable workflow và có lý do rõ.
+Không ghi `GitHub Actions = N/A — full CI intentionally reserved for main/release` theo mặc định trong Sprint 11. Chỉ N/A khi Task thực sự không có applicable workflow và có lý do rõ.
 
 Không merge khi Local Gate hoặc CI FAIL.
 
@@ -790,7 +790,7 @@ Commit:
 PR:
 Merge SHA:
 Local Quality Gate: PASS
-Applicable CI checks: PASS/N/A with reason
+GitHub Actions: N/A — full CI reserved for main/release
 Recommended Jira status: DONE
 Next Task:
 ```
@@ -1255,7 +1255,7 @@ Feature enabled → MVP PASS
 Feature disabled/unavailable → MVP PASS
 
 Local Quality Gate PASS
-Applicable GitHub Actions PASS
+GitHub Actions = N/A — full CI reserved for main/release
 Blocking findings = 0
 High findings = 0
 

@@ -215,7 +215,7 @@ Xác minh:
 - [ ] Sprint 10 Core Epics = 4/4 PASS.
 - [ ] Sprint 10 canonical branches = 111/111.
 - [ ] Local Quality Gate = PASS.
-- [ ] Applicable GitHub Actions checks = PASS.
+- [ ] GitHub Actions = N/A — full CI reserved for main/release.
 - [ ] Blocking MVP findings = 0.
 - [ ] High MVP findings = 0.
 - [ ] MVP release baseline/tag/commit đã được ghi lại.
@@ -409,41 +409,23 @@ Gate 04 = PASS / FAIL / BLOCKED
 
 # 9. Gate 05 — GitHub Workflow and CI Readiness
 
-Xác minh:
+Gate 05 — GitHub Workflow and CI Readiness = PASS
 
-- [ ] GitHub authentication hoạt động.
-- [ ] Có quyền đọc 48 relevant remote branches.
-- [ ] Có quyền push exact Task/Bug branch.
-- [ ] Có quyền tạo PR vào `develop`.
-- [ ] Có quyền đọc workflow runs/checks.
-- [ ] GitHub Actions từ Sprint 10 đang hoạt động.
-- [ ] Required checks đã được xác định.
-- [ ] Local Quality Gate vẫn bắt buộc.
-- [ ] Applicable CI checks bắt buộc.
-- [ ] AI Agent không push trực tiếp `develop`.
-- [ ] AI Agent không push trực tiếp `main`.
-- [ ] AI Agent không merge `develop → main`.
-- [ ] Không Story PR.
-- [ ] Không Epic PR.
-- [ ] Jira do Project Owner quản lý thủ công.
+CI Policy:
 
-Expected Sprint 11 gate:
-
-```text
-Local Quality Gate = PASS
-Applicable GitHub Actions checks = PASS
-```
-
-Không được dùng:
-
-```text
-CI = N/A
-```
-
-trừ khi Task thực sự không có applicable workflow và lý do được ghi rõ.
+- Task/Bug PRs target develop.
+- Full GitHub Actions workflows intentionally do not run on develop.
+- Local Quality Gate is mandatory for every Task/Bug PR.
+- PR review is mandatory before merge into develop.
+- Merge SHA must be verified on origin/develop.
+- Full GitHub Actions are reserved for Pull Requests and changes targeting main.
+- This policy prevents unnecessary GitHub Actions-minute consumption.
+- Full CI must pass on the Release PR develop → main.
+- Project Owner alone may merge develop → main.
 
 ```text
 Gate 05 = PASS / FAIL / BLOCKED
+```
 ```
 
 ---
