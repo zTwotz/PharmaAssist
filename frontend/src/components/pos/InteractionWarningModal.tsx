@@ -43,6 +43,13 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
     followUpQuestions?: string[];
     followUpDisclaimer?: string;
     followUpError?: string;
+    metadata?: {
+      providerRequested?: string;
+      providerUsed?: string;
+      fallbackReason?: string;
+      graphUsed?: boolean;
+      graphFresh?: boolean;
+    };
   }>>({});
 
   const fetchAiExplanation = async (interaction: InteractionData) => {
@@ -51,6 +58,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
       const response = await api.post('/ai/interaction-explanation', {
         alertContext: interaction.severity,
         medicines: [interaction.medicineA.name, interaction.medicineB.name],
+        medicineIds: [interaction.medicineA.id, interaction.medicineB.id],
         activeIngredients: [], // Assuming we don't have this right in the modal, empty is ok for AI prompt if it's optional
         ruleDescription: interaction.description,
       });
@@ -60,6 +68,7 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
           loading: false,
           explanation: response.data.data.explanation,
           disclaimer: response.data.data.disclaimer,
+          metadata: response.data.metadata,
         }
       }));
     } catch (err: any) {
@@ -234,6 +243,30 @@ export function InteractionWarningModal({ interactions, onClose, onAcknowledge, 
 
                       {aiStates[interaction.id]?.explanation && (
                         <div className="mt-3 text-sm text-slate-700">
+                          {aiStates[interaction.id]?.metadata && (
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {aiStates[interaction.id]?.metadata?.graphUsed && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                                  <Sparkles size={12} /> Dữ liệu Đồ thị (Neo4j)
+                                </span>
+                              )}
+                              {!aiStates[interaction.id]?.metadata?.graphUsed && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                  PostgreSQL Fallback
+                                </span>
+                              )}
+                              {aiStates[interaction.id]?.metadata?.graphUsed && !aiStates[interaction.id]?.metadata?.graphFresh && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
+                                  <AlertTriangle size={12} /> Cảnh báo: Dữ liệu chưa đồng bộ
+                                </span>
+                              )}
+                              {aiStates[interaction.id]?.metadata?.fallbackReason && (
+                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                  Lý do: {aiStates[interaction.id]?.metadata?.fallbackReason}
+                                </span>
+                              )}
+                            </div>
+                          )}
                           <div className="prose prose-sm prose-slate max-w-none mb-3" dangerouslySetInnerHTML={{ __html: aiStates[interaction.id]?.explanation || '' }} />
                           <AiDisclaimer className="mt-2" />
                         </div>

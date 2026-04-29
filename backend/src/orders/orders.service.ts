@@ -40,6 +40,8 @@ export class OrdersService {
     });
   }
 
+  // GUARDRAIL (PAC-TASK-405): Checkout validation MUST ONLY use PostgreSQL/rule-based data.
+  // Graph-RAG / Neo4j MUST NOT be invoked in the checkout blocker.
   async createOrder(createOrderDto: CreateOrderDto) {
     const { orderType, storeId, details } = createOrderDto;
 
@@ -410,6 +412,7 @@ export class OrdersService {
   }
 
   // PAC-TASK-237: Implement Order interaction check service
+  // GUARDRAIL (PAC-TASK-405): Interaction logic during checkout MUST NOT depend on Neo4j/Graph-RAG.
   async checkAndPersistInteractions(orderId: number) {
     const result =
       await this.interactionsService.checkOrderInteractions(orderId);

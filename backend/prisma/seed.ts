@@ -268,7 +268,7 @@ async function main() {
     {
       code: 'interaction_explanation',
       version: 'v1.0',
-      content: 'You are a clinical pharmacist. Explain the potential drug interaction between the following medications in simple terms: {{medications}}. Also provide recommendations. Respond in JSON format.',
+      content: 'You are a clinical pharmacist. Explain the potential drug interaction between the following medications in simple terms: {{medicines}}. Rule context: {{ruleDescription}}. Alert: {{alertContext}}. Graph context: {{graphContext}}. Also provide recommendations. Respond in JSON format.',
       status: 'ACTIVE'
     },
     {
@@ -301,6 +301,25 @@ async function main() {
     });
   }
   console.log('Prompt templates seeded.');
+
+  // PAC-TASK-421: Seed default system settings
+  const defaultSystemSettings = [
+    {
+      key: 'near_expiry_threshold_days',
+      value: '90',
+      valueType: 'integer',
+      label: 'Near Expiry Warning Threshold (days)'
+    }
+  ];
+
+  for (const setting of defaultSystemSettings) {
+    await prisma.systemSetting.upsert({
+      where: { key: setting.key },
+      update: { value: setting.value, label: setting.label },
+      create: setting
+    });
+  }
+  console.log('System settings seeded.');
 
   console.log('Seed completed successfully!');
 }

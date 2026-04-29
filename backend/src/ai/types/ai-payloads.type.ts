@@ -32,6 +32,16 @@ export interface AiMetadata {
    * Guardrail status of the output.
    */
   guardrailStatus?: 'passed' | 'blocked' | 'bypassed';
+
+  /**
+   * Whether Graph-RAG context was used.
+   */
+  graphUsed?: boolean;
+
+  /**
+   * Whether the graph data used was fresh (not degraded).
+   */
+  graphFresh?: boolean;
 }
 
 export interface AiResponse<T> {
@@ -44,8 +54,10 @@ export interface InteractionExplanationInput {
   userId: string;
   alertContext: string;
   medicines: string[];
+  medicineIds?: number[];
   activeIngredients: string[];
   ruleDescription: string;
+  graphContext?: string;
 }
 
 export interface InteractionExplanationOutput {

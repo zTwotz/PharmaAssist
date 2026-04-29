@@ -35,6 +35,8 @@ export class MockAiProvider implements AiProvider {
         providerRequested: AiProviderType.MOCK,
         providerUsed: AiProviderType.MOCK,
         durationMs: Date.now() - startTime,
+        graphUsed: true,
+        graphFresh: true,
       },
     };
   }

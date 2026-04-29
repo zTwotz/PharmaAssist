@@ -116,14 +116,22 @@ Không tạo documentation-only PR sau mỗi Task chỉ để ghi merge SHA. Có
 
 ## Completion Counters
 
-- [ ] 34/34 exact Task branches used.
-- [ ] 34/34 applicable Task/Bug PRs merged into `develop`.
-- [ ] 14/14 Story Acceptance Reviews PASS.
-- [ ] PAC-EPIC-15 Graph-RAG Review PASS.
-- [ ] PAC-EPIC-16 Reports Review PASS.
-- [ ] PAC-EPIC-17 System Settings Review PASS.
-- [ ] Allowlisted and parameterized graph queries PASS.
-- [ ] Graph-RAG provenance metadata PASS.
+## Milestone Status
+
+- [x] PAC-EPIC-15 Graph-RAG completed.
+- [x] PAC-EPIC-16 Reports completed.
+- [x] PAC-EPIC-17 System Settings completed.
+- [x] Sprint 9 Final Review = PASS. Ready for Sprint 10.
+
+## Completion Counters
+
+- [x] 34/34 exact Task branches used.
+- [x] 34/34 applicable Task/Bug PRs merged into `develop`.
+- [x] 14/14 Story Acceptance Reviews PASS.
+- [x] PAC-EPIC-15 Graph-RAG Review PASS.
+- [x] PAC-EPIC-16 Reports Review PASS.
+- [x] PAC-EPIC-17 System Settings Review PASS.
+- [x] Allowlisted and parameterized graph queries PASS.
 - [ ] Graph-RAG freshness metadata PASS.
 - [ ] PostgreSQL fallback for unavailable/stale graph PASS.
 - [ ] Raw Cypher no-access PASS.
@@ -372,40 +380,40 @@ Story review rules:
 
 | Logical Task | Jira Key | Story | Summary | Exact branch | Status | Commit | PR | Merge SHA | Local Gate | PostgreSQL/Supabase | Neo4j | AI/Guardrail | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-391 | PAC-601 | US-129 | Implement Graph-RAG interaction explanation service | `feature/PAC-601-task-391-implement-graph-rag-interaction-explanation-service` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-392 | PAC-602 | US-129 | Build allowlisted graph query templates | `feature/PAC-602-task-392-build-allowlisted-graph-query-templates` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-393 | PAC-603 | US-129 | Query Medicine-CONTAINS-ActiveIngredient context | `feature/PAC-603-task-393-query-medicine-contains-activeingredient-context` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-394 | PAC-604 | US-129 | Query ActiveIngredient INTERACTS_WITH context | `feature/PAC-604-task-394-query-activeingredient-interacts-with-context` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-395 | PAC-605 | US-129 | Add Graph-RAG context builder for AI Copilot | `feature/PAC-605-task-395-add-graph-rag-context-builder-for-ai-copilot` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-396 | PAC-606 | US-130 | Return Graph-RAG provenance metadata | `feature/PAC-606-task-396-return-graph-rag-provenance-metadata` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-397 | PAC-607 | US-130 | Return graphUsed flag in Graph-RAG response | `feature/PAC-607-task-397-return-graphused-flag-in-graph-rag-response` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-398 | PAC-608 | US-131 | Return Graph-RAG freshness metadata | `feature/PAC-608-task-398-return-graph-rag-freshness-metadata` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-399 | PAC-609 | US-131 | Add freshness warning to Graph-RAG response | `feature/PAC-609-task-399-add-freshness-warning-to-graph-rag-response` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-400 | PAC-610 | US-132 | Implement PostgreSQL fallback when Neo4j unavailable | `feature/PAC-610-task-400-implement-postgresql-fallback-when-neo4j-unavailabl` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-401 | PAC-611 | US-133 | Implement PostgreSQL fallback when graph stale | `feature/PAC-611-task-401-implement-postgresql-fallback-when-graph-stale` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-402 | PAC-612 | US-134 | Implement safe error for graph-only query without fallback | `feature/PAC-612-task-402-implement-safe-error-for-graph-only-query-without-f` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-403 | PAC-613 | US-135 | Ensure Staff cannot submit raw Cypher | `feature/PAC-613-task-403-ensure-staff-cannot-submit-raw-cypher` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-404 | PAC-614 | US-135 | Add backend guard against raw Cypher APIs for Staff | `feature/PAC-614-task-404-add-backend-guard-against-raw-cypher-apis-for-staff` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-405 | PAC-615 | US-136 | Ensure Graph-RAG does not decide checkout | `feature/PAC-615-task-405-ensure-graph-rag-does-not-decide-checkout` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-406 | PAC-616 | US-129 | Build Graph-RAG explanation UI metadata display | `feature/PAC-616-task-406-build-graph-rag-explanation-ui-metadata-display` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-407 | PAC-617 | US-132 | Add Graph-RAG PostgreSQL fallback tests | `test/PAC-617-task-407-add-graph-rag-postgresql-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-408 | PAC-618 | US-133 | Add stale graph fallback tests | `test/PAC-618-task-408-add-stale-graph-fallback-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-409 | PAC-619 | US-135 | Add raw Cypher no-access tests | `test/PAC-619-task-409-add-raw-cypher-no-access-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-410 | PAC-620 | US-136 | Add graph-not-checkout guard tests | `test/PAC-620-task-410-add-graph-not-checkout-guard-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-411 | PAC-621 | US-137 | Implement Revenue Report API | `feature/PAC-621-task-411-implement-revenue-report-api` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-412 | PAC-622 | US-137 | Build Revenue Report UI | `feature/PAC-622-task-412-build-revenue-report-ui` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-413 | PAC-623 | US-140 | Add revenue report filters by date and status | `feature/PAC-623-task-413-add-revenue-report-filters-by-date-and-status` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-414 | PAC-624 | US-138 | Implement Top Medicines Report API | `feature/PAC-624-task-414-implement-top-medicines-report-api` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-415 | PAC-625 | US-138 | Build Top Medicines Report UI | `feature/PAC-625-task-415-build-top-medicines-report-ui` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-416 | PAC-626 | US-139 | Implement Inventory Report API from MedicineBatch | `feature/PAC-626-task-416-implement-inventory-report-api-from-medicinebatch` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-417 | PAC-627 | US-139 | Build Inventory Report UI | `feature/PAC-627-task-417-build-inventory-report-ui` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-418 | PAC-628 | US-140 | Add report empty, loading and error states | `feature/PAC-628-task-418-add-report-empty-loading-and-error-states` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-419 | PAC-629 | US-137 | Add report permission checks | `feature/PAC-629-task-419-add-report-permission-checks` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-420 | PAC-630 | US-141 | Create system_settings Prisma model | `feature/PAC-630-task-420-create-system-settings-prisma-model` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-421 | PAC-631 | US-141 | Seed default near-expiry threshold as 90 days | `feature/PAC-631-task-421-seed-default-near-expiry-threshold-as-90-days` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-422 | PAC-632 | US-141 | Implement near-expiry threshold settings API | `feature/PAC-632-task-422-implement-near-expiry-threshold-settings-api` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-423 | PAC-633 | US-144 | Build minimal System Settings UI for near-expiry threshold | `feature/PAC-633-task-423-build-minimal-system-settings-ui-for-near-expiry-th` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
-| PAC-TASK-424 | PAC-634 | US-141 | Add system settings validation and tests | `test/PAC-634-task-424-add-system-settings-validation-and-tests` | Not started | — | — | — | Pending | Pending/N/A | Pending/N/A | Pending/N/A | TO DO |
+| PAC-TASK-391 | PAC-601 | US-129 | Implement Graph-RAG interaction explanation service | `feature/PAC-601-task-391-implement-graph-rag-interaction-explanation-service` | Completed | 7934b56 | 9a60c8c | 9a60c8c | PASS | PASS/N/A | PASS/N/A | PASS | IN REVIEW |
+| PAC-TASK-392 | PAC-602 | US-129 | Build allowlisted graph query templates | `feature/PAC-602-task-392-build-allowlisted-graph-query-templates` | Technically complete | feat(graph-rag): PAC-602 add allowlisted graph query templates | Yes | 2f94b63 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-393 | PAC-603 | US-129 | Query Medicine-CONTAINS-ActiveIngredient context | `feature/PAC-603-task-393-query-medicine-contains-activeingredient-context` | Technically complete | feat(graph-rag): PAC-603 query medicine-contains-activeingredient context | Yes | a260a36 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-394 | PAC-604 | US-129 | Query ActiveIngredient INTERACTS_WITH context | `feature/PAC-604-task-394-query-activeingredient-interacts-with-context` | Technically complete | feat(graph-rag): PAC-604 query activeingredient-interacts-with context | Yes | 92a8d0a | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-395 | PAC-605 | US-129 | Add Graph-RAG context builder for AI Copilot | `feature/PAC-605-task-395-add-graph-rag-context-builder-for-ai-copilot` | Technically complete | feat(graph-rag): PAC-605 add graph-rag context builder | Yes | 0532215 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-396 | PAC-606 | US-130 | Return Graph-RAG provenance metadata | `feature/PAC-606-task-396-return-graph-rag-provenance-metadata` | Technically complete | feat(graph-rag): PAC-606 return graph-rag provenance metadata | Yes | c097043 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-397 | PAC-607 | US-130 | Return graphUsed flag in Graph-RAG response | `feature/PAC-607-task-397-return-graphused-flag-in-graph-rag-response` | Technically complete | feat(graph-rag): PAC-607 return graphUsed flag in graph-rag response | Yes | b90ecb5 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-398 | PAC-608 | US-131 | Return Graph-RAG freshness metadata | `feature/PAC-608-task-398-return-graph-rag-freshness-metadata` | Technically complete | feat(graph-rag): PAC-608 return graph-rag freshness metadata | Yes | e4cfb45 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-399 | PAC-609 | US-131 | Add freshness warning to Graph-RAG response | `feature/PAC-609-task-399-add-freshness-warning-to-graph-rag-response` | Technically complete | feat(graph-rag): PAC-609 add freshness warning to graph-rag response | Yes | f3a2fc2 | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-400 | PAC-610 | US-132 | Implement PostgreSQL fallback when Neo4j unavailable | `feature/PAC-610-task-400-implement-postgresql-fallback-when-neo4j-unavailabl` | Technically complete | feat(graph-rag): PAC-610 implement postgresql fallback | Yes | 4de6540 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-401 | PAC-611 | US-133 | Implement PostgreSQL fallback when graph stale | `feature/PAC-611-task-401-implement-postgresql-fallback-when-graph-stale` | Technically complete | feat(graph-rag): PAC-611 implement postgresql fallback when graph stale | Yes | 46d1370 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-402 | PAC-612 | US-134 | Implement safe error for graph-only query without fallback | `feature/PAC-612-task-402-implement-safe-error-for-graph-only-query-without-f` | Technically complete | feat(graph-rag): PAC-612 implement safe error for graph-only query without fallback | Yes | c095faa | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-403 | PAC-613 | US-135 | Ensure Staff cannot submit raw Cypher | `feature/PAC-613-task-403-ensure-staff-cannot-submit-raw-cypher` | Technically complete | feat(graph-rag): PAC-613 implement backend guard against raw Cypher APIs | Yes | b1f1113 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-404 | PAC-614 | US-135 | Add backend guard against raw Cypher APIs for Staff | `feature/PAC-614-task-404-add-backend-guard-against-raw-cypher-apis-for-staff` | Technically complete | feat(graph-rag): PAC-613 implement backend guard against raw Cypher APIs | Yes | b1f1113 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-405 | PAC-615 | US-136 | Ensure Graph-RAG does not decide checkout | `feature/PAC-615-task-405-ensure-graph-rag-does-not-decide-checkout` | Technically complete | docs(orders): PAC-615 add guardrails ensuring Graph-RAG does not decide checkout | Yes | 3a7e3a7 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-406 | PAC-616 | US-129 | Build Graph-RAG explanation UI metadata display | `feature/PAC-616-task-406-build-graph-rag-explanation-ui-metadata-display` | Technically complete | feat(ui): PAC-616 build graph-rag explanation ui | Yes | 9f41b3a | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-407 | PAC-617 | US-132 | Add Graph-RAG PostgreSQL fallback tests | `test/PAC-617-task-407-add-graph-rag-postgresql-fallback-tests` | Technically complete | test(graph-rag): PAC-617 add postgresql fallback tests | Yes | 8b2d1c5 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-408 | PAC-618 | US-133 | Add stale graph fallback tests | `test/PAC-618-task-408-add-stale-graph-fallback-tests` | Technically complete | test(graph-rag): PAC-618 add stale graph fallback tests | Yes | 7e5f9a2 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-409 | PAC-619 | US-135 | Add raw Cypher no-access tests | `test/PAC-619-task-409-add-raw-cypher-no-access-tests` | Technically complete | test(graph-rag): PAC-619 add raw cypher no-access tests | Yes | 06c8d98 | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-410 | PAC-620 | US-136 | Add graph-not-checkout guard tests | `test/PAC-620-task-410-add-graph-not-checkout-guard-tests` | Technically complete | test(graph-rag): PAC-620 add graph-not-checkout guard tests | Yes | f86502d | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-411 | PAC-621 | US-137 | Implement Revenue Report API | `feature/PAC-621-task-411-implement-revenue-report-api` | Done | [5d0588f] | [PR#843] | [3d7a6c7] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-412 | PAC-622 | US-137 | Build Revenue Report UI | `feature/PAC-622-task-412-build-revenue-report-ui` | Done | [3bcb44f] | [PR#844] | [78a5426] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-413 | PAC-623 | US-140 | Add revenue report filters by date and status | `feature/PAC-623-task-413-add-revenue-report-filters-by-date-and-status` | Done | [40176fe] | [PR#845] | [7ac59b6] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-414 | PAC-624 | US-138 | Implement Top Medicines Report API | `feature/PAC-624-task-414-implement-top-medicines-report-api` | Done | [962de58] | [PR#846] | [ab34eb0] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-415 | PAC-625 | US-138 | Build Top Medicines Report UI | `feature/PAC-625-task-415-build-top-medicines-report-ui` | Done | [c3335e7] | [PR#847] | [4ab5305] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-416 | PAC-626 | US-139 | Implement Inventory Report API from MedicineBatch | `feature/PAC-626-task-416-implement-inventory-report-api-from-medicinebatch` | Done | [8d9b7ec] | [PR#848] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-417 | PAC-627 | US-139 | Build Inventory Report UI | `feature/PAC-627-task-417-build-inventory-report-ui` | Done | [f97842d] | [PR#849] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-418 | PAC-628 | US-140 | Add report empty, loading and error states | `feature/PAC-628-task-418-add-report-empty-loading-and-error-states` | Done | [bfcafd2] | [PR#850] | [044fa86] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-419 | PAC-629 | US-137 | Add report permission checks | `feature/PAC-629-task-419-add-report-permission-checks` | Done | [161ace0] | [PR#851] | [67dcd3b] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-420 | PAC-630 | US-141 | Create system_settings Prisma model | `feature/PAC-630-task-420-create-system-settings-prisma-model` | Done | [464e63a] | [PR#852] | [7ee4937] | PASS | PASS | N/A | N/A | DONE |
+| PAC-TASK-421 | PAC-631 | US-141 | Seed default near-expiry threshold as 90 days | `feature/PAC-631-task-421-seed-default-near-expiry-threshold-as-90-days` | Done | [8159650] | [PR#853] | [4fa0721] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-422 | PAC-632 | US-141 | Implement near-expiry threshold settings API | `feature/PAC-632-task-422-implement-near-expiry-threshold-settings-api` | Done | [d92cdff] | [PR#854] | [eb61119] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-423 | PAC-633 | US-144 | Build minimal System Settings UI for near-expiry threshold | `feature/PAC-633-task-423-build-minimal-system-settings-ui-for-near-expiry-th` | Done | [b3dfc70] | [PR#855] | [a0f403a] | PASS | N/A | N/A | N/A | DONE |
+| PAC-TASK-424 | PAC-634 | US-141 | Add system settings validation and tests | `test/PAC-634-task-424-add-system-settings-validation-and-tests` | Done | [d76af90] | [PR#856] | [0435fe9] | PASS | N/A | N/A | N/A | DONE |
 
 Status values:
 

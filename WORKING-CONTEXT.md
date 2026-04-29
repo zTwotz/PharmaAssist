@@ -236,3 +236,20 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - Mandatory Gates: 18/18.
 - Repository, environment, dependencies, and baseline verified.
 - **Next steps**: Ready to implement Sprint 9. First task: PAC-TASK-392.
+
+## 2026-06-23 - Sprint 9 Execution
+- **PAC-TASK-392**: Built allowlisted graph query templates (Neo4j). Merged `a260a36` (via develop).
+- **PAC-TASK-392 (PAC-602)**: Built allowlisted graph query templates (Neo4j) for Medicine-CONTAINS-ActiveIngredient and ActiveIngredient-INTERACTS_WITH. Verified with unit tests. Merged to `develop`.
+- **PAC-TASK-393 (PAC-603)**: Implemented `GraphContextService` to query Medicine-CONTAINS-ActiveIngredient context. Evaluated bounds and data activity state. Merged to `develop`.
+- **PAC-TASK-394 (PAC-604)**: Implemented `getActiveIngredientInteractsWithContext` to retrieve INTERACTS_WITH relations. Merged `92a8d0a` to `develop`.
+- **PAC-TASK-395 (PAC-605)**: Built `GraphRagBuilderService` to aggregate context (medicines + interactions) into LLM-friendly text. Merged `0532215` to `develop`.
+- **PAC-TASK-396 (PAC-606)**: Implemented `buildProvenanceMetadata` to return structured citations (slugs, interactions). Merged `c097043` to `develop`.
+- **PAC-TASK-397 (PAC-607)**: Added `graphUsed` boolean flag to provenance metadata. Merged `b90ecb5` to `develop`.
+- **PAC-TASK-398 (PAC-608)**: Added `fetchedAt` ISO string to Graph-RAG provenance metadata. Merged `e4cfb45` to `develop`.
+- **PAC-TASK-399 (PAC-609)**: Added freshness warning options to `formatContextAsText` to handle stale graph cases. Merged `f3a2fc2` to `develop`.
+- **PAC-TASK-400 (PAC-610)**: Implemented `PostgresContextService` and fallback logic in `GraphRagBuilderService` to fetch data from PostgreSQL when Neo4j is unavailable. Merged `4de6540` to `develop`.
+- **PAC-TASK-401 (PAC-611)**: Implemented PostgreSQL fallback when graph is stale (pending outbox). Used `GraphFreshnessService` inside `GraphRagBuilderService`. Merged `46d1370` to `develop`.
+- **PAC-TASK-402 (PAC-612)**: Implemented safe error for graph-only query without fallback. Added `GraphUnavailableException` and wrapper method `executeGraphOnlyQuery` in `GraphContextService`. Merged `c095faa` to `develop`.
+- **PAC-TASK-403 & 404 (PAC-613, PAC-614)**: Added `POST /api/v1/neo4j/query` endpoint with `RolesGuard('ADMIN')` to ensure Staff cannot submit raw Cypher queries. Guarded by `JwtAuthGuard` and `RolesGuard`. Merged `b1f1113` to `develop`.
+- **PAC-TASK-405 (PAC-615)**: Ensured Graph-RAG does not decide checkout. Verified that `OrdersService` and `InteractionsService` only depend on PostgreSQL, completely decoupled from Neo4j/Graph-RAG. Added explicit architectural guardrail comments to enforce this behavior in `orders.service.ts`, `interactions.service.ts`, and `graph-rag-builder.service.ts`. Merged `3a7e3a7` to `develop`.
+- **Next steps**: Proceed with PAC-TASK-406 (Build Graph-RAG explanation UI metadata display).

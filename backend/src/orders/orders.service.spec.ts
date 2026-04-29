@@ -166,6 +166,28 @@ describe('OrdersService', () => {
   });
 
   describe('checkAndPersistInteractions', () => {
+    it('should NOT depend on Neo4j/Graph-RAG during checkout (PAC-TASK-410)', async () => {
+      // PAC-TASK-405/410 Guardrail Test:
+      // OrdersService should not have Neo4jService or GraphContextService injected.
+      // We assert this by ensuring it only calls InteractionsService, which is strictly PostgreSQL-based.
+      const mockResult = {
+        orderId: 1,
+        hasInteractions: false,
+        interactions: [],
+      };
+      (service['interactionsService'] as any) = {
+        checkOrderInteractions: jest.fn().mockResolvedValue(mockResult),
+      };
+
+      await service.checkAndPersistInteractions(1);
+
+      expect((service as any).neo4jService).toBeUndefined();
+      expect((service as any).graphContextService).toBeUndefined();
+      expect(
+        (service['interactionsService'] as any).checkOrderInteractions,
+      ).toHaveBeenCalledWith(1);
+    });
+
     it('should create new alert if none exists', async () => {
       const mockResult = {
         orderId: 1,
