@@ -91,7 +91,7 @@ export class OrdersController {
     return this.ordersService.cancelOrder(Number(id), req.user);
   }
 
-  @Get(':id')
+  @Get()
   @Roles('ADMIN', 'STAFF')
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
   async findAll() {

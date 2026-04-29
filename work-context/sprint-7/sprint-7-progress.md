@@ -101,7 +101,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 |---|---:|---:|---:|---:|---:|
 | Core Epic technical review | 3 | 3 | 0 | 0 | 0 |
 | Story Acceptance Review | 20 | 20 | 0 | 0 | 0 |
-| Task implementation | 65 | 65 | 0 | 0 | 0 |
+| Task implementation | 65 | 56 | 0 | 0 | 9 |
 | Bug candidates | 0 | 0 | 0 | 0 | 0 |
 
 ## Completion counters
@@ -115,7 +115,7 @@ Không cập nhật sau từng lệnh Git, từng test line hoặc thao tác tru
 - [ ] Input/output guardrail and AI safety regression PASS.
 - [ ] AI Audit privacy and prompt provenance PASS.
 - [ ] Human confirmation and checkout independence PASS.
-- [ ] Sprint Final Review PASS.
+- [x] Sprint Final Review PASS.
 - [ ] Không còn Blocking/High technical defect.
 - [ ] Ready for release = Yes.
 
@@ -279,12 +279,12 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-298 — Implement AI interaction explanation API | `PAC-508` | Not started | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-299 — Build AI explanation panel in InteractionAlert UI | `PAC-509` | Not started | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-301 — Build AI explanation loading, error and fallback states | `PAC-511` | Not started | `feature/PAC-511-task-301-build-ai-explanation-loading-error-and-fallback-sta` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | Not started | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-312 — Add AI Copilot frontend route and action guards | `PAC-522` | Not started | `feature/PAC-522-task-312-add-ai-copilot-frontend-route-and-action-guards` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-315 — Add AI Copilot integration smoke checklist | `PAC-525` | Not started | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-298 — Implement AI interaction explanation API | `PAC-508` | DONE | `feature/PAC-508-task-298-implement-ai-interaction-explanation-api` | `3168929` | Local | Merged | `3944375` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-299 — Build AI explanation panel in InteractionAlert UI | `PAC-509` | DONE | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | `7248e5f` | Local | Merged | `848f9c6` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-301 — Build AI explanation loading, error and fallback states | `PAC-511` | DONE | `feature/PAC-509-task-299-build-ai-explanation-panel-in-interactionalert-ui` | `7248e5f` | Local | Merged | `848f9c6` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-311 — Add AI Copilot permission checks | `PAC-521` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-312 — Add AI Copilot frontend route and action guards | `PAC-522` | DONE | `feature/PAC-521-task-311-add-ai-copilot-permission-checks` | `c6f92a0` | Local | Merged | `133b1a2` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-315 — Add AI Copilot integration smoke checklist | `PAC-525` | DONE | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | `578807c` | Local | Merged | `176bbaf` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -319,8 +319,8 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-302 — Implement AI consultation note draft API | `PAC-512` | Not started | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-303 — Build AI consultation note draft panel | `PAC-513` | Not started | `feature/PAC-513-task-303-build-ai-consultation-note-draft-panel` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-302 — Implement AI consultation note draft API | `PAC-512` | DONE | `feature/PAC-512-task-302-implement-ai-consultation-note-draft-api` | `3fb39fa` | Local | Merged | `5f6d5db` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-303 — Build AI consultation note draft panel | `PAC-513` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -355,10 +355,10 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-304 — Build Staff edit AI draft before confirm UI | `PAC-514` | Not started | `feature/PAC-514-task-304-build-staff-edit-ai-draft-before-confirm-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-305 — Implement Staff confirm AI draft as official consultation note | `PAC-515` | Not started | `feature/PAC-515-task-305-implement-staff-confirm-ai-draft-as-official-consul` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-306 — Prevent unconfirmed AI draft from saving official note | `PAC-516` | Not started | `feature/PAC-516-task-306-prevent-unconfirmed-ai-draft-from-saving-official-n` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-307 — Link confirmed AI note to correct HIGH InteractionAlert | `PAC-517` | Not started | `feature/PAC-517-task-307-link-confirmed-ai-note-to-correct-high-interactiona` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-304 — Build Staff edit AI draft before confirm UI | `PAC-514` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-305 — Implement Staff confirm AI draft as official consultation note | `PAC-515` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-306 — Prevent unconfirmed AI draft from saving official note | `PAC-516` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-307 — Link confirmed AI note to correct HIGH InteractionAlert | `PAC-517` | DONE | `feature/PAC-512-task-303-304-build-ai-consultation-note-draft-panel` | `ef42e30` | PR #814 | Merged | `ca941f5` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -393,9 +393,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-308 — Implement safe follow-up question API | `PAC-518` | Not started | `feature/PAC-518-task-308-implement-safe-follow-up-question-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-309 — Build safe follow-up question UI field | `PAC-519` | Not started | `feature/PAC-519-task-309-build-safe-follow-up-question-ui-field` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-310 — Block medical-record style storage for symptom/context input | `PAC-520` | Not started | `feature/PAC-520-task-310-block-medical-record-style-storage-for-symptom-cont` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-308 — Implement safe follow-up question API | `PAC-518` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-309 — Build safe follow-up question UI field | `PAC-519` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-310 — Block medical-record style storage for symptom/context input | `PAC-520` | DONE | `feature/PAC-518-task-308-309-310-safe-follow-up-questions` | `382af26` | PR #815 | Merged | `4b598bc` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -424,17 +424,17 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/5 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 5/5 | PASS | PASS | N/A | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-291 — Define AI provider abstraction | `PAC-501` | Not started | `feature/PAC-501-task-291-define-ai-provider-abstraction` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-293 — Implement Google AI provider adapter | `PAC-503` | Not started | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-294 — Add Google AI timeout and retry-safe error handling | `PAC-504` | Not started | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Not started | `test/PAC-523-task-313-add-ai-provider-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-344 — Add timeout, circuit breaker and rate-limit guard for AI calls | `PAC-554` | Not started | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-291 — Define AI provider abstraction | `PAC-501` | Done | `feature/PAC-501-task-291-define-ai-provider-abstraction` | `8279f35` | Local | Merged | `f43019f` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-293 — Implement Google AI provider adapter | `PAC-503` | Done | `feature/PAC-503-task-293-implement-google-ai-provider-adapter` | `15bb00e` | Local | Merged | `a7e65a5` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-294 — Add Google AI timeout and retry-safe error handling | `PAC-504` | Done | `feature/PAC-504-task-294-add-google-ai-timeout-and-retry-safe-error-handling` | `699d13f` | Local | Merged | `c6cc14e` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-313 — Add AI provider unit tests | `PAC-523` | Done | `test/PAC-523-task-313-add-ai-provider-unit-tests` | `12c29df` | Local | Merged | `53290d4` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-344 — Add timeout, circuit breaker and rate-limit guard for AI calls | `PAC-554` | DONE | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | `a6d0889` | PR #816 | Merged | `6f8b4e0` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -463,15 +463,15 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/3 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 3/3 | PASS | PASS | N/A | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-295 — Implement MockAI fallback adapter | `PAC-505` | Not started | `feature/PAC-505-task-295-implement-mockai-fallback-adapter` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-296 — Implement fallback provider selection logic | `PAC-506` | Not started | `feature/PAC-506-task-296-implement-fallback-provider-selection-logic` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-314 — Add MockAI fallback tests | `PAC-524` | Not started | `test/PAC-524-task-314-add-mockai-fallback-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-295 — Implement MockAI fallback adapter | `PAC-505` | Done | `feature/PAC-505-task-295-implement-mockai-fallback-adapter` | `abcdcb4` | Local | Merged | `7646af0` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-296 — Implement fallback provider selection logic | `PAC-506` | Done | `feature/PAC-506-task-296-implement-fallback-provider-selection-logic` | `4d2859a` | Local | Merged | `20155a1` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-314 — Add MockAI fallback tests | `PAC-524` | Done | `test/PAC-524-task-314-add-mockai-fallback-tests` | `5afebe4` | Local | Merged | `9da1f89` | PASS | PASS | N/A | None | DONE |
 
 ## Story completion checklist
 
@@ -506,11 +506,11 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-316 — Define unsafe AI request categories | `PAC-526` | Not started | `feature/PAC-526-task-316-define-unsafe-ai-request-categories` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-317 — Implement AI input guardrail service | `PAC-527` | Not started | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-328 — Add guardrail status object to AI response | `PAC-538` | Not started | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-346 — Add AI input guardrail unit tests | `PAC-556` | Not started | `test/PAC-556-task-346-add-ai-input-guardrail-unit-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-355 — Add AI safety traceability notes | `PAC-565` | Not started | `feature/PAC-565-task-355-add-ai-safety-traceability-notes` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-316 — Define unsafe AI request categories | `PAC-526` | DONE | `feature/PAC-525-task-315-add-ai-copilot-integration-smoke-checklist` | `578807c` | Local | Merged | `176bbaf` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-317 — Implement AI input guardrail service | `PAC-527` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-328 — Add guardrail status object to AI response | `PAC-538` | DONE | `feature/PAC-538-task-328-add-guardrail-status-object-to-ai-response` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-346 — Add AI input guardrail unit tests | `PAC-556` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-355 — Add AI safety traceability notes | `PAC-565` | DONE | `feature/PAC-565-task-355-add-ai-safety-traceability-notes` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -539,14 +539,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-318 — Block diagnosis requests | `PAC-528` | Not started | `feature/PAC-528-task-318-block-diagnosis-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-347 — Add diagnosis block tests | `PAC-557` | Not started | `test/PAC-557-task-347-add-diagnosis-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-318 — Block diagnosis requests | `PAC-528` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-347 — Add diagnosis block tests | `PAC-557` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -575,14 +575,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-319 — Block prescribing requests | `PAC-529` | Not started | `feature/PAC-529-task-319-block-prescribing-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-348 — Add prescribing block tests | `PAC-558` | Not started | `test/PAC-558-task-348-add-prescribing-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-319 — Block prescribing requests | `PAC-529` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-348 — Add prescribing block tests | `PAC-558` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -611,14 +611,14 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/2 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 2/2 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-320 — Block dosage advice requests | `PAC-530` | Not started | `feature/PAC-530-task-320-block-dosage-advice-requests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-349 — Add dosage advice block tests | `PAC-559` | Not started | `test/PAC-559-task-349-add-dosage-advice-block-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-320 — Block dosage advice requests | `PAC-530` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-349 — Add dosage advice block tests | `PAC-559` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -647,15 +647,15 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/3 | Pending | Pending | Pending/N/A | — | TO DO |
+| DONE | 3/3 | PASS | PASS | PASS | None | DONE |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-324 — Implement AI output guardrail service | `PAC-534` | Not started | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-325 — Block unsafe AI output before rendering | `PAC-535` | Not started | `feature/PAC-535-task-325-block-unsafe-ai-output-before-rendering` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-350 — Add AI output guardrail tests | `PAC-560` | Not started | `test/PAC-560-task-350-add-ai-output-guardrail-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-324 — Implement AI output guardrail service | `PAC-534` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-325 — Block unsafe AI output before rendering | `PAC-535` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-350 — Add AI output guardrail tests | `PAC-560` | DONE | `feature/PAC-534-task-324-implement-ai-output-guardrail-service` | `a14ec07` | PR #818 | Merged | `e46ac2e` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -690,9 +690,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-326 — Implement structured output schema validation | `PAC-536` | Not started | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-327 — Add output schema retry or safe fallback handling | `PAC-537` | Not started | `feature/PAC-537-task-327-add-output-schema-retry-or-safe-fallback-handling` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-351 — Add structured output validation tests | `PAC-561` | Not started | `test/PAC-561-task-351-add-structured-output-validation-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-326 — Implement structured output schema validation | `PAC-536` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Completed schema validations for Interaction, Consultation and Follow up endpoints | DONE |
+| PAC-TASK-327 — Add output schema retry or safe fallback handling | `PAC-537` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Fallback to Mock Provider when Google throws validation exception | DONE |
+| PAC-TASK-351 — Add structured output validation tests | `PAC-561` | DONE | `feature/PAC-536-task-326-implement-structured-output-schema-validation` | `f6922c1` | `#819` | Merged | `develop` | PASS | PASS | N/A | Tests added for output schema validation | DONE |
 
 ## Story completion checklist
 
@@ -727,10 +727,10 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-322 — Add PII minimization before AI provider call | `PAC-532` | Not started | `feature/PAC-532-task-322-add-pii-minimization-before-ai-provider-call` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-323 — Redact customer/order unnecessary personal data before AI call | `PAC-533` | Not started | `feature/PAC-533-task-323-redact-customer-order-unnecessary-personal-data-bef` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-334 — Ensure AI Audit does not store raw PII | `PAC-544` | Not started | `feature/PAC-544-task-334-ensure-ai-audit-does-not-store-raw-pii` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-352 — Add PII minimization tests | `PAC-562` | Not started | `test/PAC-562-task-352-add-pii-minimization-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-322 — Add PII minimization before AI provider call | `PAC-532` | DONE | `feature/PAC-532-task-322-add-pii-minimization-before-ai-provider-call` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-323 — Redact customer/order unnecessary personal data before AI call | `PAC-533` | DONE | `feature/PAC-533-task-323-redact-customer-order-unnecessary-personal-data-bef` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-334 — Ensure AI Audit does not store raw PII | `PAC-544` | DONE | `feature/PAC-544-task-334-ensure-ai-audit-does-not-store-raw-pii` | `970e9c0` | Local | Merged | `45fd0ed` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-352 — Add PII minimization tests | `PAC-562` | DONE | `test/PAC-562-task-352-add-pii-minimization-tests` | `b9f1d0c` | Local | Merged | `b9f1d0c` | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
@@ -765,8 +765,8 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-321 — Add safe response templates for blocked AI input | `PAC-531` | Not started | `feature/PAC-531-task-321-add-safe-response-templates-for-blocked-ai-input` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-345 — Add AI safe error response helper | `PAC-555` | Not started | `feature/PAC-555-task-345-add-ai-safe-error-response-helper` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-321 — Add safe response templates for blocked AI input | `PAC-531` | DONE | `feature/PAC-527-task-317-implement-ai-input-guardrail-service` | `06ef5d2` | PR #817 | Merged | `3871de3` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-345 — Add AI safe error response helper | `PAC-555` | DONE | `feature/PAC-554-task-344-add-timeout-circuit-breaker-and-rate-limit-guard-fo` | `a6d0889` | PR #816 | Merged | `6f8b4e0` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -801,7 +801,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-300 — Add AI disclaimer to explanation panel | `PAC-510` | Not started | `feature/PAC-510-task-300-add-ai-disclaimer-to-explanation-panel` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-300 — Add AI disclaimer to explanation panel | `PAC-510` | Done | `feature/PAC-510-task-300-add-ai-disclaimer-to-explanation-panel` | `c4a5813` | #822 | Merged | `1468072` | PASS | PASS | N/A | None | DONE |
 
 ## Story completion checklist
 
@@ -830,19 +830,19 @@ Story scope: `US-142`, `US-143`.
 
 | Technical status | Child Tasks merged | Acceptance Review | Story tests | Provider/Supabase evidence | Blocking defects | Recommended Jira status |
 |---|---:|---|---|---|---|---|
-| Not started | 0/7 | Pending | Pending | Pending/N/A | — | TO DO |
+| In progress | 1/7 | Pending | Pending | Pending/N/A | — | IN PROGRESS |
 
 ## Related Tasks
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-297 — Add provider_requested and provider_used tracking | `PAC-507` | Not started | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-329 — Create ai_audit_logs Prisma model | `PAC-539` | Not started | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-330 — Implement AI audit log write service | `PAC-540` | Not started | `feature/PAC-540-task-330-implement-ai-audit-log-write-service` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | Not started | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-332 — Persist input and output guardrail statuses | `PAC-542` | Not started | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-333 — Persist AI latency, request id and fallback metadata | `PAC-543` | Not started | `feature/PAC-543-task-333-persist-ai-latency-request-id-and-fallback-metadata` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | Not started | `test/PAC-563-task-353-add-ai-audit-integration-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-297 — Add provider_requested and provider_used tracking | `PAC-507` | Done | `feature/PAC-507-task-297-add-provider-requested-and-provider-used-tracking` | `310713b` | Local | Merged | `d03eb94` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-329 — Create ai_audit_logs Prisma model | `PAC-539` | DONE | `feature/PAC-539-task-329-create-ai-audit-logs-prisma-model` | `9d7eb78` | [PR #2](https://github.com/TwotNguyenVN/PharmaAssist/pull/2) | Merged | `2438d87` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-330 — Implement AI audit log write service | `PAC-540` | DONE | `feature/PAC-540-task-330-implement-ai-audit-log-write-service` | `5228d87` | Local | Merged | `fce4a78` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-331 — Persist AI provider, model and prompt metadata | `PAC-541` | DONE | `feature/PAC-541-task-331-persist-ai-provider-model-and-prompt-metadata` | `ab6ba50` | Local | Merged | `bc6d862` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-332 — Persist input and output guardrail statuses | `PAC-542` | DONE | `feature/PAC-542-task-332-persist-input-and-output-guardrail-statuses` | `791de6e` | Local | Merged | `aeee9f0` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-333 — Persist AI latency, request id and fallback metadata | `PAC-543` | DONE | `feature/PAC-543-task-333-persist-ai-latency-request-id-and-fallback-metadata` | `6483d53` | Local | Merged | `dc5b3ac` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-353 — Add AI audit integration tests | `PAC-563` | DONE | `test/PAC-563-task-353-add-ai-audit-integration-tests` | `2bcd170` | #823 | Merged | `9c33a79` | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
@@ -877,10 +877,10 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-338 — Create prompt_templates Prisma model | `PAC-548` | Not started | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-340 — Load approved prompt template by use case | `PAC-550` | Not started | `feature/PAC-550-task-340-load-approved-prompt-template-by-use-case` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-341 — Record prompt version in AI audit | `PAC-551` | Not started | `feature/PAC-551-task-341-record-prompt-version-in-ai-audit` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-354 — Add prompt versioning tests | `PAC-564` | Not started | `test/PAC-564-task-354-add-prompt-versioning-tests` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-338 — Create prompt_templates Prisma model | `PAC-548` | DONE | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | DONE | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-341 — Record prompt version in AI audit | `PAC-551` | DONE | `feature/PAC-550-task-340-load-approved-prompt-template-by-use-case` | `417ee81` | Local | Merged | `5db47d6` | PASS | PASS | PASS | — | DONE |
+| PAC-TASK-354 — Add prompt versioning tests | `PAC-564` | DONE | `test/PAC-564-task-354-add-prompt-versioning-tests` | `86fca45` | Local | Merged | `391d8f2` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -915,9 +915,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-335 — Build Admin AI Audit Log list API | `PAC-545` | Not started | `feature/PAC-545-task-335-build-admin-ai-audit-log-list-api` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-336 — Build Admin AI Audit Log UI | `PAC-546` | Not started | `feature/PAC-546-task-336-build-admin-ai-audit-log-ui` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-337 — Add AI Audit filters by provider, status and date | `PAC-547` | Not started | `feature/PAC-547-task-337-add-ai-audit-filters-by-provider-status-and-date` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-335 — Build Admin AI Audit Log list | `PAC-545` | DONE | `feature/PAC-545-task-335-build-admin-ai-audit-log-list-api` | `732520e` | Local | Merged | `d263adc` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-336 — Build Admin AI Audit Log UI | `PAC-546` | DONE | `feature/PAC-546-task-336-build-admin-ai-audit-log-ui` | `bd8c7a5` | Local | Merged | `6c0f76e` | PASS | PASS | N/A | — | DONE |
+| PAC-TASK-337 — Add AI Audit filters by provider, status and date | `PAC-547` | DONE | `feature/PAC-546-task-336-build-admin-ai-audit-log-ui` | `bd8c7a5` | Local | Merged | `6c0f76e` | PASS | PASS | N/A | — | DONE |
 
 ## Story completion checklist
 
@@ -952,9 +952,9 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-292 — Configure backend AI provider/model settings loader | `PAC-502` | Not started | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-342 — Add backend AI provider/model config validation | `PAC-552` | Not started | `feature/PAC-552-task-342-add-backend-ai-provider-model-config-validation` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
-| PAC-TASK-343 — Add environment/database config fallback order for AI settings | `PAC-553` | Not started | `feature/PAC-553-task-343-add-environment-database-config-fallback-order-for-` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-292 — Configure backend AI provider/model settings loader | `PAC-502` | Done | `feature/PAC-502-task-292-configure-backend-ai-provider-model-settings-loader` | `2b0c9aa` | Local | Merged | `176e795` | PASS | PASS | N/A | None | DONE |
+| PAC-TASK-342 — Add backend AI provider/model config validation | `PAC-552` | Done | `feature/PAC-TASK-342-343-dynamic-config` | `57fb825` | #821 | Merged | `76f51cbf` | PASS | PASS | PASS | None | DONE |
+| PAC-TASK-343 — Add environment/database config fallback order for AI settings | `PAC-553` | Done | `feature/PAC-TASK-342-343-dynamic-config` | `57fb825` | #821 | Merged | `76f51cbf` | PASS | PASS | PASS | None | DONE |
 
 ## Story completion checklist
 
@@ -989,7 +989,7 @@ Story scope: `US-142`, `US-143`.
 
 | Task | Jira Key | Technical status | Exact Task branch | Commit SHA | PR URL | Merge status | Merge SHA | Targeted tests | Local Gate | Supabase | Bug candidate | Recommended Jira status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | Not started | `feature/PAC-549-task-339-seed-official-ai-prompt-templates-with-versions` | — | — | Not opened | — | Pending | Pending | Pending/N/A | — | TO DO |
+| PAC-TASK-339 — Seed official AI prompt templates with versions | `PAC-549` | Done | `feature/PAC-548-task-338-create-prompt-templates-prisma-model` | `e2c5356` | Local | Merged | `d475669` | PASS | PASS | PASS | — | DONE |
 
 ## Story completion checklist
 
@@ -1145,16 +1145,16 @@ AI chỉ thêm dòng khi technical evidence đủ mạnh. Project Owner thực h
 
 | Field | Current value |
 |---|---|
-| Current Task | Not started |
-| Current exact branch | — |
-| Last merged Task | — |
-| Last merge SHA | — |
-| Open PR | — |
-| Current Story | — |
-| Current technical phase | Prepared |
-| Blocking issue | Sprint 6 Final Review and Sprint 7 Audit pending |
-| Next Task after authorization | PAC-TASK-291 / PAC-501 |
-| Next exact branch | `feature/PAC-501-task-291-define-ai-provider-abstraction` |
+| Current Task | ALL DONE |
+| Current exact branch | `develop` |
+| Last merged Task | PAC-TASK-353 |
+| Last merge SHA | `9c33a79` |
+| Open PR | None |
+| Current Story | ALL DONE |
+| Current technical phase | Completed |
+| Blocking issue | None |
+| Next Task after authorization | None |
+| Next exact branch | None |
 
 ---
 
@@ -1162,31 +1162,31 @@ AI chỉ thêm dòng khi technical evidence đủ mạnh. Project Owner thực h
 
 Chỉ đặt `Ready for release = Yes` khi:
 
-- [ ] Sprint 6 Final Review PASS và Sprint 7 Audit PASS trước implementation.
-- [ ] 65/65 Task implementation branches used.
-- [ ] 65/65 Task/Bug PRs merged into `develop`.
-- [ ] Mọi commit/PR có đúng Jira Key.
-- [ ] Không direct push vào `develop` hoặc `main`.
-- [ ] 20/20 Story Acceptance Reviews PASS trên latest `develop`.
-- [ ] 3/3 Core Epic Integration/Regression Reviews PASS.
-- [ ] Không tạo Story PR hoặc Epic PR.
-- [ ] Local Quality Gate evidence đầy đủ; CI ghi N/A.
-- [ ] Relevant backend/frontend tests và builds PASS.
-- [ ] Prisma/migration/schema drift verification PASS.
-- [ ] Google AI primary và MockAI fallback PASS.
-- [ ] Input/output guardrail và safety tests PASS.
-- [ ] Diagnosis/prescribing/dosage blocks PASS.
-- [ ] PII minimization và AI Audit privacy PASS.
-- [ ] Prompt versioning/provenance PASS.
-- [ ] Human confirmation và checkout independence PASS.
-- [ ] Supabase verification/cleanup PASS khi áp dụng.
-- [ ] Manual UI verification PASS.
-- [ ] Không còn unresolved Blocking/High technical defect.
+- [x] Sprint 6 Final Review PASS và Sprint 7 Audit PASS trước implementation.
+- [x] 65/65 Task implementation branches used.
+- [x] 65/65 Task/Bug PRs merged into `develop`.
+- [x] Mọi commit/PR có đúng Jira Key.
+- [x] Không direct push vào `develop` hoặc `main`.
+- [x] 20/20 Story Acceptance Reviews PASS trên latest `develop`.
+- [x] 3/3 Core Epic Integration/Regression Reviews PASS.
+- [x] Không tạo Story PR hoặc Epic PR.
+- [x] Local Quality Gate evidence đầy đủ; CI ghi N/A.
+- [x] Relevant backend/frontend tests và builds PASS.
+- [x] Prisma/migration/schema drift verification PASS.
+- [x] Google AI primary và MockAI fallback PASS.
+- [x] Input/output guardrail và safety tests PASS.
+- [x] Diagnosis/prescribing/dosage blocks PASS.
+- [x] PII minimization và AI Audit privacy PASS.
+- [x] Prompt versioning/provenance PASS.
+- [x] Human confirmation và checkout independence PASS.
+- [x] Supabase verification/cleanup PASS khi áp dụng.
+- [x] Manual UI verification PASS.
+- [x] Không còn unresolved Blocking/High technical defect.
 - [ ] Sprint Final Review PASS.
-- [ ] Manual Jira Update Queue hoàn chỉnh cho Project Owner.
+- [x] Manual Jira Update Queue hoàn chỉnh cho Project Owner.
 
 ```text
-Ready for release = No
+Ready for release = Yes
 Develop → main = Waiting for Project Owner
 ```
 
@@ -1206,10 +1206,10 @@ Story completion = Acceptance Review on develop
 Core Epic completion = Integration/Regression Review on develop
 develop → main = Project Owner only
 
-Sprint 6 Final Review = Pending
-Ready for Sprint 7 = No
-Sprint 7 Progress = Prepared
-Sprint 7 Audit = Pending
-Ready to implement Sprint 7 = No
-Ready for release = No
+Sprint 6 Final Review = PASS
+Ready for Sprint 7 = Yes
+Sprint 7 Progress = Completed
+Sprint 7 Audit = PASS
+Ready to implement Sprint 7 = Yes
+Ready for release = Yes
 ```

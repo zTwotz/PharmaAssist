@@ -41,7 +41,7 @@ describe('CheckoutController', () => {
 
   it('should process checkout successfully', async () => {
     const dto: CheckoutDto = {
-      orderId: 'test-order',
+      orderId: 1,
       payment: { method: PaymentMethod.CASH, amountTendered: 100000 },
     };
     const req = {

@@ -15,7 +15,8 @@ import {
   Users,
   Truck,
   Receipt,
-  AlertTriangle
+  AlertTriangle,
+  Activity
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -77,6 +78,12 @@ export function Sidebar({ currentPath }: SidebarProps) {
       path: '/suppliers',
       icon: Truck,
       roles: ['ADMIN', 'WAREHOUSE'],
+    },
+    {
+      label: 'AI Audit Logs',
+      path: '/dashboard/ai-audit-logs',
+      icon: Activity,
+      roles: ['ADMIN'],
     },
   ];
 

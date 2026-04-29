@@ -418,6 +418,7 @@ export class OrdersService {
       return result;
     }
 
+    const persistedAlerts = [];
     // Persist InteractionAlert for each interaction
     // Only persist if it doesn't already exist for this order and interaction rule
     for (const interaction of result.interactions) {
@@ -430,7 +431,7 @@ export class OrdersService {
       });
 
       if (!existingAlert) {
-        await this.prisma.interactionAlert.create({
+        const newAlert = await this.prisma.interactionAlert.create({
           data: {
             orderId: orderId,
             interactionId: interaction.ruleId,
@@ -441,9 +442,10 @@ export class OrdersService {
             lastDisplayedAt: new Date(),
           },
         });
+        persistedAlerts.push(newAlert);
       } else {
         // PAC-TASK-242: Update display_count and last_displayed_at
-        await this.prisma.interactionAlert.update({
+        const updatedAlert = await this.prisma.interactionAlert.update({
           where: { id: existingAlert.id },
           data: {
             displayCount: { increment: 1 },
@@ -452,10 +454,11 @@ export class OrdersService {
             alertMessage: `Tương tác thuốc: ${interaction.activeIngredientAName} và ${interaction.activeIngredientBName} - Mức độ: ${interaction.severity}. Cảnh báo: ${interaction.description}`,
           },
         });
+        persistedAlerts.push(updatedAlert);
       }
     }
 
-    return result;
+    return { ...result, persistedAlerts };
   }
 
   async getOrderAlerts(orderId: number) {
