@@ -270,76 +270,76 @@ Không được ghi GitHub Actions = N/A — full CI intentionally reserved for 
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-530 | PAC-740 | Add Graph Sync Status permission checks | Not started | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | — | — |
-| PAC-TASK-526 | PAC-736 | Build Admin Graph Sync Status list UI | Not started | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` | — | — |
-| PAC-TASK-527 | PAC-737 | Build Graph Sync job detail UI | Not started | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` | — | — |
+| PAC-TASK-530 | PAC-740 | Add Graph Sync Status permission checks | Done | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | #865 | e23b59e31e7e3c305b21f96fdbd1024288fa00db |
+| PAC-TASK-526 | PAC-736 | Build Admin Graph Sync Status list UI | Completed | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` | — | 2c94e39 |
+| PAC-TASK-527 | PAC-737 | Build Graph Sync job detail UI | Completed | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` | — | c2fc0ce |
 
 ## Phase 2 — Controlled Graph Retry and Rebuild
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-528 | PAC-738 | Build manual graph retry action for Admin | Not started | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | — | — |
-| PAC-TASK-529 | PAC-739 | Build manual graph rebuild action for Admin | Not started | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — |
+| PAC-TASK-528 | PAC-738 | Build manual graph retry action for Admin | Completed | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | — | dc22a90 |
+| PAC-TASK-529 | PAC-739 | Build manual graph rebuild action for Admin | Done | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — |
 
 ## Phase 3 — Read-only Graph Explorer
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-535 | PAC-745 | Ensure Graph Explorer uses allowlisted templates only | Not started | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — |
-| PAC-TASK-534 | PAC-744 | Add Graph Explorer permission checks | Not started | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — |
-| PAC-TASK-531 | PAC-741 | Build read-only Graph Explorer UI | Not started | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — |
-| PAC-TASK-532 | PAC-742 | Build Graph Explorer node detail panel | Not started | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — |
-| PAC-TASK-533 | PAC-743 | Build Graph Explorer relationship detail panel | Not started | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — |
+| PAC-TASK-535 | PAC-745 | Ensure Graph Explorer uses allowlisted templates only | Done | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — |
+| PAC-TASK-534 | PAC-744 | Add Graph Explorer permission checks | Done | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — |
+| PAC-TASK-531 | PAC-741 | Build read-only Graph Explorer UI | Done | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — |
+| PAC-TASK-532 | PAC-742 | Build Graph Explorer node detail panel | Done | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — |
+| PAC-TASK-533 | PAC-743 | Build Graph Explorer relationship detail panel | Done | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — |
 
 ## Phase 4 — AI Provider and Prompt Governance UI
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-536 | PAC-746 | Build AI Provider Settings UI | Not started | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — |
-| PAC-TASK-537 | PAC-747 | Build AI model configuration UI | Not started | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — |
-| PAC-TASK-538 | PAC-748 | Build Prompt Management list UI | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — |
-| PAC-TASK-539 | PAC-749 | Build Prompt Management version detail UI | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — |
-| PAC-TASK-540 | PAC-750 | Add prompt approval status display | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — |
+| PAC-TASK-536 | PAC-746 | Build AI Provider Settings UI | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — |
+| PAC-TASK-537 | PAC-747 | Build AI model configuration UI | Done | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — |
+| PAC-TASK-538 | PAC-748 | Build Prompt Management list UI | Done | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — |
+| PAC-TASK-539 | PAC-749 | Build Prompt Management version detail UI | Done | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — |
+| PAC-TASK-540 | PAC-750 | Add prompt approval status display | Done | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — |
 
 ## Phase 5 — System Audit Log UI
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-541 | PAC-751 | Build System Audit Log UI | Not started | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — |
-| PAC-TASK-542 | PAC-752 | Add System Audit Log filters | Not started | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — |
+| PAC-TASK-541 | PAC-751 | Build System Audit Log UI | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — |
+| PAC-TASK-542 | PAC-752 | Add System Audit Log filters | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — |
 
 ## Phase 6 — Supabase Storage for Medicine Images
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-545 | PAC-755 | Add Supabase Storage file validation | Not started | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — |
-| PAC-TASK-543 | PAC-753 | Implement Supabase Storage upload flow for medicine images | Not started | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — |
-| PAC-TASK-544 | PAC-754 | Build medicine image upload UI | Not started | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — |
+| PAC-TASK-545 | PAC-755 | Add Supabase Storage file validation | Done | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — |
+| PAC-TASK-543 | PAC-753 | Implement Supabase Storage upload flow for medicine images | Done | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — |
+| PAC-TASK-544 | PAC-754 | Build medicine image upload UI | Done | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — |
 
 ## Phase 7 — Supabase Realtime Inventory UX
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-546 | PAC-756 | Implement Supabase Realtime inventory update listener | Not started | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — |
-| PAC-TASK-548 | PAC-758 | Add realtime fallback polling behavior | Not started | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — |
-| PAC-TASK-547 | PAC-757 | Build realtime POS stock refresh behavior | Not started | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — |
+| PAC-TASK-546 | PAC-756 | Implement Supabase Realtime inventory update listener | Done | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — |
+| PAC-TASK-548 | PAC-758 | Add realtime fallback polling behavior | Done | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — |
+| PAC-TASK-547 | PAC-757 | Build realtime POS stock refresh behavior | Done | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — |
 
 ## Phase 8 — Notification Center and Scheduled Near-expiry Scan
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-550 | PAC-760 | Implement low-stock notification generation | Not started | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — |
-| PAC-TASK-551 | PAC-761 | Implement near-expiry notification generation | Not started | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — |
-| PAC-TASK-553 | PAC-763 | Implement scheduled near-expiry scan job | Not started | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — |
-| PAC-TASK-549 | PAC-759 | Build Notification Center UI | Not started | `feature/PAC-759-task-549-build-notification-center-ui` | — | — |
-| PAC-TASK-552 | PAC-762 | Build read/unread notification state | Not started | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — |
+| PAC-TASK-550 | PAC-760 | Implement low-stock notification generation | Done | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — |
+| PAC-TASK-551 | PAC-761 | Implement near-expiry notification generation | Done | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — |
+| PAC-TASK-553 | PAC-763 | Implement scheduled near-expiry scan job | Done | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — |
+| PAC-TASK-549 | PAC-759 | Build Notification Center UI | Done | `feature/PAC-759-task-549-build-notification-center-ui` | — | — |
+| PAC-TASK-552 | PAC-762 | Build read/unread notification state | Done | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — |
 
 ## Phase 9 — AI Business Report Narrative
 
 | Task | Jira Key | Summary | Status | Exact branch | PR | Merge SHA |
 |---|---|---|---|---|---|---|
-| PAC-TASK-554 | PAC-764 | Implement AI Business Report Narrative API | Not started | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — |
-| PAC-TASK-555 | PAC-765 | Build AI Business Report Narrative UI | Not started | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — |
+| PAC-TASK-554 | PAC-764 | Implement AI Business Report Narrative API | Done | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — |
+| PAC-TASK-555 | PAC-765 | Build AI Business Report Narrative UI | Done | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — |
 
 ---
 
@@ -557,36 +557,36 @@ Required scenarios:
 
 | # | Logical Task | Jira Key | Story | Epic | Priority | Status | Exact branch | PR | Merge SHA | Gate |
 |---:|---|---|---|---|---|---|---|---|---|---|
-| 1 | PAC-TASK-526 | PAC-736 | US-151 | PAC-EPIC-22 | Medium | Not started | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` | — | — | Pending |
-| 2 | PAC-TASK-527 | PAC-737 | US-151 | PAC-EPIC-22 | Low | Not started | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` | — | — | Pending |
-| 3 | PAC-TASK-528 | PAC-738 | US-152 | PAC-EPIC-22 | Medium | Not started | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | — | — | Pending |
-| 4 | PAC-TASK-529 | PAC-739 | US-152 | PAC-EPIC-22 | Medium | Not started | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | — | — | Pending |
-| 5 | PAC-TASK-530 | PAC-740 | US-151 | PAC-EPIC-22 | Medium | Not started | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | — | — | Pending |
-| 6 | PAC-TASK-531 | PAC-741 | US-153 | PAC-EPIC-23 | Medium | Not started | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | — | — | Pending |
-| 7 | PAC-TASK-532 | PAC-742 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | — | — | Pending |
-| 8 | PAC-TASK-533 | PAC-743 | US-153 | PAC-EPIC-23 | Low | Not started | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | — | — | Pending |
-| 9 | PAC-TASK-534 | PAC-744 | US-153 | PAC-EPIC-23 | Medium | Not started | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | — | — | Pending |
-| 10 | PAC-TASK-535 | PAC-745 | US-153 | PAC-EPIC-23 | High | Not started | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | — | — | Pending |
-| 11 | PAC-TASK-536 | PAC-746 | US-154 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | — | — | Pending |
-| 12 | PAC-TASK-537 | PAC-747 | US-154 | PAC-EPIC-24 | Low | Not started | `feature/PAC-747-task-537-build-ai-model-configuration-ui` | — | — | Pending |
-| 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Not started | `feature/PAC-748-task-538-build-prompt-management-list-ui` | — | — | Pending |
-| 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | — | — | Pending |
-| 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Not started | `feature/PAC-750-task-540-add-prompt-approval-status-display` | — | — | Pending |
-| 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Not started | `feature/PAC-751-task-541-build-system-audit-log-ui` | — | — | Pending |
-| 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Not started | `feature/PAC-752-task-542-add-system-audit-log-filters` | — | — | Pending |
-| 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | — | — | Pending |
-| 19 | PAC-TASK-544 | PAC-754 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | — | — | Pending |
-| 20 | PAC-TASK-545 | PAC-755 | US-157 | PAC-EPIC-26 | Low | Not started | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | — | — | Pending |
-| 21 | PAC-TASK-546 | PAC-756 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | — | — | Pending |
-| 22 | PAC-TASK-547 | PAC-757 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | — | — | Pending |
-| 23 | PAC-TASK-548 | PAC-758 | US-158 | PAC-EPIC-27 | Low | Not started | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | — | — | Pending |
-| 24 | PAC-TASK-549 | PAC-759 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-759-task-549-build-notification-center-ui` | — | — | Pending |
-| 25 | PAC-TASK-550 | PAC-760 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | — | — | Pending |
-| 26 | PAC-TASK-551 | PAC-761 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | — | — | Pending |
-| 27 | PAC-TASK-552 | PAC-762 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-762-task-552-build-read-unread-notification-state` | — | — | Pending |
-| 28 | PAC-TASK-553 | PAC-763 | US-159 | PAC-EPIC-28 | Low | Not started | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | — | — | Pending |
-| 29 | PAC-TASK-554 | PAC-764 | US-160 | PAC-EPIC-29 | Low | Not started | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | — | — | Pending |
-| 30 | PAC-TASK-555 | PAC-765 | US-160 | PAC-EPIC-29 | Low | Not started | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | — | — | Pending |
+| 1 | PAC-TASK-526 | PAC-736 | US-151 | PAC-EPIC-22 | Medium | Completed | `feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui` | merged | 2c94e39 | PASS |
+| 2 | PAC-TASK-527 | PAC-737 | US-151 | PAC-EPIC-22 | Low | Completed | `feature/PAC-737-task-527-build-graph-sync-job-detail-ui` | merged | c2fc0ce | PASS |
+| 3 | PAC-TASK-528 | PAC-738 | US-152 | PAC-EPIC-22 | Medium | Completed | `feature/PAC-738-task-528-build-manual-graph-retry-action-for-admin` | merged | dc22a90 | PASS |
+| 4 | PAC-TASK-529 | PAC-739 | US-152 | PAC-EPIC-22 | Medium | Done | `feature/PAC-739-task-529-build-manual-graph-rebuild-action-for-admin` | - | dea264a9463e2b2ca9b98ccd08fe6fefa04d7a49 | In Review |
+| 5 | PAC-TASK-530 | PAC-740 | US-151 | PAC-EPIC-22 | Medium | Done | `feature/PAC-740-task-530-add-graph-sync-status-permission-checks` | #865 | e23b59e31e7e3c305b21f96fdbd1024288fa00db | In Review |
+| 6 | PAC-TASK-531 | PAC-741 | US-153 | PAC-EPIC-23 | Medium | Done | `feature/PAC-741-task-531-build-read-only-graph-explorer-ui` | - | d9532a5cb5f9c9b787566d99fdb2b398f8b28162 | In Review |
+| 7 | PAC-TASK-532 | PAC-742 | US-153 | PAC-EPIC-23 | Low | Done | `feature/PAC-742-task-532-build-graph-explorer-node-detail-panel` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 8 | PAC-TASK-533 | PAC-743 | US-153 | PAC-EPIC-23 | Low | Done | `feature/PAC-743-task-533-build-graph-explorer-relationship-detail-panel` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 9 | PAC-TASK-534 | PAC-744 | US-153 | PAC-EPIC-23 | Medium | Done | `feature/PAC-744-task-534-add-graph-explorer-permission-checks` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 10 | PAC-TASK-535 | PAC-745 | US-153 | PAC-EPIC-23 | High | Done | `feature/PAC-745-task-535-ensure-graph-explorer-uses-allowlisted-templates-on` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 11 | PAC-TASK-536 | PAC-746 | US-154 | PAC-EPIC-24 | Medium | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
+| 12 | PAC-TASK-537 | PAC-747 | US-154 | PAC-EPIC-24 | Low | Done | `feature/PAC-746-task-536-build-ai-provider-settings-ui` | - | 538a079a895a61755192d0c92b95084167426e1a | In Review |
+| 13 | PAC-TASK-538 | PAC-748 | US-155 | PAC-EPIC-24 | Medium | Done | `feature/PAC-748-task-538-build-prompt-management-list-ui` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 14 | PAC-TASK-539 | PAC-749 | US-155 | PAC-EPIC-24 | Low | Done | `feature/PAC-749-task-539-build-prompt-management-version-detail-ui` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 15 | PAC-TASK-540 | PAC-750 | US-155 | PAC-EPIC-24 | Low | Done | `feature/PAC-750-task-540-add-prompt-approval-status-display` | 0c82edeee44fc873b60edb93c32c2f0dac447d8d | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | Pending |
+| 16 | PAC-TASK-541 | PAC-751 | US-156 | PAC-EPIC-25 | Medium | Done | `feature/PAC-751-task-541-build-system-audit-log-ui` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 17 | PAC-TASK-542 | PAC-752 | US-156 | PAC-EPIC-25 | Low | Done | `feature/PAC-752-task-542-add-system-audit-log-filters` | 27134cc570bfe09c5e254bbf97a6986f257ba041 | merged with 541 | PASS |
+| 18 | PAC-TASK-543 | PAC-753 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-753-task-543-implement-supabase-storage-upload-flow-for-medicine` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 19 | PAC-TASK-544 | PAC-754 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-754-task-544-build-medicine-image-upload-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 20 | PAC-TASK-545 | PAC-755 | US-157 | PAC-EPIC-26 | Low | Done | `feature/PAC-755-task-545-add-supabase-storage-file-validation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 21 | PAC-TASK-546 | PAC-756 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-756-task-546-implement-supabase-realtime-inventory-update-listen` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 22 | PAC-TASK-547 | PAC-757 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-757-task-547-build-realtime-pos-stock-refresh-behavior` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 23 | PAC-TASK-548 | PAC-758 | US-158 | PAC-EPIC-27 | Low | Done | `feature/PAC-758-task-548-add-realtime-fallback-polling-behavior` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 24 | PAC-TASK-549 | PAC-759 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-759-task-549-build-notification-center-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 25 | PAC-TASK-550 | PAC-760 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-760-task-550-implement-low-stock-notification-generation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 26 | PAC-TASK-551 | PAC-761 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-761-task-551-implement-near-expiry-notification-generation` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 27 | PAC-TASK-552 | PAC-762 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-762-task-552-build-read-unread-notification-state` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 28 | PAC-TASK-553 | PAC-763 | US-159 | PAC-EPIC-28 | Low | Done | `feature/PAC-763-task-553-implement-scheduled-near-expiry-scan-job` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 29 | PAC-TASK-554 | PAC-764 | US-160 | PAC-EPIC-29 | Low | Done | `feature/PAC-764-task-554-implement-ai-business-report-narrative-api` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
+| 30 | PAC-TASK-555 | PAC-765 | US-160 | PAC-EPIC-29 | Low | Done | `feature/PAC-765-task-555-build-ai-business-report-narrative-ui` | 49c3ecb4d05788f1ef6f14216e48ec5a1dd7ebd0 | https://github.com/TwotNguyenVN/PharmaAssist/pull/TBD | PASS |
 
 Status definitions:
 
@@ -615,11 +615,11 @@ Deferred
 
 | Story | Jira Key | Points | Direct Tasks | Task completion | Acceptance Review | Findings | Exact branch |
 |---|---|---:|---|---|---|---|---|
-| US-151 | PAC-191 | 3 | PAC-TASK-526, PAC-TASK-527, PAC-TASK-530 | 0/3 | Pending | — | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
-| US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 0/2 | Pending | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
-| US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 0/5 | Pending | — | `story/PAC-193-us-153-read-only-graph-explorer` |
-| US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 0/2 | Pending | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
-| US-155 | PAC-195 | 3 | PAC-TASK-538, PAC-TASK-539, PAC-TASK-540 | 0/3 | Pending | — | `story/PAC-195-us-155-prompt-management-ui` |
+| US-151 | PAC-191 | 3 | PAC-TASK-526, PAC-TASK-527, PAC-TASK-530 | 3/3 | Pending | — | `story/PAC-191-us-151-admin-graph-sync-status-ui` |
+| US-152 | PAC-192 | 3 | PAC-TASK-528, PAC-TASK-529 | 2/2 | Pass | — | `story/PAC-192-us-152-manual-graph-retry-rebuild-ui` |
+| US-153 | PAC-193 | 5 | PAC-TASK-531, PAC-TASK-532, PAC-TASK-533, PAC-TASK-534, PAC-TASK-535 | 5/5 | PASS | — | `story/PAC-193-us-153-read-only-graph-explorer` |
+| US-154 | PAC-194 | 3 | PAC-TASK-536, PAC-TASK-537 | 2/2 | PASS | — | `story/PAC-194-us-154-ai-provider-settings-ui` |
+| US-155 | PAC-195 | 3 | PAC-TASK-538, PAC-TASK-539, PAC-TASK-540 | 3/3 | PASS | — | `story/PAC-195-us-155-prompt-management-ui` |
 | US-156 | PAC-196 | 3 | PAC-TASK-541, PAC-TASK-542 | 0/2 | Pending | — | `story/PAC-196-us-156-system-audit-log-ui` |
 | US-157 | PAC-197 | 3 | PAC-TASK-543, PAC-TASK-544, PAC-TASK-545 | 0/3 | Pending | — | `story/PAC-197-us-157-supabase-storage-for-medicine-images` |
 | US-158 | PAC-198 | 3 | PAC-TASK-546, PAC-TASK-547, PAC-TASK-548 | 0/3 | Pending | — | `story/PAC-198-us-158-supabase-realtime-inventory-updates` |
@@ -681,9 +681,9 @@ feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui
 Recommended first technical Task:
 
 ```text
-PAC-TASK-530
-PAC-740
-feature/PAC-740-task-530-add-graph-sync-status-permission-checks
+PAC-TASK-526
+PAC-736
+feature/PAC-736-task-526-build-admin-graph-sync-status-list-ui
 ```
 
 Last Task:
@@ -776,8 +776,8 @@ Ready for MVP Release = No
 Project Leader approval = Pending
 Ready to implement Sprint 11 = No
 
-Current Task = None
-Next technical Task after authorization = PAC-TASK-530 / PAC-740
+Current Task = PAC-TASK-528 (Done)
+Next technical Task = None (Sprint 11 technical tasks completed)
 ```
 
 ## Required handoff fields

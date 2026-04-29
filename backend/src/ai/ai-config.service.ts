@@ -2,6 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { AiProviderType } from './types/ai-provider.enum';
+import { UpdateAiProviderConfigDto } from './dto/update-ai-provider-config.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class AiConfigService {
@@ -11,6 +13,30 @@ export class AiConfigService {
     private readonly configService: ConfigService,
     private readonly prisma: PrismaService,
   ) {}
+
+  
+  async findAll() {
+    return this.prisma.aiProviderConfig.findMany({
+      orderBy: { priority: 'asc' },
+    });
+  }
+
+  async update(id: string, userId: string, dto: UpdateAiProviderConfigDto) {
+    const config = await this.prisma.aiProviderConfig.findUnique({
+      where: { id },
+    });
+    if (!config) {
+      throw new NotFoundException(`AiProviderConfig ${id} not found`);
+    }
+
+    return this.prisma.aiProviderConfig.update({
+      where: { id },
+      data: {
+        ...dto,
+        updatedById: userId,
+      },
+    });
+  }
 
   async getPrimaryProvider(): Promise<AiProviderType> {
     const dbConfig = await this.prisma.aiProviderConfig.findFirst({

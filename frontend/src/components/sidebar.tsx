@@ -16,7 +16,8 @@ import {
   Truck,
   Receipt,
   AlertTriangle,
-  Activity
+  Activity,
+  Share2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -85,6 +86,31 @@ export function Sidebar({ currentPath }: SidebarProps) {
       icon: Activity,
       roles: ['ADMIN'],
     },
+    {
+      label: 'Graph Sync Status',
+      path: '/dashboard/graph-sync',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
+    {
+      label: 'Graph Explorer',
+      path: '/dashboard/graph-explorer',
+      icon: Share2,
+      roles: ['ADMIN', 'STAFF'],
+    },
+    {
+      label: 'Cấu hình AI',
+      path: '/dashboard/ai-settings',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
+    {
+      label: 'Quản lý Prompt',
+      path: '/dashboard/prompts',
+      icon: Activity,
+      roles: ['ADMIN'],
+    },
+
   ];
 
 
