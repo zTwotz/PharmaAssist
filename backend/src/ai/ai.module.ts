@@ -19,7 +19,13 @@ import { AiGuardrailService } from './ai-guardrail.service';
 
 @Module({
   imports: [ConfigModule.forRoot(), PrismaModule, GraphRagBuilderModule],
-  controllers: [AiAuditLogController, AiController, AiConfigController, PromptsController],
+  controllers: [
+    AiAuditLogController,
+    AiController,
+    AiConfigController,
+    PromptsController,
+    AiReportController,
+  ],
   providers: [
     AiConfigService,
     AiService,
@@ -29,6 +35,7 @@ import { AiGuardrailService } from './ai-guardrail.service';
     PromptsService,
     AiGuardrailService,
     AiPiiMinimizerService,
+    AiReportService,
   ],
   exports: [
     AiConfigService,
@@ -37,6 +44,7 @@ import { AiGuardrailService } from './ai-guardrail.service';
     PromptsService,
     AiGuardrailService,
     AiPiiMinimizerService,
+    AiReportService,
   ],
 })
 export class AiModule {}
