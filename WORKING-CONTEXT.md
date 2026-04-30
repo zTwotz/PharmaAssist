@@ -276,3 +276,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-557 (PAC-767): Documented customer profile CRUD future scope. Quality Gate passed. PR #874 merged to develop.
 - PAC-TASK-558 (PAC-768): Documented customer purchase history expansion. Quality Gate passed. PR #875 merged to develop.
 - US-161 and PAC-EPIC-31: Story and Epic Reviews passed after completing PAC-TASK-556, 557, 558.
+- PAC-TASK-559 (PAC-769): Documented online commerce storefront future scope. Quality Gate passed. PR #876 merged to develop.
