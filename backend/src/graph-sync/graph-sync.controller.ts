@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Param, UseGuards, Query, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  UseGuards,
+  Query,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -54,8 +63,13 @@ export class GraphSyncController {
     if (!job) {
       throw new NotFoundException('Graph sync job not found');
     }
-    if (job.status === GraphSyncStatus.SUCCEEDED || job.status === GraphSyncStatus.PENDING) {
-      throw new BadRequestException(`Cannot retry job with status ${job.status}`);
+    if (
+      job.status === GraphSyncStatus.SUCCEEDED ||
+      job.status === GraphSyncStatus.PENDING
+    ) {
+      throw new BadRequestException(
+        `Cannot retry job with status ${job.status}`,
+      );
     }
 
     return this.prisma.graphSyncOutbox.update({

@@ -7,7 +7,15 @@ export class AuditLogService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getLogs(query: GetAuditLogsDto) {
-    const { page = 1, limit = 20, action, entityType, userId, startDate, endDate } = query;
+    const {
+      page = 1,
+      limit = 20,
+      action,
+      entityType,
+      userId,
+      startDate,
+      endDate,
+    } = query;
     const skip = (page - 1) * limit;
 
     const where: any = {};
@@ -32,7 +40,7 @@ export class AuditLogService {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
-        include: { user: { select: { fullName: true, email: true } } }
+        include: { user: { select: { fullName: true, email: true } } },
       }),
       this.prisma.auditLog.count({ where }),
     ]);

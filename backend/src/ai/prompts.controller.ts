@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Patch, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { PromptsService } from './prompts.service';
-import { CreatePromptDto, UpdatePromptStatusDto } from './dto/create-prompt.dto';
+import {
+  CreatePromptDto,
+  UpdatePromptStatusDto,
+} from './dto/create-prompt.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';

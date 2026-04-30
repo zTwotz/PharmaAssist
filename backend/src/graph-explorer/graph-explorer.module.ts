@@ -7,6 +7,6 @@ import { GraphSyncModule } from '../graph-sync/graph-sync.module';
 @Module({
   imports: [Neo4jModule, GraphSyncModule],
   controllers: [GraphExplorerController],
-  providers: [GraphExplorerService]
+  providers: [GraphExplorerService],
 })
 export class GraphExplorerModule {}
