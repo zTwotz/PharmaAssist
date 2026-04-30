@@ -286,7 +286,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 
 | Story | Jira | Summary | Epic | Points | Direct Tasks | Status | AC result | Evidence | Open decisions |
 |---|---|---|---|---:|---|---|---|---|---|
-| US-161 | PAC-201 | Full Customer Management backlog | PAC-EPIC-31 | 2 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | Not started | Pending | — | — |
+| US-161 | PAC-201 | Full Customer Management backlog | PAC-EPIC-31 | 2 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | `develop` | `7935f65` |
 | US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | Not started | Pending | — | — |
 | US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | — | — |
 | US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | Not started | Pending | — | — |
@@ -303,7 +303,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 
 | Epic | Jira | Summary | Stories | Tasks | Status | Dependency review | Guardrail review | Evidence |
 |---|---|---|---|---|---|---|---|---|
-| PAC-EPIC-31 | PAC-31 | Full Customer Management | US-161 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | Not started | Pending | Pending | — |
+| PAC-EPIC-31 | PAC-31 | Full Customer Management | US-161 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | PASS | `7935f65` |
 | PAC-EPIC-32 | PAC-32 | Online Commerce | US-162 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | Not started | Pending | Pending | — |
 | PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | Pending | — |
 | PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | Not started | Pending | Pending | — |
