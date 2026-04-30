@@ -229,7 +229,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 
 | Phase | Domain | Tasks | Total | Not started | In progress | Documentation complete | Review PASS |
 |---|---|---|---:|---:|---:|---:|---:|
-| Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 3 | 0 | 0 | 0 |
+| Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 2 | 0 | 1 | 1 |
 | Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 3 | 0 | 0 | 0 |
 | Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 3 | 0 | 0 | 0 |
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 4 | 0 | 0 | 0 |
@@ -243,7 +243,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 
 | Task | Jira | Summary | Story | Epic | Exact branch | Status | Local doc gate | PR review | CI | PR | Merge SHA | Deliverable/Evidence |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-556 | PAC-766 | Document Full Customer Management future scope | US-161 | PAC-EPIC-31 | `docs/PAC-766-task-556-document-full-customer-management-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-556 | PAC-766 | Document Full Customer Management future scope | US-161 | PAC-EPIC-31 | `docs/PAC-766-task-556-document-full-customer-management-future-scope` | Merged | PASS | PASS | N/A | #873 | f5e6370 | `DOC/future-commercial-expansion/PAC-766-task-556-customer-management.md` |
 | PAC-TASK-557 | PAC-767 | Document customer profile CRUD future scope | US-161 | PAC-EPIC-31 | `docs/PAC-767-task-557-document-customer-profile-crud-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-558 | PAC-768 | Document customer purchase history expansion | US-161 | PAC-EPIC-31 | `docs/PAC-768-task-558-document-customer-purchase-history-expansion` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-559 | PAC-769 | Document Online Commerce storefront future scope | US-162 | PAC-EPIC-32 | `docs/PAC-769-task-559-document-online-commerce-storefront-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
@@ -341,7 +341,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 
 | Task | Planned deliverable | Proposed/Not Implemented marker | Decision owner | Status | Link/Evidence |
 |---|---|---|---|---|---|
-| PAC-TASK-556 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-556 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Merged | `DOC/future-commercial-expansion/PAC-766-task-556-customer-management.md` |
 | PAC-TASK-557 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-558 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-559 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |

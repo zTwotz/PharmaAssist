@@ -272,3 +272,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - Mandatory Gates: 20/20.
 - Ready to document Sprint 12: Yes.
 - Next steps: PAC-TASK-556.
+- PAC-TASK-556 (PAC-766): Documented Full Customer Management future scope. Quality Gate passed. PR #873 merged to develop.
