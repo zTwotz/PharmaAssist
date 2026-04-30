@@ -49,11 +49,11 @@ Quy tắc nguồn:
 | Core Epic count | 9 |
 | Canonical branches | 44 = 25 Task + 10 Story + 9 Epic |
 | Initial status | Prepared |
-| Sprint 11 Final Review | Reported PASS; verify in Sprint 12 Audit |
-| Sprint 11 Release PR | Reported merged; verify in Sprint 12 Audit |
-| Sprint 12 Audit | Pending |
-| Project Leader approval | Pending |
-| Ready to document Sprint 12 | No |
+| Sprint 11 Final Review | PASS |
+| Sprint 11 Release PR | Merged |
+| Sprint 12 Audit | PASS |
+| Project Leader approval | Yes |
+| Ready to document Sprint 12 | Yes |
 | Ready to implement commercial features | No |
 | CI policy | Local document gate + PR review; full CI reserved for main/release |
 
