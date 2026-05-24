@@ -114,8 +114,8 @@ async function autoScrollAndLoadMore(page: Page, maxScrolls: number, maxClicks: 
           // Hover before clicking to mimic real user behavior and prevent anti-bot trigger
           await btn.hover({ timeout: 2000 }).catch(() => {});
           
-          // Random delay before clicking (1000ms - 2000ms)
-          const preClickDelay = Math.floor(Math.random() * 1000) + 1000;
+          // Fast random delay before clicking (300ms - 800ms)
+          const preClickDelay = Math.floor(Math.random() * 500) + 300;
           await delay(preClickDelay);
           
           await btn.click({ force: false }).catch(async () => {
@@ -125,18 +125,9 @@ async function autoScrollAndLoadMore(page: Page, maxScrolls: number, maxClicks: 
           
           clickCount++;
           
-          // Wait longer after click for products to render (3s - 5s)
-          const postClickDelay = Math.floor(Math.random() * 2000) + 3000;
+          // Fast random delay after click for products to render (1500ms - 2500ms)
+          const postClickDelay = Math.floor(Math.random() * 1000) + 1500;
           await delay(postClickDelay);
-
-          // Cooldown logic to prevent Cloudflare block on large pages
-          if (clickCount % 15 === 0) {
-            logInfo(`[Cooldown] Clicked ${clickCount} times on this page. Cooling down for 10 seconds to prevent rate limit...`);
-            await delay(10000);
-          } else if (clickCount % 5 === 0) {
-            logInfo(`[Cooldown] Clicked ${clickCount} times on this page. Cooling down for 5 seconds to prevent rate limit...`);
-            await delay(5000);
-          }
           break; 
         }
       }
