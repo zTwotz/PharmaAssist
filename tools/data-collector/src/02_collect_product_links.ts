@@ -6,6 +6,7 @@ import { chromium, type Page } from 'playwright';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as fs from 'node:fs';
+import * as readline from 'node:readline';
 
 import { readJson, writeJson, ensureDir } from './utils/file.js';
 import { logInfo, logError, logWarn } from './utils/logger.js';
@@ -13,6 +14,45 @@ import { randomDelay, delay } from './utils/delay.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '../');
+
+function askToContinue(promptMessage: string): Promise<boolean> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  
+  return new Promise((resolve) => {
+    rl.question(promptMessage, (answer) => {
+      rl.close();
+      const normalized = answer.trim().toLowerCase();
+      resolve(normalized === 'y' || normalized === 'yes' || normalized === '');
+    });
+  });
+}
+
+function isCloudflareBlocked(extractedLinks: ProductLinkRaw[]): boolean {
+  if (extractedLinks.length === 0) return true; // Empty page (usually blocked API)
+  if (extractedLinks.length > 12) return false; // Actual product list loaded
+  
+  const footerStaticUrls = [
+    'klenzit-15g-3330.html',
+    'berocca-1515.html',
+    'farzincol-10mg-3786.html',
+    'efferalgan-500mg-1620.html',
+    'clorpheniramin-4-200v-4228.html',
+    'enterogemina-5ml-sanofi-20-ong-17315.html',
+    'smecta-2236.html',
+    'telfast-180mg-2051.html',
+    'kremils-s-3315.html',
+    'eugica-vien-uong-dieu-tri-ho-cam-cum-490.html',
+    'differin-0130mg-17372.html'
+  ];
+  
+  // Check if ALL extracted links belong to the footer static list
+  return extractedLinks.every(link => 
+    footerStaticUrls.some(staticUrl => link.product_url.includes(staticUrl))
+  );
+}
 
 // Load env
 const envPath = path.join(ROOT_DIR, '.env');
@@ -285,24 +325,77 @@ async function main(): Promise<void> {
       const baseUrl = new URL(cat.category_url).origin;
       await autoScrollAndLoadMore(page, maxScrollRounds, maxLoadMore);
       
-      const extracted = await extractProductLinks(page, cat, baseUrl);
+      let extracted = await extractProductLinks(page, cat, baseUrl);
       
-      let newCount = 0;
-      for (const link of extracted) {
-        if (uniqueLinks.has(link.product_url)) {
-          duplicateUrls.push(link.product_url);
-        } else {
-          uniqueLinks.set(link.product_url, link);
-          newCount++;
+      let isBlocked = isCloudflareBlocked(extracted);
+      if (isBlocked) {
+        logWarn(`\n================================================================================`);
+        logWarn(`[WARNING] CLOUDFLARE RATE LIMIT DETECTED!`);
+        logWarn(`Category "${cat.category_name}" returned only static advertising links.`);
+        logWarn(`Your IP is currently blocked/rate-limited by Cloudflare WAF.`);
+        logWarn(`--------------------------------------------------------------------------------`);
+        logWarn(`ACTION REQUIRED: Please reset your IP now (e.g. toggle Airplane mode on/off on your 4G device).`);
+        logWarn(`================================================================================\n`);
+        
+        let ipResetDone = false;
+        while (!ipResetDone) {
+          const proceed = await askToContinue(`Have you reset your IP? Press 'y' (or Enter) to retry, or 'n' to skip: `);
+          if (proceed) {
+            logInfo(`Retrying category: ${cat.category_name}...`);
+            await page.goto(cat.category_url, { waitUntil: 'networkidle', timeout: 30000 });
+            await autoScrollAndLoadMore(page, maxScrollRounds, maxLoadMore);
+            extracted = await extractProductLinks(page, cat, baseUrl);
+            
+            if (!isCloudflareBlocked(extracted)) {
+              let retryNewCount = 0;
+              for (const link of extracted) {
+                if (uniqueLinks.has(link.product_url)) {
+                  duplicateUrls.push(link.product_url);
+                } else {
+                  uniqueLinks.set(link.product_url, link);
+                  retryNewCount++;
+                }
+              }
+              logInfo(`Retry successful! Found ${extracted.length} links (${retryNewCount} new). Total unique: ${uniqueLinks.size}`);
+              ipResetDone = true;
+              consecutiveNoNewLinks = 0;
+              break;
+            } else {
+              logWarn(`Retry failed. Still getting static footer links. Cloudflare is still blocking this IP.`);
+            }
+          } else {
+            logWarn(`Skipping retry for category: ${cat.category_name}.`);
+            // Add what we currently have (the static links) to avoid losing them
+            for (const link of extracted) {
+              if (uniqueLinks.has(link.product_url)) {
+                duplicateUrls.push(link.product_url);
+              } else {
+                uniqueLinks.set(link.product_url, link);
+              }
+            }
+            ipResetDone = true;
+            consecutiveNoNewLinks++;
+            break;
+          }
         }
-      }
-      
-      logInfo(`Found ${extracted.length} links (${newCount} new). Total unique: ${uniqueLinks.size}, Duplicates: ${duplicateUrls.length}`);
-      
-      if (newCount === 0) {
-        consecutiveNoNewLinks++;
       } else {
-        consecutiveNoNewLinks = 0;
+        let newCount = 0;
+        for (const link of extracted) {
+          if (uniqueLinks.has(link.product_url)) {
+            duplicateUrls.push(link.product_url);
+          } else {
+            uniqueLinks.set(link.product_url, link);
+            newCount++;
+          }
+        }
+        
+        logInfo(`Found ${extracted.length} links (${newCount} new). Total unique: ${uniqueLinks.size}, Duplicates: ${duplicateUrls.length}`);
+        
+        if (newCount === 0) {
+          consecutiveNoNewLinks++;
+        } else {
+          consecutiveNoNewLinks = 0;
+        }
       }
       
     } catch (err) {
