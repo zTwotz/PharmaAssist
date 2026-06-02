@@ -17,31 +17,64 @@ Dự án áp dụng mô hình **Git Flow rút gọn**:
 ---
 
 ## 2. QUY TRÌNH LÀM VIỆC HẰNG NGÀY
-### 2.1. Đối với Lập trình viên
+
+### 2.1. Mô Hình Shared Repository (Dành cho thành viên có quyền ghi trực tiếp)
 ```bash
 # Bước 1: Đồng bộ local develop với remote mới nhất
 git checkout develop && git pull origin develop
 
-# Bước 2: Tạo nhánh mới (chứa Issue Key PAC-xxx tương ứng trên Jira)
+# Bước 2: Tạo nhánh mới từ develop mới nhất
 git checkout -b feature/PAC-xxx-ten-chuc-nang
 
 # Bước 3: Code và kiểm tra local (chạy npm run dev, test, lint...)
 
-# Bước 4: Lưu thay đổi (Commit theo chuẩn Conventional Commits)
+# Bước 4: Cập nhật code mới nhất từ develop bằng Rebase (để giữ lịch sử sạch)
+git fetch origin
+git rebase origin/develop
+
+# Bước 5: Lưu thay đổi (Commit theo chuẩn Conventional Commits)
 git add .
 git commit -m "feat(PAC-xxx): add payment flow"
 
-# Bước 5: Đẩy nhánh lên GitHub
+# Bước 6: Đẩy nhánh lên GitHub
 git push -u origin feature/PAC-xxx-ten-chuc-nang
 
-# Bước 6: Tạo Pull Request (PR) trên GitHub
+# Bước 7: Tạo Pull Request (PR) trên GitHub
 # Chọn luồng merge: feature/PAC-xxx-ten-chuc-nang ➡️ develop (Tuyệt đối KHÔNG merge thẳng vào main)
-
-# Bước 7: Sau khi PR được duyệt và merge, quay lại develop và pull mới nhất
-git checkout develop && git pull origin develop
 ```
 
-### 2.2. Đối với Trưởng nhóm (Leader)
+### 2.2. Mô Hình Forking Workflow (Dành cho thành viên fork dự án)
+* **`upstream`**: Repository gốc (`https://github.com/TwotNguyenVN/PharmaAssist.git`)
+* **`origin`**: Repository cá nhân đã fork (`https://github.com/<username>/PharmaAssist.git`)
+
+```bash
+# Cấu hình remote ban đầu (chỉ thực hiện 1 lần duy nhất sau khi clone)
+git remote add upstream https://github.com/TwotNguyenVN/PharmaAssist.git
+
+# Bước 1: Đồng bộ local develop với upstream mới nhất
+git checkout develop && git pull upstream develop
+
+# Bước 2: Tạo nhánh mới từ develop
+git checkout -b feature/PAC-xxx-ten-chuc-nang
+
+# Bước 3: Code và kiểm tra local
+
+# Bước 4: Cập nhật code mới từ upstream bằng Rebase trước khi push
+git fetch upstream
+git rebase upstream/develop
+
+# Bước 5: Lưu thay đổi (Commit theo chuẩn Conventional Commits)
+git add .
+git commit -m "feat(PAC-xxx): add payment flow"
+
+# Bước 6: Đẩy nhánh lên repository cá nhân đã fork (origin)
+git push -u origin feature/PAC-xxx-ten-chuc-nang
+
+# Bước 7: Tạo Pull Request từ repo fork cá nhân sang repo gốc
+# Chọn luồng merge: member-username/PharmaAssist:feature/PAC-xxx ➡️ TwotNguyenVN/PharmaAssist:develop
+```
+
+### 2.3. Đối với Trưởng nhóm (Leader)
 - Bảo vệ nhánh `main` và `develop` trên GitHub (Require PR, require approvals, block direct push).
 - Review PR, kiểm tra conflict, chạy test tích hợp và thực hiện merge trên GitHub Web.
 - Gộp `release/*` / `hotfix/*` vào `main`, tạo Git Tag tương ứng (ví dụ: `v1.0`, `v1.0.1`) và đồng bộ ngược về `develop`.
