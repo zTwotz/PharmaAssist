@@ -56,6 +56,8 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ### 2026-06-02
 - **UI Navigation Redesign & Mega Menu:** Hoàn thành triển khai giao diện Mega Dropdown Menu (cấu trúc cây thư mục Mẹ - Con) cho cả 5 danh mục chính trên Navbar trang chủ Retail. Thiết kế bố cục hai cột, hoạt động hoàn toàn bằng hover. Khi rê chuột vào danh mục Mẹ (cấp 2) ở cột trái, danh mục Con (cấp 3) và 5 sản phẩm bán chạy tương ứng ở cột phải sẽ thay đổi tức thì, tích hợp ảnh thật từ nhà thuốc Long Châu. Khắc phục hoàn toàn lỗi ẩn menu do overflow và named group compile error.
+- **Image Mapping Audit:** Kiểm tra toàn diện danh mục ảnh đại diện của các danh mục con trong `renderSubcatThumbnail`. Đã ánh xạ toàn bộ danh mục con (Cận thị, Đục thủy tinh thể, Bao cao su, Gel bôi trơn, Tinh dầu, Thiết bị răng miệng, Thiết bị y tế, các nhóm mỹ phẩm, thực phẩm, v.v.) sang các liên kết hình ảnh CDN duy nhất từ Long Châu nhằm tránh hiện tượng các danh mục con hiển thị cùng một hình ảnh mặc định.
+
 
 ### 2026-05-30
 - **Ghi nhận Nhánh Git Jira:** Phát triển thành công script `generate_branches.py` tự động hóa việc ánh xạ và dịch thuật 262 issue trên Jira sang tên nhánh Git tiếng Anh chuẩn slug (kebab-case), lưu tại [branch-on-jira.md](file:///Users/twot/Documents/HKII_NAM_3/16_Cong_Nghe_Pham_Mem/PharmaAssist/Jira/branch-on-jira.md).
