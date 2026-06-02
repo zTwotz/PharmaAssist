@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import mappedImages from "./mapped_images.json";
 import { 
   Search, 
   ShoppingCart, 
@@ -168,6 +169,8 @@ interface MegaProduct {
   price: number;
   unit: string;
   image: string;
+  discount?: number;
+  originalPrice?: number;
 }
 
 interface MegaSubCategory {
@@ -325,10 +328,48 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
     name: "Chăm sóc cá nhân",
     subCategories: [
       {
+        id: "personal-care-sexual",
+        name: "Hỗ trợ tình dục",
+        iconName: "Heart",
+        children: ["Bao cao su", "Gel bôi trơn"],
+        featuredProducts: [
+          { name: "Bao cao su Okamoto Crown kích cỡ nhỏ, siêu...", price: 56000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09707_b7893a5b10.jpg" },
+          { name: "Bao cao su Sagami Classic siêu mỏng, nhiều chất bôi trơn...", price: 133200, unit: "Hộp", discount: 10, originalPrice: 148000, image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00002664_durex_fetherlite_3s_2345_62b5_large_bd6f01fc54.jpg" },
+          { name: "Bao cao su Sagami Love Me Gold siêu mỏng, trơn, không...", price: 72000, unit: "Hộp", discount: 20, originalPrice: 90000, image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00002664_durex_fetherlite_3s_2345_62b5_large_bd6f01fc54.jpg" },
+          { name: "Bao cao su Safefit Freezer Max S52 chứa nhiều gel là...", price: 49000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502536_vien_nghe_mat_ong_royal_honey_250g_9512_637e_large_7ef79609f0.jpg" },
+          { name: "Bao cao su Safefit 003 S52 siêu mỏng, không gây kích ứn...", price: 59000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502804_bang_ve_sinh_dang_tampon_sofy_soft_9_mieng_7954_6396_large_1993f2916e.jpg" }
+        ]
+      },
+      {
+        id: "personal-care-food",
+        name: "Thực phẩm - Đồ uống",
+        iconName: "Activity",
+        children: ["Sữa bột công thức", "Nước yến sào", "Trà thảo mộc", "Dinh dưỡng y học"],
+        featuredProducts: [
+          { name: "Sữa dinh dưỡng y học Fohepta Vitadairy (400g)", price: 285000, unit: "Lon", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" },
+          { name: "Nước Yến Sào Nunest Đông Trùng Hạ Thảo (Hũ 70ml)", price: 45000, unit: "Hũ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00062_6c2770609f.jpg" },
+          { name: "Trà Thảo Mộc Atiso Datino Premium Tea", price: 75000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.jpg" },
+          { name: "Sữa Bột Dinh Dưỡng Glucerna Abbott Vani (850g)", price: 820000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00500742_sua_bot_dinh_duong_glucerna_abbott_huong_vani_850g_8008_632e_large_651a134cf1.jpg" }
+        ]
+      },
+      {
+        id: "personal-care-hygiene",
+        name: "Vệ sinh cá nhân",
+        iconName: "User",
+        children: ["Sữa tắm diệt khuẩn", "Lăn khử mùi", "Nước rửa tay nhanh", "Dung dịch vệ sinh"],
+        featuredProducts: [
+          { name: "Sữa tắm diệt khuẩn Lifebuoy bảo vệ", price: 165000, unit: "chai", image: "" },
+          { name: "Lăn khử mùi Etiaxil trị hôi nách", price: 260000, unit: "chai", image: "" },
+          { name: "Gel rửa tay khô sát khuẩn Green Cross", price: 45000, unit: "chai", image: "" },
+          { name: "Dầu gội Head & Shoulders mát lạnh", price: 155000, unit: "chai", image: "" },
+          { name: "Xà bông sữa dê tắm trắng da", price: 35000, unit: "cục", image: "" }
+        ]
+      },
+      {
         id: "personal-care-dental",
         name: "Chăm sóc răng miệng",
         iconName: "Check",
-        children: ["Kem đánh răng ê buốt", "Nước súc miệng diệt khuẩn", "Bàn chải đánh răng điện", "Chỉ nha khoa"],
+        children: ["Kem đánh răng", "Nước súc miệng", "Bàn chải điện", "Chỉ nha khoa"],
         featuredProducts: [
           { name: "Kem đánh răng Sensodyne Rapid Action", price: 85000, unit: "tuýp", image: "" },
           { name: "Nước súc miệng Listerine Cool Mint 500ml", price: 95000, unit: "chai", image: "" },
@@ -338,17 +379,32 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         ]
       },
       {
-        id: "personal-care-body",
-        name: "Vệ sinh cơ thể",
-        iconName: "User",
-        children: ["Sữa tắm diệt khuẩn", "Lăn khử mùi thơm lâu", "Nước rửa tay nhanh", "Xà phòng thảo dược"],
-        featuredProducts: [
-          { name: "Sữa tắm diệt khuẩn Lifebuoy bảo vệ", price: 165000, unit: "chai", image: "" },
-          { name: "Lăn khử mùi Etiaxil trị hôi nách", price: 260000, unit: "chai", image: "" },
-          { name: "Gel rửa tay khô sát khuẩn Green Cross", price: 45000, unit: "chai", image: "" },
-          { name: "Dầu gội Head & Shoulders mát lạnh", price: 155000, unit: "chai", image: "" },
-          { name: "Xà bông sữa dê tắm trắng da", price: 35000, unit: "cục", image: "" }
-        ]
+        id: "personal-care-household",
+        name: "Đồ dùng gia đình",
+        iconName: "Sparkles",
+        children: ["Nước lau sàn", "Xịt côn trùng", "Khăn ướt", "Nước rửa chén"],
+        featuredProducts: []
+      },
+      {
+        id: "personal-care-general",
+        name: "Hàng tổng hợp",
+        iconName: "FileText",
+        children: ["Khẩu trang vải", "Bông tẩy trang", "Tăm bông"],
+        featuredProducts: []
+      },
+      {
+        id: "personal-care-essential-oils",
+        name: "Tinh dầu các loại",
+        iconName: "Activity",
+        children: ["Tinh dầu sả chanh", "Tinh dầu tràm", "Tinh dầu bạc hà"],
+        featuredProducts: []
+      },
+      {
+        id: "personal-care-beauty-devices",
+        name: "Thiết bị làm đẹp",
+        iconName: "Sparkles",
+        children: ["Máy rửa mặt", "Máy massage da mặt", "Lược điện"],
+        featuredProducts: []
       }
     ]
   },
@@ -408,6 +464,123 @@ function renderMenuIcon(iconName: string) {
       return <Sparkles size={18} />;
   }
 }
+
+const renderSubcatThumbnail = (name: string) => {
+  const images: Record<string, string> = {
+    // Vitamin & Khoáng chất
+    "Dầu cá - Omega 3": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg",
+    "Kẽm - Magie": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005685_tinh_chat_hau_oyster_plus_tang_cuong_sinh_luc_phai_manh_3213_62ae_large_c5942edd08.jpg",
+    "Vitamin tổng hợp": "https://cdn.nhathuoclongchau.com.vn/v1/static/coenzyme_q10_2x15_doppelherz_00051039_6_b63bec1ce6.png",
+    "Canxi & Vitamin D": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_2328_89edc7895e.jpg",
+    "Vitamin C": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00507_429b55cc3c.jpg",
+    
+    // Miễn dịch - Đề kháng
+    "Tăng đề kháng": "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png",
+    "Đông trùng hạ thảo": "https://cdn.nhathuoclongchau.com.vn/v1/static/00502536_vien_nghe_mat_ong_royal_honey_250g_9512_637e_large_7ef79609f0.jpg",
+    "Yến sào": "https://cdn.nhathuoclongchau.com.vn/v1/static/00028741_nuoc_yen_sao_khanh_hoa_sanest_co_duong_6_lo_x_70ml_2276_60ee_large_cb6d19472e.jpg",
+    "Linh chi": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg",
+
+    // Sinh lý - Nội tiết tố
+    "Sinh lý nam": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500768_mens_ginseng_alipas_new_ecogreen_60v_1645_62b5_large_ceb7d7acd7.jpg",
+    "Sinh lý nữ": "https://cdn.nhathuoclongchau.com.vn/v1/static/00000780_sam_agela_gold_dep_da_can_bang_noi_tiet_to_nu_5615_62af_large_8eba87f31b.jpg",
+    "Tăng cường sinh lực": "https://cdn.nhathuoclongchau.com.vn/v1/static/00028815_alipas_new_ecogreen_30v_7132_5f99_large_8101b96b1b.JPG",
+    "Cân bằng nội tiết tố": "https://cdn.nhathuoclongchau.com.vn/v1/static/00030218_tinh_dau_hoa_anh_thao_evening_primrose_oil_careline_1000mg_100v_1097_634b_large_49b56f8f7b.jpg",
+
+    // Mắt - Thị lực
+    "Bổ mắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg",
+    "Nước nhỏ mắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg",
+    "Cận thị": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022718_ocuvite_lutein_forte_bausch_lomb_30v_1456_62b5_large_bdfc7acd7e.jpg",
+    "Đục thủy tinh thể": "https://cdn.nhathuoclongchau.com.vn/v1/static/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg",
+
+    // Tiêu hóa
+    "Men vi sinh dạ dày": "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png",
+    "Hỗ trợ đại tràng co thắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09972_98633478a4.jpg",
+    "Hỗ trợ đại tràng": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005924_hon_dich_uong_phosphalugel_26_goi_x_20g_sanofi_5101_62ad_large_3237ad08cf.jpg",
+    "Thuốc bổ gan thải độc": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg",
+    "Bổ sung chất xơ hòa tan": "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.png",
+
+    // Thần kinh não
+    "Tăng tuần hoàn não": "https://cdn.nhathuoclongchau.com.vn/v1/static/00003337_ginkgo_biloba_60mg_60v_natures_bounty_8579_63db_large_dc0d941fcd.jpg",
+    "Cải thiện trí nhớ": "https://cdn.nhathuoclongchau.com.vn/v1/static/sotivex_7860223cf5.jpg",
+    "Giảm stress mất ngủ": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022137_ginkgo_biloba_120mg_puritans_pride_100v_4162_63cb_large_bf4fecbb9f.jpg",
+
+    // Hỗ trợ làm đẹp
+    "Đẹp da collagen": "https://cdn.nhathuoclongchau.com.vn/v1/static/00030177_vien_uong_bo_sung_collagen_careline_bio_marine_collagen_100v_4169_636c_large_b9ffecbb9f.jpg",
+    "Ngừa lão hóa": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031805_tinh_chat_ngua_lao_hoa_eucerin_elasticity_filler_3d_serum_30ml_3364_634a_large_e9f5ab4c69.jpg",
+    "Trị mụn": "https://cdn.nhathuoclongchau.com.vn/v1/static/00030418_kem_duong_giam_mun_ngua_tham_la_roche_posay_effaclar_duo_plus_40ml_1037_6396_large_c8dbad5b1c.jpg",
+    "Sáng da": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031912_tinh_chat_sang_da_mo_tham_eucerin_spotless_brightening_booster_serum_30ml_3364_634a_large_6995f5ab4c.jpg",
+
+    // Đường huyết - Tiểu đường
+    "Hạ đường huyết": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_07923_9fb27ccf16.jpg",
+    "Dinh dưỡng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500742_sua_bot_dinh_duong_glucerna_abbott_huong_vani_850g_8008_632e_large_651a134cf1.jpg",
+    "Biến chứng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031804_vien_uong_ho_tro_ha_duong_huyet_diabetna_nam_duoc_40v_3364_634a_large_e9f5ab4c69.jpg",
+
+    // Tim mạch - Huyết áp
+    "Huyết áp cao": "https://cdn.nhathuoclongchau.com.vn/v1/static/coenzyme_q10_2x15_doppelherz_00051039_6_b63bec1ce6.png",
+    "Mỡ máu": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg",
+    "Phòng đột quỵ": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_6883_37a908aa20.jpg",
+    "Bổ tim Coenzyme Q10": "https://cdn.nhathuoclongchau.com.vn/v1/static/00021579_coenzyme_q10_150mg_blackmores_30v_3364_634a_large_4e9f5ab4c9.jpg",
+
+    // Hô hấp - Tai mũi họng
+    "Bổ phế giảm ho": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00282_fd7adc8b01.png",
+    "Súc họng": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg",
+    "Xịt mũi": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg",
+    "Tăng đề kháng hô hấp": "https://cdn.nhathuoclongchau.com.vn/v1/static/00001648_thuoc_ho_eugica_fort_opv_10x10_1177_60ee_large_49dd64ad5b.jpg",
+
+    // Cơ xương khớp
+    "Giảm thoái hóa khớp": "https://cdn.nhathuoclongchau.com.vn/v1/static/00032397_jex_the_he_moi_eco_60v_8040_62b0_large_0e07e3b7bb.jpg",
+    "Tái tạo sụn khớp": "https://cdn.nhathuoclongchau.com.vn/v1/static/thuoc_glucosamine_stada_1500mg_sachet_30_goi_00033098_b66b8e113b.png",
+    "Canxi hữu cơ": "https://cdn.nhathuoclongchau.com.vn/v1/static/00001517_calcium_corbiere_5ml_sanofi_7413_5b35_large_dadec585bf.JPG",
+
+    // Chăm sóc cá nhân
+    "Bao cao su": "https://cdn.nhathuoclongchau.com.vn/v1/static/00002664_durex_fetherlite_3s_2345_62b5_large_bd6f01fc54.jpg",
+    "Gel bôi trơn": "https://cdn.nhathuoclongchau.com.vn/v1/static/00010731_durex_kyjelly_50g_3479_62b5_large_8734c6b877.jpg",
+    "Sữa bột công thức": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00282_fd7adc8b01.png",
+    "Nước yến sào": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00062_6c2770609f.jpg",
+    "Trà thảo mộc": "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.jpg",
+    "Dinh dưỡng y học": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg",
+    "Sữa tắm diệt khuẩn": "https://cdn.nhathuoclongchau.com.vn/v1/static/sua_tam_goi_toan_than_top_to_toe_baby_bath_500ml_johnsons_00051097_1_d5beda674a.jpg",
+    "Lăn khử mùi": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg",
+    "Nước rửa tay nhanh": "https://cdn.nhathuoclongchau.com.vn/v1/static/gel_rua_tay_kho_natural_hand_sanitizer_sat_khuan_lam_sach_tay_250ml_00031658_1_2c1c64b096.png",
+    "Dung dịch vệ sinh": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03252_a5016c6737.jpg",
+    "Kem đánh răng": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03219_cafa168f18.jpg",
+    "Nước súc miệng": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg",
+    "Bàn chải điện": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_04212_d9308525fc.png",
+    "Chỉ nha khoa": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09978_bdd21a415a.jpg",
+    "Nước lau sàn": "https://cdn.nhathuoclongchau.com.vn/v1/static/00030815_khan_uot_con_let_green_90_mieng_6291_62b9_large_78c18de29c.jpg",
+    "Xịt côn trùng": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_04355_4b29519833.jpg",
+    "Khăn ướt": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022532_khan_giay_uot_grace_samjung_100_to_6981_5e99_large_0a0360329c.JPG",
+    "Nước rửa chén": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005146_natri_clorid_1000ml_2375_63ab_large_9dfb38cd40.jpg",
+    "Khẩu trang vải": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0158_f0aca2eb4f.jpg",
+    "Bông tẩy trang": "https://cdn.nhathuoclongchau.com.vn/v1/static/00503116_bong_tay_trang_tron_kamicare_120_mieng_9336_642c_large_dd9d9ee6ee.jpg",
+    "Tăm bông": "https://cdn.nhathuoclongchau.com.vn/v1/static/00503115_tam_bong_so_sinh_kamicare_hop_tron_200_que_dau_bong_sieu_nho_9562_642c_large_ece19e4a73.jpg",
+    "Tinh dầu sả chanh": "https://cdn.nhathuoclongchau.com.vn/v1/static/00032124_tinh_dau_khu_khuan_chong_virus_sa_chanh_thao_nguyen_200ml_6909_62ae_large_34861898cc.jpg",
+    "Tinh dầu tràm": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031887_tinh_dau_tram_me_doan_50ml_3272_62af_large_9f42f0cd06.jpg",
+    "Tinh dầu bạc hà": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005428_nuoc_suc_mieng_thai_duong_500ml_huong_bac_ha_9548_62ad_large_6819a4ce8a.jpg",
+    "Máy rửa mặt": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05449_a1d9fce6f5.jpg",
+    "Máy massage da mặt": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02425_5e841896cc.jpg",
+    "Lược điện": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500018_may_tam_nuoc_cam_tay_6_che_do_halio_professional_cordless_oral_irrigator_2358_6272_large_8abea1086e.jpg",
+ 
+    // Thiết bị y tế
+    "Máy đo huyết áp tự động": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09784_7491e9a96a.jpg",
+    "Máy đo đường huyết tại nhà": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09381_9b6bfa8108.jpg",
+    "Nhiệt kế hồng ngoại đo trán": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_07314_820bccb99a.png",
+    "Máy đo nồng độ oxy SpO2": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500018_may_tam_nuoc_cam_tay_6_che_do_halio_professional_cordless_oral_irrigator_2358_6272_large_8abea1086e.jpg",
+    "Khẩu trang y tế 4 lớp": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0158_f0aca2eb4f.jpg",
+    "Bông băng gạc cuộn": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500739_bong_y_te_quick_nurse_1kg_5805_62b3_large_72cd282c0d.jpg",
+    "Cồn sát trùng 70 độ": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031338_gac_tam_con_quick_nurse_6x6cm_hop_100_mieng_8478_62b5_large_cbd8c0e8ef.jpg",
+    "Kim tiêm insulin": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05221_ef378bb216.jpg"
+  };
+  
+  if (name === "Xem thêm") {
+    return (
+      <span className="text-gray-400 font-bold tracking-widest text-[20px] leading-none mb-1">...</span>
+    );
+  }
+  
+  const src = images[name] || "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg";
+  return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" />;
+};
 
 export default function HomePage() {
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
@@ -638,12 +811,6 @@ export default function HomePage() {
         {/* Navigation Menu */}
         <nav className="bg-white border-t-2 border-[#024ad8] relative overflow-visible shadow-sm">
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative overflow-visible flex items-center justify-start gap-8 h-14">
-            <Link 
-              href="/" 
-              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
-            >
-              Trang chủ
-            </Link>
 
             {NAV_MEGA_MENU_DATA.map((cat) => {
               const isSelected = selectedCategory === cat.name;
@@ -666,7 +833,7 @@ export default function HomePage() {
                     }`}
                   >
                     {cat.name}
-                    <ChevronDown size={14} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
+                    <ChevronDown size={12} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
                   </button>
 
                   {/* Mega Menu Dropdown */}
@@ -675,7 +842,7 @@ export default function HomePage() {
                     <div className="grid grid-cols-12 gap-6 w-full text-left">
                       {/* Cột trái (danh mục mẹ - cấp 2) */}
                       <div className="col-span-4 border-r border-fog pr-4 flex flex-col gap-1">
-                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2 block">
+                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2.5 block">
                           Nhóm sản phẩm
                         </span>
                         {cat.subCategories.map((sub) => {
@@ -710,17 +877,20 @@ export default function HomePage() {
                             <div key={sub.id} className="flex flex-col gap-6 h-full justify-between animate-fadeIn">
                               {/* Danh mục con */}
                               <div>
-                                <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-3 block">
+                                <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2.5 block">
                                   Danh mục con nổi bật
                                 </span>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="grid grid-cols-3 gap-4">
                                   {sub.children.map((child, idx) => (
                                     <button
                                       key={idx}
                                       onClick={(e) => handleCategoryClick(child, e)}
-                                      className="bg-cloud hover:bg-[#024ad8]/10 hover:text-[#024ad8] text-ink-soft text-xs font-semibold px-3 py-1.5 rounded-xl border border-fog transition-all duration-300"
+                                      className="flex items-center gap-3.5 bg-white hover:bg-cloud text-ink text-xs md:text-[13px] font-bold p-3.5 rounded-2xl border border-fog hover:border-[#024ad8]/20 transition-all duration-300 text-left shadow-sm min-h-[60px]"
                                     >
-                                      {child}
+                                      <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center bg-cloud shrink-0">
+                                        {renderSubcatThumbnail(child)}
+                                      </div>
+                                      <span className="line-clamp-2 leading-snug">{child}</span>
                                     </button>
                                   ))}
                                 </div>
@@ -744,25 +914,44 @@ export default function HomePage() {
                                   {sub.featuredProducts.map((prod, pIdx) => (
                                     <div 
                                       key={pIdx} 
-                                      className="bg-white rounded-xl border border-fog p-2 flex flex-col justify-between hover:border-[#024ad8]/30 transition-all duration-300 group/prod cursor-pointer"
+                                      className="bg-white rounded-xl border border-fog p-2 flex flex-col justify-between hover:border-[#024ad8]/30 transition-all duration-300 group/prod cursor-pointer relative"
                                       onClick={(e) => handleCategoryClick(sub.name, e)}
                                     >
                                       <div className="bg-cloud aspect-square rounded-lg flex items-center justify-center overflow-hidden mb-2 relative">
-                                        {prod.image ? (
-                                          <img src={prod.image} alt={prod.name} className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" />
-                                        ) : (
-                                          <Sparkles size={24} className="text-[#024ad8]/20" />
+                                        {prod.discount && (
+                                          <div className="absolute top-1 left-1 bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-md z-10">
+                                            -{prod.discount}%
+                                          </div>
                                         )}
+                                        {(() => {
+                                          const finalImage = mappedImages[prod.name as keyof typeof mappedImages] || prod.image;
+                                          return finalImage ? (
+                                            <img 
+                                              src={finalImage} 
+                                              alt={prod.name} 
+                                              className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" 
+                                            />
+                                          ) : (
+                                            <Sparkles size={24} className="text-[#024ad8]/20" />
+                                          );
+                                        })()}
                                       </div>
                                       <div>
                                         <h5 className="text-[10px] font-bold text-ink line-clamp-2 leading-tight group-hover/prod:text-[#024ad8] transition-colors min-h-[28px]">
                                           {prod.name}
                                         </h5>
-                                        <div className="flex items-baseline justify-between mt-1">
-                                          <span className="text-[10px] font-black text-[#024ad8]">
-                                            {prod.price.toLocaleString("vi-VN")}đ
-                                          </span>
-                                          <span className="text-[9px] text-graphite">/{prod.unit}</span>
+                                        <div className="flex flex-col mt-1">
+                                          <div className="flex items-baseline justify-between">
+                                            <span className="text-[10px] font-black text-[#024ad8]">
+                                              {prod.price.toLocaleString("vi-VN")}đ
+                                            </span>
+                                            <span className="text-[9px] text-graphite">/{prod.unit}</span>
+                                          </div>
+                                          {prod.originalPrice && (
+                                            <span className="text-[9px] text-gray-400 line-through mt-0.5">
+                                              {prod.originalPrice.toLocaleString("vi-VN")}đ
+                                            </span>
+                                          )}
                                         </div>
                                       </div>
                                     </div>
@@ -779,18 +968,26 @@ export default function HomePage() {
               );
             })}
 
-            <a 
-              href="#interaction-demo" 
-              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
+            <Link 
+              href="#vaccination" 
+              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
             >
-              Cảnh báo tương tác
-            </a>
-            <a 
-              href="#about-system" 
-              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
+              Tiêm chủng
+            </Link>
+            <div className="group overflow-visible shrink-0">
+              <button
+                className="flex items-center gap-1 py-3 text-xs text-ink hover:text-[#024ad8] transition-colors border-b-2 border-transparent"
+              >
+                Bệnh & Góc sức khỏe
+                <ChevronDown size={12} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
+              </button>
+            </div>
+            <Link 
+              href="#store-system" 
+              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
             >
-              Về chúng tôi
-            </a>
+              Hệ thống nhà thuốc
+            </Link>
           </div>
         </nav>
       </header>
