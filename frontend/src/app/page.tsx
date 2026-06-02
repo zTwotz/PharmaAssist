@@ -16,11 +16,14 @@ import {
   ShieldCheck, 
   Heart,
   ChevronRight,
+  ChevronDown,
   Sparkles,
   ClipboardList,
   FileText,
   Clock,
-  X
+  X,
+  Eye,
+  Activity
 } from "lucide-react";
 
 // Types
@@ -160,6 +163,252 @@ const MOCK_MEDICINES: Medicine[] = [
   }
 ];
 
+interface MegaProduct {
+  name: string;
+  price: number;
+  unit: string;
+  image: string;
+}
+
+interface MegaSubCategory {
+  id: string;
+  name: string;
+  iconName: string;
+  children: string[];
+  featuredProducts: MegaProduct[];
+}
+
+interface MegaCategory {
+  id: string;
+  name: string;
+  subCategories: MegaSubCategory[];
+}
+
+const NAV_MEGA_MENU_DATA: MegaCategory[] = [
+  {
+    id: "supplements",
+    name: "Thực phẩm chức năng",
+    subCategories: [
+      {
+        id: "supplements-hormone",
+        name: "Sinh lý - Nội tiết tố",
+        iconName: "Activity",
+        children: ["Sinh lý nam", "Sinh lý nữ", "Tăng cường sinh lực", "Cân bằng nội tiết tố"],
+        featuredProducts: [
+          { name: "Sâm Alipas Platinum (30 viên)", price: 750000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/10/00021677-sam-alipas-platinum-ecogreen-30v-tang-cuong-sinh-luc-nam-gioi-7798-6169_large.jpg" },
+          { name: "Angela Gold (30 viên)", price: 720000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/10/00021678-angela-gold-ecogreen-30v-sam-nhan-sam-quy-tang-cuong-sinh-ly-nu-9343-6169_large.jpg" },
+          { name: "Tinh dầu hoa anh thảo Blackmores EPO", price: 550000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/12/00344405-tinh-dau-hoa-anh-thao-blackmores-evening-primrose-oil-190v-9159-61bf_large.jpg" },
+          { name: "Oyster Plus Zinc Goodhealth (60 viên)", price: 350000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2020/07/00018503-oyster-plus-goodhealth-60v-tinh-chat-hau-ho-tro-sinh-ly-nam-7729-5f21_large.jpg" },
+          { name: "Maca 500mg Now Foods (100 viên)", price: 450000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2022/08/00501235-vien-uong-ho-tro-sinh-ly-nam-maca-now-100-vien-7313-630f_large.jpg" }
+        ]
+      },
+      {
+        id: "supplements-heart",
+        name: "Hỗ trợ tim mạch",
+        iconName: "Heart",
+        children: ["Huyết áp cao/thấp", "Giảm cholesterol mỡ máu", "Phòng đột quỵ tai biến", "Bổ tim Coenzyme Q10"],
+        featuredProducts: [
+          { name: "Coenzyme Q10 150mg Blackmores", price: 620000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/12/00344404-vien-uong-ho-tro-tim-mach-coq10-150mg-blackmores-30-vien-4813-61b6_large.jpg" },
+          { name: "Dầu cá Fish Oil 1000mg Kirkland", price: 480000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2020/06/00004996-dau-ca-kirland-signature-omega3-fish-oil-400v-9742-5ee3_large.jpg" },
+          { name: "Nattospes ngừa cục máu đông (30 viên)", price: 165000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2022/07/00000940-nattospes-aau-30v-4309-62d9_large.jpg" },
+          { name: "Cardiocare ổn định tim mạch", price: 380000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2022/11/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg" },
+          { name: "Omega-3 Triple Strength Webbers", price: 590000, unit: "lọ", image: "https://nhathuoclongchau.com.vn/images/product/2023/04/00502235-vien-dau-ca-tinh-khiet-omega3-triple-strength-webber-naturals-80-vien-2708-6447_large.jpg" }
+        ]
+      },
+      {
+        id: "supplements-digest",
+        name: "Hỗ trợ tiêu hóa",
+        iconName: "ClipboardList",
+        children: ["Men vi sinh dạ dày", "Hỗ trợ đại tràng co thắt", "Thuốc bổ gan thải độc", "Bổ sung chất xơ hòa tan"],
+        featuredProducts: [
+          { name: "Men vi sinh Optibac Probiotics", price: 490000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/12/00344406-optibac-probiotics-for-every-day-30v-men-vi-sinh-ho-tro-tieu-hoa-5823-61ba_large.jpg" },
+          { name: "Bảo Tràng Vương đại tràng", price: 230000, unit: "hộp", image: "" },
+          { name: "Viên nghệ Curcumin 500mg Puritan", price: 420000, unit: "lọ", image: "" },
+          { name: "Bổ gan Milk Thistle Blackmores", price: 390000, unit: "hộp", image: "" },
+          { name: "Trà thảo mộc nhuận tràng Yogi", price: 150000, unit: "hộp", image: "" }
+        ]
+      },
+      {
+        id: "supplements-brain",
+        name: "Bổ não & tăng trí nhớ",
+        iconName: "Sparkles",
+        children: ["Tăng cường tuần hoàn não", "Cải thiện trí nhớ tập trung", "Giảm stress mất ngủ kéo dài", "Ngừa sa sút trí tuệ"],
+        featuredProducts: [
+          { name: "Ginkgo Biloba 120mg Trunature", price: 450000, unit: "lọ", image: "https://nhathuoclongchau.com.vn/images/product/2021/08/00022734-vien-uong-bo-nao-ginkgo-biloba-120mg-trunature-340-vien-7313-610e_large.jpg" },
+          { name: "OTiV cải thiện mất ngủ đau đầu", price: 330000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/10/00021679-otiv-ecogreen-30v-bo-nao-giam-dau-dau-mat-ngu-9669-6169_large.jpg" },
+          { name: "Hoạt huyết dưỡng não Cerebrolysin", price: 180000, unit: "hộp", image: "" },
+          { name: "Brain DHA Kid cho bé", price: 350000, unit: "lọ", image: "" },
+          { name: "Melatonin 5mg giúp ngủ ngon Natrol", price: 280000, unit: "lọ", image: "" }
+        ]
+      },
+      {
+        id: "supplements-joint",
+        name: "Hỗ trợ xương khớp",
+        iconName: "Activity",
+        children: ["Giảm thoái hóa khớp", "Tái tạo sụn khớp", "Canxi ngừa loãng xương", "Dầu xoa bóp nóng lạnh"],
+        featuredProducts: [
+          { name: "Glucosamine Chondroitin Kirkland", price: 680000, unit: "lọ", image: "https://nhathuoclongchau.com.vn/images/product/2020/06/00010996-glucosamine-hcl-1500mg-kirkland-signature-220v-5975-5ee3_large.jpg" },
+          { name: "JEX Peptan giảm đau xương khớp", price: 420000, unit: "hộp", image: "https://nhathuoclongchau.com.vn/images/product/2021/10/00021681-jex-natural-ecogreen-30v-giam-dau-xung-khoi-tai-tao-sun-khop-2342-6169_large.jpg" },
+          { name: "Canxi hữu cơ NextG Cal Úc", price: 320000, unit: "hộp", image: "" },
+          { name: "Blackmores Joint Formula", price: 750000, unit: "hộp", image: "" },
+          { name: "Dầu lạnh xoa bóp Glucosamine Hàn Quốc", price: 95000, unit: "tuýp", image: "" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "cosmetics",
+    name: "Dược mỹ phẩm",
+    subCategories: [
+      {
+        id: "cosmetics-face",
+        name: "Chăm sóc da mặt",
+        iconName: "Sparkles",
+        children: ["Sữa rửa mặt dịu nhẹ", "Kem chống nắng phổ rộng", "Serum trị mụn mờ thâm", "Kem dưỡng ẩm chuyên sâu", "Toner cấp ẩm phục hồi"],
+        featuredProducts: [
+          { name: "La Roche-Posay Anthelios SPF 50+", price: 485000, unit: "tuýp", image: "https://nhathuoclongchau.com.vn/images/product/2023/04/00020108-kem-chong-nang-la-roche-posay-anthelios-shaka-fluid-khong-huong-lieu-spf50-50ml-1563-6449_large.jpg" },
+          { name: "Nước tẩy trang Bioderma Sensibio H2O 500ml", price: 425000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2021/04/00003056-nuoc-tay-trang-bioderma-hong-sensibio-h2o-500ml-5349-6086_large.jpg" },
+          { name: "Sữa rửa mặt CeraVe Hydrating Cleanser", price: 370000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2022/02/00344407-cerave-hydrating-cleanser-for-normal-to-dry-skin-sra-rua-mat-am-da-236ml-5118-6202_large.jpg" },
+          { name: "Vichy Mineral 89 Serum phục hồi", price: 950000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2021/12/00344408-vichy-mineral-89-50ml-duong-chat-khoang-co-dac-giup-phuc-hoi-da-8159-61bf_large.jpg" },
+          { name: "Klairs Supple Preparation Facial Toner", price: 290000, unit: "chai", image: "" }
+        ]
+      },
+      {
+        id: "cosmetics-hair",
+        name: "Chăm sóc tóc & da đầu",
+        iconName: "Activity",
+        children: ["Dầu gội trị gàu nấm", "Dầu gội ngăn rụng tóc", "Tinh chất mọc tóc", "Biotin đẹp tóc"],
+        featuredProducts: [
+          { name: "Dầu gội Vichy Dercos trị gàu 200ml", price: 395000, unit: "chai", image: "" },
+          { name: "Dầu gội Megumi ngăn rụng tóc", price: 220000, unit: "chai", image: "" },
+          { name: "Serum mọc tóc Thái Dương", price: 150000, unit: "chai", image: "" },
+          { name: "Kẹo dẻo tóc Biotin Nature's Bounty", price: 320000, unit: "hộp", image: "" },
+          { name: "Kem xả phục hồi tóc Tresemme Salon", price: 180000, unit: "chai", image: "" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "medicines",
+    name: "Thuốc",
+    subCategories: [
+      {
+        id: "medicines-pain",
+        name: "Giảm đau - Hạ sốt",
+        iconName: "AlertTriangle",
+        children: ["Paracetamol 500mg/650mg", "Ibuprofen kháng viêm", "Efferalgan viên sủi", "Giảm đau nửa đầu"],
+        featuredProducts: [
+          { name: "Panadol Extra giảm đau nhanh", price: 45000, unit: "hộp", image: "" },
+          { name: "Hapacol 650mg hạ sốt cực nhanh", price: 38000, unit: "hộp", image: "" },
+          { name: "Efferalgan 500mg sủi bọt", price: 52000, unit: "hộp", image: "" },
+          { name: "Ibuprofen 400mg kháng viêm", price: 60000, unit: "hộp", image: "" },
+          { name: "Alaxan giảm đau cơ khớp", price: 110000, unit: "hộp", image: "" }
+        ]
+      },
+      {
+        id: "medicines-digest",
+        name: "Tiêu hóa - Dạ dày",
+        iconName: "ClipboardList",
+        children: ["Thuốc đau dạ dày trào ngược", "Thuốc tiêu chảy cấp", "Men tiêu hóa", "Thuốc táo bón"],
+        featuredProducts: [
+          { name: "Gaviscon Dual Action trị trào ngược", price: 175000, unit: "hộp", image: "" },
+          { name: "Phosphalugel chữ P đau dạ dày", price: 120000, unit: "hộp", image: "" },
+          { name: "Smecta trị tiêu chảy cấp", price: 115000, unit: "hộp", image: "" },
+          { name: "Duphalac nhuận tràng", price: 130000, unit: "hộp", image: "" },
+          { name: "Berberin kháng khuẩn đường ruột", price: 20000, unit: "lọ", image: "" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "personal-care",
+    name: "Chăm sóc cá nhân",
+    subCategories: [
+      {
+        id: "personal-care-dental",
+        name: "Chăm sóc răng miệng",
+        iconName: "Check",
+        children: ["Kem đánh răng ê buốt", "Nước súc miệng diệt khuẩn", "Bàn chải đánh răng điện", "Chỉ nha khoa"],
+        featuredProducts: [
+          { name: "Kem đánh răng Sensodyne Rapid Action", price: 85000, unit: "tuýp", image: "" },
+          { name: "Nước súc miệng Listerine Cool Mint 500ml", price: 95000, unit: "chai", image: "" },
+          { name: "Bàn chải điện Oral-B Vitality", price: 550000, unit: "cái", image: "" },
+          { name: "Chỉ nha khoa Oral-B Essential Floss", price: 55000, unit: "cuộn", image: "" },
+          { name: "Kem đánh răng Colgate 200g", price: 42000, unit: "tuýp", image: "" }
+        ]
+      },
+      {
+        id: "personal-care-body",
+        name: "Vệ sinh cơ thể",
+        iconName: "User",
+        children: ["Sữa tắm diệt khuẩn", "Lăn khử mùi thơm lâu", "Nước rửa tay nhanh", "Xà phòng thảo dược"],
+        featuredProducts: [
+          { name: "Sữa tắm diệt khuẩn Lifebuoy bảo vệ", price: 165000, unit: "chai", image: "" },
+          { name: "Lăn khử mùi Etiaxil trị hôi nách", price: 260000, unit: "chai", image: "" },
+          { name: "Gel rửa tay khô sát khuẩn Green Cross", price: 45000, unit: "chai", image: "" },
+          { name: "Dầu gội Head & Shoulders mát lạnh", price: 155000, unit: "chai", image: "" },
+          { name: "Xà bông sữa dê tắm trắng da", price: 35000, unit: "cục", image: "" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "medical-devices",
+    name: "Thiết bị y tế",
+    subCategories: [
+      {
+        id: "medical-devices-monitors",
+        name: "Máy đo & Theo dõi",
+        iconName: "Activity",
+        children: ["Máy đo huyết áp tự động", "Máy đo đường huyết tại nhà", "Nhiệt kế hồng ngoại đo trán", "Máy đo nồng độ oxy SpO2"],
+        featuredProducts: [
+          { name: "Máy đo huyết áp Omron HEM-7120", price: 980000, unit: "cái", image: "" },
+          { name: "Nhiệt kế hồng ngoại đo trán Microlife", price: 780000, unit: "cái", image: "" },
+          { name: "Máy đo đường huyết Accu-Chek Instant", price: 1150000, unit: "cái", image: "" },
+          { name: "Máy đo SpO2 cầm tay Beurer PO30", price: 650000, unit: "cái", image: "" },
+          { name: "Nhiệt kế điện tử kẹp nách Omron", price: 95000, unit: "cái", image: "" }
+        ]
+      },
+      {
+        id: "medical-devices-consumables",
+        name: "Vật tư tiêu hao",
+        iconName: "FileText",
+        children: ["Khẩu trang y tế 4 lớp", "Bông băng gạc cuộn", "Cồn sát trùng 70 độ", "Kim tiêm insulin"],
+        featuredProducts: [
+          { name: "Khẩu trang y tế 4 lớp (Hộp 50 cái)", price: 45000, unit: "hộp", image: "" },
+          { name: "Bông y tế Bạch Tuyết 100g", price: 25000, unit: "cuộn", image: "" },
+          { name: "Cồn y tế 70 độ chai 500ml", price: 15000, unit: "chai", image: "" },
+          { name: "Băng cá nhân Urgo túi 100 miếng", price: 65000, unit: "hộp", image: "" },
+          { name: "Gạc rơ lưỡi tiệt trùng Đông Fa", price: 32000, unit: "hộp", image: "" }
+        ]
+      }
+    ]
+  }
+];
+
+function renderMenuIcon(iconName: string) {
+  switch (iconName) {
+    case "Activity":
+      return <Activity size={18} />;
+    case "Heart":
+      return <Heart size={18} />;
+    case "ClipboardList":
+      return <ClipboardList size={18} />;
+    case "Sparkles":
+      return <Sparkles size={18} />;
+    case "AlertTriangle":
+      return <AlertTriangle size={18} />;
+    case "Check":
+      return <Check size={18} />;
+    case "User":
+      return <User size={18} />;
+    case "FileText":
+      return <FileText size={18} />;
+    default:
+      return <Sparkles size={18} />;
+  }
+}
+
 export default function HomePage() {
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
@@ -169,7 +418,18 @@ export default function HomePage() {
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [activeSubId, setActiveSubId] = useState<string>("supplements-hormone");
   const [loading, setLoading] = useState(true);
+
+  // Smooth scroll and set category filter on menu click
+  const handleCategoryClick = (categoryName: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedCategory(categoryName);
+    const target = document.getElementById("featured-medicines");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Fetch API data
   useEffect(() => {
@@ -376,21 +636,159 @@ export default function HomePage() {
         </div>
 
         {/* Navigation Menu */}
-        <nav className="bg-cloud border-t border-fog py-2 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto flex gap-6 overflow-x-auto whitespace-nowrap scrollbar-none py-1">
-            <Link href="#" className="text-sm font-semibold text-primary hover:text-primary-deep transition-colors">
+        <nav className="bg-white border-t-2 border-[#024ad8] relative overflow-visible shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 relative overflow-visible flex items-center justify-start gap-8 h-14">
+            <Link 
+              href="/" 
+              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
+            >
               Trang chủ
             </Link>
-            <a href="#featured-medicines" className="text-sm font-medium text-ink-soft hover:text-primary transition-colors">
-              Thuốc
-            </a>
-            <a href="#medicine-categories" className="text-sm font-medium text-ink-soft hover:text-primary transition-colors">
-              Danh mục thuốc
-            </a>
-            <a href="#interaction-demo" className="text-sm font-medium text-ink-soft hover:text-primary transition-colors">
+
+            {NAV_MEGA_MENU_DATA.map((cat) => {
+              const isSelected = selectedCategory === cat.name;
+              return (
+                <div 
+                  key={cat.id} 
+                  className="group overflow-visible"
+                  onMouseEnter={() => {
+                    if (cat.subCategories.length > 0) {
+                      setActiveSubId(cat.subCategories[0].id);
+                    }
+                  }}
+                >
+                  <button
+                    onClick={(e) => handleCategoryClick(cat.name, e)}
+                    className={`flex items-center gap-1.5 py-4 text-sm font-bold transition-all duration-200 border-b-2 border-transparent ${
+                      isSelected 
+                        ? "text-[#024ad8] border-[#024ad8]" 
+                        : "text-ink hover:text-[#024ad8] hover:border-[#024ad8]"
+                    }`}
+                  >
+                    {cat.name}
+                    <ChevronDown size={14} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
+                  </button>
+
+                  {/* Mega Menu Dropdown */}
+                  <div className="absolute top-full left-4 right-4 bg-white border border-fog shadow-2xl rounded-3xl p-6 hidden group-hover:flex z-50 animate-fadeIn min-h-[380px]">
+                    {/* Container 2 cột */}
+                    <div className="grid grid-cols-12 gap-6 w-full text-left">
+                      {/* Cột trái (danh mục mẹ - cấp 2) */}
+                      <div className="col-span-4 border-r border-fog pr-4 flex flex-col gap-1">
+                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2 block">
+                          Nhóm sản phẩm
+                        </span>
+                        {cat.subCategories.map((sub) => {
+                          const isSubActive = activeSubId === sub.id;
+                          return (
+                            <div
+                              key={sub.id}
+                              onMouseEnter={() => setActiveSubId(sub.id)}
+                              className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all duration-300 ${
+                                isSubActive 
+                                  ? "bg-[#024ad8]/5 text-[#024ad8] font-bold" 
+                                  : "hover:bg-cloud text-ink font-medium"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <div className={`p-1.5 rounded-lg ${isSubActive ? "bg-[#024ad8]/10 text-[#024ad8]" : "bg-cloud text-graphite"}`}>
+                                  {renderMenuIcon(sub.iconName)}
+                                </div>
+                                <span className="text-xs">{sub.name}</span>
+                              </div>
+                              <ChevronRight size={14} className={`transition-transform duration-300 ${isSubActive ? "translate-x-1" : "opacity-50"}`} />
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Cột phải (danh mục con - cấp 3 & sản phẩm bán chạy) */}
+                      <div className="col-span-8 pl-4 flex flex-col justify-between">
+                        {cat.subCategories.map((sub) => {
+                          if (activeSubId !== sub.id) return null;
+                          return (
+                            <div key={sub.id} className="flex flex-col gap-6 h-full justify-between animate-fadeIn">
+                              {/* Danh mục con */}
+                              <div>
+                                <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-3 block">
+                                  Danh mục con nổi bật
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                  {sub.children.map((child, idx) => (
+                                    <button
+                                      key={idx}
+                                      onClick={(e) => handleCategoryClick(child, e)}
+                                      className="bg-cloud hover:bg-[#024ad8]/10 hover:text-[#024ad8] text-ink-soft text-xs font-semibold px-3 py-1.5 rounded-xl border border-fog transition-all duration-300"
+                                    >
+                                      {child}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Sản phẩm bán chạy */}
+                              <div>
+                                <div className="flex items-center justify-between mb-3 border-b border-fog pb-2">
+                                  <span className="text-[10px] text-graphite font-bold uppercase tracking-wider">
+                                    Sản phẩm bán chạy nhất
+                                  </span>
+                                  <span 
+                                    className="text-[10px] text-[#024ad8] font-bold flex items-center gap-0.5 cursor-pointer hover:underline"
+                                    onClick={(e) => handleCategoryClick(sub.name, e)}
+                                  >
+                                    Xem tất cả
+                                    <ChevronRight size={12} />
+                                  </span>
+                                </div>
+                                <div className="grid grid-cols-5 gap-3">
+                                  {sub.featuredProducts.map((prod, pIdx) => (
+                                    <div 
+                                      key={pIdx} 
+                                      className="bg-white rounded-xl border border-fog p-2 flex flex-col justify-between hover:border-[#024ad8]/30 transition-all duration-300 group/prod cursor-pointer"
+                                      onClick={(e) => handleCategoryClick(sub.name, e)}
+                                    >
+                                      <div className="bg-cloud aspect-square rounded-lg flex items-center justify-center overflow-hidden mb-2 relative">
+                                        {prod.image ? (
+                                          <img src={prod.image} alt={prod.name} className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" />
+                                        ) : (
+                                          <Sparkles size={24} className="text-[#024ad8]/20" />
+                                        )}
+                                      </div>
+                                      <div>
+                                        <h5 className="text-[10px] font-bold text-ink line-clamp-2 leading-tight group-hover/prod:text-[#024ad8] transition-colors min-h-[28px]">
+                                          {prod.name}
+                                        </h5>
+                                        <div className="flex items-baseline justify-between mt-1">
+                                          <span className="text-[10px] font-black text-[#024ad8]">
+                                            {prod.price.toLocaleString("vi-VN")}đ
+                                          </span>
+                                          <span className="text-[9px] text-graphite">/{prod.unit}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            <a 
+              href="#interaction-demo" 
+              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
+            >
               Cảnh báo tương tác
             </a>
-            <a href="#about-system" className="text-sm font-medium text-ink-soft hover:text-primary transition-colors">
+            <a 
+              href="#about-system" 
+              className="text-sm font-semibold text-ink hover:text-[#024ad8] transition-colors py-4 border-b-2 border-transparent hover:border-[#024ad8]"
+            >
               Về chúng tôi
             </a>
           </div>
