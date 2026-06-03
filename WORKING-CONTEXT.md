@@ -54,6 +54,9 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## Latest Execution Notes
 
+### 2026-06-04
+- **Thực phẩm chức năng Redesign (PAC-19):** Hoàn thành thiết kế lại danh mục "Thực phẩm chức năng" khớp với giao diện của nhà thuốc Long Châu. Mở rộng lên 11 subcategories đầy đủ, tích hợp ảnh đại diện cấp 3 và sản phẩm nổi bật thực tế. Đảm bảo 100% hình ảnh đại diện cấp 3 là hoàn toàn độc nhất và không trùng lặp. Biên dịch thành công frontend Next.js.
+
 ### 2026-06-02
 - **UI Navigation Redesign & Mega Menu:** Hoàn thành triển khai giao diện Mega Dropdown Menu (cấu trúc cây thư mục Mẹ - Con) cho cả 5 danh mục chính trên Navbar trang chủ Retail. Thiết kế bố cục hai cột, hoạt động hoàn toàn bằng hover. Khi rê chuột vào danh mục Mẹ (cấp 2) ở cột trái, danh mục Con (cấp 3) và 5 sản phẩm bán chạy tương ứng ở cột phải sẽ thay đổi tức thì, tích hợp ảnh thật từ nhà thuốc Long Châu. Khắc phục hoàn toàn lỗi ẩn menu do overflow và named group compile error.
 - **Image Mapping Audit:** Kiểm tra toàn diện danh mục ảnh đại diện của các danh mục con trong `renderSubcatThumbnail`. Đã ánh xạ toàn bộ danh mục con (Cận thị, Đục thủy tinh thể, Bao cao su, Gel bôi trơn, Tinh dầu, Thiết bị răng miệng, Thiết bị y tế, các nhóm mỹ phẩm, thực phẩm, v.v.) sang các liên kết hình ảnh CDN duy nhất từ Long Châu nhằm tránh hiện tượng các danh mục con hiển thị cùng một hình ảnh mặc định.
