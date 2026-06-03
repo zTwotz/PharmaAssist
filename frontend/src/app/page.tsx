@@ -352,10 +352,10 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         iconName: "Sparkles",
         children: ["Sữa rửa mặt dịu nhẹ", "Kem chống nắng phổ rộng", "Serum trị mụn mờ thâm", "Kem dưỡng ẩm chuyên sâu", "Toner cấp ẩm phục hồi"],
         featuredProducts: [
-          { name: "La Roche-Posay Anthelios SPF 50+", price: 485000, unit: "tuýp", image: "https://nhathuoclongchau.com.vn/images/product/2023/04/00020108-kem-chong-nang-la-roche-posay-anthelios-shaka-fluid-khong-huong-lieu-spf50-50ml-1563-6449_large.jpg" },
-          { name: "Nước tẩy trang Bioderma Sensibio H2O 500ml", price: 425000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2021/04/00003056-nuoc-tay-trang-bioderma-hong-sensibio-h2o-500ml-5349-6086_large.jpg" },
-          { name: "Sữa rửa mặt CeraVe Hydrating Cleanser", price: 370000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2022/02/00344407-cerave-hydrating-cleanser-for-normal-to-dry-skin-sra-rua-mat-am-da-236ml-5118-6202_large.jpg" },
-          { name: "Vichy Mineral 89 Serum phục hồi", price: 950000, unit: "chai", image: "https://nhathuoclongchau.com.vn/images/product/2021/12/00344408-vichy-mineral-89-50ml-duong-chat-khoang-co-dac-giup-phuc-hoi-da-8159-61bf_large.jpg" },
+          { name: "La Roche-Posay Anthelios SPF 50+", price: 485000, unit: "tuýp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05612_2244c1f439.jpg" },
+          { name: "Nước tẩy trang Bioderma Sensibio H2O 500ml", price: 425000, unit: "chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/1_f6ec63aa2a.jpg" },
+          { name: "Sữa rửa mặt CeraVe Hydrating Cleanser", price: 370000, unit: "chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502231_sua_rua_mat_lam_sach_sau_danh_cho_da_thuong_va_da_kho_cerave_hydrating_cleanser_mb094520_236ml_3680_6346_large_3e97372089.jpg" },
+          { name: "Xịt khoáng Vichy Eau Thermale 150ml", price: 320000, unit: "chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00029018_vichy_eau_thermale_mineralizing_thermal_water_150ml_m5028921_xit_khoang_2470_6425_large_86f0c320a2.jpg" },
           { name: "Klairs Supple Preparation Facial Toner", price: 290000, unit: "chai", image: "" }
         ]
       },
@@ -564,7 +564,7 @@ function renderMenuIcon(iconName: string) {
 const renderSubcatThumbnail = (name: string) => {
   const images: Record<string, string> = {
     // Vitamin & Khoáng chất
-    "Dầu cá - Omega 3": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08880_009cf2ede8.jpg",
+    "Dầu cá - Omega 3": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05020_ce6da165fb.jpg",
     "Kẽm - Magie": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005685_tinh_chat_hau_oyster_plus_tang_cuong_sinh_luc_phai_manh_3213_62ae_large_c5942edd08.jpg",
     "Vitamin tổng hợp": "https://cdn.nhathuoclongchau.com.vn/v1/static/coenzyme_q10_2x15_doppelherz_00051039_6_b63bec1ce6.png",
     "Canxi & Vitamin D": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05520_3e8211d9fa.jpg",
@@ -572,8 +572,8 @@ const renderSubcatThumbnail = (name: string) => {
     
     // Miễn dịch - Đề kháng
     "Tăng đề kháng": "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png",
-    "Đông trùng hạ thảo": "https://cdn.nhathuoclongchau.com.vn/v1/static/00502536_vien_nghe_mat_ong_royal_honey_250g_9512_637e_large_7ef79609f0.jpg",
-    "Yến sào": "https://cdn.nhathuoclongchau.com.vn/v1/static/00028741_nuoc_yen_sao_khanh_hoa_sanest_co_duong_6_lo_x_70ml_2276_60ee_large_cb6d19472e.jpg",
+    "Đông trùng hạ thảo": "https://cdn.nhathuoclongchau.com.vn/v1/static/vien_uong_dong_trung_ha_thao_cordyceps_1500mg_60v_pharma_world_00045393_1_3c77c5f08e.png",
+    "Yến sào": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_07253_b8c427cb66.jpg",
     "Linh chi": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg",
 
     // Sinh lý - Nội tiết tố
@@ -585,47 +585,47 @@ const renderSubcatThumbnail = (name: string) => {
 
     // Mắt - Thị lực
     "Mỏi mắt, khô mắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg",
-    "Tăng cường thị lực": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022718_ocuvite_lutein_forte_bausch_lomb_30v_1456_62b5_large_bdfc7acd7e.jpg",
+    "Tăng cường thị lực": "https://cdn.nhathuoclongchau.com.vn/v1/static/00005468_ocuvite_vitamin_bo_mat_cua_my_4233_62b1_large_619ecef744.jpg",
     "Bổ mắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg",
     "Nước nhỏ mắt": "https://cdn.nhathuoclongchau.com.vn/v1/static/gel_rua_tay_kho_natural_hand_sanitizer_sat_khuan_lam_sach_tay_250ml_00031658_1_2c1c64b096.png",
     "Cận thị": "https://cdn.nhathuoclongchau.com.vn/v1/static/00503116_bong_tay_trang_tron_kamicare_120_mieng_9336_642c_large_dd9d9ee6ee.jpg",
-    "Đục thủy tinh thể": "https://nhathuoclongchau.com.vn/images/product/2022/11/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg",
+    "Đục thủy tinh thể": "https://cdn.nhathuoclongchau.com.vn/v1/static/00032867_vien_sang_mat_hai_thuong_vuong_60v_8865_61af_large_ce9a194628.jpg",
 
     // Tiêu hóa
     "Men vi sinh": "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png",
-    "Dạ dày, tá tràng": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09959_504f8a9544.jpg",
+    "Dạ dày, tá tràng": "https://cdn.nhathuoclongchau.com.vn/v1/static/hon_dich_uong_phosphalugel_26_goi_x_20g_sanofi_00005924_510123ad08.jpg",
     "Đại tràng": "https://cdn.nhathuoclongchau.com.vn/v1/static/00033284_vien_uong_ho_tro_dai_trang_bifido_plus_jpanwell_30v_5543_61e9_large_9d369d6c67.jpg",
-    "Nhuận tràng, táo bón": "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.png",
+    "Nhuận tràng, táo bón": "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.jpg",
     "Khó tiêu": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03252_a5016c6737.jpg",
     "Hỗ trợ ăn ngon": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501623_soki_deli_18_goi_x_4g_4693_62fb_large_29dea8fcc9.jpg",
 
     // Thần kinh não
     "Bổ não": "https://cdn.nhathuoclongchau.com.vn/v1/static/00003337_ginkgo_biloba_60mg_60v_natures_bounty_8579_63db_large_dc0d941fcd.jpg",
     "Cải thiện trí nhớ": "https://cdn.nhathuoclongchau.com.vn/v1/static/sotivex_7860223cf5.jpg",
-    "Hỗ trợ giấc ngủ": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022137_ginkgo_biloba_120mg_puritans_pride_100v_4162_63cb_large_bf4fecbb9f.jpg",
+    "Hỗ trợ giấc ngủ": "https://cdn.nhathuoclongchau.com.vn/v1/static/vien_uong_ho_tro_giam_cang_thang_cebraton_premium_60v_traphaco_00051158_1_10ad1f712c.png",
 
     // Hỗ trợ làm đẹp
-    "Đẹp da collagen": "https://cdn.nhathuoclongchau.com.vn/v1/static/00502062_nuoc_uong_collagen_jpanwell_hana_colla_q10_10_chai_x_50ml_5871_6322_large_ea79e89fee.jpg",
-    "Ngừa lão hóa": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg",
-    "Trị mụn": "https://cdn.nhathuoclongchau.com.vn/v1/static/00000477_acnacare_vien_uong_ngan_ngua_mun_6581_62b0_large_18c1276153.jpg",
-    "Sáng da": "https://cdn.nhathuoclongchau.com.vn/v1/static/00021929_perfect_white_60v_3739_600f_large_6794b33ce3.JPG",
+    "Đẹp da collagen": "https://cdn.nhathuoclongchau.com.vn/v1/static/nuoc_uong_bo_sung_collagen_giup_giam_lao_hoa_da_28_2_ong_x_25ml_elasten_00051118_1_f71391b12a.jpg",
+    "Ngừa lão hóa": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02845_d1c99603c5.jpg",
+    "Trị mụn": "https://cdn.nhathuoclongchau.com.vn/v1/static/acnes_gel_hop_and_tuyp_cb38d31f7a.jpg",
+    "Sáng da": "https://cdn.nhathuoclongchau.com.vn/v1/static/00345339_collagen_with_vitamin_c_vien_bo_sung_collagen_1653_5fd9_large_cb88640c41.JPG",
 
     // Đường huyết - Tiểu đường
-    "Hạ đường huyết": "https://cdn.nhathuoclongchau.com.vn/v1/static/00031804_vien_uong_ho_tro_ha_duong_huyet_diabetna_nam_duoc_40v_3364_634a_large_e9f5ab4c69.jpg",
-    "Dinh dưỡng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/00500742_sua_bot_dinh_duong_glucerna_abbott_huong_vani_850g_8008_632e_large_651a134cf1.jpg",
-    "Biến chứng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501111_vien_uong_ho_tro_oai_thien_chi_so_duong_huyet_premium_omexxel_blood_sugar_health_60v_2752_630f_large_86ee50f7ea.jpg",
+    "Hạ đường huyết": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_3624_d4aa0421ec.jpg",
+    "Dinh dưỡng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
+    "Biến chứng tiểu đường": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_05463_4289216657.jpg",
 
     // Tim mạch - Huyết áp
-    "Huyết áp cao": "https://cdn.nhathuoclongchau.com.vn/v1/static/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg",
+    "Huyết áp cao": "https://cdn.nhathuoclongchau.com.vn/v1/static/00032923_vien_uong_cai_thien_tim_mach_hato_gold_jpanwell_60v_8446_61aa_large_da46bcb91d.jpg",
     "Mỡ máu": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09562_e7057bdf13.png",
     "Phòng đột quỵ": "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_6883_37a908aa20.jpg",
-    "Bổ tim Coenzyme Q10": "https://cdn.nhathuoclongchau.com.vn/v1/static/00021579_coenzyme_q10_150mg_blackmores_30v_3364_634a_large_4e9f5ab4c9.jpg",
+    "Bổ tim Coenzyme Q10": "https://cdn.nhathuoclongchau.com.vn/v1/static/00033383_vien_uong_ho_tro_tim_mach_omega_plus_10_vitamins_for_life_60v_1049_620b_large_51c80bec0e.jpg",
 
     // Hô hấp - Tai mũi họng
     "Bổ phế giảm ho": "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09352_ae155b3fe6.jpg",
     "Súc họng": "https://cdn.nhathuoclongchau.com.vn/v1/static/00022773_sedagol_pro_bio_30ml_5837_61b3_large_a04e12389b.JPG",
     "Xịt mũi": "https://cdn.nhathuoclongchau.com.vn/v1/static/00501599_siro_ginkid_hocam_new_80ml_ho_tro_giam_ho_bo_phe_1484_62fd_large_575a34209b.jpg",
-    "Tăng đề kháng hô hấp": "https://cdn.nhathuoclongchau.com.vn/v1/static/00001648_thuoc_ho_eugica_fort_opv_10x10_1177_60ee_large_49dd64ad5b.jpg",
+    "Tăng đề kháng hô hấp": "https://cdn.nhathuoclongchau.com.vn/v1/static/TUK_06978_61e60f9408.jpg",
 
     // Cơ xương khớp
     "Hỗ trợ xương khớp": "https://cdn.nhathuoclongchau.com.vn/v1/static/00032918_glucosamine_and_chondroitin_jpanwell_120v_9745_61a5_large_41ffa86dc1.JPG",
