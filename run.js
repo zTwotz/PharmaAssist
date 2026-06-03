@@ -46,6 +46,8 @@ const COLORS = {
 
 const REQUIRED_NODE_VERSION = 20;
 
+let shellConfiguredThisRun = false;
+
 // Tự động cấu hình môi trường shell (Aliases: pa, run, runf, runb)
 function setupShellEnvironment() {
   const { execSync } = require('child_process');
@@ -370,6 +372,7 @@ function runb {
 
   // In thông báo nếu có cấu hình mới
   if (unixConfigured.length > 0 || windowsConfigured.length > 0) {
+    shellConfiguredThisRun = true;
     console.log(`\n${COLORS.bgGreen}${COLORS.bright} ĐÃ CẤU HÌNH TỰ ĐỘNG TERMINAL ${COLORS.reset}`);
     
     if (unixConfigured.length > 0) {
@@ -669,6 +672,30 @@ function doStart() {
   });
 }
 
+// Khởi chạy shell con interactive mới để nạp trực tiếp zshrc/powershell profile
+function checkAndSpawnShell() {
+  if (shellConfiguredThisRun) {
+    console.log(`\n${COLORS.magenta}${COLORS.bright}>>> ĐANG TỰ ĐỘNG KHỞI CHẠY SHELL MỚI ĐỂ CẬP NHẬT CÁC LỆNH TẮT... <<<${COLORS.reset}`);
+    console.log(`${COLORS.dim}Các phím tắt (pa, PA, Pa, run, RUN, Run, runf, runb) đã sẵn sàng hoạt động trong shell này.${COLORS.reset}`);
+    console.log(`${COLORS.dim}Gõ 'exit' để quay lại shell cũ.${COLORS.reset}\n`);
+    
+    // Phát hiện Shell hiện tại của người dùng
+    const userShell = process.env.SHELL || (process.platform === 'win32' ? 'powershell' : 'zsh');
+    
+    // Chạy shell mới ở chế độ interactive
+    const shellProcess = spawn(userShell, [], {
+      stdio: 'inherit',
+      shell: true
+    });
+    
+    shellProcess.on('close', (code) => {
+      process.exit(code || 0);
+    });
+  } else {
+    process.exit(0);
+  }
+}
+
 // Hiển thị menu tương tác readline
 function showInteractiveMenu() {
   showBanner();
@@ -693,6 +720,7 @@ function showInteractiveMenu() {
       case '1':
         rl.close();
         await doSetup();
+        checkAndSpawnShell();
         break;
       case '2':
         rl.close();
@@ -701,6 +729,7 @@ function showInteractiveMenu() {
       case '3':
         rl.close();
         doClean(false);
+        checkAndSpawnShell();
         break;
       case '4':
         rl.question(`${COLORS.red}${COLORS.bright}CẢNH BÁO: Thao tác này sẽ xóa toàn bộ node_modules. Bạn có chắc chắn? (y/n): ${COLORS.reset}`, (confirm) => {
@@ -710,12 +739,13 @@ function showInteractiveMenu() {
           } else {
             console.log('Đã hủy thao tác dọn dẹp sạch.');
           }
+          checkAndSpawnShell();
         });
         break;
       case '5':
         rl.close();
         console.log('Đã thoát. Chúc bạn code vui vẻ!');
-        process.exit(0);
+        checkAndSpawnShell();
         break;
       default:
         rl.close();
@@ -739,16 +769,18 @@ function main() {
   
   switch (action) {
     case 'setup':
-      doSetup();
+      doSetup().then(() => checkAndSpawnShell()).catch(() => checkAndSpawnShell());
       break;
     case 'start':
       doStart();
       break;
     case 'clean':
       doClean(false);
+      checkAndSpawnShell();
       break;
     case 'clean-all':
       doClean(true);
+      checkAndSpawnShell();
       break;
     case 'help':
     case '--help':
