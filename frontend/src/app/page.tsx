@@ -868,6 +868,15 @@ export default function HomePage() {
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
   const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
+  const [activeSeasonalTab, setActiveSeasonalTab] = useState<number>(0);
+  const [fysolineSeptiUnit, setFysolineSeptiUnit] = useState<"hop" | "ong">("hop");
+  const [fysolineIsoUnit, setFysolineIsoUnit] = useState<"hop" | "ong">("hop");
+  const [famaproUnit, setFamaproUnit] = useState<"hop" | "goi">("hop");
+  const [panadolUnit, setPanadolUnit] = useState<"vien" | "vi" | "hop">("vien");
+  const [acemucUnit, setAcemucUnit] = useState<"vien" | "vi" | "hop">("vien");
+  const [telfastUnit, setTelfastUnit] = useState<"vien" | "vi" | "hop">("vien");
+  const [kamizolOrangeUnit, setKamizolOrangeUnit] = useState<"chai" | "thung">("chai");
+  const [kamizolLemonUnit, setKamizolLemonUnit] = useState<"chai" | "thung">("chai");
 
   // State for Flash Sale Countdown
   const [timeLeft, setTimeLeft] = useState({
@@ -2495,6 +2504,938 @@ export default function HomePage() {
             
             {/* Aesthetic slide next button indicator */}
             <div className="absolute top-[50%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+              <ChevronRight size={16} />
+            </div>
+
+          </div>
+        </section>
+
+
+
+        {/* 5.6. SEASONAL DISEASES SECTION (BỆNH THEO MÙA) */}
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+          
+          {/* Header Row */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-[#024ad8]/10 text-[#024ad8] p-2 rounded-full shadow-sm flex items-center justify-center">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8m-4-4v8" />
+              </svg>
+            </div>
+            <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Bệnh theo mùa</h2>
+          </div>
+
+          {/* Blue Container with White Tabs Header */}
+          <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6">
+            
+            {/* Header Tabs Row */}
+            <div className="flex bg-white/10 rounded-t-3xl -mx-6 px-6 py-2 border-b border-white/10 overflow-x-auto scrollbar-hide shrink-0">
+              <div className="flex gap-2">
+                {[
+                  { label: "Tay chân miệng", index: 0 },
+                  { label: "Viêm não mô cầu", index: 1 },
+                  { label: "Cúm", index: 2 },
+                  { label: "Sốt xuất huyết", index: 3 }
+                ].map((tab) => (
+                  <button
+                    key={tab.index}
+                    onClick={() => setActiveSeasonalTab(tab.index)}
+                    className={`px-6 py-3 rounded-t-2xl font-extrabold text-xs md:text-sm transition-all duration-300 ${
+                      activeSeasonalTab === tab.index
+                        ? "bg-white text-[#024ad8] shadow-sm"
+                        : "text-white/80 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Content Row: Left Info Card + Right 4 Products Card */}
+            <div className="grid grid-cols-12 gap-5 items-stretch">
+              
+              {/* Left Info Card (Paper look with mascot at bottom) */}
+              <div className="col-span-12 lg:col-span-3 bg-white rounded-2xl p-6 flex flex-col justify-between relative shadow-md min-h-[300px] border-r-4 border-cyan-400">
+                {/* Decorative virus floating items (simulated via SVG) */}
+                <div className="absolute top-2 right-2 text-cyan-400/20 opacity-70 animate-spin" style={{ animationDuration: "12s" }}>
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2a1 1 0 011 1v1.07A8.001 8.001 0 0119.93 11H21a1 1 0 010 2h-1.07A8.001 8.001 0 0113 19.93V21a1 1 0 01-2 0v-1.07A8.001 8.001 0 014.07 13H3a1 1 0 010-2h1.07A8.001 8.001 0 0111 4.07V3a1 1 0 011-1zm0 4a6 6 0 100 12 6 6 0 000-12z" />
+                  </svg>
+                </div>
+
+                <div className="text-left relative z-10">
+                  <p className="text-[12px] md:text-[13px] font-bold text-ink leading-relaxed whitespace-pre-line">
+                    {activeSeasonalTab === 0 && (
+                      <>
+                        Tay chân miệng có xu hướng quay lại theo mùa, dễ bùng phát tại trường học và khu vực đông trẻ nhỏ. <strong className="text-[#ea3829]">Trẻ dưới 5 tuổi</strong> là nhóm dễ bị ảnh hưởng và có nguy cơ lây lan nhanh.{"\n\n"}
+                        <strong className="text-[#024ad8]">Chủ động giữ vệ sinh tay</strong> và <strong className="text-[#024ad8]">theo dõi dấu hiệu sớm</strong> là điều cần thiết. Đừng để đến khi trẻ bỏ ăn, sốt cao mới xử trí.
+                      </>
+                    )}
+                    {activeSeasonalTab === 1 && (
+                      <>
+                        Viêm màng não do não mô cầu có dấu hiệu quay lại với nguy cơ lây lan nhanh trong cộng đồng. <strong className="text-[#ea3829]">Trẻ nhỏ, thanh thiếu niên và người sống tập thể</strong> là nhóm dễ bị ảnh hưởng.{"\n\n"}
+                        <strong className="text-[#024ad8]">Chủ động nhận diện sớm</strong> dấu hiệu như sốt cao, cứng cổ và <strong className="text-[#024ad8]">tiêm vắc xin đầy đủ</strong> là rất cần thiết. Đừng để đến khi bệnh diễn tiến nặng mới xử trí.
+                      </>
+                    )}
+                    {activeSeasonalTab === 2 && (
+                      <>
+                        Cúm khiến cơ thể mệt mỏi, dễ đuối sức, đặc biệt ở người lớn tuổi và trẻ nhỏ. <strong className="text-[#ea3829]">Thời tiết thay đổi</strong> là lúc virus cúm có nguy cơ bùng phát mạnh trở lại.{"\n\n"}
+                        <strong className="text-[#024ad8]">Chủ động chăm sóc sức khỏe</strong>, tăng cường đề kháng và <strong className="text-[#024ad8]">tiêm vắc xin cúm</strong> hàng năm có thể giúp giảm nguy cơ mắc bệnh cho cả gia đình.
+                      </>
+                    )}
+                    {activeSeasonalTab === 3 && (
+                      <>
+                        Sốt xuất huyết <strong className="text-[#ea3829]">đang gia tăng nhanh chóng</strong>, nhiều ca trở nặng vì phát hiện trễ hoặc chủ quan.{"\n\n"}
+                        Trong gia đình, người lớn tuổi và trẻ nhỏ là những đối tượng dễ bị tổn thương nhất. <strong className="text-[#024ad8]">Đừng để đến khi sốt cao</strong>, kiệt sức mới lo bù nước hay tăng đề kháng.
+                      </>
+                    )}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2 mt-4 relative z-10">
+                  <button 
+                    onClick={() => triggerToast("Khám phá giải pháp chăm sóc y tế...")}
+                    className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-black py-2 rounded-full transition-colors shadow-sm uppercase tracking-wider text-center"
+                  >
+                    Khám phá ngay giải pháp
+                  </button>
+                </div>
+
+                {/* Cute Mascot Graphic aligned at the bottom left */}
+                <img 
+                  src="/mascot.png" 
+                  alt="Mascot PharmaAssist" 
+                  className="w-20 h-20 absolute -bottom-3 -left-4 object-contain drop-shadow-md select-none pointer-events-none z-20"
+                />
+              </div>
+
+              {/* Right Side: 4 Product Cards */}
+              <div className="col-span-12 lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                
+                {/* Render Tab 0 (Tay chân miệng) */}
+                {activeSeasonalTab === 0 && (
+                  <>
+                    {/* Prod 1: Aloclair Gel */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇬🇧 Anh
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/gel_boi_mieng_aloclair_plus_alliance_8ml_giam_nhiet_mieng_tay_chan_mieng_00030559_1_0c5ca8c253.png" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Tuýp x 8ml
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "aloclair-gel": (prev["aloclair-gel"] || 0) + 1 }));
+                              triggerToast("Đã thêm Gel Aloclair Plus vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 2: Aloclair Spray */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇬🇧 Anh
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Hộp x 15ml
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "aloclair-plus": (prev["aloclair-plus"] || 0) + 1 }));
+                              triggerToast("Đã thêm Chai xịt Aloclair Plus vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 3: Pearlie Mouthwash */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇸🇬 Singapore
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Chai</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Chai x 250ml
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "pearlie-wash": (prev["pearlie-wash"] || 0) + 1 }));
+                              triggerToast("Đã thêm Nước súc miệng Pearlie White vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 4: Su Bac Gel */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">150.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Hộp x 25g
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "subac-gel": (prev["subac-gel"] || 0) + 1 }));
+                              triggerToast("Đã thêm Gel Su Bạc vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Render Tab 1 (Viêm não mô cầu) */}
+                {activeSeasonalTab === 1 && (
+                  <>
+                    {/* Prod 1: Fysoline Septinasal */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇫🇷 Pháp
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFysolineSeptiUnit("hop"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${fysolineSeptiUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Hộp
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFysolineSeptiUnit("ong"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${fysolineSeptiUnit === "ong" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Ống
+                            </button>
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {fysolineSeptiUnit === "hop" ? "193.000đ" : "9.650đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {fysolineSeptiUnit === "hop" ? "Hộp" : "Ống"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {fysolineSeptiUnit === "hop" ? "Hộp 20 Ống x 5ml" : "Ống 5ml"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = fysolineSeptiUnit === "hop" ? "fysoline-septi-box" : "fysoline-septi-tube";
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Fysoline Septinasal (${fysolineSeptiUnit === "hop" ? "Hộp" : "Ống"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 2: Fysoline Isotonique */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇫🇷 Pháp
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFysolineIsoUnit("hop"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${fysolineIsoUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Hộp
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFysolineIsoUnit("ong"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${fysolineIsoUnit === "ong" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Ống
+                            </button>
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {fysolineIsoUnit === "hop" ? "166.000đ" : "4.150đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {fysolineIsoUnit === "hop" ? "Hộp" : "Ống"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {fysolineIsoUnit === "hop" ? "Hộp 40 Ống x 5ml" : "Ống 5ml"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = fysolineIsoUnit === "hop" ? "fysoline-iso-box" : "fysoline-iso-tube";
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Fysoline Isotonique (${fysolineIsoUnit === "hop" ? "Hộp" : "Ống"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 3: Famapro Mask */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/khau_trang_y_te_famapro_extra_4_lop_mau_trang_hop_50_cai_00502758_large_3770_62b1_large_fef62a93ff.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFamaproUnit("hop"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${famaproUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Hộp
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setFamaproUnit("goi"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${famaproUnit === "goi" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Gói
+                            </button>
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {famaproUnit === "hop" ? "40.000đ" : "8.000đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {famaproUnit === "hop" ? "Hộp" : "Gói"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {famaproUnit === "hop" ? "Hộp 5 Gói x 10 Cái" : "Gói 10 Cái"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = famaproUnit === "hop" ? "famapro-box" : "famapro-pack";
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Khẩu trang Famapro (${famaproUnit === "hop" ? "Hộp" : "Gói"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 4: Dolphin Mask */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">24.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Hộp 10 Cái
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "dolphin-mask": (prev["dolphin-mask"] || 0) + 1 }));
+                              triggerToast("Đã thêm Khẩu trang Dolphin vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Render Tab 2 (Cúm) */}
+                {activeSeasonalTab === 2 && (
+                  <>
+                    {/* Prod 1: Panadol Extra */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇬🇧 Anh
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            {["Hộp", "Vỉ", "Viên"].map((unit) => {
+                              const val = unit === "Hộp" ? "hop" : unit === "Vỉ" ? "vi" : "vien";
+                              return (
+                                <button 
+                                  key={val}
+                                  onClick={(e) => { e.stopPropagation(); setPanadolUnit(val as any); }}
+                                  className={`text-[9px] font-bold px-2 py-0.5 rounded ${panadolUnit === val ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                                >
+                                  {unit}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {panadolUnit === "hop" ? "252.000đ" : panadolUnit === "vi" ? "16.800đ" : "1.400đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {panadolUnit === "hop" ? "Hộp" : panadolUnit === "vi" ? "Vỉ" : "Viên"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {panadolUnit === "hop" ? "Hộp 15 Vỉ x 12 Viên" : panadolUnit === "vi" ? "Vỉ 12 Viên" : "1 Viên"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = `panadol-${panadolUnit}`;
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Panadol Extra (${panadolUnit === "hop" ? "Hộp" : panadolUnit === "vi" ? "Vỉ" : "Viên"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 2: Acemuc */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇫🇷 Pháp
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200mg_sanofi_3x10_00015328_large_3716_62c4_large_bcde89f410.jpg" alt="Acemuc" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            {["Hộp", "Vỉ", "Viên"].map((unit) => {
+                              const val = unit === "Hộp" ? "hop" : unit === "Vỉ" ? "vi" : "vien";
+                              return (
+                                <button 
+                                  key={val}
+                                  onClick={(e) => { e.stopPropagation(); setAcemucUnit(val as any); }}
+                                  className={`text-[9px] font-bold px-2 py-0.5 rounded ${acemucUnit === val ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                                >
+                                  {unit}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {acemucUnit === "hop" ? "81.000đ" : acemucUnit === "vi" ? "27.000đ" : "2.700đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {acemucUnit === "hop" ? "Hộp" : acemucUnit === "vi" ? "Vỉ" : "Viên"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {acemucUnit === "hop" ? "Hộp 3 Vỉ x 10 Viên" : acemucUnit === "vi" ? "Vỉ 10 Viên" : "1 Viên"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = `acemuc-${acemucUnit}`;
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Acemuc (${acemucUnit === "hop" ? "Hộp" : "Chai" /* wait, Viên */}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 3: Telfast */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇫🇷 Pháp
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            {["Hộp", "Vỉ", "Viên"].map((unit) => {
+                              const val = unit === "Hộp" ? "hop" : unit === "Vỉ" ? "vi" : "vien";
+                              return (
+                                <button 
+                                  key={val}
+                                  onClick={(e) => { e.stopPropagation(); setTelfastUnit(val as any); }}
+                                  className={`text-[9px] font-bold px-2 py-0.5 rounded ${telfastUnit === val ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                                >
+                                  {unit}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">
+                              {telfastUnit === "hop" ? "268.000đ" : telfastUnit === "vi" ? "89.330đ" : "8.933đ"}
+                            </strong>
+                            <span className="text-[9px] text-graphite font-semibold">
+                              / {telfastUnit === "hop" ? "Hộp" : telfastUnit === "vi" ? "Vỉ" : "Viên"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {telfastUnit === "hop" ? "Hộp 3 Vỉ x 10 Viên" : telfastUnit === "vi" ? "Vỉ 10 Viên" : "1 Viên"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = `telfast-${telfastUnit}`;
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Telfast HD (${telfastUnit === "hop" ? "Hộp" : "Vỉ" /* Viên */}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 4: Kudos Vitamin C */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇩🇪 Đức
+                        </span>
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          -10%
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
+                          </h4>
+                          <div className="flex flex-col mt-2">
+                            <div className="flex items-baseline gap-1">
+                              <strong className="text-[13px] font-black text-[#024ad8]">113.400đ</strong>
+                              <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
+                            </div>
+                            <span className="text-[9px] text-gray-400 line-through">126.000đ</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Tuýp 20 Viên
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "kudos-vitc": (prev["kudos-vitc"] || 0) + 1 }));
+                              triggerToast("Đã thêm Kudos Vitamin C vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Render Tab 3 (Sốt xuất huyết) */}
+                {activeSeasonalTab === 3 && (
+                  <>
+                    {/* Prod 1: Kamizol Orange */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          -20%
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nước Bù Điện Giải Kamizol Vị Cam (250ml)
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setKamizolOrangeUnit("thung"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${kamizolOrangeUnit === "thung" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Thùng
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setKamizolOrangeUnit("chai"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${kamizolOrangeUnit === "chai" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Chai
+                            </button>
+                          </div>
+
+                          <div className="flex flex-col mt-2">
+                            <div className="flex items-baseline gap-1">
+                              <strong className="text-[13px] font-black text-[#024ad8]">
+                                {kamizolOrangeUnit === "thung" ? "201.600đ" : "8.400đ"}
+                              </strong>
+                              <span className="text-[9px] text-graphite font-semibold">
+                                / {kamizolOrangeUnit === "thung" ? "Thùng" : "Chai"}
+                              </span>
+                            </div>
+                            <span className="text-[9px] text-gray-400 line-through">
+                              {kamizolOrangeUnit === "thung" ? "252.000đ" : "10.500đ"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {kamizolOrangeUnit === "thung" ? "Thùng 24 Chai x 250ml" : "Chai 250ml"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = kamizolOrangeUnit === "thung" ? "kamizol-orange-box" : "kamizol-orange-bottle";
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Kamizol Cam (${kamizolOrangeUnit === "thung" ? "Thùng" : "Chai"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 2: Kamizol Lemon */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          -20%
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
+                          </h4>
+                          
+                          {/* Unit switcher */}
+                          <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setKamizolLemonUnit("thung"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${kamizolLemonUnit === "thung" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Thùng
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); setKamizolLemonUnit("chai"); }}
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded ${kamizolLemonUnit === "chai" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                            >
+                              Chai
+                            </button>
+                          </div>
+
+                          <div className="flex flex-col mt-2">
+                            <div className="flex items-baseline gap-1">
+                              <strong className="text-[13px] font-black text-[#024ad8]">
+                                {kamizolLemonUnit === "thung" ? "201.600đ" : "8.400đ"}
+                              </strong>
+                              <span className="text-[9px] text-graphite font-semibold">
+                                / {kamizolLemonUnit === "thung" ? "Thùng" : "Chai"}
+                              </span>
+                            </div>
+                            <span className="text-[9px] text-gray-400 line-through">
+                              {kamizolLemonUnit === "thung" ? "252.000đ" : "10.500đ"}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            {kamizolLemonUnit === "thung" ? "Thùng 24 Chai x 250ml" : "Chai 250ml"}
+                          </div>
+                          <button 
+                            onClick={() => {
+                              const key = kamizolLemonUnit === "thung" ? "kamizol-lemon-box" : "kamizol-lemon-bottle";
+                              setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                              triggerToast(`Đã thêm Kamizol Chanh (${kamizolLemonUnit === "thung" ? "Thùng" : "Chai"}) vào giỏ hàng.`);
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 3: Kamizol Powder */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇻🇳 Việt Nam
+                        </span>
+                        <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                          -20%
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
+                          </h4>
+                          <div className="flex flex-col mt-2">
+                            <div className="flex items-baseline gap-1">
+                              <strong className="text-[13px] font-black text-[#024ad8]">32.000đ</strong>
+                              <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                            </div>
+                            <span className="text-[9px] text-gray-400 line-through">40.000đ</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2 py-0.5 rounded-lg mt-3">
+                            Hộp 5 Gói x 25g
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "kamizol-powder": (prev["kamizol-powder"] || 0) + 1 }));
+                              triggerToast("Đã thêm Bột điện giải Kamizol vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prod 4: Microlife Thermometer */}
+                    <div className="bg-white rounded-2xl p-3 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                          🇨🇭 Thụy Sĩ
+                        </span>
+                      </div>
+                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between text-left">
+                        <div>
+                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                            Nhiệt kế hồng ngoại đo trán Microlife NC200
+                          </h4>
+                          <div className="flex items-baseline gap-1 mt-2">
+                            <strong className="text-[13px] font-black text-[#024ad8]">990.000đ</strong>
+                            <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                            Hộp 1 Cái
+                          </div>
+                          <button 
+                            onClick={() => {
+                              setCart(prev => ({ ...prev, "microlife-nc200": (prev["microlife-nc200"] || 0) + 1 }));
+                              triggerToast("Đã thêm Nhiệt kế Microlife NC200 vào giỏ hàng.");
+                            }}
+                            className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Chọn mua
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+              </div>
+
+            </div>
+
+            {/* Aesthetic slide next button indicator */}
+            <div className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
               <ChevronRight size={16} />
             </div>
 
