@@ -56,6 +56,7 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ### 2026-06-04
 - **Thực phẩm chức năng Redesign & Image Fixes (PAC-19):** Giải quyết triệt để các đường link ảnh đại diện danh mục con bị lỗi 403/404 trong mega menu. Thay thế các link ảnh lỗi bằng các link ảnh CDN thực tế, hợp lệ (200 OK) được lấy từ cơ sở dữ liệu Supabase. Sửa 5 link ảnh sản phẩm nổi bật bị lỗi 404 (La Roche-Posay, Bioderma, CeraVe, Vichy, Cardiocare) thành ảnh thật trong database. Biên dịch thành công Next.js frontend cục bộ.
+- **Trang chủ Redesign & Hero Section (PAC-19):** Thiết kế lại bố cục Hero section của trang chủ theo mẫu Long Châu. Tích hợp banner lớn men vi sinh Enterogermina (sử dụng hình ảnh sản phẩm thật và thông tin khuyến mãi), 2 banner phụ bên phải (Hiểu về Ung Thư A-Z và Cập nhật địa chỉ theo nghị quyết mới), cùng thanh 6 nút chức năng Quick Actions ngang tinh tế, hỗ trợ responsive và micro-animations.
 
 ### 2026-06-02
 - **UI Navigation Redesign & Mega Menu:** Hoàn thành triển khai giao diện Mega Dropdown Menu (cấu trúc cây thư mục Mẹ - Con) cho cả 5 danh mục chính trên Navbar trang chủ Retail. Thiết kế bố cục hai cột, hoạt động hoàn toàn bằng hover. Khi rê chuột vào danh mục Mẹ (cấp 2) ở cột trái, danh mục Con (cấp 3) và 5 sản phẩm bán chạy tương ứng ở cột phải sẽ thay đổi tức thì, tích hợp ảnh thật từ nhà thuốc Long Châu. Khắc phục hoàn toàn lỗi ẩn menu do overflow và named group compile error.
