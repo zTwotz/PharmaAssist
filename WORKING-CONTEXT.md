@@ -55,6 +55,7 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 ## Latest Execution Notes
 
 ### 2026-06-04
+- **Sản phẩm bán chạy Section Redesign (PAC-19):** Đã thiết kế và tích hợp phần "Sản phẩm bán chạy" ngay bên dưới phần Flash Sale của trang chủ. Giao diện được thiết kế với khung viền xanh đậm bo góc lớn, có tab đỏ nổi bật skew nghiêng đúng nguyên bản thiết kế Long Châu. Tích hợp 6 sản phẩm bán chạy thật từ database (NMN PQQ Kenko, Kudos Daily Vitamins, Nano Fucoidan, Brauer Baby & Kids DHA, Nước sâm Achimmadang, Aloclair Plus) sử dụng liên kết hình ảnh CDN hoạt động tốt (200 OK). Riêng nước sâm Achimmadang có bộ chọn tab "Hộp" / "Chai" hoạt động động bằng React state để chuyển đổi đơn vị và cập nhật giá tương ứng.
 - **Thực phẩm chức năng Redesign & Image Fixes (PAC-19):** Giải quyết triệt để các đường link ảnh đại diện danh mục con bị lỗi 403/404 trong mega menu. Thay thế các link ảnh lỗi bằng các link ảnh CDN thực tế, hợp lệ (200 OK) được lấy từ cơ sở dữ liệu Supabase. Sửa 5 link ảnh sản phẩm nổi bật bị lỗi 404 (La Roche-Posay, Bioderma, CeraVe, Vichy, Cardiocare) thành ảnh thật trong database. Biên dịch thành công Next.js frontend cục bộ.
 - **Trang chủ Redesign & Hero Section (PAC-19):** Thiết kế lại bố cục Hero section của trang chủ theo mẫu Long Châu. Tích hợp banner lớn men vi sinh Enterogermina (sử dụng hình ảnh sản phẩm thật và thông tin khuyến mãi), 2 banner phụ bên phải (Hiểu về Ung Thư A-Z và Cập nhật địa chỉ theo nghị quyết mới), cùng thanh 6 nút chức năng Quick Actions ngang tinh tế, hỗ trợ responsive và micro-animations.
 
