@@ -697,6 +697,7 @@ export default function HomePage() {
   const [toastMessage, setToastMessage] = useState("");
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
+  const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
 
   // State for Flash Sale Countdown
   const [timeLeft, setTimeLeft] = useState({
@@ -1791,6 +1792,369 @@ export default function HomePage() {
             <div className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
               <ChevronRight size={16} />
             </div>
+          </div>
+        </section>
+
+        {/* 4.5. BEST SELLING PRODUCTS (SẢN PHẨM BÁN CHẠY) */}
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+          {/* Blue Container with thick border and padded inner content */}
+          <div className="bg-[#024ad8] rounded-3xl p-6 pt-10 pb-8 border border-blue-700 shadow-lg relative">
+            
+            {/* Centered Red Tab at the top border */}
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+              <div className="bg-[#ea3829] text-white font-extrabold text-xs md:text-sm px-8 py-2 rounded-2xl shadow-md uppercase tracking-wider skew-x-[-6deg] relative border border-red-500/20">
+                Sản phẩm bán chạy
+              </div>
+            </div>
+
+            {/* Product Grid - Responsive layout containing 6 cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              
+              {/* Product 1: NMN */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇯🇵 Nhật Bản
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -25%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg" 
+                    alt="NMN PQQ Kenko" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">6.675.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">8.900.000đ</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      Hộp 60 Viên
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "nmn-pqq-kenko": (prev["nmn-pqq-kenko"] || 0) + 1 }));
+                        triggerToast("Đã thêm NMN PQQ Kenko vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 2: Kudos */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇩🇪 Đức
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -15%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg" 
+                    alt="Kudos Daily Vitamins" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">118.150đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">139.000đ</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      Tuýp 20 Viên
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "kudos-daily": (prev["kudos-daily"] || 0) + 1 }));
+                        triggerToast("Đã thêm Kudos Daily Vitamins vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 3: Nano Fucoidan */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇻🇳 Việt Nam
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -20%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg" 
+                    alt="Nano Fucoidan" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">792.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">990.000đ</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      Hộp 30 Viên
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "nano-fucoidan": (prev["nano-fucoidan"] || 0) + 1 }));
+                        triggerToast("Đã thêm Nano Fucoidan vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 4: Brauer DHA */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇦🇺 Úc
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -20%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png" 
+                    alt="Brauer Baby & Kids" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Ki...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">388.800đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">486.000đ</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      Hộp 60 Viên
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "brauer-dha": (prev["brauer-dha"] || 0) + 1 }));
+                        triggerToast("Đã thêm Brauer DHA vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 5: Nước sâm Achimmadang */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇰🇷 Hàn Quốc
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -20%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg" 
+                    alt="Nước Sâm Achimmadang" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink...
+                    </h4>
+                    
+                    {/* Unit Switcher Tabs */}
+                    <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSamsungUnit("hop");
+                        }}
+                        className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "hop" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                      >
+                        Hộp
+                      </button>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSamsungUnit("chai");
+                        }}
+                        className={`text-[9px] font-bold px-2 py-0.5 rounded ${samsungUnit === "chai" ? "bg-white text-[#024ad8] shadow-sm border border-sky-100" : "text-graphite hover:text-ink"}`}
+                      >
+                        Chai
+                      </button>
+                    </div>
+
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">
+                          {samsungUnit === "hop" ? "400.000đ" : "40.000đ"}
+                        </strong>
+                        <span className="text-[9px] text-graphite font-semibold">
+                          / {samsungUnit === "hop" ? "Hộp" : "Chai"}
+                        </span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">
+                        {samsungUnit === "hop" ? "500.000đ" : "50.000đ"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      {samsungUnit === "hop" ? "Hộp 10 Chai x 120ml" : "Chai 120ml"}
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const key = samsungUnit === "hop" ? "achimmadang-box" : "achimmadang-bottle";
+                        setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+                        triggerToast(`Đã thêm Nước Sâm Achimmadang (${samsungUnit === "hop" ? "Hộp" : "Chai"}) vào giỏ hàng.`);
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 6: Aloclair Plus */}
+              <div className="bg-white rounded-2xl p-3.5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇬🇧 Anh
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" 
+                    alt="Aloclair Plus" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="inline-block bg-[#f3f4f6] text-[#4b5563] text-[9px] font-bold px-2.5 py-1 rounded-lg mt-3">
+                      Hộp x 15ml
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "aloclair-plus": (prev["aloclair-plus"] || 0) + 1 }));
+                        triggerToast("Đã thêm Chai xịt Aloclair Plus vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
+            {/* Aesthetic slide next button indicator */}
+            <div className="absolute top-[50%] -right-4 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+              <ChevronRight size={16} />
+            </div>
+
           </div>
         </section>
 
