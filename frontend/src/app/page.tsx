@@ -698,6 +698,41 @@ export default function HomePage() {
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
 
+  // State for Flash Sale Countdown
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 9,
+    minutes: 29,
+    seconds: 37
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        let { hours, minutes, seconds } = prev;
+        if (seconds > 0) {
+          seconds--;
+        } else {
+          seconds = 59;
+          if (minutes > 0) {
+            minutes--;
+          } else {
+            minutes = 59;
+            if (hours > 0) {
+              hours--;
+            } else {
+              hours = 9;
+              minutes = 29;
+              seconds = 37;
+            }
+          }
+        }
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Smooth scroll and set category filter on menu click
   const handleCategoryClick = (categoryName: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -1346,7 +1381,416 @@ export default function HomePage() {
                 <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">chính hãng</span>
               </div>
             </button>
+          </div>
+        </section>
 
+        {/* 4. FLASH SALE SECTION */}
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+          <div className="bg-gradient-to-b from-[#e0f2fe] via-sky-50/50 to-white rounded-3xl p-6 border-2 border-sky-100/50 shadow-sm relative overflow-hidden">
+            {/* Header Flash Sale with dynamic lightning badge and button */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 border-b border-sky-100 pb-4">
+              <div className="flex items-center gap-3">
+                {/* 3D-like flash sale text title */}
+                <div className="flex items-center gap-1 bg-[#ea3829] text-white font-black text-lg md:text-xl px-4 py-2 rounded-2xl shadow-md uppercase tracking-wider skew-x-[-6deg] relative">
+                  <span className="text-yellow-300 animate-pulse mr-1">⚡</span>
+                  FLASHSALE GIÁ TỐT
+                  {/* Decorative ice block */}
+                  <span className="absolute -top-2 -right-3 text-base">🧊</span>
+                </div>
+                {/* Xem thế lệ link */}
+                <span className="text-[10px] text-graphite hover:text-[#024ad8] font-bold cursor-pointer underline decoration-dotted">
+                  Xem thể lệ &gt;
+                </span>
+              </div>
+              
+              {/* Tabs time frames */}
+              <div className="flex items-center gap-2 bg-cloud/80 p-1 rounded-2xl border border-fog shrink-0">
+                <div className="bg-white text-[#ea3829] border border-[#ea3829]/15 font-black text-xs px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center">
+                  <span className="text-[10px] font-black">08:00 - 22:00, 04/06</span>
+                  <span className="text-[9px] uppercase tracking-wide opacity-90">Đang diễn ra</span>
+                </div>
+                <div className="text-graphite font-bold text-[#475569] text-xs px-4 py-2 text-center flex flex-col justify-center cursor-pointer hover:text-primary transition-colors">
+                  <span className="text-[10px] font-bold">08:00 - 22:00, 05/06</span>
+                  <span className="text-[9px] uppercase tracking-wide opacity-80">Sắp diễn ra</span>
+                </div>
+              </div>
+
+              {/* Countdown timer clock */}
+              <div className="flex items-center gap-2 bg-white/95 px-4 py-2 rounded-2xl border border-sky-100 shadow-sm shrink-0">
+                <span className="text-xs font-extrabold text-[#475569]">Kết thúc sau</span>
+                <div className="flex items-center gap-1">
+                  <span className="bg-[#ea3829] text-white font-black text-xs px-2.5 py-1.5 rounded-lg shadow-sm">
+                    {timeLeft.hours.toString().padStart(2, '0')}
+                  </span>
+                  <span className="text-xs font-black text-[#ea3829]">:</span>
+                  <span className="bg-[#ea3829] text-white font-black text-xs px-2.5 py-1.5 rounded-lg shadow-sm">
+                    {timeLeft.minutes.toString().padStart(2, '0')}
+                  </span>
+                  <span className="text-xs font-black text-[#ea3829]">:</span>
+                  <span className="bg-[#ea3829] text-white font-black text-xs px-2.5 py-1.5 rounded-lg shadow-sm">
+                    {timeLeft.seconds.toString().padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid list product items */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              
+              {/* Product 1 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                {/* Sale label top */}
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇻🇳 VN
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -20%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" 
+                    alt="Sữa Fohepta" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">205.600đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">257.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                      <span className="flex items-center gap-0.5">🔥 Đã bán 6/400</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "2%" }} />
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "fohepta-milk": (prev["fohepta-milk"] || 0) + 1 }));
+                        triggerToast("Đã thêm Sữa Fohepta vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 2 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative opacity-95">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇺🇸 US
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -72kđ
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg" 
+                    alt="Sữa Ensure nước" 
+                    className="w-full h-full object-contain p-2 grayscale opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
+                    <span className="bg-[#ea3829] text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wider">
+                      Đã cháy hàng
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] text-left">
+                      Sữa bổ sung dinh dưỡng hỗ trợ tiêu hóa Ensure Original nước...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">912.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Thùng</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">984.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="w-full h-1.5 bg-[#ea3829] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#ea3829]" style={{ width: "100%" }} />
+                    </div>
+                    
+                    <button 
+                      disabled
+                      className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 cursor-not-allowed uppercase tracking-wider"
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 3 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇺🇸 US
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -95kđ
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
+                    alt="Sữa Ensure Gold" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">932.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                      <span className="flex items-center gap-0.5">🔥 Đã bán 38/50</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "76%" }} />
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "ensure-gold-800g": (prev["ensure-gold-800g"] || 0) + 1 }));
+                        triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 4 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇺🇸 US
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -95kđ
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
+                    alt="Sữa Ensure Gold" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">932.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                      <span className="flex items-center gap-0.5">🔥 Đã bán 22/50</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "44%" }} />
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "ensure-gold-800g": (prev["ensure-gold-800g"] || 0) + 1 }));
+                        triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 5 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇯🇵 JP
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -19%
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg" 
+                    alt="Sữa Icreo Glico" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">933.120đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">1.152.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                      <span className="flex items-center gap-0.5">🔥 Đã bán 1/50</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "2%" }} />
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "icreo-glico-800g": (prev["icreo-glico-800g"] || 0) + 1 }));
+                        triggerToast("Đã thêm Sữa Icreo Glico vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 6 */}
+              <div className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
+                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
+                  <span className="bg-cloud text-graphite border border-fog text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    🇺🇸 US
+                  </span>
+                  <span className="bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-lg shadow-sm">
+                    -80kđ
+                  </span>
+                </div>
+                
+                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" 
+                    alt="Sữa Glucerna" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                      Sữa bổ sung dinh dưỡng đặc biệt cho người đái đường Glucerna...
+                    </h4>
+                    <div className="flex flex-col mt-1 text-left">
+                      <div className="flex items-baseline gap-1">
+                        <strong className="text-[13px] font-black text-[#024ad8]">842.000đ</strong>
+                        <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 line-through">922.000đ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress stock bar */}
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between text-[9px] font-black text-rose-600 mb-1">
+                      <span className="flex items-center gap-0.5">🔥 Đã bán 27/50</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#fef2f2] border border-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#f43f5e] to-[#ea580c] rounded-full" style={{ width: "54%" }} />
+                    </div>
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCart(prev => ({ ...prev, "glucerna-800g": (prev["glucerna-800g"] || 0) + 1 }));
+                        triggerToast("Đã thêm Sữa Glucerna vào giỏ hàng.");
+                      }}
+                      className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                    >
+                      Chọn mua
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom link: Xem tất cả */}
+            <div className="flex justify-center mt-6">
+              <span 
+                className="text-[#024ad8] hover:text-[#01359c] font-black text-xs flex items-center gap-1 cursor-pointer transition-colors hover:underline"
+                onClick={() => {
+                  const target = document.getElementById("featured-medicines");
+                  if (target) target.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Xem tất cả &gt;
+              </span>
+            </div>
+            
+            {/* Aesthetic slide next button indicator (positioned absolute outside the slide container) */}
+            <div className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+              <ChevronRight size={16} />
+            </div>
           </div>
         </section>
 
