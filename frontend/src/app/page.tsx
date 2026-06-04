@@ -375,7 +375,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         iconName: "Activity",
         children: ["Dầu cá - Omega 3", "Kẽm - Magie", "Vitamin tổng hợp", "Canxi & Vitamin D", "Vitamin C", "Xem thêm"],
         featuredProducts: [
-          { name: "Viên uống hỗ trợ sức khoẻ tim mạch, giảm mỡ máu, tốt...", price: 330000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502235_vien_dau_ca_tinh_khiet_omega3_triple_strength_webber_naturals_80_vien_2708_6447_large_bd6f01fc54.jpg" },
+          { name: "Viên uống hỗ trợ sức khoẻ tim mạch, giảm mỡ máu, tốt...", price: 330000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08880_009cf2ede8.jpg" },
           { name: "Viên uống bổ sung canxi, giúp tăng chiều cao cho trẻ...", price: 480000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00001517_calcium_corbiere_5ml_sanofi_7413_5b35_large_dadec585bf.JPG" },
           { name: "Viên uống bổ sung vitamin và khoáng chất cho cơ thể,...", price: 410000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_2328_89edc7895e.jpg" },
           { name: "Siro bổ sung canxi & vitamin D3, K2 cho cơ thể Canxi-...", price: 115000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg" },
@@ -389,7 +389,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         children: [],
         featuredProducts: [
           { name: "Dung dịch hỗ trợ phát triển xương, răng cho trẻ D3...", price: 270000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_2328_89edc7895e.jpg" },
-          { name: "Siro giúp xương răng chắc khỏe, bổ sung vitamin D3 +...", price: 396000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00030218_tinh_dau_hoa_anh_thao_evening_primrose_oil_careline_1000mg_100v_1097_634b_large_49b56f8f7b.jpg" },
+          { name: "Siro giúp xương răng chắc khỏe, bổ sung vitamin D3 +...", price: 396000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502210_vien_uong_bo_sung_dau_hoa_anh_thao_cho_phu_nu_tien_man_kinh_kenkan_seishun_primrose_60v_5885_6334_large_f92ec17740.jpg" },
           { name: "Viên sủi bổ sung calci và vitamin cho trẻ em Kudos Kids...", price: 135150, unit: "Tuýp", discount: 15, originalPrice: 159000, image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00507_429b55cc3c.jpg" },
           { name: "Siro giúp bổ sung lợi khuẩn, tốt cho đường ruột Immun...", price: 600000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png" },
           { name: "Viên sủi tăng cường sức đề kháng cho cơ thể Optimax...", price: 129000, unit: "Tuýp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/coenzyme_q10_2x15_doppelherz_00051039_6_b63bec1ce6.png" }
@@ -404,7 +404,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
           { name: "Viên uống bổ sung lợi khuẩn, D-mannose, việt quất...", price: 685000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00000780_sam_agela_gold_dep_da_can_bang_noi_tiet_to_nu_5615_62af_large_8eba87f31b.jpg" },
           { name: "Viên uống hỗ trợ bổ thận, tăng cường sinh lực Sâm Nhu...", price: 125000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00500768_mens_ginseng_alipas_new_ecogreen_60v_1645_62b5_large_ceb7d7acd7.jpg" },
           { name: "Viên uống hỗ trợ tăng cường sinh lý và tăng khả năng...", price: 1300000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00028815_alipas_new_ecogreen_30v_7132_5f99_large_8101b96b1b.JPG" },
-          { name: "Viên uống hỗ trợ tăng sinh lý nữ, tăng cường nội tiết tố n...", price: 660000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00030218_tinh_dau_hoa_anh_thao_evening_primrose_oil_careline_1000mg_100v_1097_634b_large_49b56f8f7b.jpg" },
+          { name: "Viên uống hỗ trợ tăng sinh lý nữ, tăng cường nội tiết tố n...", price: 660000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502210_vien_uong_bo_sung_dau_hoa_anh_thao_cho_phu_nu_tien_man_kinh_kenkan_seishun_primrose_60v_5885_6334_large_f92ec17740.jpg" },
           { name: "Viên uống giúp bổ thận, tráng dương, tăng cường sinh l...", price: 660000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00005685_tinh_chat_hau_oyster_plus_tang_cuong_sinh_luc_phai_manh_3213_62ae_large_c5942edd08.jpg" }
         ]
       },
@@ -415,10 +415,10 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         children: ["Mỏi mắt, khô mắt", "Tăng cường thị lực"],
         featuredProducts: [
           { name: "Viên uống bổ mắt Wit Ecogreen (30 viên)", price: 330000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg" },
-          { name: "Viên uống hỗ trợ bổ mắt Blackmores Macu-Vision (125 viên)", price: 540000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00022718_ocuvite_lutein_forte_bausch_lomb_30v_1456_62b5_large_bdfc7acd7e.jpg" },
+          { name: "Viên uống hỗ trợ bổ mắt Blackmores Macu-Vision (125 viên)", price: 540000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00005468_ocuvite_vitamin_bo_mat_cua_my_4233_62b1_large_619ecef744.jpg" },
           { name: "Nước nhỏ mắt Rohto Vita 40 bổ sung vitamin (12ml)", price: 35000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg" },
           { name: "Dầu cá tự nhiên Omega-3 Fish Oil 1000mg Blackmores", price: 360000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg" },
-          { name: "Viên uống cải thiện cận thị Ocuvite Lutein (60 viên)", price: 420000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg" }
+          { name: "Viên uống cải thiện cận thị Ocuvite Lutein (60 viên)", price: 420000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00345343_coq10_my_vien_uong_bo_tim_mach_2605_5c45_large_985993d8bd.jpg" }
         ]
       },
       {
@@ -428,7 +428,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         children: ["Men vi sinh", "Dạ dày, tá tràng", "Đại tràng", "Nhuận tràng, táo bón", "Khó tiêu", "Hỗ trợ ăn ngon"],
         featuredProducts: [
           { name: "Cốm vi sinh bổ sung lợi khuẩn đường ruột Lacto Biomin...", price: 149000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/Optibac_FW_30_Front_Panel_With_The_Format_SQ_Pack_Shot_VIETNAM_e7e7290a6d.png" },
-          { name: "Siro bổ sung lợi khuẩn cho hệ tiêu hóa, giảm rối loạn...", price: 560000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00005924_hon_dich_uong_phosphalugel_26_goi_x_20g_sanofi_5101_62ad_large_3237ad08cf.jpg" },
+          { name: "Siro bổ sung lợi khuẩn cho hệ tiêu hóa, giảm rối loạn...", price: 560000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/hon_dich_uong_phosphalugel_26_goi_x_20g_sanofi_00005924_510123ad08.jpg" },
           { name: "Bào tử lợi khuẩn cho người tiêu chảy cấp tính, rối loạn tiêu...", price: 270000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09972_98633478a4.jpg" },
           { name: "Bột hòa tan giúp ăn ngon miệng, tăng cường tiêu hóa, c...", price: 360000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502536_vien_nghe_mat_ong_royal_honey_250g_9512_637e_large_7ef79609f0.jpg" },
           { name: "Bào tử lợi khuẩn giúp giảm rối loạn tiêu hóa, cân bằng...", price: 167400, unit: "Hộp", discount: 10, originalPrice: 186000, image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg" }
@@ -442,9 +442,9 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         featuredProducts: [
           { name: "Viên uống bổ não Ginkgo Biloba 120mg Trunature (340 viên)", price: 450000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00003337_ginkgo_biloba_60mg_60v_natures_bounty_8579_63db_large_dc0d941fcd.jpg" },
           { name: "Viên uống OTiV cải thiện mất ngủ đau đầu (30 viên)", price: 330000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/sotivex_7860223cf5.jpg" },
-          { name: "Viên uống giảm stress Melatonin 5mg Natrol (90 viên)", price: 280000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00022137_ginkgo_biloba_120mg_puritans_pride_100v_4162_63cb_large_bf4fecbb9f.jpg" },
+          { name: "Viên uống giảm stress Melatonin 5mg Natrol (90 viên)", price: 280000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00003337_ad07a40b42.png" },
           { name: "Hoạt huyết dưỡng não Cerebrolysin Ampoules", price: 180000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg" },
-          { name: "Dầu cá bổ não Brain DHA Kid Bio Island (60 viên)", price: 350000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00028741_nuoc_yen_sao_khanh_hoa_sanest_co_duong_6_lo_x_70ml_2276_60ee_large_cb6d19472e.jpg" }
+          { name: "Dầu cá bổ não Brain DHA Kid Bio Island (60 viên)", price: 350000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08098_a8caaa2d58.jpg" }
         ]
       },
       {
@@ -453,10 +453,10 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         iconName: "Sparkles",
         children: ["Đẹp da collagen", "Ngừa lão hóa", "Trị mụn", "Sáng da"],
         featuredProducts: [
-          { name: "Viên uống bổ sung Collagen Careline Bio-Marine (100 viên)", price: 390000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00030177_vien_uong_bo_sung_collagen_careline_bio_marine_collagen_100v_4169_636c_large_b9ffecbb9f.jpg" },
-          { name: "Viên uống hỗ trợ sáng da L-Glutathione 500mg Puritans", price: 550000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00031912_tinh_chat_sang_da_mo_tham_eucerin_spotless_brightening_booster_serum_30ml_3364_634a_large_6995f5ab4c.jpg" },
-          { name: "Viên uống hỗ trợ ngăn ngừa mụn trứng cá Acnacare", price: 120000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00030418_kem_duong_giam_mun_ngua_tham_la_roche_posay_effaclar_duo_plus_40ml_1037_6396_large_c8dbad5b1c.jpg" },
-          { name: "Tinh chất Eucerin Elasticity Filler 3D giảm lão hóa", price: 980000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00031805_tinh_chat_ngua_lao_hoa_eucerin_elasticity_filler_3d_serum_30ml_3364_634a_large_e9f5ab4c69.jpg" },
+          { name: "Viên uống bổ sung Collagen Careline Bio-Marine (100 viên)", price: 390000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08098_a8caaa2d58.jpg" },
+          { name: "Viên uống hỗ trợ sáng da L-Glutathione 500mg Puritans", price: 550000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/WHT_Foam_50_g_Tube_3_D_8_7_2021_copy_884e0fad9a.jpg" },
+          { name: "Viên uống hỗ trợ ngăn ngừa mụn trứng cá Acnacare", price: 120000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/123_a6e7c21fce.jpg" },
+          { name: "Tinh chất Eucerin Elasticity Filler 3D giảm lão hóa", price: 980000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/Acne_Foam_50g_73db9e4f86.jpg" },
           { name: "Viên uống Biotin 10,000mcg Puritan's Pride hỗ trợ tóc", price: 320000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00000780_sam_agela_gold_dep_da_can_bang_noi_tiet_to_nu_5615_62af_large_8eba87f31b.jpg" }
         ]
       },
@@ -466,11 +466,11 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         iconName: "Droplets",
         children: ["Hạ đường huyết", "Dinh dưỡng tiểu đường", "Biến chứng tiểu đường"],
         featuredProducts: [
-          { name: "Viên uống hỗ trợ hạ đường huyết Diabetna Nam Dược", price: 110000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00031804_vien_uong_ho_tro_ha_duong_huyet_diabetna_nam_duoc_40v_3364_634a_large_e9f5ab4c69.jpg" },
-          { name: "Sữa bột Glucerna Abbott hỗ trợ người tiểu đường 850g", price: 850000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00500742_sua_bot_dinh_duong_glucerna_abbott_huong_vani_850g_8008_632e_large_651a134cf1.jpg" },
+          { name: "Viên uống hỗ trợ hạ đường huyết Diabetna Nam Dược", price: 110000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00009750_tra_diabetna_giup_ha_duong_huyet_6138_5ffb_large_1a722bcc2c.JPG" },
+          { name: "Sữa bột Glucerna Abbott hỗ trợ người tiểu đường 850g", price: 850000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" },
           { name: "Viên uống ổn định đường huyết Advanced Glucose", price: 650000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_07923_9fb27ccf16.jpg" },
           { name: "Viên uống Chromium hỗ trợ tuyến tụy cải thiện insulin", price: 250000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501706_vien_uong_bao_ve_gan_pharma_world_milk_thistle_60v_3202_6302_large_c595132390.jpg" },
-          { name: "Trà dây túi lọc hỗ trợ ổn định đường ruột dạ dày", price: 45000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.png" }
+          { name: "Trà dây túi lọc hỗ trợ ổn định đường ruột dạ dày", price: 45000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.jpg" }
         ]
       },
       {
@@ -479,10 +479,10 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
         iconName: "Heart",
         children: ["Huyết áp cao", "Mỡ máu", "Phòng đột quỵ", "Bổ tim Coenzyme Q10"],
         featuredProducts: [
-          { name: "Viên uống hỗ trợ tim mạch Coenzyme Q10 Blackmores", price: 620000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00021579_coenzyme_q10_150mg_blackmores_30v_3364_634a_large_4e9f5ab4c9.jpg" },
+          { name: "Viên uống hỗ trợ tim mạch Coenzyme Q10 Blackmores", price: 620000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00022519_co_q10_150mg_blackmores_30v_8058_634e_large_a509ba6b8e.jpg" },
           { name: "Viên uống Nattospes hỗ trợ phòng ngừa tai biến mạch máu", price: 165000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_6883_37a908aa20.jpg" },
           { name: "Dầu cá Fish Oil 1000mg Kirkland Signature (400 viên)", price: 480000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg" },
-          { name: "Viên uống hỗ trợ tim mạch Cardiocare Vitabiotics", price: 380000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg" },
+          { name: "Viên uống hỗ trợ tim mạch Cardiocare Vitabiotics", price: 380000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00345343_coq10_my_vien_uong_bo_tim_mach_2605_5c45_large_985993d8bd.jpg" },
           { name: "Viên dầu cá tinh khiết Omega-3 Triple Strength Webbers", price: 590000, unit: "Lọ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/coenzyme_q10_2x15_doppelherz_00051039_6_b63bec1ce6.png" }
         ]
       },
@@ -495,8 +495,8 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
           { name: "Siro ho bổ phế Prospan Đức hỗ trợ giảm ho hiệu quả", price: 95000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00282_fd7adc8b01.png" },
           { name: "Xịt mũi nước muối biển Sterimar cho bé và gia đình", price: 110000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03550_8a7532c9b1.jpg" },
           { name: "Nước súc miệng diệt khuẩn sát trùng họng Betadine", price: 85000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" },
-          { name: "Viên ngậm bổ phế giảm ho mát họng Nam Dược (24 viên)", price: 35000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00001648_thuoc_ho_eugica_fort_opv_10x10_1177_60ee_large_49dd64ad5b.jpg" },
-          { name: "Thuốc xịt mũi hỗ trợ giảm viêm xoang ngạt mũi Coldi-B", price: 25000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00030218_tinh_dau_hoa_anh_thao_evening_primrose_oil_careline_1000mg_100v_1097_634b_large_49b56f8f7b.jpg" }
+          { name: "Viên ngậm bổ phế giảm ho mát họng Nam Dược (24 viên)", price: 35000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00002923_eugica_candy_9939_62ad_large_491323344e.jpg" },
+          { name: "Thuốc xịt mũi hỗ trợ giảm viêm xoang ngạt mũi Coldi-B", price: 25000, unit: "Chai", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502210_vien_uong_bo_sung_dau_hoa_anh_thao_cho_phu_nu_tien_man_kinh_kenkan_seishun_primrose_60v_5885_6334_large_f92ec17740.jpg" }
         ]
       },
       {
@@ -508,7 +508,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
           { name: "Viên bổ sung canxi, khoáng chất giảm nguy cơ loãng...", price: 920000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00001517_calcium_corbiere_5ml_sanofi_7413_5b35_large_dadec585bf.JPG" },
           { name: "Viên uống bổ sung canxi giúp xương răng chắc khỏe...", price: 347000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00032397_jex_the_he_moi_eco_60v_8040_62b0_large_0e07e3b7bb.jpg" },
           { name: "Viên uống giúp xương và răng chắc khỏe, giảm nguy c...", price: 599000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/thuoc_glucosamine_stada_1500mg_sachet_30_goi_00033098_b66b8e113b.png" },
-          { name: "Viên uống giúp giảm đau khớp, khô khớp, bổ sung chấ...", price: 960000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00033108-vien-uong-ho-tro-tim-mach-cardiocare-vitabiotics-30-vien-7221-6380_large.jpg" },
+          { name: "Viên uống giúp giảm đau khớp, khô khớp, bổ sung chấ...", price: 960000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00345343_coq10_my_vien_uong_bo_tim_mach_2605_5c45_large_985993d8bd.jpg" },
           { name: "Viên uống giúp tăng tiết dịch khớp, giảm thoái hóa khớp...", price: 650000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00511_937fafcbf1.jpg" }
         ]
       }
@@ -604,7 +604,7 @@ const NAV_MEGA_MENU_DATA: MegaCategory[] = [
           { name: "Sữa dinh dưỡng y học Fohepta Vitadairy (400g)", price: 285000, unit: "Lon", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" },
           { name: "Nước Yến Sào Nunest Đông Trùng Hạ Thảo (Hũ 70ml)", price: 45000, unit: "Hũ", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_00062_6c2770609f.jpg" },
           { name: "Trà Thảo Mộc Atiso Datino Premium Tea", price: 75000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/tra_thao_moc_atiso_20_tui_loc_x_2g_datino_premium_tea_00040886_1_49f34e811c.jpg" },
-          { name: "Sữa Bột Dinh Dưỡng Glucerna Abbott Vani (850g)", price: 820000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/00500742_sua_bot_dinh_duong_glucerna_abbott_huong_vani_850g_8008_632e_large_651a134cf1.jpg" }
+          { name: "Sữa Bột Dinh Dưỡng Glucerna Abbott Vani (850g)", price: 820000, unit: "Hộp", image: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" }
         ]
       },
       {
