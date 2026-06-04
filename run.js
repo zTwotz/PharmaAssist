@@ -46,8 +46,6 @@ const COLORS = {
 
 const REQUIRED_NODE_VERSION = 20;
 
-let shellConfiguredThisRun = false;
-
 // Tự động cấu hình môi trường shell (Aliases: pa, run, runf, runb)
 function setupShellEnvironment() {
   const { execSync } = require('child_process');
@@ -59,109 +57,43 @@ function setupShellEnvironment() {
 # ==========================================
 # PharmaAssist custom aliases & functions
 # ==========================================
+alias pa="node ${projectRootEscaped}/run.js"
 alias PA="pa"
 alias Pa="pa"
-alias Run="run"
-alias RUN="run"
-
-function pa() {
-  local current_dir=$(pwd)
-  local dir="$current_dir"
-  local found_run_js=""
-  while [[ "$dir" != "/" && -n "$dir" ]]; do
-    if [[ -f "$dir/run.js" ]]; then
-      found_run_js="$dir/run.js"
-      break
-    fi
-    dir=$(dirname "$dir")
-  done
-
-  if [[ -n "$found_run_js" ]]; then
-    node "$found_run_js" "$@"
-  else
-    node "${projectRootEscaped}/run.js" "$@"
-  fi
-}
 
 function run() {
   local current_dir=$(pwd)
-  local dir="$current_dir"
-  local found_run_js=""
-  while [[ "$dir" != "/" && -n "$dir" ]]; do
-    if [[ -f "$dir/run.js" ]]; then
-      found_run_js="$dir/run.js"
-      break
-    fi
-    dir=$(dirname "$dir")
-  done
-
-  if [[ -n "$found_run_js" ]]; then
-    if [[ "$current_dir" == "$dir" ]]; then
-      echo "Ban dang o thu muc goc. Ban muon chay Backend hay Frontend?"
-      echo "1. Backend"
-      echo "2. Frontend"
-      echo -n "Chon (1/2): "
-      read choice
-      echo ""
-      if [[ "$choice" == "1" ]]; then
-        cd "$dir/backend" && npm run start:dev
-      elif [[ "$choice" == "2" ]]; then
-        cd "$dir/frontend" && npm run dev
-      else
-        echo "Lua chon khong hop le."
-      fi
-    elif [[ "$current_dir" == "$dir/frontend" ]]; then
-      npm run dev
-    elif [[ "$current_dir" == "$dir/backend" ]]; then
-      if grep -q "start:dev" package.json 2>/dev/null; then
-        npm run start:dev
-      else
-        npm run dev 2>/dev/null || npm start
-      fi
+  local project_root="${projectRootEscaped}"
+  
+  if [[ "$current_dir" == "$project_root" ]]; then
+    echo "Ban dang o thu muc goc. Ban muon chay Backend hay Frontend?"
+    echo "1. Backend"
+    echo "2. Frontend"
+    echo -n "Chon (1/2): "
+    read choice
+    echo ""
+    if [[ "$choice" == "1" ]]; then
+      cd "$project_root/backend" && npm run start:dev
+    elif [[ "$choice" == "2" ]]; then
+      cd "$project_root/frontend" && npm run dev
     else
-      node "$found_run_js" "$@"
+      echo "Lua chon khong hop le."
     fi
+  elif [[ "$current_dir" == "$project_root/frontend" ]]; then
+    npm run dev
+  elif [[ "$current_dir" == "$project_root/backend" ]]; then
+    npm run start:dev
   else
-    echo "Lệnh 'run' không hỗ trợ trong thư mục này (không tìm thấy run.js trong cây thư mục)."
+    echo "Lenh 'run' khong ho tro trong thu muc nay."
   fi
 }
 
 function runf() {
-  local current_dir=$(pwd)
-  local dir="$current_dir"
-  local found_run_js=""
-  while [[ "$dir" != "/" && -n "$dir" ]]; do
-    if [[ -f "$dir/run.js" ]]; then
-      found_run_js="$dir/run.js"
-      break
-    fi
-    dir=$(dirname "$dir")
-  done
-
-  if [[ -n "$found_run_js" ]]; then
-    cd "$dir/frontend" && npm run dev
-  else
-    cd "${projectRootEscaped}/frontend" && npm run dev
-  fi
+  cd "${projectRootEscaped}/frontend" && npm run dev
 }
 
 function runb() {
-  local current_dir=$(pwd)
-  local dir="$current_dir"
-  local found_run_js=""
-  while [[ "$dir" != "/" && -n "$dir" ]]; do
-    if [[ -f "$dir/run.js" ]]; then
-      found_run_js="$dir/run.js"
-      break
-    fi
-    dir=$(dirname "$dir")
-  done
-
-  if [[ -n "$found_run_js" ]]; then
-    cd "$dir/backend" && npm run start:dev
-  else
-    cd "${projectRootEscaped}/backend" && npm run start:dev
-  fi
+  cd "${projectRootEscaped}/backend" && npm run start:dev
 }
 # ==========================================
 `;
@@ -171,123 +103,46 @@ function runb() {
 # ==========================================
 # PharmaAssist custom aliases & functions
 # ==========================================
-function pa { 
-  $current_dir = (Get-Location).Path.Replace('\\\\', '/')
-  $dir = $current_dir
-  $found_run_js = $null
-  while ($dir -ne "/" -and $dir -ne "" -and $dir -match "^[A-Za-z]:/?$|^/$" -eq $false) {
-    if (Test-Path "$dir/run.js") {
-      $found_run_js = "$dir/run.js"
-      break
-    }
-    $dir = Split-Path -Parent $dir
-    if ($dir -eq $null) { break }
-    $dir = $dir.Replace('\\\\', '/')
-  }
-  if ($found_run_js -ne $null) {
-    node "$found_run_js" $args
-  } else {
-    node "${projectRootEscaped}/run.js" $args
-  }
-}
-function PA { pa $args }
-function Pa { pa $args }
-
-function Run { run $args }
-function RUN { run $args }
+function pa { node "${projectRootEscaped}/run.js" $args }
+function PA { node "${projectRootEscaped}/run.js" $args }
+function Pa { node "${projectRootEscaped}/run.js" $args }
 
 function run {
-  $current_dir = (Get-Location).Path.Replace('\\\\', '/')
-  $dir = $current_dir
-  $found_run_js = $null
-  while ($dir -ne "/" -and $dir -ne "" -and $dir -match "^[A-Za-z]:/?$|^/$" -eq $false) {
-    if (Test-Path "$dir/run.js") {
-      $found_run_js = "$dir/run.js"
-      break
-    }
-    $dir = Split-Path -Parent $dir
-    if ($dir -eq $null) { break }
-    $dir = $dir.Replace('\\\\', '/')
-  }
+  $current_dir = (Get-Location).Path.Replace('\\', '/')
+  $project_root = "${projectRootEscaped}"
   
-  if ($found_run_js -ne $null) {
-    if ($current_dir -eq $dir) {
-      Write-Output "Ban dang o thu muc goc. Ban muon chay Backend hay Frontend?"
-      Write-Output "1. Backend"
-      Write-Output "2. Frontend"
-      $choice = Read-Host -Prompt "Chon (1/2)"
-      Write-Output ""
-      if ($choice -eq "1") {
-        Set-Location "$dir/backend"
-        npm run start:dev
-      } elseif ($choice -eq "2") {
-        Set-Location "$dir/frontend"
-        npm run dev
-      } else {
-        Write-Output "Lua chon khong hop le."
-      }
-    } elseif ($current_dir -eq "$dir/frontend") {
+  if ($current_dir -eq $project_root) {
+    Write-Output "Ban dang o thu muc goc. Ban muon chay Backend hay Frontend?"
+    Write-Output "1. Backend"
+    Write-Output "2. Frontend"
+    $choice = Read-Host -Prompt "Chon (1/2)"
+    Write-Output ""
+    if ($choice -eq "1") {
+      Set-Location "$project_root/backend"
+      npm run start:dev
+    } elseif ($choice -eq "2") {
+      Set-Location "$project_root/frontend"
       npm run dev
-    } elseif ($current_dir -eq "$dir/backend") {
-      if (Test-Path "$dir/backend/package.json") {
-        if (Select-String -Path "$dir/backend/package.json" -Pattern "start:dev" -Quiet) {
-          npm run start:dev
-        } else {
-          npm run dev
-        }
-      } else {
-        npm run dev
-      }
     } else {
-      node "$found_run_js" $args
+      Write-Output "Lua chon khong hop le."
     }
+  } elseif ($current_dir -eq "$project_root/frontend") {
+    npm run dev
+  } elseif ($current_dir -eq "$project_root/backend") {
+    npm run start:dev
   } else {
-    Write-Output "Lenh 'run' khong ho tro trong thu muc nay (khong tim thay run.js)."
+    Write-Output "Lenh 'run' khong ho tro trong thu muc nay."
   }
 }
 
 function runf {
-  $current_dir = (Get-Location).Path.Replace('\\\\', '/')
-  $dir = $current_dir
-  $found_run_js = $null
-  while ($dir -ne "/" -and $dir -ne "" -and $dir -match "^[A-Za-z]:/?$|^/$" -eq $false) {
-    if (Test-Path "$dir/run.js") {
-      $found_run_js = "$dir/run.js"
-      break
-    }
-    $dir = Split-Path -Parent $dir
-    if ($dir -eq $null) { break }
-    $dir = $dir.Replace('\\\\', '/')
-  }
-  if ($found_run_js -ne $null) {
-    Set-Location "$dir/frontend"
-    npm run dev
-  } else {
-    Set-Location "${projectRootEscaped}/frontend"
-    npm run dev
-  }
+  Set-Location "${projectRootEscaped}/frontend"
+  npm run dev
 }
 
 function runb {
-  $current_dir = (Get-Location).Path.Replace('\\\\', '/')
-  $dir = $current_dir
-  $found_run_js = $null
-  while ($dir -ne "/" -and $dir -ne "" -and $dir -match "^[A-Za-z]:/?$|^/$" -eq $false) {
-    if (Test-Path "$dir/run.js") {
-      $found_run_js = "$dir/run.js"
-      break
-    }
-    $dir = Split-Path -Parent $dir
-    if ($dir -eq $null) { break }
-    $dir = $dir.Replace('\\\\', '/')
-  }
-  if ($found_run_js -ne $null) {
-    Set-Location "$dir/backend"
-    npm run start:dev
-  } else {
-    Set-Location "${projectRootEscaped}/backend"
-    npm run start:dev
-  }
+  Set-Location "${projectRootEscaped}/backend"
+  npm run start:dev
 }
 # ==========================================
 `;
@@ -372,20 +227,18 @@ function runb {
 
   // In thông báo nếu có cấu hình mới
   if (unixConfigured.length > 0 || windowsConfigured.length > 0) {
-    shellConfiguredThisRun = true;
     console.log(`\n${COLORS.bgGreen}${COLORS.bright} ĐÃ CẤU HÌNH TỰ ĐỘNG TERMINAL ${COLORS.reset}`);
     
     if (unixConfigured.length > 0) {
-      console.log(`${COLORS.green}Các lệnh rút gọn (pa, PA, Pa, run, RUN, Run, runf, runb) đã được cấu hình thành công: ${unixConfigured.join(', ')}${COLORS.reset}`);
-      console.log(`${COLORS.yellow}>>> CẢNH BÁO: Để sử dụng các lệnh này NGAY LẬP TỨC trong terminal hiện tại, hãy chạy lệnh sau: <<<`);
-      console.log(`${COLORS.cyan}${COLORS.bright}source ~/.zshrc${COLORS.yellow} (hoặc ~/.bashrc tùy shell)${COLORS.reset}\n`);
+      console.log(`${COLORS.green}Các lệnh rút gọn (pa, run, runf, runb) đã được thêm vào: ${unixConfigured.join(', ')}${COLORS.reset}`);
+      console.log(`${COLORS.yellow}>>> Vui lòng khởi động lại Terminal hoặc chạy: source ~/.zshrc (hoặc ~/.bashrc) để cập nhật. <<<${COLORS.reset}`);
     }
     
     if (windowsConfigured.length > 0) {
-      console.log(`${COLORS.green}Các lệnh rút gọn (pa, PA, Pa, run, RUN, Run, runf, runb) đã được cấu hình thành công: ${windowsConfigured.join(', ')}${COLORS.reset}`);
-      console.log(`${COLORS.yellow}>>> CẢNH BÁO: Để sử dụng các lệnh này NGAY LẬP TỨC trong terminal hiện tại, hãy chạy lệnh sau: <<<`);
-      console.log(`${COLORS.cyan}${COLORS.bright}. $PROFILE${COLORS.reset}\n`);
+      console.log(`${COLORS.green}Các lệnh rút gọn (pa, run, runf, runb) đã được thêm vào profile: ${windowsConfigured.join(', ')}${COLORS.reset}`);
+      console.log(`${COLORS.yellow}>>> Vui lòng KHỞI ĐỘNG LẠI TERMINAL (hoặc chạy: . $PROFILE) để cập nhật. <<<${COLORS.reset}`);
     }
+    console.log();
   }
 }
 
@@ -672,30 +525,6 @@ function doStart() {
   });
 }
 
-// Khởi chạy shell con interactive mới để nạp trực tiếp zshrc/powershell profile
-function checkAndSpawnShell() {
-  if (shellConfiguredThisRun) {
-    console.log(`\n${COLORS.magenta}${COLORS.bright}>>> ĐANG TỰ ĐỘNG KHỞI CHẠY SHELL MỚI ĐỂ CẬP NHẬT CÁC LỆNH TẮT... <<<${COLORS.reset}`);
-    console.log(`${COLORS.dim}Các phím tắt (pa, PA, Pa, run, RUN, Run, runf, runb) đã sẵn sàng hoạt động trong shell này.${COLORS.reset}`);
-    console.log(`${COLORS.dim}Gõ 'exit' để quay lại shell cũ.${COLORS.reset}\n`);
-    
-    // Phát hiện Shell hiện tại của người dùng
-    const userShell = process.env.SHELL || (process.platform === 'win32' ? 'powershell' : 'zsh');
-    
-    // Chạy shell mới ở chế độ interactive
-    const shellProcess = spawn(userShell, [], {
-      stdio: 'inherit',
-      shell: true
-    });
-    
-    shellProcess.on('close', (code) => {
-      process.exit(code || 0);
-    });
-  } else {
-    process.exit(0);
-  }
-}
-
 // Hiển thị menu tương tác readline
 function showInteractiveMenu() {
   showBanner();
@@ -720,7 +549,6 @@ function showInteractiveMenu() {
       case '1':
         rl.close();
         await doSetup();
-        checkAndSpawnShell();
         break;
       case '2':
         rl.close();
@@ -729,7 +557,6 @@ function showInteractiveMenu() {
       case '3':
         rl.close();
         doClean(false);
-        checkAndSpawnShell();
         break;
       case '4':
         rl.question(`${COLORS.red}${COLORS.bright}CẢNH BÁO: Thao tác này sẽ xóa toàn bộ node_modules. Bạn có chắc chắn? (y/n): ${COLORS.reset}`, (confirm) => {
@@ -739,13 +566,12 @@ function showInteractiveMenu() {
           } else {
             console.log('Đã hủy thao tác dọn dẹp sạch.');
           }
-          checkAndSpawnShell();
         });
         break;
       case '5':
         rl.close();
         console.log('Đã thoát. Chúc bạn code vui vẻ!');
-        checkAndSpawnShell();
+        process.exit(0);
         break;
       default:
         rl.close();
@@ -769,18 +595,16 @@ function main() {
   
   switch (action) {
     case 'setup':
-      doSetup().then(() => checkAndSpawnShell()).catch(() => checkAndSpawnShell());
+      doSetup();
       break;
     case 'start':
       doStart();
       break;
     case 'clean':
       doClean(false);
-      checkAndSpawnShell();
       break;
     case 'clean-all':
       doClean(true);
-      checkAndSpawnShell();
       break;
     case 'help':
     case '--help':
