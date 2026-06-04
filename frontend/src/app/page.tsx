@@ -63,6 +63,176 @@ const MOCK_CATEGORIES = [
   { id: "other", name: "Sản phẩm khác", count: 14 }
 ];
 
+const FEATURED_CATEGORIES = [
+  {
+    id: "brain",
+    name: "Thần kinh não",
+    filterName: "Thần kinh não",
+    count: 55,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v1.5c0 1.5-1 2.5-2.5 2.5s-2.5-1-2.5-2.5V9.5z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5h5c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7V3m-4 1c0-.5.5-1 1-1h6c.5 0 1 .5 1 1" />
+      </svg>
+    )
+  },
+  {
+    id: "vitamin",
+    name: "Vitamin & Khoáng chất",
+    filterName: "Vitamin & Khoáng chất",
+    count: 83,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <rect x="7" y="5" width="10" height="14" rx="2" />
+        <line x1="7" y1="10" x2="17" y2="10" />
+        <circle cx="12" cy="14" r="1.5" />
+        <text x="12" y="8.5" textAnchor="middle" fontSize="4.5" fontWeight="900" fill="currentColor" stroke="none">VIT</text>
+      </svg>
+    )
+  },
+  {
+    id: "hormone",
+    name: "Sinh lý - Nội tiết tố",
+    filterName: "Sinh lý - Nội tiết tố",
+    count: 44,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <rect x="5" y="8" width="6" height="11" rx="1.5" />
+        <rect x="13" y="8" width="6" height="11" rx="1.5" />
+        <circle cx="8" cy="12" r="1" />
+        <circle cx="16" cy="12" r="1" />
+        <text x="8" y="17" textAnchor="middle" fontSize="5" fontWeight="900" fill="currentColor" stroke="none">♀</text>
+        <text x="16" y="17" textAnchor="middle" fontSize="5" fontWeight="900" fill="currentColor" stroke="none">♂</text>
+        <path d="M8 5v3M16 5v3" strokeLinecap="round" />
+      </svg>
+    )
+  },
+  {
+    id: "cardio",
+    name: "Tim mạch - Huyết áp",
+    filterName: "Tim mạch - Huyết áp",
+    count: 21,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        <path d="M6 9.5h2.5l1.5-2.5 1.5 5 1.5-4 1.5 1.5h2.5" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  },
+  {
+    id: "immune",
+    name: "Miễn dịch - Đề kháng",
+    filterName: "Miễn dịch - Đề kháng",
+    count: 48,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    )
+  },
+  {
+    id: "digest",
+    name: "Tiêu hóa",
+    filterName: "Tiêu hóa",
+    count: 70,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 9c0-1.5 2-3 4-3s4 1.5 4 3c0 3 6-1 6 3v4c0 3-4 5-8 5s-6-2-6-5V9z" />
+        <path d="M9 12h6M9 15h3" strokeLinecap="round" />
+      </svg>
+    )
+  },
+  {
+    id: "skin-solution",
+    name: "Giải pháp làn da",
+    filterName: "Giải pháp làn da",
+    count: 71,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path d="M4 14s2-2 4-2 4 2 4 2 2-2 4-2 4 2 4 2" strokeLinecap="round" />
+        <path d="M4 18s2-2 4-2 4 2 4 2 2-2 4-2 4 2 4 2" strokeLinecap="round" />
+        <rect x="10" y="4" width="4" height="5" rx="2" fill="currentColor" opacity="0.1" />
+        <path d="M12 3.5v6M9.5 6h5" strokeWidth="1.5" />
+      </svg>
+    )
+  },
+  {
+    id: "face-care",
+    name: "Chăm sóc da mặt",
+    filterName: "Chăm sóc da mặt",
+    count: 158,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <ellipse cx="9" cy="10" rx="1.5" ry="2" fill="currentColor" />
+        <ellipse cx="15" cy="10" rx="1.5" ry="2" fill="currentColor" />
+        <path d="M8 15s1.5 2 4 2 4-2 4-2" strokeLinecap="round" />
+        <circle cx="5" cy="6" r="0.8" fill="currentColor" />
+        <circle cx="19" cy="6" r="0.8" fill="currentColor" />
+      </svg>
+    )
+  },
+  {
+    id: "beauty",
+    name: "Hỗ trợ làm đẹp",
+    filterName: "Hỗ trợ làm đẹp",
+    count: 18,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path d="M12 4c-3.333 0-5 2.5-5 5.5S8.667 15 12 15s5-2 5-5.5S15.333 4 12 4z" />
+        <path d="M7 11.5c.5.5 1.5.5 2 0s.5-1.5 0-2" />
+        <circle cx="12" cy="9.5" r="1.5" fill="currentColor" />
+      </svg>
+    )
+  },
+  {
+    id: "sex",
+    name: "Hỗ trợ tình dục",
+    filterName: "Hỗ trợ tình dục",
+    count: 41,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <circle cx="9" cy="14" r="4" />
+        <line x1="9" y1="10" x2="9" y2="4" />
+        <line x1="6" y1="7" x2="12" y2="7" />
+        <circle cx="15" cy="9" r="4" />
+        <line x1="18" y1="9" x2="22" y2="5" />
+        <line x1="18" y1="5" x2="22" y2="5" />
+        <line x1="22" y1="9" x2="22" y2="5" />
+      </svg>
+    )
+  },
+  {
+    id: "milk",
+    name: "Sữa",
+    filterName: "Sữa",
+    count: 43,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <rect x="7" y="6" width="10" height="14" rx="2" />
+        <ellipse cx="12" cy="6" rx="4" ry="1.5" />
+        <path d="M7 10h10" />
+        <circle cx="12" cy="14" r="2.5" fill="currentColor" opacity="0.1" />
+      </svg>
+    )
+  },
+  {
+    id: "monitoring",
+    name: "Dụng cụ theo dõi",
+    filterName: "Dụng cụ theo dõi",
+    count: 95,
+    icon: (
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path d="M4.5 4v5a7.5 7.5 0 0015 0V4" />
+        <path d="M12 16.5v4.5M10 21h4" />
+        <circle cx="4.5" cy="4" r="1" fill="currentColor" />
+        <circle cx="19.5" cy="4" r="1" fill="currentColor" />
+      </svg>
+    )
+  }
+];
+
 // Mock Medicines
 const MOCK_MEDICINES: Medicine[] = [
   {
@@ -800,7 +970,7 @@ export default function HomePage() {
         med.category.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesCategory = selectedCategory 
-        ? med.category === selectedCategory 
+        ? med.category.toLowerCase() === selectedCategory.toLowerCase()
         : true;
 
       return matchesSearch && matchesCategory;
@@ -2160,41 +2330,63 @@ export default function HomePage() {
 
         {/* 5. DANH MỤC NỔI BẬT */}
         <section id="medicine-categories" className="py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-            <div>
-              <span className="text-xs uppercase tracking-widest text-primary font-bold">Danh mục sản phẩm</span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-ink mt-1">Các nhóm thuốc nổi bật</h2>
+          {/* Header layout matching the Long Chau design */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-fog pb-4">
+            <div className="flex items-center gap-3">
+              {/* Blue Trophy/Award badge circle icon */}
+              <div className="bg-[#024ad8]/10 text-[#024ad8] p-2.5 rounded-full shadow-sm flex items-center justify-center">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.375M7.5 18.75v-3.375c0-.621.503-1.125 1.125-1.125h.375m9 0A3.375 3.375 0 0121 10.875v-1.5c0-.621-.503-1.125-1.125-1.125h-.375m-9 0H9.75M12 3v12.375" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Danh mục nổi bật</h2>
             </div>
+            
+            {/* Show display all button if filtered */}
             {selectedCategory && (
               <button 
                 onClick={() => setSelectedCategory(null)}
-                className="text-sm text-primary hover:text-primary-deep font-semibold flex items-center gap-1 transition-colors"
+                className="text-xs text-[#024ad8] hover:text-[#01359c] font-black flex items-center gap-1 transition-colors hover:underline"
               >
                 Hiển thị tất cả thuốc
-                <ChevronRight size={16} />
+                <ChevronRight size={14} />
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.name;
+          {/* Grid Layout of 12 categories: 2 columns on mobile, 3 on sm, 4 on md, 6 on desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {FEATURED_CATEGORIES.map((cat) => {
+              const isSelected = selectedCategory?.toLowerCase() === cat.filterName.toLowerCase();
               return (
                 <button
                   key={cat.id}
-                  onClick={() => setSelectedCategory(isSelected ? null : cat.name)}
-                  className={`p-4 rounded-2xl text-center flex flex-col items-center justify-center border transition-all duration-300 hover:scale-102 hover:shadow-md ${
+                  onClick={() => setSelectedCategory(isSelected ? null : cat.filterName)}
+                  className={`p-5 rounded-2xl text-center flex flex-col items-center justify-between border transition-all duration-300 hover:scale-102 hover:shadow-lg h-full min-h-[158px] group relative ${
                     isSelected 
-                      ? "bg-primary border-primary text-white" 
-                      : "bg-white border-fog text-ink hover:border-primary-soft"
+                      ? "bg-[#eff6ff] border-[#024ad8]/40 shadow-sm" 
+                      : "bg-white border-fog hover:border-[#024ad8]/20 shadow-sm"
                   }`}
                 >
-                  <div className={`p-2.5 rounded-xl mb-3 ${isSelected ? "bg-white/20 text-white" : "bg-cloud text-primary"}`}>
-                    <ClipboardList size={18} />
+                  {/* Category SVG Icon */}
+                  <div className="flex-1 flex items-center justify-center mb-3">
+                    {cat.icon}
                   </div>
-                  <span className="text-xs font-bold leading-tight block line-clamp-2">
-                    {cat.name}
-                  </span>
+
+                  <div className="w-full">
+                    <span className="text-[12px] font-extrabold leading-tight block text-[#1a1a1a] group-hover:text-[#024ad8] transition-colors line-clamp-2">
+                      {cat.name}
+                    </span>
+                    <span className="text-[10px] text-gray-400 font-bold block mt-1">
+                      {cat.count} sản phẩm
+                    </span>
+                  </div>
+
+                  {/* Active highlight bar indicator */}
+                  {isSelected && (
+                    <div className="absolute bottom-0 left-1/4 right-1/4 h-1 bg-[#024ad8] rounded-t-full" />
+                  )}
                 </button>
               );
             })}
