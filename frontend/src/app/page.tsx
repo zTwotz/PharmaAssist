@@ -2625,7 +2625,7 @@ export default function HomePage() {
                         </span>
                       </div>
                       <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/gel_boi_mieng_aloclair_plus_alliance_8ml_giam_nhiet_mieng_tay_chan_mieng_00030559_1_0c5ca8c253.png" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
                       </div>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
@@ -2896,7 +2896,7 @@ export default function HomePage() {
                         </span>
                       </div>
                       <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/khau_trang_y_te_famapro_extra_4_lop_mau_trang_hop_50_cai_00502758_large_3770_62b1_large_fef62a93ff.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
                       </div>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
@@ -3056,7 +3056,7 @@ export default function HomePage() {
                         </span>
                       </div>
                       <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200mg_sanofi_3x10_00015328_large_3716_62c4_large_bcde89f410.jpg" alt="Acemuc" className="w-full h-full object-contain p-2" />
+                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
                       </div>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
