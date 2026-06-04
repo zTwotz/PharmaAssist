@@ -29,7 +29,9 @@ import {
   Brain,
   Droplets,
   Wind,
-  Flame
+  Flame,
+  Pill,
+  Syringe
 } from "lucide-react";
 
 // Types
@@ -1097,138 +1099,254 @@ export default function HomePage() {
       {/* MAIN CONTAINER */}
       <main className="flex-1">
         
-        {/* 3. HERO BANNER */}
-        <section className="relative overflow-hidden bg-gradient-to-r from-primary-deep to-primary py-12 md:py-20 text-white px-4 md:px-8">
-          {/* Decorative shapes resembling slashes in HP design */}
-          <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none transform skew-x-12 translate-x-20 bg-gradient-to-l from-white to-transparent" />
-          <div className="absolute -bottom-10 left-10 w-96 h-96 rounded-full bg-primary-bright opacity-20 blur-3xl pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            <div className="lg:col-span-7 flex flex-col gap-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-1.5 bg-primary-bright/35 text-primary-soft text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto lg:mx-0 border border-primary-bright/50">
-                <ShieldCheck size={14} className="text-white" />
-                Hệ thống chuẩn hóa chuẩn CNPM
-              </div>
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
-                PharmaAssist – Tra cứu thuốc nhanh, mua thuốc thuận tiện
-              </h1>
-              <p className="text-base md:text-lg text-primary-soft max-w-2xl leading-relaxed">
-                Hỗ trợ tra cứu hoạt chất thuốc, xem danh mục đa dạng, tạo giỏ hàng demo mua thuốc và phát hiện nhanh tương tác thuốc tự động dựa trên dữ liệu mẫu chuẩn hóa.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-2">
-                <a 
-                  href="#featured-medicines" 
-                  className="flex items-center justify-center gap-2 bg-white text-primary hover:bg-primary-soft hover:text-primary-deep font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:scale-102"
-                >
-                  Tìm thuốc ngay
-                  <ArrowRight size={16} />
-                </a>
-                <a 
-                  href="#medicine-categories" 
-                  className="flex items-center justify-center gap-2 bg-primary-deep/50 hover:bg-primary-deep/80 text-white border border-primary-bright/40 font-semibold px-6 py-3 rounded-xl transition-all duration-300"
-                >
-                  Xem danh mục
-                </a>
-              </div>
-            </div>
-
-            {/* Illustration panel right */}
-            <div className="lg:col-span-5 hidden lg:block">
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-2xl relative">
-                <div className="absolute -top-3 -left-3 bg-bloom-coral text-white p-3 rounded-2xl shadow-lg">
-                  <AlertTriangle size={24} />
+        {/* 3. HERO BANNER & QUICK ACTIONS REDESIGN */}
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col gap-6">
+          
+          {/* Top Banner Row (Grid layout) */}
+          <div className="grid grid-cols-12 gap-4">
+            
+            {/* Left Big Carousel Banner */}
+            <div className="col-span-12 lg:col-span-8 bg-[#d6f8ff] rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[300px]">
+              {/* Decorative background illustrations */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#93c5fd] opacity-20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 left-10 w-32 h-32 bg-[#22d3ee] opacity-15 rounded-full blur-2xl pointer-events-none" />
+              
+              {/* Left text column */}
+              <div className="flex flex-col gap-4 max-w-md relative z-10 text-left">
+                <div className="flex items-center gap-1.5">
+                  <div className="bg-[#024ad8] text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
+                    SANOFI
+                  </div>
+                  <span className="text-[11px] text-[#024ad8] font-bold tracking-wide uppercase">
+                    enterogermina baby comfort
+                  </span>
                 </div>
                 
-                <h3 className="text-lg font-bold mb-4 ml-8 text-white flex items-center gap-2">
-                  <Sparkles className="text-primary-soft" size={20} />
-                  Mô phỏng Kiểm Tra Tương Tác
-                </h3>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-[#111827] leading-tight">
+                  Thêm Lợi Khuẩn Tốt<br />
+                  <span className="text-[#024ad8]">Chăm Bụng Bé Khỏe</span>
+                </h2>
                 
-                <div className="space-y-3">
-                  <div className="bg-white/10 p-3 rounded-xl border border-white/10 text-xs">
-                    <span className="block font-semibold text-primary-soft">Thuốc A: Paracetamol 500mg</span>
-                    <span className="text-white/80">Nhóm giảm đau hạ sốt rất phổ biến.</span>
+                {/* Orange voucher tags */}
+                <div className="flex items-stretch gap-2 bg-[#ff5a00] text-white p-3 rounded-2xl max-w-sm shadow-sm">
+                  <div className="flex flex-col justify-center pr-3 border-r border-white/20">
+                    <span className="text-[10px] opacity-90 font-medium">Tặng voucher</span>
+                    <strong className="text-sm md:text-base font-black">50.000Đ</strong>
+                    <span className="text-[8px] opacity-80">*Voucher tiêm chủng</span>
                   </div>
-                  <div className="bg-white/10 p-3 rounded-xl border border-white/10 text-xs">
-                    <span className="block font-semibold text-primary-soft">Thuốc B: Ibuprofen 400mg</span>
-                    <span className="text-white/80">Nhóm giảm đau kháng viêm NSAID.</span>
+                  <div className="flex flex-col justify-center pl-1">
+                    <span className="text-[10px] opacity-90 font-medium">Giá chỉ</span>
+                    <strong className="text-sm md:text-base font-black">475.000Đ</strong>
+                    <span className="text-[8px] opacity-80">1 Hộp</span>
                   </div>
-                  <div className="bg-bloom-wine/80 p-3 rounded-xl border border-bloom-coral/50 text-xs flex gap-2">
-                    <Info size={20} className="text-bloom-coral shrink-0" />
-                    <div>
-                      <strong className="text-bloom-coral block">Khuyến nghị tương tác:</strong>
-                      <span className="text-white/90">Tránh dùng đồng thời lâu dài để bảo vệ dạ dày & gan của bệnh nhân.</span>
-                    </div>
+                </div>
+
+                <div className="flex items-center gap-4 mt-2">
+                  <button 
+                    onClick={() => {
+                      const target = document.getElementById("featured-medicines");
+                      if (target) target.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:scale-102 uppercase tracking-wider"
+                  >
+                    Mua Ngay
+                  </button>
+                  <div className="flex flex-col text-left">
+                    <strong className="text-xs text-[#024ad8] font-bold">FREESHIP</strong>
+                    <span className="text-[9px] text-[#6b7280] font-medium">*Khi đặt qua App</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Right image/illustration column */}
+              <div className="relative z-10 w-full md:w-auto mt-6 md:mt-0 flex justify-center items-center shrink-0">
+                <div className="relative w-64 h-56 flex items-center justify-center">
+                  {/* Circle background decorator */}
+                  <div className="absolute w-44 h-44 rounded-full bg-white/60 border border-cyan-100 flex items-center justify-center shadow-inner" />
+                  
+                  {/* Stomach/gut health indicator icon */}
+                  <div className="absolute top-2 left-6 bg-[#22c55e]/15 text-[#16a34a] p-2 rounded-full border border-green-200/50 shadow-sm animate-pulse">
+                    <Activity size={20} />
+                  </div>
+                  
+                  {/* Enterogermina real product image from DB */}
+                  <img 
+                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/enterogermina_4_ty_ong_5ml_2x10_sanofi_00030670_e8cd62ab8d.png" 
+                    alt="Enterogermina" 
+                    className="w-40 h-40 object-contain drop-shadow-xl relative z-10 hover:scale-105 transition-transform duration-300"
+                  />
+                  
+                  {/* Mother-baby label indicator */}
+                  <div className="absolute -bottom-2 right-4 bg-white/90 backdrop-blur-sm border border-fog px-3 py-1.5 rounded-xl shadow-sm text-center flex items-center gap-1.5 z-20">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]" />
+                    <span className="text-[10px] font-bold text-[#374151]">Men vi sinh 4 tỷ bào tử</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Carousel navigation arrows (aesthetic indicator) */}
+              <button className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+                <ChevronRight size={16} className="rotate-180" />
+              </button>
+              <button className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
+            {/* Right Side Column (2 Banners Stacked) */}
+            <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
+              
+              {/* Upper Blue Banner: Ung Thư */}
+              <div className="bg-gradient-to-br from-[#024ad8] to-[#2563eb] rounded-3xl p-5 flex justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[142px] group cursor-pointer text-left">
+                {/* Decorative purple ribbon icon bg */}
+                <div className="absolute right-2 top-0 opacity-15 text-white pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                  <ShieldCheck size={110} />
+                </div>
+                
+                <div className="flex flex-col gap-2 max-w-[70%] relative z-10 text-white">
+                  <h3 className="text-base font-extrabold tracking-wide uppercase leading-snug group-hover:text-cyan-100 transition-colors">
+                    Hiểu Về Ung Thư<br />Từ A - Z
+                  </h3>
+                  <p className="text-[11px] leading-relaxed text-blue-100/90 font-medium">
+                    Thông tin được biên soạn và kiểm duyệt bởi đội ngũ chuyên gia y tế.
+                  </p>
+                </div>
+                
+                {/* Purple ribbon representation */}
+                <div className="relative z-10 flex items-center justify-center bg-white/10 border border-white/20 p-3 rounded-2xl shrink-0 group-hover:bg-white/20 transition-colors">
+                  <div className="text-white relative">
+                    {/* SVG purple ribbon symbol */}
+                    <svg className="w-8 h-10 text-[#a855f7]" viewBox="0 0 24 30" fill="currentColor">
+                      <path d="M12 2C8.686 2 6 4.686 6 8c0 3.314 3.018 7.371 6 11.5 2.982-4.129 6-8.186 6-11.5 0-3.314-2.686-6-6-6zm0 8.5c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lower Greenish-Blue Banner: Nghị Quyết */}
+              <div className="bg-gradient-to-br from-[#e0f7fc] to-[#bbf7f2] rounded-3xl p-5 flex justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[142px] group cursor-pointer text-left">
+                {/* Decorative map bg shape */}
+                <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none group-hover:scale-105 transition-transform duration-500">
+                  <MapPin size={100} className="text-[#0891b2]" />
+                </div>
+                
+                <div className="flex flex-col gap-2 max-w-[65%] relative z-10">
+                  <h3 className="text-xs md:text-sm font-extrabold text-[#0f172a] uppercase tracking-wide leading-snug group-hover:text-[#024ad8] transition-colors">
+                    Cập nhật địa chỉ<br />theo nghị quyết mới
+                  </h3>
+                  <p className="text-[10px] text-[#475569] font-semibold leading-tight">
+                    Hiển thị đồng thời địa chỉ trước và sau sáp nhập.
+                  </p>
+                  <button className="bg-[#ea3829] hover:bg-[#c02316] text-white text-[10px] font-black px-4 py-1.5 rounded-full w-fit shadow-sm mt-1 transition-colors uppercase tracking-wider">
+                    Tra Cứu Ngay
+                  </button>
+                </div>
+                
+                {/* Map illustration representation */}
+                <div className="relative z-10 bg-white/80 p-3 rounded-2xl shrink-0 shadow-sm border border-cyan-100 group-hover:bg-white transition-colors">
+                  <svg className="w-8 h-8 text-[#0891b2]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+          
+          {/* Bottom Row - 6 Quick Action Buttons */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-2">
+            
+            {/* Action 1: Cần mua thuốc */}
+            <button 
+              onClick={() => {
+                const target = document.getElementById("featured-medicines");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <Pill size={22} className="group-hover:rotate-12 transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Cần mua</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">thuốc</span>
+              </div>
+            </button>
 
-        {/* 4. QUICK ACTIONS */}
-        <section className="bg-cloud border-b border-fog py-8 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-xs uppercase tracking-widest text-graphite font-bold text-center mb-6">
-              Các tính năng nhanh
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              <a 
-                href="#featured-medicines" 
-                className="flex flex-col items-center p-4 bg-white hover:bg-primary-soft/30 rounded-2xl border border-fog hover:border-primary-soft text-center group transition-all duration-300 hover:shadow-sm"
-              >
-                <div className="bg-primary-soft text-primary p-3 rounded-xl group-hover:scale-105 transition-transform duration-300 mb-3">
-                  <Search size={20} />
-                </div>
-                <span className="text-sm font-semibold text-ink group-hover:text-primary transition-colors">
-                  Tìm thuốc
-                </span>
-              </a>
-              <a 
-                href="#medicine-categories" 
-                className="flex flex-col items-center p-4 bg-white hover:bg-primary-soft/30 rounded-2xl border border-fog hover:border-primary-soft text-center group transition-all duration-300 hover:shadow-sm"
-              >
-                <div className="bg-primary-soft text-primary p-3 rounded-xl group-hover:scale-105 transition-transform duration-300 mb-3">
-                  <ClipboardList size={20} />
-                </div>
-                <span className="text-sm font-semibold text-ink group-hover:text-primary transition-colors">
-                  Danh mục thuốc
-                </span>
-              </a>
-              <Link 
-                href="/cart" 
-                className="flex flex-col items-center p-4 bg-white hover:bg-primary-soft/30 rounded-2xl border border-fog hover:border-primary-soft text-center group transition-all duration-300 hover:shadow-sm"
-              >
-                <div className="bg-primary-soft text-primary p-3 rounded-xl group-hover:scale-105 transition-transform duration-300 mb-3">
-                  <ShoppingCart size={20} />
-                </div>
-                <span className="text-sm font-semibold text-ink group-hover:text-primary transition-colors">
-                  Xem giỏ hàng
-                </span>
-              </Link>
-              <a 
-                href="#about-system" 
-                className="flex flex-col items-center p-4 bg-white hover:bg-primary-soft/30 rounded-2xl border border-fog hover:border-primary-soft text-center group transition-all duration-300 hover:shadow-sm"
-              >
-                <div className="bg-primary-soft text-primary p-3 rounded-xl group-hover:scale-105 transition-transform duration-300 mb-3">
-                  <Phone size={20} />
-                </div>
-                <span className="text-sm font-semibold text-ink group-hover:text-primary transition-colors">
-                  Liên hệ dược sĩ
-                </span>
-              </a>
-              <Link 
-                href="/login" 
-                className="flex flex-col items-center p-4 bg-white hover:bg-primary-soft/30 rounded-2xl border border-fog hover:border-primary-soft text-center group col-span-2 md:col-span-1 transition-all duration-300 hover:shadow-sm"
-              >
-                <div className="bg-charcoal text-white p-3 rounded-xl group-hover:bg-primary-deep transition-colors mb-3">
-                  <Lock size={20} />
-                </div>
-                <span className="text-sm font-semibold text-ink group-hover:text-primary transition-colors">
-                  Đăng nhập nhân viên
-                </span>
-              </Link>
-            </div>
+            {/* Action 2: Tư vấn với Dược Sĩ */}
+            <a 
+              href="#about-system"
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <svg className="w-[22px] h-[22px] text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Tư vấn với</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Dược Sĩ</span>
+              </div>
+            </a>
+
+            {/* Action 3: Đơn của tôi */}
+            <Link 
+              href="/cart"
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <FileText size={22} className="group-hover:translate-y-[-1px] transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Đơn của</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">tôi</span>
+              </div>
+            </Link>
+
+            {/* Action 4: Tìm nhà thuốc */}
+            <a 
+              href="#store-system"
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <MapPin size={22} className="group-hover:scale-105 transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Tìm nhà</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">thuốc</span>
+              </div>
+            </a>
+
+            {/* Action 5: Tiêm Vắc xin */}
+            <a 
+              href="#vaccination"
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <Syringe size={22} className="group-hover:rotate-6 transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Tiêm Vắc</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">xin</span>
+              </div>
+            </a>
+
+            {/* Action 6: Tra thuốc chính hãng */}
+            <button 
+              onClick={() => {
+                const target = document.getElementById("featured-medicines");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
+            >
+              <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
+                <ShieldCheck size={22} className="group-hover:scale-105 transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Tra thuốc</span>
+                <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">chính hãng</span>
+              </div>
+            </button>
+
           </div>
         </section>
 
