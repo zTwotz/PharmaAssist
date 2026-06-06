@@ -88,4 +88,75 @@ export class UsersService {
       throw new InternalServerErrorException('Lỗi lưu tài khoản vào cơ sở dữ liệu, đã rollback.');
     }
   }
+
+  async getStaffs() {
+    return this.prisma.user.findMany({
+      include: {
+        userRoles: {
+          include: {
+            role: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  async updateStaffRoleStatus(id: string, dto: import('./dto/update-staff.dto').UpdateStaffRoleStatusDto) {
+    const { roleId, status } = dto;
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new BadRequestException('Nhân viên không tồn tại');
+    }
+
+    // Nếu cập nhật trạng thái
+    if (status && status !== user.status) {
+      // Update Prisma
+      await this.prisma.user.update({
+        where: { id },
+        data: { status },
+      });
+
+      // Update Supabase Auth if needed
+      if (status === 'INACTIVE' || status === 'BANNED' || status === 'SUSPENDED') {
+         await this.supabaseAdmin.auth.admin.updateUserById(id, { ban_duration: '87600h' });
+      } else if (status === 'ACTIVE') {
+         await this.supabaseAdmin.auth.admin.updateUserById(id, { ban_duration: 'none' });
+      }
+    }
+
+    // Nếu cập nhật vai trò
+    if (roleId) {
+      const role = await this.prisma.role.findUnique({ where: { id: roleId } });
+      if (!role) {
+        throw new BadRequestException('Vai trò không tồn tại');
+      }
+
+      // Xóa tất cả roles cũ và thêm role mới
+      await this.prisma.userRole.deleteMany({
+        where: { userId: id },
+      });
+
+      await this.prisma.userRole.create({
+        data: {
+          userId: id,
+          roleId,
+        },
+      });
+    }
+
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        userRoles: {
+          include: {
+            role: true,
+          },
+        },
+      },
+    });
+  }
 }
