@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { CategoryNode } from '@/lib/utils/category';
 import {
   Accordion,
@@ -18,13 +18,15 @@ import Link from 'next/link';
 interface FilterSidebarProps {
   categoryTree: CategoryNode[];
   brands: any[];
+  activeNodeSlug?: string;
 }
 
-export function FilterSidebar({ categoryTree, brands }: FilterSidebarProps) {
+export function FilterSidebar({ categoryTree, brands, activeNodeSlug }: FilterSidebarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
-  const currentCategory = searchParams.get('category');
+  const currentCategory = activeNodeSlug || null;
   const currentBrands = searchParams.getAll('brand');
   const minPrice = searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : 0;
   const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : 5000000;
@@ -42,7 +44,7 @@ export function FilterSidebar({ categoryTree, brands }: FilterSidebarProps) {
     }
     // reset to page 1
     params.set('page', '1');
-    router.push(`/san-pham?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const handlePriceCommit = (values: number[]) => {
@@ -50,11 +52,23 @@ export function FilterSidebar({ categoryTree, brands }: FilterSidebarProps) {
     params.set('minPrice', values[0].toString());
     params.set('maxPrice', values[1].toString());
     params.set('page', '1');
-    router.push(`/san-pham?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const clearFilters = () => {
-    router.push('/san-pham');
+    router.push(pathname);
+  };
+
+  const getPathForNode = (targetNode: CategoryNode): string => {
+    for (const root of categoryTree) {
+      if (root.id === targetNode.id) return `/${root.slug}`;
+      if (root.children) {
+        for (const child of root.children) {
+          if (child.id === targetNode.id) return `/${root.slug}/${child.slug}`;
+        }
+      }
+    }
+    return `/${targetNode.slug}`;
   };
 
   // Helper to check if a category or its children is active
@@ -94,7 +108,7 @@ export function FilterSidebar({ categoryTree, brands }: FilterSidebarProps) {
       return (
         <AccordionItem value={node.slug} key={node.id} className="border-b-0">
           <AccordionTrigger className={`py-2 hover:no-underline hover:text-[#024ad8] ${isActive ? 'text-[#024ad8] font-semibold' : 'text-gray-700'}`}>
-            <Link href={`/san-pham?category=${node.slug}`} className="flex-1 text-left" onClick={(e) => e.stopPropagation()}>
+            <Link href={getPathForNode(node)} className="flex-1 text-left" onClick={(e) => e.stopPropagation()}>
               {node.name}
             </Link>
           </AccordionTrigger>
@@ -110,7 +124,7 @@ export function FilterSidebar({ categoryTree, brands }: FilterSidebarProps) {
     return (
       <div key={node.id} className="py-2">
         <Link 
-          href={`/san-pham?category=${node.slug}`} 
+          href={getPathForNode(node)} 
           className={`flex items-center text-sm ${isActive ? 'text-[#024ad8] font-semibold' : 'text-gray-600 hover:text-[#024ad8]'}`}
         >
           <ChevronRight className="w-4 h-4 mr-1 opacity-50" />
