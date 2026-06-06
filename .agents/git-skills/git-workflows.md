@@ -112,23 +112,27 @@ git push -u origin feature/PAC-xxx-ten-chuc-nang
 
 ---
 
-## 5. QUY TRÌNH GIT DÀNH RIÊNG CHO AI ASSISTANT (ANTIGRAVITY)
-> Quy tắc bắt buộc AI Assistant tuân thủ để tránh làm hỏng repository chung và đảm bảo tính kiểm duyệt của nhóm.
+## 5. QUY TRÌNH GIT LIÊN TỤC (CI/CD WORKFLOW)
+> Quy trình tích hợp liên tục (CI) được áp dụng để tăng tốc độ phát triển và tự động hóa với Jira.
 
-1. **Mỗi tác vụ một nhánh riêng**: Luôn checkout nhánh mới từ `develop` mới nhất dựa theo mã Jira issue key (`PAC-xxx`) được phân tích hoặc cung cấp.
-2. **Không tự ý commit/push**: AI chỉ chỉnh sửa code trên local. Chỉ commit/push khi có lệnh rõ ràng từ người dùng (`"push lên GitHub"`, `"đẩy code"`, `"tạo PR"`).
-3. **Tuyệt đối không tự ý merge**: AI không dùng lệnh git merge ở local để gộp nhánh của mình vào `develop` hay `main`. Chỉ push nhánh feature lên GitHub và hướng dẫn người dùng tạo PR.
-4. **Xử lý lệch code/xung đột khi develop trên GitHub thay đổi trước khi push**:
-  ```bash
-  # 1. Commit tạm trên nhánh feature local
-  git add . && git commit -m "feat(PAC-xxx): temporary commit before update"
-  # 2. Fetch develop mới nhất và merge vào nhánh feature local để giải quyết xung đột
-  git fetch origin && git merge origin/develop
-  # 3. (Nếu có conflict) AI tự động phân tích và sửa các file xung đột một cách hợp lý
-  git add . && git commit -m "fix(PAC-xxx): resolve conflict with develop"
-  # 4. Push nhánh feature hoàn chỉnh và hướng dẫn người dùng tạo PR trên GitHub Web
-  git push origin feature/PAC-xxx-slug
-  ```
+1. **Quy Tắc Đặt Tên Commit Tuyệt Đối**: 
+   - 100% thông điệp commit (commit message) phải được viết bằng **Tiếng Anh**.
+   - **Tuyệt đối KHÔNG** sử dụng các từ khóa nhạy cảm như: `AI`, `Agent`, `Antigravity`, `ChatGPT`, `automation`, `bot`, v.v. trong commit message. Hãy viết như một lập trình viên thực thụ.
+2. **Quy Tắc Tần Suất Commit (Tối thiểu 5 commits/nhánh)**:
+   - Thay vì dồn toàn bộ code vào 1 commit duy nhất, phải chia nhỏ công việc và commit liên tục (Ví dụ: setup UI, viết API, kết nối frontend, fix bug nội bộ...).
+   - Đảm bảo mỗi nhánh (dù là task, story hay epic) đều có **ít nhất 5 commits** trước khi tạo Pull Request để chứng minh quá trình làm việc liên tục.
+3. **Tiếp nhận yêu cầu & Đọc Jira**: Tra cứu mã Jira (VD: `PAC-123`) để phân tích yêu cầu chi tiết.
+4. **Cập nhật mã nguồn**: Checkout về nhánh `develop` và chạy `git pull` để lấy code mới nhất.
+5. **Phân nhánh độc lập**: Tạo nhánh mới từ `develop` chứa mã Jira: `git checkout -b feature/PAC-123-ten-tinh-nang`.
+6. **Lập trình & Kiểm thử**: Viết code, chạy build/test để đảm bảo không có lỗi TypeScript hay Syntax.
+7. **Đóng gói mã nguồn**: Commit code theo chuẩn Conventional Commits (có mã Jira): `git add . && git commit -m "feat(PAC-123): implement user feature"`.
+8. **Đẩy code (Push)**: Đẩy nhánh tính năng lên GitHub bằng lệnh `git push -u origin feature/PAC-123-ten-tinh-nang`.
+9. **Tạo & Gộp Pull Request vào develop**: 
+   - Tạo PR: `gh pr create --title "feat(PAC-123): ..." --body "..." --base develop`
+   - Merge PR: `gh pr merge --merge` (Lưu ý: TUYỆT ĐỐI KHÔNG xóa nhánh feature để giữ lịch sử báo cáo với giảng viên).
+10. **Đồng bộ production (Gộp vào main)**: Tạo tiếp PR từ `develop` vào `main` và tự động merge để đưa tính năng lên production ngay lập tức.
+11. **Cập nhật Jira**: Tự động chuyển trạng thái của ticket `PAC-123` trên Jira sang **"Done"**.
+12. **Dọn dẹp local**: Checkout lại về `develop` và pull code mới nhất, sẵn sàng nhận ticket tiếp theo.
 
 ---
 
