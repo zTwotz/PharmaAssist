@@ -148,3 +148,34 @@ git push -u origin feature/PAC-xxx-ten-chuc-nang
 | Đồng bộ develop vào feature | `git fetch origin && git merge origin/develop` |
 | Cất code tạm thời | `git stash` ➡️ `git stash pop` (lấy ra lại) |
 | Xem lịch sử rút gọn | `git log --oneline -n 10` |
+
+---
+
+## 7. QUY TRÌNH LÀM VIỆC TỰ ĐỘNG CỦA AI AGENT (AI AGENT AUTONOMOUS WORKFLOW)
+Để đảm bảo chất lượng mã nguồn và tính nhất quán khi AI Agent được yêu cầu "làm việc tự động", AI bắt buộc phải thực hiện theo chuỗi kỹ năng (skills) và workflows sau:
+
+### 7.1. Giai đoạn 1: Chuẩn bị & Lên Kế Hoạch (Planning & Brainstorming)
+- **Bắt buộc tuân thủ:** Nguyên tắc `/karpathy-principles`.
+- Khi bắt đầu một task (PAC) mới, AI **không được code ngay** mà phải dùng:
+  - `/brainstorming` để khám phá ý định của người dùng và các edge cases.
+  - `/writing-plans` để tạo `implementation_plan.md` chi tiết.
+  - `/agent-skills-lifecycle` để áp dụng quy trình chuẩn SWE của Google.
+- Nếu gặp yêu cầu chưa rõ ràng hoặc mơ hồ: Bắt buộc gọi `/grill-me` để phỏng vấn và làm rõ với người dùng.
+
+### 7.2. Giai đoạn 2: Triển Khai (Implementation)
+Sử dụng kết hợp các slash commands tương ứng với từng miền công nghệ:
+- Xây dựng chung: `/build`, `/superpowers-workflow`.
+- Thiết kế UI/UX: `/design-ui`, `/ecc-frontend`.
+- Thiết kế API & Database: `/api`, `/ecc-backend`, `/ecc-database`.
+
+### 7.3. Giai đoạn 3: Kiểm thử & Khắc phục lỗi (Testing & Debugging)
+- Tuyệt đối không commit khi chưa kiểm tra code.
+- Áp dụng `/tdd` (nếu làm Test-Driven Development) và `/ecc-testing` để chạy/viết tests.
+- Nếu gặp lỗi trong lúc phát triển, dùng `/debug` để chẩn đoán nguyên nhân gốc rễ và sửa lỗi (không đoán mò).
+
+### 7.4. Giai đoạn 4: Đẩy Code & Tích Hợp (Shipping)
+Sau khi đảm bảo code chạy ổn định và không có lỗi:
+1. Commit theo quy tắc (ít nhất 5 commits/nhánh, không chứa từ khóa AI).
+2. Push nhánh tính năng lên GitHub.
+3. Mở Pull Request (PR) gộp vào `develop`.
+4. Merge PR vào `develop`.
