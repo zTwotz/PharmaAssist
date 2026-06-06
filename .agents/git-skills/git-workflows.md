@@ -118,18 +118,21 @@ git push -u origin feature/PAC-xxx-ten-chuc-nang
 1. **Quy Tắc Đặt Tên Commit Tuyệt Đối**: 
    - 100% thông điệp commit (commit message) phải được viết bằng **Tiếng Anh**.
    - **Tuyệt đối KHÔNG** sử dụng các từ khóa nhạy cảm như: `AI`, `Agent`, `Antigravity`, `ChatGPT`, `automation`, `bot`, v.v. trong commit message. Hãy viết như một lập trình viên thực thụ.
-2. **Tiếp nhận yêu cầu & Đọc Jira**: Tra cứu mã Jira (VD: `PAC-123`) để phân tích yêu cầu chi tiết.
-3. **Cập nhật mã nguồn**: Checkout về nhánh `develop` và chạy `git pull` để lấy code mới nhất.
-4. **Phân nhánh độc lập**: Tạo nhánh mới từ `develop` chứa mã Jira: `git checkout -b feature/PAC-123-ten-tinh-nang`.
-5. **Lập trình & Kiểm thử**: Viết code, chạy build/test để đảm bảo không có lỗi TypeScript hay Syntax.
-6. **Đóng gói mã nguồn**: Commit code theo chuẩn Conventional Commits (có mã Jira): `git add . && git commit -m "feat(PAC-123): implement user feature"`.
-7. **Đẩy code (Push)**: Đẩy nhánh tính năng lên GitHub bằng lệnh `git push -u origin feature/PAC-123-ten-tinh-nang`.
-8. **Tạo & Gộp Pull Request vào develop**: 
+2. **Quy Tắc Tần Suất Commit (Tối thiểu 5 commits/nhánh)**:
+   - Thay vì dồn toàn bộ code vào 1 commit duy nhất, phải chia nhỏ công việc và commit liên tục (Ví dụ: setup UI, viết API, kết nối frontend, fix bug nội bộ...).
+   - Đảm bảo mỗi nhánh (dù là task, story hay epic) đều có **ít nhất 5 commits** trước khi tạo Pull Request để chứng minh quá trình làm việc liên tục.
+3. **Tiếp nhận yêu cầu & Đọc Jira**: Tra cứu mã Jira (VD: `PAC-123`) để phân tích yêu cầu chi tiết.
+4. **Cập nhật mã nguồn**: Checkout về nhánh `develop` và chạy `git pull` để lấy code mới nhất.
+5. **Phân nhánh độc lập**: Tạo nhánh mới từ `develop` chứa mã Jira: `git checkout -b feature/PAC-123-ten-tinh-nang`.
+6. **Lập trình & Kiểm thử**: Viết code, chạy build/test để đảm bảo không có lỗi TypeScript hay Syntax.
+7. **Đóng gói mã nguồn**: Commit code theo chuẩn Conventional Commits (có mã Jira): `git add . && git commit -m "feat(PAC-123): implement user feature"`.
+8. **Đẩy code (Push)**: Đẩy nhánh tính năng lên GitHub bằng lệnh `git push -u origin feature/PAC-123-ten-tinh-nang`.
+9. **Tạo & Gộp Pull Request vào develop**: 
    - Tạo PR: `gh pr create --title "feat(PAC-123): ..." --body "..." --base develop`
    - Merge PR: `gh pr merge --merge` (Lưu ý: TUYỆT ĐỐI KHÔNG xóa nhánh feature để giữ lịch sử báo cáo với giảng viên).
-9. **Đồng bộ production (Gộp vào main)**: Tạo tiếp PR từ `develop` vào `main` và tự động merge để đưa tính năng lên production ngay lập tức.
-10. **Cập nhật Jira**: Tự động chuyển trạng thái của ticket `PAC-123` trên Jira sang **"Done"**.
-11. **Dọn dẹp local**: Checkout lại về `develop` và pull code mới nhất, sẵn sàng nhận ticket tiếp theo.
+10. **Đồng bộ production (Gộp vào main)**: Tạo tiếp PR từ `develop` vào `main` và tự động merge để đưa tính năng lên production ngay lập tức.
+11. **Cập nhật Jira**: Tự động chuyển trạng thái của ticket `PAC-123` trên Jira sang **"Done"**.
+12. **Dọn dẹp local**: Checkout lại về `develop` và pull code mới nhất, sẵn sàng nhận ticket tiếp theo.
 
 ---
 
