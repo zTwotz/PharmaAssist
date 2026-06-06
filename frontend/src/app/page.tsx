@@ -868,6 +868,7 @@ export default function HomePage() {
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
   const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
+  const [activeDiseaseGroupTab, setActiveDiseaseGroupTab] = useState<"doi-tuong" | "mua">("doi-tuong");
   const [activeSeasonalTab, setActiveSeasonalTab] = useState<number>(0);
   const [fysolineSeptiUnit, setFysolineSeptiUnit] = useState<"hop" | "ong">("hop");
   const [fysolineIsoUnit, setFysolineIsoUnit] = useState<"hop" | "ong">("hop");
@@ -2512,22 +2513,53 @@ export default function HomePage() {
 
 
 
-        {/* 5.6. SEASONAL DISEASES SECTION (BỆNH THEO MÙA) */}
+        {/* 5.6. DISEASE SECTION (BỆNH) */}
         <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
           
           {/* Header Row */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-[#024ad8]/10 text-[#024ad8] p-2 rounded-full shadow-sm flex items-center justify-center">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8m-4-4v8" />
-              </svg>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#024ad8] text-white p-1 rounded-full shadow-sm flex items-center justify-center w-6 h-6">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-6-6h12" />
+                </svg>
+              </div>
+              <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Bệnh</h2>
             </div>
-            <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Bệnh theo mùa</h2>
+            
+            <div className="h-4 w-px bg-fog mx-1"></div>
+            
+            <span className="text-[#024ad8] text-xs font-bold cursor-pointer hover:underline flex items-center group">
+              Xem tất cả <ChevronRight size={14} className="ml-0.5 group-hover:translate-x-1 transition-transform" />
+            </span>
           </div>
 
-          {/* Blue Container with White Tabs Header */}
-          <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6">
+          {/* Group Tabs Row */}
+          <div className="flex gap-2 mb-6">
+            <button 
+              onClick={() => setActiveDiseaseGroupTab("doi-tuong")}
+              className={`px-4 py-1.5 rounded-full text-[13px] font-bold border transition-colors ${activeDiseaseGroupTab === "doi-tuong" ? "border-[#024ad8] text-[#024ad8] bg-white shadow-sm flex items-center gap-1" : "border-transparent text-gray-500 hover:text-gray-800 bg-white"}`}
+            >
+              Bệnh theo đối tượng
+              {activeDiseaseGroupTab === "doi-tuong" && (
+                <svg className="w-3 h-3 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveDiseaseGroupTab("mua")}
+              className={`px-4 py-1.5 rounded-full text-[13px] font-bold border transition-colors ${activeDiseaseGroupTab === "mua" ? "border-[#024ad8] text-[#024ad8] bg-white shadow-sm flex items-center gap-1" : "border-transparent text-gray-500 hover:text-gray-800 bg-white"}`}
+            >
+              Bệnh theo mùa
+              {activeDiseaseGroupTab === "mua" && (
+                <svg className="w-3 h-3 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+              )}
+            </button>
+          </div>
+
+          {/* Content Body */}
+          {activeDiseaseGroupTab === "mua" ? (
+            {/* Blue Container with White Tabs Header */}
+            <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-300">
             
             {/* Header Tabs Row */}
             <div className="flex bg-white/10 rounded-t-3xl -mx-6 px-6 py-2 border-b border-white/10 overflow-x-auto scrollbar-hide shrink-0">
@@ -3437,6 +3469,125 @@ export default function HomePage() {
             {/* Aesthetic slide next button indicator */}
             <div className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
               <ChevronRight size={16} />
+            </div>
+
+          </div>
+          ) : (
+            {/* Demographic Diseases Grid (Bệnh theo đối tượng) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in zoom-in-95 duration-300">
+              
+              {/* Card 1: Bệnh Nam Giới */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nam_gioi.png" alt="Bệnh Nam Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nam Giới</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Loãng xương ở nam", "Di tinh, mộng tinh", "Hẹp bao quy đầu", "Yếu sinh lý"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+              {/* Card 2: Bệnh Nữ Giới */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nu_gioi.png" alt="Bệnh Nữ Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nữ Giới</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Hội chứng tiền kinh nguyệt", "Hội chứng tiền mãn kinh", "Chậm kinh", "Mất kinh"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+              {/* Card 3: Bệnh Người Già */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nguoi_gia.png" alt="Bệnh Người Già" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Người Già</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Alzheimer", "Parkinson", "Parkinson thứ phát", "Đục thủy tinh thể ở người già"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+              {/* Card 4: Bệnh Trẻ Em */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_tre_em.png" alt="Bệnh Trẻ Em" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Trẻ Em</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Bại não trẻ em", "Tự kỷ", "Uốn ván", "Tắc ruột sơ sinh"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* Trust Indicators Section */}
+          <div className="mt-8 border-t border-fog/60 pt-6 px-2 flex flex-wrap justify-between gap-6 md:gap-4 items-center">
+            
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Thuốc chính hãng</span>
+                <span className="text-[11px] font-semibold text-gray-500">đa dạng và chuyên sâu</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Đổi trả trong 30 ngày</span>
+                <span className="text-[11px] font-semibold text-gray-500">kể từ ngày mua hàng</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Cam kết 100%</span>
+                <span className="text-[11px] font-semibold text-gray-500">chất lượng sản phẩm</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Miễn phí vận chuyển</span>
+                <span className="text-[11px] font-semibold text-gray-500">theo chính sách giao hàng</span>
+              </div>
             </div>
 
           </div>
