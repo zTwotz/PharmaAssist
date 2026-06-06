@@ -29,7 +29,12 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ---
 
-## Active Queues (Sprint Backlogs)
+## 📋 Active Queues (Sprint 2 & Upcoming)
+- **PAC-19 (In Progress):** Develop Product Listing Page (PLP) with advanced filtering, pagination, and sorting.
+  - *Status:* Created `app/san-pham/page.tsx`, `FilterSidebar.tsx`, `ProductGrid.tsx`. Installed shadcn-ui components. Integrated Supabase server-side fetching with category tree building. Header updated to link to PLP.
+- **PAC-20 (Todo):** Develop Product Detail Page (PDP) with responsive layout and rich data from Supabase.
+- **PAC-14 (Todo):** Global search with Debounce.
+- **PAC-21 (Todo):** Shopping Cart functionality.
 - [x] Thiết lập khung dự án Frontend & Backend (NestJS + Next.js + Prisma ORM).
 - [x] Thiết kế & migration database schema trên Supabase (Khởi tạo 100 bảng database).
 - [x] Triển khai Xác thực & Phân quyền Auth & RBAC (Sprint 1 - PAC-43 đến PAC-50).
@@ -52,7 +57,14 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ---
 
-## Latest Execution Notes
+## 📓 Latest Execution Notes
+- **[6/6/2026] PAC-19:** 
+  - Verified `database/raw` vs `database/state` mapped perfectly to Supabase tables (`product_categories`, `brands`, `products`, `product_prices`).
+  - Created `category.ts` utility to build category tree from raw Supabase data.
+  - Created `FilterSidebar` utilizing Shadcn UI `Accordion`, `Checkbox`, `Slider`. Fixed Base UI types.
+  - Implemented `ProductGrid` with pagination and discount badges.
+  - Built `app/san-pham/page.tsx` as a Server Component fetching products directly via Supabase client with complex filters (`minPrice`, `maxPrice`, `category_id` in descendants, `brand_id`).
+  - Updated Header's `handleCategoryClick` to navigate to `/san-pham?category=slug`. Code committed.
 
 ### 2026-06-07
 - **Bệnh theo đối tượng Section (PAC-19):** Mở rộng block "Bệnh theo mùa" thành block "Bệnh" tổng quát, tích hợp thanh tab chuyển đổi giữa "Bệnh theo đối tượng" và "Bệnh theo mùa". Triển khai 4 thẻ đối tượng (Nam giới, Nữ giới, Người già, Trẻ em) với hình ảnh 3D cao cấp (AI generated) kèm danh sách các bệnh lý phổ biến và đường dẫn tìm hiểu thêm. Đồng thời bổ sung dải 4 Trust Indicators (Thuốc chính hãng, Đổi trả 30 ngày, Cam kết 100%, Miễn phí vận chuyển) ở phần dưới cùng của block để tăng độ tin cậy theo đúng chuẩn UI Long Châu. Chuyển đổi toàn bộ hiệu ứng micro-animations mượt mà. Đã commit và push lên nhánh `feature/PAC-19-demographic-disease`.
