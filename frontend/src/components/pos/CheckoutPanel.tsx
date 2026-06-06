@@ -2,18 +2,35 @@
 
 import React, { useState } from 'react';
 import { usePosStore } from '@/store/usePosStore';
+import axios from 'axios';
 
 export function CheckoutPanel() {
-  const { cart, totalAmount } = usePosStore();
+  const { cart, totalAmount, clearCart } = usePosStore();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setIsProcessing(true);
-    // Simulate processing
-    setTimeout(() => {
+    try {
+      const orderPayload = {
+        orderType: 'OFFLINE',
+        storeId: 1, // Default store for demo
+        details: cart.map(item => ({
+          productVariantId: item.productVariantId,
+          quantity: item.quantity,
+          unitPrice: item.sellingPrice
+        }))
+      };
+
+      await axios.post('http://localhost:3001/api/orders', orderPayload);
+      
+      alert('Thanh toán thành công! Tồn kho đã được trừ.');
+      clearCart();
+    } catch (error: any) {
+      console.error('Lỗi thanh toán:', error);
+      alert(error.response?.data?.message || 'Có lỗi xảy ra khi thanh toán!');
+    } finally {
       setIsProcessing(false);
-      alert("Chức năng thanh toán đang được phát triển!");
-    }, 1000);
+    }
   };
 
   return (
