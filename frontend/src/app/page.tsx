@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import mappedImages from "./mapped_images.json";
 import { 
   Search, 
@@ -857,6 +858,7 @@ const renderSubcatThumbnail = (name: string) => {
 };
 
 export default function HomePage() {
+  const router = useRouter();
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
   const [searchTerm, setSearchTerm] = useState("");
@@ -917,11 +919,16 @@ export default function HomePage() {
   // Smooth scroll and set category filter on menu click
   const handleCategoryClick = (categoryName: string, e: React.MouseEvent) => {
     e.preventDefault();
-    setSelectedCategory(categoryName);
-    const target = document.getElementById("featured-medicines");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    const slug = categoryName
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+      
+    router.push(`/san-pham?category=${slug}`);
   };
 
   // Fetch API data
