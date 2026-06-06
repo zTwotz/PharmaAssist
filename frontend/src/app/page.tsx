@@ -3730,11 +3730,12 @@ export default function HomePage() {
             </p>
           </div>
           
-          <div className="text-[11px] text-gray-500 font-medium leading-relaxed mt-2">
-            <p>© 2007 - 2026 Công ty Cổ Phần Dược Phẩm FPT Long Châu Số ĐKKD 0315275368 cấp ngày 17/09/2018 tại Sở Kế hoạch Đầu tư TPHCM</p>
-            <p>GP thiết lập TTTĐTTH số 538/GP-TTĐT do Sở TTTT Hồ Chí Minh cấp ngày 27 tháng 03 năm 2025</p>
-            <p>Địa chỉ: 379-381 Hai Bà Trưng, P. Xuân Hoà, TP. Hồ Chí Minh • Số điện thoại: (028)73023456 • Email: sale@nhathuoclongchau.com.vn</p>
-            <p>Người chịu trách nhiệm nội dung: Nguyễn Bạch Điệp</p>
+          <div className="text-[12px] text-gray-500 font-medium leading-relaxed mt-2 space-y-1">
+            <p className="text-sm font-bold text-ink mb-1">ĐỒ ÁN MÔN HỌC: CÔNG NGHỆ PHẦN MỀM</p>
+            <p>Trường Đại học Khoa học Tự nhiên, Đại học Quốc gia TP. Hồ Chí Minh</p>
+            <p>Đề tài: Xây dựng hệ thống quản lý nhà thuốc PharmaAssist tích hợp kiểm tra tương tác thuốc</p>
+            <p className="pt-2 text-primary font-semibold">Nhóm phát triển: PharmaAssist Team • Năm thực hiện: 2026</p>
+            <p className="text-[10px] italic mt-2 text-gray-400">Website được xây dựng với mục đích học thuật, mọi thông tin chỉ mang tính chất minh họa và không có giá trị y khoa thực tế.</p>
           </div>
         </div>
       </footer>
