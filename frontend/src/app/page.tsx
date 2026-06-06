@@ -3593,329 +3593,148 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 6. THUỐC NỔI BẬT / BÁN CHẠY */}
-        <section id="featured-medicines" className="bg-cloud py-12 md:py-16 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
-            
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-primary font-bold">Tìm kiếm & lựa chọn</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-ink mt-1">
-                  {selectedCategory ? `Thuốc thuộc: ${selectedCategory}` : "Danh sách thuốc bán chạy"}
-                </h2>
-              </div>
-              
-              <div className="text-sm text-graphite font-medium bg-white px-3 py-1.5 rounded-lg border border-fog">
-                Hiển thị: <strong className="text-ink">{filteredMedicines.length}</strong> sản phẩm
-              </div>
-            </div>
-
-            {filteredMedicines.length === 0 ? (
-              <div className="bg-white rounded-3xl p-12 text-center border border-fog shadow-sm">
-                <Info size={48} className="text-steel mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-ink mb-1">Không tìm thấy thuốc phù hợp</h3>
-                <p className="text-sm text-graphite max-w-md mx-auto">
-                  Không tìm thấy thuốc nào khớp với từ khóa &ldquo;{searchTerm}&rdquo; hoặc danh mục đã chọn. Hãy thử từ khóa khác.
-                </p>
-                <button 
-                  onClick={() => { setSearchTerm(""); setSelectedCategory(null); }}
-                  className="mt-4 bg-primary hover:bg-primary-deep text-white px-4 py-2 rounded-xl text-xs font-semibold transition-colors"
-                >
-                  Đặt lại bộ lọc
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredMedicines.map((med) => (
-                  <div 
-                    key={med.id} 
-                    onClick={() => setSelectedMedicine(med)}
-                    className="bg-white rounded-2xl border border-fog hover:border-primary-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col overflow-hidden group cursor-pointer"
-                  >
-                    {/* Image */}
-                    <div className="bg-cloud h-40 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute top-3 left-3 bg-white/95 text-graphite text-[10px] font-bold px-2 py-0.5 rounded border border-fog shadow-sm z-10">
-                        {med.id}
-                      </div>
-                      
-                      {med.imageUrl ? (
-                        <img 
-                          src={med.imageUrl} 
-                          alt={med.name} 
-                          className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500" 
-                        />
-                      ) : (
-                        <div className="text-primary-bright opacity-25 group-hover:scale-110 transition-transform duration-500">
-                          <Sparkles size={56} />
-                        </div>
-                      )}
-                      
-                      {/* Availability status tag */}
-                      <div className={`absolute bottom-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1 z-10 ${
-                        med.isAvailable 
-                          ? "bg-primary-soft text-primary-deep" 
-                          : "bg-bloom-rose text-bloom-deep"
-                      }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${med.isAvailable ? "bg-primary" : "bg-bloom-coral"}`} />
-                        {med.isAvailable ? "Còn hàng" : "Tạm hết hàng"}
-                      </div>
-                    </div>
-
-                    {/* Content info */}
-                    <div className="p-4 flex-1 flex flex-col justify-between">
-                      <div className="mb-4">
-                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider block mb-1">
-                          {med.category}
-                        </span>
-                        <h3 className="font-bold text-ink text-base line-clamp-1 group-hover:text-primary transition-colors">
-                          {med.name}
-                        </h3>
-                        <p className="text-xs text-graphite line-clamp-2 mt-1 min-h-[32px]">
-                          {med.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {/* Price wrapper */}
-                        <div className="flex items-baseline gap-1 mb-3">
-                          <span className="text-lg font-extrabold text-primary">
-                            {med.price.toLocaleString("vi-VN")}đ
-                          </span>
-                          <span className="text-[10px] text-graphite">/ {med.unit}</span>
-                        </div>
-
-                        {/* Actions buttons */}
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={(e) => { e.stopPropagation(); setSelectedMedicine(med); }}
-                            className="bg-cloud hover:bg-fog text-ink text-xs font-bold py-2 rounded-xl transition-all duration-300 text-center"
-                          >
-                            Chi tiết
-                          </button>
-                          <button
-                            onClick={(e) => handleAddToCart(med, e)}
-                            disabled={!med.isAvailable}
-                            className={`flex items-center justify-center gap-1.5 text-xs font-bold py-2 rounded-xl transition-all duration-300 ${
-                              med.isAvailable 
-                                ? "bg-primary hover:bg-primary-deep text-white shadow-sm" 
-                                : "bg-steel text-white cursor-not-allowed"
-                            }`}
-                          >
-                            <ShoppingCart size={12} />
-                            Mua
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* 7. DEMO TƯƠNG TÁC THUỐC (RULE-BASED) */}
-        <section id="interaction-demo" className="py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-3xl border border-fog p-6 md:p-8 shadow-sm">
-            <div className="lg:col-span-6 flex flex-col gap-4">
-              <span className="text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-1">
-                <AlertTriangle size={14} className="text-primary-bright" />
-                Công nghệ cốt lõi
-              </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-ink leading-tight">
-                Cảnh báo tương tác thuốc tự động khi bán
-              </h2>
-              <p className="text-sm text-graphite leading-relaxed">
-                Hệ thống PharmaAssist tích hợp công cụ kiểm tra tương tác thuốc tự động. Khi nhân viên hoặc khách hàng lựa chọn kết hợp từ 2 loại hoạt chất trở lên trong đơn thuốc, hệ thống sẽ tự động đối chiếu cơ sở dữ liệu để đưa ra cảnh báo nguy cơ tức thì.
-              </p>
-              <div className="space-y-2 mt-2">
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Phát hiện các hoạt chất đối kháng nhau trong đơn.
-                  </span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Phân chia mức độ cảnh báo rõ ràng: Nhẹ (LOW), Trung bình (MEDIUM), Nghiêm trọng (HIGH).
-                  </span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Hỗ trợ dược sĩ ghi chú tư vấn trực tiếp cho người bệnh.
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 bg-cloud rounded-2xl p-6 border border-fog flex flex-col gap-4">
-              <div className="flex items-center justify-between border-b border-fog pb-3">
-                <span className="text-xs font-bold text-ink">Bảng tương tác thuốc mẫu (Demo)</span>
-                <span className="bg-bloom-coral text-white text-[10px] font-bold px-2 py-0.5 rounded">HIGH ALERT</span>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white p-3 rounded-xl border border-fog">
-                    <span className="text-[10px] text-graphite block">Hoạt chất 1</span>
-                    <strong className="text-xs text-ink">Paracetamol</strong>
-                  </div>
-                  <div className="bg-white p-3 rounded-xl border border-fog">
-                    <span className="text-[10px] text-graphite block">Hoạt chất 2</span>
-                    <strong className="text-xs text-ink">Ibuprofen</strong>
-                  </div>
-                </div>
-
-                <div className="bg-white p-3 rounded-xl border border-fog flex gap-2">
-                  <Info size={16} className="text-primary shrink-0 mt-0.5" />
-                  <div className="text-xs">
-                    <strong className="text-ink block">Mức độ tương tác: LOW / MEDIUM</strong>
-                    <span className="text-graphite">Tránh dùng phối hợp nhiều thuốc hạ sốt giảm đau cùng nhóm NSAIDs cùng lúc khi không có chỉ định chuyên môn để giảm độc tính lên gan và thận.</span>
-                  </div>
-                </div>
-
-                <div className="border border-dashed border-steel p-3 rounded-xl text-center text-xs text-graphite">
-                  * Hệ thống chỉ đưa ra cảnh báo mang tính chất tham khảo phần mềm.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 8. GIỚI THIỆU TÍNH NĂNG PHARMAASSIST */}
-        <section id="about-system" className="bg-ink-soft text-white py-12 md:py-16 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-              <span className="text-xs uppercase tracking-widest text-primary-bright font-bold">Vận hành thông minh</span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Đầy đủ tính năng quản lý dược phẩm</h2>
-              <p className="text-sm text-primary-soft mt-2">
-                Hệ thống đáp ứng các tiêu chuẩn nghiệp vụ nhà thuốc từ cơ bản đến nâng cao.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <Search size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Tìm kiếm thuốc nhanh</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Tìm kiếm thông tin hoạt chất, hướng dẫn sử dụng, liều dùng và tác dụng phụ nhanh chóng thông qua cơ sở dữ liệu mẫu chuẩn hóa.
-                </p>
-              </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <ClipboardList size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Quản lý đơn mua</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Hỗ trợ khách hàng gom thuốc vào giỏ hàng demo, xem trước đơn giá tổng, hỗ trợ xuất hóa đơn nháp phục vụ kiểm tra.
-                </p>
-              </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <FileText size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Thanh toán & Hóa đơn</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Tích hợp luồng ghi nhận thanh toán tự động, in hóa đơn chuẩn mẫu với đầy đủ thông tin chi tiết từng loại thuốc đã bán.
-                </p>
-              </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <AlertTriangle size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Cảnh báo tương tác</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Công cụ tích hợp sẵn hỗ trợ so khớp tương tác chéo giữa các hoạt chất trong cùng một giỏ hàng để phát hiện nguy cơ an toàn y học.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
       </main>
 
       {/* 9. FOOTER */}
-      <footer className="bg-ink text-white/90 border-t border-charcoal pt-12 pb-6 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
-          
-          <div className="md:col-span-5 flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="bg-primary text-white p-2 rounded-xl">
-                <Sparkles size={20} />
-              </div>
-              <span className="text-lg font-bold text-white">
-                Pharma<span className="text-primary-bright">Assist</span>
-              </span>
-            </Link>
-            <p className="text-xs text-steel leading-relaxed max-w-sm">
-              Hệ thống quản lý nhà thuốc thông minh tích hợp kiểm tra tương tác thuốc tự động và AI Pharmacist Copilot hỗ trợ dược sĩ tư vấn.
-            </p>
-            <span className="text-xs text-steel flex items-center gap-1.5">
-              <Phone size={14} className="text-primary-bright" />
-              Điện thoại: 1800 6868 (Tư vấn 24/7)
-            </span>
+      <footer className="bg-white">
+        {/* Blue Bar */}
+        <div className="bg-[#024ad8] py-4 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-white">
+              <MapPin size={24} className="text-white" />
+              <span className="text-base font-bold">Xem hệ thống nhà thuốc trên toàn quốc</span>
+            </div>
+            <button className="bg-white text-[#024ad8] font-bold text-sm px-6 py-2.5 rounded-full hover:bg-cloud transition-colors shadow-sm">
+              Xem danh sách nhà thuốc
+            </button>
           </div>
-
-          <div className="md:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Danh mục
-            </h4>
-            <ul className="text-xs text-steel space-y-2">
-              <li><a href="#featured-medicines" className="hover:text-white transition-colors">Thuốc bán chạy</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Nhóm thuốc hạ sốt</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Sản phẩm tiêu hóa</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Thiết bị y tế</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Hỗ trợ
-            </h4>
-            <ul className="text-xs text-steel space-y-2">
-              <li><Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link></li>
-              <li><Link href="/cart" className="hover:text-white transition-colors">Xem giỏ hàng</Link></li>
-              <li><a href="#interaction-demo" className="hover:text-white transition-colors">Kiểm tra tương tác</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-3 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Bản quyền đồ án
-            </h4>
-            <p className="text-xs text-steel leading-relaxed">
-              Môn học: <strong>Công Nghệ Phần Mềm</strong><br />
-              Trường: Đại học Khoa học Tự nhiên, ĐHQG-HCM<br />
-              Năm thực hiện: 2026
-            </p>
-          </div>
-
         </div>
 
-        {/* Disclaimer section */}
-        <div className="max-w-7xl mx-auto border-t border-charcoal pt-6 flex flex-col gap-4 text-center">
-          <div className="bg-bloom-wine/40 border border-bloom-deep/50 rounded-2xl p-4 text-xs text-bloom-rose leading-relaxed max-w-4xl mx-auto flex items-start gap-2">
+        {/* Main Footer Content */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 border-b border-fog">
+          {/* Column 1: VỀ CHÚNG TÔI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Về chúng tôi</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Giới thiệu</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Hệ thống của hàng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Giấy phép kinh doanh</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Quy chế hoạt động</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách đặt cọc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách nội dung</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách đổi trả thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách giao hàng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách bảo mật</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách thanh toán</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Kiểm tra hóa đơn điện tử</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu thông tin bảo hành</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 2: DANH MỤC */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Danh mục</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Thực phẩm chức năng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Dược mỹ phẩm</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chăm sóc cá nhân</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Trang thiết bị y tế</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Góc sức khỏe</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: TÌM HIỂU THÊM */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tìm hiểu thêm</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Góc sức khoẻ</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu dược chất</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu dược liệu</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Bệnh thường gặp</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Bệnh viện</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Đội ngũ chuyên môn</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tin tức tuyển dụng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tin tức sự kiện</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: TỔNG ĐÀI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tổng đài (8:00 - 22:00)</h4>
+            <ul className="flex flex-col gap-4 text-[13px] text-gray-600 font-medium">
+              <li>
+                Tư vấn mua hàng<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 1)
+              </li>
+              <li>
+                Tư vấn Tiêm chủng<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 2)
+              </li>
+              <li>
+                Tư vấn Xét nghiệm<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 3)
+              </li>
+              <li>
+                Góp ý, khiếu nại và tiếp nhận cảnh báo thông tin vi phạm<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 4)
+              </li>
+            </ul>
+
+            <div className="mt-6">
+              <h4 className="text-[11px] font-bold text-ink uppercase mb-3 tracking-wide">Chứng nhận bởi</h4>
+              <div className="flex gap-2 items-center">
+                <div className="bg-cloud text-ink font-bold text-[10px] px-2 py-1 border border-fog rounded flex items-center gap-1">
+                  <ShieldCheck size={12} className="text-blue-500" /> Đã thông báo Bộ Công Thương
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <h4 className="text-[11px] font-bold text-ink uppercase mb-3 tracking-wide">Hỗ trợ thanh toán</h4>
+              <div className="flex gap-2 items-center flex-wrap">
+                <div className="bg-cloud text-[10px] font-bold text-[#1434CB] border border-fog px-2 py-1 rounded shadow-sm">VISA</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#EB001B] border border-fog px-2 py-1 rounded shadow-sm">MasterCard</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#A50064] border border-fog px-2 py-1 rounded shadow-sm">MoMo</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#005BAA] border border-fog px-2 py-1 rounded shadow-sm">VNPay</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 5: KẾT NỐI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Kết nối với chúng tôi</h4>
+            <div className="flex gap-3 mb-6">
+              <a href="#" className="text-[#024ad8] hover:opacity-80 transition-opacity">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+              <a href="#" className="text-sky-500 hover:opacity-80 transition-opacity">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.25.38-.51 1.07-.78 4.2-1.82 7.01-3.04 8.43-3.63 4-.1.45.69.34.98.34z"/></svg>
+              </a>
+            </div>
+
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tải ứng dụng Long Châu</h4>
+            <div className="flex gap-2 items-start">
+              <img src="/qr_code_app.png" alt="QR Code Long Chau App" className="w-[100px] h-[100px] border border-fog rounded-lg shadow-sm" />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Bottom / Disclaimer */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col gap-4 text-center">
+          <div className="bg-bloom-wine/40 border border-bloom-deep/50 rounded-2xl p-4 text-xs text-bloom-rose leading-relaxed max-w-4xl mx-auto flex items-start gap-2 shadow-sm">
             <Info size={18} className="text-bloom-coral shrink-0 mt-0.5" />
             <p className="text-left">
-              <strong>Tuyên bố miễn trừ trách nhiệm (Disclaimer):</strong> Toàn bộ dữ liệu thuốc, hoạt chất và tương tác thuốc hiển thị trên hệ thống là dữ liệu giả lập được sử dụng cho mục đích chạy thử nghiệm đồ án môn học. Thông tin thuốc và cảnh báo tương tác chỉ mang tính chất tham khảo phần mềm, hoàn toàn không thay thế cho các chẩn đoán, tư vấn chuyên môn của dược sĩ, bác sĩ hoặc chuyên gia y tế thật.
+              <strong>Tuyên bố miễn trừ trách nhiệm (Disclaimer):</strong> Toàn bộ dữ liệu hiển thị trên hệ thống là dữ liệu giả lập được sử dụng cho mục đích chạy thử nghiệm đồ án. Thông tin không thay thế cho các tư vấn chuyên môn của chuyên gia y tế thật.
             </p>
           </div>
           
-          <div className="text-[10px] text-graphite mt-2">
-            &copy; {new Date().getFullYear()} PharmaAssist. All rights reserved. Designed for Academic Purpose.
+          <div className="text-[11px] text-gray-500 font-medium leading-relaxed mt-2">
+            <p>© 2007 - 2026 Công ty Cổ Phần Dược Phẩm FPT Long Châu Số ĐKKD 0315275368 cấp ngày 17/09/2018 tại Sở Kế hoạch Đầu tư TPHCM</p>
+            <p>GP thiết lập TTĐTTH số 538/GP-TTĐT do Sở TTTT Hồ Chí Minh cấp ngày 27 tháng 03 năm 2025</p>
+            <p>Địa chỉ: 379-381 Hai Bà Trưng, P. Võ Thị Sáu, Q.3, TP. Hồ Chí Minh • Số điện thoại: (028)73023456 • Email: sale@nhathuoclongchau.com.vn</p>
+            <p>Người chịu trách nhiệm nội dung: Nguyễn Bạch Điệp</p>
           </div>
         </div>
       </footer>
