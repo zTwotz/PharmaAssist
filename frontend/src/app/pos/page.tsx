@@ -1,11 +1,69 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MedicineSearch } from '@/components/pos/MedicineSearch';
 import { PosCart } from '@/components/pos/PosCart';
 import { CheckoutPanel } from '@/components/pos/CheckoutPanel';
+import { InteractionWarningModal, InteractionData } from '@/components/pos/InteractionWarningModal';
+import { usePosStore } from '@/store/usePosStore';
+import axios from 'axios';
 
 export default function PosPage() {
+  const { cart, removeItem } = usePosStore();
+  const [interactions, setInteractions] = useState<InteractionData[]>([]);
+  const [showWarning, setShowWarning] = useState(false);
+  const [acknowledgedInteractionIds, setAcknowledgedInteractionIds] = useState<number[]>([]);
+
+  // Check for drug interactions when cart changes
+  useEffect(() => {
+    const checkInteractions = async () => {
+      // Get unique medicine IDs from the cart
+      const medicineIds = cart
+        .map(item => item.medicineId)
+        .filter((id): id is number => id !== undefined);
+
+      // Need at least 2 medicines to check interactions
+      if (new Set(medicineIds).size < 2) {
+        setShowWarning(false);
+        setInteractions([]);
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://localhost:3001/api/interactions/check', {
+          medicineIds: Array.from(new Set(medicineIds)),
+        });
+
+        const data = response.data;
+        if (data && data.hasInteractions) {
+          // Filter out interactions the pharmacist has already acknowledged
+          const newInteractions = data.interactions.filter(
+            (i: InteractionData) => !acknowledgedInteractionIds.includes(i.id)
+          );
+
+          if (newInteractions.length > 0) {
+            setInteractions(newInteractions);
+            setShowWarning(true);
+          }
+        } else {
+          setShowWarning(false);
+          setInteractions([]);
+        }
+      } catch (error) {
+        console.error('Lỗi khi kiểm tra tương tác thuốc:', error);
+      }
+    };
+
+    checkInteractions();
+  }, [cart, acknowledgedInteractionIds]);
+
+  const handleAcknowledge = () => {
+    // Save acknowledged interaction IDs so the warning doesn't keep popping up
+    const newIds = interactions.map(i => i.id);
+    setAcknowledgedInteractionIds(prev => [...prev, ...newIds]);
+    setShowWarning(false);
+  };
+
   return (
     <div className="flex-1 flex w-full h-full">
       {/* Left Column: Product Search */}
@@ -42,6 +100,17 @@ export default function PosPage() {
           <CheckoutPanel />
         </div>
       </div>
+
+      {/* Warning Modal */}
+      {showWarning && (
+        <InteractionWarningModal
+          interactions={interactions}
+          onClose={() => setShowWarning(false)}
+          onAcknowledge={handleAcknowledge}
+          onRemoveItem={removeItem}
+          cartItems={cart}
+        />
+      )}
     </div>
   );
 }
