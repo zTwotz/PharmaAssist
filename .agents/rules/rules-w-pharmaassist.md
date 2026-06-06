@@ -123,3 +123,26 @@ Khi đặt tên nhánh đúng chuẩn (ví dụ: `feature/PAC-2`) và push lên 
 - **Phân tách công việc rõ ràng:** Khi chuyển sang làm phần việc tiếp theo, phải checkout về nhánh gốc (`develop`), kéo code mới nhất, và tạo một nhánh mới hoàn toàn chứa đúng `ISSUE-KEY` của nhiệm vụ mới đó để thực hiện.
 - **Áp dụng cho mọi cấp độ:** Quy tắc tạo nhánh và push code tương ứng này áp dụng đồng nhất cho cả Epic, Story, Task hay Bug.
 
+## 7. Quy Trình Làm Việc Tự Động Của AI Agent (AI Agent Autonomous Workflow)
+Khi làm việc tự động (autonomous), AI Agent bắt buộc phải tuân thủ nghiêm ngặt các quy định và chuỗi kỹ năng (skills) dưới đây:
+
+### 7.1. Bắt Đầu Một Công Việc Mới (New Task/PAC)
+- **Quy định chung:** Luôn luôn tuân thủ nguyên tắc cốt lõi `/karpathy-principles`. Không bao giờ bỏ qua các bước lên kế hoạch và phân tích.
+- **Lên ý tưởng & Kế hoạch:** Sử dụng tổ hợp các kỹ năng `/brainstorming`, `/writing-plans`, và `/agent-skills-lifecycle` để phân tích yêu cầu, lên ý tưởng, và lập kế hoạch thực hiện một cách chi tiết.
+- **Giải quyết thắc mắc:** Nếu có bất kỳ điểm nào chưa rõ hoặc yêu cầu bị mơ hồ, bắt buộc phải sử dụng `/grill-me` (hoặc `/grill-with-docs`) để hỏi và làm rõ với người dùng trước khi tiến hành code.
+
+### 7.2. Triển Khai Thực Hiện (Implementation)
+- Tùy thuộc vào lĩnh vực của task, sử dụng linh hoạt tổ hợp các workflows và kỹ năng sau để phát triển tính năng:
+  - Tích hợp và xây dựng: `/build`, `/superpowers-workflow`.
+  - Backend & Cơ sở dữ liệu: `/api`, `/ecc-backend`, `/ecc-database`.
+  - Frontend & Thiết kế: `/design-ui`, `/ecc-frontend`.
+
+### 7.3. Kiểm Tra & Khắc Phục Lỗi (Testing & Debugging)
+- Sau khi code xong và **TRƯỚC KHI COMMIT**, bắt buộc phải chạy các bước kiểm tra chất lượng code.
+- Sử dụng các kỹ năng `/tdd`, `/debug`, và `/ecc-testing` để viết test (nếu cần), kiểm tra lỗi, và sửa mọi bug phát sinh. Đảm bảo mã nguồn hoạt động chính xác theo tiêu chí chấp nhận.
+
+### 7.4. Hoàn Thành & Tích Hợp (Finalization)
+- Chỉ khi mọi kiểm tra (tests/build) đã vượt qua thành công (OK), AI Agent mới được phép:
+  1. Push nhánh feature hiện tại lên GitHub (`git push`).
+  2. Tạo Pull Request (PR) để gộp code vào nhánh `develop`.
+  3. Thực hiện Merge PR vào nhánh `develop` (tuân thủ theo quy trình chuẩn của dự án).
