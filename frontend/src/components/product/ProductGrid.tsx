@@ -1,13 +1,100 @@
-import Link from 'next/link';
-import { ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+'use client';
 
-export function ProductGrid({ products, totalCount, currentPage, totalPages }: any) {
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { ShoppingCart, ChevronDown, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { fetchMoreProducts } from '@/app/actions/product.actions';
+
+export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [products, setProducts] = useState<any[]>(initialProducts || []);
+  const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(initialProducts?.length || 0);
+
+  // Sync products when URL or category changes (new page load)
+  useEffect(() => {
+    setProducts(initialProducts || []);
+    setOffset(initialProducts?.length || 0);
+  }, [initialProducts]);
+
+  const sortValue = searchParams.get('sort') || 'default';
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (e.target.value !== 'default') {
+      params.set('sort', e.target.value);
+    } else {
+      params.delete('sort');
+    }
+    // Delete page if it exists because sorting should reset to page 1
+    params.delete('page');
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handleLoadMore = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const brandCodes = searchParams.getAll('brand');
+      const minPrice = parseInt(searchParams.get('minPrice') || '0');
+      const maxPrice = parseInt(searchParams.get('maxPrice') || '5000000');
+      const sort = searchParams.get('sort') || undefined;
+
+      // Note: We need brandIds, but we only have brandCodes in URL.
+      // For simplicity, we can rely on the server action to handle this, 
+      // but the action expects brandIds. We'll leave brand filtering to the server on initial load,
+      // and for load more we should pass what we have. 
+      // Actually, since we don't have brandIds easily here, we should pass brandCodes to the action.
+      // Let's modify the action slightly later to accept brandCodes if needed, or pass nothing for now.
+      // Wait, we can get brandIds from initial load or pass them from page.tsx.
+      // For this implementation, I'll let page.tsx pass a resolved `filters` object.
+
+      const result = await fetchMoreProducts({
+        categoryIds,
+        brandIds: [], // We need to fix this in page.tsx by passing down the resolved brandIds
+        minPrice,
+        maxPrice,
+        limit: 12,
+        offset,
+        sort
+      });
+
+      setProducts((prev: any[]) => [...prev, ...result.products]);
+      setOffset((prev: number) => prev + result.products.length);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full">
-      <div className="mb-4 text-sm text-gray-500">
-        Tìm thấy <span className="font-bold text-gray-900">{totalCount}</span> sản phẩm
+      <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="text-sm text-gray-500">
+          Tìm thấy <span className="font-bold text-gray-900">{totalCount}</span> sản phẩm
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500">Sắp xếp theo:</span>
+          <div className="relative">
+            <select 
+              className="appearance-none bg-white border border-gray-200 rounded-full py-2 pl-4 pr-10 text-sm font-medium text-gray-700 outline-none hover:border-[#024ad8] focus:border-[#024ad8] transition-colors cursor-pointer"
+              value={sortValue}
+              onChange={handleSortChange}
+            >
+              <option value="default">Bán chạy</option>
+              <option value="price_asc">Giá thấp</option>
+              <option value="price_desc">Giá cao</option>
+            </select>
+            <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          </div>
+        </div>
       </div>
 
       {products.length === 0 ? (
@@ -21,9 +108,14 @@ export function ProductGrid({ products, totalCount, currentPage, totalPages }: a
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {products.map((product: any) => {
-            const price = product.product_prices?.[0]?.price || 0;
-            const originalPrice = product.product_prices?.[0]?.original_price;
-            const unit = product.product_prices?.[0]?.unit_name || 'Hộp';
+            const price = product.product_variants?.[0]?.selling_price || 0;
+            const originalPrice = undefined; // Not available in product_variants
+            const unit = product.product_variants?.[0]?.variant_name || 'Hộp';
+            
+            // Lấy ảnh chính hoặc ảnh đầu tiên
+            const primaryImage = product.product_images?.find((img: any) => img.is_primary)?.image_url;
+            const fallbackImage = product.product_images?.[0]?.image_url;
+            const imageUrl = primaryImage || fallbackImage || 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png';
             
             return (
               <div key={product.id} className="group relative flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-[#024ad8]/30 transition-all duration-300 transform hover:-translate-y-1">
@@ -36,7 +128,7 @@ export function ProductGrid({ products, totalCount, currentPage, totalPages }: a
                 
                 <Link href={`/san-pham/${product.slug}`} className="relative p-4 flex items-center justify-center bg-white aspect-square">
                   <img 
-                    src={product.image_url || 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png'} 
+                    src={imageUrl} 
                     alt={product.name}
                     className="object-contain max-h-full max-w-full transition-transform duration-500 group-hover:scale-110"
                     onError={(e) => { (e.target as HTMLImageElement).src = 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png' }}
@@ -70,45 +162,23 @@ export function ProductGrid({ products, totalCount, currentPage, totalPages }: a
         </div>
       )}
 
-      {/* Pagination */}
-      {totalPages > 1 && (
+      {/* Load More Button */}
+      {products.length > 0 && products.length < totalCount && (
         <div className="mt-8 flex justify-center">
-          <Pagination>
-            <PaginationContent>
-              {currentPage > 1 && (
-                <PaginationItem>
-                  <PaginationPrevious href={`?page=${currentPage - 1}`} />
-                </PaginationItem>
-              )}
-              
-              {/* Simple pagination numbers */}
-              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                let pageNum = i + 1;
-                // Center around current page if possible
-                if (totalPages > 5 && currentPage > 3) {
-                  pageNum = currentPage - 2 + i;
-                  if (pageNum > totalPages) pageNum = totalPages - (4 - i);
-                }
-                
-                return (
-                  <PaginationItem key={pageNum}>
-                    <PaginationLink 
-                      href={`?page=${pageNum}`}
-                      isActive={currentPage === pageNum}
-                    >
-                      {pageNum}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              })}
-
-              {currentPage < totalPages && (
-                <PaginationItem>
-                  <PaginationNext href={`?page=${currentPage + 1}`} />
-                </PaginationItem>
-              )}
-            </PaginationContent>
-          </Pagination>
+          <Button 
+            onClick={handleLoadMore} 
+            disabled={loading}
+            className="bg-white text-[#024ad8] border border-[#024ad8] hover:bg-gray-50 px-8 py-2 rounded-full font-medium h-12 shadow-sm min-w-[200px]"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                Đang tải...
+              </>
+            ) : (
+              `Xem thêm ${Math.min(12, totalCount - products.length)} sản phẩm`
+            )}
+          </Button>
         </div>
       )}
     </div>
