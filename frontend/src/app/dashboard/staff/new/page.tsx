@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Mail, Phone, Lock, Hash, Shield, ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function CreateStaffPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     username: '',
@@ -15,13 +17,20 @@ export default function CreateStaffPage() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [roles, setRoles] = useState<{ id: number; name: string }[]>([]);
 
-  // Mock roles for UI commit, will be replaced with API in next commit
-  const mockRoles = [
-    { id: 1, name: 'ADMIN' },
-    { id: 2, name: 'PHARMACIST' },
-    { id: 3, name: 'WAREHOUSE_STAFF' },
-  ];
+  useEffect(() => {
+    // Fetch roles from backend
+    fetch('http://localhost:3001/roles', {
+      // In a real app, you would pass the auth token here
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(data => setRoles(data))
+      .catch(err => console.error('Failed to load roles:', err));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,11 +39,34 @@ export default function CreateStaffPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Submit logic will be implemented in the next commit
-    setTimeout(() => {
+
+    try {
+      const payload = {
+        ...formData,
+        roleId: Number(formData.roleId)
+      };
+
+      const res = await fetch('http://localhost:3001/users/staff', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Lỗi tạo tài khoản');
+      }
+
+      alert('Tạo nhân viên thành công!');
+      router.push('/dashboard/staff');
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
       setIsLoading(false);
-      alert('Tạo nhân viên thành công (Mock UI)');
-    }, 1000);
+    }
   };
 
   return (
@@ -167,7 +199,7 @@ export default function CreateStaffPage() {
                   className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#024ad8] focus:border-transparent transition-all appearance-none bg-white"
                 >
                   <option value="" disabled>-- Chọn vai trò --</option>
-                  {mockRoles.map(role => (
+                  {roles.map(role => (
                     <option key={role.id} value={role.id}>{role.name}</option>
                   ))}
                 </select>
