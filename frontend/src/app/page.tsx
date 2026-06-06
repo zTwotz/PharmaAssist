@@ -2558,8 +2558,8 @@ export default function HomePage() {
 
           {/* Content Body */}
           {activeDiseaseGroupTab === "mua" ? (
-            {/* Blue Container with White Tabs Header */}
             <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-300">
+              {/* Blue Container with White Tabs Header */}
             
             {/* Header Tabs Row */}
             <div className="flex bg-white/10 rounded-t-3xl -mx-6 px-6 py-2 border-b border-white/10 overflow-x-auto scrollbar-hide shrink-0">
@@ -3473,8 +3473,8 @@ export default function HomePage() {
 
           </div>
           ) : (
-            {/* Demographic Diseases Grid (Bệnh theo đối tượng) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in zoom-in-95 duration-300">
+              {/* Demographic Diseases Grid (Bệnh theo đối tượng) */}
               
               {/* Card 1: Bệnh Nam Giới */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
