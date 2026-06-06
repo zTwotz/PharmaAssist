@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import mappedImages from "./mapped_images.json";
 import { 
   Search, 
@@ -857,6 +858,7 @@ const renderSubcatThumbnail = (name: string) => {
 };
 
 export default function HomePage() {
+  const router = useRouter();
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
   const [searchTerm, setSearchTerm] = useState("");
@@ -868,6 +870,7 @@ export default function HomePage() {
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
   const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
+  const [activeDiseaseGroupTab, setActiveDiseaseGroupTab] = useState<"doi-tuong" | "mua">("doi-tuong");
   const [activeSeasonalTab, setActiveSeasonalTab] = useState<number>(0);
   const [fysolineSeptiUnit, setFysolineSeptiUnit] = useState<"hop" | "ong">("hop");
   const [fysolineIsoUnit, setFysolineIsoUnit] = useState<"hop" | "ong">("hop");
@@ -916,11 +919,15 @@ export default function HomePage() {
   // Smooth scroll and set category filter on menu click
   const handleCategoryClick = (categoryName: string, e: React.MouseEvent) => {
     e.preventDefault();
-    setSelectedCategory(categoryName);
-    const target = document.getElementById("featured-medicines");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    const slug = categoryName
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+    router.push(`/${slug}`);
   };
 
   // Fetch API data
@@ -1011,305 +1018,6 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-canvas font-sans text-ink">
-      {/* SEO Tags (Meta-structure simulated via Next.js client-side fallback metadata or direct render) */}
-      <head>
-        <title>PharmaAssist - Tra Cứu Thuốc Nhanh, Mua Thuốc Thuận Tiện</title>
-        <meta name="description" content="Hệ thống PharmaAssist hỗ trợ tra cứu thuốc nhanh chóng, xem danh mục nổi bật, tìm kiếm hoạt chất, mua thuốc thuận tiện và hỗ trợ cảnh báo tương tác thuốc tự động." />
-      </head>
-
-      {/* 1. TOP BAR */}
-      <div className="bg-ink-soft text-white text-xs py-2 px-4 md:px-8 border-b border-charcoal">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <span className="flex items-center gap-1 font-medium hover:text-primary-soft transition-colors cursor-pointer">
-              <Phone size={14} className="text-primary-bright" />
-              Hotline tư vấn: <strong className="text-primary-soft">1800 6868</strong> (Miễn phí)
-            </span>
-            <span className="flex items-center gap-1 opacity-95">
-              <MapPin size={14} className="text-primary-bright" />
-              Địa chỉ: 123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. HCM
-            </span>
-          </div>
-          <Link 
-            href="/login" 
-            id="btn-staff-login-topbar"
-            className="flex items-center gap-1.5 bg-charcoal hover:bg-primary-deep text-white px-3 py-1 rounded-md transition-all duration-300 text-xs border border-graphite"
-          >
-            <Lock size={12} className="text-primary-bright" />
-            Nhân viên đăng nhập
-          </Link>
-        </div>
-      </div>
-
-      {/* 2. HEADER CHÍNH */}
-      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur-md border-b border-fog shadow-sm transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Logo */}
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <Link href="/" id="logo-link" className="flex items-center gap-2 group">
-              <div className="bg-primary text-white p-2.5 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-300">
-                <Sparkles size={24} />
-              </div>
-              <div>
-                <span className="text-xl font-bold tracking-tight text-ink group-hover:text-primary transition-colors">
-                  Pharma<span className="text-primary">Assist</span>
-                </span>
-                <span className="block text-[10px] text-graphite tracking-widest uppercase -mt-1">
-                  AI Intelligence
-                </span>
-              </div>
-            </Link>
-            
-            {/* Mobile Actions Header */}
-            <div className="flex items-center gap-2 md:hidden">
-              <Link href="/cart" id="mobile-cart-btn" className="relative p-2 text-ink hover:text-primary transition-colors">
-                <ShoppingCart size={22} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-bloom-coral text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-              <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
-                <User size={22} />
-              </Link>
-            </div>
-          </div>
-
-          {/* Search Bar */}
-          <div className="w-full md:max-w-2xl relative">
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                id="main-search-input"
-                placeholder="Tìm tên thuốc, hoạt chất, danh mục..."
-                className="w-full pl-11 pr-4 py-2.5 bg-cloud border border-steel focus:border-primary focus:bg-white rounded-xl text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-soft"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <Search className="absolute left-4 text-graphite pointer-events-none" size={18} />
-              {searchTerm && (
-                <button 
-                  onClick={() => setSearchTerm("")}
-                  className="absolute right-4 text-graphite hover:text-ink transition-colors"
-                >
-                  <X size={16} />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link 
-              href="/cart" 
-              id="desktop-cart-link"
-              className="relative flex items-center gap-2 bg-cloud hover:bg-primary-soft text-ink hover:text-primary-deep px-4 py-2 rounded-xl transition-all duration-300 text-sm font-medium border border-fog"
-            >
-              <ShoppingCart size={18} />
-              Giỏ hàng
-              {cartCount > 0 ? (
-                <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                  {cartCount}
-                </span>
-              ) : (
-                <span className="text-xs text-graphite">0</span>
-              )}
-            </Link>
-            <Link 
-              href="/login" 
-              id="desktop-login-link"
-              className="flex items-center gap-2 bg-primary hover:bg-primary-deep text-white px-5 py-2 rounded-xl transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-            >
-              <User size={18} />
-              Đăng nhập
-            </Link>
-          </div>
-        </div>
-
-        {/* Navigation Menu */}
-        <nav className="bg-white border-t-2 border-[#024ad8] relative overflow-visible shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative overflow-visible flex items-center justify-start gap-8 h-14">
-
-            {NAV_MEGA_MENU_DATA.map((cat) => {
-              const isSelected = selectedCategory === cat.name;
-              return (
-                <div 
-                  key={cat.id} 
-                  className="group overflow-visible"
-                  onMouseEnter={() => {
-                    if (cat.subCategories.length > 0) {
-                      setActiveSubId(cat.subCategories[0].id);
-                    }
-                  }}
-                >
-                  <button
-                    onClick={(e) => handleCategoryClick(cat.name, e)}
-                    className={`flex items-center gap-1.5 py-4 text-sm font-bold transition-all duration-200 border-b-2 border-transparent ${
-                      isSelected 
-                        ? "text-[#024ad8] border-[#024ad8]" 
-                        : "text-ink hover:text-[#024ad8] hover:border-[#024ad8]"
-                    }`}
-                  >
-                    {cat.name}
-                    <ChevronDown size={12} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
-                  </button>
-
-                  {/* Mega Menu Dropdown */}
-                  <div className="absolute top-full left-4 right-4 bg-white border border-fog shadow-2xl rounded-3xl p-6 hidden group-hover:flex z-50 animate-fadeIn min-h-[380px]">
-                    {/* Container 2 cột */}
-                    <div className="grid grid-cols-12 gap-6 w-full text-left">
-                      {/* Cột trái (danh mục mẹ - cấp 2) */}
-                      <div className="col-span-4 border-r border-fog pr-4 flex flex-col gap-1">
-                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2.5 block">
-                          Nhóm sản phẩm
-                        </span>
-                        {cat.subCategories.map((sub) => {
-                          const isSubActive = activeSubId === sub.id;
-                          return (
-                            <div
-                              key={sub.id}
-                              onMouseEnter={() => setActiveSubId(sub.id)}
-                              className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all duration-300 ${
-                                isSubActive 
-                                  ? "bg-[#024ad8]/5 text-[#024ad8] font-bold" 
-                                  : "hover:bg-cloud text-ink font-medium"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                <div className={`p-1.5 rounded-lg ${isSubActive ? "bg-[#024ad8]/10 text-[#024ad8]" : "bg-cloud text-graphite"}`}>
-                                  {renderMenuIcon(sub.iconName)}
-                                </div>
-                                <span className="text-xs">{sub.name}</span>
-                              </div>
-                              <ChevronRight size={14} className={`transition-transform duration-300 ${isSubActive ? "translate-x-1" : "opacity-50"}`} />
-                            </div>
-                          );
-                        })}
-                      </div>
-
-                      {/* Cột phải (danh mục con - cấp 3 & sản phẩm bán chạy) */}
-                      <div className="col-span-8 pl-4 flex flex-col justify-between">
-                        {cat.subCategories.map((sub) => {
-                          if (activeSubId !== sub.id) return null;
-                          return (
-                            <div key={sub.id} className="flex flex-col gap-6 h-full justify-between animate-fadeIn">
-                              {/* Danh mục con */}
-                              <div>
-                                <span className="text-[10px] text-graphite font-bold uppercase tracking-wider mb-2.5 block">
-                                  Danh mục con nổi bật
-                                </span>
-                                <div className="grid grid-cols-3 gap-4">
-                                  {sub.children.map((child, idx) => (
-                                    <button
-                                      key={idx}
-                                      onClick={(e) => handleCategoryClick(child, e)}
-                                      className="flex items-center gap-3.5 bg-white hover:bg-cloud text-ink text-xs md:text-[13px] font-bold p-3.5 rounded-2xl border border-fog hover:border-[#024ad8]/20 transition-all duration-300 text-left shadow-sm min-h-[60px]"
-                                    >
-                                      <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center bg-cloud shrink-0">
-                                        {renderSubcatThumbnail(child)}
-                                      </div>
-                                      <span className="line-clamp-2 leading-snug">{child}</span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Sản phẩm bán chạy */}
-                              <div>
-                                <div className="flex items-center justify-between mb-3 border-b border-fog pb-2">
-                                  <span className="text-[10px] text-graphite font-bold uppercase tracking-wider">
-                                    Sản phẩm bán chạy nhất
-                                  </span>
-                                  <span 
-                                    className="text-[10px] text-[#024ad8] font-bold flex items-center gap-0.5 cursor-pointer hover:underline"
-                                    onClick={(e) => handleCategoryClick(sub.name, e)}
-                                  >
-                                    Xem tất cả
-                                    <ChevronRight size={12} />
-                                  </span>
-                                </div>
-                                <div className="grid grid-cols-5 gap-3">
-                                  {sub.featuredProducts.map((prod, pIdx) => (
-                                    <div 
-                                      key={pIdx} 
-                                      className="bg-white rounded-xl border border-fog p-2 flex flex-col justify-between hover:border-[#024ad8]/30 transition-all duration-300 group/prod cursor-pointer relative"
-                                      onClick={(e) => handleCategoryClick(sub.name, e)}
-                                    >
-                                      <div className="bg-cloud aspect-square rounded-lg flex items-center justify-center overflow-hidden mb-2 relative">
-                                        {prod.discount && (
-                                          <div className="absolute top-1 left-1 bg-[#ea3829] text-white text-[9px] font-black px-1.5 py-0.5 rounded-md z-10">
-                                            -{prod.discount}%
-                                          </div>
-                                        )}
-                                        {(() => {
-                                          const finalImage = mappedImages[prod.name as keyof typeof mappedImages] || prod.image;
-                                          return finalImage ? (
-                                            <img 
-                                              src={finalImage} 
-                                              alt={prod.name} 
-                                              className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" 
-                                            />
-                                          ) : (
-                                            <Sparkles size={24} className="text-[#024ad8]/20" />
-                                          );
-                                        })()}
-                                      </div>
-                                      <div>
-                                        <h5 className="text-[10px] font-bold text-ink line-clamp-2 leading-tight group-hover/prod:text-[#024ad8] transition-colors min-h-[28px]">
-                                          {prod.name}
-                                        </h5>
-                                        <div className="flex flex-col mt-1">
-                                          <div className="flex items-baseline justify-between">
-                                            <span className="text-[10px] font-black text-[#024ad8]">
-                                              {prod.price.toLocaleString("vi-VN")}đ
-                                            </span>
-                                            <span className="text-[9px] text-graphite">/{prod.unit}</span>
-                                          </div>
-                                          {prod.originalPrice && (
-                                            <span className="text-[9px] text-gray-400 line-through mt-0.5">
-                                              {prod.originalPrice.toLocaleString("vi-VN")}đ
-                                            </span>
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-
-            <Link 
-              href="#vaccination" 
-              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
-            >
-              Tiêm chủng
-            </Link>
-            <div className="group overflow-visible shrink-0">
-              <button
-                className="flex items-center gap-1 py-3 text-xs text-ink hover:text-[#024ad8] transition-colors border-b-2 border-transparent"
-              >
-                Bệnh & Góc sức khỏe
-                <ChevronDown size={12} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
-              </button>
-            </div>
-            <Link 
-              href="#store-system" 
-              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
-            >
-              Hệ thống nhà thuốc
-            </Link>
-          </div>
-        </nav>
-      </header>
 
       {/* MAIN CONTAINER */}
       <main className="flex-1">
@@ -2512,22 +2220,53 @@ export default function HomePage() {
 
 
 
-        {/* 5.6. SEASONAL DISEASES SECTION (BỆNH THEO MÙA) */}
+        {/* 5.6. DISEASE SECTION (BỆNH) */}
         <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
           
           {/* Header Row */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-[#024ad8]/10 text-[#024ad8] p-2 rounded-full shadow-sm flex items-center justify-center">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8m-4-4v8" />
-              </svg>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#024ad8] text-white p-1 rounded-full shadow-sm flex items-center justify-center w-6 h-6">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-6-6h12" />
+                </svg>
+              </div>
+              <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Bệnh</h2>
             </div>
-            <h2 className="text-xl md:text-2xl font-black text-[#1a1a1a]">Bệnh theo mùa</h2>
+            
+            <div className="h-4 w-px bg-fog mx-1"></div>
+            
+            <span className="text-[#024ad8] text-xs font-bold cursor-pointer hover:underline flex items-center group">
+              Xem tất cả <ChevronRight size={14} className="ml-0.5 group-hover:translate-x-1 transition-transform" />
+            </span>
           </div>
 
-          {/* Blue Container with White Tabs Header */}
-          <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6">
+          {/* Group Tabs Row */}
+          <div className="flex gap-2 mb-6">
+            <button 
+              onClick={() => setActiveDiseaseGroupTab("doi-tuong")}
+              className={`px-4 py-1.5 rounded-full text-[13px] font-bold border transition-colors ${activeDiseaseGroupTab === "doi-tuong" ? "border-[#024ad8] text-[#024ad8] bg-white shadow-sm flex items-center gap-1" : "border-transparent text-gray-500 hover:text-gray-800 bg-white"}`}
+            >
+              Bệnh theo đối tượng
+              {activeDiseaseGroupTab === "doi-tuong" && (
+                <svg className="w-3 h-3 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveDiseaseGroupTab("mua")}
+              className={`px-4 py-1.5 rounded-full text-[13px] font-bold border transition-colors ${activeDiseaseGroupTab === "mua" ? "border-[#024ad8] text-[#024ad8] bg-white shadow-sm flex items-center gap-1" : "border-transparent text-gray-500 hover:text-gray-800 bg-white"}`}
+            >
+              Bệnh theo mùa
+              {activeDiseaseGroupTab === "mua" && (
+                <svg className="w-3 h-3 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+              )}
+            </button>
+          </div>
+
+          {/* Content Body */}
+          {activeDiseaseGroupTab === "mua" ? (
+            <div className="bg-[#024ad8] rounded-3xl p-6 pt-0 border border-blue-700 shadow-lg relative overflow-hidden flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-300">
+              {/* Blue Container with White Tabs Header */}
             
             {/* Header Tabs Row */}
             <div className="flex bg-white/10 rounded-t-3xl -mx-6 px-6 py-2 border-b border-white/10 overflow-x-auto scrollbar-hide shrink-0">
@@ -3440,331 +3179,270 @@ export default function HomePage() {
             </div>
 
           </div>
-        </section>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in zoom-in-95 duration-300">
+              {/* Demographic Diseases Grid (Bệnh theo đối tượng) */}
+              
+              {/* Card 1: Bệnh Nam Giới */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nam_gioi.png" alt="Bệnh Nam Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nam Giới</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Loãng xương ở nam", "Di tinh, mộng tinh", "Hẹp bao quy đầu", "Yếu sinh lý"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
 
-        {/* 6. THUỐC NỔI BẬT / BÁN CHẠY */}
-        <section id="featured-medicines" className="bg-cloud py-12 md:py-16 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
+              {/* Card 2: Bệnh Nữ Giới */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nu_gioi.png" alt="Bệnh Nữ Giới" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Nữ Giới</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Hội chứng tiền kinh nguyệt", "Hội chứng tiền mãn kinh", "Chậm kinh", "Mất kinh"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+              {/* Card 3: Bệnh Người Già */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_nguoi_gia.png" alt="Bệnh Người Già" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Người Già</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Alzheimer", "Parkinson", "Parkinson thứ phát", "Đục thủy tinh thể ở người già"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+              {/* Card 4: Bệnh Trẻ Em */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-fog flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="/benh_tre_em.png" alt="Bệnh Trẻ Em" className="w-full h-[140px] object-cover rounded-xl mb-4" />
+                <h3 className="font-black text-[15px] text-ink mb-3 uppercase tracking-wide">Bệnh Trẻ Em</h3>
+                <ul className="flex-1 flex flex-col gap-2 mb-4">
+                  {["Bại não trẻ em", "Tự kỷ", "Uốn ván", "Tắc ruột sơ sinh"].map((item, i) => (
+                    <li key={i} className="text-[13px] text-gray-500 font-semibold flex items-center gap-2 hover:text-[#024ad8] cursor-pointer transition-colors">
+                      <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[#024ad8] font-bold text-xs flex items-center gap-1 cursor-pointer hover:underline">
+                  Tìm hiểu thêm <ChevronRight size={14} />
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* Trust Indicators Section */}
+          <div className="mt-8 border-t border-fog/60 pt-6 px-2 flex flex-wrap justify-between gap-6 md:gap-4 items-center">
             
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-primary font-bold">Tìm kiếm & lựa chọn</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-ink mt-1">
-                  {selectedCategory ? `Thuốc thuộc: ${selectedCategory}` : "Danh sách thuốc bán chạy"}
-                </h2>
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
               </div>
-              
-              <div className="text-sm text-graphite font-medium bg-white px-3 py-1.5 rounded-lg border border-fog">
-                Hiển thị: <strong className="text-ink">{filteredMedicines.length}</strong> sản phẩm
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Thuốc chính hãng</span>
+                <span className="text-[11px] font-semibold text-gray-500">đa dạng và chuyên sâu</span>
               </div>
             </div>
 
-            {filteredMedicines.length === 0 ? (
-              <div className="bg-white rounded-3xl p-12 text-center border border-fog shadow-sm">
-                <Info size={48} className="text-steel mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-ink mb-1">Không tìm thấy thuốc phù hợp</h3>
-                <p className="text-sm text-graphite max-w-md mx-auto">
-                  Không tìm thấy thuốc nào khớp với từ khóa &ldquo;{searchTerm}&rdquo; hoặc danh mục đã chọn. Hãy thử từ khóa khác.
-                </p>
-                <button 
-                  onClick={() => { setSearchTerm(""); setSelectedCategory(null); }}
-                  className="mt-4 bg-primary hover:bg-primary-deep text-white px-4 py-2 rounded-xl text-xs font-semibold transition-colors"
-                >
-                  Đặt lại bộ lọc
-                </button>
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredMedicines.map((med) => (
-                  <div 
-                    key={med.id} 
-                    onClick={() => setSelectedMedicine(med)}
-                    className="bg-white rounded-2xl border border-fog hover:border-primary-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col overflow-hidden group cursor-pointer"
-                  >
-                    {/* Image */}
-                    <div className="bg-cloud h-40 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute top-3 left-3 bg-white/95 text-graphite text-[10px] font-bold px-2 py-0.5 rounded border border-fog shadow-sm z-10">
-                        {med.id}
-                      </div>
-                      
-                      {med.imageUrl ? (
-                        <img 
-                          src={med.imageUrl} 
-                          alt={med.name} 
-                          className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500" 
-                        />
-                      ) : (
-                        <div className="text-primary-bright opacity-25 group-hover:scale-110 transition-transform duration-500">
-                          <Sparkles size={56} />
-                        </div>
-                      )}
-                      
-                      {/* Availability status tag */}
-                      <div className={`absolute bottom-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1 z-10 ${
-                        med.isAvailable 
-                          ? "bg-primary-soft text-primary-deep" 
-                          : "bg-bloom-rose text-bloom-deep"
-                      }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${med.isAvailable ? "bg-primary" : "bg-bloom-coral"}`} />
-                        {med.isAvailable ? "Còn hàng" : "Tạm hết hàng"}
-                      </div>
-                    </div>
-
-                    {/* Content info */}
-                    <div className="p-4 flex-1 flex flex-col justify-between">
-                      <div className="mb-4">
-                        <span className="text-[10px] text-graphite font-bold uppercase tracking-wider block mb-1">
-                          {med.category}
-                        </span>
-                        <h3 className="font-bold text-ink text-base line-clamp-1 group-hover:text-primary transition-colors">
-                          {med.name}
-                        </h3>
-                        <p className="text-xs text-graphite line-clamp-2 mt-1 min-h-[32px]">
-                          {med.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {/* Price wrapper */}
-                        <div className="flex items-baseline gap-1 mb-3">
-                          <span className="text-lg font-extrabold text-primary">
-                            {med.price.toLocaleString("vi-VN")}đ
-                          </span>
-                          <span className="text-[10px] text-graphite">/ {med.unit}</span>
-                        </div>
-
-                        {/* Actions buttons */}
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={(e) => { e.stopPropagation(); setSelectedMedicine(med); }}
-                            className="bg-cloud hover:bg-fog text-ink text-xs font-bold py-2 rounded-xl transition-all duration-300 text-center"
-                          >
-                            Chi tiết
-                          </button>
-                          <button
-                            onClick={(e) => handleAddToCart(med, e)}
-                            disabled={!med.isAvailable}
-                            className={`flex items-center justify-center gap-1.5 text-xs font-bold py-2 rounded-xl transition-all duration-300 ${
-                              med.isAvailable 
-                                ? "bg-primary hover:bg-primary-deep text-white shadow-sm" 
-                                : "bg-steel text-white cursor-not-allowed"
-                            }`}
-                          >
-                            <ShoppingCart size={12} />
-                            Mua
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* 7. DEMO TƯƠNG TÁC THUỐC (RULE-BASED) */}
-        <section id="interaction-demo" className="py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-3xl border border-fog p-6 md:p-8 shadow-sm">
-            <div className="lg:col-span-6 flex flex-col gap-4">
-              <span className="text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-1">
-                <AlertTriangle size={14} className="text-primary-bright" />
-                Công nghệ cốt lõi
-              </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-ink leading-tight">
-                Cảnh báo tương tác thuốc tự động khi bán
-              </h2>
-              <p className="text-sm text-graphite leading-relaxed">
-                Hệ thống PharmaAssist tích hợp công cụ kiểm tra tương tác thuốc tự động. Khi nhân viên hoặc khách hàng lựa chọn kết hợp từ 2 loại hoạt chất trở lên trong đơn thuốc, hệ thống sẽ tự động đối chiếu cơ sở dữ liệu để đưa ra cảnh báo nguy cơ tức thì.
-              </p>
-              <div className="space-y-2 mt-2">
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Phát hiện các hoạt chất đối kháng nhau trong đơn.
-                  </span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Phân chia mức độ cảnh báo rõ ràng: Nhẹ (LOW), Trung bình (MEDIUM), Nghiêm trọng (HIGH).
-                  </span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <div className="bg-primary-soft text-primary p-0.5 rounded-full mt-0.5">
-                    <Check size={12} />
-                  </div>
-                  <span className="text-xs font-medium text-ink-soft">
-                    Hỗ trợ dược sĩ ghi chú tư vấn trực tiếp cho người bệnh.
-                  </span>
-                </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Đổi trả trong 30 ngày</span>
+                <span className="text-[11px] font-semibold text-gray-500">kể từ ngày mua hàng</span>
               </div>
             </div>
 
-            <div className="lg:col-span-6 bg-cloud rounded-2xl p-6 border border-fog flex flex-col gap-4">
-              <div className="flex items-center justify-between border-b border-fog pb-3">
-                <span className="text-xs font-bold text-ink">Bảng tương tác thuốc mẫu (Demo)</span>
-                <span className="bg-bloom-coral text-white text-[10px] font-bold px-2 py-0.5 rounded">HIGH ALERT</span>
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
               </div>
-              
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white p-3 rounded-xl border border-fog">
-                    <span className="text-[10px] text-graphite block">Hoạt chất 1</span>
-                    <strong className="text-xs text-ink">Paracetamol</strong>
-                  </div>
-                  <div className="bg-white p-3 rounded-xl border border-fog">
-                    <span className="text-[10px] text-graphite block">Hoạt chất 2</span>
-                    <strong className="text-xs text-ink">Ibuprofen</strong>
-                  </div>
-                </div>
-
-                <div className="bg-white p-3 rounded-xl border border-fog flex gap-2">
-                  <Info size={16} className="text-primary shrink-0 mt-0.5" />
-                  <div className="text-xs">
-                    <strong className="text-ink block">Mức độ tương tác: LOW / MEDIUM</strong>
-                    <span className="text-graphite">Tránh dùng phối hợp nhiều thuốc hạ sốt giảm đau cùng nhóm NSAIDs cùng lúc khi không có chỉ định chuyên môn để giảm độc tính lên gan và thận.</span>
-                  </div>
-                </div>
-
-                <div className="border border-dashed border-steel p-3 rounded-xl text-center text-xs text-graphite">
-                  * Hệ thống chỉ đưa ra cảnh báo mang tính chất tham khảo phần mềm.
-                </div>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Cam kết 100%</span>
+                <span className="text-[11px] font-semibold text-gray-500">chất lượng sản phẩm</span>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* 8. GIỚI THIỆU TÍNH NĂNG PHARMAASSIST */}
-        <section id="about-system" className="bg-ink-soft text-white py-12 md:py-16 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-              <span className="text-xs uppercase tracking-widest text-primary-bright font-bold">Vận hành thông minh</span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Đầy đủ tính năng quản lý dược phẩm</h2>
-              <p className="text-sm text-primary-soft mt-2">
-                Hệ thống đáp ứng các tiêu chuẩn nghiệp vụ nhà thuốc từ cơ bản đến nâng cao.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <Search size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Tìm kiếm thuốc nhanh</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Tìm kiếm thông tin hoạt chất, hướng dẫn sử dụng, liều dùng và tác dụng phụ nhanh chóng thông qua cơ sở dữ liệu mẫu chuẩn hóa.
-                </p>
+            <div className="flex items-center gap-3 min-w-[200px]">
+              <div className="text-[#024ad8]">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
               </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <ClipboardList size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Quản lý đơn mua</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Hỗ trợ khách hàng gom thuốc vào giỏ hàng demo, xem trước đơn giá tổng, hỗ trợ xuất hóa đơn nháp phục vụ kiểm tra.
-                </p>
-              </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <FileText size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Thanh toán & Hóa đơn</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Tích hợp luồng ghi nhận thanh toán tự động, in hóa đơn chuẩn mẫu với đầy đủ thông tin chi tiết từng loại thuốc đã bán.
-                </p>
-              </div>
-
-              <div className="bg-charcoal/50 p-6 rounded-2xl border border-graphite/40 flex flex-col gap-3">
-                <div className="bg-primary-deep text-primary-soft w-10 h-10 flex items-center justify-center rounded-xl mb-2">
-                  <AlertTriangle size={20} />
-                </div>
-                <h3 className="font-bold text-white text-base">Cảnh báo tương tác</h3>
-                <p className="text-xs text-primary-soft leading-relaxed">
-                  Công cụ tích hợp sẵn hỗ trợ so khớp tương tác chéo giữa các hoạt chất trong cùng một giỏ hàng để phát hiện nguy cơ an toàn y học.
-                </p>
+              <div className="flex flex-col">
+                <span className="text-[14px] font-black text-[#1a1a1a]">Miễn phí vận chuyển</span>
+                <span className="text-[11px] font-semibold text-gray-500">theo chính sách giao hàng</span>
               </div>
             </div>
+
           </div>
         </section>
 
       </main>
 
       {/* 9. FOOTER */}
-      <footer className="bg-ink text-white/90 border-t border-charcoal pt-12 pb-6 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
-          
-          <div className="md:col-span-5 flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="bg-primary text-white p-2 rounded-xl">
-                <Sparkles size={20} />
-              </div>
-              <span className="text-lg font-bold text-white">
-                Pharma<span className="text-primary-bright">Assist</span>
-              </span>
-            </Link>
-            <p className="text-xs text-steel leading-relaxed max-w-sm">
-              Hệ thống quản lý nhà thuốc thông minh tích hợp kiểm tra tương tác thuốc tự động và AI Pharmacist Copilot hỗ trợ dược sĩ tư vấn.
-            </p>
-            <span className="text-xs text-steel flex items-center gap-1.5">
-              <Phone size={14} className="text-primary-bright" />
-              Điện thoại: 1800 6868 (Tư vấn 24/7)
-            </span>
+      <footer className="bg-white">
+        {/* Blue Bar */}
+        <div className="bg-[#024ad8] py-4 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-white">
+              <MapPin size={24} className="text-white" />
+              <span className="text-base font-bold">Xem hệ thống nhà thuốc trên toàn quốc</span>
+            </div>
+            <button className="bg-white text-[#024ad8] font-bold text-sm px-6 py-2.5 rounded-full hover:bg-cloud transition-colors shadow-sm">
+              Xem danh sách nhà thuốc
+            </button>
           </div>
-
-          <div className="md:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Danh mục
-            </h4>
-            <ul className="text-xs text-steel space-y-2">
-              <li><a href="#featured-medicines" className="hover:text-white transition-colors">Thuốc bán chạy</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Nhóm thuốc hạ sốt</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Sản phẩm tiêu hóa</a></li>
-              <li><a href="#medicine-categories" className="hover:text-white transition-colors">Thiết bị y tế</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Hỗ trợ
-            </h4>
-            <ul className="text-xs text-steel space-y-2">
-              <li><Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link></li>
-              <li><Link href="/cart" className="hover:text-white transition-colors">Xem giỏ hàng</Link></li>
-              <li><a href="#interaction-demo" className="hover:text-white transition-colors">Kiểm tra tương tác</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-3 flex flex-col gap-3">
-            <h4 className="text-xs uppercase tracking-widest text-primary-bright font-bold">
-              Bản quyền đồ án
-            </h4>
-            <p className="text-xs text-steel leading-relaxed">
-              Môn học: <strong>Công Nghệ Phần Mềm</strong><br />
-              Trường: Đại học Khoa học Tự nhiên, ĐHQG-HCM<br />
-              Năm thực hiện: 2026
-            </p>
-          </div>
-
         </div>
 
-        {/* Disclaimer section */}
-        <div className="max-w-7xl mx-auto border-t border-charcoal pt-6 flex flex-col gap-4 text-center">
-          <div className="bg-bloom-wine/40 border border-bloom-deep/50 rounded-2xl p-4 text-xs text-bloom-rose leading-relaxed max-w-4xl mx-auto flex items-start gap-2">
+        {/* Main Footer Content */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 border-b border-fog">
+          {/* Column 1: VỀ CHÚNG TÔI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Về chúng tôi</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Giới thiệu</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Hệ thống của hàng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Giấy phép kinh doanh</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Quy chế hoạt động</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách đặt cọc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách nội dung</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách đổi trả thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách giao hàng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách bảo mật</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chính sách thanh toán</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Kiểm tra hóa đơn điện tử</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu thông tin bảo hành</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 2: DANH MỤC */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Danh mục</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Thực phẩm chức năng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Dược mỹ phẩm</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Chăm sóc cá nhân</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Trang thiết bị y tế</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Góc sức khỏe</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: TÌM HIỂU THÊM */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tìm hiểu thêm</h4>
+            <ul className="flex flex-col gap-3 text-[13px] text-gray-600 font-medium">
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Góc sức khoẻ</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu thuốc</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu dược chất</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tra cứu dược liệu</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Bệnh thường gặp</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Bệnh viện</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Đội ngũ chuyên môn</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tin tức tuyển dụng</Link></li>
+              <li><Link href="#" className="hover:text-[#024ad8] transition-colors">Tin tức sự kiện</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: TỔNG ĐÀI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tổng đài (8:00 - 22:00)</h4>
+            <ul className="flex flex-col gap-4 text-[13px] text-gray-600 font-medium">
+              <li>
+                Tư vấn mua hàng<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 1)
+              </li>
+              <li>
+                Tư vấn Tiêm chủng<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 2)
+              </li>
+              <li>
+                Tư vấn Xét nghiệm<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 3)
+              </li>
+              <li>
+                Góp ý, khiếu nại và tiếp nhận cảnh báo thông tin vi phạm<br/>
+                <strong className="text-[#024ad8] text-[14px]">18006928</strong> (Nhánh 4)
+              </li>
+            </ul>
+
+            <div className="mt-6">
+              <h4 className="text-[11px] font-bold text-ink uppercase mb-3 tracking-wide">Chứng nhận bởi</h4>
+              <div className="flex gap-2 items-center">
+                <div className="bg-cloud text-ink font-bold text-[10px] px-2 py-1 border border-fog rounded flex items-center gap-1">
+                  <ShieldCheck size={12} className="text-blue-500" /> Đã thông báo Bộ Công Thương
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <h4 className="text-[11px] font-bold text-ink uppercase mb-3 tracking-wide">Hỗ trợ thanh toán</h4>
+              <div className="flex gap-2 items-center flex-wrap">
+                <div className="bg-cloud text-[10px] font-bold text-[#1434CB] border border-fog px-2 py-1 rounded shadow-sm">VISA</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#EB001B] border border-fog px-2 py-1 rounded shadow-sm">MasterCard</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#A50064] border border-fog px-2 py-1 rounded shadow-sm">MoMo</div>
+                <div className="bg-cloud text-[10px] font-bold text-[#005BAA] border border-fog px-2 py-1 rounded shadow-sm">VNPay</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 5: KẾT NỐI */}
+          <div>
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Kết nối với chúng tôi</h4>
+            <div className="flex gap-3 mb-6">
+              <a href="#" className="text-[#024ad8] hover:opacity-80 transition-opacity">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+              <a href="#" className="text-sky-500 hover:opacity-80 transition-opacity">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.25.38-.51 1.07-.78 4.2-1.82 7.01-3.04 8.43-3.63 4-.1.45.69.34.98.34z"/></svg>
+              </a>
+            </div>
+
+            <h4 className="text-[11px] font-bold text-ink uppercase mb-4 tracking-wide">Tải ứng dụng Long Châu</h4>
+            <div className="flex gap-2 items-start">
+              <img src="/qr_code_app.png" alt="QR Code Long Chau App" className="w-[100px] h-[100px] border border-fog rounded-lg shadow-sm" />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Bottom / Disclaimer */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col gap-4 text-center">
+          <div className="bg-bloom-wine/40 border border-bloom-deep/50 rounded-2xl p-4 text-xs text-bloom-rose leading-relaxed max-w-4xl mx-auto flex items-start gap-2 shadow-sm">
             <Info size={18} className="text-bloom-coral shrink-0 mt-0.5" />
             <p className="text-left">
-              <strong>Tuyên bố miễn trừ trách nhiệm (Disclaimer):</strong> Toàn bộ dữ liệu thuốc, hoạt chất và tương tác thuốc hiển thị trên hệ thống là dữ liệu giả lập được sử dụng cho mục đích chạy thử nghiệm đồ án môn học. Thông tin thuốc và cảnh báo tương tác chỉ mang tính chất tham khảo phần mềm, hoàn toàn không thay thế cho các chẩn đoán, tư vấn chuyên môn của dược sĩ, bác sĩ hoặc chuyên gia y tế thật.
+              <strong>Tuyên bố miễn trừ trách nhiệm (Disclaimer):</strong> Toàn bộ dữ liệu hiển thị trên hệ thống là dữ liệu giả lập được sử dụng cho mục đích chạy thử nghiệm đồ án. Thông tin không thay thế cho các tư vấn chuyên môn của chuyên gia y tế thật.
             </p>
           </div>
           
-          <div className="text-[10px] text-graphite mt-2">
-            &copy; {new Date().getFullYear()} PharmaAssist. All rights reserved. Designed for Academic Purpose.
+          <div className="text-[12px] text-gray-500 font-medium leading-relaxed mt-2 space-y-1">
+            <p className="text-sm font-bold text-ink mb-1">ĐỒ ÁN MÔN HỌC: CÔNG NGHỆ PHẦN MỀM</p>
+            <p>Trường Đại học Công Nghệ Hutech</p>
+            <p>Đề tài: Xây dựng hệ thống quản lý nhà thuốc PharmaAssist tích hợp kiểm tra tương tác thuốc</p>
+            <p className="pt-2 text-primary font-semibold">Nhóm phát triển: PharmaAssist Team • Năm thực hiện: 2026</p>
+            <p className="text-[10px] italic mt-2 text-gray-400">Website được xây dựng với mục đích học thuật, mọi thông tin chỉ mang tính chất minh họa và không có giá trị y khoa thực tế.</p>
           </div>
         </div>
       </footer>

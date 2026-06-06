@@ -29,7 +29,12 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ---
 
-## Active Queues (Sprint Backlogs)
+## 📋 Active Queues (Sprint 2 & Upcoming)
+- **PAC-19 (In Progress):** Develop Product Listing Page (PLP) with advanced filtering, pagination, and sorting.
+  - *Status:* Created `app/san-pham/page.tsx`, `FilterSidebar.tsx`, `ProductGrid.tsx`. Installed shadcn-ui components. Integrated Supabase server-side fetching with category tree building. Header updated to link to PLP.
+- **PAC-20 (Todo):** Develop Product Detail Page (PDP) with responsive layout and rich data from Supabase.
+- **PAC-14 (Todo):** Global search with Debounce.
+- **PAC-21 (Todo):** Shopping Cart functionality.
 - [x] Thiết lập khung dự án Frontend & Backend (NestJS + Next.js + Prisma ORM).
 - [x] Thiết kế & migration database schema trên Supabase (Khởi tạo 100 bảng database).
 - [x] Triển khai Xác thực & Phân quyền Auth & RBAC (Sprint 1 - PAC-43 đến PAC-50).
@@ -52,7 +57,22 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ---
 
-## Latest Execution Notes
+## 📓 Latest Execution Notes
+- **[6/6/2026] PAC-19:** 
+  - Verified `database/raw` vs `database/state` mapped perfectly to Supabase tables (`product_categories`, `brands`, `products`, `product_prices`).
+  - Created `category.ts` utility to build category tree from raw Supabase data.
+  - Created `FilterSidebar` utilizing Shadcn UI `Accordion`, `Checkbox`, `Slider`. Fixed Base UI types.
+  - Implemented `ProductGrid` with pagination and discount badges.
+  - Built `app/san-pham/page.tsx` as a Server Component fetching products directly via Supabase client with complex filters (`minPrice`, `maxPrice`, `category_id` in descendants, `brand_id`).
+  - Updated Header's `handleCategoryClick` to navigate to `/san-pham?category=slug`. Code committed.
+
+### 2026-06-07
+- **Tách Component Header & Footer (PAC-19):** Đã bóc tách thành công phần `Header` và `Footer` từ trang chủ `app/page.tsx` thành các component độc lập (`src/components/layout/Header.tsx`, `src/components/layout/Footer.tsx`). Các danh mục menu (`NAV_MEGA_MENU_DATA`) và logic render mega menu được chuyển vào thư viện constants (`src/lib/constants/menu.tsx`).
+- **Global Layout (PAC-19):** Đã cập nhật `src/app/layout.tsx` để tích hợp `Header` và `Footer` vào global layout, giúp tất cả các trang (bao gồm cả trang chi tiết danh mục `/thuoc`, `/thuc-pham-chuc-nang`...) đều có đầy đủ navigation và phần thông tin cuối trang như trang chủ.
+- **Dynamic Category Page (PAC-19):** Đã sửa đổi `src/app/[...categorySlug]/page.tsx` để tối ưu câu truy vấn Supabase, fix lỗi order by parameter (tránh sử dụng referenced table trong sort khi không cần thiết) và cải thiện cơ chế log lỗi `Error fetching products`. Trang danh mục động nay hỗ trợ hiển thị toàn bộ 76 danh mục con dựa trên file database schema mà không gặp lỗi Prisma/Supabase.
+
+- **Bệnh theo đối tượng Section (PAC-19):** Mở rộng block "Bệnh theo mùa" thành block "Bệnh" tổng quát, tích hợp thanh tab chuyển đổi giữa "Bệnh theo đối tượng" và "Bệnh theo mùa". Triển khai 4 thẻ đối tượng (Nam giới, Nữ giới, Người già, Trẻ em) với hình ảnh 3D cao cấp (AI generated) kèm danh sách các bệnh lý phổ biến và đường dẫn tìm hiểu thêm. Đồng thời bổ sung dải 4 Trust Indicators (Thuốc chính hãng, Đổi trả 30 ngày, Cam kết 100%, Miễn phí vận chuyển) ở phần dưới cùng của block để tăng độ tin cậy theo đúng chuẩn UI Long Châu. Chuyển đổi toàn bộ hiệu ứng micro-animations mượt mà. Đã commit và push lên nhánh `feature/PAC-19-demographic-disease`.
+- **Dọn dẹp layout & Long Chau Footer (PAC-19):** Dọn dẹp bỏ các section trung gian hiển thị dưới khối "Bệnh" để nối trực tiếp xuống Footer. Thiết kế lại toàn bộ Footer bám sát UI Long Châu gốc với cấu trúc dải băng ngang màu xanh tìm kiếm nhà thuốc, 5 cột Footer (Về chúng tôi, Danh mục, Tìm hiểu thêm, Tổng đài, Kết nối mạng xã hội/Tải ứng dụng), QR Code tải app (AI generated) và khối văn bản pháp lý. Commit và push vào nhánh `feature/PAC-19-demographic-disease`.
 
 ### 2026-06-04
 - **Bệnh theo mùa Section (PAC-19):** Hoàn thành tích hợp block "Bệnh theo mùa" (Seasonal Diseases) ngay dưới phần "Kiểm tra sức khỏe" của trang chủ. Thiết kế thanh Tab chuyển đổi linh hoạt giữa 4 bệnh (Tay chân miệng, Viêm não mô cầu, Cúm, Sốt xuất huyết). Mỗi bệnh đi kèm mô tả y học chính xác, Mascot chú robot thông minh y tế (lưu tại `mascot.png`) và danh sách 4 thẻ sản phẩm liên quan từ CDN database Supabase. Tích hợp bộ chọn đơn vị động (Hộp, Vỉ, Viên, Chai, Ống, Thùng) cập nhật giá động qua React State. Sửa hoàn toàn lỗi biên dịch JSX do thẻ đóng bị dư thừa từ các phiên trước. Sửa triệt để lỗi hiển thị ảnh (403/404) của các sản phẩm Aloclair Gel, Khẩu trang Famapro, và Thuốc Acemuc bằng cách truy vấn lấy link ảnh CDN thực tế (200 OK) thông qua Supabase.
