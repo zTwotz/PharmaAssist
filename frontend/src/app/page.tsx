@@ -3732,8 +3732,8 @@ export default function HomePage() {
           
           <div className="text-[11px] text-gray-500 font-medium leading-relaxed mt-2">
             <p>© 2007 - 2026 Công ty Cổ Phần Dược Phẩm FPT Long Châu Số ĐKKD 0315275368 cấp ngày 17/09/2018 tại Sở Kế hoạch Đầu tư TPHCM</p>
-            <p>GP thiết lập TTĐTTH số 538/GP-TTĐT do Sở TTTT Hồ Chí Minh cấp ngày 27 tháng 03 năm 2025</p>
-            <p>Địa chỉ: 379-381 Hai Bà Trưng, P. Võ Thị Sáu, Q.3, TP. Hồ Chí Minh • Số điện thoại: (028)73023456 • Email: sale@nhathuoclongchau.com.vn</p>
+            <p>GP thiết lập TTTĐTTH số 538/GP-TTĐT do Sở TTTT Hồ Chí Minh cấp ngày 27 tháng 03 năm 2025</p>
+            <p>Địa chỉ: 379-381 Hai Bà Trưng, P. Xuân Hoà, TP. Hồ Chí Minh • Số điện thoại: (028)73023456 • Email: sale@nhathuoclongchau.com.vn</p>
             <p>Người chịu trách nhiệm nội dung: Nguyễn Bạch Điệp</p>
           </div>
         </div>
