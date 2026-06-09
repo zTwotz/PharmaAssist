@@ -97,3 +97,5 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - **Sprint 1 (Auth & RBAC):** Hoàn thành triển khai xác thực JWT Supabase trên NestJS Backend sử dụng dynamic JWKS keys qua `jwks-rsa`. Phân quyền Sidebar và RouteGuard ở Frontend Next.js hoạt động ổn định. Cập nhật 8 Jira tickets (`PAC-43` -> `PAC-50`) sang Done.
 - **Data Collector Pipeline:** Phát triển bộ crawler sử dụng Playwright và TypeScript thu thập, chuẩn hóa, validate dữ liệu (bằng Zod) và xuất báo cáo dữ liệu thuốc từ Long Châu.
 - **Jira Integration:** Tạo thành công 102 Tasks phần nâng cao (từ `T-79` đến `T-180`) trên Jira Cloud, đồng bộ hóa mã Jira Key vào file [4.1_Task.md](file:///Users/twot/Documents/HKII_NAM_3/16_Cong_Nghe_Pham_Mem/PharmaAssist/Jira/4.1_Task.md).
+- **Jira Integration (Batch 4B):** Tự động tạo 145 Tasks (PAC-368 đến PAC-512) và nối link thành công.
+- **Đã điều chỉnh Batch 4B:** Đã ghi đè lại chính xác dải PAC-356 đến PAC-500 theo đúng yêu cầu.

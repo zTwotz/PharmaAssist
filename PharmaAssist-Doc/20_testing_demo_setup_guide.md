@@ -1,872 +1,2178 @@
-# 20_TESTING_DEMO_SETUP_GUIDE
+# Document 20 — Testing, Demo & Setup Guide
 
-**Mã tài liệu:** 20_Testing_Demo_Setup_Guide  
-**Tên tài liệu:** Testing, Demo and Setup Guide  
-**Dự án:** PharmaAssist AI Intelligence  
-**Loại tài liệu:** Tài liệu hướng dẫn kiểm thử, demo và setup hệ thống  
-**Phiên bản:** v1.0  
-**Ngày cập nhật:** 17/05/2026  
-**Đối tượng sử dụng:** Nhóm phát triển, Tester, Backend Developer, Frontend Developer, AI/Graph Developer, người chuẩn bị demo, người viết báo cáo, người bảo vệ đồ án  
+# Tài liệu 20 — Hướng dẫn Setup, Testing & Demo
+
+---
+
+## Metadata
+
+| Mục                     | Nội dung                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Document ID             | DOC-20                                                                                                                                                                                                                                                                                                                                                                      |
+| File name               | `20_testing_demo_setup_guide.md`                                                                                                                                                                                                                                                                                                                                            |
+| Document Name           | Testing, Demo & Setup Guide                                                                                                                                                                                                                                                                                                                                                 |
+| Tên tiếng Việt          | Hướng dẫn Setup, Testing và Demo                                                                                                                                                                                                                                                                                                                                            |
+| Project                 | PharmaAssist AI Intelligence                                                                                                                                                                                                                                                                                                                                                |
+| Version                 | 1.0 Draft                                                                                                                                                                                                                                                                                                                                                                   |
+| Status                  | Draft                                                                                                                                                                                                                                                                                                                                                                       |
+| Created Date            | 08/06/2026                                                                                                                                                                                                                                                                                                                                                                  |
+| Last Updated            | 08/06/2026                                                                                                                                                                                                                                                                                                                                                                  |
+| Owner                   | Tester / Release-Demo Owner                                                                                                                                                                                                                                                                                                                                                 |
+| Reviewer                | Developer, Project Leader, Giảng viên hướng dẫn nếu cần                                                                                                                                                                                                                                                                                                                     |
+| Baseline Source         | Document 06 — SRS, Document 07 — Roles/Permissions, Document 12 — API Specification, Document 13 — Database Design & ERD, Document 14 — Prisma Schema & Migration Design, Document 15 — UI/UX Screen Specification, Document 16 — AI Architecture, Document 17 — Graph-RAG Design, Document 18 — Data Strategy & Seed Plan, Document 19 — Project Management & Release Plan |
+| Frontend                | Next.js                                                                                                                                                                                                                                                                                                                                                                     |
+| Backend                 | NestJS / Node.js                                                                                                                                                                                                                                                                                                                                                            |
+| ORM                     | Prisma                                                                                                                                                                                                                                                                                                                                                                      |
+| Auth                    | Supabase Auth                                                                                                                                                                                                                                                                                                                                                               |
+| Database                | PostgreSQL / Supabase PostgreSQL                                                                                                                                                                                                                                                                                                                                            |
+| Graph Database          | Neo4j AuraDB                                                                                                                                                                                                                                                                                                                                                                |
+| AI Provider             | Google AI Provider                                                                                                                                                                                                                                                                                                                                                          |
+| AI Fallback             | MockAI                                                                                                                                                                                                                                                                                                                                                                      |
+| Official Browser Target | Chrome desktop/laptop                                                                                                                                                                                                                                                                                                                                                       |
+| Official Setup Path     | Local Node.js + cloud Supabase + Neo4j AuraDB                                                                                                                                                                                                                                                                                                                               |
+| Docker                  | Optional local alternative only, not official setup path                                                                                                                                                                                                                                                                                                                    |
+| Language Rule           | Nội dung chính viết bằng tiếng Việt; tên công nghệ, command, enum, API, module và thuật ngữ kỹ thuật giữ tiếng Anh khi cần                                                                                                                                                                                                                                                  |
 
 ---
 
 ## 1. Mục đích tài liệu
 
-Tài liệu **Testing, Demo and Setup Guide** gom các hướng dẫn kiểm thử, demo và setup project để nhóm có thể chạy hệ thống **PharmaAssist AI Intelligence** ổn định trong quá trình phát triển, kiểm thử và bảo vệ đồ án.
+Tài liệu **Testing, Demo & Setup Guide** mô tả hướng dẫn setup chính thức, testing strategy, test scope, test types, high-risk module tests, demo reset, smoke test, release checklist và contingency evidence cho dự án **PharmaAssist AI Intelligence**.
 
-Dự án PharmaAssist AI Intelligence có nhiều module như Auth, Medicine, Inventory, Sales, Interaction Alert, Payment, Invoice, Report, AI Copilot và Knowledge Graph. Nếu không có tài liệu setup và demo rõ ràng, nhóm dễ gặp các vấn đề như không chạy được project trên máy demo, thiếu dữ liệu mẫu, AI provider lỗi, Neo4j không kết nối, phân quyền sai hoặc luồng demo chính bị lỗi.
+Tài liệu này nhằm:
 
-Tài liệu này dùng để:
+1. Hướng dẫn người mới setup dự án.
+2. Xác định primary setup path chính thức.
+3. Xác định environment requirements.
+4. Ghi rõ cách cấu hình Supabase, PostgreSQL/Prisma, Neo4j, Google AI Provider và MockAI fallback.
+5. Định nghĩa seed/demo setup.
+6. Định nghĩa `demo:reset` workflow.
+7. Định nghĩa safety guard cho `demo:reset`.
+8. Xác định testing strategy.
+9. Xác định recommended testing stack.
+10. Ghi rõ testing stack hiện vẫn unresolved.
+11. Xác định test types.
+12. Xác định test scope theo module.
+13. Xác định high-risk tests cho Checkout, FEFO, Interaction và AI Guardrail.
+14. Xác định non-demo local testing rules.
+15. Cấm destructive tests against demo database.
+16. Xác định browser target.
+17. Xác định smoke test checklist.
+18. Xác định demo checklist.
+19. Xác định release exit criteria.
+20. Xác định contingency evidence.
+21. Thiết lập traceability Testing → SRS/API/UI/Data.
 
-- Hướng dẫn kiểm thử chức năng chính.
-- Xác định test plan rút gọn cho từng module.
-- Cung cấp test case mẫu.
-- Hướng dẫn setup môi trường chạy project.
-- Mô tả cấu trúc thư mục mẫu.
-- Mô tả biến môi trường cần cấu hình.
-- Hướng dẫn seed dữ liệu demo.
-- Cung cấp demo script cho buổi bảo vệ.
-- Chuẩn bị backup plan khi demo gặp sự cố.
-- Làm cơ sở đưa vào báo cáo hoặc phụ lục đồ án.
-
-**Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.**
-
----
-
-## 2. Phạm vi tài liệu
-
-Tài liệu này bao gồm:
-
-- Test Plan rút gọn.
-- Danh sách nhóm test.
-- Test case mẫu.
-- Quy trình test trước demo.
-- Demo Script chính.
-- Demo Script phụ cho AI/Graph.
-- Hướng dẫn setup môi trường.
-- Cấu trúc thư mục dự án.
-- Biến môi trường mẫu.
-- Hướng dẫn chạy frontend/backend/database.
-- Hướng dẫn seed dữ liệu demo.
-- Hướng dẫn chạy bằng Docker nếu có.
-- Demo Backup Plan.
-- Checklist trước khi bảo vệ.
-- Rủi ro demo và cách xử lý.
+Tài liệu này **không** viết lại SRS, không viết full API spec, không viết full ERD, không dùng Docker làm official setup path, không yêu cầu separate PostgreSQL database nếu baseline đã chốt không dùng, không chạy destructive tests against demo database, không xem screenshots/video thay thế running product và không bỏ high-risk tests cho Checkout/FEFO/Interaction/AI Guardrail.
 
 ---
 
-## 3. Test Plan rút gọn
+## 2. Setup Overview
 
-| Nhóm test | Nội dung |
-|---|---|
-| Auth | Đăng nhập, đăng xuất, phân quyền |
-| Medicine | CRUD thuốc, tìm kiếm, lọc danh mục |
-| Inventory | Nhập kho, tồn kho, cảnh báo sắp hết/gần hết hạn |
-| Sales | Tạo đơn, thêm thuốc, cập nhật số lượng, thanh toán |
-| Interaction | Kiểm tra tương tác thuốc bằng rule-based data |
-| Payment/Invoice | Thanh toán mô phỏng, tạo và xem/in hóa đơn |
-| Customer | Tạo, tìm kiếm, cập nhật khách hàng |
-| AI | Guardrail, MockAI, AI output, Audit Log |
-| Graph | Truy vấn node-edge mẫu, Graph Explorer, Graph-RAG nếu có |
-| Report | Doanh thu, thuốc bán chạy, tồn kho |
-| UI | Màn hình hiển thị đúng, loading/error/empty state |
-| Security | Token, role guard, không lộ secret |
+### 2.1. Official setup direction
 
----
-
-## 4. Mục tiêu kiểm thử
-
-| Mục tiêu | Mô tả |
-|---|---|
-| Đảm bảo chức năng đúng | Các chức năng MVP hoạt động theo SRS |
-| Đảm bảo luồng demo ổn định | Login → POS → Interaction Alert → Payment → Invoice chạy mượt |
-| Đảm bảo phân quyền đúng | Admin, Staff, Warehouse chỉ thấy và gọi đúng chức năng |
-| Đảm bảo dữ liệu đúng | Tồn kho, đơn hàng, thanh toán, hóa đơn cập nhật đúng |
-| Đảm bảo cảnh báo hoạt động | MED001 + MED002 hiển thị cảnh báo HIGH |
-| Đảm bảo AI an toàn | AI không chẩn đoán/kê đơn/liều dùng, có disclaimer |
-| Đảm bảo Graph hoạt động | Graph hiển thị node-edge mẫu hoặc có mock fallback |
-| Đảm bảo báo cáo đúng | Doanh thu chỉ tính đơn đã thanh toán |
-
----
-
-## 5. Phạm vi kiểm thử theo mức ưu tiên
-
-## 5.1. Must-have test
-
-Các test này bắt buộc phải chạy trước khi demo:
-
-- Đăng nhập bằng `admin01`, `staff01`, `warehouse01`.
-- Staff tạo đơn bán thuốc.
-- Staff thêm `MED001` và `MED002` vào đơn.
-- Hệ thống hiển thị cảnh báo tương tác HIGH.
-- Staff nhập ghi chú tư vấn.
-- Staff thanh toán.
-- Hệ thống tạo hóa đơn.
-- Inventory hiển thị `MED003` sắp hết hàng.
-- Inventory hiển thị `MED004` gần hết hạn.
-- Admin xem dashboard/report.
-
-## 5.2. Should-have test
-
-- Admin quản lý thuốc.
-- Warehouse tạo phiếu nhập.
-- Customer được gắn vào đơn hàng.
-- Staff không truy cập được User Management.
-- Warehouse không tạo được đơn bán thuốc.
-- Báo cáo thuốc bán chạy hoạt động.
-
-## 5.3. Could-have test
-
-- AI Copilot tạo câu hỏi bổ sung.
-- AI Copilot tạo ghi chú tư vấn nháp.
-- AI Guardrail chặn yêu cầu kê đơn/chẩn đoán.
-- Graph Explorer hiển thị graph MED001.
-- Graph-RAG giải thích cảnh báo dựa trên graph context.
-- Admin xem AI Audit Log.
-
----
-
-## 6. Test Case mẫu
-
-| Test Case ID | Chức năng | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-AUTH-01 | Đăng nhập | Nhập đúng username/password | Đăng nhập thành công | Not Run |
-| TC-AUTH-02 | Phân quyền | Staff truy cập quản lý user | Bị chặn 403 | Not Run |
-| TC-MED-01 | Thêm thuốc | Admin nhập thuốc hợp lệ | Thuốc được tạo | Not Run |
-| TC-INV-01 | Cảnh báo sắp hết | Thuốc dưới ngưỡng | Hiển thị cảnh báo | Not Run |
-| TC-SALES-01 | Tạo đơn | Thêm thuốc đủ tồn | Đơn được tạo | Not Run |
-| TC-SALES-02 | Bán vượt tồn | Nhập số lượng lớn hơn tồn | Hệ thống báo lỗi | Not Run |
-| TC-INT-01 | Tương tác thuốc | Thêm MED001 + MED002 | Hiển thị cảnh báo HIGH | Not Run |
-| TC-PAY-01 | Thanh toán | Xác nhận thanh toán | Tạo payment và trừ tồn | Not Run |
-| TC-AI-01 | AI Guardrail | Yêu cầu AI kê đơn | AI từ chối/nhắc giới hạn | Not Run |
-| TC-GRAPH-01 | Graph query | Xem graph MED001 | Hiển thị node liên quan | Not Run |
-
----
-
-## 7. Test Case chi tiết theo module
-
-## 7.1. Auth Test Cases
-
-| Test Case ID | Mục tiêu | Tiền điều kiện | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|---|
-| TC-AUTH-01 | Đăng nhập đúng | Có user active | Nhập `staff01/demo123` | Đăng nhập thành công, nhận token | Not Run |
-| TC-AUTH-02 | Sai mật khẩu | Có user active | Nhập `staff01/sai123` | Hiển thị lỗi đăng nhập | Not Run |
-| TC-AUTH-03 | Phân quyền Admin | Đăng nhập admin01 | Mở User Management | Truy cập được | Not Run |
-| TC-AUTH-04 | Phân quyền Staff | Đăng nhập staff01 | Mở User Management | Bị chặn 403 hoặc không thấy menu | Not Run |
-| TC-AUTH-05 | Phân quyền Warehouse | Đăng nhập warehouse01 | Mở Sales POS | Bị chặn hoặc không thấy menu | Not Run |
-| TC-AUTH-06 | Đăng xuất | Đăng nhập bất kỳ user | Bấm logout | Token/session bị xóa, quay về Login | Not Run |
-
----
-
-## 7.2. Medicine Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-MED-01 | Xem danh sách thuốc | Admin/Staff mở Medicine | Hiển thị MED001-MED005 | Not Run |
-| TC-MED-02 | Tìm thuốc | Tìm `MED001` | Hiển thị Thuốc A mẫu | Not Run |
-| TC-MED-03 | Thêm thuốc hợp lệ | Admin tạo thuốc mới | Thuốc được lưu | Not Run |
-| TC-MED-04 | Mã thuốc trùng | Admin tạo thuốc code MED001 | Báo lỗi trùng mã | Not Run |
-| TC-MED-05 | Giá bán âm | Admin nhập selling_price = -1 | Báo lỗi validation | Not Run |
-| TC-MED-06 | Staff thêm thuốc | Staff gọi POST /medicines | Bị chặn 403 | Not Run |
-
----
-
-## 7.3. Inventory Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-INV-01 | Xem tồn kho | Mở Inventory | Hiển thị tồn kho thuốc | Not Run |
-| TC-INV-02 | Cảnh báo sắp hết | Kiểm tra MED003 | MED003 hiển thị low stock | Not Run |
-| TC-INV-03 | Cảnh báo gần hết hạn | Kiểm tra MED004 | MED004 hiển thị near expiry | Not Run |
-| TC-INV-04 | Nhập kho hợp lệ | Warehouse tạo phiếu nhập MED003 | Tồn kho MED003 tăng | Not Run |
-| TC-INV-05 | Số lượng nhập <= 0 | Tạo phiếu nhập quantity = 0 | Báo lỗi validation | Not Run |
-| TC-INV-06 | Staff tạo phiếu nhập | Staff mở Stock Import | Bị chặn hoặc không thấy menu | Not Run |
-
----
-
-## 7.4. Sales Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-SALES-01 | Tạo đơn | Staff tạo đơn mới | Đơn trạng thái DRAFT | Not Run |
-| TC-SALES-02 | Thêm thuốc đủ tồn | Thêm MED001 quantity 1 | Thuốc vào giỏ hàng | Not Run |
-| TC-SALES-03 | Bán vượt tồn | Thêm MED003 quantity 999 | Báo lỗi không đủ tồn | Not Run |
-| TC-SALES-04 | Cập nhật số lượng | Sửa MED001 từ 1 lên 2 | Tổng tiền cập nhật | Not Run |
-| TC-SALES-05 | Xóa thuốc khỏi đơn | Xóa MED001 khỏi giỏ | Giỏ hàng cập nhật | Not Run |
-| TC-SALES-06 | Đơn rỗng thanh toán | Bấm thanh toán khi không có thuốc | Nút disabled hoặc báo lỗi | Not Run |
-
----
-
-## 7.5. Interaction Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-INT-01 | Tương tác HIGH | Thêm MED001 + MED002 | Hiển thị cảnh báo HIGH | Not Run |
-| TC-INT-02 | Tương tác MEDIUM | Thêm MED003 + MED005 | Hiển thị cảnh báo MEDIUM | Not Run |
-| TC-INT-03 | Tương tác LOW | Thêm MED004 + MED005 | Hiển thị cảnh báo LOW | Not Run |
-| TC-INT-04 | Không tương tác | Thêm MED001 + MED005 | Không hiển thị cảnh báo | Not Run |
-| TC-INT-05 | Một thuốc | Chỉ thêm MED001 | Không kiểm tra hoặc không cảnh báo | Not Run |
-| TC-INT-06 | Ghi chú tư vấn | Cảnh báo HIGH rồi nhập note | Note được lưu | Not Run |
-| TC-INT-07 | Disclaimer | Mở modal cảnh báo | Có disclaimer bắt buộc | Not Run |
-
----
-
-## 7.6. Payment and Invoice Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-PAY-01 | Thanh toán tiền mặt | Thanh toán đơn có thuốc | Payment PAID, order PAID | Not Run |
-| TC-PAY-02 | Trừ tồn sau thanh toán | Thanh toán đơn MED001 quantity 1 | Tồn kho MED001 giảm 1 | Not Run |
-| TC-PAY-03 | Không tạo hóa đơn trước thanh toán | Mở invoice của đơn DRAFT | Báo chưa thanh toán | Not Run |
-| TC-INVC-01 | Tạo hóa đơn | Thanh toán thành công | Invoice được tạo | Not Run |
-| TC-INVC-02 | Xem hóa đơn | Mở hóa đơn vừa tạo | Hiển thị thuốc, số lượng, tổng tiền | Not Run |
-
----
-
-## 7.7. AI Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-AI-01 | MockAI tạo câu hỏi | Gửi context hợp lệ | Trả câu hỏi + disclaimer | Not Run |
-| TC-AI-02 | AI tạo note nháp | Chọn cảnh báo HIGH | Trả draftNote, requiresUserConfirmation=true | Not Run |
-| TC-AI-03 | AI giải thích cảnh báo | Chọn alert MED001-MED002 | Trả explanation có disclaimer | Not Run |
-| TC-AI-04 | Guardrail chẩn đoán | Input “Khách bị bệnh gì?” | Bị chặn | Not Run |
-| TC-AI-05 | Guardrail kê đơn | Input “Hãy kê thuốc điều trị” | Bị chặn | Not Run |
-| TC-AI-06 | Guardrail liều dùng | Input yêu cầu liều cụ thể | Bị chặn | Not Run |
-| TC-AI-07 | AI Audit Log | Gọi AI thành công | Log được lưu | Not Run |
-| TC-AI-08 | Staff xem AI Log | Staff mở AI Audit Log | Bị chặn 403 | Not Run |
-| TC-AI-09 | Provider lỗi | Tắt API provider thật | Fallback MockAI | Not Run |
-
----
-
-## 7.8. Graph Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-GRAPH-01 | Xem graph MED001 | Mở Graph Explorer, tìm MED001 | Hiển thị node Medicine, ActiveIngredient, DrugGroup | Not Run |
-| TC-GRAPH-02 | Truy vấn tương tác graph | Query MED001 + MED002 | Hiển thị INTERACTS_WITH HIGH | Not Run |
-| TC-GRAPH-03 | Graph không có tương tác | Query MED001 + MED005 | Không có interaction | Not Run |
-| TC-GRAPH-04 | Graph disclaimer | Mở Graph Explorer | Có disclaimer dữ liệu mẫu | Not Run |
-| TC-GRAPH-05 | Neo4j lỗi | Ngắt Neo4j nếu có | Dùng mock graph hoặc báo lỗi thân thiện | Not Run |
-
----
-
-## 7.9. Report Test Cases
-
-| Test Case ID | Mục tiêu | Bước test | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC-REP-01 | Báo cáo doanh thu | Admin mở Reports | Doanh thu chỉ tính đơn PAID | Not Run |
-| TC-REP-02 | Thuốc bán chạy | Có đơn đã thanh toán | Hiển thị top medicines | Not Run |
-| TC-REP-03 | Báo cáo tồn kho | Admin mở Inventory Report | Hiển thị tồn kho thấp/gần hết hạn | Not Run |
-| TC-REP-04 | Staff xem báo cáo doanh thu | Staff mở Reports | Bị chặn hoặc không thấy menu | Not Run |
-
----
-
-## 8. Quy trình kiểm thử trước demo
-
-### 8.1. Bước 1: Reset môi trường
-
-- Pull code mới nhất từ repository.
-- Checkout branch demo/main ổn định.
-- Cài dependency frontend/backend nếu cần.
-- Reset database nếu cần.
-- Chạy migration.
-- Chạy seed data demo.
-- Khởi động backend.
-- Khởi động frontend.
-- Khởi động Neo4j hoặc mock graph nếu có.
-
-### 8.2. Bước 2: Test tài khoản
-
-- Đăng nhập admin01.
-- Đăng nhập staff01.
-- Đăng nhập warehouse01.
-- Kiểm tra menu theo role.
-
-### 8.3. Bước 3: Test dữ liệu demo
-
-- Kiểm tra MED001-MED005 tồn tại.
-- Kiểm tra MED003 sắp hết.
-- Kiểm tra MED004 gần hết hạn.
-- Kiểm tra MED001-MED002 có tương tác HIGH.
-- Kiểm tra khách Nguyễn Văn A tồn tại.
-
-### 8.4. Bước 4: Test luồng demo chính
-
-- Staff tạo đơn.
-- Thêm MED001.
-- Thêm MED002.
-- Xem cảnh báo HIGH.
-- Ghi chú tư vấn.
-- Thanh toán.
-- Xem hóa đơn.
-
-### 8.5. Bước 5: Test phần nâng cao
-
-- AI Copilot/MockAI.
-- AI Audit Log.
-- Graph Explorer.
-- Graph-RAG nếu có.
-
----
-
-## 9. Demo Script
-
-## 9.1. Demo chính
-
-1. Đăng nhập Admin.
-2. Xem Dashboard.
-3. Xem danh sách thuốc.
-4. Đăng nhập Nhân viên kho.
-5. Xem tồn kho và cảnh báo.
-6. Đăng nhập Nhân viên nhà thuốc.
-7. Tạo đơn bán thuốc.
-8. Thêm hai thuốc có tương tác.
-9. Xem cảnh báo tương tác.
-10. Ghi chú tư vấn.
-11. Thanh toán.
-12. In hóa đơn.
-13. Admin xem báo cáo.
-14. Nếu có: mở AI Copilot.
-15. Nếu có: mở Graph Explorer.
-16. Nếu có: xem AI Audit Log.
-
----
-
-## 10. Demo Script chi tiết
-
-## 10.1. Phần 1: Admin Dashboard
-
-| Bước | Hành động | Nội dung thuyết trình |
-|---|---|---|
-| 1 | Đăng nhập admin01 | Đây là tài khoản Admin/Chủ nhà thuốc |
-| 2 | Mở Dashboard | Dashboard hiển thị tổng quan doanh thu, đơn hàng, tồn kho |
-| 3 | Mở Medicine Management | Admin có thể quản lý thuốc và danh mục |
-| 4 | Mở Reports | Admin xem báo cáo doanh thu và thuốc bán chạy |
-
-### Kết quả cần đạt
-
-- Admin đăng nhập thành công.
-- Dashboard có dữ liệu.
-- Menu Admin đầy đủ.
-
----
-
-## 10.2. Phần 2: Nhân viên kho xem tồn kho
-
-| Bước | Hành động | Nội dung thuyết trình |
-|---|---|---|
-| 1 | Đăng nhập warehouse01 | Đây là tài khoản Nhân viên kho |
-| 2 | Mở Inventory | Nhân viên kho theo dõi tồn kho |
-| 3 | Xem cảnh báo sắp hết | MED003 có tồn kho dưới ngưỡng |
-| 4 | Xem cảnh báo gần hết hạn | MED004 gần hết hạn theo dữ liệu demo |
-| 5 | Mở Stock Import | Nhân viên kho có thể tạo phiếu nhập |
-
-### Kết quả cần đạt
-
-- Warehouse thấy Inventory và Stock Import.
-- Warehouse không thấy Sales POS nếu phân quyền đúng.
-- MED003/MED004 hiển thị cảnh báo.
-
----
-
-## 10.3. Phần 3: Nhân viên nhà thuốc bán thuốc có cảnh báo tương tác
-
-| Bước | Hành động | Nội dung thuyết trình |
-|---|---|---|
-| 1 | Đăng nhập staff01 | Đây là tài khoản Nhân viên nhà thuốc |
-| 2 | Mở Sales POS | Đây là màn hình bán thuốc tại quầy |
-| 3 | Chọn khách Nguyễn Văn A | Gắn khách hàng vào đơn |
-| 4 | Tìm và thêm MED001 | Hệ thống kiểm tra tồn kho |
-| 5 | Tìm và thêm MED002 | Đơn có 2 thuốc nên kiểm tra tương tác |
-| 6 | Xem cảnh báo HIGH | Hệ thống phát hiện cặp tương tác theo dữ liệu mẫu |
-| 7 | Nhập ghi chú tư vấn | Nhân viên lưu ghi chú tham khảo |
-| 8 | Thanh toán | Thanh toán mô phỏng tiền mặt/chuyển khoản |
-| 9 | Xem hóa đơn | Hệ thống tạo hóa đơn sau thanh toán |
-
-### Kết quả cần đạt
-
-- Cảnh báo HIGH xuất hiện.
-- Có disclaimer an toàn.
-- Ghi chú lưu được.
-- Thanh toán thành công.
-- Hóa đơn được tạo.
-
-### Câu nói gợi ý khi demo cảnh báo
+Primary setup path của dự án là:
 
 ```text
-Ở đây hệ thống đang dùng rule-based bằng dữ liệu mẫu. Khi đơn hàng có từ hai thuốc trở lên, hệ thống tạo các cặp thuốc và kiểm tra bảng DrugInteraction. Với MED001 và MED002, hệ thống phát hiện cảnh báo mức HIGH, hiển thị mô tả và khuyến nghị mẫu. Thông tin này chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.
+Local Node.js development
++ Next.js frontend
++ NestJS backend
++ Prisma ORM
++ Cloud Supabase Auth/PostgreSQL
++ Neo4j AuraDB
++ Google AI Provider
++ MockAI fallback
 ```
 
----
+Docker không phải setup path chính thức.
 
-## 10.4. Phần 4: AI Copilot nếu có
+Docker có thể là optional local-development alternative nếu team muốn, nhưng không được viết như yêu cầu bắt buộc.
 
-| Bước | Hành động | Nội dung thuyết trình |
-|---|---|---|
-| 1 | Mở AI Copilot | AI hỗ trợ nhân viên ở mức tham khảo |
-| 2 | Chọn context cảnh báo MED001-MED002 | AI nhận dữ liệu cảnh báo mẫu |
-| 3 | Bấm tạo câu hỏi bổ sung | MockAI/AI provider sinh câu hỏi |
-| 4 | Bấm tạo ghi chú tư vấn | AI tạo ghi chú nháp |
-| 5 | Xem disclaimer | AI không chẩn đoán, không kê đơn |
-| 6 | Admin xem AI Audit Log | Hệ thống có truy vết AI |
+### 2.2. Setup goals
 
-### Kết quả cần đạt
+Setup phải giúp team chạy được:
 
-- AI/MockAI trả output.
-- Output có disclaimer.
-- Có nút xác nhận trước khi lưu.
-- AI log được lưu.
+1. Frontend Next.js.
+2. Backend NestJS.
+3. Supabase Auth integration.
+4. Prisma migration/validation.
+5. PostgreSQL connection.
+6. Neo4j connection.
+7. Google AI provider call.
+8. MockAI fallback.
+9. Seed data.
+10. Demo reset local.
+11. Smoke test.
+12. Critical demo flows.
 
----
+### 2.3. Environments
 
-## 10.5. Phần 5: Graph Explorer nếu có
+Recommended environments:
 
-| Bước | Hành động | Nội dung thuyết trình |
-|---|---|---|
-| 1 | Mở Graph Explorer | Hệ thống có Knowledge Graph mẫu |
-| 2 | Tìm MED001 | Hiển thị node thuốc |
-| 3 | Xem quan hệ CONTAINS/BELONGS_TO | Thuốc liên kết với hoạt chất/nhóm thuốc mẫu |
-| 4 | Query MED001-MED002 | Hiển thị INTERACTS_WITH mức HIGH |
-| 5 | Nếu có Graph-RAG | Dùng graph context cho AI giải thích |
+| Environment  | Purpose                                      | Notes                                            |
+| ------------ | -------------------------------------------- | ------------------------------------------------ |
+| `local`      | Local development and destructive demo reset | Only environment allowed for `demo:reset`        |
+| `test`       | Optional non-demo testing config/schema      | No separate PostgreSQL DB is officially required |
+| `demo`       | Demo/staging if created                      | Must not run destructive tests/reset             |
+| `production` | Future/commercial only                       | Not primary MVP target                           |
 
-### Kết quả cần đạt
+### 2.4. Important baseline rules
 
-- Graph hiển thị node-edge.
-- Có relationship INTERACTS_WITH.
-- Có disclaimer dữ liệu graph mẫu.
-
----
-
-## 11. Setup Guide
-
-## 11.1. Yêu cầu môi trường
-
-| Thành phần | Phiên bản đề xuất | Bắt buộc |
-|---|---|---|
-| Node.js | 18+ | Có nếu dùng React/Next/NestJS |
-| Java | 17+ | Nếu dùng Spring Boot |
-| Supabase (Cloud PostgreSQL) | Đã chốt | Có (Cloud) |
-| Neo4j | 5.x hoặc Neo4j Desktop | Nếu dùng Graph thật |
-| Git | Bắt buộc | Có |
-| Docker | Nếu dùng container | Không bắt buộc |
-| Postman/Insomnia | Test API | Khuyến nghị |
+1. Supabase Auth is official.
+2. No custom password/JWT implementation.
+3. No password/password_hash in PostgreSQL.
+4. PostgreSQL is source of truth.
+5. Neo4j is projection only.
+6. MedicineBatch is inventory source of truth.
+7. Checkout is official transaction boundary.
+8. Interaction rule is ActiveIngredient–ActiveIngredient.
+9. InteractionAlert must be persisted.
+10. HIGH alert requires acknowledgement and consultation note.
+11. Google AI Provider is preferred real AI provider.
+12. MockAI is fallback only.
+13. Graph Sync/Freshness is MVP.
+14. Demo reset is local-only.
 
 ---
 
-## 11.2. Cấu trúc thư mục mẫu
+## 3. Environment Requirements
 
-```text
-pharmaassist/
-  frontend/
-    src/
-    package.json
-    .env.example
-  backend/
-    src/
-    package.json hoặc pom.xml
-    .env.example
-  database/
-    migrations/
-    seed/
-  docs/
-  README.md
-  docker-compose.yml
-```
+### 3.1. Required local tools
 
-### 11.2.1. Ý nghĩa thư mục
+Recommended local tools:
 
-| Thư mục/File | Mô tả |
-|---|---|
-| frontend/ | Source code giao diện web |
-| backend/ | Source code API/backend service |
-| database/migrations/ | Script tạo bảng hoặc migration ORM |
-| database/seed/ | Script dữ liệu demo |
-| docs/ | Tài liệu phân tích, thiết kế, test, demo |
-| README.md | Hướng dẫn chạy project |
-| docker-compose.yml | Cấu hình chạy bằng Docker nếu có |
+1. Node.js LTS.
+2. npm, pnpm, or yarn — team should standardize one.
+3. Git.
+4. VS Code or equivalent IDE.
+5. Browser: Chrome desktop/laptop.
+6. Postman or equivalent API client.
+7. Supabase project access.
+8. Neo4j AuraDB access.
+9. Google AI Provider credentials.
+10. Terminal/shell.
+
+### 3.2. Recommended versions
+
+Exact versions should be pinned in the project repository.
+
+Recommended approach:
+
+1. Use `.nvmrc` or `volta` config for Node version.
+2. Commit lockfile.
+3. Use consistent package manager.
+4. Document Prisma version.
+5. Document NestJS version.
+6. Document Next.js version.
+7. Document Playwright/browser install if used.
+
+Example version policy:
+
+| Tool            | Policy                               |
+| --------------- | ------------------------------------ |
+| Node.js         | Use project-pinned LTS               |
+| Package manager | Use lockfile and team-agreed tool    |
+| Prisma          | Use version from `package.json`      |
+| Next.js         | Use version from `package.json`      |
+| NestJS          | Use version from `package.json`      |
+| Playwright      | Use version from lockfile if adopted |
+
+### 3.3. Required accounts/services
+
+The team needs access to:
+
+1. Supabase project.
+2. Supabase Auth Admin capability if provisioning demo users.
+3. Supabase PostgreSQL connection string.
+4. Neo4j AuraDB instance.
+5. Google AI Provider key.
+6. GitHub repository.
+7. Jira project.
+
+### 3.4. Security rules for setup
+
+1. Do not commit `.env`.
+2. Do not commit API keys.
+3. Do not log secrets.
+4. Do not store Supabase service role key in frontend.
+5. Do not expose Google AI API key to frontend.
+6. Do not expose Neo4j credentials to frontend.
+7. Do not use demo/prod DB for destructive local tests.
+8. Do not run `demo:reset` outside local.
 
 ---
 
-## 11.3. Biến môi trường mẫu
+## 4. Primary Setup Path
 
-```env
-DATABASE_URL=
-JWT_SECRET=
-AI_PROVIDER=
-AI_API_KEY=
-NEO4J_URI=
-NEO4J_USERNAME=
-NEO4J_PASSWORD=
-```
-
-### 11.3.1. Mô tả biến môi trường
-
-| Biến | Mô tả | Ví dụ |
-|---|---|---|
-| DATABASE_URL | Chuỗi kết nối database quan hệ đến Supabase | postgresql://postgres:[password]@db.[project-id].supabase.co:5432/postgres |
-| JWT_SECRET | Secret ký JWT | demo-secret-change-me |
-| AI_PROVIDER | Provider AI đang dùng | MockAI/Gemini/OpenRouter/Ollama |
-| AI_API_KEY | API key nếu dùng AI thật | Không commit key thật |
-| NEO4J_URI | URI Neo4j | bolt://localhost:7687 |
-| NEO4J_USERNAME | Username Neo4j | neo4j |
-| NEO4J_PASSWORD | Password Neo4j | password demo |
-
-### 11.3.2. Quy tắc bảo mật biến môi trường
-
-- Không commit file `.env` thật.
-- Chỉ commit `.env.example`.
-- Không đưa API key thật vào README, slide hoặc báo cáo.
-- Không commit log có chứa secret.
-- Không dùng JWT_SECRET demo cho hệ thống thật.
-
----
-
-## 12. Hướng dẫn chạy project local
-
-## 12.1. Clone project
+### 4.1. Step 1 — Clone repository
 
 ```bash
 git clone <repository-url>
-cd pharmaassist
+cd <repository-folder>
 ```
 
-## 12.2. Chạy backend Node.js/NestJS nếu dùng
+### 4.2. Step 2 — Install dependencies
+
+If using npm:
 
 ```bash
-cd backend
 npm install
-cp .env.example .env
-npm run migration:run
-npm run seed
-npm run start:dev
 ```
 
-## 12.3. Chạy frontend React/Next.js nếu dùng
+If using pnpm:
 
 ```bash
-cd frontend
-npm install
-cp .env.example .env
-npm run dev
+pnpm install
 ```
 
-## 12.4. Chạy backend Spring Boot nếu dùng
+The team should use only one official package manager.
 
-```bash
-cd backend
-./mvnw spring-boot:run
-```
+### 4.3. Step 3 — Configure environment variables
 
-Hoặc nếu dùng Gradle:
-
-```bash
-cd backend
-./gradlew bootRun
-```
-
-## 12.5. Khởi tạo Cơ sở dữ liệu trên Supabase
-
-1. Truy cập [Supabase](https://supabase.com) và tạo một tài khoản miễn phí.
-2. Tạo một dự án mới (New Project). Chọn mật khẩu cho Database và khu vực (Region) phù hợp (ví dụ Singapore).
-3. Vào phần **Project Settings** -> **Database** để sao chép chuỗi kết nối Connection String (URI) dạng `DATABASE_URL`.
-4. Cập nhật chuỗi kết nối vào file `.env` của Backend.
-5. Tạo cấu trúc bảng: 
-   - Nếu dự án dùng Prisma: chạy lệnh `npx prisma db push` hoặc `npx prisma migrate dev` từ thư mục backend.
-   - Hoặc sao chép nội dung SQL DDL mẫu trong tài liệu thiết kế database và chạy trực tiếp trên công cụ **SQL Editor** trong giao diện web Supabase.
-6. Chạy lệnh seed để nạp dữ liệu mẫu: `npm run seed` hoặc chạy script seed tương ứng từ Backend.
-
----
-
-## 13. Hướng dẫn chạy bằng Docker Compose nếu có
-
-### 13.1. File docker-compose.yml gợi ý
-
-```yaml
-version: '3.8'
-services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: pharmaassist
-      POSTGRES_USER: pharmaassist
-      POSTGRES_PASSWORD: pharmaassist
-    ports:
-      - "5432:5432"
-
-  neo4j:
-    image: neo4j:5
-    environment:
-      NEO4J_AUTH: neo4j/password
-    ports:
-      - "7474:7474"
-      - "7687:7687"
-
-  backend:
-    build: ./backend
-    env_file:
-      - ./backend/.env
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-      - neo4j
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
-```
-
-### 13.2. Lệnh chạy
-
-```bash
-docker compose up -d
-```
-
-### 13.3. Lệnh tắt
-
-```bash
-docker compose down
-```
-
-### 13.4. Lưu ý
-
-- Nếu nhóm chưa quen Docker, có thể chạy local thay vì Docker.
-- Nếu Neo4j chưa dùng, có thể bỏ service neo4j hoặc dùng mock graph.
-
----
-
-## 14. Seed data guide
-
-### 14.1. Dữ liệu cần seed
-
-| Nhóm dữ liệu | Dữ liệu cần có |
-|---|---|
-| Role | ADMIN, STAFF, WAREHOUSE |
-| User | admin01, staff01, warehouse01 |
-| Category | Nhóm 1, Nhóm 2, Nhóm 3 |
-| Medicine | MED001-MED005 |
-| Inventory | Tồn kho MED001-MED005 |
-| Customer | Nguyễn Văn A, Trần Thị B, Lê Văn C |
-| Interaction | MED001-MED002 HIGH, MED003-MED005 MEDIUM, MED004-MED005 LOW |
-| AI | MockAI response, AI prompt template nếu có |
-| Graph | Node/relationship demo nếu dùng Neo4j |
-
-### 14.2. Kiểm tra seed thành công
-
-| Kiểm tra | Kết quả mong đợi |
-|---|---|
-| Login admin01 | Thành công |
-| Medicine list | Có MED001-MED005 |
-| Inventory MED003 | quantity <= min_stock |
-| Inventory MED004 | near expiry |
-| Interaction MED001-MED002 | HIGH |
-| Customer Nguyễn Văn A | Có dữ liệu |
-| AI provider | MockAI hoạt động |
-| Graph MED001 | Có node nếu dùng graph |
-
----
-
-## 15. Postman/API test guide
-
-Nếu UI lỗi hoặc chưa hoàn thiện, nhóm có thể demo một phần bằng Postman.
-
-### 15.1. API cần chuẩn bị trong Postman
-
-| API | Mục đích demo |
-|---|---|
-| POST /auth/login | Lấy access token |
-| GET /medicines | Xem thuốc |
-| GET /inventories | Xem tồn kho |
-| POST /orders | Tạo đơn |
-| POST /orders/{id}/items | Thêm thuốc vào đơn |
-| POST /orders/{id}/check-interactions | Kiểm tra tương tác |
-| POST /orders/{id}/pay | Thanh toán |
-| GET /orders/{id}/invoice | Xem hóa đơn |
-| POST /ai/consultation/questions | AI Copilot nếu có |
-| GET /graph/medicine/{id} | Graph nếu có |
-
-### 15.2. Lưu ý dùng Postman
-
-- Lưu token vào environment variable.
-- Chuẩn bị collection trước buổi bảo vệ.
-- Không để API key thật trong collection nộp công khai.
-
----
-
-## 16. Demo Backup Plan
-
-| Sự cố | Phương án dự phòng |
-|---|---|
-| AI API lỗi | Dùng MockAI |
-| Neo4j lỗi | Dùng ảnh graph hoặc dữ liệu mock |
-| Database lỗi | Restore seed data |
-| Mạng lỗi | Demo local |
-| UI lỗi | Demo bằng Postman API |
-| Thiếu dữ liệu | Dùng Demo Data Pack |
-| Frontend không chạy | Dùng backend API + ảnh chụp UI |
-| Backend không chạy | Dùng video demo dự phòng nếu có |
-| Laptop lỗi | Có máy phụ hoặc project clone sẵn |
-| Hóa đơn lỗi in | Hiển thị hóa đơn trên màn hình thay vì in thật |
-
----
-
-## 17. Checklist trước khi demo
-
-| Hạng mục | Có/Không |
-|---|---|
-| Project đã pull code mới nhất chưa? |  |
-| Branch demo/main ổn định chưa? |  |
-| Frontend chạy được chưa? |  |
-| Backend chạy được chưa? |  |
-| Database kết nối được chưa? |  |
-| Seed data đã chạy chưa? |  |
-| admin01 đăng nhập được chưa? |  |
-| staff01 đăng nhập được chưa? |  |
-| warehouse01 đăng nhập được chưa? |  |
-| MED001-MED005 có trong database chưa? |  |
-| MED001 + MED002 hiển thị cảnh báo HIGH chưa? |  |
-| MED003 hiển thị sắp hết chưa? |  |
-| MED004 hiển thị gần hết hạn chưa? |  |
-| Thanh toán tạo hóa đơn được chưa? |  |
-| AI Copilot/MockAI chạy được chưa? |  |
-| AI Audit Log có dữ liệu chưa? |  |
-| Graph Explorer/Mock Graph chạy được chưa? |  |
-| Postman backup đã chuẩn bị chưa? |  |
-| Demo script đã mở sẵn chưa? |  |
-| Slide đã mở sẵn chưa? |  |
-
----
-
-## 18. Checklist sau khi demo thử
-
-| Câu hỏi | Có/Không |
-|---|---|
-| Luồng demo có bị lỗi ở bước nào không? |  |
-| Cảnh báo tương tác có hiển thị đúng không? |  |
-| Disclaimer có xuất hiện ở cảnh báo/AI không? |  |
-| Thanh toán có trừ tồn kho không? |  |
-| Hóa đơn có đúng tổng tiền không? |  |
-| Tài khoản role có đúng quyền không? |  |
-| Dữ liệu sau nhiều lần demo có bị cạn tồn kho không? |  |
-| Có cần reset seed data trước buổi bảo vệ không? |  |
-| Có chuẩn bị phương án dự phòng chưa? |  |
-
----
-
-## 19. Rủi ro khi setup và demo
-
-| Rủi ro | Mức độ | Cách xử lý |
-|---|---|---|
-| Sai version Node.js | Trung bình | Dùng Node 18+ hoặc nvm |
-| Database chưa chạy | Cao | Kiểm tra service DB trước khi chạy backend |
-| Migration lỗi | Cao | Có script reset database |
-| Seed data thiếu | Cao | Dùng checklist seed data |
-| JWT_SECRET chưa cấu hình | Trung bình | Kiểm tra .env |
-| CORS lỗi | Trung bình | Cấu hình backend cho frontend local |
-| AI API key thiếu | Trung bình | Dùng AI_PROVIDER=MockAI |
-| Neo4j password sai | Trung bình | Kiểm tra NEO4J_URI/USERNAME/PASSWORD |
-| Port bị trùng | Trung bình | Đổi port hoặc tắt process cũ |
-| Demo nhiều lần làm giảm tồn kho | Trung bình | Reset seed data trước demo chính |
-
----
-
-## 20. Kịch bản reset dữ liệu demo
-
-### 20.1. Khi nào cần reset?
-
-- Trước buổi bảo vệ.
-- Sau khi demo nhiều lần khiến tồn kho bị giảm.
-- Sau khi test tạo nhiều đơn hàng rác.
-- Sau khi database bị lỗi dữ liệu.
-
-### 20.2. Quy trình reset đề xuất
+Create local environment files from examples:
 
 ```text
-1. Dừng backend nếu cần.
-2. Drop database hoặc truncate các bảng demo.
-3. Chạy migration.
-4. Chạy seed data.
-5. Khởi động backend.
-6. Kiểm tra tài khoản demo.
-7. Kiểm tra MED001-MED005.
-8. Kiểm tra interaction MED001-MED002.
-9. Kiểm tra MED003 low stock và MED004 near expiry.
+.env.example → .env.local
 ```
 
----
+Possible locations:
 
-## 21. Gợi ý README rút gọn
+1. Root `.env`.
+2. Backend `.env`.
+3. Frontend `.env.local`.
 
-```markdown
-# PharmaAssist AI Intelligence
+The final repository should clearly document which file belongs to which app.
 
-Website quản lý nhà thuốc thông minh tích hợp cảnh báo tương tác thuốc, AI Copilot và Knowledge Graph.
+### 4.4. Step 4 — Validate Prisma
 
-## Chức năng chính
-- Đăng nhập, phân quyền
-- Quản lý thuốc
-- Quản lý tồn kho
-- Nhập thuốc
-- Bán thuốc tại quầy
-- Cảnh báo tương tác thuốc rule-based
-- Thanh toán mô phỏng
-- Hóa đơn
-- Báo cáo
-- AI Copilot/MockAI
-- Neo4j Knowledge Graph/Mock Graph
-
-## Tài khoản demo
-| Role | Username | Password |
-|---|---|---|
-| Admin | admin01 | demo123 |
-| Staff | staff01 | demo123 |
-| Warehouse | warehouse01 | demo123 |
-
-## Chạy project
 ```bash
-cd backend
-npm install
-npm run start:dev
+npx prisma validate
+```
 
-cd frontend
-npm install
+Then generate Prisma Client:
+
+```bash
+npx prisma generate
+```
+
+### 4.5. Step 5 — Apply migrations
+
+For local development:
+
+```bash
+npx prisma migrate dev
+```
+
+For shared/demo-like environment, use a deploy-safe command and review migration first.
+
+### 4.6. Step 6 — Seed data
+
+Run seed command:
+
+```bash
+npm run seed
+```
+
+or project-specific equivalent.
+
+For full local demo reset:
+
+```bash
+npm run demo:reset
+```
+
+with explicit local-only confirmation.
+
+### 4.7. Step 7 — Run backend
+
+```bash
+npm run start:dev
+```
+
+or backend workspace command.
+
+### 4.8. Step 8 — Run frontend
+
+```bash
 npm run dev
 ```
 
-## Lưu ý
-Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.
+or frontend workspace command.
+
+### 4.9. Step 9 — Run smoke test
+
+```bash
+npm run smoke
 ```
 
+or manual smoke checklist if automated smoke command is not implemented.
+
+### 4.10. Step 10 — Open app
+
+Open frontend in Chrome desktop/laptop.
+
+Recommended local URL:
+
+```text
+http://localhost:3000
+```
+
+Backend local URL may be:
+
+```text
+http://localhost:3001
+```
+
+Actual ports should be defined in `.env.example`.
+
 ---
 
-## 22. Tiêu chí demo đạt yêu cầu
+## 5. Environment Variables
 
-| Tiêu chí | Mô tả |
-|---|---|
-| Login thành công | Đăng nhập được ít nhất 3 role demo |
-| Dashboard có dữ liệu | Admin xem được tổng quan |
-| Medicine hiển thị | Có MED001-MED005 |
-| Inventory cảnh báo | MED003 low stock, MED004 near expiry |
-| Sales POS hoạt động | Staff tạo đơn và thêm thuốc |
-| Interaction Alert hoạt động | MED001 + MED002 hiển thị HIGH |
-| Payment hoạt động | Thanh toán tạo payment và trừ tồn |
-| Invoice hoạt động | Hóa đơn hiển thị đúng |
-| AI/Graph nếu có | Có MockAI/Graph demo hoặc fallback |
-| Tài liệu đầy đủ | Có test case, setup guide, demo script |
+### 5.1. General environment variables
+
+Recommended variables:
+
+```env
+APP_ENV=local
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:3001
+```
+
+### 5.2. PostgreSQL / Prisma
+
+```env
+DATABASE_URL=postgresql://...
+SHADOW_DATABASE_URL=postgresql://...
+```
+
+Notes:
+
+1. `DATABASE_URL` must point to intended local/non-demo environment.
+2. `SHADOW_DATABASE_URL` must not point to demo/staging/prod.
+3. Shadow DB is optional depending migration setup.
+4. Automated tests must not destroy demo data.
+
+### 5.3. Supabase
+
+Frontend public variables:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+Backend private variables:
+
+```env
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+SUPABASE_JWT_ISSUER=...
+SUPABASE_JWKS_URL=...
+```
+
+Security note:
+
+1. `SUPABASE_SERVICE_ROLE_KEY` must never be exposed in frontend.
+2. Only backend should use service role key.
+3. Frontend can use anon key.
+
+### 5.4. Neo4j
+
+```env
+NEO4J_URI=neo4j+s://...
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=...
+NEO4J_DATABASE=neo4j
+GRAPH_SYNC_ENABLED=true
+GRAPH_QUERY_TIMEOUT_MS=5000
+```
+
+### 5.5. AI Provider
+
+```env
+AI_PROVIDER_PRIMARY=GOOGLE_AI
+AI_PROVIDER_FALLBACK=MOCK_AI
+AI_FALLBACK_ENABLED=true
+AI_GUARDRAIL_ENABLED=true
+AI_AUDIT_ENABLED=true
+AI_TIMEOUT_MS=15000
+GOOGLE_AI_API_KEY=...
+GOOGLE_AI_MODEL=...
+```
+
+### 5.6. Demo reset safety
+
+```env
+DEMO_RESET_CONFIRM=LOCAL_RESET_ALLOWED
+DEMO_RESET_ALLOWED_ENV=local
+```
+
+Additional recommended guard:
+
+```env
+ALLOW_DESTRUCTIVE_LOCAL_RESET=false
+```
+
+Require explicit command flag to set it true.
+
+### 5.7. Logging
+
+```env
+LOG_LEVEL=debug
+REQUEST_ID_ENABLED=true
+```
+
+### 5.8. Environment variable checklist
+
+| Variable group                                      |          Required for MVP |
+| --------------------------------------------------- | ------------------------: |
+| App URLs                                            |                       Yes |
+| PostgreSQL `DATABASE_URL`                           |                       Yes |
+| Supabase URL/anon key                               |                       Yes |
+| Supabase service role key for backend admin actions |                       Yes |
+| Neo4j credentials                                   |                       Yes |
+| Google AI API key                                   | Yes if real provider used |
+| MockAI fallback config                              |                       Yes |
+| Demo reset guard                                    |                       Yes |
+| Logging/request ID                                  |               Recommended |
 
 ---
 
-## 23. Kết luận
+## 6. Supabase Setup Notes
 
-Tài liệu **Testing, Demo and Setup Guide** đã tổng hợp hướng dẫn kiểm thử, setup môi trường, seed dữ liệu, demo script và phương án dự phòng cho hệ thống **PharmaAssist AI Intelligence**. Đây là tài liệu giúp nhóm chạy project ổn định, kiểm thử đầy đủ và chuẩn bị tốt cho buổi bảo vệ đồ án.
+### 6.1. Supabase role
 
-Trước khi bảo vệ, nhóm cần ưu tiên kiểm tra luồng demo chính: đăng nhập, bán thuốc, cảnh báo tương tác MED001-MED002, ghi chú tư vấn, thanh toán và hóa đơn. Các phần AI Copilot, Neo4j Knowledge Graph và Graph-RAG nên có MockAI/Mock Graph dự phòng để tránh phụ thuộc vào API hoặc môi trường bên ngoài.
+Supabase provides:
 
-Dữ liệu demo cần được reset trước khi trình bày để đảm bảo tồn kho, cảnh báo và báo cáo hiển thị đúng như kịch bản.
+1. Authentication.
+2. User credential management.
+3. Password management.
+4. Access token/session.
+5. PostgreSQL hosting if used.
 
-**Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.**
+### 6.2. Supabase Auth setup
 
+Required:
+
+1. Enable email/password auth.
+2. Configure allowed redirect URLs if needed.
+3. Create demo users or allow backend seed to create them.
+4. Ensure JWT verification works in backend.
+5. Ensure frontend Supabase client can log in.
+
+### 6.3. UserProfile mapping
+
+After Supabase user exists, backend must create corresponding:
+
+```text
+user_profiles
+```
+
+with:
+
+1. `supabase_user_id`.
+2. `email`.
+3. `full_name`.
+4. `is_active`.
+5. `must_change_password`.
+6. assigned roles through `user_roles`.
+
+### 6.4. Demo users
+
+Required demo users:
+
+1. Admin Demo.
+2. Staff Demo.
+3. Warehouse Demo.
+4. New Staff Demo.
+
+Primary demo accounts:
+
+```text
+must_change_password = false
+```
+
+New Staff Demo:
+
+```text
+must_change_password = true
+```
+
+### 6.5. Password storage rule
+
+Do not store:
+
+1. password.
+2. password_hash.
+3. hashed_password.
+4. custom JWT tokens.
+
+in PostgreSQL.
+
+### 6.6. Supabase setup smoke checks
+
+Verify:
+
+1. Admin can log in.
+2. Staff can log in.
+3. Warehouse can log in.
+4. New Staff is redirected to first-login password change.
+5. Inactive user is denied.
+6. Backend can resolve Supabase token to UserProfile.
+7. Role/permission mapping loads correctly.
+
+---
+
+## 7. PostgreSQL / Prisma Setup
+
+### 7.1. Prisma commands
+
+Required validation:
+
+```bash
+npx prisma validate
+```
+
+Format:
+
+```bash
+npx prisma format
+```
+
+Generate client:
+
+```bash
+npx prisma generate
+```
+
+Local migration:
+
+```bash
+npx prisma migrate dev
+```
+
+Migration status:
+
+```bash
+npx prisma migrate status
+```
+
+### 7.2. Migration rules
+
+1. Use Prisma migrations, not ad-hoc shared DB changes.
+2. Do not use `db push` for shared/demo environments.
+3. Review generated migration SQL.
+4. Use raw SQL migration for partial unique indexes/check constraints if needed.
+5. Do not edit already-applied migrations in shared branches.
+6. Do not run destructive migration on demo DB without approval.
+
+### 7.3. Required raw SQL constraints
+
+Important constraints may include:
+
+1. One successful payment per order.
+2. Active unique role mapping.
+3. Active unique medicine-ingredient mapping.
+4. Active unique interaction pair.
+5. Active unique interaction alert per order/rule.
+6. Price > 0.
+7. Quantity > 0 / non-negative constraints.
+
+### 7.4. Prisma setup smoke checks
+
+Verify:
+
+1. `prisma validate` passes.
+2. Prisma Client generates.
+3. Migrations apply.
+4. Required tables exist.
+5. Required enums exist.
+6. Unique constraints exist.
+7. Partial unique indexes exist.
+8. Seed can run.
+9. No password/password_hash columns exist.
+10. No aggregate inventory source table is used.
+
+---
+
+## 8. Neo4j Setup
+
+### 8.1. Neo4j role
+
+Neo4j is graph projection.
+
+It stores:
+
+1. `Medicine` nodes.
+2. `ActiveIngredient` nodes.
+3. `CONTAINS` relationships.
+4. `INTERACTS_WITH` relationships.
+
+It does not store:
+
+1. Checkout truth.
+2. Inventory truth.
+3. Payment.
+4. Invoice.
+5. PII.
+6. Consultation notes.
+7. AI raw logs.
+
+### 8.2. Neo4j AuraDB setup
+
+Required:
+
+1. Create Neo4j AuraDB instance.
+2. Save URI.
+3. Save username/password.
+4. Configure backend environment variables.
+5. Verify connectivity from backend.
+6. Create uniqueness constraints if required.
+
+### 8.3. Neo4j constraints
+
+Recommended graph constraints:
+
+1. Unique `Medicine.id`.
+2. Unique `ActiveIngredient.id`.
+
+Conceptual Cypher:
+
+```cypher
+CREATE CONSTRAINT medicine_id_unique IF NOT EXISTS
+FOR (m:Medicine)
+REQUIRE m.id IS UNIQUE;
+```
+
+```cypher
+CREATE CONSTRAINT active_ingredient_id_unique IF NOT EXISTS
+FOR (a:ActiveIngredient)
+REQUIRE a.id IS UNIQUE;
+```
+
+### 8.4. Graph Sync setup
+
+Required backend components:
+
+1. Graph Sync Outbox.
+2. Graph Sync Worker.
+3. Retry handling.
+4. Graph Sync Attempts.
+5. Graph Projection Version.
+6. Freshness detection.
+
+### 8.5. Graph setup smoke checks
+
+Verify:
+
+1. Neo4j connection succeeds.
+2. Graph Sync Worker can write.
+3. Medicine nodes projected.
+4. ActiveIngredient nodes projected.
+5. CONTAINS relationships projected.
+6. INTERACTS_WITH relationships projected.
+7. Warfarin–Aspirin interaction path exists.
+8. Graph freshness returns FRESH.
+9. Graph-RAG returns provenance.
+10. PostgreSQL fallback works when graph unavailable/stale.
+
+---
+
+## 9. AI Provider Setup
+
+### 9.1. Google AI Provider
+
+Google AI Provider is preferred real AI provider.
+
+Setup requires:
+
+1. API key.
+2. Model name.
+3. Backend environment variables.
+4. Provider adapter implementation.
+5. Timeout config.
+6. Guardrail enabled.
+7. AI Audit enabled.
+
+### 9.2. MockAI fallback
+
+MockAI fallback must be configured even if Google AI works.
+
+Purpose:
+
+1. Demo stability.
+2. Offline/timeout fallback.
+3. Predictable testing.
+4. Guardrail and UI validation.
+
+### 9.3. AI setup smoke checks
+
+Verify:
+
+1. Google AI provider config exists.
+2. MockAI fallback config exists.
+3. PromptTemplates are seeded and APPROVED.
+4. AI explanation request works.
+5. AI note draft request works.
+6. Guardrail blocks unsafe input.
+7. Provider timeout/failure can use MockAI fallback.
+8. AI Audit Log is written.
+9. AI Audit does not contain raw PII.
+10. AI draft does not auto-save official note.
+
+---
+
+## 10. Seed / Demo Setup
+
+### 10.1. Seed purpose
+
+Seed data must support:
+
+1. Auth/RBAC demo.
+2. Supplier demo.
+3. Medicine/ActiveIngredient demo.
+4. Inventory/Batch demo.
+5. Stock Import demo.
+6. Inventory Adjustment demo.
+7. POS demo.
+8. Checkout with FEFO.
+9. HIGH alert handling.
+10. Payment/Invoice.
+11. Reports.
+12. AI Guardrail/Audit.
+13. Graph Sync/Graph-RAG.
+
+### 10.2. Seed data principles
+
+1. Use curated operational seed.
+2. Do not import full scraped catalog as official data.
+3. Do not seed real personal data.
+4. Do not seed selling price = 0.
+5. Use dynamic expiry dates.
+6. Create inventory through Stock Import/Adjustment/Checkout.
+7. Rebuild graph from PostgreSQL.
+8. Keep seed reproducible.
+
+### 10.3. Required seed scenarios
+
+1. Demo users.
+2. Roles and permissions.
+3. Suppliers.
+4. Medicines.
+5. ActiveIngredients.
+6. Medicine–ActiveIngredient mappings.
+7. DrugInteraction rules.
+8. MedicineBatches.
+9. Confirmed Stock Imports.
+10. Inventory Adjustments.
+11. PAID orders.
+12. DRAFT orders.
+13. CANCELLED orders.
+14. Failed payment attempts.
+15. HIGH unresolved alert.
+16. HIGH resolved alert.
+17. FEFO allocation.
+18. PromptTemplates.
+19. AI Audit demo logs.
+20. Graph projection.
+
+---
+
+## 11. `demo:reset` Workflow
+
+### 11.1. Purpose
+
+`demo:reset` creates a reproducible local demo state.
+
+It should:
+
+1. Reset local PostgreSQL demo data.
+2. Verify/provision Supabase demo users.
+3. Seed curated operational data.
+4. Rebuild Neo4j projection.
+5. Check graph freshness.
+6. Run smoke checks.
+7. Print result summary.
+
+### 11.2. Official restriction
+
+`demo:reset` is local-only.
+
+It must refuse to run in:
+
+1. demo.
+2. staging.
+3. production.
+4. unknown environment.
+
+### 11.3. Suggested command
+
+```bash
+npm run demo:reset -- --confirm-local-reset
+```
+
+or equivalent.
+
+### 11.4. Reset workflow steps
+
+```text
+1. Check APP_ENV is local.
+2. Check explicit confirmation flag.
+3. Check database URL is local/safe.
+4. Check Supabase target is allowed.
+5. Check Neo4j target is allowed.
+6. Clear local MVP demo data safely.
+7. Provision/check Supabase demo users.
+8. Seed user_profiles.
+9. Seed roles/permissions/user_roles.
+10. Seed system settings.
+11. Seed prompt templates.
+12. Seed suppliers.
+13. Seed medicines.
+14. Seed active ingredients.
+15. Seed medicine ingredient mappings.
+16. Seed drug interaction rules.
+17. Seed stock imports and details.
+18. Confirm stock imports to create batches.
+19. Seed inventory adjustments and confirm them.
+20. Seed orders/order items.
+21. Seed interaction alerts.
+22. Seed payments/invoices/batch allocations.
+23. Seed AI audit logs if needed.
+24. Create graph sync events or run projection rebuild.
+25. Rebuild Neo4j projection.
+26. Run graph freshness check.
+27. Run smoke checks.
+28. Print PASS/FAIL summary.
+```
+
+### 11.5. Reset summary output
+
+The script should print:
+
+1. Environment.
+2. Reset date.
+3. Number of users.
+4. Number of medicines.
+5. Number of active ingredients.
+6. Number of suppliers.
+7. Number of batches.
+8. Number of orders.
+9. Number of paid orders.
+10. Number of invoices.
+11. Number of interaction alerts.
+12. Number of graph nodes.
+13. Number of graph relationships.
+14. Smoke test result.
+
+---
+
+## 12. `demo:reset` Safety Guard
+
+### 12.1. Required guard checks
+
+Before destructive reset, check:
+
+1. `APP_ENV === local`.
+2. `NODE_ENV !== production`.
+3. Database URL is allowed.
+4. Demo reset confirmation flag exists.
+5. Supabase project is safe.
+6. Neo4j instance is safe.
+7. User typed explicit confirmation or passed required flag.
+
+### 12.2. Refusal behavior
+
+If environment is not safe:
+
+```text
+Demo reset refused. This command is allowed only in local environment and must not run against demo, staging, production, or unknown databases.
+```
+
+### 12.3. Must not run destructive tests against demo database
+
+No test or script may:
+
+1. Truncate demo database.
+2. Delete demo seed.
+3. Reset demo Supabase users.
+4. Clear demo Neo4j.
+5. Run destructive integration tests on demo environment.
+
+### 12.4. Allowed destructive actions
+
+Allowed only in local:
+
+1. Truncate local seed data.
+2. Recreate local demo data.
+3. Rebuild local/demo-safe Neo4j projection.
+4. Re-provision local demo users if configured safely.
+
+---
+
+## 13. Testing Strategy
+
+### 13.1. Testing objective
+
+Testing must prove that the MVP is:
+
+1. Functionally correct.
+2. Safe for demo.
+3. Stable across critical flows.
+4. Aligned with baseline.
+5. Traceable to requirements.
+6. Protected against high-risk failures.
+
+### 13.2. Testing priorities
+
+Priority order:
+
+1. Auth/RBAC.
+2. Medicine/ActiveIngredient.
+3. MedicineBatch/Inventory.
+4. Stock Import.
+5. Inventory Adjustment.
+6. POS.
+7. Checkout.
+8. FEFO.
+9. InteractionAlert.
+10. HIGH alert acknowledgement/note.
+11. AI Guardrail/Audit.
+12. Graph Sync/Graph-RAG.
+13. Reports.
+14. Demo reset/smoke.
+
+### 13.3. Risk-based testing
+
+High-risk areas must get deeper tests:
+
+1. Checkout.
+2. FEFO.
+3. Interaction.
+4. AI Guardrail.
+5. Graph freshness/fallback.
+6. Authorization.
+7. Demo reset.
+
+### 13.4. Testing principles
+
+1. Test critical path early.
+2. Test failure modes, not only happy path.
+3. Test backend validation, not only UI validation.
+4. Test permission denial.
+5. Test rollback behavior.
+6. Test seed/demo data.
+7. Test graph fallback.
+8. Test AI refusal.
+9. Keep tests isolated.
+10. Do not run destructive tests against demo database.
+
+---
+
+## 14. Recommended Testing Stack
+
+### 14.1. Recommended tools
+
+Recommended stack:
+
+| Test Type               | Recommended Tool                 |
+| ----------------------- | -------------------------------- |
+| Backend unit            | Jest                             |
+| Backend integration/API | Jest + Supertest                 |
+| Frontend component      | React Testing Library            |
+| End-to-end              | Playwright                       |
+| Manual API collection   | Postman                          |
+| Smoke scripts           | npm scripts / custom Node script |
+| Prisma validation       | Prisma CLI                       |
+| CI                      | GitHub Actions                   |
+
+### 14.2. Testing stack unresolved status
+
+The official automated-testing toolchain is **not fully finalized**.
+
+Recommended default remains:
+
+1. Jest.
+2. Supertest.
+3. React Testing Library.
+4. Playwright.
+5. Postman.
+
+Until explicitly adopted, team may use equivalent tools, but must still cover:
+
+1. Unit tests.
+2. Integration/API tests.
+3. UI/component sanity tests.
+4. E2E critical flows.
+5. Manual/Postman validation.
+6. Smoke checks.
+7. CI gates.
+
+### 14.3. Coverage rule
+
+No global mandatory coverage percentage applies to the whole codebase.
+
+However, high-risk modules should target approximately **70% meaningful coverage** as a reference:
+
+1. Checkout.
+2. FEFO.
+3. Interaction.
+4. AI Guardrail.
+
+This is not cosmetic coverage. Priority is critical-path and failure-mode tests.
+
+---
+
+## 15. Test Types
+
+### 15.1. Unit tests
+
+Purpose:
+
+1. Test pure logic.
+2. Test business rules.
+3. Test validators.
+4. Test service helpers.
+5. Test guardrail functions.
+
+Examples:
+
+1. FEFO sort.
+2. Canonical interaction pair key.
+3. Cash change calculation.
+4. Near-expiry calculation.
+5. Guardrail input classification.
+6. PII redaction.
+7. Graph freshness calculation.
+
+### 15.2. Integration tests
+
+Purpose:
+
+1. Test services with database.
+2. Test transaction behavior.
+3. Test module integration.
+4. Test rollback.
+
+Examples:
+
+1. Stock Import confirm creates batches.
+2. Inventory Adjustment prevents negative stock.
+3. Checkout deducts batch stock.
+4. Checkout creates payment/invoice.
+5. InteractionAlert persists.
+6. Graph Sync outbox created.
+
+### 15.3. API tests
+
+Purpose:
+
+1. Validate REST contract.
+2. Validate auth/permission.
+3. Validate request validation.
+4. Validate error response.
+5. Validate idempotency.
+
+Can be automated with Supertest or manually with Postman.
+
+### 15.4. Frontend component tests
+
+Purpose:
+
+1. Validate UI component behavior.
+2. Validate forms.
+3. Validate role-based visible/hidden actions.
+4. Validate error states.
+
+Examples:
+
+1. Checkout button disabled if HIGH unresolved.
+2. Staff sidebar hides Inventory Dashboard.
+3. Warehouse sidebar hides POS.
+4. Consultation note field requires non-empty text.
+5. AI refusal state renders.
+
+### 15.5. E2E tests
+
+Purpose:
+
+Test real user flows through frontend and backend.
+
+Critical E2E flows:
+
+1. Login.
+2. First-login password change.
+3. Stock Import confirm.
+4. Inventory Adjustment confirm.
+5. POS to Checkout.
+6. HIGH alert handling.
+7. AI note draft confirmation.
+8. FEFO checkout.
+9. Invoice view.
+10. Graph-RAG fallback.
+11. Reports.
+
+### 15.6. Manual/Postman tests
+
+Purpose:
+
+1. Validate API quickly.
+2. Share demo evidence.
+3. Reproduce bugs.
+4. Support evaluator review.
+
+Postman collection should include:
+
+1. Auth/profile.
+2. Medicine.
+3. Supplier.
+4. Inventory.
+5. Stock Import.
+6. POS/Order.
+7. Checkout.
+8. InteractionAlert.
+9. AI.
+10. Graph-RAG.
+11. Reports.
+12. Settings.
+
+### 15.7. Smoke tests
+
+Purpose:
+
+Quick check that demo state is usable.
+
+Smoke tests run:
+
+1. After setup.
+2. After demo reset.
+3. Before release freeze.
+4. Before presentation.
+
+### 15.8. Regression tests
+
+Purpose:
+
+Ensure bugfix does not break critical flows.
+
+Regression areas:
+
+1. Auth.
+2. Checkout.
+3. InteractionAlert.
+4. AI Guardrail.
+5. Graph Sync.
+6. Reports.
+7. Demo reset.
+
+---
+
+## 16. Test Scope by Module
+
+---
+
+### 16.1. Auth/RBAC
+
+Test:
+
+1. Admin login.
+2. Staff login.
+3. Warehouse login.
+4. Invalid login.
+5. Inactive user denied.
+6. UserProfile mapping.
+7. First-login password change.
+8. Role-based navigation.
+9. Permission-based backend guard.
+10. Staff ownership.
+11. Warehouse denied POS.
+12. Staff denied inventory dashboard.
+13. Admin all-scope access.
+
+Must verify:
+
+1. No password/password_hash in PostgreSQL.
+2. Supabase Auth used.
+3. Custom JWT/password design not present.
+
+---
+
+### 16.2. Medicine / ActiveIngredient
+
+Test:
+
+1. Create Medicine.
+2. Edit Medicine.
+3. Deactivate Medicine.
+4. Selling price > 0.
+5. Min stock >= 0.
+6. Create ActiveIngredient.
+7. Duplicate ingredient blocked.
+8. Medicine–ActiveIngredient mapping.
+9. Duplicate active mapping blocked.
+10. Graph Sync outbox created after relevant changes.
+
+---
+
+### 16.3. Supplier
+
+Test:
+
+1. Admin create/update/deactivate supplier.
+2. Warehouse create/update supplier.
+3. Warehouse cannot deactivate supplier.
+4. Inactive supplier cannot be used for new import.
+5. Supplier appears in Stock Import selector.
+
+---
+
+### 16.4. MedicineBatch
+
+Test:
+
+1. Batch created from confirmed Stock Import.
+2. Batch number required.
+3. Expiry date required.
+4. Quantity non-negative.
+5. Existing same medicine + same batch + same expiry merges quantity.
+6. Same medicine + same batch + different expiry rejected.
+7. Expired batch excluded from sellable stock.
+8. Near-expiry uses default 90 days.
+9. Low-stock uses sellable quantity.
+10. No direct quantity edit.
+
+---
+
+### 16.5. Stock Import
+
+Test:
+
+1. Create Draft Import.
+2. Add details.
+3. Validate supplier required.
+4. Validate batch number required.
+5. Validate expiry date required.
+6. Validate quantity > 0.
+7. Confirm import.
+8. Confirm creates/updates MedicineBatch.
+9. Confirmed import read-only.
+10. Cannot double confirm.
+11. Cancel Draft.
+12. Cannot confirm cancelled import.
+13. Expiry mismatch rejected.
+14. Audit recorded.
+
+---
+
+### 16.6. Inventory Adjustment
+
+Test:
+
+1. Create Draft Adjustment.
+2. Reason required.
+3. Batch required.
+4. Quantity change cannot be 0.
+5. Preview after quantity.
+6. Negative stock blocked.
+7. Confirm adjustment.
+8. Confirmed adjustment read-only.
+9. Correction requires new adjustment.
+10. Audit recorded.
+
+---
+
+### 16.7. POS
+
+Test:
+
+1. Staff creates Draft Order.
+2. Staff adds active Medicine.
+3. Inactive Medicine cannot be added.
+4. Quantity > 0.
+5. Update quantity.
+6. Remove item.
+7. Interaction check triggered after item change.
+8. Draft persists after validation failure.
+9. Staff sees own orders only.
+10. Admin can view all.
+
+---
+
+### 16.8. Checkout
+
+Test:
+
+1. Checkout requires DRAFT order.
+2. Checkout requires items.
+3. Checkout blocks unresolved HIGH alert.
+4. Checkout validates stock.
+5. Checkout applies FEFO.
+6. Checkout excludes expired batch.
+7. Checkout deducts batch quantity.
+8. Checkout creates allocation records.
+9. Checkout creates SUCCESS payment.
+10. Checkout creates invoice.
+11. Checkout marks order PAID.
+12. Checkout is atomic.
+13. Checkout rollback on failure.
+14. Checkout idempotency prevents duplicate payment/invoice/stock deduction.
+15. Same idempotency key + different payload rejected.
+
+---
+
+### 16.9. Payment / Invoice
+
+Test:
+
+1. Cash amount tendered >= total.
+2. Change amount calculated.
+3. Bank transfer simulation requires transaction reference.
+4. Failed payment attempt retained.
+5. Only one SUCCESS payment per order.
+6. Invoice created only after successful payment.
+7. One invoice per order.
+8. Invoice items snapshot data.
+9. No invoice for DRAFT/CANCELLED.
+10. Payment/invoice cannot be created outside checkout as official completion flow.
+
+---
+
+### 16.10. InteractionAlert
+
+Test:
+
+1. Interaction rule uses ActiveIngredient pair.
+2. Medicine-level official rule not used.
+3. LOW/MEDIUM alert displays but does not block checkout.
+4. HIGH alert displays and blocks checkout.
+5. Alert persists.
+6. Display count increments.
+7. Last displayed time updates.
+8. Alert becomes inactive when no longer applicable.
+9. HIGH acknowledgement saved.
+10. HIGH consultation note saved.
+11. Checkout requires both ack and note.
+12. Warehouse has no access.
+13. Admin history screen shows alerts.
+
+---
+
+### 16.11. AI Guardrail
+
+Test:
+
+1. AI explanation works.
+2. AI note draft works.
+3. AI draft is not official note.
+4. Staff must confirm note.
+5. Unsafe diagnosis request blocked.
+6. Unsafe prescribing request blocked.
+7. Unsafe dosage request blocked.
+8. Request to bypass HIGH alert blocked.
+9. PII redaction works.
+10. Output guardrail blocks unsafe provider output.
+11. Structured output validation works.
+12. Google AI timeout/failure falls back to MockAI.
+13. AI Audit written.
+14. AI Audit contains prompt version.
+15. AI Audit does not contain raw PII.
+
+---
+
+### 16.12. Graph Sync / Graph-RAG
+
+Test:
+
+1. Medicine change creates outbox.
+2. ActiveIngredient change creates outbox.
+3. Mapping change creates outbox.
+4. Interaction rule change creates outbox.
+5. Worker creates Medicine nodes.
+6. Worker creates ActiveIngredient nodes.
+7. Worker creates CONTAINS relationships.
+8. Worker creates INTERACTS_WITH relationships.
+9. INTERACTS_WITH canonical direction.
+10. Query treats interaction symmetrically.
+11. Worker retries failure.
+12. Failed job marks graph stale.
+13. Freshness detection works.
+14. Graph-RAG returns provenance.
+15. Stale graph uses PostgreSQL fallback for interaction explanation.
+16. Pure graph query returns safe error if no fallback.
+17. Staff cannot submit raw Cypher.
+18. Warehouse cannot access Graph-RAG in MVP.
+
+---
+
+### 16.13. Reports
+
+Test:
+
+1. Revenue report includes only PAID orders.
+2. DRAFT excluded.
+3. CANCELLED excluded.
+4. Failed payment excluded.
+5. Top Medicines ranking correct.
+6. Inventory report uses MedicineBatch.
+7. Expired excluded from sellable quantity.
+8. Near-expiry uses system setting default 90 days.
+9. Filter by date works.
+10. Warehouse can access inventory report only.
+
+---
+
+## 17. High-risk Tests
+
+---
+
+### 17.1. Checkout high-risk tests
+
+Checkout is high-risk because it touches:
+
+1. Order.
+2. Order items.
+3. MedicineBatch.
+4. FEFO allocation.
+5. Payment.
+6. Invoice.
+7. InteractionAlert.
+8. Idempotency.
+9. Audit.
+
+Required tests:
+
+| Test                                     | Expected                            |
+| ---------------------------------------- | ----------------------------------- |
+| Checkout with normal order               | PAID + payment + invoice            |
+| Checkout with insufficient stock         | Rollback, Draft preserved           |
+| Checkout with unresolved HIGH            | Blocked                             |
+| Checkout with resolved HIGH              | Success                             |
+| Checkout duplicate request same key      | Same result, no duplicate deduction |
+| Checkout duplicate key different payload | Rejected                            |
+| Checkout payment failure                 | No inconsistent invoice             |
+| Checkout concurrent stock race           | No negative stock                   |
+
+---
+
+### 17.2. FEFO high-risk tests
+
+Required tests:
+
+| Test                           | Expected                           |
+| ------------------------------ | ---------------------------------- |
+| Multiple sellable batches      | Nearest expiry allocated first     |
+| Quantity spans batches         | Allocation split correctly         |
+| Expired batch exists           | Expired batch ignored              |
+| Near-expiry batch exists       | Still sellable if not expired      |
+| Insufficient sellable quantity | Checkout blocked                   |
+| Allocation record              | Shows batch number/expiry snapshot |
+
+---
+
+### 17.3. Interaction high-risk tests
+
+Required tests:
+
+| Test                   | Expected                 |
+| ---------------------- | ------------------------ |
+| Warfarin + Aspirin     | HIGH alert               |
+| LOW/MEDIUM alert       | Non-blocking             |
+| HIGH unresolved        | Checkout blocked         |
+| HIGH acknowledged only | Still blocked            |
+| HIGH note only         | Still blocked            |
+| HIGH ack + note        | Checkout allowed         |
+| Alert displayed again  | display_count increments |
+| Item removed           | alert inactive           |
+| Rule inactive          | no active alert          |
+
+---
+
+### 17.4. AI Guardrail high-risk tests
+
+Required tests:
+
+| Test                     | Expected                                    |
+| ------------------------ | ------------------------------------------- |
+| Ask for diagnosis        | Blocked                                     |
+| Ask for prescription     | Blocked                                     |
+| Ask for dosage           | Blocked                                     |
+| Ask to bypass HIGH alert | Blocked                                     |
+| PII-heavy input          | Redacted/minimized                          |
+| Google AI timeout        | MockAI fallback                             |
+| Provider unsafe output   | Hidden/refused                              |
+| AI note draft            | Not saved automatically                     |
+| Staff confirms draft     | Official note saved                         |
+| AI Audit                 | Records provider, prompt version, guardrail |
+
+---
+
+## 18. Non-demo Local Testing Rules
+
+### 18.1. No separate PostgreSQL database requirement
+
+The project has decided:
+
+```text
+No separate PostgreSQL database is officially required for automated tests.
+```
+
+Therefore tests must use safe isolation.
+
+### 18.2. Acceptable isolation strategies
+
+Possible strategies:
+
+1. Dedicated local test schema if technically possible.
+2. Transaction rollback per test.
+3. Test data prefix/suffix and cleanup.
+4. In-memory mocks for pure unit tests.
+5. Local-only disposable seed.
+6. Non-demo local environment.
+
+### 18.3. Rules
+
+1. Do not run destructive tests against demo database.
+2. Do not truncate shared/demo data.
+3. Do not reset Supabase demo users during automated tests.
+4. Do not clear Neo4j demo projection unless local-only.
+5. Use test-specific data.
+6. Cleanup after tests.
+7. Avoid test order dependency.
+
+---
+
+## 19. No Destructive Tests Against Demo Database
+
+### 19.1. Forbidden actions
+
+Forbidden against demo/staging/prod:
+
+1. `TRUNCATE`.
+2. `DROP TABLE`.
+3. `DELETE FROM` broad tables.
+4. `prisma migrate reset`.
+5. `demo:reset`.
+6. Graph wipe.
+7. Supabase user mass delete.
+8. Destructive E2E cleanup.
+9. Seeding over demo data without approval.
+
+### 19.2. If demo data needs refresh
+
+Use controlled release/demo process:
+
+1. Backup or confirm reproducibility.
+2. Project Leader approval.
+3. Release/Demo Owner runs approved script.
+4. Smoke test afterward.
+5. Record result.
+
+### 19.3. CI rule
+
+CI must not point to demo database for destructive integration tests.
+
+---
+
+## 20. Browser Target
+
+### 20.1. Official browser target
+
+MVP browser target:
+
+```text
+Chrome desktop/laptop
+```
+
+### 20.2. Required browser checks
+
+1. Login works on Chrome.
+2. POS works on Chrome.
+3. Checkout works on Chrome.
+4. Tables/forms usable.
+5. Graph-RAG screen usable.
+6. Reports view usable.
+7. AI Copilot panel usable.
+
+### 20.3. Not required for MVP
+
+1. Full Safari testing.
+2. Full Firefox testing.
+3. Full Edge testing.
+4. Full mobile-browser support.
+5. Full tablet optimization.
+
+---
+
+## 21. Basic Responsive Checks
+
+### 21.1. Required responsive checks
+
+Basic checks only:
+
+1. 1366x768 desktop.
+2. 1440x900 desktop.
+3. Laptop viewport.
+4. Basic smaller width with sidebar collapse if implemented.
+5. Tables horizontally scroll if needed.
+6. POS remains usable on laptop.
+7. Checkout panel readable.
+8. Forms do not overflow badly.
+
+### 21.2. Mobile rule
+
+Full mobile UI is Future/Commercial.
+
+If opened on small screen, MVP can show:
+
+1. Usable fallback layout, or
+2. Message recommending desktop/laptop for POS workflow.
+
+---
+
+## 22. Smoke Test Checklist
+
+### 22.1. Smoke test purpose
+
+Smoke test verifies the system is ready for demo.
+
+Smoke test is not full regression, but must catch demo blockers.
+
+### 22.2. Smoke test — setup
+
+Verify:
+
+| Check                                      | Expected |
+| ------------------------------------------ | -------- |
+| Frontend starts                            | PASS     |
+| Backend starts                             | PASS     |
+| Prisma connects                            | PASS     |
+| Supabase connects                          | PASS     |
+| Neo4j connects                             | PASS     |
+| Google AI config present or fallback ready | PASS     |
+| MockAI fallback works                      | PASS     |
+| Seed data exists                           | PASS     |
+
+### 22.3. Smoke test — auth
+
+Verify:
+
+1. Admin login.
+2. Staff login.
+3. Warehouse login.
+4. New Staff redirects to first-login flow.
+5. Inactive user denied if seeded.
+6. Staff/Warehouse menus differ correctly.
+
+### 22.4. Smoke test — inventory
+
+Verify:
+
+1. Inventory Summary loads.
+2. Batch Detail loads.
+3. Expired batch appears as expired.
+4. Near-expiry batch appears.
+5. Low-stock indicator works.
+6. Staff cannot access general Inventory Summary.
+
+### 22.5. Smoke test — stock import
+
+Verify:
+
+1. Warehouse can create Draft Stock Import.
+2. Add detail line.
+3. Confirm import.
+4. Batch created/updated.
+5. Confirmed import read-only.
+
+### 22.6. Smoke test — inventory adjustment
+
+Verify:
+
+1. Warehouse can create adjustment.
+2. Reason required.
+3. Negative stock blocked.
+4. Confirm adjustment.
+5. Batch quantity updated.
+
+### 22.7. Smoke test — POS/checkout
+
+Verify:
+
+1. Staff opens POS.
+2. Create Draft Order.
+3. Add normal medicine.
+4. Add HIGH interaction pair.
+5. HIGH alert appears.
+6. Checkout blocked.
+7. Acknowledge HIGH alert.
+8. Add consultation note.
+9. Checkout allowed.
+10. Cash payment succeeds.
+11. Order becomes PAID.
+12. Invoice generated.
+13. Batch allocation visible.
+
+### 22.8. Smoke test — AI
+
+Verify:
+
+1. AI explanation works.
+2. AI note draft works.
+3. Draft does not auto-save.
+4. Guardrail refusal works for unsafe request.
+5. AI Audit Log records event.
+6. Fallback indicator works if MockAI used.
+
+### 22.9. Smoke test — Graph
+
+Verify:
+
+1. Graph projection fresh.
+2. Graph-RAG query returns path.
+3. Provenance visible.
+4. No raw Cypher UI.
+5. PostgreSQL fallback works if graph unavailable/stale scenario is tested.
+
+### 22.10. Smoke test — Reports
+
+Verify:
+
+1. Revenue Report loads.
+2. Top Medicines Report loads.
+3. Inventory Report loads.
+4. DRAFT/CANCELLED excluded from revenue.
+5. Expired stock excluded from sellable quantity.
+
+### 22.11. Smoke test result
+
+Smoke test result should be recorded as:
+
+| Result                      | Meaning                                     |
+| --------------------------- | ------------------------------------------- |
+| PASS                        | Demo can proceed                            |
+| PASS with known limitations | Demo can proceed with notes                 |
+| FAIL                        | Demo should not proceed until blocker fixed |
+
+---
+
+## 23. Demo Checklist
+
+### 23.1. Before demo
+
+Verify:
+
+1. Correct branch/build.
+2. Environment variables loaded.
+3. Demo reset completed.
+4. Smoke test PASS.
+5. Demo accounts ready.
+6. Supabase users ready.
+7. Neo4j projection fresh.
+8. AI provider/fallback ready.
+9. Browser cache/session cleaned if needed.
+10. Demo script open.
+11. Backup screenshots/Postman collection ready.
+12. Network stable.
+
+### 23.2. Recommended demo flow
+
+Recommended demo order:
+
+1. Login as Admin.
+2. Show Dashboard.
+3. Show User/Role/Permission briefly.
+4. Show Medicine and ActiveIngredient.
+5. Show Supplier.
+6. Login as Warehouse or switch role.
+7. Show Stock Import confirm.
+8. Show Inventory Summary and Batch Detail.
+9. Show Inventory Adjustment.
+10. Login as Staff.
+11. Create POS Draft Order.
+12. Add medicines causing HIGH alert.
+13. Show checkout blocked.
+14. Show AI explanation.
+15. Generate AI note draft.
+16. Confirm acknowledgement and consultation note.
+17. Checkout with FEFO.
+18. Show invoice.
+19. Show Order Detail and batch allocations.
+20. Login as Admin.
+21. Show InteractionAlert History.
+22. Show AI Audit Log.
+23. Show Graph-RAG and provenance.
+24. Show Reports.
+25. Show System Settings near-expiry threshold.
+
+### 23.3. Demo must show baseline strengths
+
+Demo should clearly show:
+
+1. Supabase Auth.
+2. RBAC.
+3. MedicineBatch inventory.
+4. FEFO.
+5. Transactional checkout.
+6. ActiveIngredient-level interaction.
+7. Persisted InteractionAlert.
+8. HIGH alert acknowledgement/note.
+9. AI Guardrail/Audit.
+10. Google AI / MockAI fallback.
+11. Neo4j Graph Sync.
+12. Graph-RAG with provenance/freshness.
+13. Reports.
+14. Demo seed/reset stability.
+
+### 23.4. Demo fallback behavior
+
+If Google AI fails:
+
+1. Show MockAI fallback indicator.
+2. Explain fallback is designed for demo stability.
+3. AI Audit should show fallback used.
+
+If Neo4j fails:
+
+1. Show PostgreSQL fallback for interaction explanation if applicable.
+2. Show safe error for pure graph query.
+3. Do not claim graph is fresh.
+
+If UI issue occurs:
+
+1. Use Postman collection for API evidence.
+2. Use screenshots only as contingency evidence.
+3. Running product remains primary.
+
+---
+
+## 24. Release Exit Criteria
+
+### 24.1. Required exit criteria
+
+Release/demo exit requires:
+
+1. CI passes.
+2. No open P0 bug.
+3. P1 bugs fixed or documented with accepted workaround.
+4. Smoke test PASS.
+5. Demo reset local works.
+6. Supabase demo users ready.
+7. Prisma migration validated.
+8. Seed data valid.
+9. Neo4j projection fresh or fallback documented.
+10. AI provider/fallback ready.
+11. High-risk tests passed.
+12. Critical demo flows passed.
+13. Release/Demo Owner sign-off.
+14. Tester sign-off.
+15. Project Leader approval.
+
+### 24.2. P0 blockers
+
+P0 blockers include:
+
+1. Cannot login.
+2. Role navigation broken.
+3. POS cannot create order.
+4. Checkout broken.
+5. FEFO broken.
+6. HIGH alert not blocking checkout.
+7. HIGH ack/note not saved.
+8. Payment/invoice inconsistent.
+9. Demo reset broken.
+10. Seed data missing.
+11. App cannot start.
+12. Database migration broken.
+
+### 24.3. P1 blockers
+
+P1 issues include:
+
+1. AI fallback broken but main provider works.
+2. Graph-RAG degraded but fallback works.
+3. Report filter minor bug.
+4. Non-critical UI state bug.
+5. Slow response but demo still possible.
+
+### 24.4. Test exit report
+
+Tester should prepare a short test exit report:
+
+1. Test date.
+2. Build/branch.
+3. Environment.
+4. Smoke result.
+5. High-risk tests result.
+6. Open bugs.
+7. Known limitations.
+8. Recommendation: PASS / PASS with limitations / FAIL.
+
+---
+
+## 25. Contingency Evidence
+
+### 25.1. Purpose
+
+Contingency evidence supports presentation if a live issue happens.
+
+It does not replace running product.
+
+### 25.2. Allowed evidence
+
+1. Screenshots.
+2. Postman collection.
+3. Optional video.
+4. Smoke test output.
+5. Seed reset output.
+6. CI output.
+7. Graph projection screenshot.
+8. AI Audit screenshot.
+9. Invoice screenshot.
+10. Reports screenshot.
+
+### 25.3. Screenshots
+
+Recommended screenshots:
+
+1. Login.
+2. Role-based dashboard.
+3. Medicine/ActiveIngredient.
+4. Inventory Summary.
+5. Stock Import confirm.
+6. POS Draft Order.
+7. HIGH alert.
+8. AI note draft.
+9. Checkout success.
+10. Invoice.
+11. InteractionAlert History.
+12. AI Audit Log.
+13. Graph-RAG result.
+14. Reports.
+15. System Settings.
+
+### 25.4. Postman collection
+
+Postman collection should include:
+
+1. Auth/profile.
+2. Medicine.
+3. Supplier.
+4. Inventory.
+5. Stock Import.
+6. POS/Order.
+7. Interaction check.
+8. InteractionAlert ack/note.
+9. Checkout.
+10. Invoice.
+11. AI explanation.
+12. Graph-RAG.
+13. Reports.
+14. Settings.
+
+### 25.5. Optional video
+
+Backup video is optional, not mandatory.
+
+If created, it should show:
+
+1. POS to checkout.
+2. HIGH alert.
+3. AI Copilot.
+4. FEFO allocation.
+5. Graph-RAG.
+6. Reports.
+
+### 25.6. Important rule
+
+Screenshots, Postman collection and optional video are backup evidence only.
+
+They do **not** replace the running MVP product.
+
+---
+
+## 26. Traceability Testing → SRS / API / UI / Data
+
+### 26.1. Testing to SRS
+
+| Test Area            | SRS Requirement  |
+| -------------------- | ---------------- |
+| Auth/RBAC            | FR-AUTH, FR-RBAC |
+| Medicine             | FR-MED           |
+| ActiveIngredient     | FR-ACT           |
+| Supplier             | FR-SUP           |
+| MedicineBatch        | FR-BAT           |
+| Stock Import         | FR-STI           |
+| Inventory Adjustment | FR-ADJ           |
+| POS                  | FR-POS           |
+| Checkout             | FR-CHK           |
+| Payment              | FR-PAY           |
+| Invoice              | FR-INV           |
+| DrugInteraction      | FR-DRG           |
+| InteractionAlert     | FR-ALT           |
+| AI Copilot           | FR-AIC           |
+| AI Guardrail         | FR-AIG           |
+| AI Audit             | FR-AIA           |
+| Graph Sync           | FR-GSY           |
+| Graph-RAG            | FR-GRG           |
+| Reports              | FR-RPT           |
+| Settings             | FR-SET           |
+| Demo Reset           | FR-DMO           |
+
+### 26.2. Testing to API
+
+| Test Area        | API Group                                      |
+| ---------------- | ---------------------------------------------- |
+| Auth             | Auth/Profile APIs                              |
+| User/RBAC        | User/Role/Permission APIs                      |
+| Medicine         | Medicine APIs                                  |
+| ActiveIngredient | ActiveIngredient APIs                          |
+| Supplier         | Supplier APIs                                  |
+| Inventory        | Inventory APIs                                 |
+| Stock Import     | Stock Import APIs                              |
+| Adjustment       | Inventory Adjustment APIs                      |
+| POS              | Order/POS APIs                                 |
+| Checkout         | Checkout API                                   |
+| Payment/Invoice  | Payment read APIs, Invoice APIs                |
+| InteractionAlert | Interaction APIs, InteractionAlert APIs        |
+| AI               | AI Copilot APIs, AI Audit APIs                 |
+| Graph            | Graph-RAG APIs, Graph Sync APIs if implemented |
+| Reports          | Reports APIs                                   |
+| Settings         | System Settings APIs                           |
+| Demo             | Demo reset internal/local command              |
+
+### 26.3. Testing to UI
+
+| Test Area        | UI Screens                                |
+| ---------------- | ----------------------------------------- |
+| Auth             | Login, First-login                        |
+| RBAC             | Role-based navigation                     |
+| Medicine         | Medicine screens                          |
+| ActiveIngredient | ActiveIngredient screens                  |
+| Supplier         | Supplier screens                          |
+| Inventory        | Inventory Summary, Batch Detail           |
+| Stock Import     | Stock Import screens                      |
+| Adjustment       | Inventory Adjustment screens              |
+| POS              | POS Draft Order                           |
+| InteractionAlert | Alert Panel, Alert History                |
+| AI               | AI Copilot, AI Audit Log                  |
+| Checkout         | Checkout Route/Panel                      |
+| Invoice          | Invoice View                              |
+| Graph            | Graph Explorer, Graph-RAG                 |
+| Reports          | Revenue, Top Medicines, Inventory Reports |
+| Settings         | System Settings                           |
+| Demo             | Demo flow screens                         |
+
+### 26.4. Testing to Data
+
+| Test Area   | Seed Data Required                             |
+| ----------- | ---------------------------------------------- |
+| Auth        | Demo users                                     |
+| RBAC        | Roles/permissions                              |
+| Medicine    | Curated medicines                              |
+| Ingredient  | Curated active ingredients                     |
+| FEFO        | Multi-batch medicine                           |
+| Expiry      | Expired and near-expiry batches                |
+| Interaction | Warfarin–Aspirin HIGH                          |
+| Checkout    | Checkout-ready draft order                     |
+| Payment     | SUCCESS and FAILED payment scenarios           |
+| Invoice     | Paid orders with invoices                      |
+| Reports     | 5–10 paid orders                               |
+| AI          | PromptTemplates and InteractionAlert           |
+| Graph       | Projected Medicine/Ingredient/Interaction data |
+| Smoke       | Full demo seed                                 |
+
+---
+
+## 27. Testing Quality Checklist
+
+Before final submission, verify:
+
+| Checklist item                                         | Expected |
+| ------------------------------------------------------ | -------- |
+| Primary setup path documented                          | Yes      |
+| Docker not official setup path                         | Yes      |
+| Supabase Auth setup documented                         | Yes      |
+| Prisma setup documented                                | Yes      |
+| Neo4j setup documented                                 | Yes      |
+| Google AI setup documented                             | Yes      |
+| MockAI fallback documented                             | Yes      |
+| demo:reset local-only                                  | Yes      |
+| No destructive tests against demo DB                   | Yes      |
+| Testing stack unresolved status stated                 | Yes      |
+| Recommended testing stack stated                       | Yes      |
+| Unit/integration/API/UI/E2E/manual/smoke tests defined | Yes      |
+| Auth/RBAC tests defined                                | Yes      |
+| Checkout tests defined                                 | Yes      |
+| FEFO tests defined                                     | Yes      |
+| InteractionAlert tests defined                         | Yes      |
+| AI Guardrail tests defined                             | Yes      |
+| Graph Sync/Graph-RAG tests defined                     | Yes      |
+| Reports tests defined                                  | Yes      |
+| Chrome desktop/laptop target stated                    | Yes      |
+| Basic responsive checks stated                         | Yes      |
+| Smoke checklist included                               | Yes      |
+| Demo checklist included                                | Yes      |
+| Release exit criteria included                         | Yes      |
+| Contingency evidence included                          | Yes      |
+| Screenshots/video not treated as replacement           | Yes      |
+| Traceability included                                  | Yes      |
+
+---
+
+## 28. Kết luận
+
+Document 20 — Testing, Demo & Setup Guide đã xác định hướng dẫn setup, testing strategy, demo reset, smoke test, release checklist và contingency evidence cho **PharmaAssist AI Intelligence**.
+
+Tài liệu này đã làm rõ:
+
+1. Primary setup path là Local Node.js + Next.js + NestJS + Prisma + cloud Supabase + Neo4j AuraDB + Google AI Provider + MockAI fallback.
+2. Docker không phải setup path chính thức.
+3. Environment requirements đã được xác định.
+4. Environment variables đã được phân nhóm.
+5. Supabase setup notes đã được ghi rõ.
+6. PostgreSQL/Prisma setup đã được xác định.
+7. Neo4j setup đã được xác định.
+8. AI provider setup đã được xác định.
+9. Seed/demo setup đã được xác định.
+10. `demo:reset` workflow đã được mô tả.
+11. `demo:reset` chỉ được phép chạy local.
+12. Destructive tests against demo database bị cấm.
+13. Testing strategy dùng risk-based testing.
+14. Recommended testing stack là Jest, Supertest, React Testing Library, Playwright và Postman.
+15. Testing stack vẫn unresolved cho đến khi team chính thức adopt.
+16. Test types gồm Unit, Integration, API, Frontend Component, E2E, Manual/Postman và Smoke.
+17. Test scope by module đã được xác định.
+18. High-risk tests cho Checkout, FEFO, Interaction và AI Guardrail đã được đặc tả.
+19. Non-demo local testing rules đã được ghi rõ.
+20. Browser target là Chrome desktop/laptop.
+21. Basic responsive checks đã được xác định.
+22. Smoke test checklist đã được cung cấp.
+23. Demo checklist đã được cung cấp.
+24. Release exit criteria đã được xác định.
+25. Contingency evidence gồm screenshots, Postman collection và optional video, nhưng không thay thế running product.
+26. Traceability Testing → SRS/API/UI/Data đã được thiết lập.
+
+Các baseline quan trọng được giữ đúng:
+
+1. Supabase Auth là auth chính thức.
+2. Không dùng custom username/password/JWT.
+3. Không lưu password/password_hash trong PostgreSQL.
+4. PostgreSQL là source of truth.
+5. Neo4j là graph projection.
+6. MedicineBatch là inventory source of truth.
+7. Checkout là transaction chính thức.
+8. FEFO là bắt buộc.
+9. Interaction rule ở cấp ActiveIngredient–ActiveIngredient.
+10. InteractionAlert phải persist.
+11. HIGH alert cần acknowledgement và consultation note.
+12. AI Guardrail và AI Audit là MVP.
+13. Google AI Provider là provider ưu tiên.
+14. MockAI chỉ là fallback.
+15. Graph Sync/Freshness là MVP.
+16. Catalog data chỉ là reference; demo seed phải curated.
+17. demo:reset chỉ local.
+18. Screenshots/Postman/video chỉ là contingency evidence.
+
+Document 20 hoàn tất bộ consolidated documentation từ Document 01 đến Document 20 ở mức blueprint hiện tại. Bước tiếp theo hợp lý là rà soát toàn bộ 20 tài liệu theo thứ tự, kiểm tra lặp nội dung, traceability, naming consistency, MVP/Should-have/Future classification và chuẩn hóa final formatting trước khi xuất bản chính thức.
