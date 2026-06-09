@@ -1,727 +1,1430 @@
-# 03_VISION_SCOPE_DOCUMENT
+# Document 03 — Vision & Scope Document
 
-**Mã tài liệu:** 03_Vision_Scope_Document  
-**Tên tài liệu:** Vision and Scope Document  
-**Dự án:** PharmaAssist AI Intelligence  
-**Loại tài liệu:** Tài liệu tầm nhìn sản phẩm và phạm vi dự án  
-**Phiên bản:** v1.0  
-**Ngày cập nhật:** 17/05/2026  
-**Đối tượng sử dụng:** Nhóm phát triển, giảng viên hướng dẫn, người phân tích nghiệp vụ, thiết kế hệ thống, tester, người chuẩn bị báo cáo và demo  
+# Tài liệu 03 — Tầm nhìn sản phẩm và phạm vi dự án
+
+---
+
+## Metadata
+
+| Mục               | Nội dung                                                                                                                                                                     |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Document ID       | DOC-03                                                                                                                                                                       |
+| File name         | `03_vision_scope_document.md`                                                                                                                                                |
+| Document Name     | Vision & Scope Document                                                                                                                                                      |
+| Tên tiếng Việt    | Tầm nhìn sản phẩm và phạm vi dự án                                                                                                                                           |
+| Project           | PharmaAssist AI Intelligence                                                                                                                                                 |
+| Version           | 1.0 Draft                                                                                                                                                                    |
+| Status            | Draft                                                                                                                                                                        |
+| Created Date      | 08/06/2026                                                                                                                                                                   |
+| Last Updated      | 08/06/2026                                                                                                                                                                   |
+| Owner             | Project Leader                                                                                                                                                               |
+| Reviewer          | Nhóm phát triển / Giảng viên hướng dẫn                                                                                                                                       |
+| Baseline Source   | Document 01 — Project Overview & Current Baseline, Document 04 — Decision Log & Scope Control, Master Documentation Index, Documentation Blueprint, baseline scope decisions |
+| Related Documents | Document 01, Document 02, Document 04, Document 05, Document 06, Document 08, Document 15, Document 19, Document 20                                                          |
+| Language Rule     | Nội dung chính viết bằng tiếng Việt; tên file/tên tài liệu có thể giữ tiếng Anh                                                                                              |
+| Terminology Rule  | Giữ nguyên tên công nghệ, module, entity, API, table, enum và thuật ngữ kỹ thuật cần thiết bằng tiếng Anh                                                                    |
 
 ---
 
 ## 1. Mục đích tài liệu
 
-Tài liệu **Vision and Scope Document** mô tả tầm nhìn sản phẩm và phạm vi thực hiện của hệ thống **PharmaAssist AI Intelligence**. Đây là tài liệu giúp nhóm xác định rõ hệ thống cần hướng tới điều gì, phục vụ ai, tạo ra giá trị gì và giới hạn triển khai trong phạm vi đồ án ra sao.
+Tài liệu **Vision & Scope Document** mô tả tầm nhìn sản phẩm, bài toán cần giải quyết, nhóm người dùng mục tiêu, giá trị sản phẩm, ranh giới MVP, phạm vi Should-have, Future / Commercial Expansion và các nội dung Out of Scope của dự án **PharmaAssist AI Intelligence**.
 
-Trong đồ án môn **Công Nghệ Phần Mềm**, tài liệu này có vai trò rất quan trọng vì nó giúp nhóm tránh tình trạng mở rộng chức năng quá mức, đồng thời giữ cho các tài liệu phân tích, thiết kế, lập trình, kiểm thử và demo thống nhất với nhau.
+Tài liệu này giúp nhóm phát triển trả lời các câu hỏi chính:
 
-Tài liệu này được sử dụng để:
+1. Sản phẩm hướng tới điều gì?
+2. Sản phẩm giải quyết bài toán nào của nhà thuốc?
+3. Người dùng chính của hệ thống là ai?
+4. Sản phẩm mang lại giá trị nghiệp vụ, kỹ thuật và học thuật nào?
+5. MVP bắt buộc gồm những phần nào?
+6. Những phần nào nên có nếu còn thời gian?
+7. Những phần nào để dành cho giai đoạn mở rộng sau MVP?
+8. Những phần nào không làm trong phạm vi hiện tại?
+9. Những ràng buộc nào cần được giữ để tránh scope creep?
+10. Các tài liệu sau cần dựa vào phạm vi nào để viết tiếp?
 
-- Xác định tầm nhìn dài hạn của sản phẩm.
-- Làm rõ bài toán mà hệ thống cần giải quyết.
-- Xác định người dùng mục tiêu và nhu cầu của từng nhóm người dùng.
-- Nêu rõ giá trị sản phẩm mang lại cho nhà thuốc.
-- Phân định chức năng trong phạm vi và ngoài phạm vi.
-- Chốt phạm vi MVP để nhóm ưu tiên triển khai trước.
-- Xác định các chức năng nâng cao có thể triển khai nếu đủ thời gian.
-- Ghi nhận các ràng buộc về an toàn, dữ liệu và AI.
+Document 03 không phải là SRS, không phải API Specification, không phải ERD, không phải Prisma Schema, không phải UI/UX chi tiết và không phải Test Plan.
 
-Tài liệu này là cơ sở đầu vào cho các tài liệu tiếp theo như:
-
-- Business Requirement Document.
-- Software Requirement Specification.
-- Use Case Specification.
-- Product Backlog.
-- Sprint Plan.
-- System Architecture Document.
-- ERD/Data Dictionary.
-- UI/UX Requirement Document.
-- Test Plan.
-- Demo Script.
+Tài liệu này chỉ xác định **tầm nhìn và ranh giới phạm vi cấp sản phẩm**. Các yêu cầu chi tiết, API, database, UI, test case và Jira task sẽ được viết trong các tài liệu chuyên biệt sau.
 
 ---
 
-## 2. Bối cảnh sản phẩm
+## 2. Người đọc chính
 
-Nhà thuốc là một môi trường nghiệp vụ có nhiều hoạt động diễn ra liên tục, bao gồm bán thuốc, tư vấn khách hàng, nhập hàng, kiểm tra tồn kho, theo dõi hạn dùng, thanh toán, in hóa đơn và lập báo cáo. Với các nhà thuốc nhỏ và vừa, những công việc này thường được thực hiện bằng sổ sách, Excel hoặc phần mềm bán hàng đơn giản.
+Tài liệu này dành cho các nhóm người đọc sau:
 
-Tuy nhiên, thuốc là loại hàng hóa đặc thù vì có các yếu tố cần kiểm soát như:
+1. **Project Leader**
+   Dùng tài liệu để kiểm soát phạm vi sản phẩm, tránh mở rộng MVP ngoài baseline đã chốt.
 
-- Tên thuốc.
-- Hoạt chất.
-- Nhóm thuốc.
-- Đơn vị tính.
-- Giá bán.
-- Số lượng tồn.
-- Hạn sử dụng.
-- Nhà cung cấp.
-- Lịch sử nhập thuốc.
-- Lịch sử bán thuốc.
-- Cảnh báo tương tác thuốc.
-- Ghi chú tư vấn.
+2. **Business Analyst**
+   Dùng tài liệu để hiểu bài toán nhà thuốc, mục tiêu nghiệp vụ và ranh giới business scope.
 
-Nếu hệ thống quản lý không tốt, nhà thuốc có thể gặp nhiều vấn đề như bán vượt tồn kho, không phát hiện thuốc sắp hết, bỏ sót thuốc gần hết hạn, sai lệch doanh thu, khó tra cứu lịch sử khách hàng hoặc không phát hiện các cặp thuốc có nguy cơ tương tác khi bán nhiều thuốc cùng lúc.
+3. **System Analyst**
+   Dùng tài liệu để chuyển phạm vi sản phẩm thành BRD, SRS, Use Case và UML.
 
-**PharmaAssist AI Intelligence** được định hướng là một website hỗ trợ nhà thuốc giải quyết các vấn đề trên bằng cách số hóa quy trình quản lý, hỗ trợ bán hàng, cảnh báo nghiệp vụ và cung cấp báo cáo. Điểm nổi bật của hệ thống là có thể phát triển theo hướng thông minh hơn thông qua AI Copilot, Knowledge Graph, Graph-RAG, Guardrail và Audit Log.
+4. **UI/UX Designer**
+   Dùng tài liệu để hiểu người dùng mục tiêu, luồng demo chính và phạm vi màn hình cần thiết.
 
----
+5. **Developer**
+   Dùng tài liệu để biết module nào thuộc MVP, module nào là Should-have hoặc Future.
 
-## 3. Vision Statement
+6. **Tester**
+   Dùng tài liệu để xác định luồng MVP cần test và nội dung nào không cần test như MVP blocker.
 
-**PharmaAssist AI Intelligence hướng tới trở thành một hệ thống website hỗ trợ nhà thuốc quản lý hoạt động bán thuốc, tồn kho, khách hàng, hóa đơn và báo cáo một cách hiệu quả. Hệ thống có điểm nổi bật là cảnh báo tương tác thuốc bằng dữ liệu mẫu và có thể mở rộng với AI Copilot, Knowledge Graph và Graph-RAG để hỗ trợ dược sĩ/nhân viên nhà thuốc trong quá trình tư vấn tham khảo.**
-
-Tầm nhìn của sản phẩm không chỉ dừng lại ở một website CRUD quản lý thuốc thông thường. Hệ thống được định hướng trở thành một nền tảng hỗ trợ vận hành nhà thuốc có khả năng:
-
-- Quản lý dữ liệu thuốc tập trung.
-- Hỗ trợ nhân viên bán thuốc nhanh và chính xác hơn.
-- Kiểm soát tồn kho và hạn dùng tốt hơn.
-- Cảnh báo các tình huống cần lưu ý trong quá trình bán hàng.
-- Hỗ trợ chủ nhà thuốc theo dõi doanh thu và tồn kho.
-- Tạo nền tảng để tích hợp AI có kiểm soát.
-- Biểu diễn quan hệ thuốc và tương tác bằng Knowledge Graph.
-- Lưu vết các thao tác AI để tăng tính minh bạch.
-
-Trong phạm vi đồ án, hệ thống không được định hướng trở thành phần mềm y tế thực tế hay hệ thống tư vấn điều trị. Các chức năng liên quan đến cảnh báo thuốc và AI chỉ đóng vai trò hỗ trợ tham khảo, dùng dữ liệu mẫu và cần có xác nhận của con người.
-
-**Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.**
+7. **Giảng viên hướng dẫn / Người đánh giá**
+   Dùng tài liệu để hiểu tầm nhìn, phạm vi và mức độ phù hợp của dự án trong đồ án Công Nghệ Phần Mềm.
 
 ---
 
-## 4. Product Positioning Statement
+## 3. Vị trí của tài liệu trong bộ consolidated documentation
 
-Đối với các nhà thuốc nhỏ và vừa cần một công cụ hỗ trợ quản lý bán hàng, tồn kho và cảnh báo nghiệp vụ, **PharmaAssist AI Intelligence** là một website quản lý nhà thuốc thông minh giúp tập trung dữ liệu thuốc, hỗ trợ bán thuốc tại quầy, kiểm tra tồn kho, tạo hóa đơn, báo cáo doanh thu và cảnh báo tương tác thuốc bằng rule-based data.
+Document 03 nằm trong nhóm tài liệu nền tảng về quản trị dự án và phạm vi.
 
-Khác với các phần mềm quản lý bán hàng thông thường chỉ tập trung vào CRUD và hóa đơn, PharmaAssist AI Intelligence bổ sung các thành phần nâng cao như AI Pharmacist Copilot, Neo4j Knowledge Graph, Graph-RAG, Guardrail và Audit Log để tạo điểm mới kỹ thuật và thể hiện mức độ phân tích, thiết kế hệ thống sâu hơn trong đồ án Công Nghệ Phần Mềm.
+Nhóm tài liệu nền tảng gồm:
 
----
+1. Document 01 — Project Overview & Current Baseline.
+2. Document 02 — Project Charter.
+3. Document 03 — Vision & Scope Document.
+4. Document 04 — Decision Log & Scope Control.
+5. Document 19 — Project Management, Jira & Release Plan.
 
-## 5. Mục tiêu sản phẩm
+Vai trò cụ thể của Document 03:
 
-### 5.1. Mục tiêu nghiệp vụ
+1. Mở rộng phần scope đã được tóm tắt trong Document 01.
+2. Dùng các quyết định đã khóa trong Document 04 để xác định ranh giới MVP.
+3. Làm input cho Document 05 — Business Requirements Document.
+4. Làm input cho Document 06 — Software Requirements Specification.
+5. Làm input cho Document 08 — Use Case Specification.
+6. Làm input cho Document 15 — UI/UX Screen Specification.
+7. Làm input cho Document 19 — Project Management, Jira & Release Plan.
+8. Làm input cho Document 20 — Testing, Demo & Setup Guide.
 
-| Mục tiêu | Mô tả | Ý nghĩa |
-|---|---|---|
-| Quản lý thuốc tập trung | Lưu thông tin thuốc, danh mục, giá bán, đơn vị tính, trạng thái | Giúp nhà thuốc tra cứu và cập nhật thuốc dễ dàng |
-| Quản lý tồn kho | Theo dõi số lượng tồn, nhập thuốc, cảnh báo sắp hết/gần hết hạn | Giảm rủi ro thiếu hàng hoặc tồn thuốc hết hạn |
-| Hỗ trợ bán hàng | Tạo đơn, thêm thuốc, tính tiền, thanh toán, hóa đơn | Tăng tốc độ bán hàng và giảm sai sót |
-| Cảnh báo tương tác thuốc | Kiểm tra các cặp thuốc trong đơn bằng dữ liệu mẫu | Hỗ trợ nhân viên lưu ý khi bán nhiều thuốc cùng lúc |
-| Quản lý khách hàng | Lưu thông tin khách hàng cơ bản và lịch sử mua | Hỗ trợ chăm sóc khách hàng quay lại |
-| Báo cáo vận hành | Thống kê doanh thu, tồn kho, thuốc bán chạy | Hỗ trợ chủ nhà thuốc ra quyết định |
-| Hỗ trợ tư vấn tham khảo | AI hỗ trợ tạo câu hỏi, ghi chú, giải thích cảnh báo | Tăng giá trị nâng cao của hệ thống |
+Document 03 không thay thế các tài liệu chuyên sâu sau:
 
-### 5.2. Mục tiêu kỹ thuật
-
-| Mục tiêu | Mô tả | Ý nghĩa |
-|---|---|---|
-| Kiến trúc module rõ ràng | Tách các module Auth, Medicine, Inventory, Sales, AI, Graph | Dễ phát triển, bảo trì và kiểm thử |
-| Database quan hệ chuẩn | Thiết kế ERD, khóa chính, khóa ngoại, data dictionary | Đảm bảo dữ liệu nghiệp vụ nhất quán |
-| Rule Engine | Kiểm tra tương tác thuốc và cảnh báo theo luật | Tạo điểm xử lý nghiệp vụ rõ ràng |
-| AI Provider Adapter | Cho phép dùng MockAI hoặc provider thật | Giảm phụ thuộc vào một nhà cung cấp AI |
-| Knowledge Graph | Biểu diễn quan hệ thuốc, hoạt chất, triệu chứng, tương tác | Tăng chiều sâu kỹ thuật của đồ án |
-| Graph-RAG | Truy xuất graph để tạo context cho AI | Hỗ trợ AI trả lời dựa trên dữ liệu hệ thống |
-| Guardrail | Kiểm soát AI không chẩn đoán, không kê đơn | Đảm bảo an toàn trong bối cảnh liên quan đến thuốc |
-| Audit Log | Lưu lịch sử request/response AI | Tăng khả năng truy vết và minh bạch |
-
-### 5.3. Mục tiêu học tập
-
-| Mục tiêu | Mô tả |
-|---|---|
-| Thể hiện quy trình Công Nghệ Phần Mềm | Có đầy đủ phân tích, thiết kế, lập trình, kiểm thử, demo |
-| Xây dựng tài liệu bài bản | Có BRD, SRS, Use Case, UML, ERD, API, Test Plan, Demo Script |
-| Quản lý dự án theo Agile/Scrum | Có backlog, sprint, task, phân công và theo dõi tiến độ |
-| Làm sản phẩm có thể demo | Website chạy được với dữ liệu mẫu và tài khoản demo |
-| Có điểm mới kỹ thuật | AI, Graph, Guardrail, Audit Log hoặc Forecast |
+1. Không thay thế BRD.
+2. Không thay thế SRS.
+3. Không thay thế Use Case Specification.
+4. Không thay thế API Specification.
+5. Không thay thế Database Design & ERD.
+6. Không thay thế Prisma Schema & Migration Design.
+7. Không thay thế UI/UX Screen Specification.
+8. Không thay thế AI Architecture, Guardrail & Audit Design.
+9. Không thay thế Knowledge Graph, Neo4j Sync & Graph-RAG Design.
+10. Không thay thế Data Strategy, Catalog Reference & MVP Seed Plan.
+11. Không thay thế Testing, Demo & Setup Guide.
 
 ---
 
-## 6. Người dùng mục tiêu
+## 4. Product Vision
 
-| Người dùng | Nhu cầu | Vấn đề hiện tại | Giá trị hệ thống mang lại |
-|---|---|---|---|
-| Admin / Chủ nhà thuốc | Quản lý thuốc, nhân viên, doanh thu, báo cáo | Khó theo dõi toàn bộ hoạt động nhà thuốc nếu dữ liệu rời rạc | Có dashboard, báo cáo, quản lý user, thuốc, kho và doanh thu |
-| Nhân viên nhà thuốc | Tìm thuốc, bán thuốc, xem cảnh báo, thanh toán | Dễ sai số lượng, sai giá, quên kiểm tra tồn hoặc bỏ sót cảnh báo | Có màn hình POS, tìm thuốc nhanh, tự tính tiền, cảnh báo tương tác |
-| Nhân viên kho | Nhập thuốc, cập nhật tồn kho, theo dõi hạn dùng | Khó biết thuốc nào sắp hết hoặc gần hết hạn | Có quản lý nhập kho, tồn kho, cảnh báo sắp hết/gần hết hạn |
-| Khách hàng | Mua thuốc, nhận hóa đơn, lưu lịch sử mua cơ bản | Không có lịch sử mua hàng khi quay lại | Có hóa đơn, thông tin mua hàng được lưu ở mức cơ bản |
+**PharmaAssist AI Intelligence** được định hướng là một hệ thống quản lý nhà thuốc hiện đại, hỗ trợ các nghiệp vụ cốt lõi tại quầy bán thuốc, đồng thời thể hiện năng lực kỹ thuật nâng cao thông qua batch-based inventory, FEFO, transactional checkout, interaction alert lifecycle, AI Guardrail/Audit, Neo4j Knowledge Graph, Graph Sync và Graph-RAG.
 
-### 6.1. Admin / Chủ nhà thuốc
+Tầm nhìn sản phẩm:
 
-Admin là người có quyền cao nhất trong hệ thống. Admin cần theo dõi tình hình kinh doanh, quản lý tài khoản nhân viên, quản lý dữ liệu thuốc, xem báo cáo doanh thu và kiểm tra các cảnh báo quan trọng.
+> Xây dựng một hệ thống quản lý nhà thuốc có khả năng vận hành nghiệp vụ bán thuốc, quản lý tồn kho theo lô, kiểm tra tương tác thuốc và hỗ trợ giải thích cảnh báo bằng AI trong phạm vi an toàn; đồng thời đảm bảo dữ liệu có thể truy vết, quy trình checkout nhất quán và kiến trúc đủ rõ để phục vụ phát triển, kiểm thử và demo đồ án.
 
-Nhu cầu chính của Admin gồm:
+Sản phẩm không chỉ là một website CRUD quản lý thuốc. Sản phẩm cần chứng minh được nhóm có thể thiết kế một hệ thống có:
 
-- Quản lý tài khoản người dùng.
-- Phân quyền cho nhân viên.
-- Quản lý thuốc và danh mục thuốc.
-- Xem tình hình tồn kho.
-- Xem thuốc sắp hết và gần hết hạn.
-- Xem doanh thu theo ngày/tháng.
-- Xem thuốc bán chạy.
-- Xem lịch sử bán hàng.
-- Xem AI Audit Log nếu hệ thống có tích hợp AI.
-
-### 6.2. Nhân viên nhà thuốc
-
-Nhân viên nhà thuốc là người trực tiếp sử dụng hệ thống trong quá trình bán hàng tại quầy. Đây là nhóm người dùng cần giao diện nhanh, dễ thao tác và ít bước.
-
-Nhu cầu chính của Nhân viên nhà thuốc gồm:
-
-- Tìm kiếm thuốc nhanh.
-- Xem thông tin thuốc và tồn kho.
-- Thêm thuốc vào đơn hàng.
-- Kiểm tra tồn kho tự động.
-- Xem cảnh báo tương tác thuốc.
-- Ghi chú tư vấn nếu cần.
-- Chọn hoặc tạo khách hàng.
-- Xác nhận thanh toán.
-- Tạo và in hóa đơn.
-
-### 6.3. Nhân viên kho
-
-Nhân viên kho phụ trách nhập thuốc và kiểm soát số lượng tồn kho. Người dùng này cần hệ thống hỗ trợ theo dõi số lượng tồn, hạn dùng và lịch sử nhập thuốc.
-
-Nhu cầu chính của Nhân viên kho gồm:
-
-- Tạo phiếu nhập thuốc.
-- Cập nhật số lượng tồn.
-- Theo dõi thuốc sắp hết.
-- Theo dõi thuốc gần hết hạn.
-- Xem lịch sử nhập thuốc.
-- Quản lý thông tin nhà cung cấp nếu cần.
-
-### 6.4. Khách hàng
-
-Khách hàng là người mua thuốc tại nhà thuốc. Trong phạm vi MVP, khách hàng không cần đăng nhập vào hệ thống. Thông tin khách hàng có thể được nhân viên lưu lại để phục vụ lịch sử mua hàng và chăm sóc cơ bản.
-
-Thông tin khách hàng có thể lưu:
-
-- Họ tên.
-- Số điện thoại.
-- Ghi chú cơ bản.
-- Lịch sử đơn hàng.
-
-Hệ thống cần bảo mật thông tin khách hàng và không sử dụng dữ liệu cá nhân thật trong demo.
+1. Phân quyền người dùng rõ ràng.
+2. Quản lý thuốc và hoạt chất.
+3. Quản lý nhà cung cấp.
+4. Quản lý lô thuốc theo hạn dùng.
+5. Nhập kho và điều chỉnh tồn kho có audit.
+6. POS bán thuốc tại quầy.
+7. Checkout transaction.
+8. Trừ kho theo FEFO.
+9. Cảnh báo tương tác thuốc dựa trên hoạt chất.
+10. Lưu lịch sử InteractionAlert.
+11. Chặn checkout khi HIGH alert chưa được xử lý đủ.
+12. AI Copilot hỗ trợ giải thích cảnh báo trong phạm vi an toàn.
+13. AI Guardrail và AI Audit.
+14. Neo4j graph projection.
+15. Graph Sync có kiểm soát.
+16. Graph-RAG tách riêng khỏi AI Copilot.
+17. Báo cáo vận hành cơ bản.
+18. Dữ liệu demo có thể tái tạo.
 
 ---
 
-## 7. Giá trị sản phẩm
+## 5. Product Statement
 
-| Giá trị | Mô tả | Ví dụ trong hệ thống |
-|---|---|---|
-| Tăng hiệu quả quản lý | Tập trung dữ liệu thuốc, kho, đơn hàng | Admin xem toàn bộ thuốc, tồn kho, doanh thu trên dashboard |
-| Giảm sai sót bán hàng | Kiểm tra tồn kho, tính tiền tự động | Không cho thêm thuốc nếu số lượng bán vượt tồn kho |
-| Hỗ trợ an toàn | Cảnh báo tương tác thuốc bằng rule mẫu | Khi thêm Thuốc A và Thuốc B có tương tác, hệ thống hiển thị cảnh báo |
-| Hỗ trợ quyết định | Báo cáo doanh thu, tồn kho, thuốc bán chạy | Admin biết thuốc nào bán chạy để nhập thêm |
-| Tạo điểm mới kỹ thuật | AI, Neo4j, Graph-RAG, Guardrail | Demo AI Copilot giải thích cảnh báo dựa trên graph context |
-| Tăng khả năng truy vết | Lưu lịch sử đơn hàng, thanh toán, AI log | Có thể xem lại cảnh báo và nội dung AI đã sinh |
-| Tăng tính chuyên nghiệp | Có quy trình bán hàng, hóa đơn, báo cáo rõ ràng | Nhân viên thao tác theo luồng chuẩn từ tạo đơn đến hóa đơn |
+**PharmaAssist AI Intelligence** là hệ thống web quản lý nhà thuốc dành cho Admin, Staff và Warehouse. Hệ thống hỗ trợ quản lý thuốc, hoạt chất, nhà cung cấp, lô thuốc, nhập kho, điều chỉnh tồn kho, bán thuốc tại quầy, kiểm tra tương tác thuốc, checkout, payment simulation, invoice, báo cáo cơ bản, AI Copilot, AI Guardrail, AI Audit, Neo4j Knowledge Graph, Graph Sync và Graph-RAG.
 
----
+Hệ thống sử dụng:
 
-## 8. In-scope
+1. **Next.js** cho frontend.
+2. **NestJS / Node.js** cho backend.
+3. **Prisma** cho ORM.
+4. **Supabase Auth** cho authentication.
+5. **PostgreSQL** làm database nghiệp vụ và source of truth.
+6. **Neo4j** làm graph projection.
+7. **Google AI Provider** làm AI provider ưu tiên.
+8. **MockAI** làm fallback để demo ổn định.
 
-Các chức năng sau nằm trong phạm vi thực hiện của dự án. Phạm vi này bao gồm cả phần MVP bắt buộc và phần nâng cao có thể triển khai nếu đủ thời gian.
+PostgreSQL là nguồn dữ liệu chính thức. Neo4j chỉ là graph projection được đồng bộ từ PostgreSQL thông qua Graph Sync.
 
-| Nhóm | Chức năng | Mô tả | Mức ưu tiên |
-|---|---|---|---|
-| Account | Đăng nhập, đăng xuất, phân quyền | Người dùng nội bộ đăng nhập và sử dụng chức năng theo vai trò | Must-have |
-| Medicine | Quản lý thuốc, danh mục thuốc | Thêm, sửa, xem, tìm kiếm, lọc thuốc theo danh mục | Must-have |
-| Inventory | Nhập thuốc, tồn kho, cảnh báo sắp hết/gần hết hạn | Theo dõi số lượng tồn và hạn dùng | Must-have |
-| Sales | Tạo đơn, thêm thuốc, kiểm tra tồn kho | Nhân viên tạo đơn bán thuốc tại quầy | Must-have |
-| Interaction | Kiểm tra tương tác thuốc bằng rule-based | So khớp các cặp thuốc trong đơn với dữ liệu mẫu | Must-have |
-| Payment | Thanh toán mô phỏng | Ghi nhận tiền mặt hoặc chuyển khoản mô phỏng | Must-have |
-| Invoice | Tạo/in hóa đơn | Tạo hóa đơn sau khi thanh toán thành công | Must-have |
-| Customer | Quản lý khách hàng cơ bản | Lưu tên, số điện thoại, lịch sử mua hàng | Should-have |
-| Report | Doanh thu, tồn kho, thuốc bán chạy | Cung cấp báo cáo cơ bản cho Admin | Should-have |
-| AI/Graph | Mô phỏng hoặc triển khai nâng cao | AI Copilot, Neo4j, Graph-RAG, Guardrail, Audit Log | Could-have / Advanced |
-
-### 8.1. Mô tả chi tiết các nhóm in-scope
-
-#### 8.1.1. Account
-
-Nhóm chức năng Account giúp đảm bảo chỉ người dùng được cấp tài khoản mới có thể truy cập hệ thống. Mỗi người dùng có vai trò khác nhau và được phân quyền phù hợp.
-
-Chức năng chính:
-
-- Đăng nhập.
-- Đăng xuất.
-- Kiểm tra quyền truy cập.
-- Phân quyền theo vai trò.
-- Quản lý tài khoản ở mức Admin.
-
-Vai trò sử dụng:
-
-- Admin.
-- Nhân viên nhà thuốc.
-- Nhân viên kho.
-
-#### 8.1.2. Medicine
-
-Nhóm chức năng Medicine dùng để quản lý dữ liệu thuốc trong hệ thống.
-
-Chức năng chính:
-
-- Thêm thuốc.
-- Sửa thông tin thuốc.
-- Xem danh sách thuốc.
-- Xem chi tiết thuốc.
-- Tìm kiếm thuốc theo tên hoặc mã.
-- Lọc thuốc theo danh mục.
-- Cập nhật trạng thái kinh doanh.
-
-Thông tin thuốc dự kiến:
-
-- Mã thuốc.
-- Tên thuốc.
-- Danh mục.
-- Đơn vị tính.
-- Giá bán.
-- Mô tả.
-- Trạng thái.
-- Ghi chú.
-
-#### 8.1.3. Inventory
-
-Nhóm chức năng Inventory giúp quản lý số lượng tồn kho và hạn dùng của thuốc.
-
-Chức năng chính:
-
-- Xem danh sách tồn kho.
-- Cập nhật tồn kho sau khi nhập thuốc.
-- Trừ tồn kho sau khi bán hàng.
-- Cảnh báo thuốc sắp hết.
-- Cảnh báo thuốc gần hết hạn.
-- Xem lịch sử nhập thuốc.
-
-Quy tắc cơ bản:
-
-- Không cho bán thuốc vượt số lượng tồn.
-- Sau khi thanh toán thành công, hệ thống trừ tồn kho.
-- Thuốc dưới ngưỡng tồn kho tối thiểu được đưa vào danh sách cảnh báo.
-- Thuốc gần hết hạn được đưa vào danh sách cảnh báo.
-
-#### 8.1.4. Sales
-
-Nhóm chức năng Sales hỗ trợ nhân viên nhà thuốc tạo đơn bán thuốc tại quầy.
-
-Chức năng chính:
-
-- Tạo đơn hàng mới.
-- Tìm kiếm thuốc.
-- Thêm thuốc vào đơn.
-- Cập nhật số lượng thuốc trong đơn.
-- Xóa thuốc khỏi đơn.
-- Tính tổng tiền.
-- Kiểm tra tồn kho.
-- Kích hoạt kiểm tra tương tác thuốc.
-
-Luồng chính:
-
-1. Nhân viên mở màn hình bán hàng.
-2. Tìm kiếm thuốc.
-3. Thêm thuốc vào đơn.
-4. Hệ thống kiểm tra tồn kho.
-5. Hệ thống kiểm tra tương tác nếu có từ hai thuốc trở lên.
-6. Nhân viên xác nhận thông tin đơn hàng.
-7. Nhân viên chuyển sang thanh toán.
-
-#### 8.1.5. Interaction
-
-Nhóm chức năng Interaction là điểm nổi bật của MVP. Hệ thống kiểm tra tương tác thuốc bằng dữ liệu mẫu theo hướng rule-based.
-
-Cách hoạt động:
-
-- Hệ thống lưu danh sách cặp thuốc có tương tác trong bảng DrugInteraction.
-- Khi đơn hàng có từ hai thuốc trở lên, hệ thống sinh tất cả các cặp thuốc trong đơn.
-- Hệ thống kiểm tra từng cặp với dữ liệu tương tác.
-- Nếu có tương tác, hệ thống hiển thị cảnh báo.
-
-Thông tin cảnh báo gồm:
-
-- Tên thuốc thứ nhất.
-- Tên thuốc thứ hai.
-- Mức độ: nhẹ, trung bình, cao.
-- Mô tả nguy cơ mẫu.
-- Khuyến nghị xử lý mẫu.
-- Ghi chú tư vấn.
-- Disclaimer an toàn.
-
-Lưu ý: Dữ liệu tương tác thuốc là dữ liệu mẫu phục vụ đồ án, không dùng để đưa ra quyết định y tế thực tế.
-
-#### 8.1.6. Payment
-
-Nhóm chức năng Payment ghi nhận việc thanh toán của đơn hàng.
-
-Chức năng chính:
-
-- Chọn phương thức thanh toán.
-- Ghi nhận số tiền khách trả.
-- Tính tiền thừa nếu thanh toán tiền mặt.
-- Xác nhận thanh toán.
-- Cập nhật trạng thái đơn hàng.
-
-Phương thức thanh toán trong MVP:
-
-- Tiền mặt.
-- Chuyển khoản mô phỏng.
-
-Không tích hợp cổng thanh toán thật trong phạm vi đồ án.
-
-#### 8.1.7. Invoice
-
-Nhóm chức năng Invoice tạo hóa đơn sau khi thanh toán thành công.
-
-Thông tin hóa đơn gồm:
-
-- Mã hóa đơn.
-- Ngày tạo.
-- Nhân viên bán hàng.
-- Thông tin khách hàng nếu có.
-- Danh sách thuốc.
-- Số lượng.
-- Đơn giá.
-- Thành tiền.
-- Tổng tiền.
-- Phương thức thanh toán.
-
-#### 8.1.8. Customer
-
-Nhóm chức năng Customer lưu thông tin khách hàng ở mức cơ bản.
-
-Chức năng chính:
-
-- Thêm khách hàng.
-- Cập nhật thông tin khách hàng.
-- Tìm khách hàng theo tên hoặc số điện thoại.
-- Xem lịch sử mua hàng.
-
-Trong MVP, khách hàng không cần đăng nhập.
-
-#### 8.1.9. Report
-
-Nhóm chức năng Report hỗ trợ Admin theo dõi hoạt động nhà thuốc.
-
-Báo cáo cơ bản:
-
-- Doanh thu theo ngày.
-- Doanh thu theo tháng.
-- Thuốc bán chạy.
-- Danh sách thuốc sắp hết.
-- Danh sách thuốc gần hết hạn.
-- Tổng số đơn hàng.
-
-#### 8.1.10. AI/Graph
-
-Nhóm chức năng AI/Graph là phạm vi nâng cao. Nhóm này có thể triển khai thật hoặc mô phỏng tùy thời gian.
-
-Chức năng có thể có:
-
-- AI Pharmacist Copilot.
-- AI tạo câu hỏi bổ sung.
-- AI giải thích cảnh báo.
-- AI tạo ghi chú tư vấn.
-- AI Business Report.
-- AI Guardrail.
-- AI Audit Log.
-- Neo4j Knowledge Graph.
-- Graph-RAG.
-- Graph Explorer UI.
+AI trong hệ thống chỉ đóng vai trò hỗ trợ tham khảo. AI không được chẩn đoán bệnh, kê đơn thuốc, đưa liều dùng cụ thể hoặc thay thế dược sĩ, bác sĩ hay chuyên gia y tế.
 
 ---
 
-## 9. Out-of-scope
+## 6. Problem Statement
 
-Các chức năng sau không nằm trong phạm vi của phiên bản hiện tại.
+Các nhà thuốc nhỏ hoặc hệ thống nhà thuốc nội bộ thường gặp nhiều vấn đề trong vận hành:
 
-| Chức năng | Lý do |
-|---|---|
-| Thanh toán online thật | Vượt phạm vi đồ án, cần tích hợp cổng thanh toán, bảo mật giao dịch và xử lý callback |
-| Kê đơn bằng AI | Không an toàn, vượt phạm vi hệ thống hỗ trợ nhà thuốc |
-| Chẩn đoán bệnh | Không thuộc phạm vi hệ thống và cần chuyên môn y tế |
-| Dữ liệu y khoa thật | Cần chuyên gia kiểm định, không phù hợp phạm vi đồ án sinh viên |
-| Mobile app | Tập trung website để đảm bảo hoàn thành MVP |
-| Quản lý nhiều chi nhánh | Làm tăng độ phức tạp về kho, doanh thu, nhân sự và phân quyền |
-| Tích hợp bảo hiểm | Phức tạp, cần quy trình và dữ liệu chuyên ngành |
-| Kết nối đơn thuốc điện tử thật | Cần hệ thống bên ngoài và quy định chuyên môn |
-| Tư vấn điều trị cá nhân hóa | Không phù hợp với mục tiêu an toàn của đồ án |
-| Sử dụng dữ liệu bệnh nhân thật | Có rủi ro bảo mật và quyền riêng tư |
-| Hệ thống y tế production | Dự án chỉ phục vụ học tập, phân tích và demo |
+1. Dữ liệu thuốc, hoạt chất, đơn vị tính, giá bán và trạng thái thuốc có thể bị quản lý rời rạc.
+2. Nhà cung cấp và lịch sử nhập thuốc có thể không được chuẩn hóa.
+3. Tồn kho theo lô và hạn dùng có thể không được theo dõi chính xác.
+4. Nhân viên có thể bán nhầm batch gần hết hạn hoặc batch đã hết hạn nếu hệ thống không kiểm soát.
+5. Việc điều chỉnh tồn kho thủ công nếu không có reason và audit sẽ khó truy vết.
+6. POS bán thuốc có thể bán vượt tồn kho nếu không kiểm tra sellable stock.
+7. Nếu không có FEFO, hệ thống khó đảm bảo batch gần hết hạn được ưu tiên xuất trước.
+8. Việc kiểm tra tương tác thuốc có thể bị bỏ sót nếu chỉ dựa vào kinh nghiệm cá nhân.
+9. Cảnh báo tương tác nếu chỉ hiển thị mà không lưu lại sẽ khó kiểm tra lịch sử.
+10. Cảnh báo HIGH nếu không bắt buộc acknowledgement và consultation note thì chưa đủ kiểm soát an toàn nghiệp vụ.
+11. AI nếu không có guardrail có thể sinh nội dung vượt phạm vi như chẩn đoán, kê đơn hoặc hướng dẫn liều dùng.
+12. Graph nếu chỉ là mock hoặc không đồng bộ từ source of truth sẽ không chứng minh được kiến trúc dữ liệu đáng tin cậy.
+13. Dữ liệu demo nếu không có curated seed và demo reset sẽ khó tái hiện khi trình bày.
+14. Tài liệu cũ có nhiều mâu thuẫn, nếu không consolidated lại sẽ dẫn đến sai lệch giữa SRS, API, ERD, UI, Jira và Testing.
 
----
-
-## 10. MVP Scope
-
-MVP Scope được chia theo mô hình **Must-have**, **Should-have** và **Could-have** để nhóm biết chức năng nào bắt buộc, chức năng nào nên có và chức năng nào có thể bổ sung nếu đủ thời gian.
-
-| Must-have | Should-have | Could-have |
-|---|---|---|
-| Đăng nhập | Báo cáo doanh thu | AI Copilot |
-| Đăng xuất | Quản lý khách hàng | Neo4j Graph |
-| Phân quyền | Hóa đơn đẹp | Forecast tồn kho |
-| Quản lý thuốc | Thuốc bán chạy | Graph-RAG |
-| Quản lý danh mục thuốc | Lịch sử mua hàng | AI Business Report |
-| Quản lý kho | Dashboard tổng quan | AI Prompt Management |
-| Nhập thuốc | Cảnh báo gần hết hạn nâng cao | AI Cost Monitoring |
-| Bán thuốc | Tìm kiếm/lọc nâng cao | Graph Explorer UI |
-| Kiểm tra tồn kho | Xuất báo cáo đơn giản | Provider fallback |
-| Thanh toán | Ghi chú tư vấn | Consultation Readiness Score |
-| Cảnh báo tương tác |  |  |
-| Tạo hóa đơn |  |  |
-
-### 10.1. Must-have
-
-Must-have là các chức năng bắt buộc cần hoàn thành để hệ thống được xem là có MVP.
-
-Danh sách Must-have:
-
-1. Đăng nhập.
-2. Đăng xuất.
-3. Phân quyền cơ bản.
-4. Quản lý thuốc.
-5. Quản lý danh mục thuốc.
-6. Quản lý tồn kho.
-7. Nhập thuốc.
-8. Bán thuốc.
-9. Kiểm tra tồn kho.
-10. Cảnh báo tương tác thuốc rule-based.
-11. Thanh toán mô phỏng.
-12. Tạo hóa đơn.
-
-Nếu thiếu một trong các chức năng này, demo MVP sẽ chưa thể hiện đầy đủ bài toán chính của hệ thống.
-
-### 10.2. Should-have
-
-Should-have là các chức năng nên có để hệ thống hoàn chỉnh hơn và dễ thuyết phục khi demo.
-
-Danh sách Should-have:
-
-1. Báo cáo doanh thu.
-2. Quản lý khách hàng.
-3. Hóa đơn có giao diện rõ ràng.
-4. Thống kê thuốc bán chạy.
-5. Lịch sử mua hàng.
-6. Dashboard tổng quan.
-7. Cảnh báo thuốc gần hết hạn.
-8. Tìm kiếm và lọc nâng cao.
-9. Ghi chú tư vấn.
-
-### 10.3. Could-have
-
-Could-have là các chức năng nâng cao giúp tăng điểm kỹ thuật nhưng không nên làm trước khi MVP ổn định.
-
-Danh sách Could-have:
-
-1. AI Pharmacist Copilot.
-2. Neo4j Knowledge Graph.
-3. Forecast tồn kho.
-4. Graph-RAG.
-5. AI Business Report.
-6. AI Prompt Management.
-7. AI Cost Monitoring.
-8. Graph Explorer UI.
-9. AI Provider fallback.
-10. Consultation Readiness Score.
+PharmaAssist AI Intelligence giải quyết các vấn đề trên bằng cách thiết kế một hệ thống có baseline rõ ràng, source of truth nhất quán, scope được kiểm soát và các điểm kỹ thuật nổi bật đủ để demo trong phạm vi đồ án.
 
 ---
 
-## 11. Phạm vi nâng cao đề xuất
+## 7. Target Users
 
-Để đề tài đạt mức Khó hoặc Rất Khó, nhóm có thể chọn một số chức năng nâng cao sau:
+### 7.1. Admin
 
-| Chức năng nâng cao | Mục tiêu | Giá trị khi demo | Độ khó |
-|---|---|---|---|
-| Rule Engine mở rộng | Kiểm tra tương tác, red flag, risk score | Thể hiện xử lý nghiệp vụ thông minh | Khó |
-| AI Pharmacist Copilot | Sinh câu hỏi, giải thích cảnh báo, tạo ghi chú | Tạo điểm nhấn AI | Khó/Rất Khó |
-| Neo4j Knowledge Graph | Lưu quan hệ thuốc, hoạt chất, triệu chứng | Thể hiện mô hình graph | Khó |
-| Graph-RAG | Truy xuất graph làm context cho AI | AI có căn cứ từ dữ liệu hệ thống | Rất Khó |
-| AI Guardrail | Kiểm soát AI không chẩn đoán/kê đơn | Thể hiện an toàn AI | Khó |
-| AI Audit Log | Lưu request/response AI | Thể hiện governance và truy vết | Khó |
-| Forecast tồn kho | Dự báo nguy cơ hết hàng | Thể hiện phân tích dữ liệu | Khó |
-| AI Business Report | AI diễn giải báo cáo vận hành | Tăng tính trình bày sản phẩm | Khó |
+Admin là người quản trị hệ thống hoặc chủ nhà thuốc.
 
-### 11.1. Khuyến nghị chọn nâng cao
+Admin cần hệ thống để:
 
-Nếu nhóm có thời gian hạn chế, nên ưu tiên:
+1. Quản lý người dùng, vai trò và quyền.
+2. Quản lý thuốc và hoạt chất.
+3. Quản lý nhà cung cấp.
+4. Quản lý quy tắc tương tác thuốc.
+5. Xem toàn bộ đơn hàng.
+6. Xem InteractionAlert History.
+7. Xem báo cáo vận hành.
+8. Xem AI Audit Log.
+9. Cấu hình System Settings.
+10. Theo dõi các vấn đề vận hành quan trọng.
 
-1. Rule Engine cảnh báo tương tác.
+Admin là nhóm người dùng có phạm vi truy cập rộng nhất.
+
+### 7.2. Staff
+
+Staff là nhân viên bán thuốc tại quầy.
+
+Staff cần hệ thống để:
+
+1. Tạo Draft Order.
+2. Thêm thuốc vào đơn.
+3. Xem sellable stock trong POS.
+4. Nhận cảnh báo nếu đơn có tương tác thuốc.
+5. Xử lý HIGH alert bằng acknowledgement và consultation note.
+6. Sử dụng AI Copilot để hỗ trợ giải thích cảnh báo.
+7. Checkout đơn hàng nếu mọi điều kiện hợp lệ.
+8. Xem order do mình tạo hoặc xử lý.
+9. Cancel Draft Order trong ownership scope.
+
+Staff không phải người quản trị hệ thống, không quản lý toàn bộ interaction rules và không xem dữ liệu ngoài phạm vi được cấp quyền.
+
+### 7.3. Warehouse
+
+Warehouse là nhân viên kho.
+
+Warehouse cần hệ thống để:
+
+1. Xem thuốc.
+2. Xem, tạo và cập nhật supplier.
+3. Tạo và confirm Stock Import.
+4. Xem tồn kho theo MedicineBatch.
+5. Theo dõi low-stock và near-expiry.
+6. Tạo và confirm Inventory Adjustment.
+7. Xem inventory report trong phạm vi được cấp.
+
+Warehouse không được trực tiếp sửa số lượng tồn kho ngoài workflow Inventory Adjustment.
+
+Warehouse không truy cập InteractionAlert, không checkout, không xem payment/invoice và không dùng Graph Explorer trong MVP.
+
+### 7.4. Customer / Khách lẻ
+
+Customer không phải authenticated user trong MVP.
+
+Trong MVP, Customer chủ yếu là:
+
+1. Khách mua thuốc tại quầy.
+2. Người nhận invoice.
+3. Stakeholder ngoài hệ thống.
+
+MVP POS phải hỗ trợ khách lẻ/walk-in/anonymous customer thông qua `customer_id = null`.
+
+Full Customer Management là Should-have, không phải điều kiện hoàn thành MVP.
+
+### 7.5. Project Team
+
+Project Team sử dụng tài liệu và hệ thống để:
+
+1. Phát triển frontend.
+2. Phát triển backend.
+3. Thiết kế database.
+4. Thiết kế API.
+5. Thiết kế UI/UX.
+6. Tạo data seed.
+7. Viết test.
+8. Chuẩn bị demo.
+9. Quản lý Jira và GitHub.
+10. Đảm bảo sản phẩm bám scope.
+
+### 7.6. Giảng viên hướng dẫn / Người đánh giá
+
+Giảng viên hoặc người đánh giá cần hệ thống và tài liệu để:
+
+1. Hiểu mục tiêu dự án.
+2. Đánh giá phạm vi MVP.
+3. Đánh giá độ thống nhất giữa tài liệu và implementation.
+4. Đánh giá năng lực phân tích, thiết kế, triển khai và kiểm thử.
+5. Đánh giá các điểm nổi bật như AI, Graph, FEFO, Checkout transaction và InteractionAlert lifecycle.
+
+---
+
+## 8. Product Value
+
+### 8.1. Giá trị nghiệp vụ
+
+Sản phẩm mang lại các giá trị nghiệp vụ sau:
+
+1. Hỗ trợ nhà thuốc quản lý thuốc, hoạt chất, supplier và tồn kho tập trung.
+2. Giảm rủi ro bán thuốc vượt tồn kho.
+3. Giảm rủi ro bán thuốc từ batch hết hạn.
+4. Tự động ưu tiên batch gần hết hạn trước theo FEFO.
+5. Hỗ trợ kiểm tra tương tác thuốc trong luồng bán hàng.
+6. Bắt buộc xử lý cảnh báo HIGH trước khi checkout.
+7. Lưu lịch sử cảnh báo và hành động xử lý.
+8. Tạo invoice sau khi payment thành công.
+9. Cung cấp báo cáo cơ bản cho vận hành.
+10. Hỗ trợ demo dữ liệu rõ ràng, có thể tái tạo.
+
+### 8.2. Giá trị kỹ thuật
+
+Sản phẩm thể hiện các năng lực kỹ thuật sau:
+
+1. Thiết kế hệ thống full-stack với Next.js và NestJS.
+2. Xác thực bằng Supabase Auth.
+3. Phân quyền bằng multi-role RBAC.
+4. Thiết kế dữ liệu bằng Prisma và PostgreSQL.
+5. Quản lý inventory bằng MedicineBatch.
+6. Transactional checkout có FEFO, payment, invoice và idempotency.
+7. Interaction checking dựa trên ActiveIngredient.
+8. AI Copilot có guardrail và audit.
+9. Neo4j graph projection.
+10. Graph Sync bằng outbox/worker/retry/audit/freshness detection.
+11. Graph-RAG có fallback khi graph stale hoặc unavailable.
+12. Demo reset workflow có kiểm soát.
+
+### 8.3. Giá trị học thuật
+
+Trong phạm vi đồ án, sản phẩm giúp nhóm thể hiện:
+
+1. Khả năng phân tích yêu cầu.
+2. Khả năng kiểm soát scope.
+3. Khả năng xây dựng consolidated documentation.
+4. Khả năng thiết kế hệ thống có nghiệp vụ phức tạp.
+5. Khả năng xây dựng database có traceability.
+6. Khả năng tích hợp AI an toàn.
+7. Khả năng sử dụng graph database đúng vai trò.
+8. Khả năng viết test và chuẩn bị demo.
+
+---
+
+## 9. Product Objectives
+
+### 9.1. Mục tiêu tổng quát
+
+Mục tiêu tổng quát của PharmaAssist AI Intelligence là xây dựng một hệ thống quản lý nhà thuốc có thể demo được các nghiệp vụ cốt lõi, đồng thời thể hiện được các điểm khác biệt kỹ thuật như MedicineBatch, FEFO, Checkout transaction, AI Guardrail, AI Audit, Knowledge Graph, Graph Sync và Graph-RAG.
+
+### 9.2. Mục tiêu nghiệp vụ
+
+Các mục tiêu nghiệp vụ gồm:
+
+1. Cho phép Admin, Staff và Warehouse sử dụng hệ thống theo đúng quyền.
+2. Quản lý thuốc và hoạt chất phục vụ bán hàng và kiểm tra tương tác.
+3. Quản lý supplier phục vụ nhập kho.
+4. Quản lý tồn kho theo MedicineBatch.
+5. Hỗ trợ nhập kho có trạng thái và audit.
+6. Hỗ trợ điều chỉnh tồn kho có reason và audit.
+7. Hỗ trợ bán thuốc tại quầy với Draft Order.
+8. Kiểm tra tồn kho bán được trước checkout.
+9. Kiểm tra tương tác thuốc trong quá trình bán.
+10. Bắt buộc xử lý HIGH alert trước checkout.
+11. Hoàn tất đơn hàng bằng Checkout transaction.
+12. Tạo payment attempt và invoice đúng quy tắc.
+13. Cung cấp báo cáo cơ bản.
+
+### 9.3. Mục tiêu kỹ thuật
+
+Các mục tiêu kỹ thuật gồm:
+
+1. Xây dựng frontend bằng Next.js.
+2. Xây dựng backend bằng NestJS / Node.js.
+3. Dùng Prisma để quản lý schema và migration.
+4. Dùng Supabase Auth thay vì custom password/JWT.
+5. Dùng PostgreSQL làm source of truth.
+6. Dùng Neo4j làm graph projection.
+7. Đồng bộ graph bằng Graph Sync.
+8. Tách Graph-RAG thành module riêng.
+9. Dùng Google AI Provider làm AI provider ưu tiên.
+10. Dùng MockAI làm fallback.
+11. Lưu AI Audit Log.
+12. Áp dụng AI Guardrail cho input/output.
+13. Đảm bảo checkout có transaction và idempotency.
+14. Đảm bảo demo reset chỉ chạy ở local environment.
+
+### 9.4. Mục tiêu tài liệu
+
+Các mục tiêu tài liệu gồm:
+
+1. Xây lại bộ 20 tài liệu chính thức.
+2. Loại bỏ các quyết định cũ đã bị thay thế.
+3. Viết nội dung chính bằng tiếng Việt.
+4. Giữ tên file và tên tài liệu bằng tiếng Anh.
+5. Đảm bảo traceability giữa BRD, SRS, Use Case, UML, API, ERD, Prisma, UI, Jira và Testing.
+6. Đảm bảo mọi tài liệu phân biệt MVP, Should-have, Future / Commercial Expansion và Out of Scope.
+
+---
+
+## 10. Product Positioning
+
+### 10.1. Định vị sản phẩm
+
+PharmaAssist AI Intelligence là một hệ thống quản lý nhà thuốc nội bộ, tập trung vào vận hành tại quầy và kiểm soát an toàn nghiệp vụ.
+
+Sản phẩm được định vị là:
+
+1. Hệ thống web nội bộ cho nhà thuốc nhỏ/vừa hoặc môi trường demo học thuật.
+2. Hệ thống quản lý thuốc, lô thuốc, nhập kho, tồn kho và bán hàng tại quầy.
+3. Hệ thống có cảnh báo tương tác thuốc dựa trên ActiveIngredient.
+4. Hệ thống có AI hỗ trợ giải thích trong phạm vi an toàn.
+5. Hệ thống có graph projection để thể hiện quan hệ Medicine–ActiveIngredient–Interaction.
+6. Hệ thống có tài liệu consolidated đủ để hỗ trợ phân tích, thiết kế, triển khai, kiểm thử và demo.
+
+### 10.2. Sản phẩm không phải là gì
+
+Sản phẩm không phải:
+
+1. Website thương mại điện tử bán thuốc online.
+2. Hệ thống quản lý bệnh án.
+3. Ứng dụng tư vấn y tế cho bệnh nhân.
+4. Công cụ chẩn đoán bệnh.
+5. Công cụ kê đơn thuốc.
+6. Cổng thanh toán thật.
+7. Hệ thống multi-store/multi-warehouse thương mại đầy đủ.
+8. Hệ thống y tế production.
+9. Nguồn dữ liệu y khoa chính thức để dùng ngoài phạm vi đồ án.
+
+### 10.3. Điểm khác biệt chính
+
+Các điểm khác biệt chính của sản phẩm:
+
+1. Inventory source of truth là MedicineBatch.
+2. Checkout áp dụng FEFO.
+3. Checkout là transaction chính thức cho order, inventory, payment và invoice.
+4. Interaction rule ở cấp ActiveIngredient–ActiveIngredient.
+5. InteractionAlert phải được persist.
+6. HIGH alert bắt buộc acknowledgement và consultation note.
+7. AI Copilot có Guardrail và Audit.
+8. Neo4j là graph projection, không phải source of truth.
+9. Graph Sync có outbox/worker/retry/audit/freshness detection.
+10. Graph-RAG là module riêng.
+11. Demo seed được curated riêng, không dùng nguyên catalog data làm operational seed.
+
+---
+
+## 11. MVP Scope
+
+MVP là phạm vi bắt buộc để sản phẩm được xem là hoàn thành ở mức demo và triển khai lõi.
+
+MVP không chỉ là CRUD thuốc, bán hàng và báo cáo cơ bản. MVP của dự án bao gồm các nghiệp vụ an toàn, traceability, AI safety và graph intelligence.
+
+### 11.1. Authentication & Authorization
+
+MVP bao gồm:
+
+1. Supabase Auth.
+2. User profile trong PostgreSQL.
+3. Roles.
+4. Permissions.
+5. User roles.
+6. Role permissions.
+7. Multi-role RBAC.
+8. Permission-based authorization.
+9. Ownership-based access cho Staff.
+10. Admin, Staff và Warehouse roles.
+11. First-login password-change flow cho selected demo user nếu cần demo.
+
+Không thuộc MVP:
+
+1. Custom username/password/JWT authentication.
+2. Lưu password/password_hash trong PostgreSQL.
+3. Authorization chỉ hard-code theo role mà không có permission model.
+
+### 11.2. Medicine Management
+
+MVP bao gồm:
+
+1. Quản lý Medicine.
+2. Tìm kiếm/lọc Medicine ở mức cần thiết.
+3. Trạng thái active/inactive của Medicine.
+4. Selling price hợp lệ, lớn hơn 0.
+5. Medicine là entity nghiệp vụ lõi cho sales, batch, inventory, checkout và reports.
+6. Medicine liên kết với ActiveIngredient.
+
+Không thuộc MVP:
+
+1. Full product/product_variant commerce workflow.
+2. Online product catalog đầy đủ như thương mại điện tử.
+3. Dùng product_variant làm key chính cho sales/inventory trong MVP.
+
+### 11.3. ActiveIngredient Management
+
+MVP bao gồm:
+
+1. Quản lý ActiveIngredient.
+2. Mapping Medicine với ActiveIngredient.
+3. ActiveIngredient là cơ sở để tạo DrugInteraction rules.
+4. Admin có màn hình quản lý ActiveIngredient.
+5. Medicine form có component mapping ingredients.
+
+Không thuộc MVP:
+
+1. Dùng toàn bộ scraped ingredients làm official active ingredients.
+2. Tự động biến mọi ingredient string từ catalog data thành hoạt chất chính thức.
+3. DrugGroup taxonomy nếu chưa có nguồn authoritative.
+
+### 11.4. Supplier Management
+
+MVP bao gồm:
+
+1. Xem supplier.
+2. Tạo supplier.
+3. Cập nhật supplier.
+4. Deactivate supplier bởi Admin.
+5. Warehouse được xem, tạo và cập nhật supplier.
+6. Supplier liên quan đến Stock Import nếu phù hợp.
+7. Audit các thay đổi quan trọng.
+
+Không thuộc MVP:
+
+1. Supplier portal.
+2. Supplier contract management phức tạp.
+3. Procurement automation nâng cao.
+
+### 11.5. MedicineBatch & Inventory
+
+MVP bao gồm:
+
+1. MedicineBatch là source of truth cho tồn kho.
+2. Batch number.
+3. Normalized batch number.
+4. Expiry date.
+5. Quantity received.
+6. Quantity remaining.
+7. Import price.
+8. Sellable stock được tính từ batch còn hạn.
+9. Batch hết hạn không được tính vào sellable stock.
+10. Inventory Summary tổng hợp từ MedicineBatch.
+11. Batch Detail để xem chi tiết batch.
+
+Không thuộc MVP:
+
+1. Aggregate inventory làm source of truth.
+2. Direct edit inventory quantity.
+3. Multi-warehouse stock distribution.
+4. Stock transfer giữa kho.
+
+### 11.6. Stock Import
+
+MVP bao gồm:
+
+1. Tạo Stock Import.
+2. Stock Import có trạng thái DRAFT, CONFIRMED và CANCELLED.
+3. Draft import có thể chỉnh sửa.
+4. Confirm import mới cập nhật MedicineBatch.
+5. Confirmed import không được confirm lại.
+6. Confirmed import không được sửa tự do.
+7. Import detail cần batch number và expiry date.
+8. Quantity phải hợp lệ.
+9. Confirm/cancel cần audit log.
+
+Không thuộc MVP:
+
+1. Purchase order workflow đầy đủ.
+2. Supplier invoice matching.
+3. Multi-step approval phức tạp.
+
+### 11.7. Inventory Adjustment
+
+MVP bao gồm:
+
+1. Tạo Inventory Adjustment.
+2. Confirm Inventory Adjustment.
+3. Warehouse được tạo và confirm mà không cần Admin approval trước.
+4. Reason bắt buộc.
+5. Audit log bắt buộc.
+6. Adjustment theo MedicineBatch.
+7. Không được làm quantity_remaining âm.
+8. Confirmed adjustment không được sửa trực tiếp.
+9. Correction nên xử lý bằng reverse/correction adjustment.
+
+Không thuộc MVP:
+
+1. Direct edit quantity.
+2. Adjustment không có reason.
+3. Adjustment không có audit.
+4. Approval workflow nhiều cấp.
+
+### 11.8. Sales POS & Draft Order
+
+MVP bao gồm:
+
+1. Staff tạo Draft Order.
+2. Staff thêm thuốc vào order.
+3. Staff cập nhật số lượng thuốc trong Draft Order.
+4. Staff xóa thuốc khỏi Draft Order.
+5. POS hiển thị sellable stock.
+6. POS hiển thị sale-relevant availability warnings.
+7. Hỗ trợ khách lẻ với `customer_id = null`.
+8. Staff cancel Draft Order trong ownership scope.
+9. Admin cancel mọi Draft Order.
+10. Admin xem toàn bộ order.
+11. Staff chỉ xem order mình tạo hoặc xử lý.
+
+Order status MVP:
+
+1. DRAFT.
+2. PAID.
+3. CANCELLED.
+
+Không thuộc MVP:
+
+1. READY_FOR_CHECKOUT.
+2. PENDING.
+3. SHIPPING.
+4. COMPLETED.
+5. Delivery/shipping flow.
+6. Online cart checkout.
+
+### 11.9. Interaction Checking & InteractionAlert
+
+MVP bao gồm:
+
+1. DrugInteraction Rule ở cấp ActiveIngredient–ActiveIngredient.
+2. Severity gồm LOW, MEDIUM và HIGH.
+3. Admin quản lý interaction rules.
+4. POS kiểm tra interaction theo Order.
+5. InteractionAlert được persist cho mọi alert đã hiển thị.
+6. Alert hiển thị lại thì cập nhật display information.
+7. Alert không còn áp dụng thì chuyển inactive, không xóa lịch sử.
+8. HIGH alert bắt buộc acknowledgement.
+9. HIGH alert bắt buộc consultation note.
+10. HIGH alert phải hoàn tất trước checkout.
+11. Admin có InteractionAlert History.
+12. Warehouse không truy cập interaction alerts trong MVP.
+
+Không thuộc MVP:
+
+1. Medicine–Medicine interaction rule làm official rule.
+2. CRITICAL severity.
+3. Xóa alert khỏi lịch sử.
+4. HIGH alert chỉ advisory.
+5. Checkout bỏ qua unresolved HIGH alert.
+
+### 11.10. Checkout, Payment & Invoice
+
+MVP bao gồm:
+
+1. Checkout là command nghiệp vụ chính thức để hoàn tất đơn hàng.
+2. Checkout chạy trong transaction.
+3. Checkout kiểm tra order, stock, HIGH alert và quyền truy cập.
+4. Checkout áp dụng FEFO.
+5. Checkout tạo batch allocation.
+6. Checkout tạo payment attempt.
+7. Checkout chuyển order sang PAID nếu payment success.
+8. Checkout tạo invoice trong cùng luồng.
+9. Checkout ghi audit.
+10. Checkout hỗ trợ idempotency.
+11. Payment simulation có SUCCESS và FAILED.
+12. Cash payment có amount tendered và change amount.
+13. Simulated bank transfer có transaction reference.
+14. Mỗi PAID order có một invoice.
+
+Không thuộc MVP:
+
+1. Real bank integration.
+2. Refund.
+3. Return.
+4. Payment gateway production.
+5. Reconciliation phức tạp.
+6. Public command tách rời để hoàn tất order ngoài checkout.
+
+### 11.11. AI Copilot, Guardrail & Audit
+
+MVP bao gồm:
+
+1. Google AI Provider là provider ưu tiên.
+2. MockAI là fallback.
+3. AI Copilot giải thích cảnh báo tương tác thuốc.
+4. AI Copilot tạo consultation note draft.
+5. AI chỉ hỗ trợ tham khảo.
+6. AI Guardrail kiểm soát input/output.
+7. AI Audit Log ghi nhận tác vụ AI quan trọng.
+8. Prompt templates có version.
+9. AI không tự động lưu official consultation note nếu Staff chưa xác nhận.
+10. AI không lưu raw PII trong audit.
+
+Không thuộc MVP:
+
+1. AI chẩn đoán bệnh.
+2. AI kê đơn thuốc.
+3. AI đưa liều dùng cụ thể.
+4. AI Cache.
+5. AI-generated business report narrative bắt buộc.
+6. Admin prompt editing UI bắt buộc.
+7. Admin provider/model config UI bắt buộc.
+
+### 11.12. Knowledge Graph, Graph Sync & Graph-RAG
+
+MVP bao gồm:
+
+1. Neo4j graph projection.
+2. PostgreSQL là source of truth.
+3. Core graph gồm Medicine, ActiveIngredient, CONTAINS và INTERACTS_WITH.
+4. Graph Sync đồng bộ dữ liệu từ PostgreSQL sang Neo4j.
+5. Graph Sync có outbox, worker, retry, audit/log và freshness detection.
+6. Graph-RAG là module riêng.
+7. Khi graph unavailable/stale, interaction explanation fallback sang PostgreSQL authoritative context.
+8. Pure graph query không có fallback thì trả safe error.
+
+Không thuộc MVP:
+
+1. Neo4j làm source of truth.
+2. Medicine–Medicine interaction edge làm authoritative rule.
+3. DrugGroup taxonomy nếu chưa có nguồn authoritative.
+4. Symptom/Condition/RedFlag/Recommendation graph enrichment bắt buộc.
+5. Raw Cypher cho Staff.
+6. Graph Sync Status/retry UI bắt buộc.
+
+### 11.13. Reports
+
+MVP bao gồm:
+
+1. Revenue Report.
+2. Top Medicines Report.
+3. Inventory Report.
+
+Reports phải deterministic và không phụ thuộc AI.
+
+Không thuộc MVP:
+
+1. Advanced analytics.
+2. Forecast nâng cao.
+3. AI-generated report narrative bắt buộc.
+4. Reorder suggestion bắt buộc.
+
+### 11.14. System Settings
+
+MVP bao gồm:
+
+1. Simple Admin System Settings screen.
+2. Cấu hình near-expiry threshold.
+3. Default near-expiry threshold là 90 ngày.
+
+Không thuộc MVP:
+
+1. Full system configuration portal.
+2. Generic System Audit Log UI bắt buộc.
+3. Admin AI provider/model configuration UI bắt buộc.
+
+### 11.15. Data, Seed & Demo Reset
+
+MVP bao gồm:
+
+1. Curated operational seed.
+2. Demo users.
+3. Demo medicines.
+4. Demo active ingredients.
+5. Demo batches.
+6. Demo interaction rules.
+7. Demo orders.
+8. Demo AI/Graph data đủ để trình bày.
+9. Local demo reset workflow.
+10. Smoke test sau demo reset.
+
+Không thuộc MVP:
+
+1. Dùng nguyên real catalog data làm operational seed.
+2. Dùng dữ liệu cá nhân thật.
+3. Demo reset ở demo/staging/production.
+4. Full 100-table implementation.
+
+---
+
+## 12. MVP Acceptance Criteria cấp cao
+
+MVP được xem là đạt ở cấp sản phẩm nếu thỏa các tiêu chí sau:
+
+| Nhóm                 | Acceptance criteria cấp cao                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| Authentication       | Người dùng đăng nhập bằng Supabase Auth và có profile nội bộ tương ứng                      |
+| Authorization        | Admin, Staff và Warehouse truy cập đúng chức năng và đúng phạm vi dữ liệu                   |
+| Medicine             | Quản lý được Medicine và trạng thái active/inactive                                         |
+| ActiveIngredient     | Quản lý được ActiveIngredient và mapping với Medicine                                       |
+| Supplier             | Warehouse có thể tạo/cập nhật supplier; Admin có thể deactivate                             |
+| Inventory            | Tồn kho được quản lý theo MedicineBatch, không dùng aggregate inventory làm source of truth |
+| Stock Import         | Confirm Stock Import cập nhật MedicineBatch đúng rule                                       |
+| Inventory Adjustment | Adjustment có reason, audit và không làm quantity âm                                        |
+| POS                  | Staff tạo Draft Order và thêm thuốc vào đơn                                                 |
+| Interaction          | Hệ thống phát hiện interaction dựa trên ActiveIngredient rule                               |
+| InteractionAlert     | Alert đã hiển thị được persist và có lifecycle rõ ràng                                      |
+| HIGH alert           | Checkout bị chặn nếu HIGH alert chưa acknowledgement hoặc chưa có consultation note         |
+| Checkout             | Checkout hoàn tất order, payment, invoice và trừ kho trong transaction                      |
+| FEFO                 | Stock deduction ưu tiên batch gần hết hạn trước                                             |
+| Payment              | Payment simulation có SUCCESS/FAILED và không có nhiều successful payment cho cùng order    |
+| Invoice              | Invoice tạo sau successful payment                                                          |
+| AI                   | AI Copilot giải thích cảnh báo/tạo draft trong phạm vi guardrail                            |
+| AI Safety            | AI không chẩn đoán, không kê đơn, không đưa liều dùng cụ thể                                |
+| AI Audit             | Tác vụ AI quan trọng có audit metadata, không lưu raw PII                                   |
+| Graph                | Neo4j là projection được đồng bộ từ PostgreSQL                                              |
+| Graph Sync           | Có outbox/worker/retry/audit/freshness detection ở backend                                  |
+| Graph-RAG            | Graph-RAG tách riêng và có fallback/safe error phù hợp                                      |
+| Reports              | Revenue, Top Medicines và Inventory Report hoạt động deterministic                          |
+| Data                 | Có curated seed đủ để demo                                                                  |
+| Demo reset           | Reset chỉ chạy local và tạo lại trạng thái demo ổn định                                     |
+| Documentation        | Các tài liệu sau bám đúng baseline và không quay lại quyết định cũ                          |
+
+Các tiêu chí trên là acceptance criteria cấp cao. Test case chi tiết sẽ được viết trong Document 20.
+
+---
+
+## 13. Should-have Scope
+
+Should-have là phạm vi nên có nếu còn thời gian, nhưng không chặn MVP.
+
+Should-have gồm:
+
+1. Full Customer Management.
+2. Customer purchase history nâng cao.
+3. Admin Graph Sync Status/retry screen.
+4. Generic System Audit Log UI.
+5. Admin prompt editing UI.
+6. Admin AI provider/model configuration UI.
+7. AI-generated business report narrative.
+8. Advanced dashboard charts.
+9. Graph visualization nâng cao.
+10. Notification nếu còn thời gian.
+11. Supabase Storage nếu cần lưu file.
+12. Supabase Realtime nếu có nhu cầu realtime.
+13. Forecast tồn kho đơn giản nếu đủ thời gian.
+14. Reorder suggestion đơn giản nếu đủ thời gian.
+15. Một số UX improvement không làm thay đổi business rule.
+
+Quy tắc với Should-have:
+
+1. Không được làm chậm MVP.
+2. Không được thay thế MVP core.
+3. Không được làm sai baseline.
+4. Nếu không hoàn thành, sản phẩm vẫn được xem là đạt MVP nếu các phần MVP đã hoàn thành.
+5. Nếu được triển khai, phải có tài liệu, test và Jira tương ứng.
+
+---
+
+## 14. Future / Commercial Expansion Scope
+
+Future / Commercial Expansion là phạm vi mở rộng sau MVP hoặc khi phát triển thành sản phẩm thương mại.
+
+Future / Commercial Expansion gồm:
+
+1. Online commerce.
+2. Product catalog thương mại đầy đủ.
+3. Product variants làm core commerce.
+4. Cart.
+5. Wishlist.
+6. Shipping.
+7. Coupon.
+8. Review.
+9. CMS.
+10. Customer portal.
+11. Multi-store.
+12. Multi-warehouse.
+13. Stock transfer.
+14. Purchase order workflow đầy đủ.
+15. Supplier contract management.
+16. Refund.
+17. Return.
+18. Credit note.
+19. Invoice reversal.
+20. Real bank integration.
+21. Payment gateway production.
+22. Advanced analytics.
+23. Forecast nâng cao.
+24. Reorder suggestion nâng cao.
+25. AI Cache.
+26. DrugGroup taxonomy nếu có nguồn authoritative.
+27. Symptom/Condition/RedFlag/Recommendation graph enrichment.
+28. TREATS_SYMPTOM.
+29. CAUTION_WITH.
+30. CRITICAL interaction severity.
+31. Full mobile support.
+32. Full cross-browser testing.
+33. Commercial-scale 100-table implementation.
+
+Các nội dung Future / Commercial Expansion không được đưa vào MVP nếu chưa có quyết định scope change chính thức.
+
+---
+
+## 15. Out of Scope
+
+Out of Scope là các nội dung không làm trong phạm vi hiện tại.
+
+Out of Scope gồm:
+
+1. AI chẩn đoán bệnh.
+2. AI kê đơn thuốc.
+3. AI đưa liều dùng cụ thể.
+4. AI thay thế dược sĩ, bác sĩ hoặc chuyên gia y tế.
+5. Real patient medical record.
+6. Lưu raw PII trong AI Audit Log.
+7. Real bank integration trong MVP.
+8. Refund workflow trong MVP.
+9. Product return trong MVP.
+10. Online shopping checkout trong MVP.
+11. Customer portal trong MVP.
+12. Multi-store operation trong MVP.
+13. Multi-warehouse stock transfer trong MVP.
+14. Full 100-table database như điều kiện bắt buộc MVP.
+15. MockAI-only làm bằng chứng hoàn thành MVP AI.
+16. MockGraph-only làm bằng chứng hoàn thành MVP Graph.
+17. Aggregate inventory làm source of truth.
+18. Medicine-level interaction rule làm official rule.
+19. Dùng toàn bộ scraped ingredients làm active ingredients chính thức.
+20. Seed price = 0 thành selling_price.
+21. Checkout bỏ qua FEFO.
+22. Checkout bỏ qua HIGH alert acknowledgement hoặc consultation note.
+23. Chạy destructive test trên demo/staging/production database.
+24. Demo reset ở môi trường không phải local.
+25. Raw Cypher access cho Staff.
+26. Warehouse truy cập InteractionAlert hoặc Graph Explorer trong MVP.
+27. Sử dụng dữ liệu y khoa thật để tư vấn.
+28. Production medical decision support system.
+
+---
+
+## 16. Product Constraints
+
+### 16.1. Ràng buộc công nghệ
+
+1. Frontend dùng Next.js.
+2. Backend dùng NestJS / Node.js.
+3. ORM dùng Prisma.
+4. Authentication dùng Supabase Auth.
+5. PostgreSQL là source of truth.
+6. Neo4j là graph projection.
+7. Google AI Provider là provider ưu tiên.
+8. MockAI là fallback.
+9. Docker không phải setup chính thức.
+
+### 16.2. Ràng buộc nghiệp vụ
+
+1. MedicineBatch là source of truth cho inventory.
+2. Checkout phải áp dụng FEFO.
+3. Checkout phải là transaction chính thức.
+4. Payment và invoice không được tách rời khỏi checkout flow để hoàn tất order.
+5. DrugInteraction Rule ở cấp ActiveIngredient–ActiveIngredient.
+6. HIGH alert phải acknowledgement và có consultation note trước checkout.
+7. PAID order không được sửa hoặc cancel trực tiếp.
+8. Refund và return ngoài MVP.
+
+### 16.3. Ràng buộc an toàn AI
+
+1. AI không được chẩn đoán bệnh.
+2. AI không được kê đơn.
+3. AI không được đưa liều dùng cụ thể.
+4. AI không thay thế chuyên gia y tế.
+5. AI output phải được kiểm soát bằng guardrail.
+6. AI-generated consultation note chỉ là draft cho đến khi Staff xác nhận.
+7. AI Audit Log không lưu raw PII.
+
+### 16.4. Ràng buộc dữ liệu
+
+1. Real catalog data chỉ là reference.
+2. MVP cần curated operational seed.
+3. Không dùng toàn bộ scraped ingredients làm official ActiveIngredient.
+4. Không seed selling_price bằng 0.
+5. Demo data không dùng dữ liệu cá nhân thật.
+6. Demo inventory phải tái tạo được từ transactions.
+
+### 16.5. Ràng buộc thời gian và release
+
+1. Deadline cuối trước ngày 17/06/2026.
+2. Target release/demo freeze nên trước hoặc trong ngày 16/06/2026.
+3. Do thời gian ngắn, ưu tiên execution cycles ngắn.
+4. Scope change phải được Project Leader/scope owner phê duyệt.
+5. Jira hiện có cần major revision theo baseline mới.
+
+---
+
+## 17. Recommended MVP Demo Flows
+
+Các demo flow dưới đây là luồng đề xuất ở cấp sản phẩm. Chi tiết script demo và checklist sẽ được viết trong Document 20.
+
+### 17.1. Demo Flow 1 — Login và phân quyền
+
+Mục tiêu:
+
+1. Chứng minh Supabase Auth hoạt động.
+2. Chứng minh Admin, Staff và Warehouse có quyền khác nhau.
+3. Chứng minh frontend visibility không thay thế backend authorization.
+
+Luồng tổng quan:
+
+1. Đăng nhập bằng Admin.
+2. Quan sát menu/quyền Admin.
+3. Đăng nhập bằng Staff.
+4. Quan sát Staff chỉ thấy chức năng bán hàng phù hợp.
+5. Đăng nhập bằng Warehouse.
+6. Quan sát Warehouse chỉ thấy chức năng kho phù hợp.
+
+### 17.2. Demo Flow 2 — Medicine, ActiveIngredient và Supplier
+
+Mục tiêu:
+
+1. Chứng minh Medicine và ActiveIngredient là dữ liệu lõi.
+2. Chứng minh Medicine mapping với ActiveIngredient.
+3. Chứng minh Supplier Management thuộc MVP.
+
+Luồng tổng quan:
+
+1. Admin xem danh sách Medicine.
+2. Admin xem/mapping ActiveIngredient.
+3. Warehouse tạo hoặc cập nhật Supplier.
+4. Admin có quyền deactivate Supplier nếu cần demo.
+
+### 17.3. Demo Flow 3 — Stock Import và MedicineBatch
+
+Mục tiêu:
+
+1. Chứng minh MedicineBatch là source of truth.
+2. Chứng minh Stock Import khi confirm mới cập nhật batch.
+3. Chứng minh batch number và expiry date quan trọng.
+
+Luồng tổng quan:
+
+1. Warehouse tạo Stock Import dạng Draft.
+2. Thêm medicine, batch number, expiry date và quantity.
+3. Confirm Stock Import.
+4. Kiểm tra Inventory Summary và Batch Detail.
+
+### 17.4. Demo Flow 4 — Inventory Adjustment
+
+Mục tiêu:
+
+1. Chứng minh không sửa trực tiếp tồn kho.
+2. Chứng minh adjustment có reason và audit.
+3. Chứng minh không cho quantity âm.
+
+Luồng tổng quan:
+
+1. Warehouse tạo Inventory Adjustment.
+2. Nhập reason.
+3. Confirm adjustment.
+4. Kiểm tra tồn kho thay đổi theo batch.
+5. Kiểm tra audit hoặc evidence tương ứng.
+
+### 17.5. Demo Flow 5 — POS, InteractionAlert và HIGH alert handling
+
+Mục tiêu:
+
+1. Chứng minh Staff tạo Draft Order.
+2. Chứng minh interaction checking theo order.
+3. Chứng minh InteractionAlert được persist.
+4. Chứng minh HIGH alert cần acknowledgement và consultation note.
+
+Luồng tổng quan:
+
+1. Staff tạo Draft Order.
+2. Thêm hai medicine có interaction.
+3. Hệ thống hiển thị alert.
+4. Staff xem cảnh báo.
+5. Staff acknowledge HIGH alert.
+6. Staff nhập consultation note.
+7. Alert được lưu trong order context.
+8. Admin có thể xem InteractionAlert History.
+
+### 17.6. Demo Flow 6 — AI Copilot, Guardrail và Audit
+
+Mục tiêu:
+
+1. Chứng minh AI hỗ trợ giải thích cảnh báo.
+2. Chứng minh AI chỉ tạo draft.
+3. Chứng minh AI có guardrail và audit.
+
+Luồng tổng quan:
+
+1. Staff bấm yêu cầu AI giải thích alert.
+2. AI trả nội dung tham khảo có disclaimer.
+3. Staff có thể dùng draft để hỗ trợ note.
+4. AI từ chối hoặc chặn nội dung vượt phạm vi nếu input yêu cầu chẩn đoán/kê đơn/liều dùng.
+5. Admin hoặc người demo kiểm tra evidence của AI Audit.
+
+### 17.7. Demo Flow 7 — Checkout transaction và FEFO
+
+Mục tiêu:
+
+1. Chứng minh checkout là transaction chính thức.
+2. Chứng minh FEFO hoạt động.
+3. Chứng minh payment và invoice được tạo sau checkout.
+4. Chứng minh batch allocation được lưu.
+
+Luồng tổng quan:
+
+1. Staff checkout Draft Order hợp lệ.
+2. Hệ thống kiểm tra stock và HIGH alert.
+3. Hệ thống trừ batch theo FEFO.
+4. Hệ thống tạo payment simulation.
+5. Hệ thống tạo invoice.
+6. Kiểm tra Inventory Summary sau bán.
+
+### 17.8. Demo Flow 8 — Reports
+
+Mục tiêu:
+
+1. Chứng minh reports deterministic.
+2. Chứng minh reports không phụ thuộc AI.
+3. Chứng minh revenue, top medicines và inventory report có dữ liệu.
+
+Luồng tổng quan:
+
+1. Admin mở Revenue Report.
+2. Admin mở Top Medicines Report.
+3. Admin/Warehouse mở Inventory Report.
+4. Đối chiếu report với demo data.
+
+### 17.9. Demo Flow 9 — Graph Sync và Graph-RAG
+
+Mục tiêu:
+
+1. Chứng minh Neo4j là graph projection.
+2. Chứng minh Graph Sync có vai trò đồng bộ.
+3. Chứng minh Graph-RAG tách riêng khỏi AI Copilot.
+4. Chứng minh fallback khi graph stale/unavailable nếu có kịch bản demo phù hợp.
+
+Luồng tổng quan:
+
+1. Xem graph relation Medicine–ActiveIngredient–Interaction.
+2. Chạy Graph-RAG query được phép.
+3. Hiển thị provenance hoặc context ở mức demo.
+4. Mô tả fallback nếu graph không available.
+
+---
+
+## 18. Implementation Priority
+
+### 18.1. Priority P0 — Baseline blockers
+
+Các phần này phải được ưu tiên cao nhất vì nếu thiếu sẽ làm sai baseline:
+
+1. Supabase Auth.
+2. User profile và RBAC.
+3. Medicine.
+4. ActiveIngredient.
+5. Supplier.
+6. MedicineBatch.
+7. Stock Import.
+8. Inventory Adjustment.
+9. POS Draft Order.
+10. Checkout transaction.
+11. FEFO.
+12. InteractionAlert lifecycle.
+13. HIGH alert acknowledgement và consultation note.
+
+### 18.2. Priority P1 — MVP technical differentiators
+
+Các phần này là điểm khác biệt kỹ thuật của MVP:
+
+1. AI Copilot.
 2. AI Guardrail.
-3. AI Audit Log.
-4. MockAI Pharmacist Copilot.
-5. Neo4j Knowledge Graph ở mức dữ liệu mẫu nhỏ.
+3. AI Audit.
+4. Google AI Provider configuration.
+5. MockAI fallback.
+6. Neo4j projection.
+7. Graph Sync.
+8. Graph-RAG.
+9. Graph freshness/fallback behavior.
+10. Curated demo seed.
 
-Nếu nhóm có thời gian nhiều hơn, có thể bổ sung:
+### 18.3. Priority P2 — MVP supporting features
 
-1. Graph-RAG.
-2. Forecast tồn kho.
-3. AI Business Report.
-4. Graph Explorer UI.
+Các phần này hỗ trợ vận hành và demo:
 
----
+1. Reports.
+2. System Settings.
+3. Order History.
+4. Order Detail.
+5. Invoice view/print.
+6. Inventory Summary.
+7. Batch Detail.
+8. InteractionAlert History.
+9. Demo reset.
+10. Smoke tests.
 
-## 12. Luồng nghiệp vụ nằm trong phạm vi
+### 18.4. Priority P3 — Should-have
 
-### 12.1. Luồng đăng nhập
+Các phần này nên làm nếu còn thời gian:
 
-1. Người dùng mở trang đăng nhập.
-2. Nhập username và password.
-3. Hệ thống kiểm tra thông tin đăng nhập.
-4. Nếu hợp lệ, hệ thống tạo phiên đăng nhập hoặc token.
-5. Hệ thống điều hướng người dùng đến màn hình phù hợp theo vai trò.
-6. Nếu không hợp lệ, hệ thống hiển thị thông báo lỗi.
+1. Full Customer Management.
+2. Graph Sync Status UI.
+3. Prompt editing UI.
+4. AI provider/model configuration UI.
+5. Generic System Audit Log UI.
+6. Advanced charts.
+7. AI-generated report narrative.
 
-### 12.2. Luồng quản lý thuốc
+### 18.5. Priority P4 — Future / Commercial Expansion
 
-1. Admin mở màn hình quản lý thuốc.
-2. Admin xem danh sách thuốc.
-3. Admin thêm hoặc sửa thông tin thuốc.
-4. Hệ thống kiểm tra dữ liệu bắt buộc.
-5. Hệ thống lưu thông tin thuốc.
-6. Thuốc mới xuất hiện trong danh sách và có thể dùng khi bán hàng.
+Các phần này không phục vụ MVP hiện tại:
 
-### 12.3. Luồng nhập thuốc
-
-1. Nhân viên kho mở màn hình nhập thuốc.
-2. Chọn nhà cung cấp.
-3. Thêm thuốc vào phiếu nhập.
-4. Nhập số lượng, giá nhập, hạn dùng nếu có.
-5. Xác nhận phiếu nhập.
-6. Hệ thống cập nhật tồn kho.
-7. Hệ thống lưu lịch sử nhập thuốc.
-
-### 12.4. Luồng bán thuốc có cảnh báo tương tác
-
-1. Nhân viên nhà thuốc đăng nhập.
-2. Mở màn hình bán hàng.
-3. Tìm kiếm thuốc.
-4. Thêm thuốc vào đơn.
-5. Hệ thống kiểm tra tồn kho.
-6. Nhân viên thêm thuốc thứ hai hoặc nhiều thuốc khác.
-7. Hệ thống kiểm tra các cặp thuốc trong đơn hàng.
-8. Nếu phát hiện tương tác, hệ thống hiển thị cảnh báo.
-9. Nhân viên đọc cảnh báo và ghi chú tư vấn nếu cần.
-10. Nhân viên chọn khách hàng hoặc tạo khách hàng mới.
-11. Hệ thống tính tổng tiền.
-12. Nhân viên xác nhận thanh toán.
-13. Hệ thống tạo hóa đơn.
-14. Hệ thống trừ tồn kho.
-15. Nhân viên in hoặc xem hóa đơn.
-
-### 12.5. Luồng báo cáo
-
-1. Admin mở màn hình báo cáo.
-2. Chọn khoảng thời gian cần xem.
-3. Hệ thống tổng hợp dữ liệu đơn hàng.
-4. Hệ thống hiển thị doanh thu, số đơn, thuốc bán chạy.
-5. Admin có thể xem thêm danh sách thuốc sắp hết hoặc gần hết hạn.
+1. Online commerce.
+2. Multi-store.
+3. Multi-warehouse.
+4. Refund/return.
+5. Real bank integration.
+6. Product variant commerce.
+7. AI Cache.
+8. Advanced medical graph enrichment.
+9. CRITICAL severity.
+10. Full 100-table implementation.
 
 ---
 
-## 13. Ràng buộc
+## 19. Assumptions
 
-Các ràng buộc sau cần được tuân thủ trong toàn bộ quá trình phân tích, thiết kế, phát triển, kiểm thử và demo hệ thống.
+Các giả định của sản phẩm gồm:
 
-| Ràng buộc | Mô tả | Ảnh hưởng đến thiết kế |
-|---|---|---|
-| Hệ thống phục vụ đồ án | Không dùng thay thế phần mềm y tế thật | Cần ghi rõ phạm vi học tập/demo |
-| Dữ liệu thuốc là dữ liệu mẫu | Thuốc, tương tác, bệnh nền, khuyến nghị không phải dữ liệu y khoa kiểm định | Database và UI cần có ghi chú dữ liệu mẫu |
-| AI chỉ hỗ trợ tham khảo | AI không chẩn đoán, không kê đơn | Prompt và Guardrail phải giới hạn nội dung AI |
-| Người dùng xác nhận nội dung AI | Nội dung AI không tự động trở thành quyết định cuối cùng | UI cần có nút xác nhận/lưu thủ công |
-| Thanh toán là mô phỏng | Không tích hợp cổng thanh toán thật | Payment chỉ lưu trạng thái và phương thức mô phỏng |
-| Bảo mật dữ liệu khách hàng | Không dùng dữ liệu cá nhân thật trong demo | Seed data phải là dữ liệu giả lập |
-| Ưu tiên MVP | Chức năng nâng cao chỉ làm sau khi MVP ổn định | Backlog cần chia Must/Should/Could |
-| Demo phải ổn định | Hệ thống cần chạy được với dữ liệu mẫu | Cần chuẩn bị seed data, tài khoản demo, kịch bản demo |
-
-### 13.1. Ràng buộc an toàn AI
-
-Nếu hệ thống có tích hợp AI, bắt buộc tuân thủ các ràng buộc sau:
-
-- AI không được chẩn đoán bệnh.
-- AI không được kê đơn thuốc.
-- AI không được khẳng định thuốc chắc chắn an toàn.
-- AI không được thay thế dược sĩ, bác sĩ hoặc chuyên gia y tế.
-- AI chỉ được sinh nội dung hỗ trợ tham khảo.
-- Nội dung AI cần có disclaimer.
-- Nội dung AI cần được người dùng xác nhận trước khi lưu.
-- Các request/response AI quan trọng nên được lưu vào AI Audit Log.
-
-### 13.2. Disclaimer chuẩn
-
-Câu disclaimer chuẩn cần xuất hiện trong các màn hình cảnh báo tương tác thuốc, AI Copilot, ghi chú tư vấn và báo cáo AI:
-
-> Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.
+1. Hệ thống phục vụ đồ án và demo, không phải hệ thống y tế production.
+2. Người dùng chính là nhân sự nội bộ: Admin, Staff và Warehouse.
+3. Customer không đăng nhập trong MVP.
+4. Dữ liệu thuốc, hoạt chất, interaction và AI output trong demo là dữ liệu mẫu/curated seed.
+5. Supabase Auth được dùng cho authentication.
+6. PostgreSQL là source of truth.
+7. Neo4j chỉ là graph projection.
+8. Google AI Provider có thể được dùng nếu có cấu hình phù hợp.
+9. MockAI luôn có để fallback khi provider thật lỗi hoặc không sẵn sàng.
+10. Demo reset chỉ chạy ở local environment.
+11. Nhóm có thể dùng cloud Supabase và Neo4j AuraDB nếu điều kiện cho phép.
+12. Reports MVP dùng dữ liệu deterministic, không phụ thuộc AI.
+13. Payment trong MVP là simulation, không tích hợp ngân hàng thật.
+14. Scope changes phải được Project Leader/scope owner phê duyệt.
+15. Tài liệu cũ chỉ còn vai trò tham khảo nếu mâu thuẫn baseline mới.
 
 ---
 
-## 14. Giả định
+## 20. Dependencies
 
-| Giả định | Mô tả |
-|---|---|
-| Người dùng hệ thống là nhân sự nội bộ nhà thuốc | Admin, Nhân viên nhà thuốc và Nhân viên kho được cấp tài khoản |
-| Khách hàng không cần đăng nhập | MVP chỉ lưu thông tin khách hàng cơ bản khi bán hàng |
-| Dữ liệu demo được chuẩn bị trước | Nhóm tạo seed data để đảm bảo demo ổn định |
-| AI có thể được mô phỏng | Nếu không có API thật, MockAI vẫn giúp demo luồng AI |
-| Neo4j có thể triển khai ở quy mô nhỏ | Graph chỉ cần đủ dữ liệu để chứng minh ý tưởng |
-| Forecast không cần ML phức tạp | Có thể dùng công thức trung bình bán/ngày |
-| Hệ thống chạy trong môi trường demo | Không yêu cầu triển khai production thực tế |
+### 20.1. Dependency giữa module nghiệp vụ
 
----
+1. POS phụ thuộc Medicine, MedicineBatch và Interaction.
+2. Checkout phụ thuộc Order, Inventory, InteractionAlert, Payment và Invoice.
+3. FEFO phụ thuộc MedicineBatch.
+4. Interaction checking phụ thuộc Medicine–ActiveIngredient mapping và DrugInteraction Rule.
+5. Reports phụ thuộc Order, Payment, Invoice và Inventory.
+6. Inventory Summary phụ thuộc MedicineBatch.
+7. Demo flow phụ thuộc curated seed.
 
-## 15. Phụ thuộc
+### 20.2. Dependency kỹ thuật
 
-| Phụ thuộc | Mô tả | Rủi ro nếu không đáp ứng |
-|---|---|---|
-| Database schema | Backend phụ thuộc vào thiết kế bảng | Code phải sửa nhiều nếu schema thay đổi liên tục |
-| Dữ liệu mẫu | Demo phụ thuộc vào seed data | Demo không thể hiện được cảnh báo và báo cáo |
-| API specification | Frontend phụ thuộc vào API backend | Frontend/backend dễ lệch dữ liệu |
-| Phân quyền | UI và API phụ thuộc vào role | Người dùng có thể thấy sai chức năng |
-| AI Provider | AI Copilot phụ thuộc provider hoặc MockAI | AI không chạy nếu provider lỗi và không có fallback |
-| Neo4j | Graph-RAG phụ thuộc dữ liệu graph | Không demo được graph nếu chưa có node/edge |
-| Test case | Demo phụ thuộc kiểm thử trước | Dễ lỗi sát ngày bảo vệ |
+1. Frontend phụ thuộc backend API.
+2. Backend phụ thuộc Supabase Auth token verification.
+3. Backend phụ thuộc PostgreSQL.
+4. Prisma phụ thuộc schema và migration đúng baseline.
+5. Graph Sync phụ thuộc PostgreSQL source data.
+6. Graph-RAG phụ thuộc graph projection hoặc PostgreSQL fallback.
+7. AI Copilot phụ thuộc AI provider configuration và guardrail.
+8. AI Audit phụ thuộc backend logging flow.
 
----
+### 20.3. Dependency tài liệu
 
-## 16. Tiêu chí chấp nhận phạm vi MVP
-
-MVP được xem là đạt nếu thỏa các tiêu chí sau:
-
-| Tiêu chí | Điều kiện chấp nhận |
-|---|---|
-| Đăng nhập | Người dùng đăng nhập được bằng tài khoản mẫu |
-| Phân quyền | Mỗi vai trò nhìn thấy chức năng phù hợp |
-| Quản lý thuốc | Thêm, sửa, xem, tìm kiếm thuốc hoạt động |
-| Quản lý kho | Hiển thị tồn kho và cập nhật sau nhập/bán |
-| Bán thuốc | Tạo đơn, thêm thuốc, tính tổng tiền được |
-| Kiểm tra tồn kho | Không cho bán vượt tồn kho |
-| Cảnh báo tương tác | Hiển thị cảnh báo khi đơn có cặp thuốc tương tác mẫu |
-| Thanh toán | Ghi nhận thanh toán mô phỏng thành công |
-| Hóa đơn | Tạo hóa đơn sau khi thanh toán |
-| Báo cáo cơ bản | Hiển thị doanh thu hoặc thuốc bán chạy từ dữ liệu mẫu |
-| An toàn | Màn hình cảnh báo/AI có disclaimer |
+1. Document 03 phụ thuộc Document 01 và Document 04.
+2. Document 05 phụ thuộc Document 03.
+3. Document 06 phụ thuộc Document 03, 04 và 05.
+4. Document 07 phụ thuộc Document 06.
+5. Document 08 phụ thuộc Document 05, 06 và 07.
+6. Document 12 phụ thuộc Document 06, 07 và 08.
+7. Document 13/14 phụ thuộc Document 06 và 12.
+8. Document 15 phụ thuộc Document 03, 06, 07 và 08.
+9. Document 16 phụ thuộc Document 03, 04 và 06.
+10. Document 17 phụ thuộc Document 03, 04, 06 và 10.
+11. Document 18 phụ thuộc Document 03, 06, 13, 14, 16 và 17.
+12. Document 19 phụ thuộc Document 03, 04 và toàn bộ delivery scope.
+13. Document 20 phụ thuộc Document 06, 12, 13, 15, 16, 17 và 18.
 
 ---
 
-## 17. Định hướng phát triển sau MVP
+## 21. Risks
 
-Sau khi MVP hoàn thành, hệ thống có thể phát triển tiếp theo các hướng sau:
-
-| Hướng phát triển | Mô tả | Lợi ích |
-|---|---|---|
-| AI Copilot nâng cao | AI hỗ trợ tạo câu hỏi và ghi chú tư vấn | Tăng điểm mới kỹ thuật |
-| Knowledge Graph mở rộng | Thêm nhiều node/relationship về thuốc, hoạt chất, triệu chứng | Tăng khả năng giải thích và truy vấn |
-| Graph-RAG hoàn chỉnh | Kết hợp query graph và AI generation | AI trả lời dựa trên context hệ thống |
-| Forecast tồn kho | Dự báo ngày hết hàng và gợi ý nhập | Hỗ trợ quyết định nhập hàng |
-| AI Business Report | AI tạo báo cáo vận hành dễ đọc | Hỗ trợ Admin hiểu dữ liệu nhanh |
-| Prompt Management | Quản lý prompt template | Dễ kiểm soát hành vi AI |
-| Cost Monitoring | Theo dõi số lần gọi AI và chi phí | Hỗ trợ quản trị AI |
-| Multi-branch | Quản lý nhiều chi nhánh | Phù hợp phát triển thực tế sau đồ án |
+| Rủi ro                          | Ảnh hưởng                                     | Cách xử lý định hướng                                               |
+| ------------------------------- | --------------------------------------------- | ------------------------------------------------------------------- |
+| Scope quá rộng                  | Không kịp hoàn thành MVP                      | Bám Document 03 và Document 04; không thêm scope mới nếu chưa duyệt |
+| Quay lại thiết kế cũ            | Tài liệu và implementation mâu thuẫn baseline | Dùng Document 01/04 làm nguồn kiểm tra                              |
+| Custom auth quay lại            | Sai baseline bảo mật                          | Giữ Supabase Auth là authentication chính thức                      |
+| Inventory không theo batch      | FEFO và traceability không đạt                | MedicineBatch là source of truth                                    |
+| Checkout không transaction      | Dễ sai order/payment/invoice/inventory        | Checkout phải là luồng nghiệp vụ chính thức                         |
+| HIGH alert không bắt buộc note  | Sai baseline safety                           | Block checkout nếu HIGH alert chưa đủ xử lý                         |
+| AI sinh nội dung y tế nguy hiểm | Rủi ro an toàn và sai phạm vi                 | Input/output guardrail, safe refusal và audit                       |
+| Provider AI lỗi                 | Demo AI thất bại                              | MockAI fallback                                                     |
+| Neo4j stale/unavailable         | Graph-RAG hoặc explanation lỗi                | PostgreSQL fallback cho interaction explanation                     |
+| Dữ liệu demo thiếu              | Không demo được điểm nổi bật                  | Curated seed và smoke test                                          |
+| Jira cũ sai baseline            | Task triển khai lệch                          | Major revision Jira theo Document 04                                |
+| Deadline ngắn                   | Không đủ thời gian làm Should-have            | Ưu tiên P0/P1, đẩy phần còn lại sang Should-have/Future             |
+| Không có owner release          | Demo thiếu điều phối                          | Document 19 phải assign Release/Demo Owner và backup                |
+| Test phá demo database          | Mất dữ liệu demo                              | Destructive tests chỉ chạy local/non-demo với cleanup               |
 
 ---
 
-## 18. Kết luận
+## 22. Traceability định hướng
 
-Tài liệu **Vision and Scope Document** xác định tầm nhìn và phạm vi thực hiện của hệ thống **PharmaAssist AI Intelligence**. Sản phẩm được định hướng là một website quản lý nhà thuốc thông minh, hỗ trợ các nghiệp vụ cốt lõi như quản lý thuốc, tồn kho, bán hàng, thanh toán, hóa đơn, cảnh báo tương tác thuốc và báo cáo. Đồng thời, hệ thống có khả năng mở rộng với các thành phần nâng cao như AI Pharmacist Copilot, Neo4j Knowledge Graph, Graph-RAG, AI Guardrail, AI Audit Log và Forecast tồn kho.
+Document 03 tạo traceability định hướng cho các tài liệu sau:
 
-Phạm vi MVP cần được ưu tiên hoàn thành trước, đặc biệt là các chức năng đăng nhập, phân quyền, quản lý thuốc, quản lý kho, bán thuốc, thanh toán, hóa đơn và cảnh báo tương tác thuốc rule-based. Các chức năng AI/Graph nên được triển khai sau khi MVP ổn định hoặc mô phỏng ở mức phù hợp để đảm bảo tiến độ đồ án.
+| Nội dung trong Document 03      | Tài liệu triển khai chi tiết                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------- |
+| Product vision                  | Document 02, Document 05                                                     |
+| Product scope                   | Document 05, Document 06                                                     |
+| MVP scope                       | Document 06, Document 08, Document 15, Document 19, Document 20              |
+| Should-have/Future/Out of Scope | Document 04, Document 19                                                     |
+| User groups                     | Document 07, Document 08, Document 15                                        |
+| Medicine/Inventory scope        | Document 06, Document 12, Document 13, Document 14, Document 15              |
+| Checkout scope                  | Document 06, Document 08, Document 12, Document 13, Document 14, Document 20 |
+| Interaction scope               | Document 06, Document 08, Document 12, Document 13, Document 15              |
+| AI scope                        | Document 06, Document 12, Document 16, Document 20                           |
+| Graph scope                     | Document 10, Document 12, Document 17, Document 20                           |
+| Data/demo scope                 | Document 18, Document 20                                                     |
+| Jira/release scope              | Document 19                                                                  |
+| Acceptance criteria cấp cao     | Document 06, Document 20                                                     |
+| Risks                           | Document 19, Document 20                                                     |
 
-**Thông tin cảnh báo chỉ mang tính tham khảo, không thay thế tư vấn của dược sĩ, bác sĩ hoặc chuyên gia y tế.**
+Quy tắc traceability:
 
+1. BRD phải bám product value và business scope trong Document 03.
+2. SRS phải chuyển MVP scope thành functional/non-functional requirements.
+3. Use Case phải phản ánh actor và MVP flows đã nêu.
+4. UI/UX phải phản ánh target users và MVP demo flows.
+5. Jira phải phân loại đúng MVP, Should-have, Future và Out of Scope.
+6. Testing phải ưu tiên high-risk MVP flows.
+7. Data Seed Plan phải tạo đủ dữ liệu để demo các scope đã chốt.
+
+---
+
+## 23. Quality Checklist
+
+Checklist này dùng để kiểm tra Document 03 và các tài liệu scope liên quan.
+
+### 23.1. Checklist scope
+
+| Câu hỏi kiểm tra                                                      | Đạt khi |
+| --------------------------------------------------------------------- | ------- |
+| Tài liệu có nêu rõ product vision không?                              | Có      |
+| Tài liệu có nêu rõ problem statement không?                           | Có      |
+| Tài liệu có xác định target users không?                              | Có      |
+| Tài liệu có phân biệt MVP, Should-have, Future và Out of Scope không? | Có      |
+| Tài liệu có tránh viết quá chi tiết như SRS không?                    | Có      |
+| Tài liệu có tránh API/schema/test case chi tiết không?                | Có      |
+| Tài liệu có bám Document 01 và Document 04 không?                     | Có      |
+
+### 23.2. Checklist MVP
+
+| Câu hỏi kiểm tra                            | Đạt khi |
+| ------------------------------------------- | ------- |
+| Supabase Auth có thuộc MVP không?           | Có      |
+| Multi-role RBAC có thuộc MVP không?         | Có      |
+| Supplier Management có thuộc MVP không?     | Có      |
+| MedicineBatch có là MVP không?              | Có      |
+| FEFO có là MVP không?                       | Có      |
+| Checkout transaction có là MVP không?       | Có      |
+| InteractionAlert lifecycle có là MVP không? | Có      |
+| HIGH acknowledgement/note có là MVP không?  | Có      |
+| AI Guardrail và AI Audit có là MVP không?   | Có      |
+| Graph Sync và Graph-RAG có là MVP không?    | Có      |
+| Basic reports có là MVP không?              | Có      |
+| Curated operational seed có là MVP không?   | Có      |
+
+### 23.3. Checklist Should-have/Future/Out of Scope
+
+| Câu hỏi kiểm tra                                           | Đạt khi |
+| ---------------------------------------------------------- | ------- |
+| Full Customer Management có được đặt Should-have không?    | Có      |
+| Graph Sync Status UI có phải Should-have không?            | Có      |
+| Prompt editing UI có phải Should-have không?               | Có      |
+| Full 100-table schema có bị loại khỏi MVP không?           | Có      |
+| Online commerce có được đưa vào Future không?              | Có      |
+| Refund/return có nằm ngoài MVP không?                      | Có      |
+| Real bank integration có nằm ngoài MVP không?              | Có      |
+| AI diagnosis/prescribing/dosage có nằm Out of Scope không? | Có      |
+
+### 23.4. Checklist safety
+
+| Câu hỏi kiểm tra                                           | Đạt khi |
+| ---------------------------------------------------------- | ------- |
+| AI không chẩn đoán bệnh không?                             | Có      |
+| AI không kê đơn không?                                     | Có      |
+| AI không đưa liều dùng cụ thể không?                       | Có      |
+| AI không thay thế chuyên gia y tế không?                   | Có      |
+| AI Audit không lưu raw PII không?                          | Có      |
+| Demo không dùng dữ liệu cá nhân thật không?                | Có      |
+| Graph stale/unavailable có fallback hoặc safe error không? | Có      |
+
+---
+
+## 24. Kết luận
+
+Document 03 — Vision & Scope Document xác định tầm nhìn và phạm vi sản phẩm chính thức của **PharmaAssist AI Intelligence**.
+
+Sản phẩm được định hướng là một hệ thống quản lý nhà thuốc nội bộ có khả năng hỗ trợ bán thuốc tại quầy, quản lý thuốc, hoạt chất, supplier, batch inventory, stock import, inventory adjustment, interaction checking, checkout, payment simulation, invoice, reports, AI Copilot, AI Guardrail, AI Audit, Neo4j graph projection, Graph Sync và Graph-RAG.
+
+Phạm vi MVP đã được xác định rõ:
+
+1. Supabase Auth.
+2. Multi-role RBAC.
+3. Medicine và ActiveIngredient.
+4. Supplier Management.
+5. MedicineBatch.
+6. FEFO.
+7. Stock Import.
+8. Inventory Adjustment.
+9. POS Draft Order.
+10. InteractionAlert lifecycle.
+11. HIGH alert acknowledgement và consultation note.
+12. Checkout transaction.
+13. Payment simulation.
+14. Invoice.
+15. Basic reports.
+16. AI Copilot.
+17. AI Guardrail.
+18. AI Audit.
+19. Neo4j projection.
+20. Graph Sync.
+21. Graph-RAG.
+22. Curated operational seed.
+23. Local demo reset workflow.
+
+Document 03 cũng xác định rõ các nội dung Should-have, Future / Commercial Expansion và Out of Scope để tránh scope creep.
+
+Tài liệu này là cơ sở trực tiếp cho:
+
+1. Document 02 — Project Charter.
+2. Document 05 — Business Requirements Document.
+3. Document 06 — Software Requirements Specification.
+4. Document 08 — Use Case Specification.
+5. Document 15 — UI/UX Screen Specification.
+6. Document 19 — Project Management, Jira & Release Plan.
+7. Document 20 — Testing, Demo & Setup Guide.
+
+Sau Document 03, bước tiếp theo hợp lý là viết **Document 02 — Project Charter** để khóa mục tiêu, stakeholder, deliverables, constraints và success criteria cấp dự án.
