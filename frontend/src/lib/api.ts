@@ -11,9 +11,17 @@ const api = axios.create({
 // Interceptor tự động lấy Supabase access token và đính kèm vào Authorization header
 api.interceptors.request.use(
   async (config) => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      config.headers.Authorization = `Bearer ${session.access_token}`;
+    // Không đính kèm hoặc gọi session cho request đăng nhập để tránh treo
+    if (config.url === '/auth/login') {
+      return config;
+    }
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        config.headers.Authorization = `Bearer ${session.access_token}`;
+      }
+    } catch (error) {
+      console.error('Error fetching Supabase session in interceptor:', error);
     }
     return config;
   },

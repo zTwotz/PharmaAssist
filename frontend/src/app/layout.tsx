@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/auth-context";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CartProvider } from "@/context/cart-context";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -33,11 +34,14 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-canvas font-sans text-ink" suppressHydrationWarning>
         <AuthProvider>
-          <Header />
-          {children}
-          <Footer />
+          <CartProvider>
+            <Header />
+            {children}
+            <Footer />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
+

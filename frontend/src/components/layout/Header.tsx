@@ -159,7 +159,7 @@ export function Header() {
 
         {/* Navigation Menu */}
         <nav className="bg-white border-t-2 border-[#024ad8] relative overflow-visible shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative overflow-visible flex items-center justify-start gap-8 h-14">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 relative overflow-visible flex items-center justify-center gap-8 h-14">
 
             {NAV_MEGA_MENU_DATA.map((cat) => {
               const isSelected = selectedCategory === cat.name;
@@ -317,26 +317,7 @@ export function Header() {
               );
             })}
 
-            <Link 
-              href="#vaccination" 
-              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
-            >
-              Tiêm chủng
-            </Link>
-            <div className="group overflow-visible shrink-0">
-              <button
-                className="flex items-center gap-1 py-3 text-xs text-ink hover:text-[#024ad8] transition-colors border-b-2 border-transparent"
-              >
-                Bệnh & Góc sức khỏe
-                <ChevronDown size={12} className="text-graphite group-hover:rotate-180 transition-transform duration-300" />
-              </button>
-            </div>
-            <Link 
-              href="#store-system" 
-              className="text-xs hover:text-[#024ad8] transition-colors py-3 border-b-2 border-transparent hover:border-[#024ad8] shrink-0"
-            >
-              Hệ thống nhà thuốc
-            </Link>
+
           </div>
         </nav>
       </header>

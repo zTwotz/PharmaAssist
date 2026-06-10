@@ -32,7 +32,8 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 ## 📋 Active Queues (Sprint 2 & Upcoming)
 - **PAC-19 (In Progress):** Develop Product Listing Page (PLP) with advanced filtering, pagination, and sorting.
   - *Status:* Created `app/san-pham/page.tsx`, `FilterSidebar.tsx`, `ProductGrid.tsx`. Installed shadcn-ui components. Integrated Supabase server-side fetching with category tree building. Header updated to link to PLP.
-- **PAC-20 (Todo):** Develop Product Detail Page (PDP) with responsive layout and rich data from Supabase.
+- **PAC-20 (Completed):** Develop Product Detail Page (PDP) with responsive layout and rich data from Supabase.
+  - *Status:* Implemented NestJS Backend API GET `/products/:slug` with Prisma relational query. Created Next.js server page with Hybrid Fallback Fetching and client components (`ProductDetailClient.tsx`). Integrated shopping cart adding and navigation. Link connected on home page.
 - **PAC-14 (Todo):** Global search with Debounce.
 - **PAC-21 (Todo):** Shopping Cart functionality.
 - [x] Thiết lập khung dự án Frontend & Backend (NestJS + Next.js + Prisma ORM).
@@ -58,6 +59,28 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 ---
 
 ## 📓 Latest Execution Notes
+
+### 2026-06-10
+- **Triển khai Trang Chi Tiết Sản Phẩm (PDP - PAC-20):**
+  - **Backend API**: Bổ sung endpoint `GET /api/products/:slug` trong [products.controller.ts](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/backend/src/products/products.controller.ts) và [products.service.ts](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/backend/src/products/products.service.ts) để join các thông tin y tế y khoa, hoạt chất, quy cách, dạng bào chế của thuốc qua Prisma.
+  - **Frontend PDP Route**: Tạo dynamic route `/san-pham/[slug]` tại [page.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/san-pham/%5Bslug%5D/page.tsx) hỗ trợ Hybrid Fetching (gọi Backend API hoặc tự động fallback query Supabase Client trực tiếp để tăng tính sẵn sàng 100%).
+  - **Giao diện & Tương tác**: Xây dựng Client Component [ProductDetailClient.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/san-pham/%5Bslug%5D/ProductDetailClient.tsx) với giao diện cao cấp màu xanh thương hiệu Long Châu `#024ad8`, hỗ trợ chọn ảnh nhỏ, chọn đơn vị tính (vỉ/hộp/viên) tự động đổi giá, tăng giảm số lượng, tích hợp thêm giỏ hàng bằng `useCart` thực tế và các tab thông tin y khoa chi tiết.
+  - **Tích hợp liên kết**: Gắn link card sản phẩm NMN PQQ Kenko tại mục "Sản phẩm bán chạy" ở trang chủ dẫn trực tiếp sang trang chi tiết mới.
+  - **Xác thực build**: Đã compile thành công 100% không lỗi trên cả NestJS Backend và Next.js Frontend.
+- **Khởi chạy & Khắc phục Đăng nhập:**
+  - Giải quyết xung đột merge trong file [layout.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/layout.tsx), tích hợp thành công `CartProvider` cùng layout `Header` và `Footer`.
+  - Khôi phục công cụ CLI [run.js](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/run.js) từ nhánh `main` để khởi chạy đồng thời Frontend và Backend.
+  - Cập nhật tài liệu hướng dẫn tài khoản demo trong [README.md](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/README.md) thành các tài khoản chính xác theo dữ liệu seed thực tế (`admin@pharmaassist.com`, `staff@pharmaassist.com`, `warehouse@pharmaassist.com`).
+  - Biên dịch thành công cả Frontend và Backend (0 errors) và khởi động máy chủ tại cổng 3000 (Next.js) và 3001 (NestJS).
+  - Khắc phục triệt để lỗi treo trạng thái "Đang xác thực..." bằng cách bỏ qua Supabase `getSession` cho các request đăng nhập trong interceptor của [api.ts](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/lib/api.ts) và bọc các phương thức Supabase (`getSession`, `setSession`) trong [auth-context.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/context/auth-context.tsx) bằng một wrapper `withTimeout` giới hạn 3 giây để tránh treo UI khi kết nối hoặc bộ nhớ Supabase bị trễ.
+  - Loại bỏ 3 mục điều hướng không hoạt động ở thanh menu Header: "Tiêm chủng", "Bệnh & Góc sức khỏe", và "Hệ thống nhà thuốc".
+  - Căn giữa các mục menu của thanh điều hướng ở [Header.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/components/layout/Header.tsx) bằng cách thay thế `justify-start` bằng `justify-center` để thiết kế cân đối và cân bằng hơn.
+  - **Gắn liên kết cho toàn bộ card sản phẩm mùa vụ (PAC-19/PAC-20):**
+    - Đã bọc liên kết `<Link>` cho toàn bộ 16 sản phẩm thuộc section "Gợi ý theo mùa" (gồm Tab 0: Tay chân miệng, Tab 1: Viêm não mô cầu, Tab 2: Cúm, Tab 3: Sốt xuất huyết) dẫn trực tiếp đến trang chi tiết sản phẩm (`/san-pham/[slug]`).
+    - Đã tích hợp logic fallback giả lập dữ liệu y khoa trực tiếp cho các sản phẩm chưa có trong Database (Aloclair Gel và Su Bạc Gel) tại trang chi tiết để đảm bảo 100% không bị lỗi 404.
+    - Khắc phục lỗi biên dịch TypeScript trong frontend do lỗi typo `"panadolUnit" === "vi"` (thừa dấu ngoặc kép quanh biến `panadolUnit`).
+    - Xác minh và biên dịch thành công 100% toàn bộ hệ thống frontend Next.js (`npm run build` hoàn tất với 0 lỗi).
+
 - **[6/6/2026] PAC-19:** 
   - Verified `database/raw` vs `database/state` mapped perfectly to Supabase tables (`product_categories`, `brands`, `products`, `product_prices`).
   - Created `category.ts` utility to build category tree from raw Supabase data.

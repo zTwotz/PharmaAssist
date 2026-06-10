@@ -16,6 +16,15 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function withTimeout<T>(promise: Promise<T>, ms: number = 3000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Operation timed out after ${ms}ms`)), ms)
+    )
+  ]);
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function loadSession() {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await withTimeout(supabase.auth.getSession(), 3000);
         if (session?.access_token) {
           // Fetch user profile and roles from NestJS Backend
           const profile = await authService.getMe();
@@ -37,7 +46,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error('Error loading session:', error);
         setUser(null);
         // If profile fetch fails, clean up Supabase session
-        await supabase.auth.signOut();
+        try {
+          await withTimeout(supabase.auth.signOut(), 2000);
+        } catch (signOutError) {
+          console.error('Sign out error on session load failure:', signOutError);
+        }
       } finally {
         setLoading(false);
       }
@@ -71,10 +84,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authService.login({ email, password });
       
       // Log in the frontend Supabase client so its session is updated
-      await supabase.auth.setSession({
-        access_token: response.accessToken,
-        refresh_token: response.refreshToken,
-      });
+      try {
+        await withTimeout(
+          supabase.auth.setSession({
+            access_token: response.accessToken,
+            refresh_token: response.refreshToken,
+          }),
+          3000
+        );
+      } catch (authError) {
+        console.error('Failed to set Supabase session, proceeding anyway:', authError);
+      }
 
       setUser(response.user);
       router.push('/dashboard');

@@ -2363,14 +2363,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
-                          </h4>
+                          <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
@@ -2400,14 +2404,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
-                          </h4>
+                          <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2437,14 +2445,18 @@ export default function HomePage() {
                           🇸🇬 Singapore
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Chai</span>
@@ -2474,14 +2486,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
-                          </h4>
+                          <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">150.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2516,14 +2532,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
-                          </h4>
+                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2575,14 +2595,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
-                          </h4>
+                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2634,14 +2658,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
-                          </h4>
+                          <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2693,14 +2721,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
-                          </h4>
+                          <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">24.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2735,14 +2767,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
-                          </h4>
+                          <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2794,14 +2830,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
-                          </h4>
+                          <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2836,7 +2876,7 @@ export default function HomePage() {
                             onClick={() => {
                               const key = `acemuc-${acemucUnit}`;
                               setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
-                              triggerToast(`Đã thêm Acemuc (${acemucUnit === "hop" ? "Hộp" : "Chai" /* wait, Viên */}) vào giỏ hàng.`);
+                              triggerToast(`Đã thêm Acemuc (${acemucUnit === "hop" ? "Hộp" : "Vỉ" /* Viên */}) vào giỏ hàng.`);
                             }}
                             className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
                           >
@@ -2853,14 +2893,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
-                          </h4>
+                          <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2915,14 +2959,18 @@ export default function HomePage() {
                           -10%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
-                          </h4>
+                          <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
+                            </h4>
+                          </Link>
                           <div className="flex flex-col mt-2">
                             <div className="flex items-baseline gap-1">
                               <strong className="text-[13px] font-black text-[#024ad8]">113.400đ</strong>
@@ -2963,14 +3011,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Bù Điện Giải Kamizol Vị Cam (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Bù Điện Giải Kamizol Vị Cam (250ml)
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -3030,14 +3082,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -3097,14 +3153,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
-                          </h4>
+                          <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
+                            </h4>
+                          </Link>
                           <div className="flex flex-col mt-2">
                             <div className="flex items-baseline gap-1">
                               <strong className="text-[13px] font-black text-[#024ad8]">32.000đ</strong>
@@ -3137,14 +3197,18 @@ export default function HomePage() {
                           🇨🇭 Thụy Sĩ
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nhiệt kế hồng ngoại đo trán Microlife NC200
-                          </h4>
+                          <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nhiệt kế hồng ngoại đo trán Microlife NC200
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">990.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
