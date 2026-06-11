@@ -1,6 +1,6 @@
 # Working Context - PharmaAssist AI Intelligence
 
-Last updated: 2026-05-30
+Last updated: 2026-06-11
 
 ## Purpose
 Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssist AI Intelligence** phục vụ môn học **Công Nghệ Phần Mềm**. Repo chứa mã nguồn Frontend, Backend, tài liệu đặc tả và thiết kế.
@@ -59,6 +59,33 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 ---
 
 ## 📓 Latest Execution Notes
+
+### 2026-06-11
+- **Sửa lỗi thêm và hiển thị sản phẩm trong giỏ hàng (Retail Cart Bugs):**
+  - **Sửa lỗi nút "Chọn mua"**: Sửa lỗi so sánh trạng thái `'AVAILABLE'` (sai lệch so với dữ liệu thực tế trong DB là `'ACTIVE'`) trong [ProductGrid.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/components/product/ProductGrid.tsx). Chấp nhận cả `'ACTIVE'` và `'AVAILABLE'` giúp khôi phục hoàn toàn chức năng nút **Chọn mua** ngoài trang danh sách sản phẩm.
+  - **Sửa lỗi thêm sản phẩm khi không đăng nhập & Bệnh theo mùa**: Bổ sung hàm `setCart` giả lập được gõ kiểu (typed) để chuyển hướng an toàn tất cả các yêu cầu thêm sản phẩm (bấm nút "Chọn mua") từ các danh sách sản phẩm tĩnh (như 16 sản phẩm Tab Bệnh theo mùa ngoài trang chủ) sang lưu trữ trong giỏ hàng thực tế (`useCart`). Đồng thời giải quyết hoàn toàn lỗi build do khai báo thiếu `setCart` và lỗi type check `implicit any`. Giờ đây, người dùng vãng lai chưa đăng nhập vẫn có thể tự do thêm mọi sản phẩm vào giỏ hàng và chỉ bắt buộc đăng nhập khi bấm nút thanh toán tại trang `/cart`.
+  - **Sửa lỗi giỏ hàng trống khi chuyển trang**: Thiết lập cơ chế kiểm soát hydration (`mounted` guard) trong [page.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/cart/page.tsx) trang `/cart` để đảm bảo dữ liệu từ `localStorage` được đồng bộ hóa và hiển thị chính xác 100% trên client side.
+- **Triển khai Xem chi tiết, In & Xuất PDF Hóa đơn POS:**
+  - **Giao diện & Chức năng**: Xây dựng component [InvoiceModal.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/components/pos/InvoiceModal.tsx) hiển thị chi tiết hóa đơn (thông tin nhà thuốc, mã hóa đơn `POS-xxx`, danh sách mặt hàng, số lượng, đơn giá, thành tiền và tổng thanh toán).
+  - **In ấn & Xuất PDF**: Tích hợp CSS `@media print` tối ưu riêng cho khổ in nhiệt K80 (rộng 80mm) giúp tự động ẩn toàn bộ Sidebar, Header và các nút bấm của trình duyệt khi in. Hỗ trợ in nhiệt thực tế và xuất file PDF sắc nét qua công cụ in của hệ thống.
+  - **Tích hợp POS**: Gắn modal hóa đơn vào cuối quy trình thanh toán thành công trong [CheckoutPanel.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/components/pos/CheckoutPanel.tsx) thay thế cho hộp thoại alert đơn giản.
+- **Triển khai Quản lý Khách hàng & Nhà cung cấp (CRUD):**
+  - **Backend APIs**: Phát triển đầy đủ các controllers, services, DTOs cho cả `customers` và `suppliers` với logic tự sinh mã (CUST-/SUPP-), chặn xóa nếu phát sinh đơn hàng (với Khách hàng) hoặc đặt hàng/nhập kho (với Nhà cung cấp).
+  - **Frontend UI & Phân quyền**:
+    - Thiết kế trang quản lý khách hàng tại [/customers/page.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/customers/page.tsx) chỉ cho phép `ADMIN` và `STAFF` truy cập.
+    - Thiết kế trang quản lý nhà cung cấp tại [/suppliers/page.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/app/suppliers/page.tsx) chỉ cho phép `ADMIN` và `WAREHOUSE` truy cập.
+    - Cập nhật Sidebar để đồng bộ menu và hiển thị theo quyền.
+    - Xử lý cache token qua `localStorage` để giải quyết lỗi treo API auth.
+    - Tối ưu hóa [Header.tsx](file:///c:/Users/ASUS/.gemini/antigravity-ide/scratch/PharmaAssist/frontend/src/components/layout/Header.tsx) để tự động ẩn nút "Đăng nhập" tĩnh và thay bằng Tên người dùng liên kết vào "Trang quản lý" kèm chức năng "Đăng xuất" nhanh trên cả Topbar, Desktop và Mobile. Đồng thời thiết kế lại layout chống co giãn (shrink-0, whitespace-nowrap), tăng padding và đổi nền xanh thương hiệu nhạt để nâng cao thẩm mỹ UI bán lẻ.
+  - **Biên dịch**: Compile thành công cả Backend NestJS và Frontend Next.js (`npm run build` hoàn tất 100% không có lỗi TypeScript/Turbopack).
+- **Triển khai Quản lý danh mục thuốc (CRUD):**
+  - **Backend API**: Thiết lập module `categories` mới với đầy đủ CRUD APIs, tự động kiểm tra lỗi lặp vòng gán cha và tự động tính toán lại bảng Closure Table `category_closures` trong transaction khi cây danh mục thay đổi.
+  - **Frontend UI**: Chuyển đổi trang `/medicines` thành dạng tab, tích hợp component `CategoryList.tsx` để thực hiện tìm kiếm, lọc trạng thái và CRUD danh mục bằng dialog trực quan.
+  - **Xác thực build**: Compile thành công cả Backend NestJS và Frontend Next.js.
+- **Cập nhật Danh mục nổi bật (Featured Categories - PAC-19):**
+  - **Đồng bộ Icons**: Cập nhật bộ 12 icons phẳng tối giản (Thần kinh não, Vitamin, Sinh lý, Tim mạch, Miễn dịch, Tiêu hóa, Giải pháp làn da, Chăm sóc da mặt, Hỗ trợ làm đẹp, Hỗ trợ tình dục, Sữa, Dụng cụ theo dõi) sử dụng màu xanh dương `#024ad8` đồng nhất và sắc nét hơn, bám sát theo thiết kế thực tế của hệ thống Nhà thuốc Long Châu gốc.
+  - **Xác thực build**: Chạy thành công quy trình compile và kiểm tra mã nguồn (`npm run build`) không có bất kỳ cảnh báo hay lỗi biên dịch nào.
+
 
 ### 2026-06-10
 - **Triển khai Trang Chi Tiết Sản Phẩm (PDP - PAC-20):**
