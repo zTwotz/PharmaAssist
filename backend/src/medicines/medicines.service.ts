@@ -90,4 +90,71 @@ export class MedicinesService {
       manufacturers,
     };
   }
+
+  async findAll() {
+    return this.prisma.medicine.findMany({
+      include: {
+        product: {
+          include: {
+            category: true,
+            brand: true,
+            manufacturer: true,
+            variants: {
+              include: {
+                unit: true,
+              },
+            },
+          },
+        },
+        dosageForm: true,
+        unit: true,
+        ingredients: {
+          include: {
+            activeIngredient: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  async search(term: string) {
+    if (!term || term.trim().length < 2) return [];
+
+    const variants = await this.prisma.productVariant.findMany({
+      where: {
+        OR: [
+          { variantName: { contains: term, mode: 'insensitive' } },
+          { sku: { contains: term, mode: 'insensitive' } },
+          { product: { name: { contains: term, mode: 'insensitive' } } }
+        ]
+      },
+      include: {
+        unit: true,
+        product: {
+          include: {
+            medicines: true
+          }
+        },
+        inventories: true
+      },
+      take: 10
+    });
+
+    return variants.map(v => ({
+      id: v.id,
+      sku: v.sku,
+      variant_name: v.variantName,
+      selling_price: v.sellingPrice,
+      unit: v.unit,
+      product: {
+        id: v.product.id,
+        name: v.product.name,
+        medicines: v.product.medicines.map(m => ({ id: m.id }))
+      },
+      inventories: v.inventories.map(inv => ({ quantity: inv.quantity }))
+    }));
+  }
 }

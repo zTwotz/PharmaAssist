@@ -26,6 +26,7 @@ export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, clearCart, cartCount, cartTotal } = useCart();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
   // Form states
   const [customerName, setCustomerName] = useState('');
@@ -35,6 +36,11 @@ export default function CartPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderCode, setOrderCode] = useState('');
+
+  // Run only on client side
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Shipping fee logic: 20k, free for orders > 300k
   const shippingFee = cartTotal > 300000 || cartTotal === 0 ? 0 : 20000;
@@ -70,6 +76,17 @@ export default function CartPage() {
     setOrderSuccess(false);
     router.push('/');
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-cloud flex items-center justify-center font-sans">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-4 border-[#024ad8] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm font-semibold text-slate-500">Đang tải giỏ hàng...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-cloud text-ink font-sans flex flex-col">

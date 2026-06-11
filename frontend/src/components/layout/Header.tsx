@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useCart } from "@/context/cart-context";
+import { useAuth } from "@/context/auth-context";
 import {
   Search,
   ShoppingCart,
@@ -19,10 +21,17 @@ import { NAV_MEGA_MENU_DATA, renderMenuIcon, renderSubcatThumbnail } from "@/lib
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  // Hide header on management and POS routes
+  const hidePaths = ['/pos', '/login', '/dashboard', '/medicines', '/inventory', '/sales', '/customers', '/suppliers'];
+  const shouldHide = hidePaths.some(path => pathname === path || pathname.startsWith('/dashboard') || pathname.startsWith('/pos'));
+  if (shouldHide) return null;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
-  const cartCount = 0; // Tạm thời tĩnh
+  const { cartCount } = useCart();
 
   const handleCategoryClick = (e: React.MouseEvent, ...names: string[]) => {
     e.preventDefault();
@@ -60,14 +69,38 @@ export function Header() {
               Địa chỉ: 123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. HCM
             </span>
           </div>
-          <Link 
-            href="/login" 
-            id="btn-staff-login-topbar"
-            className="flex items-center gap-1.5 bg-charcoal hover:bg-primary-deep text-white px-3 py-1 rounded-md transition-all duration-300 text-xs border border-graphite"
-          >
-            <Lock size={12} className="text-primary-bright" />
-            Nhân viên đăng nhập
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-primary-soft font-medium">Xin chào, {user.fullName || user.email}</span>
+              <span className="text-gray-500">|</span>
+              <Link href="/dashboard" className="text-white hover:text-primary-soft font-semibold transition-colors">
+                Trang quản lý
+              </Link>
+              <span className="text-gray-500">|</span>
+              <button 
+                onClick={async () => {
+                  try {
+                    await logout();
+                    router.push('/login');
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }} 
+                className="text-rose-300 hover:text-rose-400 font-semibold transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : (
+            <Link 
+              href="/login" 
+              id="btn-staff-login-topbar"
+              className="flex items-center gap-1.5 bg-charcoal hover:bg-primary-deep text-white px-3 py-1 rounded-md transition-all duration-300 text-xs border border-graphite"
+            >
+              <Lock size={12} className="text-primary-bright" />
+              Nhân viên đăng nhập
+            </Link>
+          )}
         </div>
       </div>
 
@@ -100,9 +133,15 @@ export function Header() {
                   </span>
                 )}
               </Link>
-              <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
-                <User size={22} />
-              </Link>
+              {user ? (
+                <Link href="/dashboard" id="mobile-login-btn" className="p-2 text-primary hover:text-primary-deep transition-colors" title={user.fullName || user.email}>
+                  <User size={22} className="text-primary" />
+                </Link>
+              ) : (
+                <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
+                  <User size={22} />
+                </Link>
+              )}
             </div>
           </div>
 
@@ -130,30 +169,58 @@ export function Header() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
             <Link 
               href="/cart" 
               id="desktop-cart-link"
-              className="relative flex items-center gap-2 bg-cloud hover:bg-primary-soft text-ink hover:text-primary-deep px-4 py-2 rounded-xl transition-all duration-300 text-sm font-medium border border-fog"
+              className="relative flex items-center gap-2 bg-cloud hover:bg-primary-soft text-ink hover:text-primary-deep px-4 py-2.5 rounded-xl transition-all duration-300 text-sm font-medium border border-fog shrink-0 whitespace-nowrap shadow-sm"
             >
               <ShoppingCart size={18} />
-              Giỏ hàng
+              <span>Giỏ hàng</span>
               {cartCount > 0 ? (
                 <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {cartCount}
                 </span>
               ) : (
-                <span className="text-xs text-graphite">0</span>
+                <span className="text-xs text-graphite font-semibold">0</span>
               )}
             </Link>
-            <Link 
-              href="/login" 
-              id="desktop-login-link"
-              className="flex items-center gap-2 bg-primary hover:bg-primary-deep text-white px-5 py-2 rounded-xl transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-            >
-              <User size={18} />
-              Đăng nhập
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2.5 shrink-0">
+                <Link 
+                  href="/dashboard"
+                  className="flex items-center gap-2 bg-primary-soft/40 hover:bg-primary-soft text-primary-deep px-4 py-2.5 rounded-xl transition-all duration-300 text-sm font-semibold border border-primary-bright/10 animate-fadeIn shrink-0 whitespace-nowrap shadow-sm"
+                  title="Đi đến Trang quản lý"
+                >
+                  <User size={16} className="text-primary" />
+                  <span className="truncate max-w-[150px]">
+                    {user.fullName || user.email}
+                  </span>
+                </Link>
+                <button 
+                  onClick={async () => {
+                    try {
+                      await logout();
+                      router.push('/login');
+                    } catch (e) {
+                      console.error(e);
+                    }
+                  }}
+                  className="px-4 py-2.5 rounded-xl border border-rose-200 hover:bg-rose-50 text-rose-600 hover:text-rose-700 text-sm font-semibold transition-all duration-300 bg-white cursor-pointer shrink-0 whitespace-nowrap shadow-sm hover:border-rose-300"
+                >
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              <Link 
+                href="/login" 
+                id="desktop-login-link"
+                className="flex items-center gap-2 bg-primary hover:bg-primary-deep text-white px-5 py-2.5 rounded-xl transition-all duration-300 text-sm font-bold shadow-md hover:shadow-lg shrink-0 whitespace-nowrap"
+              >
+                <User size={18} />
+                Đăng nhập
+              </Link>
+            )}
           </div>
         </div>
 

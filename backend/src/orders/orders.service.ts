@@ -75,4 +75,24 @@ export class OrdersService {
       return newOrder;
     });
   }
+
+  async findAll() {
+    return this.prisma.order.findMany({
+      include: {
+        details: {
+          include: {
+            productVariant: {
+              include: {
+                unit: true,
+              },
+            },
+          },
+        },
+        customer: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 }

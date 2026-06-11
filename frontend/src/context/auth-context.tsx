@@ -34,17 +34,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function loadSession() {
       try {
-        const { data: { session } } = await withTimeout(supabase.auth.getSession(), 3000);
-        if (session?.access_token) {
+        let token = null;
+        if (typeof window !== 'undefined') {
+          token = localStorage.getItem('access_token');
+        }
+
+        if (token) {
           // Fetch user profile and roles from NestJS Backend
           const profile = await authService.getMe();
           setUser(profile);
         } else {
-          setUser(null);
+          // Fallback to Supabase session
+          const { data: { session } } = await withTimeout(supabase.auth.getSession(), 2000);
+          if (session?.access_token) {
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('access_token', session.access_token);
+            }
+            const profile = await authService.getMe();
+            setUser(profile);
+          } else {
+            setUser(null);
+          }
         }
       } catch (error) {
         console.error('Error loading session:', error);
         setUser(null);
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('access_token');
+        }
         // If profile fetch fails, clean up Supabase session
         try {
           await withTimeout(supabase.auth.signOut(), 2000);
@@ -62,9 +79,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_OUT') {
         setUser(null);
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('access_token');
+        }
         router.push('/login');
       } else if (event === 'SIGNED_IN' && session) {
         try {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('access_token', session.access_token);
+          }
           const profile = await authService.getMe();
           setUser(profile);
         } catch (error) {
@@ -83,6 +106,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const response = await authService.login({ email, password });
       
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('access_token', response.accessToken);
+      }
+
       // Log in the frontend Supabase client so its session is updated
       try {
         await withTimeout(
@@ -90,7 +117,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             access_token: response.accessToken,
             refresh_token: response.refreshToken,
           }),
-          3000
+          2000
         );
       } catch (authError) {
         console.error('Failed to set Supabase session, proceeding anyway:', authError);
@@ -100,6 +127,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       router.push('/dashboard');
     } catch (error) {
       setUser(null);
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+      }
       throw error;
     } finally {
       setLoading(false);
@@ -109,6 +139,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     setLoading(true);
     try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+      }
       await supabase.auth.signOut();
       setUser(null);
       router.push('/login');
@@ -118,6 +151,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     }
   };
+
 
   const hasRole = (allowedRoles: string[]) => {
     if (!user || !user.roles) return false;

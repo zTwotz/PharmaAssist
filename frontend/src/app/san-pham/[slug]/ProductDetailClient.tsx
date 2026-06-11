@@ -155,7 +155,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
       imageUrl: product.images[0]?.imageUrl || activeImage,
       activeIngredient: activeIngredientsString || product.name,
       isAvailable: selectedVariant.status === 'ACTIVE'
-    });
+    }, quantity);
 
     triggerToast(`Đã thêm ${quantity} ${selectedVariant.unit} vào giỏ hàng thành công!`);
   };

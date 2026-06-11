@@ -11,7 +11,10 @@ import {
   ShoppingCart, 
   LogOut, 
   User,
-  Shield
+  Shield,
+  Users,
+  Truck,
+  Receipt
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -34,8 +37,14 @@ export function Sidebar({ currentPath }: SidebarProps) {
     },
     {
       label: 'Bán hàng (POS)',
-      path: '/sales',
+      path: '/pos',
       icon: ShoppingCart,
+      roles: ['ADMIN', 'STAFF'],
+    },
+    {
+      label: 'Lịch sử bán hàng',
+      path: '/sales',
+      icon: Receipt,
       roles: ['ADMIN', 'STAFF'],
     },
     {
@@ -50,7 +59,20 @@ export function Sidebar({ currentPath }: SidebarProps) {
       icon: Package,
       roles: ['ADMIN', 'WAREHOUSE'],
     },
+    {
+      label: 'Khách hàng',
+      path: '/customers',
+      icon: Users,
+      roles: ['ADMIN', 'STAFF'],
+    },
+    {
+      label: 'Nhà cung cấp',
+      path: '/suppliers',
+      icon: Truck,
+      roles: ['ADMIN', 'WAREHOUSE'],
+    },
   ];
+
 
   // Filter navigation items based on user roles
   const visibleItems = navItems.filter(item => hasRole(item.roles));

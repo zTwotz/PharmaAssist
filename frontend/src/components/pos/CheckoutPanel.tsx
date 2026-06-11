@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import { usePosStore } from '@/store/usePosStore';
+import { usePosStore, PosCartItem } from '@/store/usePosStore';
 import axios from 'axios';
+import { InvoiceModal } from './InvoiceModal';
 
 export function CheckoutPanel() {
   const { cart, totalAmount, clearCart } = usePosStore();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
+  const [completedOrder, setCompletedOrder] = useState<any>(null);
+  const [invoiceCartItems, setInvoiceCartItems] = useState<PosCartItem[]>([]);
 
   const handleCheckout = async () => {
     setIsProcessing(true);
@@ -21,9 +25,13 @@ export function CheckoutPanel() {
         }))
       };
 
-      await axios.post('http://localhost:3001/api/orders', orderPayload);
+      const response = await axios.post('http://localhost:3001/api/orders', orderPayload);
       
-      alert('Thanh toán thành công! Tồn kho đã được trừ.');
+      // Save data for receipt rendering before resetting the cart
+      setCompletedOrder(response.data);
+      setInvoiceCartItems([...cart]);
+      setIsInvoiceOpen(true);
+      
       clearCart();
     } catch (error: any) {
       console.error('Lỗi thanh toán:', error);
@@ -82,6 +90,18 @@ export function CheckoutPanel() {
           </>
         )}
       </button>
+
+      {completedOrder && (
+        <InvoiceModal
+          isOpen={isInvoiceOpen}
+          onClose={() => {
+            setIsInvoiceOpen(false);
+            setCompletedOrder(null);
+          }}
+          order={completedOrder}
+          cartItems={invoiceCartItems}
+        />
+      )}
     </div>
   );
 }
