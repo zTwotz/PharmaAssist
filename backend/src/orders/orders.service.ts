@@ -76,6 +76,45 @@ export class OrdersService {
     });
   }
 
+  async getDashboardStats() {
+    // Build date range for today (midnight to now in local time)
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const [todayOrders, totalInventoryCount, lowStockRows] = await Promise.all([
+      // Today's completed POS orders
+      this.prisma.order.findMany({
+        where: {
+          status: 'COMPLETED',
+          createdAt: { gte: todayStart },
+        },
+        select: { totalAmount: true },
+      }),
+      // Total active product variant SKUs in inventory
+      this.prisma.inventory.count({
+        where: { quantity: { gt: 0 } },
+      }),
+      // Low-stock: items where quantity is at or below the minQuantity threshold
+      this.prisma.$queryRaw<{ count: bigint }[]>`
+        SELECT COUNT(*) as count
+        FROM inventories
+        WHERE quantity <= COALESCE(min_quantity, 5)
+      `,
+    ]);
+
+    const todayRevenue = todayOrders.reduce(
+      (sum, o) => sum + Number(o.totalAmount),
+      0
+    );
+
+    return {
+      todayRevenue,
+      todayOrderCount: todayOrders.length,
+      totalSkuCount: totalInventoryCount,
+      lowStockCount: Number(lowStockRows[0]?.count ?? 0),
+    };
+  }
+
   async findAll() {
     return this.prisma.order.findMany({
       include: {

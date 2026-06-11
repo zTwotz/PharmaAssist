@@ -24,6 +24,13 @@ export class OrdersController {
     return this.ordersService.createOrder(createOrderDto);
   }
 
+  @Get('stats')
+  @Roles('ADMIN', 'STAFF', 'WAREHOUSE')
+  @ApiOperation({ summary: 'Lấy số liệu thống kê tổng quan cho Dashboard' })
+  async getStats() {
+    return this.ordersService.getDashboardStats();
+  }
+
   @Get()
   @Roles('ADMIN', 'STAFF')
   @ApiOperation({ summary: 'Lấy danh sách lịch sử đơn hàng POS' })
