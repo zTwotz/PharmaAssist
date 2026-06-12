@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
@@ -46,6 +46,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             },
           },
         },
+        userProfile: true,
       },
     });
 
@@ -54,7 +55,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     if (user.status !== 'ACTIVE') {
-      throw new UnauthorizedException('User account is currently inactive.');
+      throw new ForbiddenException('User account is currently inactive.');
     }
 
     const roles = user.userRoles.map((ur) => ur.role.name);
@@ -72,6 +73,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       fullName: user.fullName,
       roles,
       permissions,
+      mustChangePassword: user.userProfile?.mustChangePassword ?? false,
     };
   }
 }
