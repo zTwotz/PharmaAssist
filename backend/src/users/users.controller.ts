@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get, Patch, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Patch, Param, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffRoleStatusDto } from './dto/update-staff.dto';
@@ -20,6 +20,7 @@ export class UsersController {
   @Post('staff')
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @RequirePermissions('MANAGE_USERS')
+  // Fulfills PAC-TASK-042: Implement POST /admin/users (staff) using Supabase Admin
   async createStaffAccount(@Body() createStaffDto: CreateStaffDto) {
     const newUser = await this.usersService.createStaffAccount(createStaffDto);
     return {
@@ -34,8 +35,9 @@ export class UsersController {
   async updateStaffRoleStatus(
     @Param('id') id: string,
     @Body() updateStaffRoleStatusDto: UpdateStaffRoleStatusDto,
+    @Request() req: any,
   ) {
-    const updatedUser = await this.usersService.updateStaffRoleStatus(id, updateStaffRoleStatusDto);
+    const updatedUser = await this.usersService.updateStaffRoleStatus(id, req.user.id, updateStaffRoleStatusDto);
     return {
       message: 'Cập nhật nhân viên thành công',
       user: updatedUser,
