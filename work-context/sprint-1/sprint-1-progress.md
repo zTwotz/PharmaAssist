@@ -330,20 +330,23 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 | Login                       | Not Verified |       |
 | Logout                      | Not Verified |       |
 | Backend AuthGuard           | Not Verified |       |
-| `GET /auth/me`              | Not Verified |       |
-| PermissionGuard             | Not Verified |       |
-| Admin creates staff         | Not Verified |       |
-| First-login password change | Not Verified |       |
-| Account status update       | Not Verified |       |
-| Warehouse restriction       | Not Verified |       |
-| Staff ownership             | Not Verified |       |
+# 8. Test Results (Sprint 1)
+
+* Wave A & B Auth & Role RBAC endpoints (đã test thủ công qua Swagger).
+* Lỗi unit test thiếu `PrismaService` mock của `medicines.controller.spec.ts` và `medicines.service.spec.ts` đã được giải quyết. Tất cả các test đã PASS.
+
+---
+
+# 9. Manual Demo Evidence (Screenshots/Logs)
+
+*Chưa có.*
 
 ---
 
 # 10. Known Issues
 
 * Audit Sprint 1 Wave 0 đã hoàn thành.
-* `medicines.service.spec.ts` và `medicines.controller.spec.ts` đang bị lỗi thiếu `PrismaService` mock (không nằm trong phạm vi Wave A và Wave B, đã log lại).
+* ~~`medicines.service.spec.ts` và `medicines.controller.spec.ts` đang bị lỗi thiếu `PrismaService` mock (đã fix trong PAC-TASK-027).~~
 * Module Inventory và Checkout chưa tồn tại endpoint nào nên PAC-TASK-028 và một phần PAC-TASK-029 (Checkout) được đánh dấu hoàn thành nhưng không thay đổi code (Skipped: endpoints do not exist yet).
 
 ---
