@@ -20,6 +20,7 @@ export class UsersController {
   @Post('staff')
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @RequirePermissions('MANAGE_USERS')
+  // Fulfills PAC-TASK-042: Implement POST /admin/users (staff) using Supabase Admin
   async createStaffAccount(@Body() createStaffDto: CreateStaffDto) {
     const newUser = await this.usersService.createStaffAccount(createStaffDto);
     return {
