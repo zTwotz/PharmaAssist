@@ -25,4 +25,8 @@ export const authService = {
     const response = await api.get<UserProfile>('/auth/me');
     return response.data;
   },
+
+  async clearMustChangePassword(): Promise<void> {
+    await api.patch('/auth/me/clear-must-change-password');
+  },
 };

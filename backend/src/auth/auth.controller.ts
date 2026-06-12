@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Body, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -26,5 +26,14 @@ export class AuthController {
   async getProfile(@Request() req: any) {
     // req.user is populated by JwtStrategy.validate
     return req.user;
+  }
+  @Patch('me/clear-must-change-password')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Clear mustChangePassword flag for current user' })
+  @ApiResponse({ status: 200, description: 'Success' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async clearMustChangePassword(@Request() req: any) {
+    return this.authService.clearMustChangePassword(req.user.id);
   }
 }
