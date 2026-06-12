@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { supabase } from '@/lib/supabase';
+import { authService } from '@/lib/auth-service';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -51,8 +52,10 @@ export default function ChangePasswordPage() {
         throw error;
       }
 
-      // TODO: Implement PAC-TASK-049 clear flag logic here
-      console.log('Password updated successfully');
+      await authService.clearMustChangePassword();
+      
+      // Use window.location.href to force a full reload so AuthContext refetches getMe()
+      window.location.href = '/dashboard';
     } catch (err: any) {
       console.error('Change password error:', err);
       setErrorMsg(err.message || 'Có lỗi xảy ra khi đổi mật khẩu. Vui lòng thử lại.');
