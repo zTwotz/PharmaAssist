@@ -13,6 +13,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { UpdateStaffDialog } from './components/UpdateStaffDialog';
 import { getCookie } from 'cookies-next';
+import { useAuth } from '@/context/auth-context';
 
 export default function StaffListPage() {
   const [staffs, setStaffs] = useState<any[]>([]);
@@ -20,6 +21,7 @@ export default function StaffListPage() {
   const [loading, setLoading] = useState(true);
   const [selectedStaff, setSelectedStaff] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { hasPermission } = useAuth();
 
   useEffect(() => {
     fetchData();
@@ -141,16 +143,18 @@ export default function StaffListPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedStaff(staff);
-                        setIsDialogOpen(true);
-                      }}
-                    >
-                      Cập nhật
-                    </Button>
+                    {hasPermission('MANAGE_USERS') && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedStaff(staff);
+                          setIsDialogOpen(true);
+                        }}
+                      >
+                        Cập nhật
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))
