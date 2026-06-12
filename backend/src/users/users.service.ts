@@ -67,6 +67,7 @@ export class UsersService {
           phone,
           status: 'ACTIVE',
           userRoles: {
+            // Fulfills PAC-TASK-044: Assign roles to new staff account
             create: {
               roleId,
             },
