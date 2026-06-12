@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [longLoading, setLongLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -43,12 +44,20 @@ export default function LoginPage() {
     if (!validateForm()) return;
 
     setLoading(true);
+    setLongLoading(false);
+    
+    // Nếu sau 5 giây vẫn chưa xong, hiển thị thông báo máy chủ đang khởi động
+    const timeoutId = setTimeout(() => {
+      setLongLoading(true);
+    }, 5000);
 
     try {
       await login(email, password);
+      clearTimeout(timeoutId);
       setSuccess(true);
       // login method redirects to /dashboard internally
     } catch (err: any) {
+      clearTimeout(timeoutId);
       // Use warn instead of error to prevent Next.js from throwing a red error overlay in dev mode
       console.warn('Login warning:', err?.message || err);
       // Detailed errors from backend validation/unauthorized
@@ -106,6 +115,16 @@ export default function LoginPage() {
                 <CheckCircle2 className="h-4 w-4 text-green-600" />
                 <AlertTitle className="font-semibold text-green-800">Thành công</AlertTitle>
                 <AlertDescription className="text-green-700 text-xs mt-1">Đăng nhập thành công! Đang chuyển hướng...</AlertDescription>
+              </Alert>
+            )}
+
+            {longLoading && !success && !errorMsg && (
+              <Alert className="bg-blue-50 border-blue-200 text-blue-800">
+                <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
+                <AlertTitle className="font-semibold text-blue-800">Đang chờ phản hồi</AlertTitle>
+                <AlertDescription className="text-blue-700 text-xs mt-1">
+                  Máy chủ (Supabase) đang khởi động từ trạng thái nghỉ. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
+                </AlertDescription>
               </Alert>
             )}
             
