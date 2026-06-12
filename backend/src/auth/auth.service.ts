@@ -44,7 +44,15 @@ export class AuthService {
       include: {
         userRoles: {
           include: {
-            role: true,
+            role: {
+              include: {
+                rolePermissions: {
+                  include: {
+                    permission: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -59,6 +67,13 @@ export class AuthService {
     }
 
     const roles = userProfile.userRoles.map((ur) => ur.role.name);
+    const permissions = Array.from(
+      new Set(
+        userProfile.userRoles.flatMap((ur) =>
+          ur.role.rolePermissions.map((rp) => rp.permission.code)
+        )
+      )
+    );
 
     return {
       accessToken: session.access_token,
@@ -68,6 +83,7 @@ export class AuthService {
         email: userProfile.email,
         fullName: userProfile.fullName,
         roles,
+        permissions,
       },
     };
   }
