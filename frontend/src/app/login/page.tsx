@@ -47,7 +47,8 @@ export default function LoginPage() {
       await login(email, password);
       // login method redirects to /dashboard internally
     } catch (err: any) {
-      console.error('Login error:', err);
+      // Use warn instead of error to prevent Next.js from throwing a red error overlay in dev mode
+      console.warn('Login warning:', err?.message || err);
       // Detailed errors from backend validation/unauthorized
       const status = err.response?.status;
       const message = err.response?.data?.message;
