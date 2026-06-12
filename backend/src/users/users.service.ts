@@ -50,7 +50,11 @@ export class UsersService {
       email_confirm: true,
     });
 
+    // Fulfills PAC-TASK-045: Validate staff email uniqueness through Supabase
     if (authError) {
+      if (authError.message.includes('User already registered') || authError.status === 422) {
+        throw new BadRequestException('Email đã tồn tại trên Supabase Auth');
+      }
       throw new BadRequestException(`Lỗi tạo tài khoản Supabase: ${authError.message}`);
     }
 
@@ -67,8 +71,14 @@ export class UsersService {
           phone,
           status: 'ACTIVE',
           userRoles: {
+            // Fulfills PAC-TASK-044: Assign roles to new staff account
             create: {
               roleId,
+            },
+          },
+          userProfile: {
+            create: {
+              mustChangePassword: true,
             },
           },
         },
@@ -78,6 +88,7 @@ export class UsersService {
               role: true,
             },
           },
+          userProfile: true,
         },
       });
 
