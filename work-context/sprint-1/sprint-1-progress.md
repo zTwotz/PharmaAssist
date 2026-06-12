@@ -58,22 +58,22 @@ Vai trò: Epic chính cho nền tảng đăng nhập, xác thực, RBAC, Permiss
 * [ ] PAC-TASK-011 — Return 401 for missing or invalid session
 * [ ] PAC-TASK-013 — Create user_profiles Prisma model
 * [ ] PAC-TASK-014 — Create GET /auth/me API
-* [ ] PAC-TASK-015 — Return current user roles and permissions
-* [ ] PAC-TASK-016 — Display current user profile in layout
+* [x] PAC-TASK-015 — Return current user roles and permissions
+* [x] PAC-TASK-016 — Display current user profile in layout
 * [ ] PAC-TASK-017 — Create roles Prisma model
 * [ ] PAC-TASK-018 — Create permissions Prisma model
 * [ ] PAC-TASK-019 — Create user_roles Prisma model
 * [ ] PAC-TASK-020 — Create role_permissions Prisma model
 * [ ] PAC-TASK-021 — Seed Admin, Staff and Warehouse roles
-* [ ] PAC-TASK-022 — Seed MVP permissions
-* [ ] PAC-TASK-023 — Map permissions to roles
-* [ ] PAC-TASK-024 — Implement permission decorator
-* [ ] PAC-TASK-025 — Implement permission-based API guard
+* [x] PAC-TASK-022 — Seed MVP permissions
+* [x] PAC-TASK-023 — Map permissions to roles
+* [x] PAC-TASK-024 — Implement permission decorator
+* [x] PAC-TASK-025 — Implement permission-based API guard
 * [ ] PAC-TASK-026 — Add permission checks to Auth and User APIs
 * [ ] PAC-TASK-027 — Add permission checks to Medicine APIs
 * [ ] PAC-TASK-028 — Add permission checks to Inventory APIs
 * [ ] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
-* [ ] PAC-TASK-030 — Add 403 response format for forbidden access
+* [x] PAC-TASK-030 — Add 403 response format for forbidden access
 * [ ] PAC-TASK-031 — Build permission-aware sidebar
 * [ ] PAC-TASK-032 — Hide unauthorized action buttons
 * [ ] PAC-TASK-033 — Build forbidden access page
@@ -214,22 +214,22 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] PAC-TASK-012 — Add backend auth unit tests
 * [ ] PAC-TASK-013 — Create user_profiles Prisma model
 * [ ] PAC-TASK-014 — Create GET /auth/me API
-* [ ] PAC-TASK-015 — Return current user roles and permissions
-* [ ] PAC-TASK-016 — Display current user profile in layout
+* [x] PAC-TASK-015 — Return current user roles and permissions
+* [x] PAC-TASK-016 — Display current user profile in layout
 * [ ] PAC-TASK-017 — Create roles Prisma model
 * [ ] PAC-TASK-018 — Create permissions Prisma model
 * [ ] PAC-TASK-019 — Create user_roles Prisma model
 * [ ] PAC-TASK-020 — Create role_permissions Prisma model
 * [ ] PAC-TASK-021 — Seed Admin, Staff and Warehouse roles
-* [ ] PAC-TASK-022 — Seed MVP permissions
-* [ ] PAC-TASK-023 — Map permissions to roles
-* [ ] PAC-TASK-024 — Implement permission decorator
-* [ ] PAC-TASK-025 — Implement permission-based API guard
+* [x] PAC-TASK-022 — Seed MVP permissions
+* [x] PAC-TASK-023 — Map permissions to roles
+* [x] PAC-TASK-024 — Implement permission decorator
+* [x] PAC-TASK-025 — Implement permission-based API guard
 * [ ] PAC-TASK-026 — Add permission checks to Auth and User APIs
 * [ ] PAC-TASK-027 — Add permission checks to Medicine APIs
 * [ ] PAC-TASK-028 — Add permission checks to Inventory APIs
 * [ ] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
-* [ ] PAC-TASK-030 — Add 403 response format for forbidden access
+* [x] PAC-TASK-030 — Add 403 response format for forbidden access
 * [ ] PAC-TASK-031 — Build permission-aware sidebar
 * [ ] PAC-TASK-032 — Hide unauthorized action buttons
 * [ ] PAC-TASK-033 — Build forbidden access page
@@ -266,8 +266,8 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] Seed Admin role
 * [ ] Seed Staff role
 * [ ] Seed Warehouse role
-* [ ] Seed MVP permissions
-* [ ] Seed role-permission mapping
+* [x] Seed MVP permissions
+* [x] Seed role-permission mapping
 * [ ] Không lưu `password_hash` trong PostgreSQL
 * [ ] Không tạo custom auth/session table thay Supabase Auth
 
@@ -278,10 +278,10 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] `GET /auth/me`
 * [ ] Supabase token validation
 * [ ] AuthGuard
-* [ ] Permission decorator
-* [ ] PermissionGuard
+* [x] Permission decorator
+* [x] PermissionGuard
 * [ ] 401 response for missing/invalid session
-* [ ] 403 response for forbidden access
+* [x] 403 response for forbidden access
 * [ ] `POST /admin/users`
 * [ ] `PATCH /admin/users/{id}/status`
 * [ ] Change password flow API/service nếu được implement
@@ -315,11 +315,11 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 | Command                             | Status  | Notes |
 | ----------------------------------- | ------- | ----- |
 | `cd frontend && npm run lint`       | Not Run |       |
-| `cd frontend && npm run build`      | Not Run |       |
+| `cd frontend && npm run build`      | Passed  | Had to install cookies-next & zustand |
 | `cd backend && npm run lint`        | Not Run |       |
-| `cd backend && npm run test`        | Not Run |       |
-| `cd backend && npx prisma validate` | Not Run |       |
-| `cd backend && npx prisma generate` | Not Run |       |
+| `cd backend && npm run test`        | Failed  | `medicines` module specs missing PrismaService import |
+| `cd backend && npx prisma validate` | Passed  |       |
+| `cd backend && npx prisma generate` | Passed  |       |
 
 ---
 
@@ -342,11 +342,8 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 
 # 10. Known Issues
 
-* Chưa audit xong Sprint 1.
-* Cần kiểm tra backend hiện đang dùng custom JWT hay Supabase token validation.
-* Cần kiểm tra frontend login hiện đang dùng Supabase Auth hay API backend.
-* Cần kiểm tra RBAC hiện là role-only hay permission-based.
-* Cần kiểm tra Prisma schema đã đủ `user_profiles`, `roles`, `permissions`, `user_roles`, `role_permissions` chưa.
+* Audit Sprint 1 Wave 0 đã hoàn thành.
+* `medicines.service.spec.ts` và `medicines.controller.spec.ts` đang bị lỗi thiếu `PrismaService` mock (không nằm trong phạm vi Wave A).
 
 ---
 
