@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useAuth } from '@/context/auth-context';
 
 export function UpdateStaffDialog({
   isOpen,
@@ -36,6 +37,8 @@ export function UpdateStaffDialog({
   const [roleId, setRoleId] = useState<string>(currentRole);
   const [status, setStatus] = useState<string>(currentStatus);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  const isSelf = user?.id === staff?.id;
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -91,11 +94,14 @@ export function UpdateStaffDialog({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="ACTIVE">Hoạt động (ACTIVE)</SelectItem>
-                <SelectItem value="INACTIVE">Vô hiệu hóa (INACTIVE)</SelectItem>
-                <SelectItem value="SUSPENDED">Đình chỉ (SUSPENDED)</SelectItem>
-                <SelectItem value="BANNED">Cấm vĩnh viễn (BANNED)</SelectItem>
+                <SelectItem value="INACTIVE" disabled={isSelf}>Vô hiệu hóa (INACTIVE)</SelectItem>
+                <SelectItem value="SUSPENDED" disabled={isSelf}>Đình chỉ (SUSPENDED)</SelectItem>
+                <SelectItem value="BANNED" disabled={isSelf}>Cấm vĩnh viễn (BANNED)</SelectItem>
               </SelectContent>
             </Select>
+            {isSelf && (
+               <p className="text-xs text-orange-500">Bạn không thể tự vô hiệu hóa tài khoản của chính mình.</p>
+            )}
           </div>
         </div>
 
