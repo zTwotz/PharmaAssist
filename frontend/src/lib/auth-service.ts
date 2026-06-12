@@ -6,6 +6,7 @@ export interface UserProfile {
   fullName: string;
   roles: string[];
   permissions: string[];
+  mustChangePassword?: boolean;
 }
 
 export interface LoginResponse {

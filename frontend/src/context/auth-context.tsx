@@ -80,7 +80,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       setUser(response.user);
-      router.push('/dashboard');
+      
+      if (response.user.mustChangePassword) {
+        router.push('/change-password');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (error) {
       setUser(null);
       throw error;
