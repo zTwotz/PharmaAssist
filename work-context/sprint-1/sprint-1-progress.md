@@ -113,24 +113,24 @@ Vai trò: Epic chính cho quản lý tài khoản nhân viên, tạo staff bằn
 
 ### Related User Stories
 
-* [ ] US-10 — Admin tạo tài khoản nhân viên
-* [ ] US-11 — Đổi mật khẩu lần đầu
-* [ ] US-12 — Cập nhật trạng thái tài khoản nhân viên
+* [x] US-10 — Admin tạo tài khoản nhân viên
+* [x] US-11 — Đổi mật khẩu lần đầu
+* [x] US-12 — Cập nhật trạng thái tài khoản nhân viên
 
 ### Related Tasks
 
-* [ ] PAC-TASK-041 — Build Admin create staff account form
-* [ ] PAC-TASK-042 — Implement POST /admin/users using Supabase Admin
-* [ ] PAC-TASK-043 — Create user profile after Supabase user creation
-* [ ] PAC-TASK-044 — Assign roles to new staff account
-* [ ] PAC-TASK-045 — Validate staff email uniqueness through Supabase
-* [ ] PAC-TASK-046 — Implement first-login password change screen
-* [ ] PAC-TASK-047 — Implement must_change_password check
-* [ ] PAC-TASK-048 — Implement password update through Supabase Auth
-* [ ] PAC-TASK-049 — Clear must_change_password after successful change
-* [ ] PAC-TASK-050 — Implement account active/inactive update API
-* [ ] PAC-TASK-051 — Build staff account status UI
-* [ ] PAC-TASK-052 — Add audit log for staff status change
+* [x] PAC-TASK-041 — Build Admin create staff account form
+* [x] PAC-TASK-042 — Implement POST /admin/users using Supabase Admin
+* [x] PAC-TASK-043 — Create user profile after Supabase user creation
+* [x] PAC-TASK-044 — Assign roles to new staff account
+* [x] PAC-TASK-045 — Validate staff email uniqueness through Supabase
+* [x] PAC-TASK-046 — Implement first-login password change screen
+* [x] PAC-TASK-047 — Implement must_change_password check
+* [x] PAC-TASK-048 — Implement password update through Supabase Auth
+* [x] PAC-TASK-049 — Clear must_change_password after successful change
+* [x] PAC-TASK-050 — Implement account active/inactive update API
+* [x] PAC-TASK-051 — Build staff account status UI
+* [x] PAC-TASK-052 — Add audit log for staff status change
 
 ### Completion Criteria
 
@@ -192,9 +192,9 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [x] US-07 — Permission-aware frontend UI
 * [x] US-08 — Staff ownership scope
 * [x] US-09 — Warehouse access restrictions
-* [ ] US-10 — Admin tạo tài khoản nhân viên
-* [ ] US-11 — Đổi mật khẩu lần đầu
-* [ ] US-12 — Cập nhật trạng thái tài khoản nhân viên
+* [x] US-10 — Admin tạo tài khoản nhân viên
+* [x] US-11 — Đổi mật khẩu lần đầu
+* [x] US-12 — Cập nhật trạng thái tài khoản nhân viên
 
 ---
 
@@ -249,9 +249,9 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [x] PAC-TASK-047 — Implement must_change_password check
 * [x] PAC-TASK-048 — Implement password update through Supabase Auth
 * [x] PAC-TASK-049 — Clear must_change_password after successful change
-* [ ] PAC-TASK-050 — Implement account active/inactive update API
-* [ ] PAC-TASK-051 — Build staff account status UI
-* [ ] PAC-TASK-052 — Add audit log for staff status change
+* [x] PAC-TASK-050 — Implement account active/inactive update API
+* [x] PAC-TASK-051 — Build staff account status UI
+* [x] PAC-TASK-052 — Add audit log for staff status change
 
 ---
 
@@ -262,7 +262,7 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] `permissions` model
 * [ ] `user_roles` model
 * [ ] `role_permissions` model
-* [ ] `audit_logs` / `account_audit_logs` model
+* [x] `audit_logs` / `account_audit_logs` model
 * [ ] Seed Admin role
 * [ ] Seed Staff role
 * [ ] Seed Warehouse role
