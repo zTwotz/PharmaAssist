@@ -54,12 +54,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
         router.push('/login');
       } else if (event === 'SIGNED_IN' && session) {
-        try {
-          const profile = await authService.getMe();
-          setUser(profile);
-        } catch (error) {
-          console.error('Error getting profile on auth state change:', error);
-        }
+        // Run outside the Supabase Auth lock to prevent deadlock with getSession() inside interceptor
+        setTimeout(async () => {
+          try {
+            const profile = await authService.getMe();
+            setUser(profile);
+          } catch (error) {
+            console.error('Error getting profile on auth state change:', error);
+          }
+        }, 0);
       }
     });
 
