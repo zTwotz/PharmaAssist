@@ -3,23 +3,23 @@ import { UsersService } from './users.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffRoleStatusDto } from './dto/update-staff.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
+import { PermissionsGuard } from '../auth/permissions.guard';
+import { RequirePermissions } from '../auth/permissions.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('staff')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('ADMIN')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermissions('VIEW_USERS')
   async getStaffs() {
     return this.usersService.getStaffs();
   }
 
   @Post('staff')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('ADMIN')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermissions('MANAGE_USERS')
   async createStaffAccount(@Body() createStaffDto: CreateStaffDto) {
     const newUser = await this.usersService.createStaffAccount(createStaffDto);
     return {
@@ -29,8 +29,8 @@ export class UsersController {
   }
 
   @Patch('staff/:id/role-status')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('ADMIN')
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
+  @RequirePermissions('MANAGE_USERS')
   async updateStaffRoleStatus(
     @Param('id') id: string,
     @Body() updateStaffRoleStatusDto: UpdateStaffRoleStatusDto,
