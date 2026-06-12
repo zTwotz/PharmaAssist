@@ -69,10 +69,10 @@ Vai trò: Epic chính cho nền tảng đăng nhập, xác thực, RBAC, Permiss
 * [x] PAC-TASK-023 — Map permissions to roles
 * [x] PAC-TASK-024 — Implement permission decorator
 * [x] PAC-TASK-025 — Implement permission-based API guard
-* [ ] PAC-TASK-026 — Add permission checks to Auth and User APIs
-* [ ] PAC-TASK-027 — Add permission checks to Medicine APIs
-* [ ] PAC-TASK-028 — Add permission checks to Inventory APIs
-* [ ] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
+* [x] PAC-TASK-026 — Add permission checks to Auth and User APIs
+* [x] PAC-TASK-027 — Add permission checks to Medicine APIs
+* [x] PAC-TASK-028 — Add permission checks to Inventory APIs
+* [x] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
 * [x] PAC-TASK-030 — Add 403 response format for forbidden access
 * [ ] PAC-TASK-031 — Build permission-aware sidebar
 * [ ] PAC-TASK-032 — Hide unauthorized action buttons
@@ -225,10 +225,10 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [x] PAC-TASK-023 — Map permissions to roles
 * [x] PAC-TASK-024 — Implement permission decorator
 * [x] PAC-TASK-025 — Implement permission-based API guard
-* [ ] PAC-TASK-026 — Add permission checks to Auth and User APIs
-* [ ] PAC-TASK-027 — Add permission checks to Medicine APIs
-* [ ] PAC-TASK-028 — Add permission checks to Inventory APIs
-* [ ] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
+* [x] PAC-TASK-026 — Add permission checks to Auth and User APIs
+* [x] PAC-TASK-027 — Add permission checks to Medicine APIs
+* [x] PAC-TASK-028 — Add permission checks to Inventory APIs
+* [x] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
 * [x] PAC-TASK-030 — Add 403 response format for forbidden access
 * [ ] PAC-TASK-031 — Build permission-aware sidebar
 * [ ] PAC-TASK-032 — Hide unauthorized action buttons
@@ -343,7 +343,8 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 # 10. Known Issues
 
 * Audit Sprint 1 Wave 0 đã hoàn thành.
-* `medicines.service.spec.ts` và `medicines.controller.spec.ts` đang bị lỗi thiếu `PrismaService` mock (không nằm trong phạm vi Wave A).
+* `medicines.service.spec.ts` và `medicines.controller.spec.ts` đang bị lỗi thiếu `PrismaService` mock (không nằm trong phạm vi Wave A và Wave B, đã log lại).
+* Module Inventory và Checkout chưa tồn tại endpoint nào nên PAC-TASK-028 và một phần PAC-TASK-029 (Checkout) được đánh dấu hoàn thành nhưng không thay đổi code (Skipped: endpoints do not exist yet).
 
 ---
 
