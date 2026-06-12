@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
@@ -42,6 +42,7 @@ export class AuthService {
     const userProfile = await this.prisma.user.findUnique({
       where: { id: user.id },
       include: {
+        userProfile: true,
         userRoles: {
           include: {
             role: {
@@ -63,7 +64,7 @@ export class AuthService {
     }
 
     if (userProfile.status !== 'ACTIVE') {
-      throw new UnauthorizedException('User account is currently inactive.');
+      throw new ForbiddenException('User account is currently inactive.');
     }
 
     const roles = userProfile.userRoles.map((ur) => ur.role.name);
@@ -84,7 +85,7 @@ export class AuthService {
         fullName: userProfile.fullName,
         roles,
         permissions,
-        mustChangePassword: userProfile.mustChangePassword,
+        mustChangePassword: userProfile.userProfile?.mustChangePassword ?? false,
       },
     };
   }
@@ -92,7 +93,13 @@ export class AuthService {
   async clearMustChangePassword(userId: string) {
     await this.prisma.user.update({
       where: { id: userId },
-      data: { mustChangePassword: false },
+      data: {
+        userProfile: {
+          update: {
+            mustChangePassword: false,
+          },
+        },
+      },
     });
     return { success: true };
   }

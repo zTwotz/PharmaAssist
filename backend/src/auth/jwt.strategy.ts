@@ -46,6 +46,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             },
           },
         },
+        userProfile: true,
       },
     });
 
@@ -72,7 +73,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       fullName: user.fullName,
       roles,
       permissions,
-      mustChangePassword: user.mustChangePassword,
+      mustChangePassword: user.userProfile?.mustChangePassword ?? false,
     };
   }
 }
