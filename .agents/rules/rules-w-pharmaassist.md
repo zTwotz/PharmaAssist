@@ -29,6 +29,21 @@ description: Quy tắc phát triển PharmaAssist (NestJS, Next.js, Prisma, Supa
   - Định dạng: `<type>(PAC-xxx): <mô tả tiếng Anh>`.
   - Không dùng `git push --force` lên `main/develop`. 
   - Chỉ push lên đúng nhánh `feature/PAC-xxx` hoặc `fix/PAC-xxx`.
+  - **Các kiểu commit hợp lệ:**
+
+| Type       | Dùng khi nào                            | Ví dụ                                            |
+| ---------- | --------------------------------------- | ------------------------------------------------ |
+| `feat`     | Thêm chức năng mới                      | `feat(pos): thêm màn hình tạo đơn bán hàng`      |
+| `fix`      | Sửa lỗi                                 | `fix(auth): sửa lỗi không lưu session`           |
+| `docs`     | Cập nhật tài liệu                       | `docs(uml): bổ sung sequence diagram checkout`   |
+| `style`    | Sửa format code, không đổi logic        | `style(ui): căn chỉnh giao diện login`           |
+| `refactor` | Tái cấu trúc code, không thêm tính năng | `refactor(order): tách logic tính tổng đơn hàng` |
+| `test`     | Thêm/sửa test                           | `test(inventory): thêm test cho FEFO deduction`  |
+| `chore`    | Việc phụ trợ: config, package, setup    | `chore(prisma): cập nhật schema và migration`    |
+| `build`    | Thay đổi build/dependency               | `build(next): cập nhật cấu hình build frontend`  |
+| `ci`       | Thay đổi GitHub Actions/CI              | `ci(github): thêm workflow kiểm tra lint`        |
+| `perf`     | Tối ưu hiệu năng                        | `perf(graph): tối ưu truy vấn interaction rule`  |
+| `revert`   | Hoàn tác commit                         | `revert: hoàn tác thay đổi checkout validation`  |
 
 ## 5. Quy Trình Làm Việc Tự Động (AI Agent Workflow)
 **5.1. Bắt Đầu Task:** Tuân thủ `/karpathy-principles`. Dùng `/brainstorming`, `/writing-plans` để lên kế hoạch. Hỏi `/grill-me` nếu mơ hồ trước khi code.
