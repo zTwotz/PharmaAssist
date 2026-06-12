@@ -84,7 +84,16 @@ export class AuthService {
         fullName: userProfile.fullName,
         roles,
         permissions,
+        mustChangePassword: userProfile.mustChangePassword,
       },
     };
+  }
+
+  async clearMustChangePassword(userId: string) {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { mustChangePassword: false },
+    });
+    return { success: true };
   }
 }
