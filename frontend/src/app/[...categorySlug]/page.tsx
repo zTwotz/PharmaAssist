@@ -8,13 +8,13 @@ import Link from 'next/link';
 
 export const revalidate = 60; // Cache page for 60 seconds
 
-export default async function DynamicProductListingPage({
-  params,
-  searchParams,
-}: {
-  params: { categorySlug: string[] };
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function DynamicProductListingPage(props: {
+  params: Promise<{ categorySlug?: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+
   const slugArray = params.categorySlug || [];
   const activeSlug = slugArray.length > 0 ? slugArray[slugArray.length - 1] : undefined;
 

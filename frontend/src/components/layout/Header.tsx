@@ -7,18 +7,24 @@ import {
   Search,
   ShoppingCart,
   User,
-  Phone,
-  MapPin,
-  Lock,
   Sparkles,
   ChevronRight,
   ChevronDown,
-  X
+  X,
+  Package,
+  MapPin,
+  Syringe,
+  FileText,
+  Pill,
+  LogOut
 } from "lucide-react";
 import { NAV_MEGA_MENU_DATA, renderMenuIcon, renderSubcatThumbnail } from "@/lib/constants/menu";
+import { useAuth } from "@/context/auth-context";
 
 export function Header() {
   const router = useRouter();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
@@ -47,31 +53,7 @@ export function Header() {
 
   return (
     <>
-      {/* 1. TOP BAR */}
-      <div className="bg-ink-soft text-white text-xs py-2 px-4 md:px-8 border-b border-charcoal">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <span className="flex items-center gap-1 font-medium hover:text-primary-soft transition-colors cursor-pointer">
-              <Phone size={14} className="text-primary-bright" />
-              Hotline tư vấn: <strong className="text-primary-soft">1800 6868</strong> (Miễn phí)
-            </span>
-            <span className="flex items-center gap-1 opacity-95">
-              <MapPin size={14} className="text-primary-bright" />
-              Địa chỉ: 123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. HCM
-            </span>
-          </div>
-          <Link 
-            href="/login" 
-            id="btn-staff-login-topbar"
-            className="flex items-center gap-1.5 bg-charcoal hover:bg-primary-deep text-white px-3 py-1 rounded-md transition-all duration-300 text-xs border border-graphite"
-          >
-            <Lock size={12} className="text-primary-bright" />
-            Nhân viên đăng nhập
-          </Link>
-        </div>
-      </div>
-
-      {/* 2. HEADER CHÍNH */}
+      {/* HEADER CHÍNH */}
       <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur-md border-b border-fog shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo */}
@@ -100,7 +82,7 @@ export function Header() {
                   </span>
                 )}
               </Link>
-              <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
+              <Link href={isAuthenticated ? "/profile" : "/login"} id="mobile-login-btn" className={`p-2 transition-colors ${isAuthenticated ? "text-primary" : "text-ink hover:text-primary"}`}>
                 <User size={22} />
               </Link>
             </div>
@@ -131,28 +113,72 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
+            {isAuthenticated && user ? (
+              <div 
+                className="relative group" 
+                onMouseEnter={() => setShowUserMenu(true)} 
+                onMouseLeave={() => setShowUserMenu(false)}
+              >
+                <div className="flex items-center gap-2 cursor-pointer py-2 px-3 text-ink hover:text-primary transition-colors">
+                  <div className="bg-[#024ad8]/10 text-[#024ad8] p-1.5 rounded-full flex items-center justify-center">
+                    <User size={18} />
+                  </div>
+                  <span className="font-bold uppercase text-sm">
+                    {user.fullName || user.email?.split('@')[0] || "USER"}
+                  </span>
+                </div>
+                {showUserMenu && (
+                  <div className="absolute top-full right-0 mt-0 w-64 bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-fog py-3 z-50 animate-fadeIn overflow-hidden">
+                    <Link href="/profile" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <User size={18} className="text-graphite" /> Thông tin cá nhân
+                    </Link>
+                    <Link href="/orders" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <Package size={18} className="text-graphite" /> Đơn hàng của tôi
+                    </Link>
+                    <Link href="/addresses" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <MapPin size={18} className="text-graphite" /> Sổ địa chỉ nhận hàng
+                    </Link>
+                    <Link href="/vaccination/appointments" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <Syringe size={18} className="text-graphite" /> Lịch hẹn tiêm chủng
+                    </Link>
+                    <Link href="/vaccination/orders" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <FileText size={18} className="text-graphite" /> Đơn hàng tiêm chủng
+                    </Link>
+                    <Link href="/prescriptions" className="flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-[#024ad8] transition-colors font-medium">
+                      <Pill size={18} className="text-graphite" /> Đơn thuốc của tôi
+                    </Link>
+                    <div className="h-px bg-fog my-1 mx-4"></div>
+                    <button onClick={() => logout()} className="w-full flex items-center gap-3 px-5 py-3 text-sm text-ink hover:bg-cloud hover:text-bloom-coral transition-colors text-left font-medium">
+                      <LogOut size={18} className="text-graphite" /> Đăng xuất
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link 
+                href="/login" 
+                id="desktop-login-link"
+                className="flex items-center gap-2 text-ink hover:text-[#024ad8] px-3 py-2 transition-all duration-300 text-sm font-bold"
+              >
+                <div className="bg-[#024ad8]/10 text-[#024ad8] p-1.5 rounded-full">
+                  <User size={18} />
+                </div>
+                Đăng nhập
+              </Link>
+            )}
+
             <Link 
               href="/cart" 
               id="desktop-cart-link"
-              className="relative flex items-center gap-2 bg-cloud hover:bg-primary-soft text-ink hover:text-primary-deep px-4 py-2 rounded-xl transition-all duration-300 text-sm font-medium border border-fog"
+              className="relative flex items-center gap-2 bg-[#024ad8] hover:bg-[#024ad8]/90 text-white px-6 py-2.5 rounded-3xl transition-all duration-300 text-sm font-bold shadow-md hover:shadow-lg"
             >
               <ShoppingCart size={18} />
               Giỏ hàng
               {cartCount > 0 ? (
-                <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-bloom-coral text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-1 -right-1 shadow-sm">
                   {cartCount}
                 </span>
-              ) : (
-                <span className="text-xs text-graphite">0</span>
-              )}
-            </Link>
-            <Link 
-              href="/login" 
-              id="desktop-login-link"
-              className="flex items-center gap-2 bg-primary hover:bg-primary-deep text-white px-5 py-2 rounded-xl transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-            >
-              <User size={18} />
-              Đăng nhập
+              ) : null}
             </Link>
           </div>
         </div>
