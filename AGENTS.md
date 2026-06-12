@@ -25,3 +25,29 @@ AI Agent must read before coding:
 - Every completed task must have evidence in `/work-context/evidence`.
 - If existing code conflicts with baseline, report the conflict before changing code.
 - Do not delete existing working modules without evidence and explanation.
+## PR and Merge Rule
+
+Default merge flow:
+
+Task branch -> User Story branch -> develop
+
+Do not merge task branches directly into develop unless the task is independent and approved.
+
+Each task branch must contain the real Jira issue key.
+
+Each User Story branch must also contain the real Jira issue key of the User Story.
+
+Example:
+
+Task branch:
+feature/PAC-251-TASK-041-admin-create-staff-form
+
+User Story branch:
+feature/PAC-49-US-10-admin-create-staff-account
+
+PR flow:
+1. Create PR from task branch into User Story branch.
+2. Merge task PR after tests pass.
+3. After all task branches are merged, test the User Story branch.
+4. Create PR from User Story branch into develop.
+5. Merge into develop only after the User Story branch passes tests.
