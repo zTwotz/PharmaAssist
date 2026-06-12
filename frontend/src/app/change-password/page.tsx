@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/auth-context';
+import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -42,11 +43,19 @@ export default function ChangePasswordPage() {
     setLoading(true);
 
     try {
-      // TODO: Implement password change logic in PAC-TASK-048
-      console.log('Password change initiated for', user?.email);
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+      
+      if (error) {
+        throw error;
+      }
+
+      // TODO: Implement PAC-TASK-049 clear flag logic here
+      console.log('Password updated successfully');
     } catch (err: any) {
       console.error('Change password error:', err);
-      setErrorMsg('Có lỗi xảy ra khi đổi mật khẩu. Vui lòng thử lại.');
+      setErrorMsg(err.message || 'Có lỗi xảy ra khi đổi mật khẩu. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
