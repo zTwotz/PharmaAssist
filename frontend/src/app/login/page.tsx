@@ -6,13 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, ShieldAlert } from 'lucide-react';
+import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react';
 
 export default function LoginPage() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const validateForm = () => {
@@ -45,6 +46,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
+      setSuccess(true);
       // login method redirects to /dashboard internally
     } catch (err: any) {
       // Use warn instead of error to prevent Next.js from throwing a red error overlay in dev mode
@@ -98,6 +100,14 @@ export default function LoginPage() {
                 <AlertDescription className="text-bloom-wine text-xs mt-1">{errorMsg}</AlertDescription>
               </Alert>
             )}
+
+            {success && (
+              <Alert className="bg-green-50 border-green-200 text-green-800">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <AlertTitle className="font-semibold text-green-800">Thành công</AlertTitle>
+                <AlertDescription className="text-green-700 text-xs mt-1">Đăng nhập thành công! Đang chuyển hướng...</AlertDescription>
+              </Alert>
+            )}
             
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-charcoal uppercase tracking-wider" htmlFor="email">
@@ -137,10 +147,19 @@ export default function LoginPage() {
           <CardFooter className="flex flex-col px-6 pb-8 pt-4">
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-deep text-white font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98]"
-              disabled={loading}
+              className={`w-full font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98] ${
+                success 
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'bg-primary hover:bg-primary-deep text-white'
+              }`}
+              disabled={loading || success}
             >
-              {loading ? (
+              {success ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Thành công
+                </>
+              ) : loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Đang xác thực...
