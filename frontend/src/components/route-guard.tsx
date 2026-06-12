@@ -18,7 +18,13 @@ export function RouteGuard({ children, allowedRoles, allowedPermissions }: Route
   useEffect(() => {
     if (!loading && !isAuthenticated) {
       router.push('/login');
-    } else if (!loading && isAuthenticated) {
+    } else if (!loading && isAuthenticated && user) {
+      // Check if user must change password
+      if (user.mustChangePassword) {
+        router.replace('/change-password');
+        return;
+      }
+      
       // Check roles
       if (allowedRoles && allowedRoles.length > 0 && !hasRole(allowedRoles)) {
         router.replace('/forbidden');
@@ -54,6 +60,11 @@ export function RouteGuard({ children, allowedRoles, allowedPermissions }: Route
 
   // If permission restriction exists, verify permissions
   if (allowedPermissions && allowedPermissions.length > 0 && !hasAnyPermission(allowedPermissions)) {
+    return null; // Will be redirected by useEffect
+  }
+
+  // If user must change password, don't render children
+  if (user && user.mustChangePassword) {
     return null; // Will be redirected by useEffect
   }
 
