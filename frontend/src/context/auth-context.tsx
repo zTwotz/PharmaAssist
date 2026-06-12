@@ -12,7 +12,9 @@ interface AuthContextType {
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   hasRole: (allowedRoles: string[]) => boolean;
-  hasPermission: (requiredPermissions: string[]) => boolean;
+  hasPermission: (permission: string) => boolean;
+  hasAnyPermission: (permissions: string[]) => boolean;
+  hasAllPermissions: (permissions: string[]) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -105,14 +107,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return user.roles.some(role => allowedRoles.includes(role));
   };
 
-  const hasPermission = (requiredPermissions: string[]) => {
+  const hasPermission = (permission: string) => {
     if (!user || !user.permissions) return false;
-    // By default require ALL listed permissions. Adjust logic if needed.
-    return requiredPermissions.every(permission => user.permissions.includes(permission));
+    return user.permissions.includes(permission);
+  };
+
+  const hasAnyPermission = (permissions: string[]) => {
+    if (!user || !user.permissions) return false;
+    return permissions.some(permission => user.permissions.includes(permission));
+  };
+
+  const hasAllPermissions = (permissions: string[]) => {
+    if (!user || !user.permissions) return false;
+    return permissions.every(permission => user.permissions.includes(permission));
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user, hasRole, hasPermission }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user, hasRole, hasPermission, hasAnyPermission, hasAllPermissions }}>
       {children}
     </AuthContext.Provider>
   );
