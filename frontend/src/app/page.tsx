@@ -962,8 +962,9 @@ export default function HomePage() {
             setCategories(mappedCats);
           }
         }
-      } catch (err) {
-        console.error("Error fetching data from API, using fallback mock data:", err);
+      } catch (err: any) {
+        // Use warn instead of error to avoid Next.js dev overlay for expected network failures during dev
+        console.warn("API not reachable, using fallback mock data. Reason: " + (err?.message || "Failed to fetch"));
       } finally {
         setLoading(false);
       }
