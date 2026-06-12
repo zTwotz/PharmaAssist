@@ -18,7 +18,7 @@ export default function DashboardPage() {
       : 'Nhân viên bán hàng';
 
   return (
-    <RouteGuard allowedRoles={['ADMIN', 'STAFF', 'WAREHOUSE']}>
+    <RouteGuard allowedPermissions={['VIEW_DASHBOARD']}>
       <div className="flex min-h-screen bg-cloud font-sans">
         {/* Dynamic Sidebar based on roles */}
         <Sidebar currentPath="/dashboard" />
