@@ -74,10 +74,10 @@ Vai trò: Epic chính cho nền tảng đăng nhập, xác thực, RBAC, Permiss
 * [x] PAC-TASK-028 — Add permission checks to Inventory APIs
 * [x] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
 * [x] PAC-TASK-030 — Add 403 response format for forbidden access
-* [ ] PAC-TASK-031 — Build permission-aware sidebar
-* [ ] PAC-TASK-032 — Hide unauthorized action buttons
-* [ ] PAC-TASK-033 — Build forbidden access page
-* [ ] PAC-TASK-034 — Add frontend permission helper
+* [x] PAC-TASK-031 — Build permission-aware sidebar
+* [x] PAC-TASK-032 — Hide unauthorized action buttons
+* [x] PAC-TASK-033 — Build forbidden access page
+* [x] PAC-TASK-034 — Add frontend permission helper
 * [ ] PAC-TASK-035 — Implement Staff ownership query filter for orders
 * [ ] PAC-TASK-036 — Implement Staff ownership query filter for customer order history
 * [ ] PAC-TASK-038 — Block Warehouse access to POS routes
@@ -95,7 +95,7 @@ Vai trò: Epic chính cho nền tảng đăng nhập, xác thực, RBAC, Permiss
 * [ ] MVP permissions đã được seed.
 * [ ] PermissionGuard hoạt động.
 * [ ] API thiếu quyền trả 403.
-* [ ] Frontend sidebar/action hiển thị theo permission.
+* [x] Frontend sidebar/action hiển thị theo permission.
 * [ ] Staff ownership scope được áp dụng.
 * [ ] Warehouse bị chặn khỏi POS, InteractionAlert và Checkout.
 
@@ -189,7 +189,7 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] US-04 — Lấy thông tin người dùng hiện tại
 * [ ] US-05 — Multi-role RBAC model
 * [ ] US-06 — Permission-based API Guard
-* [ ] US-07 — Permission-aware frontend UI
+* [x] US-07 — Permission-aware frontend UI
 * [ ] US-08 — Staff ownership scope
 * [ ] US-09 — Warehouse access restrictions
 * [ ] US-10 — Admin tạo tài khoản nhân viên
@@ -230,10 +230,10 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [x] PAC-TASK-028 — Add permission checks to Inventory APIs
 * [x] PAC-TASK-029 — Add permission checks to POS and Checkout APIs
 * [x] PAC-TASK-030 — Add 403 response format for forbidden access
-* [ ] PAC-TASK-031 — Build permission-aware sidebar
-* [ ] PAC-TASK-032 — Hide unauthorized action buttons
-* [ ] PAC-TASK-033 — Build forbidden access page
-* [ ] PAC-TASK-034 — Add frontend permission helper
+* [x] PAC-TASK-031 — Build permission-aware sidebar
+* [x] PAC-TASK-032 — Hide unauthorized action buttons
+* [x] PAC-TASK-033 — Build forbidden access page
+* [x] PAC-TASK-034 — Add frontend permission helper
 * [ ] PAC-TASK-035 — Implement Staff ownership query filter for orders
 * [ ] PAC-TASK-036 — Implement Staff ownership query filter for customer order history
 * [ ] PAC-TASK-037 — Add tests for Staff ownership scope
@@ -299,10 +299,10 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] Logout action
 * [ ] Protected route
 * [ ] Dashboard user profile display
-* [ ] Permission-aware sidebar
-* [ ] Hidden unauthorized buttons
-* [ ] Forbidden page
-* [ ] Frontend permission helper
+* [x] Permission-aware sidebar
+* [x] Hidden unauthorized buttons
+* [x] Forbidden page
+* [x] Frontend permission helper
 * [ ] Warehouse cannot access POS route
 * [ ] Admin create staff form
 * [ ] First-login password change screen
@@ -314,8 +314,8 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 
 | Command                             | Status  | Notes |
 | ----------------------------------- | ------- | ----- |
-| `cd frontend && npm run lint`       | Not Run |       |
-| `cd frontend && npm run build`      | Passed  | Had to install cookies-next & zustand |
+| `cd frontend && npm run lint`       | Passed (with pre-existing warnings) | Fix used in Wave C are lint-free |
+| `cd frontend && npm run build`      | Passed  | Build succeed in 2.2s |
 | `cd backend && npm run lint`        | Not Run |       |
 | `cd backend && npm run test`        | Failed  | `medicines` module specs missing PrismaService import |
 | `cd backend && npx prisma validate` | Passed  |       |
