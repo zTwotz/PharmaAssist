@@ -71,6 +71,11 @@ export class UsersService {
               roleId,
             },
           },
+          userProfile: {
+            create: {
+              mustChangePassword: true,
+            },
+          },
         },
         include: {
           userRoles: {
@@ -78,6 +83,7 @@ export class UsersService {
               role: true,
             },
           },
+          userProfile: true,
         },
       });
 
