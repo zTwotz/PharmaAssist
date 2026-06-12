@@ -245,10 +245,10 @@ Vai trò: Epic phụ cho các task kiểm thử, smoke test và quality evidence
 * [ ] PAC-TASK-043 — Create user profile after Supabase user creation
 * [ ] PAC-TASK-044 — Assign roles to new staff account
 * [ ] PAC-TASK-045 — Validate staff email uniqueness through Supabase
-* [ ] PAC-TASK-046 — Implement first-login password change screen
-* [ ] PAC-TASK-047 — Implement must_change_password check
-* [ ] PAC-TASK-048 — Implement password update through Supabase Auth
-* [ ] PAC-TASK-049 — Clear must_change_password after successful change
+* [x] PAC-TASK-046 — Implement first-login password change screen
+* [x] PAC-TASK-047 — Implement must_change_password check
+* [x] PAC-TASK-048 — Implement password update through Supabase Auth
+* [x] PAC-TASK-049 — Clear must_change_password after successful change
 * [ ] PAC-TASK-050 — Implement account active/inactive update API
 * [ ] PAC-TASK-051 — Build staff account status UI
 * [ ] PAC-TASK-052 — Add audit log for staff status change
