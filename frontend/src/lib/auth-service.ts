@@ -5,6 +5,7 @@ export interface UserProfile {
   email: string;
   fullName: string;
   roles: string[];
+  permissions: string[];
 }
 
 export interface LoginResponse {
