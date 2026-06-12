@@ -12,7 +12,7 @@ export class OrdersService {
     // PAC-TASK-035 & PAC-TASK-036: Staff ownership query filter
     // If the user does not have the ADMIN role, restrict the orders to those they created
     if (!user.roles?.includes('ADMIN')) {
-      whereClause.staffUserId = user.userId;
+      whereClause.staffUserId = user.id;
     }
 
     if (customerId !== undefined) {

@@ -31,7 +31,7 @@ describe('OrdersService', () => {
 
   describe('getOrders', () => {
     it('should not filter by staffUserId if user is ADMIN', async () => {
-      const mockUser = { userId: 'admin-123', roles: ['ADMIN'] };
+      const mockUser = { id: 'admin-123', roles: ['ADMIN'] };
       await service.getOrders(mockUser);
 
       expect(prisma.order.findMany).toHaveBeenCalledWith({
@@ -42,7 +42,7 @@ describe('OrdersService', () => {
     });
 
     it('should filter by staffUserId if user is STAFF (not ADMIN)', async () => {
-      const mockUser = { userId: 'staff-456', roles: ['STAFF'] };
+      const mockUser = { id: 'staff-456', roles: ['STAFF'] };
       await service.getOrders(mockUser);
 
       expect(prisma.order.findMany).toHaveBeenCalledWith({
@@ -53,7 +53,7 @@ describe('OrdersService', () => {
     });
 
     it('should filter by customerId if provided', async () => {
-      const mockUser = { userId: 'admin-123', roles: ['ADMIN'] };
+      const mockUser = { id: 'admin-123', roles: ['ADMIN'] };
       await service.getOrders(mockUser, 99);
 
       expect(prisma.order.findMany).toHaveBeenCalledWith({
@@ -64,7 +64,7 @@ describe('OrdersService', () => {
     });
 
     it('should combine staffUserId and customerId filters for STAFF', async () => {
-      const mockUser = { userId: 'staff-456', roles: ['STAFF'] };
+      const mockUser = { id: 'staff-456', roles: ['STAFF'] };
       await service.getOrders(mockUser, 99);
 
       expect(prisma.order.findMany).toHaveBeenCalledWith({
