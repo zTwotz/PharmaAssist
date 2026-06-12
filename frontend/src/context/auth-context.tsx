@@ -81,11 +81,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser(response.user);
       
-      if (response.user.mustChangePassword) {
-        router.push('/change-password');
-      } else {
-        router.push('/dashboard');
-      }
+      // Give React time to render the success state in UI before starting the Next.js transition
+      setTimeout(() => {
+        if (response.user.mustChangePassword) {
+          router.push('/change-password');
+        } else {
+          router.push('/dashboard');
+        }
+      }, 100);
     } catch (error) {
       setUser(null);
       throw error;
