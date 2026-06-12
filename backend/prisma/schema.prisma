@@ -41,11 +41,12 @@ model UserProfile {
   gender         String?
   address        String?
   identityNumber String?   @map("identity_number")
-  employeeCode   String?   @map("employee_code")
-  bio            String?
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
-  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employeeCode       String?   @map("employee_code")
+  bio                String?
+  mustChangePassword Boolean   @default(true) @map("must_change_password")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_profiles")
 }
