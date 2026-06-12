@@ -21,7 +21,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentPath }: SidebarProps) {
-  const { user, logout, hasRole } = useAuth();
+  const { user, logout, hasAnyPermission } = useAuth();
   const router = useRouter();
 
   // Define navigation items with their required roles
@@ -30,30 +30,30 @@ export function Sidebar({ currentPath }: SidebarProps) {
       label: 'Tổng quan',
       path: '/dashboard',
       icon: LayoutDashboard,
-      roles: ['ADMIN', 'STAFF', 'WAREHOUSE'],
+      permissions: ['VIEW_DASHBOARD'],
     },
     {
       label: 'Bán hàng (POS)',
       path: '/sales',
       icon: ShoppingCart,
-      roles: ['ADMIN', 'STAFF'],
+      permissions: ['CREATE_ORDER'],
     },
     {
       label: 'Quản lý thuốc',
       path: '/medicines',
       icon: Pill,
-      roles: ['ADMIN', 'WAREHOUSE'],
+      permissions: ['VIEW_MEDICINES'],
     },
     {
       label: 'Tồn kho',
       path: '/inventory',
       icon: Package,
-      roles: ['ADMIN', 'WAREHOUSE'],
+      permissions: ['VIEW_INVENTORY'],
     },
   ];
 
-  // Filter navigation items based on user roles
-  const visibleItems = navItems.filter(item => hasRole(item.roles));
+  // Filter navigation items based on user permissions
+  const visibleItems = navItems.filter(item => hasAnyPermission(item.permissions));
 
   const handleLogout = async () => {
     try {
