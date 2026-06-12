@@ -85,6 +85,66 @@ async function main() {
     `Roles seeded: ${adminRole.name}, ${staffRole.name}, ${warehouseRole.name}, ${customerRole.name}`,
   );
 
+  // 1.5. Seed MVP Permissions & Mapping
+  console.log('Seeding permissions...');
+  const permissionsData = [
+    { code: 'VIEW_DASHBOARD', name: 'View Dashboard', module: 'DASHBOARD', description: 'Can view dashboard' },
+    { code: 'VIEW_SALES', name: 'View Sales', module: 'SALES', description: 'Can view sales POS' },
+    { code: 'CREATE_ORDER', name: 'Create Order', module: 'SALES', description: 'Can create orders' },
+    { code: 'VIEW_MEDICINES', name: 'View Medicines', module: 'CATALOG', description: 'Can view medicines' },
+    { code: 'MANAGE_MEDICINES', name: 'Manage Medicines', module: 'CATALOG', description: 'Can manage medicines' },
+    { code: 'VIEW_INVENTORY', name: 'View Inventory', module: 'INVENTORY', description: 'Can view inventory' },
+    { code: 'MANAGE_INVENTORY', name: 'Manage Inventory', module: 'INVENTORY', description: 'Can manage inventory' },
+    { code: 'VIEW_USERS', name: 'View Users', module: 'USER', description: 'Can view users' },
+    { code: 'MANAGE_USERS', name: 'Manage Users', module: 'USER', description: 'Can manage users' },
+  ];
+
+  const permissionMap: Record<string, number> = {};
+  for (const p of permissionsData) {
+    const perm = await prisma.permission.upsert({
+      where: { code: p.code },
+      update: {},
+      create: p,
+    });
+    permissionMap[p.code] = perm.id;
+  }
+  console.log('Permissions seeded.');
+
+  console.log('Seeding role_permissions mapping...');
+  const rolePermissionMapping = [
+    // ADMIN has all permissions
+    ...permissionsData.map((p) => ({ roleId: adminRole.id, permissionCode: p.code })),
+    // STAFF
+    { roleId: staffRole.id, permissionCode: 'VIEW_DASHBOARD' },
+    { roleId: staffRole.id, permissionCode: 'VIEW_SALES' },
+    { roleId: staffRole.id, permissionCode: 'CREATE_ORDER' },
+    { roleId: staffRole.id, permissionCode: 'VIEW_MEDICINES' },
+    { roleId: staffRole.id, permissionCode: 'VIEW_INVENTORY' },
+    // WAREHOUSE
+    { roleId: warehouseRole.id, permissionCode: 'VIEW_DASHBOARD' },
+    { roleId: warehouseRole.id, permissionCode: 'VIEW_MEDICINES' },
+    { roleId: warehouseRole.id, permissionCode: 'MANAGE_MEDICINES' },
+    { roleId: warehouseRole.id, permissionCode: 'VIEW_INVENTORY' },
+    { roleId: warehouseRole.id, permissionCode: 'MANAGE_INVENTORY' },
+  ];
+
+  for (const mapping of rolePermissionMapping) {
+    const permId = permissionMap[mapping.permissionCode];
+    if (!permId) continue;
+    
+    // Using findFirst to check existence since role_permissions might not have unique constraints other than id
+    const existingRp = await prisma.rolePermission.findFirst({
+      where: { roleId: mapping.roleId, permissionId: permId },
+    });
+
+    if (!existingRp) {
+      await prisma.rolePermission.create({
+        data: { roleId: mapping.roleId, permissionId: permId },
+      });
+    }
+  }
+  console.log('Role permissions seeded.');
+
   // 2. Prepare Demo Users
   const demoUsers = [
     {
