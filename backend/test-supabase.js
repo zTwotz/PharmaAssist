@@ -53,7 +53,7 @@ async function testDB() {
     console.log('Query result:', res.rows[0]);
     await client.end();
   } catch (err) {
-    console.error('Database connection error:', err.message);
+    console.error('Database connection error:', err);
   }
 }
 
