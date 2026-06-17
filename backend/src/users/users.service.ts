@@ -50,7 +50,11 @@ export class UsersService {
       email_confirm: true,
     });
 
+    // Fulfills PAC-TASK-045: Validate staff email uniqueness through Supabase
     if (authError) {
+      if (authError.message.includes('User already registered') || authError.status === 422) {
+        throw new BadRequestException('Email đã tồn tại trên Supabase Auth');
+      }
       throw new BadRequestException(`Lỗi tạo tài khoản Supabase: ${authError.message}`);
     }
 
@@ -67,8 +71,14 @@ export class UsersService {
           phone,
           status: 'ACTIVE',
           userRoles: {
+            // Fulfills PAC-TASK-044: Assign roles to new staff account
             create: {
               roleId,
+            },
+          },
+          userProfile: {
+            create: {
+              mustChangePassword: true,
             },
           },
         },
@@ -78,6 +88,7 @@ export class UsersService {
               role: true,
             },
           },
+          userProfile: true,
         },
       });
 
@@ -104,12 +115,16 @@ export class UsersService {
     });
   }
 
-  async updateStaffRoleStatus(id: string, dto: import('./dto/update-staff.dto').UpdateStaffRoleStatusDto) {
+  async updateStaffRoleStatus(id: string, actorId: string, dto: import('./dto/update-staff.dto').UpdateStaffRoleStatusDto) {
     const { roleId, status } = dto;
     const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (!user) {
       throw new BadRequestException('Nhân viên không tồn tại');
+    }
+
+    if (id === actorId && status === 'INACTIVE') {
+      throw new BadRequestException('Không thể tự vô hiệu hóa tài khoản của chính mình');
     }
 
     // Nếu cập nhật trạng thái
@@ -120,12 +135,19 @@ export class UsersService {
         data: { status },
       });
 
-      // Update Supabase Auth if needed
-      if (status === 'INACTIVE' || status === 'BANNED' || status === 'SUSPENDED') {
-         await this.supabaseAdmin.auth.admin.updateUserById(id, { ban_duration: '87600h' });
-      } else if (status === 'ACTIVE') {
-         await this.supabaseAdmin.auth.admin.updateUserById(id, { ban_duration: 'none' });
-      }
+      // Audit Log for PAC-TASK-052
+      await this.prisma.auditLog.create({
+        data: {
+          action: 'STAFF_ACCOUNT_STATUS_CHANGED',
+          entityType: 'User',
+          entityId: id,
+          userId: actorId,
+          oldValue: JSON.stringify({ status: user.status }),
+          newValue: JSON.stringify({ status }),
+        },
+      });
+
+      // Bỏ gọi Supabase Admin theo yêu cầu "Không xóa hoặc disable Supabase Auth user trong MVP"
     }
 
     // Nếu cập nhật vai trò

@@ -226,97 +226,70 @@ pharmaassist-ai-intelligence/
 
 ---
 
-## 8. Cài đặt và chạy dự án
+## 8. Cài đặt và chạy dự án (Nhanh chóng với `run.js`)
+
+Để đơn giản hóa tối đa việc cài đặt và khởi chạy dự án, hệ thống cung cấp công cụ `run.js` đa nền tảng (macOS, Linux, Windows). Công cụ này sẽ tự động hóa toàn bộ các thao tác từ việc cài đặt dependencies, thiết lập cơ sở dữ liệu đến khởi chạy song song Frontend và Backend.
 
 ### 8.1. Yêu cầu môi trường
 
-- Node.js 18+
-- npm hoặc yarn
-- PostgreSQL hoặc MySQL
-- Neo4j optional nếu chạy Knowledge Graph
-- Git
+- **Node.js**: Phiên bản 18 trở lên.
+- **Database**: Có kết nối đến Supabase PostgreSQL (hoặc DB nội bộ) được khai báo sẵn trong `.env`.
+- **Git**: Dùng để quản lý mã nguồn.
 
 ---
 
-### 8.2. Clone repository
+### 8.2. Clone repository & Thiết lập biến môi trường
 
 ```bash
+# Tải mã nguồn về máy
 git clone https://github.com/your-team/pharmaassist-ai-intelligence.git
 cd pharmaassist-ai-intelligence
+
+# Lưu ý: Hãy đảm bảo bạn đã tạo và cấu hình các file .env cho backend và frontend dựa trên .env.example
 ```
 
 ---
 
-### 8.3. Cấu hình Backend
+### 8.3. Cài đặt và chạy nhanh (Quick Start)
+
+Bạn chỉ cần thực thi tệp tin `run.js` ở thư mục gốc của dự án:
+
+**Cách 1: Chạy Menu Tương Tác (Khuyên dùng)**
 
 ```bash
-cd backend
-npm install
-cp .env.example .env
+node run.js
 ```
+Hệ thống sẽ hiển thị một Menu trực quan, bạn chỉ cần chọn các tùy chọn (ví dụ: `1. Cài đặt (Setup)`, `2. Khởi chạy (Start)`).
 
-Cấu hình file `.env`:
+**Cách 2: Chạy trực tiếp qua dòng lệnh (CLI)**
 
-```env
-PORT=3000
-DATABASE_URL="postgresql://username:password@localhost:5432/pharmaassist"
-
-JWT_SECRET="change_me_in_local"
-
-AI_PROVIDER=MockAI
-OPENAI_API_KEY=
-
-NEO4J_URI=bolt://localhost:7687
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=password
-```
-
-Chạy migration và seed data:
-
-```bash
-npm run migrate
-npm run seed
-```
-
-Chạy backend:
-
-```bash
-npm run start:dev
-```
-
-Backend mặc định chạy tại:
-
-```text
-http://localhost:3000
-```
+- **Thiết lập ban đầu (Setup):** Tự động cài đặt npm packages cho Frontend, Backend và cấu hình Prisma.
+  ```bash
+  node run.js setup
+  ```
+- **Khởi chạy ứng dụng (Start):** Chạy đồng thời cả Frontend và Backend trên cùng một cửa sổ terminal.
+  ```bash
+  node run.js start
+  ```
+- **Dọn dẹp hệ thống (Clean):** Xóa các thư mục build, cache và logs.
+  ```bash
+  node run.js clean
+  ```
+- **Dọn dẹp triệt để (Clean All):** Xóa toàn bộ `node_modules`, cấu hình lại từ đầu.
+  ```bash
+  node run.js clean-all
+  ```
 
 ---
 
-### 8.4. Cấu hình Frontend
+### 8.4. Địa chỉ truy cập mặc định
 
-```bash
-cd frontend
-npm install
-cp .env.example .env
-```
+Sau khi khởi chạy thành công bằng `node run.js start`, hệ thống sẽ hoạt động tại:
 
-Cấu hình file `.env`:
+- **Frontend (Giao diện người dùng):** `http://localhost:3000` (hoặc cổng cấu hình trong Next.js)
+- **Backend (API Server):** `http://localhost:3001` (hoặc cổng cấu hình trong NestJS)
 
-```env
-VITE_API_BASE_URL=http://localhost:3000/api
-```
-
-Chạy frontend:
-
-```bash
-npm run dev
-```
-
-Frontend mặc định chạy tại:
-
-```text
-http://localhost:5173
-```
+*(Lưu ý: Mọi tiến trình sẽ tự động được thu dọn sạch sẽ khi bạn nhấn `Ctrl + C` để thoát)*
 
 ---
 

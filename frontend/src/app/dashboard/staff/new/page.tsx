@@ -5,6 +5,8 @@ import { User, Mail, Phone, Lock, Hash, Shield, ArrowLeft, Save } from 'lucide-r
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import api from '@/lib/api';
+
 export default function CreateStaffPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -20,15 +22,9 @@ export default function CreateStaffPage() {
   const [roles, setRoles] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
-    // Fetch roles from backend
-    fetch('http://localhost:3001/roles', {
-      // In a real app, you would pass the auth token here
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(res => res.json())
-      .then(data => setRoles(data))
+    // Fetch roles from backend using interceptor for auth
+    api.get('/roles')
+      .then(res => setRoles(res.data))
       .catch(err => console.error('Failed to load roles:', err));
   }, []);
 
@@ -46,24 +42,14 @@ export default function CreateStaffPage() {
         roleId: Number(formData.roleId)
       };
 
-      const res = await fetch('http://localhost:3001/users/staff', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Lỗi tạo tài khoản');
-      }
+      await api.post('/users/staff', payload);
 
       alert('Tạo nhân viên thành công!');
       router.push('/dashboard/staff');
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err = error as any;
+      alert(err.response?.data?.message || err.message || 'Lỗi tạo tài khoản');
     } finally {
       setIsLoading(false);
     }

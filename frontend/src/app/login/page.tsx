@@ -1,19 +1,33 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, ShieldAlert } from 'lucide-react';
+import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [longLoading, setLongLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.mustChangePassword) {
+        router.push('/change-password');
+      } else {
+        router.push('/dashboard');
+      }
+    }
+  }, [isAuthenticated, user, router]);
 
   const validateForm = () => {
     // Simple email regex
@@ -42,12 +56,22 @@ export default function LoginPage() {
     if (!validateForm()) return;
 
     setLoading(true);
+    setLongLoading(false);
+    
+    // Nếu sau 5 giây vẫn chưa xong, hiển thị thông báo máy chủ đang khởi động
+    const timeoutId = setTimeout(() => {
+      setLongLoading(true);
+    }, 5000);
 
     try {
       await login(email, password);
+      clearTimeout(timeoutId);
+      setSuccess(true);
       // login method redirects to /dashboard internally
     } catch (err: any) {
-      console.error('Login error:', err);
+      clearTimeout(timeoutId);
+      // Use warn instead of error to prevent Next.js from throwing a red error overlay in dev mode
+      console.warn('Login warning:', err?.message || err);
       // Detailed errors from backend validation/unauthorized
       const status = err.response?.status;
       const message = err.response?.data?.message;
@@ -97,6 +121,24 @@ export default function LoginPage() {
                 <AlertDescription className="text-bloom-wine text-xs mt-1">{errorMsg}</AlertDescription>
               </Alert>
             )}
+
+            {success && (
+              <Alert className="bg-green-50 border-green-200 text-green-800">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <AlertTitle className="font-semibold text-green-800">Thành công</AlertTitle>
+                <AlertDescription className="text-green-700 text-xs mt-1">Đăng nhập thành công! Đang chuyển hướng...</AlertDescription>
+              </Alert>
+            )}
+
+            {longLoading && !success && !errorMsg && (
+              <Alert className="bg-blue-50 border-blue-200 text-blue-800">
+                <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
+                <AlertTitle className="font-semibold text-blue-800">Đang chờ phản hồi</AlertTitle>
+                <AlertDescription className="text-blue-700 text-xs mt-1">
+                  Máy chủ (Supabase) đang khởi động từ trạng thái nghỉ. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
+                </AlertDescription>
+              </Alert>
+            )}
             
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-charcoal uppercase tracking-wider" htmlFor="email">
@@ -136,10 +178,19 @@ export default function LoginPage() {
           <CardFooter className="flex flex-col px-6 pb-8 pt-4">
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-deep text-white font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98]"
-              disabled={loading}
+              className={`w-full font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98] ${
+                success 
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'bg-primary hover:bg-primary-deep text-white'
+              }`}
+              disabled={loading || success}
             >
-              {loading ? (
+              {success ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Thành công
+                </>
+              ) : loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Đang xác thực...

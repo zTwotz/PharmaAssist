@@ -5,6 +5,8 @@ export interface UserProfile {
   email: string;
   fullName: string;
   roles: string[];
+  permissions: string[];
+  mustChangePassword?: boolean;
 }
 
 export interface LoginResponse {
@@ -22,5 +24,9 @@ export const authService = {
   async getMe(): Promise<UserProfile> {
     const response = await api.get<UserProfile>('/auth/me');
     return response.data;
+  },
+
+  async clearMustChangePassword(): Promise<void> {
+    await api.patch('/auth/me/clear-must-change-password');
   },
 };

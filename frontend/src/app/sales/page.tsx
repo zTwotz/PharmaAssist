@@ -172,7 +172,7 @@ export default function SalesPage() {
   };
 
   return (
-    <RouteGuard allowedRoles={['ADMIN', 'STAFF']}>
+    <RouteGuard allowedPermissions={['CREATE_ORDER']}>
       <div className="flex min-h-screen bg-cloud font-sans">
         {/* Dynamic Sidebar based on roles */}
         <Sidebar currentPath="/sales" />

@@ -154,7 +154,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <RouteGuard allowedRoles={['ADMIN', 'STAFF', 'WAREHOUSE']}>
+    <RouteGuard allowedPermissions={['VIEW_DASHBOARD']}>
       <div className="flex min-h-screen bg-cloud font-sans">
         <Sidebar currentPath="/dashboard" />
 

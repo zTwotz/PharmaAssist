@@ -178,7 +178,7 @@ export default function InventoryPage() {
   };
 
   return (
-    <RouteGuard allowedRoles={['ADMIN', 'WAREHOUSE']}>
+    <RouteGuard allowedPermissions={['VIEW_INVENTORY']}>
       <div className="flex min-h-screen bg-cloud font-sans">
         {/* Dynamic Sidebar based on roles */}
         <Sidebar currentPath="/inventory" />

@@ -18,7 +18,7 @@ export default function MedicinesPage() {
     : 'Quản lý kho';
 
   return (
-    <RouteGuard allowedRoles={['ADMIN', 'WAREHOUSE']}>
+    <RouteGuard allowedPermissions={['VIEW_MEDICINES']}>
       <div className="flex min-h-screen bg-cloud font-sans">
         {/* Dynamic Sidebar based on roles */}
         <Sidebar currentPath="/medicines" />
