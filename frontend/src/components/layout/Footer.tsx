@@ -3,8 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import { MapPin, ShieldCheck, Info } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on management and POS routes
+  const hidePaths = ['/pos', '/login', '/dashboard', '/medicines', '/inventory', '/sales', '/customers', '/suppliers'];
+  const shouldHide = hidePaths.some(path => pathname === path || pathname.startsWith('/dashboard') || pathname.startsWith('/pos'));
+  if (shouldHide) return null;
   return (
     <footer className="bg-white">
       {/* Blue Bar */}

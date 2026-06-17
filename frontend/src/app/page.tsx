@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/context/cart-context";
 import mappedImages from "./mapped_images.json";
 import { 
   Search, 
@@ -69,12 +70,15 @@ const FEATURED_CATEGORIES = [
     id: "brain",
     name: "Thần kinh não",
     filterName: "Thần kinh não",
+    href: "/thuc-pham-chuc-nang/than-kinh-nao",
     count: 55,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v1.5c0 1.5-1 2.5-2.5 2.5s-2.5-1-2.5-2.5V9.5z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5h5c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7V3m-4 1c0-.5.5-1 1-1h6c.5 0 1 .5 1 1" />
+        {/* Brain outline with details */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a6 6 0 01-6-6c0-2 1.5-3.5 2-4.5.5-1 0-2.5.5-3.5A3.5 3.5 0 0112 4.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a6 6 0 006-6c0-2-1.5-3.5-2-4.5-.5-1 0-2.5-.5-3.5A3.5 3.5 0 0012 4.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 12.5h3M16.5 12.5h-3M8.5 9h2.5M15.5 9h-2.5" />
       </svg>
     )
   },
@@ -82,13 +86,15 @@ const FEATURED_CATEGORIES = [
     id: "vitamin",
     name: "Vitamin & Khoáng chất",
     filterName: "Vitamin & Khoáng chất",
+    href: "/thuc-pham-chuc-nang/vitamin-and-khoang-chat",
     count: 83,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="7" y="5" width="10" height="14" rx="2" />
-        <line x1="7" y1="10" x2="17" y2="10" />
-        <circle cx="12" cy="14" r="1.5" />
-        <text x="12" y="8.5" textAnchor="middle" fontSize="4.5" fontWeight="900" fill="currentColor" stroke="none">VIT</text>
+        {/* Medicine/Vitamin Bottle with label */}
+        <rect x="8" y="3" width="8" height="2" rx="0.5" />
+        <rect x="6" y="5" width="12" height="15" rx="1.5" />
+        <rect x="6" y="9" width="12" height="6" />
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" />
       </svg>
     )
   },
@@ -96,16 +102,16 @@ const FEATURED_CATEGORIES = [
     id: "hormone",
     name: "Sinh lý - Nội tiết tố",
     filterName: "Sinh lý - Nội tiết tố",
+    href: "/thuc-pham-chuc-nang/sinh-ly-noi-tiet-to",
     count: 44,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="5" y="8" width="6" height="11" rx="1.5" />
-        <rect x="13" y="8" width="6" height="11" rx="1.5" />
-        <circle cx="8" cy="12" r="1" />
-        <circle cx="16" cy="12" r="1" />
-        <text x="8" y="17" textAnchor="middle" fontSize="5" fontWeight="900" fill="currentColor" stroke="none">♀</text>
-        <text x="16" y="17" textAnchor="middle" fontSize="5" fontWeight="900" fill="currentColor" stroke="none">♂</text>
-        <path d="M8 5v3M16 5v3" strokeLinecap="round" />
+        {/* Two bottles side-by-side */}
+        <rect x="5" y="6" width="6" height="13" rx="1" />
+        <rect x="6.5" y="4" width="3" height="2" rx="0.5" />
+        <rect x="13" y="6" width="6" height="13" rx="1" />
+        <rect x="14.5" y="4" width="3" height="2" rx="0.5" />
+        <path d="M8 10v5M16 10v5" strokeLinecap="round" />
       </svg>
     )
   },
@@ -113,11 +119,13 @@ const FEATURED_CATEGORIES = [
     id: "cardio",
     name: "Tim mạch - Huyết áp",
     filterName: "Tim mạch - Huyết áp",
+    href: "/thuc-pham-chuc-nang/tim-mach-huyet-ap",
     count: 21,
     icon: (
-      <svg className="w-10 h-10 text-[#024ad8]" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        <path d="M6 9.5h2.5l1.5-2.5 1.5 5 1.5-4 1.5 1.5h2.5" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        {/* Heart with ECG pulse line */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h2.5l1.5-3.5 2 7 1.5-5 1.5 2.5H20" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21C6 14 3.5 10 3.5 7.5a4.5 4.5 0 018.5-2 4.5 4.5 0 018.5 2c0 2.5-2.5 6.5-8.5 13.5z" />
       </svg>
     )
   },
@@ -125,10 +133,13 @@ const FEATURED_CATEGORIES = [
     id: "immune",
     name: "Miễn dịch - Đề kháng",
     filterName: "Miễn dịch - Đề kháng",
+    href: "/thuc-pham-chuc-nang/mien-dich-de-khang",
     count: 48,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        {/* Shield with checkmark */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 11.5l2 2 4-4" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     )
   },
@@ -136,11 +147,13 @@ const FEATURED_CATEGORIES = [
     id: "digest",
     name: "Tiêu hóa",
     filterName: "Tiêu hóa",
+    href: "/thuc-pham-chuc-nang/tieu-hoa",
     count: 70,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 9c0-1.5 2-3 4-3s4 1.5 4 3c0 3 6-1 6 3v4c0 3-4 5-8 5s-6-2-6-5V9z" />
-        <path d="M9 12h6M9 15h3" strokeLinecap="round" />
+        {/* Stomach shape */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 3-3 4-3 7 0 4.5 3.5 7 7 7s5-2 5-5.5c0-3.5-3.5-5.5-4-7.5M12 3v3" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 13.5c1 1.5 2.5 1.5 3.5 0" />
       </svg>
     )
   },
@@ -148,13 +161,14 @@ const FEATURED_CATEGORIES = [
     id: "skin-solution",
     name: "Giải pháp làn da",
     filterName: "Giải pháp làn da",
+    href: "/duoc-my-pham/giai-phap-lan-da",
     count: 71,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M4 14s2-2 4-2 4 2 4 2 2-2 4-2 4 2 4 2" strokeLinecap="round" />
-        <path d="M4 18s2-2 4-2 4 2 4 2 2-2 4-2 4 2 4 2" strokeLinecap="round" />
-        <rect x="10" y="4" width="4" height="5" rx="2" fill="currentColor" opacity="0.1" />
-        <path d="M12 3.5v6M9.5 6h5" strokeWidth="1.5" />
+        {/* Medical cross above skin layers */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v6M9 6h6" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 14c4-2 6 2 10 0s6-2 10 0" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 18c4-2 6 2 10 0s6-2 10 0" />
       </svg>
     )
   },
@@ -162,15 +176,16 @@ const FEATURED_CATEGORIES = [
     id: "face-care",
     name: "Chăm sóc da mặt",
     filterName: "Chăm sóc da mặt",
+    href: "/duoc-my-pham/cham-soc-da-mat",
     count: 158,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        {/* Smiley face with sparkles */}
         <circle cx="12" cy="12" r="9" />
-        <ellipse cx="9" cy="10" rx="1.5" ry="2" fill="currentColor" />
-        <ellipse cx="15" cy="10" rx="1.5" ry="2" fill="currentColor" />
-        <path d="M8 15s1.5 2 4 2 4-2 4-2" strokeLinecap="round" />
-        <circle cx="5" cy="6" r="0.8" fill="currentColor" />
-        <circle cx="19" cy="6" r="0.8" fill="currentColor" />
+        <circle cx="9" cy="10.5" r="1" fill="currentColor" />
+        <circle cx="15" cy="10.5" r="1" fill="currentColor" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 14.5c1.5 1.5 3.5 1.5 5 0" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12a1.5 1.5 0 103 0 1.5 1.5 0 10-3 0M15 12a1.5 1.5 0 103 0 1.5 1.5 0 10-3 0" />
       </svg>
     )
   },
@@ -178,12 +193,13 @@ const FEATURED_CATEGORIES = [
     id: "beauty",
     name: "Hỗ trợ làm đẹp",
     filterName: "Hỗ trợ làm đẹp",
+    href: "/thuc-pham-chuc-nang/ho-tro-lam-dep",
     count: 18,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M12 4c-3.333 0-5 2.5-5 5.5S8.667 15 12 15s5-2 5-5.5S15.333 4 12 4z" />
-        <path d="M7 11.5c.5.5 1.5.5 2 0s.5-1.5 0-2" />
-        <circle cx="12" cy="9.5" r="1.5" fill="currentColor" />
+        {/* Droplet with swirl/leaf */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c-4.5 4.5-7 8.5-7 11.5A7 7 0 0012 21a7 7 0 007-6.5c0-3-2.5-7-7-11.5z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c2 0 3.5 1.5 3.5 3.5S14 18 12 18" />
       </svg>
     )
   },
@@ -191,16 +207,15 @@ const FEATURED_CATEGORIES = [
     id: "sex",
     name: "Hỗ trợ tình dục",
     filterName: "Hỗ trợ tình dục",
+    href: "/cham-soc-ca-nhan/ho-tro-tinh-duc",
     count: 41,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <circle cx="9" cy="14" r="4" />
-        <line x1="9" y1="10" x2="9" y2="4" />
-        <line x1="6" y1="7" x2="12" y2="7" />
-        <circle cx="15" cy="9" r="4" />
-        <line x1="18" y1="9" x2="22" y2="5" />
-        <line x1="18" y1="5" x2="22" y2="5" />
-        <line x1="22" y1="9" x2="22" y2="5" />
+        {/* Intertwined gender symbols */}
+        <circle cx="9.5" cy="14.5" r="4.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 19v3M7.5 20.5h4" />
+        <circle cx="14.5" cy="9.5" r="4.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18.5 5.5h3v3M17.5 8.5l4-4" />
       </svg>
     )
   },
@@ -208,13 +223,13 @@ const FEATURED_CATEGORIES = [
     id: "milk",
     name: "Sữa",
     filterName: "Sữa",
+    href: "/thuc-pham-chuc-nang/sua",
     count: 43,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="7" y="6" width="10" height="14" rx="2" />
-        <ellipse cx="12" cy="6" rx="4" ry="1.5" />
-        <path d="M7 10h10" />
-        <circle cx="12" cy="14" r="2.5" fill="currentColor" opacity="0.1" />
+        {/* Milk carton */}
+        <rect x="8" y="7" width="8" height="13" rx="1.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7l4-4 4 4M8 11h8M12 11v9" />
       </svg>
     )
   },
@@ -222,13 +237,15 @@ const FEATURED_CATEGORIES = [
     id: "monitoring",
     name: "Dụng cụ theo dõi",
     filterName: "Dụng cụ theo dõi",
+    href: "/thiet-bi-y-te/dung-cu-theo-doi",
     count: 95,
     icon: (
       <svg className="w-10 h-10 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M4.5 4v5a7.5 7.5 0 0015 0V4" />
-        <path d="M12 16.5v4.5M10 21h4" />
-        <circle cx="4.5" cy="4" r="1" fill="currentColor" />
-        <circle cx="19.5" cy="4" r="1" fill="currentColor" />
+        {/* Stethoscope */}
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 5v5a7 7 0 0014 0V5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 17v3M9 20h6" />
+        <circle cx="5" cy="4" r="1.5" fill="currentColor" />
+        <circle cx="19" cy="4" r="1.5" fill="currentColor" />
       </svg>
     )
   }
@@ -857,13 +874,415 @@ const renderSubcatThumbnail = (name: string) => {
   return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" />;
 };
 
+const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: string; price: number; unit: string; imageUrl: string; activeIngredient: string; isAvailable: boolean }> = {
+  "fohepta-milk": {
+    id: "fohepta-milk",
+    dbId: 0,
+    name: "Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy (400g)",
+    price: 205600,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg",
+    activeIngredient: "Dinh dưỡng y học cho bệnh nhân gan",
+    isAvailable: true
+  },
+  "ensure-gold-800g": {
+    id: "ensure-gold-800g",
+    dbId: 0,
+    name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold (800g)",
+    price: 837000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+    activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ",
+    isAvailable: true
+  },
+  "ensure-gold-less-sweet-800g": {
+    id: "ensure-gold-less-sweet-800g",
+    dbId: 0,
+    name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt (800g)",
+    price: 837000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+    activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ (ít ngọt)",
+    isAvailable: true
+  },
+  "icreo-glico-800g": {
+    id: "icreo-glico-800g",
+    dbId: 0,
+    name: "Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản (800g)",
+    price: 933120,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg",
+    activeIngredient: "Dinh dưỡng cân bằng cho bé",
+    isAvailable: true
+  },
+  "glucerna-800g": {
+    id: "glucerna-800g",
+    dbId: 0,
+    name: "Sữa bổ sung dinh dưỡng đặc biệt cho người đái tháo đường Glucerna (800g)",
+    price: 842000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
+    activeIngredient: "Dinh dưỡng đặc chế cho người tiểu đường",
+    isAvailable: true
+  },
+  "nmn-pqq-kenko": {
+    id: "nmn-pqq-kenko",
+    dbId: 0,
+    name: "Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN PQQ Kenko (Hộp 60 Viên)",
+    price: 6675000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09707_b7893a5b10.jpg",
+    activeIngredient: "NMN PQQ Kenko chống lão hóa",
+    isAvailable: true
+  },
+  "kudos-daily": {
+    id: "kudos-daily",
+    dbId: 0,
+    name: "Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins (Tuýp 20 Viên)",
+    price: 118150,
+    unit: "Tuýp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg",
+    activeIngredient: "Bổ sung vitamin cho cơ thể",
+    isAvailable: true
+  },
+  "nano-fucoidan": {
+    id: "nano-fucoidan",
+    dbId: 0,
+    name: "Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức đề kháng Nano Fucoidan (Hộp 30 Viên)",
+    price: 792000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg",
+    activeIngredient: "Nano Fucoidan chống oxy hóa",
+    isAvailable: true
+  },
+  "brauer-dha": {
+    id: "brauer-dha",
+    dbId: 0,
+    name: "Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Kids Ultra Pure DHA (Hộp 60 Viên)",
+    price: 388800,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png",
+    activeIngredient: "DHA phát triển não bộ cho trẻ",
+    isAvailable: true
+  },
+  "achimmadang-box": {
+    id: "achimmadang-box",
+    dbId: 0,
+    name: "Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink (Hộp 10 Chai x 120ml)",
+    price: 400000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg",
+    activeIngredient: "Nước sâm nguyên củ bồi bổ sức khỏe",
+    isAvailable: true
+  },
+  "achimmadang-bottle": {
+    id: "achimmadang-bottle",
+    dbId: 0,
+    name: "Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink (Chai 120ml)",
+    price: 40000,
+    unit: "Chai",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg",
+    activeIngredient: "Nước sâm nguyên củ bồi bổ sức khỏe",
+    isAvailable: true
+  },
+  "aloclair-plus": {
+    id: "aloclair-plus",
+    dbId: 0,
+    name: "Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml (Hộp x 15ml)",
+    price: 229000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg",
+    activeIngredient: "Aloclair Plus xịt nhiệt miệng",
+    isAvailable: true
+  },
+  "aloclair-gel": {
+    id: "aloclair-gel",
+    dbId: 0,
+    name: "Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân miệng",
+    price: 175000,
+    unit: "Tuýp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg",
+    activeIngredient: "Gel bôi nhiệt miệng",
+    isAvailable: true
+  },
+  "pearlie-wash": {
+    id: "pearlie-wash",
+    dbId: 0,
+    name: "Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)",
+    price: 175000,
+    unit: "Chai",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg",
+    activeIngredient: "Nước súc miệng kháng khuẩn",
+    isAvailable: true
+  },
+  "subac-gel": {
+    id: "subac-gel",
+    dbId: 0,
+    name: "Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)",
+    price: 150000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg",
+    activeIngredient: "Gel sát khuẩn da Su Bạc",
+    isAvailable: true
+  },
+  "fysoline-septi-box": {
+    id: "fysoline-septi-box",
+    dbId: 0,
+    name: "Nước muối sinh lý Fysoline Septinasal (Hộp 20 Ống x 5ml)",
+    price: 193000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png",
+    activeIngredient: "Nước muối kháng viêm vệ sinh mũi",
+    isAvailable: true
+  },
+  "fysoline-septi-tube": {
+    id: "fysoline-septi-tube",
+    dbId: 0,
+    name: "Nước muối sinh lý Fysoline Septinasal (Ống 5ml)",
+    price: 9650,
+    unit: "Ống",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png",
+    activeIngredient: "Nước muối kháng viêm vệ sinh mũi",
+    isAvailable: true
+  },
+  "fysoline-iso-box": {
+    id: "fysoline-iso-box",
+    dbId: 0,
+    name: "Nước muối sinh lý Fysoline Isotonique đẳng trương (Hộp 40 Ống x 5ml)",
+    price: 166000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg",
+    activeIngredient: "Nước muối vệ sinh mắt mũi hàng ngày",
+    isAvailable: true
+  },
+  "fysoline-iso-tube": {
+    id: "fysoline-iso-tube",
+    dbId: 0,
+    name: "Nước muối sinh lý Fysoline Isotonique đẳng trương (Ống 5ml)",
+    price: 4150,
+    unit: "Ống",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg",
+    activeIngredient: "Nước muối vệ sinh mắt mũi hàng ngày",
+    isAvailable: true
+  },
+  "famapro-box": {
+    id: "famapro-box",
+    dbId: 0,
+    name: "Khẩu trang 4 lớp Famapro Extra màu trắng (Hộp 5 Gói x 10 Cái)",
+    price: 40000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg",
+    activeIngredient: "Khẩu trang y tế ngăn khuẩn",
+    isAvailable: true
+  },
+  "famapro-pack": {
+    id: "famapro-pack",
+    dbId: 0,
+    name: "Khẩu trang 4 lớp Famapro Extra màu trắng (Gói 10 Cái)",
+    price: 8000,
+    unit: "Gói",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg",
+    activeIngredient: "Khẩu trang y tế ngăn khuẩn",
+    isAvailable: true
+  },
+  "dolphin-mask": {
+    id: "dolphin-mask",
+    dbId: 0,
+    name: "Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (Hộp 10 Cái)",
+    price: 24000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg",
+    activeIngredient: "Khẩu trang trẻ em ngăn khói bụi",
+    isAvailable: true
+  },
+  "panadol-hop": {
+    id: "panadol-hop",
+    dbId: 0,
+    name: "Viên nén Panadol Extra đỏ GSK giảm đau hạ sốt (Hộp 15 Vỉ x 12 Viên)",
+    price: 252000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png",
+    activeIngredient: "Paracetamol 500mg, Caffeine 65mg",
+    isAvailable: true
+  },
+  "panadol-vi": {
+    id: "panadol-vi",
+    dbId: 0,
+    name: "Viên nén Panadol Extra đỏ GSK giảm đau hạ sốt (Vỉ 12 Viên)",
+    price: 16800,
+    unit: "Vỉ",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png",
+    activeIngredient: "Paracetamol 500mg, Caffeine 65mg",
+    isAvailable: true
+  },
+  "panadol-vien": {
+    id: "panadol-vien",
+    dbId: 0,
+    name: "Viên nén Panadol Extra đỏ GSK giảm đau hạ sốt (Viên)",
+    price: 1400,
+    unit: "Viên",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png",
+    activeIngredient: "Paracetamol 500mg, Caffeine 65mg",
+    isAvailable: true
+  },
+  "acemuc-hop": {
+    id: "acemuc-hop",
+    dbId: 0,
+    name: "Thuốc Acemuc 200mg Sanofi long đờm tiêu nhầy (Hộp 3 Vỉ x 10 Viên)",
+    price: 81000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png",
+    activeIngredient: "Acetylcysteine 200mg",
+    isAvailable: true
+  },
+  "acemuc-vi": {
+    id: "acemuc-vi",
+    dbId: 0,
+    name: "Thuốc Acemuc 200mg Sanofi long đờm tiêu nhầy (Vỉ 10 Viên)",
+    price: 27000,
+    unit: "Vỉ",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png",
+    activeIngredient: "Acetylcysteine 200mg",
+    isAvailable: true
+  },
+  "acemuc-vien": {
+    id: "acemuc-vien",
+    dbId: 0,
+    name: "Thuốc Acemuc 200mg Sanofi long đờm tiêu nhầy (Viên)",
+    price: 2700,
+    unit: "Viên",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png",
+    activeIngredient: "Acetylcysteine 200mg",
+    isAvailable: true
+  },
+  "telfast-hop": {
+    id: "telfast-hop",
+    dbId: 0,
+    name: "Thuốc chống dị ứng Telfast HD 180mg Sanofi (Hộp 3 Vỉ x 10 Viên)",
+    price: 268000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png",
+    activeIngredient: "Fexofenadine HCl 180mg",
+    isAvailable: true
+  },
+  "telfast-vi": {
+    id: "telfast-vi",
+    dbId: 0,
+    name: "Thuốc chống dị ứng Telfast HD 180mg Sanofi (Vỉ 10 Viên)",
+    price: 89330,
+    unit: "Vỉ",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png",
+    activeIngredient: "Fexofenadine HCl 180mg",
+    isAvailable: true
+  },
+  "telfast-vien": {
+    id: "telfast-vien",
+    dbId: 0,
+    name: "Thuốc chống dị ứng Telfast HD 180mg Sanofi (Viên)",
+    price: 8933,
+    unit: "Viên",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png",
+    activeIngredient: "Fexofenadine HCl 180mg",
+    isAvailable: true
+  },
+  "kudos-vitc": {
+    id: "kudos-vitc",
+    dbId: 0,
+    name: "Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C 1000mg (Tuýp 20 Viên)",
+    price: 113400,
+    unit: "Tuýp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg",
+    activeIngredient: "Vitamin C 1000mg",
+    isAvailable: true
+  },
+  "kamizol-orange-box": {
+    id: "kamizol-orange-box",
+    dbId: 0,
+    name: "Nước Bù Điện Giải Kamizol Vị Cam (Thùng 24 Chai x 250ml)",
+    price: 201600,
+    unit: "Thùng",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg",
+    activeIngredient: "Nước bù nước điện giải vị cam",
+    isAvailable: true
+  },
+  "kamizol-orange-bottle": {
+    id: "kamizol-orange-bottle",
+    dbId: 0,
+    name: "Nước Bù Điện Giải Kamizol Vị Cam (Chai 250ml)",
+    price: 8400,
+    unit: "Chai",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg",
+    activeIngredient: "Nước bù nước điện giải vị cam",
+    isAvailable: true
+  },
+  "kamizol-lemon-box": {
+    id: "kamizol-lemon-box",
+    dbId: 0,
+    name: "Nước Bù Điện Giải Kamizol Vị Chanh (Thùng 24 Chai x 250ml)",
+    price: 201600,
+    unit: "Thùng",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg",
+    activeIngredient: "Nước bù nước điện giải vị chanh",
+    isAvailable: true
+  },
+  "kamizol-lemon-bottle": {
+    id: "kamizol-lemon-bottle",
+    dbId: 0,
+    name: "Nước Bù Điện Giải Kamizol Vị Chanh (Chai 250ml)",
+    price: 8400,
+    unit: "Chai",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg",
+    activeIngredient: "Nước bù nước điện giải vị chanh",
+    isAvailable: true
+  },
+  "kamizol-powder": {
+    id: "kamizol-powder",
+    dbId: 0,
+    name: "Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (Hộp 5 Gói x 25g)",
+    price: 32000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg",
+    activeIngredient: "Bột điện giải vị chanh dây",
+    isAvailable: true
+  },
+  "microlife-nc200": {
+    id: "microlife-nc200",
+    dbId: 0,
+    name: "Nhiệt kế hồng ngoại đo trán Microlife NC200",
+    price: 990000,
+    unit: "Hộp",
+    imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg",
+    activeIngredient: "Thiết bị đo thân nhiệt hồng ngoại",
+    isAvailable: true
+  }
+};
+
 export default function HomePage() {
   const router = useRouter();
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [cart, setCart] = useState<{ [key: string]: number }>({});
+  const { addToCart } = useCart();
+  const setCart = (updateFn: (prev: Record<string, number>) => Record<string, number>) => {
+    try {
+      const result = typeof updateFn === 'function' ? updateFn({}) : updateFn;
+      if (result) {
+        const keys = Object.keys(result);
+        if (keys.length > 0) {
+          const activeKey = keys[0];
+          const productInfo = RETAIL_PRODUCT_MAP[activeKey];
+          if (productInfo) {
+            addToCart(productInfo);
+          } else {
+            console.warn("Unknown product key in setCart wrapper:", activeKey);
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Error in fake setCart wrapper:", e);
+    }
+  };
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -974,9 +1393,9 @@ export default function HomePage() {
   }, []);
 
   // Cart total count
-  const cartCount = useMemo(() => {
-    return Object.values(cart).reduce((sum, count) => sum + count, 0);
-  }, [cart]);
+  // const cartCount = useMemo(() => {
+    // return Object.values(cart).reduce((sum, count) => sum + count, 0);
+  // }, [cart]);
 
   // Filtered medicines
   const filteredMedicines = useMemo(() => {
@@ -1010,10 +1429,16 @@ export default function HomePage() {
       triggerToast(`Sản phẩm ${med.name} đang tạm hết hàng.`);
       return;
     }
-    setCart(prev => ({
-      ...prev,
-      [med.id]: (prev[med.id] || 0) + 1
-    }));
+    addToCart({
+      id: med.id,
+      dbId: isNaN(Number(med.id.replace(/\D/g, ''))) ? 0 : Number(med.id.replace(/\D/g, '')),
+      name: med.name,
+      price: med.price,
+      unit: med.unit,
+      imageUrl: med.imageUrl || 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png',
+      activeIngredient: med.activeIngredient || med.name,
+      isAvailable: med.isAvailable
+    });
     triggerToast(`Đã thêm ${med.name} vào giỏ hàng.`);
   };
 
@@ -1372,7 +1797,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "fohepta-milk": (prev["fohepta-milk"] || 0) + 1 }));
+                        addToCart({
+                          id: "fohepta-milk",
+                          dbId: 0,
+                          name: "Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy (400g)",
+                          price: 205600,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg",
+                          activeIngredient: "Dinh dưỡng y học cho bệnh nhân gan",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Sữa Fohepta vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1482,7 +1916,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "ensure-gold-800g": (prev["ensure-gold-800g"] || 0) + 1 }));
+                        addToCart({
+                          id: "ensure-gold-800g",
+                          dbId: 0,
+                          name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold (800g)",
+                          price: 837000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+                          activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1538,7 +1981,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "ensure-gold-800g": (prev["ensure-gold-800g"] || 0) + 1 }));
+                        addToCart({
+                          id: "ensure-gold-less-sweet-800g",
+                          dbId: 0,
+                          name: "Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt (800g)",
+                          price: 837000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg",
+                          activeIngredient: "Dinh dưỡng hỗ trợ sức khỏe khối cơ (ít ngọt)",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Sữa Ensure Gold vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1594,7 +2046,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "icreo-glico-800g": (prev["icreo-glico-800g"] || 0) + 1 }));
+                        addToCart({
+                          id: "icreo-glico-800g",
+                          dbId: 0,
+                          name: "Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản (800g)",
+                          price: 933120,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg",
+                          activeIngredient: "Dinh dưỡng cân bằng cho bé",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Sữa Icreo Glico vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1650,7 +2111,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "glucerna-800g": (prev["glucerna-800g"] || 0) + 1 }));
+                        addToCart({
+                          id: "glucerna-800g",
+                          dbId: 0,
+                          name: "Sữa bổ sung dinh dưỡng đặc biệt cho người đái tháo đường Glucerna (800g)",
+                          price: 842000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg",
+                          activeIngredient: "Dinh dưỡng đặc chế cho người tiểu đường",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Sữa Glucerna vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1739,7 +2209,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "nmn-pqq-kenko": (prev["nmn-pqq-kenko"] || 0) + 1 }));
+                        addToCart({
+                          id: "nmn-pqq-kenko",
+                          dbId: 0,
+                          name: "Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN PQQ Kenko (Hộp 60 Viên)",
+                          price: 6675000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09707_b7893a5b10.jpg",
+                          activeIngredient: "NMN PQQ Kenko chống lão hóa",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm NMN PQQ Kenko vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1791,7 +2270,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "kudos-daily": (prev["kudos-daily"] || 0) + 1 }));
+                        addToCart({
+                          id: "kudos-daily",
+                          dbId: 0,
+                          name: "Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins (Tuýp 20 Viên)",
+                          price: 118150,
+                          unit: "Tuýp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg",
+                          activeIngredient: "Bổ sung vitamin cho cơ thể",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Kudos Daily Vitamins vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1843,7 +2331,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "nano-fucoidan": (prev["nano-fucoidan"] || 0) + 1 }));
+                        addToCart({
+                          id: "nano-fucoidan",
+                          dbId: 0,
+                          name: "Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức đề kháng Nano Fucoidan (Hộp 30 Viên)",
+                          price: 792000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg",
+                          activeIngredient: "Nano Fucoidan chống oxy hóa",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Nano Fucoidan vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1895,7 +2392,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "brauer-dha": (prev["brauer-dha"] || 0) + 1 }));
+                        addToCart({
+                          id: "brauer-dha",
+                          dbId: 0,
+                          name: "Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Kids Ultra Pure DHA (Hộp 60 Viên)",
+                          price: 388800,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png",
+                          activeIngredient: "DHA phát triển não bộ cho trẻ",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Brauer DHA vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -1976,8 +2482,18 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        const key = samsungUnit === "hop" ? "achimmadang-box" : "achimmadang-bottle";
-                        setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+
+                        const isBox = samsungUnit === "hop";
+                        addToCart({
+                          id: isBox ? "achimmadang-box" : "achimmadang-bottle",
+                          dbId: 0,
+                          name: `Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink (${isBox ? "Hộp 10 Chai x 120ml" : "Chai 120ml"})`,
+                          price: isBox ? 400000 : 40000,
+                          unit: isBox ? "Hộp" : "Chai",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg",
+                          activeIngredient: "Nước sâm nguyên củ bồi bổ sức khỏe",
+                          isAvailable: true
+                        });
                         triggerToast(`Đã thêm Nước Sâm Achimmadang (${samsungUnit === "hop" ? "Hộp" : "Chai"}) vào giỏ hàng.`);
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -2025,7 +2541,16 @@ export default function HomePage() {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setCart(prev => ({ ...prev, "aloclair-plus": (prev["aloclair-plus"] || 0) + 1 }));
+                        addToCart({
+                          id: "aloclair-plus",
+                          dbId: 0,
+                          name: "Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml (Hộp x 15ml)",
+                          price: 229000,
+                          unit: "Hộp",
+                          imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg",
+                          activeIngredient: "Aloclair Plus xịt nhiệt miệng",
+                          isAvailable: true
+                        });
                         triggerToast("Đã thêm Chai xịt Aloclair Plus vào giỏ hàng.");
                       }}
                       className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
@@ -2076,16 +2601,11 @@ export default function HomePage() {
           {/* Grid Layout of 12 categories: 2 columns on mobile, 3 on sm, 4 on md, 6 on desktop */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {FEATURED_CATEGORIES.map((cat) => {
-              const isSelected = selectedCategory?.toLowerCase() === cat.filterName.toLowerCase();
               return (
-                <button
+                <Link
                   key={cat.id}
-                  onClick={() => setSelectedCategory(isSelected ? null : cat.filterName)}
-                  className={`p-5 rounded-2xl text-center flex flex-col items-center justify-between border transition-all duration-300 hover:scale-102 hover:shadow-lg h-full min-h-[158px] group relative ${
-                    isSelected 
-                      ? "bg-[#eff6ff] border-[#024ad8]/40 shadow-sm" 
-                      : "bg-white border-fog hover:border-[#024ad8]/20 shadow-sm"
-                  }`}
+                  href={cat.href || '#'}
+                  className="p-5 rounded-2xl text-center flex flex-col items-center justify-between border bg-white border-fog hover:border-[#024ad8]/20 hover:scale-102 hover:shadow-lg transition-all duration-300 h-full min-h-[158px] group relative shadow-sm"
                 >
                   {/* Category SVG Icon */}
                   <div className="flex-1 flex items-center justify-center mb-3">
@@ -2100,12 +2620,7 @@ export default function HomePage() {
                       {cat.count} sản phẩm
                     </span>
                   </div>
-
-                  {/* Active highlight bar indicator */}
-                  {isSelected && (
-                    <div className="absolute bottom-0 left-1/4 right-1/4 h-1 bg-[#024ad8] rounded-t-full" />
-                  )}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -2364,14 +2879,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
-                          </h4>
+                          <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Tuýp</span>
@@ -2401,14 +2920,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
-                          </h4>
+                          <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2438,14 +2961,18 @@ export default function HomePage() {
                           🇸🇬 Singapore
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">175.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Chai</span>
@@ -2475,14 +3002,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
-                          </h4>
+                          <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">150.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2517,14 +3048,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
-                          </h4>
+                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2576,14 +3111,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
-                          </h4>
+                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2635,14 +3174,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
-                          </h4>
+                          <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2694,14 +3237,18 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
-                          </h4>
+                          <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">24.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>
@@ -2736,14 +3283,18 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
-                          </h4>
+                          <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2795,14 +3346,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
-                          </h4>
+                          <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2837,7 +3392,7 @@ export default function HomePage() {
                             onClick={() => {
                               const key = `acemuc-${acemucUnit}`;
                               setCart(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
-                              triggerToast(`Đã thêm Acemuc (${acemucUnit === "hop" ? "Hộp" : "Chai" /* wait, Viên */}) vào giỏ hàng.`);
+                              triggerToast(`Đã thêm Acemuc (${acemucUnit === "hop" ? "Hộp" : "Vỉ" /* Viên */}) vào giỏ hàng.`);
                             }}
                             className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
                           >
@@ -2854,14 +3409,18 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
-                          </h4>
+                          <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2916,14 +3475,18 @@ export default function HomePage() {
                           -10%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
-                          </h4>
+                          <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
+                            </h4>
+                          </Link>
                           <div className="flex flex-col mt-2">
                             <div className="flex items-baseline gap-1">
                               <strong className="text-[13px] font-black text-[#024ad8]">113.400đ</strong>
@@ -2964,14 +3527,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Bù Điện Giải Kamizol Vị Cam (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Bù Điện Giải Kamizol Vị Cam (250ml)
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -3031,14 +3598,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
-                          </h4>
+                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
+                            </h4>
+                          </Link>
                           
                           {/* Unit switcher */}
                           <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -3098,14 +3669,18 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
-                          </h4>
+                          <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
+                            </h4>
+                          </Link>
                           <div className="flex flex-col mt-2">
                             <div className="flex items-baseline gap-1">
                               <strong className="text-[13px] font-black text-[#024ad8]">32.000đ</strong>
@@ -3138,14 +3713,18 @@ export default function HomePage() {
                           🇨🇭 Thụy Sĩ
                         </span>
                       </div>
-                      <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                        <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
-                      </div>
+                      <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block w-full cursor-pointer">
+                        <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                          <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
+                        </div>
+                      </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
-                            Nhiệt kế hồng ngoại đo trán Microlife NC200
-                          </h4>
+                          <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block text-left mb-1 cursor-pointer">
+                            <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
+                              Nhiệt kế hồng ngoại đo trán Microlife NC200
+                            </h4>
+                          </Link>
                           <div className="flex items-baseline gap-1 mt-2">
                             <strong className="text-[13px] font-black text-[#024ad8]">990.000đ</strong>
                             <span className="text-[9px] text-graphite font-semibold">/ Hộp</span>

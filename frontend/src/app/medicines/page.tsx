@@ -1,14 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { Sidebar } from '@/components/sidebar';
 import { RouteGuard } from '@/components/route-guard';
+import { CategoryList } from '@/components/medicines/CategoryList';
+import { MedicineList } from '@/components/medicines/MedicineList';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { User, Shield } from 'lucide-react';
+import { User, Shield, Pill, FolderTree } from 'lucide-react';
 
 export default function MedicinesPage() {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<'categories' | 'medicines'>('categories');
 
   const displayRole = user?.roles?.includes('ADMIN') 
     ? 'Quản trị viên' 
@@ -22,10 +25,13 @@ export default function MedicinesPage() {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-16 bg-white border-b border-hairline flex items-center justify-between px-8">
-            <h1 className="text-base font-bold text-ink uppercase tracking-wider">
-              Quản lý thuốc
-            </h1>
+          <header className="h-16 bg-white border-b border-hairline flex items-center justify-between px-8 shrink-0">
+            <div className="flex items-center gap-3">
+              <FolderTree className="h-6 w-6 text-primary" />
+              <h1 className="text-lg font-bold text-ink uppercase tracking-wider">
+                Quản lý Thuốc & Danh mục
+              </h1>
+            </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-xs text-charcoal bg-cloud px-3 py-1.5 rounded-md border border-hairline">
                 <User className="h-4 w-4 text-graphite" />
@@ -38,26 +44,44 @@ export default function MedicinesPage() {
           </header>
 
           <main className="p-8 space-y-6 flex-1 overflow-y-auto max-w-[1366px] w-full mx-auto">
-            <Card className="bg-white border border-hairline rounded-xl shadow-sm relative overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
-              <CardHeader className="pl-8 pt-6">
-                <CardTitle className="text-lg font-bold text-ink">Danh sách thuốc & Danh mục</CardTitle>
-              </CardHeader>
-              <CardContent className="pl-8 pb-8">
-                <div className="flex flex-col items-center justify-center p-12 text-center space-y-4">
-                  <span className="text-5xl">💊</span>
-                  <div>
-                    <h3 className="font-bold text-ink text-lg">Chức năng quản lý thuốc</h3>
-                    <p className="text-sm text-graphite max-w-sm mt-1 leading-relaxed">
-                      Phân hệ quản lý thuốc và danh mục chi tiết thuộc **Sprint 1** (Medicine Management). Hiện tại trang đang được thiết lập để giữ chỗ và phân quyền truy cập thành công.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Tabs Control */}
+            <div className="flex border-b border-hairline space-x-6">
+              <button
+                onClick={() => setActiveTab('categories')}
+                className={`pb-3 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+                  activeTab === 'categories'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-graphite hover:text-ink'
+                }`}
+              >
+                <FolderTree className="h-4 w-4" />
+                Danh mục thuốc
+              </button>
+              <button
+                onClick={() => setActiveTab('medicines')}
+                className={`pb-3 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+                  activeTab === 'medicines'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-graphite hover:text-ink'
+                }`}
+              >
+                <Pill className="h-4 w-4" />
+                Danh sách thuốc
+              </button>
+            </div>
+
+            {/* Tab Contents */}
+            <div className="mt-4 animate-fade-in duration-200">
+              {activeTab === 'categories' ? (
+                <CategoryList />
+              ) : (
+                <MedicineList />
+              )}
+            </div>
           </main>
         </div>
       </div>
     </RouteGuard>
   );
 }
+

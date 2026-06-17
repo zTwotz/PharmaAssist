@@ -54,9 +54,9 @@
   --color-ink: #1a1a1a;
   --color-ink-deep: #000000;
   --color-ink-soft: #292929;
-  --color-canvas: #ffffff;
+  --color-canvas: #e0f2fe;
   --color-paper: #ffffff;
-  --color-cloud: #f7f7f7;
+  --color-cloud: #eaf7ff;
   --color-fog: #e8e8e8;
   --color-steel: #c2c2c2;
   --color-graphite: #636363;
@@ -66,7 +66,7 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #e0f2fe;
   --foreground: #1a1a1a;
   --card: #ffffff;
   --card-foreground: #1a1a1a;
