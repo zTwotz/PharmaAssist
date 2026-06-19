@@ -229,9 +229,9 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 
 | Phase | Domain | Tasks | Total | Not started | In progress | Documentation complete | Review PASS |
 |---|---|---|---:|---:|---:|---:|---:|
-| Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 3 | 3 |
-| Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 3 | 3 |
-| Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 0 | 0 | 3 | 3 |
+| Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 0 | 3 |
+| Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 0 | 3 |
+| Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 0 | 0 | 0 | 3 |
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 4 | 0 | 0 | 0 |
 | Phase 5 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2 | 2 | 0 | 0 | 0 |
 | Phase 6 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2 | 2 | 0 | 0 | 0 |
@@ -243,15 +243,15 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 
 | Task | Jira | Summary | Story | Epic | Exact branch | Status | Local doc gate | PR review | CI | PR | Merge SHA | Deliverable/Evidence |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| PAC-TASK-556 | PAC-766 | Document Full Customer Management future scope | US-161 | PAC-EPIC-31 | `docs/PAC-766-task-556-document-full-customer-management-future-scope` | Documentation complete | PASS | PASS | N/A | #873 | f5e6370 | `DOC/future-commercial-expansion/PAC-766-task-556-customer-management.md` |
-| PAC-TASK-557 | PAC-767 | Document customer profile CRUD future scope | US-161 | PAC-EPIC-31 | `docs/PAC-767-task-557-document-customer-profile-crud-future-scope` | Documentation complete | PASS | PASS | N/A | #874 | e582798 | `DOC/future-commercial-expansion/PAC-767-task-557-customer-profile-crud.md` |
-| PAC-TASK-558 | PAC-768 | Document customer purchase history expansion | US-161 | PAC-EPIC-31 | `docs/PAC-768-task-558-document-customer-purchase-history-expansion` | Documentation complete | PASS | PASS | N/A | #875 | df75978 | `DOC/future-commercial-expansion/PAC-768-task-558-customer-purchase-history.md` |
-| PAC-TASK-559 | PAC-769 | Document Online Commerce storefront future scope | US-162 | PAC-EPIC-32 | `docs/PAC-769-task-559-document-online-commerce-storefront-future-scope` | Documentation complete | PASS | PASS | N/A | #876 | 0b6261a | `DOC/future-commercial-expansion/PAC-769-task-559-online-commerce-storefront.md` |
-| PAC-TASK-560 | PAC-770 | Document online cart and wishlist future scope | US-162 | PAC-EPIC-32 | `docs/PAC-770-task-560-document-online-cart-and-wishlist-future-scope` | Documentation complete | PASS | PASS | N/A | #877 | 9904b87 | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
-| PAC-TASK-561 | PAC-771 | Document online checkout separation from POS checkout | US-162 | PAC-EPIC-32 | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` | Documentation complete | PASS | PASS | N/A | #878 | 4383113 | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
-| PAC-TASK-562 | PAC-772 | Document Product Variant Catalog future scope | US-163 | PAC-EPIC-33 | `docs/PAC-772-task-562-document-product-variant-catalog-future-scope` | Documentation complete | PASS | PASS | N/A | #879 | d6841d6 | `DOC/future-commercial-expansion/PAC-772-task-562-product-variant-catalog.md` |
-| PAC-TASK-563 | PAC-773 | Document product images and documents commercial scope | US-163 | PAC-EPIC-33 | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` | Documentation complete | PASS | PASS | N/A | #880 | b52252e | `DOC/future-commercial-expansion/PAC-773-task-563-product-images-and-documents.md` |
-| PAC-TASK-564 | PAC-774 | Document real catalog data import future workflow | US-163 | PAC-EPIC-33 | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` | Documentation complete | PASS | PASS | N/A | #881 | eee9317 | `DOC/future-commercial-expansion/PAC-774-task-564-real-catalog-data-import.md` |
+| PAC-TASK-556 | PAC-766 | Document Full Customer Management future scope | US-161 | PAC-EPIC-31 | `docs/PAC-766-task-556-document-full-customer-management-future-scope` | Review PASS | PASS | PASS | N/A | #873 | f5e6370 | `DOC/future-commercial-expansion/PAC-766-task-556-customer-management.md` |
+| PAC-TASK-557 | PAC-767 | Document customer profile CRUD future scope | US-161 | PAC-EPIC-31 | `docs/PAC-767-task-557-document-customer-profile-crud-future-scope` | Review PASS | PASS | PASS | N/A | #874 | e582798 | `DOC/future-commercial-expansion/PAC-767-task-557-customer-profile-crud.md` |
+| PAC-TASK-558 | PAC-768 | Document customer purchase history expansion | US-161 | PAC-EPIC-31 | `docs/PAC-768-task-558-document-customer-purchase-history-expansion` | Review PASS | PASS | PASS | N/A | #875 | df75978 | `DOC/future-commercial-expansion/PAC-768-task-558-customer-purchase-history.md` |
+| PAC-TASK-559 | PAC-769 | Document Online Commerce storefront future scope | US-162 | PAC-EPIC-32 | `docs/PAC-769-task-559-document-online-commerce-storefront-future-scope` | Review PASS | PASS | PASS | N/A | #876 | 0b6261a | `DOC/future-commercial-expansion/PAC-769-task-559-online-commerce-storefront.md` |
+| PAC-TASK-560 | PAC-770 | Document online cart and wishlist future scope | US-162 | PAC-EPIC-32 | `docs/PAC-770-task-560-document-online-cart-and-wishlist-future-scope` | Review PASS | PASS | PASS | N/A | #877 | 9904b87 | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
+| PAC-TASK-561 | PAC-771 | Document online checkout separation from POS checkout | US-162 | PAC-EPIC-32 | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` | Review PASS | PASS | PASS | N/A | #878 | 4383113 | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
+| PAC-TASK-562 | PAC-772 | Document Product Variant Catalog future scope | US-163 | PAC-EPIC-33 | `docs/PAC-772-task-562-document-product-variant-catalog-future-scope` | Review PASS | PASS | PASS | N/A | #879 | d6841d6 | `DOC/future-commercial-expansion/PAC-772-task-562-product-variant-catalog.md` |
+| PAC-TASK-563 | PAC-773 | Document product images and documents commercial scope | US-163 | PAC-EPIC-33 | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` | Review PASS | PASS | PASS | N/A | #880 | b52252e | `DOC/future-commercial-expansion/PAC-773-task-563-product-images-and-documents.md` |
+| PAC-TASK-564 | PAC-774 | Document real catalog data import future workflow | US-163 | PAC-EPIC-33 | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` | Review PASS | PASS | PASS | N/A | #881 | eee9317 | `DOC/future-commercial-expansion/PAC-774-task-564-real-catalog-data-import.md` |
 | PAC-TASK-565 | PAC-775 | Document Multi-store future scope | US-164 | PAC-EPIC-34 | `docs/PAC-775-task-565-document-multi-store-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-566 | PAC-776 | Document default store assumption for MVP | US-164 | PAC-EPIC-34 | `docs/PAC-776-task-566-document-default-store-assumption-for-mvp` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-567 | PAC-777 | Document Multi-warehouse future scope | US-165 | PAC-EPIC-34 | `docs/PAC-777-task-567-document-multi-warehouse-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
@@ -288,7 +288,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 |---|---|---|---|---:|---|---|---|---|---|
 | US-161 | PAC-201 | Full Customer Management backlog | PAC-EPIC-31 | 2 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | `develop` | `7935f65` |
 | US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | `develop` | `e7e474f` |
-| US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | — | — |
+| US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | `develop` | `eee9317` |
 | US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | Not started | Pending | — | — |
 | US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | Not started | Pending | — | — |
 | US-166 | PAC-206 | Stock Transfer backlog | PAC-EPIC-35 | 2 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | — | — |
@@ -305,7 +305,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 |---|---|---|---|---|---|---|---|---|
 | PAC-EPIC-31 | PAC-31 | Full Customer Management | US-161 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | PASS | `7935f65` |
 | PAC-EPIC-32 | PAC-32 | Online Commerce | US-162 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | PASS | `e7e474f` |
-| PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | Pending | — |
+| PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | PASS | `eee9317` |
 | PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | Not started | Pending | Pending | — |
 | PAC-EPIC-35 | PAC-35 | Stock Transfer | US-166 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | Pending | — |
 | PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | Pending | — |
