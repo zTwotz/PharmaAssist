@@ -230,7 +230,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | Phase | Domain | Tasks | Total | Not started | In progress | Documentation complete | Review PASS |
 |---|---|---|---:|---:|---:|---:|---:|
 | Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 3 | 3 |
-| Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 1 | 0 | 2 | 2 |
+| Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 3 | 3 |
 | Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 3 | 0 | 0 | 0 |
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 4 | 0 | 0 | 0 |
 | Phase 5 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2 | 2 | 0 | 0 | 0 |
@@ -248,7 +248,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-558 | PAC-768 | Document customer purchase history expansion | US-161 | PAC-EPIC-31 | `docs/PAC-768-task-558-document-customer-purchase-history-expansion` | Documentation complete | PASS | PASS | N/A | #875 | df75978 | `DOC/future-commercial-expansion/PAC-768-task-558-customer-purchase-history.md` |
 | PAC-TASK-559 | PAC-769 | Document Online Commerce storefront future scope | US-162 | PAC-EPIC-32 | `docs/PAC-769-task-559-document-online-commerce-storefront-future-scope` | Documentation complete | PASS | PASS | N/A | #876 | 0b6261a | `DOC/future-commercial-expansion/PAC-769-task-559-online-commerce-storefront.md` |
 | PAC-TASK-560 | PAC-770 | Document online cart and wishlist future scope | US-162 | PAC-EPIC-32 | `docs/PAC-770-task-560-document-online-cart-and-wishlist-future-scope` | Documentation complete | PASS | PASS | N/A | #877 | 9904b87 | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
-| PAC-TASK-561 | PAC-771 | Document online checkout separation from POS checkout | US-162 | PAC-EPIC-32 | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-561 | PAC-771 | Document online checkout separation from POS checkout | US-162 | PAC-EPIC-32 | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` | Documentation complete | PASS | PASS | N/A | #878 | 4383113 | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
 | PAC-TASK-562 | PAC-772 | Document Product Variant Catalog future scope | US-163 | PAC-EPIC-33 | `docs/PAC-772-task-562-document-product-variant-catalog-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-563 | PAC-773 | Document product images and documents commercial scope | US-163 | PAC-EPIC-33 | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-564 | PAC-774 | Document real catalog data import future workflow | US-163 | PAC-EPIC-33 | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
@@ -287,7 +287,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | Story | Jira | Summary | Epic | Points | Direct Tasks | Status | AC result | Evidence | Open decisions |
 |---|---|---|---|---:|---|---|---|---|---|
 | US-161 | PAC-201 | Full Customer Management backlog | PAC-EPIC-31 | 2 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | `develop` | `7935f65` |
-| US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | Not started | Pending | — | — |
+| US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | `develop` | `e7e474f` |
 | US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | — | — |
 | US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | Not started | Pending | — | — |
 | US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | Not started | Pending | — | — |
@@ -304,7 +304,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | Epic | Jira | Summary | Stories | Tasks | Status | Dependency review | Guardrail review | Evidence |
 |---|---|---|---|---|---|---|---|---|
 | PAC-EPIC-31 | PAC-31 | Full Customer Management | US-161 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | PASS | `7935f65` |
-| PAC-EPIC-32 | PAC-32 | Online Commerce | US-162 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | Not started | Pending | Pending | — |
+| PAC-EPIC-32 | PAC-32 | Online Commerce | US-162 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | PASS | `e7e474f` |
 | PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | Not started | Pending | Pending | — |
 | PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | Not started | Pending | Pending | — |
 | PAC-EPIC-35 | PAC-35 | Stock Transfer | US-166 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | Pending | — |
@@ -346,7 +346,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-558 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-768-task-558-customer-purchase-history.md` |
 | PAC-TASK-559 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-769-task-559-online-commerce-storefront.md` |
 | PAC-TASK-560 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
-| PAC-TASK-561 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-561 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
 | PAC-TASK-562 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-563 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-564 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
