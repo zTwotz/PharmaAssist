@@ -231,7 +231,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 |---|---|---|---:|---:|---:|---:|---:|
 | Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 3 | 3 |
 | Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 3 | 3 |
-| Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 2 | 0 | 1 | 1 |
+| Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 1 | 0 | 2 | 2 |
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 4 | 0 | 0 | 0 |
 | Phase 5 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2 | 2 | 0 | 0 | 0 |
 | Phase 6 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2 | 2 | 0 | 0 | 0 |
@@ -250,7 +250,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-560 | PAC-770 | Document online cart and wishlist future scope | US-162 | PAC-EPIC-32 | `docs/PAC-770-task-560-document-online-cart-and-wishlist-future-scope` | Documentation complete | PASS | PASS | N/A | #877 | 9904b87 | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
 | PAC-TASK-561 | PAC-771 | Document online checkout separation from POS checkout | US-162 | PAC-EPIC-32 | `docs/PAC-771-task-561-document-online-checkout-separation-from-pos-checko` | Documentation complete | PASS | PASS | N/A | #878 | 4383113 | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
 | PAC-TASK-562 | PAC-772 | Document Product Variant Catalog future scope | US-163 | PAC-EPIC-33 | `docs/PAC-772-task-562-document-product-variant-catalog-future-scope` | Documentation complete | PASS | PASS | N/A | #879 | d6841d6 | `DOC/future-commercial-expansion/PAC-772-task-562-product-variant-catalog.md` |
-| PAC-TASK-563 | PAC-773 | Document product images and documents commercial scope | US-163 | PAC-EPIC-33 | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-563 | PAC-773 | Document product images and documents commercial scope | US-163 | PAC-EPIC-33 | `docs/PAC-773-task-563-document-product-images-and-documents-commercial-sc` | Documentation complete | PASS | PASS | N/A | #880 | b52252e | `DOC/future-commercial-expansion/PAC-773-task-563-product-images-and-documents.md` |
 | PAC-TASK-564 | PAC-774 | Document real catalog data import future workflow | US-163 | PAC-EPIC-33 | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-565 | PAC-775 | Document Multi-store future scope | US-164 | PAC-EPIC-34 | `docs/PAC-775-task-565-document-multi-store-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-566 | PAC-776 | Document default store assumption for MVP | US-164 | PAC-EPIC-34 | `docs/PAC-776-task-566-document-default-store-assumption-for-mvp` | Not started | Pending | Pending | N/A | — | — | — |
@@ -348,7 +348,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-560 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-770-task-560-online-cart-and-wishlist.md` |
 | PAC-TASK-561 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-771-task-561-online-checkout-separation.md` |
 | PAC-TASK-562 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-772-task-562-product-variant-catalog.md` |
-| PAC-TASK-563 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-563 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-773-task-563-product-images-and-documents.md` |
 | PAC-TASK-564 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-565 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-566 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
