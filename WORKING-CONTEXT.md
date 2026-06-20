@@ -287,3 +287,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-565 (PAC-775): Documented Multi-store future scope. Quality Gate passed. PR #882 merged to develop.
 - PAC-TASK-566 (PAC-776): Documented default store assumption for MVP. Quality Gate passed. PR #883 merged to develop.
 - US-164 (PAC-EPIC-34): Story Acceptance Review passed. All tasks for Multi-store support are complete.
+- PAC-TASK-567 (PAC-777): Documented Multi-warehouse future scope. Quality Gate passed. PR #884 merged to develop.

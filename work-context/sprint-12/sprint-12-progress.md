@@ -232,7 +232,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 0 | 3 |
 | Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 0 | 3 |
 | Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 0 | 0 | 0 | 3 |
-| Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 2 | 0 | 2 | 2 |
+| Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 1 | 0 | 3 | 3 |
 | Phase 5 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2 | 2 | 0 | 0 | 0 |
 | Phase 6 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2 | 2 | 0 | 0 | 0 |
 | Phase 7 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2 | 2 | 0 | 0 | 0 |
@@ -254,7 +254,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-564 | PAC-774 | Document real catalog data import future workflow | US-163 | PAC-EPIC-33 | `docs/PAC-774-task-564-document-real-catalog-data-import-future-workflow` | Review PASS | PASS | PASS | N/A | #881 | eee9317 | `DOC/future-commercial-expansion/PAC-774-task-564-real-catalog-data-import.md` |
 | PAC-TASK-565 | PAC-775 | Document Multi-store future scope | US-164 | PAC-EPIC-34 | `docs/PAC-775-task-565-document-multi-store-future-scope` | Documentation complete | PASS | PASS | N/A | #882 | 8936535 | `DOC/future-commercial-expansion/PAC-775-task-565-multi-store.md` |
 | PAC-TASK-566 | PAC-776 | Document default store assumption for MVP | US-164 | PAC-EPIC-34 | `docs/PAC-776-task-566-document-default-store-assumption-for-mvp` | Documentation complete | PASS | PASS | N/A | #883 | 367fc93 | `DOC/future-commercial-expansion/PAC-776-task-566-default-store-assumption.md` |
-| PAC-TASK-567 | PAC-777 | Document Multi-warehouse future scope | US-165 | PAC-EPIC-34 | `docs/PAC-777-task-567-document-multi-warehouse-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-567 | PAC-777 | Document Multi-warehouse future scope | US-165 | PAC-EPIC-34 | `docs/PAC-777-task-567-document-multi-warehouse-future-scope` | Documentation complete | PASS | PASS | N/A | #884 | eed6b6f | `DOC/future-commercial-expansion/PAC-777-task-567-multi-warehouse.md` |
 | PAC-TASK-568 | PAC-778 | Document default warehouse assumption for MVP | US-165 | PAC-EPIC-34 | `docs/PAC-778-task-568-document-default-warehouse-assumption-for-mvp` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-569 | PAC-779 | Document Stock Transfer future workflow | US-166 | PAC-EPIC-35 | `docs/PAC-779-task-569-document-stock-transfer-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-570 | PAC-780 | Document stock transfer audit future requirement | US-166 | PAC-EPIC-35 | `docs/PAC-780-task-570-document-stock-transfer-audit-future-requirement` | Not started | Pending | Pending | N/A | — | — | — |
@@ -352,7 +352,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-564 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-774-task-564-real-catalog-data-import.md` |
 | PAC-TASK-565 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-775-task-565-multi-store.md` |
 | PAC-TASK-566 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-776-task-566-default-store-assumption.md` |
-| PAC-TASK-567 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-567 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-777-task-567-multi-warehouse.md` |
 | PAC-TASK-568 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-569 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-570 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
