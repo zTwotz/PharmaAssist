@@ -232,7 +232,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | Phase 1 | Full Customer Management | PAC-TASK-556 → PAC-TASK-558 | 3 | 0 | 0 | 0 | 3 |
 | Phase 2 | Online Commerce | PAC-TASK-559 → PAC-TASK-561 | 3 | 0 | 0 | 0 | 3 |
 | Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 0 | 0 | 0 | 3 |
-| Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 1 | 0 | 3 | 3 |
+| Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 0 | 0 | 4 | 4 |
 | Phase 5 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2 | 2 | 0 | 0 | 0 |
 | Phase 6 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2 | 2 | 0 | 0 | 0 |
 | Phase 7 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2 | 2 | 0 | 0 | 0 |
@@ -255,7 +255,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-565 | PAC-775 | Document Multi-store future scope | US-164 | PAC-EPIC-34 | `docs/PAC-775-task-565-document-multi-store-future-scope` | Documentation complete | PASS | PASS | N/A | #882 | 8936535 | `DOC/future-commercial-expansion/PAC-775-task-565-multi-store.md` |
 | PAC-TASK-566 | PAC-776 | Document default store assumption for MVP | US-164 | PAC-EPIC-34 | `docs/PAC-776-task-566-document-default-store-assumption-for-mvp` | Documentation complete | PASS | PASS | N/A | #883 | 367fc93 | `DOC/future-commercial-expansion/PAC-776-task-566-default-store-assumption.md` |
 | PAC-TASK-567 | PAC-777 | Document Multi-warehouse future scope | US-165 | PAC-EPIC-34 | `docs/PAC-777-task-567-document-multi-warehouse-future-scope` | Documentation complete | PASS | PASS | N/A | #884 | eed6b6f | `DOC/future-commercial-expansion/PAC-777-task-567-multi-warehouse.md` |
-| PAC-TASK-568 | PAC-778 | Document default warehouse assumption for MVP | US-165 | PAC-EPIC-34 | `docs/PAC-778-task-568-document-default-warehouse-assumption-for-mvp` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-568 | PAC-778 | Document default warehouse assumption for MVP | US-165 | PAC-EPIC-34 | `docs/PAC-778-task-568-document-default-warehouse-assumption-for-mvp` | Documentation complete | PASS | PASS | N/A | #885 | c47bf09 | `DOC/future-commercial-expansion/PAC-778-task-568-default-warehouse-assumption.md` |
 | PAC-TASK-569 | PAC-779 | Document Stock Transfer future workflow | US-166 | PAC-EPIC-35 | `docs/PAC-779-task-569-document-stock-transfer-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-570 | PAC-780 | Document stock transfer audit future requirement | US-166 | PAC-EPIC-35 | `docs/PAC-780-task-570-document-stock-transfer-audit-future-requirement` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-571 | PAC-781 | Document Forecasting and reorder suggestion future scope | US-167 | PAC-EPIC-36 | `docs/PAC-781-task-571-document-forecasting-and-reorder-suggestion-future-` | Not started | Pending | Pending | N/A | — | — | — |
@@ -290,7 +290,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | `develop` | `e7e474f` |
 | US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | `develop` | `eee9317` |
 | US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | PASS | PASS | `develop` | `367fc93` |
-| US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | Not started | Pending | — | — |
+| US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | PASS | PASS | `develop` | `c47bf09` |
 | US-166 | PAC-206 | Stock Transfer backlog | PAC-EPIC-35 | 2 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | — | — |
 | US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | — | — |
 | US-168 | PAC-208 | Promotion / Coupon backlog | PAC-EPIC-37 | 2 | PAC-TASK-573, PAC-TASK-574 | Not started | Pending | — | — |
@@ -306,7 +306,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-EPIC-31 | PAC-31 | Full Customer Management | US-161 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | PASS | `7935f65` |
 | PAC-EPIC-32 | PAC-32 | Online Commerce | US-162 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | PASS | `e7e474f` |
 | PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | PASS | `eee9317` |
-| PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | Not started | Pending | Pending | — |
+| PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | PASS | PASS | PASS | `c47bf09` |
 | PAC-EPIC-35 | PAC-35 | Stock Transfer | US-166 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | Pending | — |
 | PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | Pending | — |
 | PAC-EPIC-37 | PAC-37 | Promotion / Coupon | US-168 | PAC-TASK-573, PAC-TASK-574 | Not started | Pending | Pending | — |
@@ -353,7 +353,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-565 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-775-task-565-multi-store.md` |
 | PAC-TASK-566 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-776-task-566-default-store-assumption.md` |
 | PAC-TASK-567 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-777-task-567-multi-warehouse.md` |
-| PAC-TASK-568 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-568 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-778-task-568-default-warehouse-assumption.md` |
 | PAC-TASK-569 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-570 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-571 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
