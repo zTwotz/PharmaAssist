@@ -289,7 +289,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | US-161 | PAC-201 | Full Customer Management backlog | PAC-EPIC-31 | 2 | PAC-TASK-556, PAC-TASK-557, PAC-TASK-558 | PASS | PASS | `develop` | `7935f65` |
 | US-162 | PAC-202 | Online Commerce backlog | PAC-EPIC-32 | 2 | PAC-TASK-559, PAC-TASK-560, PAC-TASK-561 | PASS | PASS | `develop` | `e7e474f` |
 | US-163 | PAC-203 | Product Variant Catalog backlog | PAC-EPIC-33 | 2 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | `develop` | `eee9317` |
-| US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | Not started | Pending | — | — |
+| US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | PASS | PASS | `develop` | `367fc93` |
 | US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | Not started | Pending | — | — |
 | US-166 | PAC-206 | Stock Transfer backlog | PAC-EPIC-35 | 2 | PAC-TASK-569, PAC-TASK-570 | Not started | Pending | — | — |
 | US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | — | — |
