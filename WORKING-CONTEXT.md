@@ -284,3 +284,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-563 (PAC-773): Documented product images and documents commercial scope. Quality Gate passed. PR #880 merged to develop.
 - PAC-TASK-564 (PAC-774): Documented real catalog data import future workflow. Quality Gate passed. PR #881 merged to develop.
 - US-163 (PAC-EPIC-33): Story Acceptance Review and Epic Integration Review passed. All tasks for Product Variant Catalog are complete.
+- PAC-TASK-565 (PAC-775): Documented Multi-store future scope. Quality Gate passed. PR #882 merged to develop.
