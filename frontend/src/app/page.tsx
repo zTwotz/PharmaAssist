@@ -1763,19 +1763,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" 
-                    alt="Sữa Fohepta" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/sua-dinh-duong-danh-cho-benh-nhan-gan-fohepta-vitadairy-400g" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/00501988_sua_cho_benh_nhan_gan_fohepta_vitadairy_400g_5342_6360_large_91621ed7fb.jpg" 
+                      alt="Sữa Fohepta" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy...
-                    </h4>
+                    <Link href="/san-pham/sua-dinh-duong-danh-cho-benh-nhan-gan-fohepta-vitadairy-400g" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Sữa dinh dưỡng dành cho bệnh nhân gan Fohepta Vitadairy...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">205.600đ</strong>
@@ -1828,24 +1832,28 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg" 
-                    alt="Sữa Ensure nước" 
-                    className="w-full h-full object-contain p-2 grayscale opacity-80"
-                  />
-                  <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
-                    <span className="bg-[#ea3829] text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wider">
-                      Đã cháy hàng
-                    </span>
+                <Link href="/san-pham/sua-bo-sung-dinh-duong-ho-tro-tieu-hoa-ensure-original-huong-vani-4-loc-x-6-chai" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg" 
+                      alt="Sữa Ensure nước" 
+                      className="w-full h-full object-contain p-2 grayscale opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
+                      <span className="bg-[#ea3829] text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wider">
+                        Đã cháy hàng
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] text-left">
-                      Sữa bổ sung dinh dưỡng hỗ trợ tiêu hóa Ensure Original nước...
-                    </h4>
+                    <Link href="/san-pham/sua-bo-sung-dinh-duong-ho-tro-tieu-hoa-ensure-original-huong-vani-4-loc-x-6-chai" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] text-left">
+                        Sữa bổ sung dinh dưỡng hỗ trợ tiêu hóa Ensure Original nước...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">912.000đ</strong>
@@ -1861,12 +1869,12 @@ export default function HomePage() {
                       <div className="h-full bg-[#ea3829]" style={{ width: "100%" }} />
                     </div>
                     
-                    <button 
-                      disabled
-                      className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 cursor-not-allowed uppercase tracking-wider"
+                    <Link 
+                      href="/san-pham/sua-bo-sung-dinh-duong-ho-tro-tieu-hoa-ensure-original-huong-vani-4-loc-x-6-chai"
+                      className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 uppercase tracking-wider text-center block"
                     >
                       Xem chi tiết
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -1882,19 +1890,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
-                    alt="Sữa Ensure Gold" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-800g" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
+                      alt="Sữa Ensure Gold" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold...
-                    </h4>
+                    <Link href="/san-pham/sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-800g" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
@@ -1947,19 +1959,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
-                    alt="Sữa Ensure Gold" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-it-ngot-800g" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09287_8364c9dcac.jpg" 
+                      alt="Sữa Ensure Gold" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt...
-                    </h4>
+                    <Link href="/san-pham/sua-tang-cuong-suc-khoe-khoi-co-tang-mien-dich-ensure-gold-strengthpro-huong-vani-it-ngot-800g" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Sữa tăng cường sức khỏe khối cơ tăng miễn dịch Ensure Gold ít ngọt...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">837.000đ</strong>
@@ -2012,19 +2028,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg" 
-                    alt="Sữa Icreo Glico" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/sua-ho-tro-he-mien-dich-va-tieu-hoa-khoe-manh-cho-tre-tu-0-thang-tuoi-icreo-balance-milk-glico-800g" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/sua_ho_tro_he_mien_dich_va_tieu_hoa_khoe_manh_cho_tre_tu_0_thang_tuoi_icreo_balance_milk_glico_800g_00022636_3_16f858ea19.jpg" 
+                      alt="Sữa Icreo Glico" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản...
-                    </h4>
+                    <Link href="/san-pham/sua-ho-tro-he-mien-dich-va-tieu-hoa-khoe-manh-cho-tre-tu-0-thang-tuoi-icreo-balance-milk-glico-800g" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Sữa cân bằng dinh dưỡng Icreo Balance Glico Nhật Bản...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">933.120đ</strong>
@@ -2077,19 +2097,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" 
-                    alt="Sữa Glucerna" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/sua-bo-sung-dinh-duong-dac-biet-cho-nguoi-dai-thao-duong-glucerna-abbott-800g" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09275_85d45ab994.jpg" 
+                      alt="Sữa Glucerna" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Sữa bổ sung dinh dưỡng đặc biệt cho người đái đường Glucerna...
-                    </h4>
+                    <Link href="/san-pham/sua-bo-sung-dinh-duong-dac-biet-cho-nguoi-dai-thao-duong-glucerna-abbott-800g" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Sữa bổ sung dinh dưỡng đặc biệt cho người đái đường Glucerna...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">842.000đ</strong>
@@ -2179,19 +2203,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg" 
-                    alt="NMN PQQ Kenko" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/vien-uong-ho-tro-chong-lao-hoa-cai-thien-lan-da-va-tang-de-khang-nmn-pqq-kenko-60-vien" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg" 
+                      alt="NMN PQQ Kenko" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN...
-                    </h4>
+                    <Link href="/san-pham/vien-uong-ho-tro-chong-lao-hoa-cai-thien-lan-da-va-tang-de-khang-nmn-pqq-kenko-60-vien" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Viên uống hỗ trợ chống lão hóa, cải thiện làn da và tăng đề kháng NMN...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">6.675.000đ</strong>
@@ -2240,19 +2268,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg" 
-                    alt="Kudos Daily Vitamins" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/vien-sui-giup-bo-sung-cac-vitamin-cho-co-the-kudos-daily-vitamins-plus-biotin-and-ginseng-huong-cam-20-vien" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09335_24b9811179.jpg" 
+                      alt="Kudos Daily Vitamins" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins...
-                    </h4>
+                    <Link href="/san-pham/vien-sui-giup-bo-sung-cac-vitamin-cho-co-the-kudos-daily-vitamins-plus-biotin-and-ginseng-huong-cam-20-vien" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Viên sủi giúp bổ sung các vitamin cho cơ thể Kudos Daily Vitamins...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">118.150đ</strong>
@@ -2301,19 +2333,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg" 
-                    alt="Nano Fucoidan" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/vien-uong-ho-tro-chong-oxy-hoa-han-che-goc-tu-do-tang-cuong-suc-khoe-nano-fucoidan-biochempha-30v" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09799_e7eb582916.jpg" 
+                      alt="Nano Fucoidan" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức...
-                    </h4>
+                    <Link href="/san-pham/vien-uong-ho-tro-chong-oxy-hoa-han-che-goc-tu-do-tang-cuong-suc-khoe-nano-fucoidan-biochempha-30v" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Viên uống hỗ trợ chống oxy hóa, hạn chế gốc tự do, tăng cường sức...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">792.000đ</strong>
@@ -2362,19 +2398,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png" 
-                    alt="Brauer Baby & Kids" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/vien-uong-ho-tro-tang-cuong-suc-khoe-phu-nu-mang-thai-va-cho-con-bu-brauer-ultra-pure-dha-for-pregnancy-and-breastfeeding-60-vien" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/Vien_ho_tro_phat_trien_nao_bo_suc_khoe_cho_mat_Brauer_Baby_and_Kids_Ultra_Pure_DHA_00033687_79d080f5b6.png" 
+                      alt="Brauer Baby & Kids" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Ki...
-                    </h4>
+                    <Link href="/san-pham/vien-uong-ho-tro-tang-cuong-suc-khoe-phu-nu-mang-thai-va-cho-con-bu-brauer-ultra-pure-dha-for-pregnancy-and-breastfeeding-60-vien" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Viên hỗ trợ phát triển não bộ sức khỏe cho mắt Brauer Baby & Ki...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">388.800đ</strong>
@@ -2423,19 +2463,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg" 
-                    alt="Nước Sâm Achimmadang" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/nuoc-sam-nguyen-cu-achimmadang-inbosam-biok-korea-root-drink-10-chai-x-120ml" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502882_nuoc_sam_nguyen_cu_achimmadang_inbosam_biok_korea_root_dkink_10_chai_x_120ml_2001_6396_large_10523086de.jpg" 
+                      alt="Nước Sâm Achimmadang" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink...
-                    </h4>
+                    <Link href="/san-pham/nuoc-sam-nguyen-cu-achimmadang-inbosam-biok-korea-root-drink-10-chai-x-120ml" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Nước Sâm Nguyên Củ Achimmadang Inbosam Biok Korea Root Drink...
+                      </h4>
+                    </Link>
                     
                     {/* Unit Switcher Tabs */}
                     <div className="flex items-center gap-1.5 mt-2 bg-cloud p-0.5 rounded-lg border border-fog w-fit">
@@ -2512,19 +2556,23 @@ export default function HomePage() {
                   </span>
                 </div>
                 
-                <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
-                  <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" 
-                    alt="Aloclair Plus" 
-                    className="w-full h-full object-contain p-2"
-                  />
-                </div>
+                <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block cursor-pointer">
+                  <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
+                    <img 
+                      src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" 
+                      alt="Aloclair Plus" 
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
-                      Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
-                    </h4>
+                    <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block hover:underline">
+                      <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
+                        Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
+                      </h4>
+                    </Link>
                     <div className="flex flex-col mt-1 text-left">
                       <div className="flex items-baseline gap-1">
                         <strong className="text-[13px] font-black text-[#024ad8]">229.000đ</strong>
