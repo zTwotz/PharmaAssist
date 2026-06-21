@@ -60,11 +60,16 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## 📓 Latest Execution Notes
 
-### 2026-06-21 (Sprint 4 Progress - PDP Redesign & Related Products)
+### 2026-06-21 (Sprint 4 Progress - PDP Improvements & Homepage Header Banner Carousel)
 - **Redesigned Product Detail Page (PDP) & Added Related Products:**
   - Redesigned the product detail client layout `ProductDetailClient.tsx` to match the design for Abbott Ensure Gold StrengthPro 237ml, adding country badge (Hoa Kỳ), rating metadata, a countdown Flash Sale banner with progress bar, dynamic unit pricing (Thùng, Lốc, Chai), specifications summary, font size toggle, and a verified pharmacist bio section.
   - Implemented a "Sản phẩm liên quan" (Related Products) section at the bottom of the PDP, fetching similar items in the same category from Supabase (with mocks for seasonal/static categories).
   - Connected the static Flash Sale and Best Selling product cards on the homepage (`page.tsx`) to their correct details pages (`/san-pham/[slug]`).
+  - Added a `useMemo` filter inside `ProductDetailClient.tsx` to filter out duplicate image URLs returned by the database.
+- **Homepage Header Banner Slider:**
+  - Re-implemented the main hero banner section on the homepage (`page.tsx`) as a dynamic interactive carousel.
+  - Added 3 slides (Enterogermina Baby Comfort, Ensure Gold StrengthPro, Panadol Extra) bound with real database product detail routes.
+  - Made the prev/next navigation buttons fully functional (using state hooks) and added elegant bottom dot indicators.
   - Verified frontend build with 0 compilation and TypeScript errors.
 
 ### 2026-06-21 (Sprint 3 Completion)
