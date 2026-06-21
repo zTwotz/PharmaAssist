@@ -60,7 +60,12 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## 📓 Latest Execution Notes
 
-### 2026-06-21 (Sprint 4 Progress - PDP Improvements & Homepage Header Banner Carousel)
+### 2026-06-21 (Sprint 4 Progress - PDP Improvements, Homepage Banner Carousel & Dynamic Product Sliders)
+- **Homepage Flash Sale & Best Selling Dynamic Sliders & Redirection:**
+  - Declared `FLASH_SALE_PRODUCTS` and `BEST_SELLING_PRODUCTS` arrays (8 items each) to dynamically back the homepage product listings.
+  - Implemented cyclical Next/Prev controls for both sections using React state hooks (`flashSaleOffset`, `bestSellingOffset`), dynamically slicing to display 6 products at a time.
+  - Connected the "Xem tất cả" (View All) buttons to redirect directly to the Product Listing Page at `/thuc-pham-chuc-nang` instead of scroll anchors.
+  - Verified frontend build with 0 compilation and TypeScript errors.
 - **Redesigned Product Detail Page (PDP) & Added Related Products:**
   - Redesigned the product detail client layout `ProductDetailClient.tsx` to match the design for Abbott Ensure Gold StrengthPro 237ml, adding country badge (Hoa Kỳ), rating metadata, a countdown Flash Sale banner with progress bar, dynamic unit pricing (Thùng, Lốc, Chai), specifications summary, font size toggle, and a verified pharmacist bio section.
   - Implemented a "Sản phẩm liên quan" (Related Products) section at the bottom of the PDP, fetching similar items in the same category from Supabase (with mocks for seasonal/static categories).
