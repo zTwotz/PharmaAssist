@@ -295,3 +295,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-570 (PAC-780): Documented stock transfer audit future requirement. Quality Gate passed. PR #887 merged to develop.
 - US-166 (PAC-EPIC-35): Story Acceptance Review passed. All tasks for Stock Transfer support are complete.
 - PAC-EPIC-35 (PAC-35): Epic Integration Review passed. Stock Transfer backlog is complete.
+- PAC-TASK-571 (PAC-781): Documented Forecasting and reorder suggestion future scope. Quality Gate passed. PR #888 merged to develop.
