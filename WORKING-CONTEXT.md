@@ -60,6 +60,13 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 
 ## 📓 Latest Execution Notes
 
+### 2026-06-21 (Sprint 4 Progress - PDP Redesign & Related Products)
+- **Redesigned Product Detail Page (PDP) & Added Related Products:**
+  - Redesigned the product detail client layout `ProductDetailClient.tsx` to match the design for Abbott Ensure Gold StrengthPro 237ml, adding country badge (Hoa Kỳ), rating metadata, a countdown Flash Sale banner with progress bar, dynamic unit pricing (Thùng, Lốc, Chai), specifications summary, font size toggle, and a verified pharmacist bio section.
+  - Implemented a "Sản phẩm liên quan" (Related Products) section at the bottom of the PDP, fetching similar items in the same category from Supabase (with mocks for seasonal/static categories).
+  - Connected the static Flash Sale and Best Selling product cards on the homepage (`page.tsx`) to their correct details pages (`/san-pham/[slug]`).
+  - Verified frontend build with 0 compilation and TypeScript errors.
+
 ### 2026-06-21 (Sprint 3 Completion)
 - **Sprint 3 Quality Gate Review & Completion:**
   - Hoàn thành toàn diện 22 User Stories (US-27 đến US-48) và 59 tasks thuộc `PAC-EPIC-05` (Inventory & MedicineBatch) và `PAC-EPIC-06` (Stock Import).
