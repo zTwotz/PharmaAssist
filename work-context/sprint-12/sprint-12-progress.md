@@ -234,7 +234,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | Phase 3 | Product Variant Catalog | PAC-TASK-562 → PAC-TASK-564 | 3 | 0 | 0 | 0 | 3 |
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 0 | 0 | 4 | 4 |
 | US-166 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2/2 | Story Acceptance Review PASS |
-| Phase 6 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2 | 1 | 0 | 1 | 1 |
+| US-167 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2/2 | Story Acceptance Review PASS |
 | Phase 7 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2 | 2 | 0 | 0 | 0 |
 | Phase 8 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2 | 2 | 0 | 0 | 0 |
 | Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 4 | 0 | 0 | 0 |
@@ -259,7 +259,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-569 | PAC-779 | Document Stock Transfer future workflow | US-166 | PAC-EPIC-35 | `docs/PAC-779-task-569-document-stock-transfer-future-workflow` | Documentation complete | PASS | PASS | N/A | #886 | edfcd34 | `DOC/future-commercial-expansion/PAC-779-task-569-stock-transfer-workflow.md` |
 | PAC-TASK-570 | PAC-780 | Document stock transfer audit future requirement | US-166 | PAC-EPIC-35 | `docs/PAC-780-task-570-document-stock-transfer-audit-future-requirement` | Documentation complete | PASS | PASS | N/A | #887 | 19eb9ac | `DOC/future-commercial-expansion/PAC-780-task-570-stock-transfer-audit.md` |
 | PAC-TASK-571 | PAC-781 | Document Forecasting and reorder suggestion future scope | US-167 | PAC-EPIC-36 | `docs/PAC-781-task-571-document-forecasting-and-reorder-suggestion-future-` | Documentation complete | PASS | PASS | N/A | #888 | 45cc33c | `DOC/future-commercial-expansion/PAC-781-task-571-forecasting-and-reorder.md` |
-| PAC-TASK-572 | PAC-782 | Document forecast data requirements and limitations | US-167 | PAC-EPIC-36 | `docs/PAC-782-task-572-document-forecast-data-requirements-and-limitations` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-572 | PAC-782 | Document forecast data requirements and limitations | US-167 | PAC-EPIC-36 | `docs/PAC-782-task-572-document-forecast-data-requirements-and-limitations` | Documentation complete | PASS | PASS | N/A | #889 | 0f74244 | `DOC/future-commercial-expansion/PAC-782-task-572-forecast-limitations.md` |
 | PAC-TASK-573 | PAC-783 | Document Promotion and Coupon future scope | US-168 | PAC-EPIC-37 | `docs/PAC-783-task-573-document-promotion-and-coupon-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-574 | PAC-784 | Document discount not included in MVP checkout | US-168 | PAC-EPIC-37 | `docs/PAC-784-task-574-document-discount-not-included-in-mvp-checkout` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-575 | PAC-785 | Document Shipping and Delivery future scope | US-169 | PAC-EPIC-38 | `docs/PAC-785-task-575-document-shipping-and-delivery-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
@@ -292,7 +292,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | US-164 | PAC-204 | Multi-store support backlog | PAC-EPIC-34 | 2 | PAC-TASK-565, PAC-TASK-566 | PASS | PASS | `develop` | `367fc93` |
 | US-165 | PAC-205 | Multi-warehouse support backlog | PAC-EPIC-34 | 2 | PAC-TASK-567, PAC-TASK-568 | PASS | PASS | `develop` | `c47bf09` |
 | US-166 | PAC-206 | Stock Transfer backlog | PAC-EPIC-35 | 2 | PAC-TASK-569, PAC-TASK-570 | PASS | PASS | `develop` | `19eb9ac` |
-| US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | — | — |
+| US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | `develop` | `0f74244` |
 | US-168 | PAC-208 | Promotion / Coupon backlog | PAC-EPIC-37 | 2 | PAC-TASK-573, PAC-TASK-574 | Not started | Pending | — | — |
 | US-169 | PAC-209 | Shipping / Delivery backlog | PAC-EPIC-38 | 2 | PAC-TASK-575, PAC-TASK-576 | Not started | Pending | — | — |
 | US-170 | PAC-210 | Review / CMS backlog | PAC-EPIC-39 | 2 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | — | — |
@@ -308,7 +308,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-EPIC-33 | PAC-33 | Product Variant Catalog | US-163 | PAC-TASK-562, PAC-TASK-563, PAC-TASK-564 | PASS | PASS | PASS | `eee9317` |
 | PAC-EPIC-34 | PAC-34 | Multi-store / Multi-warehouse | US-164, US-165 | PAC-TASK-565, PAC-TASK-566, PAC-TASK-567, PAC-TASK-568 | PASS | PASS | PASS | `c47bf09` |
 | PAC-EPIC-35 | PAC-35 | Stock Transfer | US-166 | PAC-TASK-569, PAC-TASK-570 | PASS | PASS | PASS | `19eb9ac` |
-| PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | Not started | Pending | Pending | — |
+| PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | PASS | `0f74244` |
 | PAC-EPIC-37 | PAC-37 | Promotion / Coupon | US-168 | PAC-TASK-573, PAC-TASK-574 | Not started | Pending | Pending | — |
 | PAC-EPIC-38 | PAC-38 | Shipping / Delivery | US-169 | PAC-TASK-575, PAC-TASK-576 | Not started | Pending | Pending | — |
 | PAC-EPIC-39 | PAC-39 | Review / CMS | US-170 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | Pending | — |
@@ -357,7 +357,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-569 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-779-task-569-stock-transfer-workflow.md` |
 | PAC-TASK-570 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-780-task-570-stock-transfer-audit.md` |
 | PAC-TASK-571 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-781-task-571-forecasting-and-reorder.md` |
-| PAC-TASK-572 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-572 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-782-task-572-forecast-limitations.md` |
 | PAC-TASK-573 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-574 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-575 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
