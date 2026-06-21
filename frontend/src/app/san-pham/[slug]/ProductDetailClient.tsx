@@ -118,12 +118,30 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
     activeVariants.length > 0 ? activeVariants[0] : null
   );
 
+  // Deduplicate images
+  const uniqueImages = useMemo(() => {
+    const seen = new Set<string>();
+    return product.images.filter(img => {
+      if (seen.has(img.imageUrl)) return false;
+      seen.add(img.imageUrl);
+      return true;
+    });
+  }, [product.images]);
+
   // Gallery state
-  const [activeImage, setActiveImage] = useState<string>(
-    product.images.find(img => img.isPrimary)?.imageUrl || 
-    product.images[0]?.imageUrl || 
-    'https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg'
-  );
+  const [activeImage, setActiveImage] = useState<string>(() => {
+    return uniqueImages.find(img => img.isPrimary)?.imageUrl || 
+      uniqueImages[0]?.imageUrl || 
+      'https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg';
+  });
+
+  // Sync active image when product changes
+  useEffect(() => {
+    const defaultImg = uniqueImages.find(img => img.isPrimary)?.imageUrl || 
+      uniqueImages[0]?.imageUrl || 
+      'https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_03542_6bfa8a6508.jpg';
+    setActiveImage(defaultImg);
+  }, [uniqueImages]);
 
   // Quantity state
   const [quantity, setQuantity] = useState<number>(1);
@@ -297,9 +315,9 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
           </div>
           
           {/* Thumbnails list */}
-          {product.images.length > 1 && (
+          {uniqueImages.length > 1 && (
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin justify-center">
-              {product.images.map((img) => (
+              {uniqueImages.map((img) => (
                 <button
                   key={img.id}
                   onClick={() => setActiveImage(img.imageUrl)}
