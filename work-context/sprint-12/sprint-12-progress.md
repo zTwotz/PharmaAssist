@@ -235,7 +235,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | Phase 4 | Multi-store / Multi-warehouse | PAC-TASK-565 → PAC-TASK-568 | 4 | 0 | 0 | 4 | 4 |
 | US-166 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2/2 | Story Acceptance Review PASS |
 | US-167 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2/2 | Story Acceptance Review PASS |
-| Phase 7 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2 | 2 | 0 | 0 | 0 |
+| Phase 7 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2 | 1 | 0 | 1 | 1 |
 | Phase 8 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2 | 2 | 0 | 0 | 0 |
 | Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 4 | 0 | 0 | 0 |
 
@@ -260,7 +260,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-570 | PAC-780 | Document stock transfer audit future requirement | US-166 | PAC-EPIC-35 | `docs/PAC-780-task-570-document-stock-transfer-audit-future-requirement` | Documentation complete | PASS | PASS | N/A | #887 | 19eb9ac | `DOC/future-commercial-expansion/PAC-780-task-570-stock-transfer-audit.md` |
 | PAC-TASK-571 | PAC-781 | Document Forecasting and reorder suggestion future scope | US-167 | PAC-EPIC-36 | `docs/PAC-781-task-571-document-forecasting-and-reorder-suggestion-future-` | Documentation complete | PASS | PASS | N/A | #888 | 45cc33c | `DOC/future-commercial-expansion/PAC-781-task-571-forecasting-and-reorder.md` |
 | PAC-TASK-572 | PAC-782 | Document forecast data requirements and limitations | US-167 | PAC-EPIC-36 | `docs/PAC-782-task-572-document-forecast-data-requirements-and-limitations` | Documentation complete | PASS | PASS | N/A | #889 | 0f74244 | `DOC/future-commercial-expansion/PAC-782-task-572-forecast-limitations.md` |
-| PAC-TASK-573 | PAC-783 | Document Promotion and Coupon future scope | US-168 | PAC-EPIC-37 | `docs/PAC-783-task-573-document-promotion-and-coupon-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-573 | PAC-783 | Document Promotion and Coupon future scope | US-168 | PAC-EPIC-37 | `docs/PAC-783-task-573-document-promotion-and-coupon-future-scope` | Documentation complete | PASS | PASS | N/A | #890 | 5177223 | `DOC/future-commercial-expansion/PAC-783-task-573-promotion-coupon.md` |
 | PAC-TASK-574 | PAC-784 | Document discount not included in MVP checkout | US-168 | PAC-EPIC-37 | `docs/PAC-784-task-574-document-discount-not-included-in-mvp-checkout` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-575 | PAC-785 | Document Shipping and Delivery future scope | US-169 | PAC-EPIC-38 | `docs/PAC-785-task-575-document-shipping-and-delivery-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-576 | PAC-786 | Document delivery status future workflow | US-169 | PAC-EPIC-38 | `docs/PAC-786-task-576-document-delivery-status-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
@@ -358,7 +358,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-570 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-780-task-570-stock-transfer-audit.md` |
 | PAC-TASK-571 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-781-task-571-forecasting-and-reorder.md` |
 | PAC-TASK-572 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-782-task-572-forecast-limitations.md` |
-| PAC-TASK-573 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-573 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-783-task-573-promotion-coupon.md` |
 | PAC-TASK-574 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-575 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-576 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
