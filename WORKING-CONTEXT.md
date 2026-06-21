@@ -303,3 +303,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-574 (PAC-784): Documented discount not included in MVP checkout. Quality Gate passed. PR #891 merged to develop.
 - US-168 (PAC-EPIC-37): Story Acceptance Review passed. All tasks for Promotion / Coupon support are complete.
 - PAC-EPIC-37 (PAC-37): Epic Integration Review passed. Promotion / Coupon backlog is complete.
+- PAC-TASK-575 (PAC-785): Documented Shipping and Delivery future scope. Quality Gate passed. PR #892 merged to develop.
