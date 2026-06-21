@@ -1259,6 +1259,82 @@ const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: strin
 
 export default function HomePage() {
   const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = useMemo(() => [
+    {
+      id: 1,
+      brand: "SANOFI",
+      subBrand: "ENTEROGERMINA BABY COMFORT",
+      title: "Thêm Lợi Khuẩn Tốt",
+      titleHighlight: "Chăm Bụng Bé Khỏe",
+      voucherLabel: "Tặng voucher",
+      voucherValue: "50.000Đ",
+      voucherNote: "*Voucher tiêm chủng",
+      priceLabel: "Giá chỉ",
+      priceValue: "475.000Đ",
+      priceUnit: "1 Hộp",
+      link: "/san-pham/men-vi-sinh-enterogermina-baby-comfort-sanofi-cho-tre-so-sinh-chua-loi-khuan-bb12-lo-8ml",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/enterogermina_4_ty_ong_5ml_2x10_sanofi_00030670_e8cd62ab8d.png",
+      badgeText: "Men vi sinh 4 tỷ bào tử",
+      bgClass: "bg-gradient-to-r from-[#d6f8ff] to-[#e0f2fe]",
+      accentBg: "bg-[#22c55e]/15",
+      accentText: "text-[#16a34a]",
+      pillText: "Men vi sinh",
+      btnText: "Mua Ngay"
+    },
+    {
+      id: 2,
+      brand: "ABBOTT",
+      subBrand: "ENSURE GOLD STRENGTHPRO",
+      title: "Dinh Dưỡng Hợp Chuẩn",
+      titleHighlight: "Tăng Cường Sức Khỏe",
+      voucherLabel: "Tặng voucher",
+      voucherValue: "79.000Đ",
+      voucherNote: "*Khi mua thùng 24 chai",
+      priceLabel: "Giá chỉ từ",
+      priceValue: "58.710Đ",
+      priceUnit: "1 Chai",
+      link: "/san-pham/sua-tang-cuong-suc-khoe-tang-cuong-mien-dich-ensure-gold-strengthpro-huong-vani-237ml",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_02727_0f957dbeee.jpg",
+      badgeText: "Dinh dưỡng y học Hoa Kỳ",
+      bgClass: "bg-gradient-to-r from-[#fef3c7] to-[#fffbeb]",
+      accentBg: "bg-[#d97706]/15",
+      accentText: "text-[#d97706]",
+      pillText: "Sữa dinh dưỡng",
+      btnText: "Mua Ngay"
+    },
+    {
+      id: 3,
+      brand: "GSK",
+      subBrand: "PANADOL EXTRA ĐỎ",
+      title: "Giảm Đau Nhanh Chóng",
+      titleHighlight: "Hạ Sốt Hiệu Quả",
+      voucherLabel: "Giảm giá",
+      voucherValue: "10%",
+      voucherNote: "*Độc quyền online",
+      priceLabel: "Giá chỉ",
+      priceValue: "135.000Đ",
+      priceUnit: "Hộp 180 viên",
+      link: "/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien",
+      imageUrl: "https://cdn.nhathuoclongchau.com.vn/v1/static/00007804_panadol_extra_do_gsk_7125_large_03ea089025.jpg",
+      badgeText: "Giảm đau mạnh mẽ",
+      bgClass: "bg-gradient-to-r from-[#fee2e2] to-[#fef2f2]",
+      accentBg: "bg-[#dc2626]/15",
+      accentText: "text-[#dc2626]",
+      pillText: "Thuốc không kê đơn",
+      btnText: "Mua Ngay"
+    }
+  ], []);
+
+  // Autoplay slider every 6s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   const [medicines, setMedicines] = useState<Medicine[]>(MOCK_MEDICINES);
   const [categories, setCategories] = useState(MOCK_CATEGORIES);
   const [searchTerm, setSearchTerm] = useState("");
@@ -1442,6 +1518,8 @@ export default function HomePage() {
     triggerToast(`Đã thêm ${med.name} vào giỏ hàng.`);
   };
 
+  const slide = slides[currentSlide];
+
   return (
     <div className="flex flex-col min-h-screen bg-canvas font-sans text-ink">
 
@@ -1455,51 +1533,48 @@ export default function HomePage() {
           <div className="grid grid-cols-12 gap-4">
             
             {/* Left Big Carousel Banner */}
-            <div className="col-span-12 lg:col-span-8 bg-[#d6f8ff] rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[300px]">
+            <div className={`col-span-12 lg:col-span-8 ${slide.bgClass} rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden shadow-sm hover:shadow-md transition-all duration-500 min-h-[300px]`}>
               {/* Decorative background illustrations */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#93c5fd] opacity-20 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-10 left-10 w-32 h-32 bg-[#22d3ee] opacity-15 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-blue-300 to-indigo-300 opacity-20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 left-10 w-32 h-32 bg-cyan-300 opacity-15 rounded-full blur-2xl pointer-events-none" />
               
               {/* Left text column */}
               <div className="flex flex-col gap-4 max-w-md relative z-10 text-left">
                 <div className="flex items-center gap-1.5">
                   <div className="bg-[#024ad8] text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-                    SANOFI
+                    {slide.brand}
                   </div>
                   <span className="text-[11px] text-[#024ad8] font-bold tracking-wide uppercase">
-                    enterogermina baby comfort
+                    {slide.subBrand}
                   </span>
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl font-extrabold text-[#111827] leading-tight">
-                  Thêm Lợi Khuẩn Tốt<br />
-                  <span className="text-[#024ad8]">Chăm Bụng Bé Khỏe</span>
+                  {slide.title}<br />
+                  <span className="text-[#024ad8]">{slide.titleHighlight}</span>
                 </h2>
                 
                 {/* Orange voucher tags */}
                 <div className="flex items-stretch gap-2 bg-[#ff5a00] text-white p-3 rounded-2xl max-w-sm shadow-sm">
                   <div className="flex flex-col justify-center pr-3 border-r border-white/20">
-                    <span className="text-[10px] opacity-90 font-medium">Tặng voucher</span>
-                    <strong className="text-sm md:text-base font-black">50.000Đ</strong>
-                    <span className="text-[8px] opacity-80">*Voucher tiêm chủng</span>
+                    <span className="text-[10px] opacity-90 font-medium">{slide.voucherLabel}</span>
+                    <strong className="text-sm md:text-base font-black">{slide.voucherValue}</strong>
+                    <span className="text-[8px] opacity-80">{slide.voucherNote}</span>
                   </div>
                   <div className="flex flex-col justify-center pl-1">
-                    <span className="text-[10px] opacity-90 font-medium">Giá chỉ</span>
-                    <strong className="text-sm md:text-base font-black">475.000Đ</strong>
-                    <span className="text-[8px] opacity-80">1 Hộp</span>
+                    <span className="text-[10px] opacity-90 font-medium">{slide.priceLabel}</span>
+                    <strong className="text-sm md:text-base font-black">{slide.priceValue}</strong>
+                    <span className="text-[8px] opacity-80">{slide.priceUnit}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 mt-2">
-                  <button 
-                    onClick={() => {
-                      const target = document.getElementById("featured-medicines");
-                      if (target) target.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:scale-102 uppercase tracking-wider"
+                  <Link 
+                    href={slide.link}
+                    className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-3 rounded-full shadow-md transition-all duration-300 hover:scale-102 uppercase tracking-wider text-center"
                   >
-                    Mua Ngay
-                  </button>
+                    {slide.btnText}
+                  </Link>
                   <div className="flex flex-col text-left">
                     <strong className="text-xs text-[#024ad8] font-bold">FREESHIP</strong>
                     <span className="text-[9px] text-[#6b7280] font-medium">*Khi đặt qua App</span>
@@ -1514,32 +1589,61 @@ export default function HomePage() {
                   <div className="absolute w-44 h-44 rounded-full bg-white/60 border border-cyan-100 flex items-center justify-center shadow-inner" />
                   
                   {/* Stomach/gut health indicator icon */}
-                  <div className="absolute top-2 left-6 bg-[#22c55e]/15 text-[#16a34a] p-2 rounded-full border border-green-200/50 shadow-sm animate-pulse">
+                  <div className={`absolute top-2 left-6 ${slide.accentBg} ${slide.accentText} p-2 rounded-full border border-green-200/50 shadow-sm animate-pulse`}>
                     <Activity size={20} />
                   </div>
                   
-                  {/* Enterogermina real product image from DB */}
+                  {/* Real product image */}
                   <img 
-                    src="https://cdn.nhathuoclongchau.com.vn/v1/static/enterogermina_4_ty_ong_5ml_2x10_sanofi_00030670_e8cd62ab8d.png" 
-                    alt="Enterogermina" 
+                    src={slide.imageUrl} 
+                    alt={slide.subBrand} 
                     className="w-40 h-40 object-contain drop-shadow-xl relative z-10 hover:scale-105 transition-transform duration-300"
                   />
                   
-                  {/* Mother-baby label indicator */}
+                  {/* Badge indicator */}
                   <div className="absolute -bottom-2 right-4 bg-white/90 backdrop-blur-sm border border-fog px-3 py-1.5 rounded-xl shadow-sm text-center flex items-center gap-1.5 z-20">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]" />
-                    <span className="text-[10px] font-bold text-[#374151]">Men vi sinh 4 tỷ bào tử</span>
+                    <span className="text-[10px] font-bold text-[#374151]">{slide.badgeText}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Carousel navigation arrows (aesthetic indicator) */}
-              <button className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+              {/* Carousel navigation arrows */}
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors"
+              >
                 <ChevronRight size={16} className="rotate-180" />
               </button>
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors">
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentSlide(prev => (prev + 1) % slides.length);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white hover:bg-cloud border border-fog flex items-center justify-center shadow-sm text-[#4b5563] hover:text-[#111827] z-20 transition-colors"
+              >
                 <ChevronRight size={16} />
               </button>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCurrentSlide(index);
+                    }}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#024ad8] w-4' : 'bg-gray-400/50'}`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Right Side Column (2 Banners Stacked) */}
