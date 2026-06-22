@@ -310,3 +310,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-577 (PAC-787): Documented Review and CMS future scope. Quality Gate passed. PR #894 merged to develop.
 - PAC-TASK-578 (PAC-788): Documented product review moderation future consideration. Quality Gate passed. PR #895 merged to develop.
 - PAC-TASK-579 (PAC-789): Documented commercial expansion dependency map. Quality Gate passed. PR #896 merged to develop.
+- PAC-TASK-580 (PAC-790): Documented final out-of-scope guardrails for AI agents. Quality Gate passed. PR #897 merged to develop.

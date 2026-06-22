@@ -237,7 +237,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | US-167 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2/2 | Story Acceptance Review PASS |
 | US-168 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2/2 | Story Acceptance Review PASS |
 | US-169 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2/2 | Story Acceptance Review PASS |
-| Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 3 | 0 | 3 | 3 |
+| Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 4 | 0 | 4 | 4 |
 
 # 10. Task Progress Register
 
@@ -267,7 +267,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-577 | PAC-787 | Document Review and CMS future scope | US-170 | PAC-EPIC-39 | `docs/PAC-787-task-577-document-review-and-cms-future-scope` | Documentation complete | PASS | PASS | N/A | #894 | 70faa6b | `DOC/future-commercial-expansion/PAC-787-task-577-review-cms.md` |
 | PAC-TASK-578 | PAC-788 | Document product review moderation future consideration | US-170 | PAC-EPIC-39 | `docs/PAC-788-task-578-document-product-review-moderation-future-considera` | Documentation complete | PASS | PASS | N/A | #895 | 58c9c5b | `DOC/future-commercial-expansion/PAC-788-task-578-review-moderation.md` |
 | PAC-TASK-579 | PAC-789 | Document commercial expansion dependency map | US-170 | PAC-EPIC-39 | `docs/PAC-789-task-579-document-commercial-expansion-dependency-map` | Documentation complete | PASS | PASS | N/A | #896 | 46e9122 | `DOC/future-commercial-expansion/PAC-789-task-579-commercial-dependency-map.md` |
-| PAC-TASK-580 | PAC-790 | Document final out-of-scope guardrails for AI agents | US-170 | PAC-EPIC-39 | `docs/PAC-790-task-580-document-final-out-of-scope-guardrails-for-ai-agent` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-580 | PAC-790 | Document final out-of-scope guardrails for AI agents | US-170 | PAC-EPIC-39 | `docs/PAC-790-task-580-document-final-out-of-scope-guardrails-for-ai-agent` | Documentation complete | PASS | PASS | N/A | #897 | 6410b6e | `DOC/future-commercial-expansion/PAC-790-task-580-ai-guardrails.md` |
 
 Allowed Task status:
 
@@ -295,7 +295,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | `develop` | `0f74244` |
 | US-168 | PAC-208 | Promotion / Coupon backlog | PAC-EPIC-37 | 2 | PAC-TASK-573, PAC-TASK-574 | PASS | PASS | `develop` | `61f5f54` |
 | US-169 | PAC-209 | Shipping / Delivery backlog | PAC-EPIC-38 | 2 | PAC-TASK-575, PAC-TASK-576 | PASS | PASS | `develop` | `db45ef0` |
-| US-170 | PAC-210 | Review / CMS backlog | PAC-EPIC-39 | 2 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | — | — |
+| US-170 | PAC-210 | Review / CMS backlog | PAC-EPIC-39 | 4 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Documentation complete | PASS | #894, #895, #896, #897 | `70faa6b, 58c9c5b, 46e9122, 6410b6e` |
 
 Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 
@@ -311,7 +311,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | PASS | `0f74244` |
 | PAC-EPIC-37 | PAC-37 | Promotion / Coupon | US-168 | PAC-TASK-573, PAC-TASK-574 | PASS | PASS | PASS | `61f5f54` |
 | PAC-EPIC-38 | PAC-38 | Shipping / Delivery | US-169 | PAC-TASK-575, PAC-TASK-576 | PASS | PASS | PASS | `db45ef0` |
-| PAC-EPIC-39 | PAC-39 | Review / CMS | US-170 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | Pending | — |
+| PAC-EPIC-39 | PAC-39 | Review / CMS | US-170 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | PASS | PASS | PASS | `6410b6e` |
 
 # 13. Branch and PR Reconciliation
 
@@ -365,7 +365,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-577 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-787-task-577-review-cms.md` |
 | PAC-TASK-578 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-788-task-578-review-moderation.md` |
 | PAC-TASK-579 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-789-task-579-commercial-dependency-map.md` |
-| PAC-TASK-580 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-580 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-790-task-580-ai-guardrails.md` |
 
 # 15. Open Questions and Decision Register
 
