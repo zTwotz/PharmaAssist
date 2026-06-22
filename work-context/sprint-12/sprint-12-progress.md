@@ -237,7 +237,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | US-167 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2/2 | Story Acceptance Review PASS |
 | US-168 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2/2 | Story Acceptance Review PASS |
 | US-169 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2/2 | Story Acceptance Review PASS |
-| Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 4 | 0 | 0 | 0 |
+| Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 1 | 0 | 1 | 1 |
 
 # 10. Task Progress Register
 
@@ -264,7 +264,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-574 | PAC-784 | Document discount not included in MVP checkout | US-168 | PAC-EPIC-37 | `docs/PAC-784-task-574-document-discount-not-included-in-mvp-checkout` | Documentation complete | PASS | PASS | N/A | #891 | 61f5f54 | `DOC/future-commercial-expansion/PAC-784-task-574-discount-exclusion-mvp.md` |
 | PAC-TASK-575 | PAC-785 | Document Shipping and Delivery future scope | US-169 | PAC-EPIC-38 | `docs/PAC-785-task-575-document-shipping-and-delivery-future-scope` | Documentation complete | PASS | PASS | N/A | #892 | 1fab73f | `DOC/future-commercial-expansion/PAC-785-task-575-shipping-delivery.md` |
 | PAC-TASK-576 | PAC-786 | Document delivery status future workflow | US-169 | PAC-EPIC-38 | `docs/PAC-786-task-576-document-delivery-status-future-workflow` | Documentation complete | PASS | PASS | N/A | #893 | db45ef0 | `DOC/future-commercial-expansion/PAC-786-task-576-delivery-status-workflow.md` |
-| PAC-TASK-577 | PAC-787 | Document Review and CMS future scope | US-170 | PAC-EPIC-39 | `docs/PAC-787-task-577-document-review-and-cms-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-577 | PAC-787 | Document Review and CMS future scope | US-170 | PAC-EPIC-39 | `docs/PAC-787-task-577-document-review-and-cms-future-scope` | Documentation complete | PASS | PASS | N/A | #894 | 70faa6b | `DOC/future-commercial-expansion/PAC-787-task-577-review-cms.md` |
 | PAC-TASK-578 | PAC-788 | Document product review moderation future consideration | US-170 | PAC-EPIC-39 | `docs/PAC-788-task-578-document-product-review-moderation-future-considera` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-579 | PAC-789 | Document commercial expansion dependency map | US-170 | PAC-EPIC-39 | `docs/PAC-789-task-579-document-commercial-expansion-dependency-map` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-580 | PAC-790 | Document final out-of-scope guardrails for AI agents | US-170 | PAC-EPIC-39 | `docs/PAC-790-task-580-document-final-out-of-scope-guardrails-for-ai-agent` | Not started | Pending | Pending | N/A | — | — | — |
@@ -362,7 +362,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-574 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-784-task-574-discount-exclusion-mvp.md` |
 | PAC-TASK-575 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-785-task-575-shipping-delivery.md` |
 | PAC-TASK-576 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-786-task-576-delivery-status-workflow.md` |
-| PAC-TASK-577 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-577 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-787-task-577-review-cms.md` |
 | PAC-TASK-578 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-579 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-580 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |

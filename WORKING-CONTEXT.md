@@ -307,3 +307,4 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-576 (PAC-786): Documented delivery status future workflow. Quality Gate passed. PR #893 merged to develop.
 - US-169 (PAC-EPIC-38): Story Acceptance Review passed. All tasks for Shipping / Delivery support are complete.
 - PAC-EPIC-38 (PAC-38): Epic Integration Review passed. Shipping / Delivery backlog is complete.
+- PAC-TASK-577 (PAC-787): Documented Review and CMS future scope. Quality Gate passed. PR #894 merged to develop.
