@@ -236,7 +236,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | US-166 | Stock Transfer | PAC-TASK-569 → PAC-TASK-570 | 2/2 | Story Acceptance Review PASS |
 | US-167 | Forecasting | PAC-TASK-571 → PAC-TASK-572 | 2/2 | Story Acceptance Review PASS |
 | US-168 | Promotion / Coupon | PAC-TASK-573 → PAC-TASK-574 | 2/2 | Story Acceptance Review PASS |
-| Phase 8 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2 | 1 | 0 | 1 | 1 |
+| US-169 | Shipping / Delivery | PAC-TASK-575 → PAC-TASK-576 | 2/2 | Story Acceptance Review PASS |
 | Phase 9 | Review / CMS, Dependency Map & Guardrails | PAC-TASK-577 → PAC-TASK-580 | 4 | 4 | 0 | 0 | 0 |
 
 # 10. Task Progress Register
@@ -263,7 +263,7 @@ Supabase/Neo4j/AI = N/A — no runtime/config change
 | PAC-TASK-573 | PAC-783 | Document Promotion and Coupon future scope | US-168 | PAC-EPIC-37 | `docs/PAC-783-task-573-document-promotion-and-coupon-future-scope` | Documentation complete | PASS | PASS | N/A | #890 | 5177223 | `DOC/future-commercial-expansion/PAC-783-task-573-promotion-coupon.md` |
 | PAC-TASK-574 | PAC-784 | Document discount not included in MVP checkout | US-168 | PAC-EPIC-37 | `docs/PAC-784-task-574-document-discount-not-included-in-mvp-checkout` | Documentation complete | PASS | PASS | N/A | #891 | 61f5f54 | `DOC/future-commercial-expansion/PAC-784-task-574-discount-exclusion-mvp.md` |
 | PAC-TASK-575 | PAC-785 | Document Shipping and Delivery future scope | US-169 | PAC-EPIC-38 | `docs/PAC-785-task-575-document-shipping-and-delivery-future-scope` | Documentation complete | PASS | PASS | N/A | #892 | 1fab73f | `DOC/future-commercial-expansion/PAC-785-task-575-shipping-delivery.md` |
-| PAC-TASK-576 | PAC-786 | Document delivery status future workflow | US-169 | PAC-EPIC-38 | `docs/PAC-786-task-576-document-delivery-status-future-workflow` | Not started | Pending | Pending | N/A | — | — | — |
+| PAC-TASK-576 | PAC-786 | Document delivery status future workflow | US-169 | PAC-EPIC-38 | `docs/PAC-786-task-576-document-delivery-status-future-workflow` | Documentation complete | PASS | PASS | N/A | #893 | db45ef0 | `DOC/future-commercial-expansion/PAC-786-task-576-delivery-status-workflow.md` |
 | PAC-TASK-577 | PAC-787 | Document Review and CMS future scope | US-170 | PAC-EPIC-39 | `docs/PAC-787-task-577-document-review-and-cms-future-scope` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-578 | PAC-788 | Document product review moderation future consideration | US-170 | PAC-EPIC-39 | `docs/PAC-788-task-578-document-product-review-moderation-future-considera` | Not started | Pending | Pending | N/A | — | — | — |
 | PAC-TASK-579 | PAC-789 | Document commercial expansion dependency map | US-170 | PAC-EPIC-39 | `docs/PAC-789-task-579-document-commercial-expansion-dependency-map` | Not started | Pending | Pending | N/A | — | — | — |
@@ -294,7 +294,7 @@ Không dùng `Implemented`, `Deployed` hoặc `Production Ready` cho Sprint 12 T
 | US-166 | PAC-206 | Stock Transfer backlog | PAC-EPIC-35 | 2 | PAC-TASK-569, PAC-TASK-570 | PASS | PASS | `develop` | `19eb9ac` |
 | US-167 | PAC-207 | Forecasting & Reorder backlog | PAC-EPIC-36 | 2 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | `develop` | `0f74244` |
 | US-168 | PAC-208 | Promotion / Coupon backlog | PAC-EPIC-37 | 2 | PAC-TASK-573, PAC-TASK-574 | PASS | PASS | `develop` | `61f5f54` |
-| US-169 | PAC-209 | Shipping / Delivery backlog | PAC-EPIC-38 | 2 | PAC-TASK-575, PAC-TASK-576 | Not started | Pending | — | — |
+| US-169 | PAC-209 | Shipping / Delivery backlog | PAC-EPIC-38 | 2 | PAC-TASK-575, PAC-TASK-576 | PASS | PASS | `develop` | `db45ef0` |
 | US-170 | PAC-210 | Review / CMS backlog | PAC-EPIC-39 | 2 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | — | — |
 
 Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
@@ -310,7 +310,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-EPIC-35 | PAC-35 | Stock Transfer | US-166 | PAC-TASK-569, PAC-TASK-570 | PASS | PASS | PASS | `19eb9ac` |
 | PAC-EPIC-36 | PAC-36 | Forecasting & Reorder Suggestions | US-167 | PAC-TASK-571, PAC-TASK-572 | PASS | PASS | PASS | `0f74244` |
 | PAC-EPIC-37 | PAC-37 | Promotion / Coupon | US-168 | PAC-TASK-573, PAC-TASK-574 | PASS | PASS | PASS | `61f5f54` |
-| PAC-EPIC-38 | PAC-38 | Shipping / Delivery | US-169 | PAC-TASK-575, PAC-TASK-576 | Not started | Pending | Pending | — |
+| PAC-EPIC-38 | PAC-38 | Shipping / Delivery | US-169 | PAC-TASK-575, PAC-TASK-576 | PASS | PASS | PASS | `db45ef0` |
 | PAC-EPIC-39 | PAC-39 | Review / CMS | US-170 | PAC-TASK-577, PAC-TASK-578, PAC-TASK-579, PAC-TASK-580 | Not started | Pending | Pending | — |
 
 # 13. Branch and PR Reconciliation
@@ -361,7 +361,7 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 | PAC-TASK-573 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-783-task-573-promotion-coupon.md` |
 | PAC-TASK-574 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-784-task-574-discount-exclusion-mvp.md` |
 | PAC-TASK-575 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-785-task-575-shipping-delivery.md` |
-| PAC-TASK-576 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
+| PAC-TASK-576 | Future scope/architecture documentation | Checked | Project Owner / designated reviewer | Documentation complete | `DOC/future-commercial-expansion/PAC-786-task-576-delivery-status-workflow.md` |
 | PAC-TASK-577 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-578 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
 | PAC-TASK-579 | Future scope/architecture documentation | Required | Project Owner / designated reviewer | Not started | — |
