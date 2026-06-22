@@ -530,3 +530,29 @@ docs/PAC-766-task-556-document-full-customer-management-future-scope
 ```
 
 Không bắt đầu Task này khi `Ready to document Sprint 12 = No`.
+
+# 23. Sprint Summary
+
+| Verification item | Result |
+|---|---|
+| Sprint 12 Tasks | 25/25 Documentation complete |
+| Story Acceptance Reviews | 10/10 PASS |
+| Core Epic Reviews | 9/9 PASS |
+| Canonical Sprint 12 branches | 44/44 reconciled |
+| Task PRs | 25/25 merged |
+| Sprint 12 Final Review | PASS |
+| Documentation release PR | #898 MERGED |
+| Reviewed develop head SHA | `bc49417` |
+| Release merge SHA | `580bd0b1d3b9fb956362d88cf7da9bf32d1e4348` |
+| Release verified on main | Yes |
+| Applicable CI | 2/2 PASS |
+| Product-code changes | 0 |
+| Prisma/migration changes | 0 |
+| Workflow/runtime changes | 0 |
+| Commercial documentation approved | Yes |
+| Commercial implementation authorization | No |
+| Post-Merge Verification | PASS |
+| Sprint 12 technical release | COMPLETE |
+| Closure record Jira issue | `PAC-795` |
+
+> Ghi chú: Closure record Jira issue là administrative documentation issue. Nó không làm thay đổi số lượng 25 Sprint 12 Tasks.

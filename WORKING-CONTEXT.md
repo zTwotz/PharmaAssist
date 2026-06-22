@@ -312,3 +312,30 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - PAC-TASK-579 (PAC-789): Documented commercial expansion dependency map. Quality Gate passed. PR #896 merged to develop.
 - PAC-TASK-580 (PAC-790): Documented final out-of-scope guardrails for AI agents. Quality Gate passed. PR #897 merged to develop.
 - Sprint 12 Final Review: PASS. Release PR #1 is ready for Project Owner to merge.
+
+## Sprint 12 Closure
+
+Sprint 12 — Future / Commercial Expansion Documentation Backlog đã hoàn tất.
+
+- Tasks: 25/25 Documentation complete
+- Story Acceptance Reviews: 10/10 PASS
+- Core Epic Reviews: 9/9 PASS
+- Canonical Sprint 12 branches: 44/44 reconciled
+- Task PRs: 25/25 merged
+- Sprint 12 Final Review: PASS
+- Documentation Release PR: #898 MERGED
+- Reviewed develop head SHA: `bc49417`
+- Release merge SHA: `580bd0b1d3b9fb956362d88cf7da9bf32d1e4348`
+- Release verified on `origin/main`: Yes
+- Applicable CI: 2/2 PASS
+  - `prisma-validate`
+  - `build-backend`
+- Post-Merge Verification: PASS
+- Product-code changes: 0
+- Prisma/migration changes: 0
+- Workflow/runtime changes: 0
+- Commercial documentation approved: Yes
+- Commercial implementation authorization: No
+- Released MVP/Advanced readiness remains: Intact
+- Sprint 12 technical release: COMPLETE
+- Closure record Jira issue: `PAC-795`
