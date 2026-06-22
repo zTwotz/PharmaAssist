@@ -330,12 +330,12 @@ Story Review chỉ bắt đầu khi mọi direct Task đã merge vào `develop`.
 |---|---:|
 | Expected Task PRs | 25 |
 | Open Task PRs | 0 |
-| Merged Task PRs | 0 |
+| Merged Task PRs | 25 |
 | Closed-unmerged Task PRs | 0 |
 | Story PRs | 0 required |
 | Epic PRs | 0 required |
-| Missing exact branches | Pending audit |
-| Missing merge SHAs | 25 |
+| Missing exact branches | 0 |
+| Missing merge SHAs | 0 |
 
 # 14. Deliverable Register
 
