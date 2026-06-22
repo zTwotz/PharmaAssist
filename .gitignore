@@ -108,3 +108,9 @@ __pycache__/
 scratch/
 .tmp/
 Jira/migration_archive/
+
+# Internal Project Folders (Hidden from remote)
+/work-context/
+/Scripts/
+/Jira/
+/DOC/
