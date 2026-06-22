@@ -60,7 +60,7 @@ describe('AdjustmentsService', () => {
             }),
           },
         };
-        return callback(tx);
+        return callback(tx as any);
       });
 
       await expect(service.confirm(1)).rejects.toThrow(BadRequestException);

@@ -8,7 +8,7 @@ describe('OrdersService', () => {
   let service: OrdersService;
   let prisma: any;
 
-  const mockPrisma = {
+  const mockPrisma: any = {
     order: {
       findMany: jest.fn(),
       create: jest.fn(),

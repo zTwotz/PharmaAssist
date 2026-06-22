@@ -6,7 +6,7 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 describe('MedicinesService', () => {
   let service: MedicinesService;
 
-  const mockPrismaService = {
+  const mockPrismaService: any = {
     medicine: {
       findUnique: jest.fn(),
       findMany: jest.fn(),
@@ -182,7 +182,7 @@ describe('MedicinesService', () => {
           slug: 'test-med',
         },
       };
-      mockPrismaService.medicine.findUnique.mockImplementation(({ where }) => {
+      mockPrismaService.medicine.findUnique.mockImplementation(({ where }: any) => {
         if (where.id === 20) return Promise.resolve(mockExisting);
         return Promise.resolve(null);
       });
