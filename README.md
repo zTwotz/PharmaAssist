@@ -130,58 +130,65 @@ graph TD
 
 ---
 
-## ⚙️ 7. Hướng dẫn cài đặt & Khởi chạy (Quick Start)
+## ⚙️ 7. Hướng dẫn Cài đặt & Triển khai (Installation & Deployment)
 
-Dự án sử dụng kiến trúc monorepo phân tách rõ ràng Backend và Frontend. Không yêu cầu Docker để chạy môi trường phát triển cục bộ (local development).
+PharmaAssist được thiết kế để dễ dàng cài đặt cho các lập trình viên muốn lấy dự án về phát triển, cũng như có thể triển khai lên môi trường thực tế.
 
-### 📋 Yêu cầu môi trường
-- **Node.js**: v20.0+ (Khuyến nghị dùng phiên bản LTS mới nhất)
-- **npm**: v10.0+
-- **Database**: PostgreSQL (Có thể dùng Supabase hoặc PostgreSQL cục bộ)
+### 📋 Yêu cầu hệ thống cơ bản
+- **Node.js**: v20.0+ (Bắt buộc)
+- **Database**: PostgreSQL (Local hoặc Supabase/Neon)
+- **Công cụ dòng lệnh**: Git, Terminal (Bash/Zsh/PowerShell)
 
-### 🚀 Các bước cài đặt
+### 🚀 Môi trường Phát triển (Local Development) - Khuyến nghị
 
-**1. Clone dự án**
+Chúng tôi đã xây dựng sẵn một công cụ CLI là `run.js` nằm ngay ở thư mục gốc để tự động hóa toàn bộ quá trình cài đặt mà **không cần** bạn phải gõ từng lệnh thủ công.
+
+**Bước 1: Clone dự án**
 ```bash
 git clone https://github.com/TwotNguyenVN/PharmaAssist.git
 cd PharmaAssist
 ```
 
-**2. Thiết lập Backend (NestJS)**
+**Bước 2: Cài đặt và Khởi chạy tự động**
+Thay vì phải vào từng thư mục để cài đặt, bạn chỉ cần chạy công cụ điều phối của chúng tôi:
+```bash
+node run.js
+```
+1. Chọn **[1] Cài đặt dự án (Setup)**: Hệ thống sẽ tự động cài thư viện cho cả Backend và Frontend, thiết lập cấu trúc Prisma, và tự động copy các file cấu hình `.env` nếu bạn chưa có.
+2. (Bắt buộc) Mở file `backend/.env` và cập nhật biến `DATABASE_URL` thành chuỗi kết nối PostgreSQL của bạn.
+3. Chạy `npx prisma db push` trong thư mục `backend` để khởi tạo cấu trúc bảng.
+4. Chạy lại `node run.js` và chọn **[2] Chạy đồng thời dự án (Start)**: Cả Frontend và Backend sẽ chạy chung trên một cửa sổ Terminal.
+   - Frontend web sẽ mở tại: `http://localhost:3000`
+   - Backend API sẽ mở tại: `http://localhost:3001`
+
+> **💡 Mẹo:** Khi muốn xem chi tiết hướng dẫn trực tiếp qua terminal, bạn có thể chạy:
+> `node run.js docs` hoặc chọn mục `[0] Xem Hướng dẫn` trong Menu.
+
+### 🌍 Môi trường Sản xuất (Production Deployment)
+
+Nếu bạn muốn deploy dự án này lên các server thực tế (như Ubuntu VPS, Vercel, Render), hãy thực hiện:
+
+**1. Deployment Backend (NestJS):**
+Khuyến nghị deploy trên Render, Heroku hoặc VPS.
 ```bash
 cd backend
-npm install
-
-# Tạo file .env và điền thông tin kết nối Database
-cp .env.example .env
-# (Lưu ý: Mở file .env và cập nhật DATABASE_URL)
-
-# Chạy Prisma db push để tạo cấu trúc bảng (hoặc migrate dev)
-npx prisma db push
-
-# Chạy script để reset dữ liệu demo (tùy chọn)
-# Lưu ý: Cần cấu hình ALLOW_DEMO_RESET=true trong .env nếu không phải là localhost
-npm run demo:reset
-
-# Khởi chạy server Backend
-npm run start:dev
-# Backend API sẽ chạy tại http://localhost:3001
+npm install --omit=dev
+npx prisma generate
+npm run build
+npm run start:prod
 ```
+*Lưu ý: Phải thiết lập biến `DATABASE_URL` trỏ đến database production trên server.*
 
-**3. Thiết lập Frontend (Next.js)**
-Mở một terminal mới và chạy:
+**2. Deployment Frontend (Next.js):**
+Khuyến nghị deploy Frontend lên **Vercel** để tự động tối ưu hóa SSR và caching.
+Nếu tự deploy trên VPS bằng Node.js:
 ```bash
 cd frontend
 npm install
-
-# Tạo file .env và cấu hình URL API
-cp .env.example .env.local
-# (Mặc định NEXT_PUBLIC_API_URL=http://localhost:3001)
-
-# Khởi chạy ứng dụng Frontend
-npm run dev
-# Frontend web sẽ chạy tại http://localhost:3000
+npm run build
+npm run start
 ```
+*Lưu ý: Phải thiết lập biến môi trường `NEXT_PUBLIC_API_URL` trỏ về domain của Backend API (Ví dụ: `https://api.pharmaassist.com`).*
 
 ---
 
