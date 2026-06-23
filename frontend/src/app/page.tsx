@@ -1647,6 +1647,8 @@ export default function HomePage() {
   });
 
   const [flashSaleOffset, setFlashSaleOffset] = useState(0);
+  const [activeFlashSaleTab, setActiveFlashSaleTab] = useState<"current" | "upcoming">("current");
+  const [showAllFlashSale, setShowAllFlashSale] = useState(false);
   const [bestSellingOffset, setBestSellingOffset] = useState(0);
 
   const handleFlashSalePrev = () => {
@@ -2103,13 +2105,19 @@ export default function HomePage() {
               
               {/* Tabs time frames */}
               <div className="flex items-center gap-2 bg-cloud/80 p-1 rounded-2xl border border-fog shrink-0">
-                <div className="bg-white text-[#ea3829] border border-[#ea3829]/15 font-black text-xs px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center">
-                  <span className="text-[10px] font-black">08:00 - 22:00, 04/06</span>
+                <div 
+                  onClick={() => setActiveFlashSaleTab("current")}
+                  className={`px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center cursor-pointer transition-colors ${activeFlashSaleTab === "current" ? "bg-white text-[#ea3829] border border-[#ea3829]/15" : "text-graphite hover:text-primary"}`}
+                >
+                  <span className={`text-[10px] ${activeFlashSaleTab === "current" ? "font-black" : "font-bold"}`}>08:00 - 22:00, 04/06</span>
                   <span className="text-[9px] uppercase tracking-wide opacity-90">Đang diễn ra</span>
                 </div>
-                <div className="text-graphite font-bold text-[#475569] text-xs px-4 py-2 text-center flex flex-col justify-center cursor-pointer hover:text-primary transition-colors">
-                  <span className="text-[10px] font-bold">08:00 - 22:00, 05/06</span>
-                  <span className="text-[9px] uppercase tracking-wide opacity-80">Sắp diễn ra</span>
+                <div 
+                  onClick={() => setActiveFlashSaleTab("upcoming")}
+                  className={`px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center cursor-pointer transition-colors ${activeFlashSaleTab === "upcoming" ? "bg-white text-[#ea3829] border border-[#ea3829]/15" : "text-graphite hover:text-primary"}`}
+                >
+                  <span className={`text-[10px] ${activeFlashSaleTab === "upcoming" ? "font-black" : "font-bold"}`}>08:00 - 22:00, 05/06</span>
+                  <span className="text-[9px] uppercase tracking-wide opacity-90">Sắp diễn ra</span>
                 </div>
               </div>
 
@@ -2134,7 +2142,7 @@ export default function HomePage() {
 
             {/* Grid list product items */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {FLASH_SALE_PRODUCTS.slice(flashSaleOffset, flashSaleOffset + 6).map((product) => {
+              {(showAllFlashSale ? FLASH_SALE_PRODUCTS : FLASH_SALE_PRODUCTS.slice(flashSaleOffset, flashSaleOffset + 6)).map((product) => {
                 const isOutOfStock = !product.isAvailable || product.soldQty >= product.totalQty;
                 return (
                   <div key={product.id} className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
@@ -2201,6 +2209,13 @@ export default function HomePage() {
                           >
                             Xem chi tiết
                           </Link>
+                        ) : activeFlashSaleTab === "upcoming" ? (
+                          <button 
+                            disabled
+                            className="w-full bg-fog text-graphite cursor-not-allowed text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Sắp mở bán
+                          </button>
                         ) : (
                           <button 
                             onClick={(e) => {
@@ -2231,29 +2246,33 @@ export default function HomePage() {
 
             {/* Bottom link: Xem tất cả */}
             <div className="flex justify-center mt-6">
-              <Link 
-                href="/thuc-pham-chuc-nang"
+              <button 
+                onClick={() => setShowAllFlashSale(!showAllFlashSale)}
                 className="text-[#024ad8] hover:text-[#01359c] font-black text-xs flex items-center gap-1 cursor-pointer transition-colors hover:underline"
               >
-                Xem tất cả &gt;
-              </Link>
+                {showAllFlashSale ? "Thu gọn <" : "Xem tất cả >"}
+              </button>
             </div>
             
             {/* Aesthetic slide prev button indicator */}
-            <div 
-              onClick={handleFlashSalePrev}
-              className="absolute top-[60%] left-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
-            >
-              <ChevronLeft size={16} />
-            </div>
+            {!showAllFlashSale && (
+              <div 
+                onClick={handleFlashSalePrev}
+                className="absolute top-[60%] left-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+              >
+                <ChevronLeft size={16} />
+              </div>
+            )}
 
             {/* Aesthetic slide next button indicator */}
-            <div 
-              onClick={handleFlashSaleNext}
-              className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
-            >
-              <ChevronRight size={16} />
-            </div>
+            {!showAllFlashSale && (
+              <div 
+                onClick={handleFlashSaleNext}
+                className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+              >
+                <ChevronRight size={16} />
+              </div>
+            )}
           </div>
         </section>
 
