@@ -51,7 +51,7 @@ export default function LoginPage() {
       return false;
     }
 
-    if (isRegistering && !fullName.trim()) {
+    if (isRegisterMode && !fullName.trim()) {
       setErrorMsg('Vui lòng nhập họ và tên.');
       return false;
     }
@@ -98,7 +98,7 @@ export default function LoginPage() {
     setErrorMsg('');
     setSuccessMsg('');
 
-    if (!email || !password || (isRegistering && !fullName)) {
+    if (!email || !password) {
       setErrorMsg('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
@@ -116,35 +116,6 @@ export default function LoginPage() {
       await login(email, password);
       clearTimeout(timeoutId);
       setSuccessMsg('Đăng nhập thành công! Đang chuyển hướng...');
-    } catch (err: any) {
-      clearTimeout(timeoutId);
-      console.warn('Login warning:', err?.message || err);
-      if (isRegistering) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: fullName,
-            }
-          }
-        });
-
-        if (error) throw error;
-        
-        clearTimeout(timeoutId);
-        setSuccess(true);
-        setErrorMsg('Đăng ký thành công! Vui lòng kiểm tra email để xác nhận hoặc đăng nhập ngay.');
-        setTimeout(() => {
-          setIsRegistering(false);
-          setSuccess(false);
-          setErrorMsg('');
-        }, 3000);
-      } else {
-        await login(email, password);
-        clearTimeout(timeoutId);
-        setSuccess(true);
-      }
     } catch (err: any) {
       clearTimeout(timeoutId);
       console.warn('Auth warning:', err?.message || err);
@@ -193,16 +164,10 @@ export default function LoginPage() {
         </CardHeader>
         
         <form onSubmit={isRegisterMode ? handleRegister : handleLogin}>
-            {isRegistering ? 'Đăng ký tài khoản mới' : 'Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh'}
-          </CardDescription>
-        </CardHeader>
-        
-        <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 px-6">
-            {errorMsg && !success && (
+            {errorMsg && !successMsg && (
               <Alert variant="destructive" className="bg-bloom-rose border-bloom-coral/30 text-bloom-deep">
                 <ShieldAlert className="h-4 w-4 text-bloom-deep" />
-                <AlertTitle className="font-semibold text-bloom-deep">Lỗi</AlertTitle>
                 <AlertTitle className="font-semibold text-bloom-deep">Lỗi thao tác</AlertTitle>
                 <AlertDescription className="text-bloom-wine text-xs mt-1">{errorMsg}</AlertDescription>
               </Alert>
