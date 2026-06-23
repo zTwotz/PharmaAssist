@@ -1709,7 +1709,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchApiData = async () => {
       try {
-        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001/api";
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001/api/v1";
         
         // Fetch featured medicines
         const medRes = await fetch(`${apiBaseUrl}/products/featured`);

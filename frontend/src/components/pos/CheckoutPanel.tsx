@@ -33,19 +33,19 @@ export function CheckoutPanel({
         }))
       };
 
-      const response = await axios.post('http://localhost:3001/api/orders', orderPayload);
+      const response = await axios.post('http://localhost:3001/api/v1/orders', orderPayload);
       const orderId = response.data.id;
       
       // PAC-TASK-305: After creating order, persist interactions and notes
       if (acknowledgedNotes && Object.keys(acknowledgedNotes).length > 0) {
         try {
-          const checkRes = await axios.post(`http://localhost:3001/api/orders/${orderId}/interactions/check`);
+          const checkRes = await axios.post(`http://localhost:3001/api/v1/orders/${orderId}/interactions/check`);
           const persistedAlerts = checkRes.data.persistedAlerts || [];
           
           for (const alert of persistedAlerts) {
             const note = acknowledgedNotes[alert.interactionId];
             if (note) {
-              await axios.patch(`http://localhost:3001/api/interactions/alerts/${alert.id}/acknowledge`, {
+              await axios.patch(`http://localhost:3001/api/v1/interactions/alerts/${alert.id}/acknowledge`, {
                 note
               });
             }
