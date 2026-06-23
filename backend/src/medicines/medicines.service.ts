@@ -555,6 +555,22 @@ export class MedicinesService {
     };
   }
 
+  async getTopSelling() {
+    // Để phục vụ demo: Lấy 12 sản phẩm đang active (Có thể order by createdAt hoặc ID để lấy dữ liệu)
+    // Trong thực tế sẽ cần group by từ OrderLineItem và sum quantity.
+    return this.prisma.medicine.findMany({
+      where: { status: 'ACTIVE' },
+      take: 12,
+      include: {
+        product: {
+          include: {
+            variants: true,
+          },
+        },
+      },
+    });
+  }
+
   async search(term: string) {
     if (!term || term.trim().length < 2) return [];
 

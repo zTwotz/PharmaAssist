@@ -28,6 +28,7 @@ import { ReportsModule } from './reports/reports.module';
 import { SettingsModule } from './settings/settings.module';
 import { GraphExplorerModule } from './graph-explorer/graph-explorer.module';
 import { StorageModule } from './storage/storage.module';
+import { MedicineGroupsModule } from './medicine-groups/medicine-groups.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { StorageModule } from './storage/storage.module';
     SettingsModule,
     GraphExplorerModule,
     StorageModule,
+    MedicineGroupsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

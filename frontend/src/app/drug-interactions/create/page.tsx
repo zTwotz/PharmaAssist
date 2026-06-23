@@ -192,6 +192,7 @@ export default function CreateDrugInteractionPage() {
             </Button>
           </div>
         </form>
+            </div>
           </div>
         </div>
       </div>

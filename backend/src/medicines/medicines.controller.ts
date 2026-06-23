@@ -41,6 +41,12 @@ export class MedicinesController {
     return this.medicinesService.search(term);
   }
 
+  @Get('top-selling')
+  @RequirePermissions('VIEW_MEDICINES')
+  async getTopSelling() {
+    return this.medicinesService.getTopSelling();
+  }
+
   @Get(':id')
   @RequirePermissions('VIEW_MEDICINES')
   async findOne(@Param('id', ParseIntPipe) id: number) {
