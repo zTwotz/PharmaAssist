@@ -31,7 +31,7 @@ export default function PosPage() {
       }
 
       try {
-        const response = await axios.post('http://localhost:3001/api/interactions/check', {
+        const response = await axios.post('http://localhost:3001/api/v1/interactions/check', {
           medicineIds: Array.from(new Set(medicineIds)),
         });
 

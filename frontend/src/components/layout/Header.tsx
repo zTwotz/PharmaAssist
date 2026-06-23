@@ -41,7 +41,8 @@ function MegaProductImage({ src, alt }: { src: string; alt: string }) {
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user, logout, hasRole } = useAuth();
+  const isInternalUser = hasRole(['ADMIN', 'STAFF', 'WAREHOUSE']);
 
   // Hide header on management and POS routes
   const hidePaths = ['/pos', '/login', '/dashboard', '/medicines', '/inventory', '/sales', '/customers', '/suppliers'];
@@ -92,10 +93,14 @@ export function Header() {
           {user ? (
             <div className="flex items-center gap-3">
               <span className="text-primary-soft font-medium">Xin chào, {user.fullName || user.email}</span>
-              <span className="text-gray-500">|</span>
-              <Link href="/dashboard" className="text-white hover:text-primary-soft font-semibold transition-colors">
-                Trang quản lý
-              </Link>
+              {isInternalUser && (
+                <>
+                  <span className="text-gray-500">|</span>
+                  <Link href="/dashboard" className="text-white hover:text-primary-soft font-semibold transition-colors">
+                    Trang quản lý
+                  </Link>
+                </>
+              )}
               <span className="text-gray-500">|</span>
               <button 
                 onClick={async () => {
@@ -154,9 +159,11 @@ export function Header() {
                 )}
               </Link>
               {user ? (
-                <Link href="/dashboard" id="mobile-login-btn" className="p-2 text-primary hover:text-primary-deep transition-colors" title={user.fullName || user.email}>
-                  <User size={22} className="text-primary" />
-                </Link>
+                isInternalUser && (
+                  <Link href="/dashboard" id="mobile-login-btn" className="p-2 text-primary hover:text-primary-deep transition-colors" title={user.fullName || user.email}>
+                    <User size={22} className="text-primary" />
+                  </Link>
+                )
               ) : (
                 <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
                   <User size={22} />
@@ -207,16 +214,18 @@ export function Header() {
             </Link>
             {user ? (
               <div className="flex items-center gap-2.5 shrink-0">
-                <Link 
-                  href="/dashboard"
-                  className="flex items-center gap-2 bg-primary-soft/40 hover:bg-primary-soft text-primary-deep px-4 py-2.5 rounded-xl transition-all duration-300 text-sm font-semibold border border-primary-bright/10 animate-fadeIn shrink-0 whitespace-nowrap shadow-sm"
-                  title="Đi đến Trang quản lý"
-                >
-                  <User size={16} className="text-primary" />
-                  <span className="truncate max-w-[150px]">
-                    {user.fullName || user.email}
-                  </span>
-                </Link>
+                {isInternalUser && (
+                  <Link 
+                    href="/dashboard"
+                    className="flex items-center gap-2 bg-primary-soft/40 hover:bg-primary-soft text-primary-deep px-4 py-2.5 rounded-xl transition-all duration-300 text-sm font-semibold border border-primary-bright/10 animate-fadeIn shrink-0 whitespace-nowrap shadow-sm"
+                    title="Đi đến Trang quản lý"
+                  >
+                    <User size={16} className="text-primary" />
+                    <span className="truncate max-w-[150px]">
+                      {user.fullName || user.email}
+                    </span>
+                  </Link>
+                )}
                 <button 
                   onClick={async () => {
                     try {
