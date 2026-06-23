@@ -1186,6 +1186,7 @@ export default function DiseaseDetailPage() {
                         key={idx} 
                         className="border border-fog rounded-2xl p-4 flex flex-col justify-between hover:shadow-md hover:border-blue-100 transition-all duration-300 group bg-[#fafcfd]/50"
                       >
+                        <div className="flex gap-3 items-start mb-3">
                           <Link href={`/san-pham/${p.slug || p.id}`} className="w-20 h-20 bg-cloud rounded-xl overflow-hidden flex items-center justify-center shrink-0 border border-fog/45 cursor-pointer">
                             <img 
                               src={p.imageUrl} 
