@@ -126,7 +126,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(response.user);
-      router.push('/dashboard');
+      
+      const isInternalStaff = response.user.roles?.some((role: string) => 
+        ['ADMIN', 'STAFF', 'WAREHOUSE', 'MANAGER'].includes(role.toUpperCase())
+      );
+      
+      if (isInternalStaff) {
+        router.push('/dashboard');
+      } else {
+        router.push('/');
+      }
     } catch (error) {
       setUser(null);
       if (typeof window !== 'undefined') {
