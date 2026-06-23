@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Plus, ShieldAlert, AlertTriangle, AlertCircle, Clock } from 'lucide-react';
 import api from '@/lib/api';
+import { Sidebar } from '@/components/sidebar';
+import { RouteGuard } from '@/components/route-guard';
 
 interface ActiveIngredient {
   id: number;
@@ -79,7 +81,11 @@ export default function DrugInteractionsPage() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <RouteGuard allowedPermissions={['MANAGE_DRUG_INTERACTIONS']}>
+      <div className="flex min-h-screen bg-gray-50 font-sans">
+        <Sidebar currentPath="/drug-interactions" />
+        <div className="flex-1 overflow-x-hidden">
+          <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Luật tương tác thuốc</h1>
@@ -141,6 +147,8 @@ export default function DrugInteractionsPage() {
           </table>
         </div>
       </div>
-    </div>
+        </div>
+      </div>
+    </RouteGuard>
   );
 }

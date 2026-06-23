@@ -6,6 +6,8 @@ import { useAuth } from '@/context/auth-context';
 import api from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Save } from 'lucide-react';
+import { Sidebar } from '@/components/sidebar';
+import { RouteGuard } from '@/components/route-guard';
 
 interface ActiveIngredient {
   id: number;
@@ -81,7 +83,11 @@ export default function CreateDrugInteractionPage() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <RouteGuard allowedPermissions={['MANAGE_DRUG_INTERACTIONS']}>
+      <div className="flex min-h-screen bg-gray-50 font-sans">
+        <Sidebar currentPath="/drug-interactions/create" />
+        <div className="flex-1 overflow-x-hidden">
+          <div className="p-6 max-w-3xl mx-auto">
       <div className="flex items-center space-x-4 mb-6">
         <Button variant="outline" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="w-4 h-4" />
@@ -186,7 +192,8 @@ export default function CreateDrugInteractionPage() {
             </Button>
           </div>
         </form>
+        </div>
       </div>
-    </div>
+    </RouteGuard>
   );
 }
