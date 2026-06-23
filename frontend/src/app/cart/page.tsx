@@ -145,7 +145,18 @@ export default function CartPage() {
                       <div className="flex items-center gap-4 flex-1">
                         <div className="w-16 h-16 bg-cloud border border-fog rounded-lg overflow-hidden flex items-center justify-center p-1 shrink-0">
                           {item.imageUrl ? (
-                            <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain" />
+                            <img 
+                              src={item.imageUrl} 
+                              alt={item.name} 
+                              className="w-full h-full object-contain" 
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                                  target.src = 'https://placehold.co/300x300?text=No+Image';
+                                }
+                              }}
+                            />
                           ) : (
                             <Pill className="text-graphite w-6 h-6" />
                           )}

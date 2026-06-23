@@ -18,6 +18,25 @@ import {
   X
 } from "lucide-react";
 import { NAV_MEGA_MENU_DATA, renderMenuIcon, renderSubcatThumbnail } from "@/lib/constants/menu";
+import mappedImages from "@/app/mapped_images.json";
+
+function MegaProductImage({ src, alt }: { src: string; alt: string }) {
+  const [error, setError] = useState(false);
+  
+  if (error || !src) {
+    return <Sparkles size={24} className="text-[#024ad8]/20" />;
+  }
+
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" 
+      referrerPolicy="no-referrer"
+      onError={() => setError(true)}
+    />
+  );
+}
 
 export function Header() {
   const router = useRouter();
@@ -341,16 +360,8 @@ export function Header() {
                                           </div>
                                         )}
                                         {(() => {
-                                          const finalImage = prod.image;
-                                          return finalImage ? (
-                                            <img 
-                                              src={finalImage} 
-                                              alt={prod.name} 
-                                              className="w-full h-full object-contain p-1 group-hover/prod:scale-105 transition-transform" 
-                                            />
-                                          ) : (
-                                            <Sparkles size={24} className="text-[#024ad8]/20" />
-                                          );
+                                          const finalImage = prod.image || (mappedImages as Record<string, string>)[prod.name] || "";
+                                          return <MegaProductImage src={finalImage} alt={prod.name} />;
                                         })()}
                                       </div>
                                       <div>
