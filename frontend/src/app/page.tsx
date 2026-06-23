@@ -34,6 +34,7 @@ import {
   Wind,
   Flame,
   Pill,
+  Bot,
   Syringe
 } from "lucide-react";
 
@@ -1728,6 +1729,7 @@ export default function HomePage() {
   const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
   const [activeDiseaseGroupTab, setActiveDiseaseGroupTab] = useState<"doi-tuong" | "mua">("doi-tuong");
   const [activeSeasonalTab, setActiveSeasonalTab] = useState<number>(0);
+  const [showSeasonalSolutionModal, setShowSeasonalSolutionModal] = useState(false);
   const [fysolineSeptiUnit, setFysolineSeptiUnit] = useState<"hop" | "ong">("hop");
   const [fysolineIsoUnit, setFysolineIsoUnit] = useState<"hop" | "ong">("hop");
   const [famaproUnit, setFamaproUnit] = useState<"hop" | "goi">("hop");
@@ -1745,6 +1747,8 @@ export default function HomePage() {
   });
 
   const [flashSaleOffset, setFlashSaleOffset] = useState(0);
+  const [activeFlashSaleTab, setActiveFlashSaleTab] = useState<"current" | "upcoming">("current");
+  const [showAllFlashSale, setShowAllFlashSale] = useState(false);
   const [bestSellingOffset, setBestSellingOffset] = useState(0);
 
   const handleFlashSalePrev = () => {
@@ -1807,7 +1811,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchApiData = async () => {
       try {
-        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001/api";
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001/api/v1";
         
         // Fetch featured medicines
         const medRes = await fetch(`${apiBaseUrl}/products/featured`);
@@ -2206,13 +2210,19 @@ export default function HomePage() {
               
               {/* Tabs time frames */}
               <div className="flex items-center gap-2 bg-cloud/80 p-1 rounded-2xl border border-fog shrink-0">
-                <div className="bg-white text-[#ea3829] border border-[#ea3829]/15 font-black text-xs px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center">
-                  <span className="text-[10px] font-black">08:00 - 22:00, 04/06</span>
+                <div 
+                  onClick={() => setActiveFlashSaleTab("current")}
+                  className={`px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center cursor-pointer transition-colors ${activeFlashSaleTab === "current" ? "bg-white text-[#ea3829] border border-[#ea3829]/15" : "text-graphite hover:text-primary"}`}
+                >
+                  <span className={`text-[10px] ${activeFlashSaleTab === "current" ? "font-black" : "font-bold"}`}>08:00 - 22:00, 04/06</span>
                   <span className="text-[9px] uppercase tracking-wide opacity-90">Đang diễn ra</span>
                 </div>
-                <div className="text-graphite font-bold text-[#475569] text-xs px-4 py-2 text-center flex flex-col justify-center cursor-pointer hover:text-primary transition-colors">
-                  <span className="text-[10px] font-bold">08:00 - 22:00, 05/06</span>
-                  <span className="text-[9px] uppercase tracking-wide opacity-80">Sắp diễn ra</span>
+                <div 
+                  onClick={() => setActiveFlashSaleTab("upcoming")}
+                  className={`px-4 py-2 rounded-xl shadow-sm text-center flex flex-col justify-center cursor-pointer transition-colors ${activeFlashSaleTab === "upcoming" ? "bg-white text-[#ea3829] border border-[#ea3829]/15" : "text-graphite hover:text-primary"}`}
+                >
+                  <span className={`text-[10px] ${activeFlashSaleTab === "upcoming" ? "font-black" : "font-bold"}`}>08:00 - 22:00, 05/06</span>
+                  <span className="text-[9px] uppercase tracking-wide opacity-90">Sắp diễn ra</span>
                 </div>
               </div>
 
@@ -2237,7 +2247,7 @@ export default function HomePage() {
 
             {/* Grid list product items */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {FLASH_SALE_PRODUCTS.slice(flashSaleOffset, flashSaleOffset + 6).map((product) => {
+              {(showAllFlashSale ? FLASH_SALE_PRODUCTS : FLASH_SALE_PRODUCTS.slice(flashSaleOffset, flashSaleOffset + 6)).map((product) => {
                 const isOutOfStock = !product.isAvailable || product.soldQty >= product.totalQty;
                 return (
                   <div key={product.id} className="bg-white rounded-2xl border border-sky-100/70 p-3.5 flex flex-col justify-between hover:shadow-lg hover:border-[#024ad8]/20 transition-all duration-300 group relative">
@@ -2311,6 +2321,13 @@ export default function HomePage() {
                           >
                             Xem chi tiết
                           </Link>
+                        ) : activeFlashSaleTab === "upcoming" ? (
+                          <button 
+                            disabled
+                            className="w-full bg-fog text-graphite cursor-not-allowed text-[10px] font-bold py-2 rounded-xl mt-3 transition-colors shadow-sm uppercase tracking-wider"
+                          >
+                            Sắp mở bán
+                          </button>
                         ) : (
                           <button 
                             onClick={(e) => {
@@ -2341,29 +2358,33 @@ export default function HomePage() {
 
             {/* Bottom link: Xem tất cả */}
             <div className="flex justify-center mt-6">
-              <Link 
-                href="/thuc-pham-chuc-nang"
+              <button 
+                onClick={() => setShowAllFlashSale(!showAllFlashSale)}
                 className="text-[#024ad8] hover:text-[#01359c] font-black text-xs flex items-center gap-1 cursor-pointer transition-colors hover:underline"
               >
-                Xem tất cả &gt;
-              </Link>
+                {showAllFlashSale ? "Thu gọn <" : "Xem tất cả >"}
+              </button>
             </div>
             
             {/* Aesthetic slide prev button indicator */}
-            <div 
-              onClick={handleFlashSalePrev}
-              className="absolute top-[60%] left-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
-            >
-              <ChevronLeft size={16} />
-            </div>
+            {!showAllFlashSale && (
+              <div 
+                onClick={handleFlashSalePrev}
+                className="absolute top-[60%] left-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+              >
+                <ChevronLeft size={16} />
+              </div>
+            )}
 
             {/* Aesthetic slide next button indicator */}
-            <div 
-              onClick={handleFlashSaleNext}
-              className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
-            >
-              <ChevronRight size={16} />
-            </div>
+            {!showAllFlashSale && (
+              <div 
+                onClick={handleFlashSaleNext}
+                className="absolute top-[60%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+              >
+                <ChevronRight size={16} />
+              </div>
+            )}
           </div>
         </section>
 
@@ -2834,7 +2855,7 @@ export default function HomePage() {
 
                 <div className="flex flex-col gap-2 mt-4 relative z-10">
                   <button 
-                    onClick={() => triggerToast("Khám phá giải pháp chăm sóc y tế...")}
+                    onClick={() => setShowSeasonalSolutionModal(true)}
                     className="w-full bg-[#024ad8] hover:bg-[#01359c] text-white text-[10px] font-black py-2 rounded-full transition-colors shadow-sm uppercase tracking-wider text-center"
                   >
                     Khám phá ngay giải pháp
@@ -4438,6 +4459,127 @@ export default function HomePage() {
                 className={`px-4 py-3 rounded-xl text-xs font-extrabold text-white transition-all shadow-sm ${chatInput.trim() && !isChatLoading ? 'bg-[#024ad8] hover:bg-[#01359c]' : 'bg-gray-300 cursor-not-allowed'}`}
               >
                 Gửi
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 4. SEASONAL SOLUTION MODAL */}
+      {showSeasonalSolutionModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300">
+          <div className="bg-white rounded-3xl border border-fog shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-slideUp">
+            
+            {/* Header */}
+            <div className="bg-[#024ad8] p-5 md:p-6 flex justify-between items-center shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 p-2 rounded-xl text-white">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <div>
+                  <h3 className="text-white text-lg font-black">Giải pháp phòng bệnh mùa</h3>
+                  <p className="text-white/80 text-[11px] font-medium">
+                    {activeSeasonalTab === 0 ? "Tay chân miệng" :
+                     activeSeasonalTab === 1 ? "Viêm não mô cầu" :
+                     activeSeasonalTab === 2 ? "Cúm mùa" : "Sốt xuất huyết"}
+                  </p>
+                </div>
+              </div>
+              <button onClick={() => setShowSeasonalSolutionModal(false)} className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Content Body */}
+            <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6">
+              
+              {/* Epidemiology Block */}
+              <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 md:p-5 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-xl z-10">Cảnh báo dịch tễ</div>
+                <div className="flex gap-4 relative z-10">
+                  <div className="text-rose-500 mt-1 shrink-0"><AlertTriangle size={24} /></div>
+                  <div>
+                    <h4 className="text-[13px] font-black text-rose-800 mb-1">Mức độ lây lan nguy hiểm</h4>
+                    <p className="text-[12px] text-rose-700/90 leading-relaxed font-medium">
+                      {activeSeasonalTab === 0 && "Tay chân miệng lây qua đường tiêu hóa và tiếp xúc trực tiếp. Vi rút có khả năng sống lâu trong môi trường bên ngoài, lây nhanh ở các trường mầm non."}
+                      {activeSeasonalTab === 1 && "Viêm não mô cầu lây qua đường hô hấp khi tiếp xúc gần. Bệnh tiến triển cực kỳ nhanh trong 24 giờ, có khả năng gây tử vong cao nếu không cấp cứu kịp."}
+                      {activeSeasonalTab === 2 && "Cúm mùa có khả năng lây lan diện rộng qua đường hô hấp. Các chủng cúm liên tục biến đổi, gây nguy hiểm cho người già, trẻ nhỏ và người suy giảm miễn dịch."}
+                      {activeSeasonalTab === 3 && "Sốt xuất huyết lây qua muỗi vằn Aedes. Không lây từ người sang người nhưng dễ bùng phát thành dịch tại các khu dân cư đông đúc, có vùng nước đọng."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Protocol Block */}
+              <div>
+                <h4 className="text-[14px] font-black text-[#1a1a1a] mb-3 flex items-center gap-2">
+                  <div className="w-1.5 h-4 bg-[#024ad8] rounded-full"></div>
+                  Phác đồ dự phòng & Chăm sóc
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="bg-cloud border border-fog rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2 text-[#024ad8]">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <h5 className="text-[12px] font-bold text-ink">Phòng ngừa</h5>
+                    </div>
+                    <ul className="text-[11px] text-graphite space-y-2 font-medium">
+                      {activeSeasonalTab === 0 && (
+                        <><li>• Rửa tay thường xuyên bằng xà phòng.</li><li>• Vệ sinh đồ chơi, bề mặt tiếp xúc.</li><li>• Ăn chín, uống sôi, không chung muỗng thìa.</li></>
+                      )}
+                      {activeSeasonalTab === 1 && (
+                        <><li>• Tiêm vắc xin não mô cầu (A, C, Y, W, B).</li><li>• Đeo khẩu trang khi đến nơi đông người.</li><li>• Súc họng bằng nước muối sinh lý.</li></>
+                      )}
+                      {activeSeasonalTab === 2 && (
+                        <><li>• Tiêm vắc xin cúm nhắc lại hàng năm.</li><li>• Giữ ấm cơ thể, tăng cường vitamin C.</li><li>• Tránh tiếp xúc với người bệnh cúm.</li></>
+                      )}
+                      {activeSeasonalTab === 3 && (
+                        <><li>• Ngủ mùng, dùng kem xua muỗi.</li><li>• Diệt loăng quăng, lật úp vật chứa nước.</li><li>• Phun thuốc diệt muỗi quanh khu vực sống.</li></>
+                      )}
+                    </ul>
+                  </div>
+
+                  <div className="bg-cloud border border-fog rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2 text-emerald-600">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <h5 className="text-[12px] font-bold text-ink">Xử trí ban đầu</h5>
+                    </div>
+                    <ul className="text-[11px] text-graphite space-y-2 font-medium">
+                      {activeSeasonalTab === 0 && (
+                        <><li>• Hạ sốt nếu trẻ sốt cao &gt; 38.5°C.</li><li>• Dùng thuốc bôi làm dịu vết loét miệng.</li><li>• Cho ăn thức ăn lỏng, mát, chia nhỏ bữa.</li></>
+                      )}
+                      {activeSeasonalTab === 1 && (
+                        <><li>• <span className="text-rose-600 font-bold">Lưu ý:</span> Đưa đi cấp cứu ngay lập tức.</li><li>• Tuyệt đối không tự ý dùng kháng sinh.</li><li>• Cách ly bệnh nhân để tránh lây nhiễm.</li></>
+                      )}
+                      {activeSeasonalTab === 2 && (
+                        <><li>• Uống nhiều nước ấm, nghỉ ngơi.</li><li>• Dùng thuốc hạ sốt, giảm đau (Paracetamol).</li><li>• Súc họng, xịt mũi để thông đường thở.</li></>
+                      )}
+                      {activeSeasonalTab === 3 && (
+                        <><li>• Bù nước Oresol, nước trái cây liên tục.</li><li>• Chỉ dùng Paracetamol hạ sốt, <span className="text-rose-600 font-bold">tuyệt đối không dùng Ibuprofen/Aspirin</span>.</li></>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Footer with AI CTA */}
+            <div className="bg-cloud border-t border-fog p-5 md:p-6 shrink-0 flex flex-col md:flex-row gap-3 items-center justify-between">
+              <div className="flex items-center gap-3 text-[#024ad8]">
+                <div className="bg-[#024ad8]/10 p-2 rounded-full shrink-0"><Bot size={20} /></div>
+                <p className="text-[11px] font-medium text-ink leading-tight">Bạn có triệu chứng bất thường?<br/>Hãy hỏi Dược sĩ AI để được tư vấn thêm.</p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowSeasonalSolutionModal(false);
+                  setShowAICopilotModal(true);
+                  const diseaseNames = ["Tay chân miệng", "Viêm não mô cầu", "Cúm mùa", "Sốt xuất huyết"];
+                  setChatInput(`Tôi muốn hỏi về cách chăm sóc bệnh ${diseaseNames[activeSeasonalTab]}`);
+                }}
+                className="w-full md:w-auto px-6 py-2.5 bg-gradient-to-r from-[#024ad8] to-[#1e40af] hover:from-[#1e40af] hover:to-[#01359c] text-white text-[12px] font-bold rounded-xl shadow-md transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                Hỏi Dược sĩ AI
               </button>
             </div>
 
