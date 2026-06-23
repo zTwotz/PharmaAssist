@@ -1187,12 +1187,12 @@ export default function DiseaseDetailPage() {
                         className="border border-fog rounded-2xl p-4 flex flex-col justify-between hover:shadow-md hover:border-blue-100 transition-all duration-300 group bg-[#fafcfd]/50"
                       >
                         <div className="flex gap-3 items-start mb-3">
-                          <Link href={`/san-pham/${p.slug}`} className="w-20 h-20 bg-cloud rounded-xl overflow-hidden flex items-center justify-center shrink-0 border border-fog/45 cursor-pointer">
+                          <Link href={`/thuoc/${p.slug || p.id}`} className="w-20 h-20 bg-cloud rounded-xl overflow-hidden flex items-center justify-center shrink-0 border border-fog/45 cursor-pointer">
                             <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform" />
                           </Link>
                           
                           <div className="flex-1 text-left">
-                            <Link href={`/san-pham/${p.slug}`} className="text-[12px] font-extrabold text-ink leading-snug line-clamp-2 hover:text-[#024ad8] transition-colors cursor-pointer mb-1">
+                            <Link href={`/thuoc/${p.slug || p.id}`} className="text-[12px] font-extrabold text-ink leading-snug line-clamp-2 hover:text-[#024ad8] transition-colors cursor-pointer mb-1">
                               {p.name}
                             </Link>
                             <span className="inline-block bg-cloud text-gray-400 border border-fog/45 text-[8px] font-black px-1.5 py-0.5 rounded uppercase mt-0.5">

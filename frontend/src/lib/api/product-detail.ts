@@ -1,20 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import ProductDetailClient from './ProductDetailClient';
-import { ChevronRight } from 'lucide-react';
 
-export const revalidate = 60; // Cache page for 60 seconds
-
-// Type definitions matching backend DTO
-interface Ingredient {
+export interface Ingredient {
   name: string;
   strength: string;
   note?: string | null;
 }
 
-interface MedicineDetail {
+export interface MedicineDetail {
   id: number;
   medicineCode: string;
   registrationNumber: string | null;
@@ -26,7 +18,7 @@ interface MedicineDetail {
   ingredients: Ingredient[];
 }
 
-interface ProductImage {
+export interface ProductImage {
   id: number;
   imageUrl: string;
   altText: string | null;
@@ -34,7 +26,7 @@ interface ProductImage {
   sortOrder: number;
 }
 
-interface ProductVariant {
+export interface ProductVariant {
   id: number;
   sku: string;
   variantName: string;
@@ -43,7 +35,7 @@ interface ProductVariant {
   status: string;
 }
 
-interface Brand {
+export interface Brand {
   id: number;
   code: string;
   name: string;
@@ -51,21 +43,21 @@ interface Brand {
   logoUrl: string | null;
 }
 
-interface Category {
+export interface Category {
   id: number;
   code: string;
   name: string;
   slug: string;
 }
 
-interface Manufacturer {
+export interface Manufacturer {
   id: number;
   code: string;
   name: string;
   country: string;
 }
 
-interface ProductDetailData {
+export interface ProductDetailData {
   id: number;
   code: string;
   name: string;
@@ -82,7 +74,7 @@ interface ProductDetailData {
   medicineDetail: MedicineDetail | null;
 }
 
-async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
+export async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
   if (!slug) return null;
   let targetSlug = slug;
   // Map Long Chau URL slug alias to database full slug
@@ -188,9 +180,8 @@ async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
     };
   }
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
   
-  // 1. Try fetching from NestJS Backend API
   try {
     const res = await fetch(`${apiBaseUrl}/products/${targetSlug}`, {
       next: { revalidate: 60 },
@@ -202,13 +193,10 @@ async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
     if (res.ok) {
       return await res.json();
     }
-    console.warn(`NestJS API product details returned non-OK status: ${res.status}`);
   } catch (err) {
     console.error(`Failed to fetch from NestJS API at ${apiBaseUrl}:`, err);
   }
 
-  // 2. Fallback to Supabase client directly
-  console.log(`Attempting fallback direct query to Supabase for slug: ${targetSlug}`);
   try {
     const { data: rawProduct, error } = await supabase
       .from('products')
@@ -242,7 +230,6 @@ async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
     const manufacturerData = Array.isArray(p.manufacturer) ? p.manufacturer[0] : p.manufacturer;
     const medicine = Array.isArray(p.medicines) ? p.medicines[0] : p.medicines;
     
-    // Map raw Supabase structure to DTO format
     return {
       id: p.id,
       code: p.code,
@@ -339,8 +326,7 @@ async function fetchProduct(slug: string): Promise<ProductDetailData | null> {
   };
 }
 
-async function fetchRelatedProducts(categoryId: number, excludeId: number): Promise<any[]> {
-  // Mock fallback for seasonal mock category 992 (Chăm sóc răng miệng / nhiệt miệng)
+export async function fetchRelatedProducts(categoryId: number, excludeId: number): Promise<any[]> {
   if (categoryId === 992) {
     return [
       {
@@ -354,7 +340,6 @@ async function fetchRelatedProducts(categoryId: number, excludeId: number): Prom
     ];
   }
 
-  // Mock fallback for seasonal mock category 995 (Da liễu)
   if (categoryId === 995) {
     return [
       {
@@ -382,7 +367,6 @@ async function fetchRelatedProducts(categoryId: number, excludeId: number): Prom
       .limit(4);
 
     if (error || !data) {
-      console.error('Error fetching related products:', error);
       return [];
     }
 
@@ -400,57 +384,6 @@ async function fetchRelatedProducts(categoryId: number, excludeId: number): Prom
       };
     });
   } catch (err) {
-    console.error('Failed to fetch related products:', err);
     return [];
   }
-}
-
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }> | { slug: string };
-}) {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
-
-  if (!slug) {
-    notFound();
-  }
-
-  const product = await fetchProduct(slug);
-
-  if (!product) {
-    notFound();
-  }
-
-  const relatedProducts = await fetchRelatedProducts(product.category.id, product.id);
-
-  return (
-    <div className="bg-[#f8fafc] min-h-screen pb-16">
-      {/* Dynamic Breadcrumbs */}
-      <div className="bg-white border-b border-gray-100/60 sticky top-0 z-20 lg:relative lg:top-auto">
-        <div className="max-w-[1200px] mx-auto px-4 py-3 flex items-center gap-1.5 text-xs font-semibold text-gray-500 overflow-x-auto scrollbar-none whitespace-nowrap">
-          <Link href="/" className="hover:text-[#024ad8] transition-colors">Trang chủ</Link>
-          <ChevronRight size={12} className="text-gray-300 shrink-0" />
-          
-          <Link 
-            href={`/${product.category.slug}`} 
-            className="hover:text-[#024ad8] transition-colors"
-          >
-            {product.category.name}
-          </Link>
-          <ChevronRight size={12} className="text-gray-300 shrink-0" />
-          
-          <span className="text-gray-900 font-bold truncate max-w-[200px] sm:max-w-sm">
-            {product.name}
-          </span>
-        </div>
-      </div>
-
-      {/* Main Container */}
-      <div className="max-w-[1200px] mx-auto px-4 py-6">
-        <ProductDetailClient product={product} relatedProducts={relatedProducts} />
-      </div>
-    </div>
-  );
 }

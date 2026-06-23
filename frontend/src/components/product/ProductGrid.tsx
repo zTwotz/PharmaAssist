@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
 import { fetchMoreProducts } from '@/app/actions/product.actions';
 
-export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
+export function ProductGrid({ initialProducts, totalCount, categoryIds, basePath = '/san-pham' }: any) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -129,7 +129,7 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
                   </div>
                 )}
                 
-                <Link href={`/san-pham/${product.slug}`} className="relative p-4 flex items-center justify-center bg-white aspect-square">
+                <Link href={`${basePath === '/' ? '' : basePath}/${product.slug}`} className="relative p-4 flex items-center justify-center bg-white aspect-square">
                   <img 
                     src={imageUrl} 
                     alt={product.name}
@@ -145,7 +145,7 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
                 </Link>
 
                 <div className="p-4 flex flex-col flex-1 border-t border-gray-50 bg-gray-50/30">
-                  <Link href={`/san-pham/${product.slug}`} className="mb-2">
+                  <Link href={`${basePath === '/' ? '' : basePath}/${product.slug}`} className="mb-2">
                     <h3 className="font-semibold text-gray-900 text-sm line-clamp-2 leading-tight group-hover:text-[#024ad8] transition-colors">
                       {product.name}
                     </h3>
