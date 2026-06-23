@@ -4121,7 +4121,7 @@ export default function HomePage() {
                       drug.brand.toLowerCase().includes(seSearchQuery.toLowerCase())
                     ).length === 0 && (
                       <div className="text-center py-8 text-gray-400 text-xs font-semibold">
-                        Không tìm thấy thông tin tác dụng phụ cho từ khóa "{seSearchQuery}".
+                        Không tìm thấy thông tin tác dụng phụ cho từ khóa &quot;{seSearchQuery}&quot;.
                       </div>
                     )}
                   </div>
