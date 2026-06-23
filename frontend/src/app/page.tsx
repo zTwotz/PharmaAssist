@@ -872,7 +872,7 @@ const renderSubcatThumbnail = (name: string) => {
   }
   
   const src = images[name] || "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg";
-  return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" />;
+  return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" referrerPolicy="no-referrer" />;
 };
 
 export const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: string; price: number; unit: string; imageUrl: string; activeIngredient: string; isAvailable: boolean }> = {
@@ -1878,6 +1878,11 @@ export default function HomePage() {
                     src={slide.imageUrl} 
                     alt={slide.subBrand} 
                     className="w-40 h-40 object-contain drop-shadow-xl relative z-10 hover:scale-105 transition-transform duration-300"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                    }}
                   />
                   
                   {/* Badge indicator */}
@@ -2156,6 +2161,13 @@ export default function HomePage() {
                           src={product.imageUrl} 
                           alt={product.name} 
                           className={`w-full h-full object-contain p-2 ${isOutOfStock ? "grayscale opacity-80" : ""}`}
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                              target.src = 'https://placehold.co/300x300?text=No+Image';
+                            }
+                          }}
                         />
                         {isOutOfStock && (
                           <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
@@ -2292,6 +2304,13 @@ export default function HomePage() {
                           src={product.imageUrl} 
                           alt={product.name} 
                           className="w-full h-full object-contain p-2"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                              target.src = 'https://placehold.co/300x300?text=No+Image';
+                            }
+                          }}
                         />
                       </div>
                     </Link>
@@ -3811,6 +3830,13 @@ export default function HomePage() {
                     src={selectedMedicine.imageUrl} 
                     alt={selectedMedicine.name} 
                     className="h-full object-contain p-4" 
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                        target.src = 'https://placehold.co/300x300?text=No+Image';
+                      }
+                    }}
                   />
                 </div>
               )}
