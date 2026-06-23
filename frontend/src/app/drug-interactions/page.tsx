@@ -147,6 +147,7 @@ export default function DrugInteractionsPage() {
           </table>
         </div>
       </div>
+          </div>
         </div>
       </div>
     </RouteGuard>
