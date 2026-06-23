@@ -118,7 +118,7 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
             // Lấy ảnh chính hoặc ảnh đầu tiên
             const primaryImage = product.product_images?.find((img: any) => img.is_primary)?.image_url;
             const fallbackImage = product.product_images?.[0]?.image_url;
-            const imageUrl = primaryImage || fallbackImage || 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png';
+            const imageUrl = primaryImage || fallbackImage || 'https://placehold.co/300x300?text=No+Image';
             
             return (
               <div key={product.id} className="group relative flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-[#024ad8]/30 transition-all duration-300 transform hover:-translate-y-1">
@@ -134,7 +134,13 @@ export function ProductGrid({ initialProducts, totalCount, categoryIds }: any) {
                     src={imageUrl} 
                     alt={product.name}
                     className="object-contain max-h-full max-w-full transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => { (e.target as HTMLImageElement).src = 'https://cdn.nhathuoclongchau.com.vn/rx_product_placeholder.png' }}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => { 
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                        target.src = 'https://placehold.co/300x300?text=No+Image';
+                      }
+                    }}
                   />
                 </Link>
 
