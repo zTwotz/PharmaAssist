@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/lib/api';
 import { usePosStore } from '@/store/usePosStore';
 import Image from 'next/image';
 
@@ -36,14 +36,10 @@ export function QuickSellTabs() {
       setLoading(true);
       try {
         if (activeTab === 'TOP_SELLING' && topSelling.length === 0) {
-          const res = await axios.get('http://localhost:3001/api/v1/medicines/top-selling', {
-            withCredentials: true
-          });
+          const res = await api.get('/medicines/top-selling');
           setTopSelling(res.data);
         } else if (activeTab === 'COMBOS' && combos.length === 0) {
-          const res = await axios.get('http://localhost:3001/api/v1/medicine-groups', {
-            withCredentials: true
-          });
+          const res = await api.get('/medicine-groups');
           setCombos(res.data);
         }
       } catch (error) {
