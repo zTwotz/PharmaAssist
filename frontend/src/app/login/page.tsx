@@ -28,7 +28,12 @@ export default function LoginPage() {
       if (user.mustChangePassword) {
         router.push('/change-password');
       } else {
-        router.push('/dashboard');
+        const roles = user.roles || [];
+        if (roles.includes('ADMIN') || roles.includes('STAFF') || roles.includes('WAREHOUSE')) {
+          router.push('/dashboard');
+        } else {
+          router.push('/');
+        }
       }
     }
   }, [isAuthenticated, user, router]);
