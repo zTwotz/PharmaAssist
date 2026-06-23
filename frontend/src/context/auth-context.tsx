@@ -9,6 +9,7 @@ interface AuthContextType {
   user: UserProfile | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (data: any) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   hasRole: (allowedRoles: string[]) => boolean;
@@ -138,6 +139,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const register = async (data: any) => {
+    setLoading(true);
+    try {
+      await authService.register(data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
     try {
@@ -171,7 +181,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user, hasRole, hasPermission, hasAnyPermission }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, isAuthenticated: !!user, hasRole, hasPermission, hasAnyPermission }}>
       {children}
     </AuthContext.Provider>
   );

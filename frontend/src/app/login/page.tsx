@@ -10,12 +10,16 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login, isAuthenticated, user } = useAuth();
+  const { login, register, isAuthenticated, user } = useAuth();
+  
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [longLoading, setLongLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
 
@@ -30,7 +34,6 @@ export default function LoginPage() {
   }, [isAuthenticated, user, router]);
 
   const validateForm = () => {
-    // Simple email regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setErrorMsg('Vui lòng nhập địa chỉ email hợp lệ.');
@@ -44,9 +47,45 @@ export default function LoginPage() {
     return true;
   };
 
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
+    if (!email || !password || !fullName) {
+      setErrorMsg('Vui lòng nhập đầy đủ họ tên, email và mật khẩu.');
+      return;
+    }
+
+    if (!validateForm()) return;
+
+    setLoading(true);
+    setLongLoading(false);
+    
+    const timeoutId = setTimeout(() => {
+      setLongLoading(true);
+    }, 5000);
+
+    try {
+      await register({ email, password, fullName });
+      clearTimeout(timeoutId);
+      setSuccessMsg('Tài khoản đã được đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+      setIsRegisterMode(false);
+      setPassword(''); // clear password field
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      console.warn('Register warning:', err?.message || err);
+      const message = err.response?.data?.message || err.message;
+      setErrorMsg(message || 'Đăng ký thất bại. Vui lòng thử lại sau.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
+    setSuccessMsg('');
 
     if (!email || !password) {
       setErrorMsg('Vui lòng nhập đầy đủ email và mật khẩu.');
@@ -58,7 +97,6 @@ export default function LoginPage() {
     setLoading(true);
     setLongLoading(false);
     
-    // Nếu sau 5 giây vẫn chưa xong, hiển thị thông báo máy chủ đang khởi động
     const timeoutId = setTimeout(() => {
       setLongLoading(true);
     }, 5000);
@@ -66,13 +104,10 @@ export default function LoginPage() {
     try {
       await login(email, password);
       clearTimeout(timeoutId);
-      setSuccess(true);
-      // login method redirects to /dashboard internally
+      setSuccessMsg('Đăng nhập thành công! Đang chuyển hướng...');
     } catch (err: any) {
       clearTimeout(timeoutId);
-      // Use warn instead of error to prevent Next.js from throwing a red error overlay in dev mode
       console.warn('Login warning:', err?.message || err);
-      // Detailed errors from backend validation/unauthorized
       const status = err.response?.status;
       const message = err.response?.data?.message;
 
@@ -90,14 +125,19 @@ export default function LoginPage() {
     }
   };
 
+  const switchMode = () => {
+    setIsRegisterMode(!isRegisterMode);
+    setErrorMsg('');
+    setSuccessMsg('');
+    setPassword('');
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-cloud px-4 py-12 relative overflow-hidden font-sans">
-      {/* Decorative HP Slashes (Chevrons) for visual branding signature */}
       <div className="absolute top-[-20%] left-[-10%] w-[30%] h-[150%] bg-primary opacity-5 transform rotate-[25deg] hidden lg:block pointer-events-none"></div>
       <div className="absolute bottom-[-20%] right-[-10%] w-[25%] h-[150%] bg-primary opacity-5 transform rotate-[25deg] hidden lg:block pointer-events-none"></div>
 
       <Card className="w-full max-w-md shadow-lg border border-hairline rounded-xl bg-white relative z-10">
-        {/* Subtle top indicator bar */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-primary rounded-t-xl"></div>
         
         <CardHeader className="space-y-2 text-center pt-8">
@@ -108,41 +148,59 @@ export default function LoginPage() {
             Pharma<span className="text-primary">Assist</span>
           </CardTitle>
           <CardDescription className="text-sm text-graphite">
-            Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh
+            {isRegisterMode ? 'Đăng ký tài khoản khách hàng mới' : 'Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh'}
           </CardDescription>
         </CardHeader>
         
-        <form onSubmit={handleLogin}>
+        <form onSubmit={isRegisterMode ? handleRegister : handleLogin}>
           <CardContent className="space-y-4 px-6">
             {errorMsg && (
               <Alert variant="destructive" className="bg-bloom-rose border-bloom-coral/30 text-bloom-deep">
                 <ShieldAlert className="h-4 w-4 text-bloom-deep" />
-                <AlertTitle className="font-semibold text-bloom-deep">Lỗi đăng nhập</AlertTitle>
+                <AlertTitle className="font-semibold text-bloom-deep">Lỗi</AlertTitle>
                 <AlertDescription className="text-bloom-wine text-xs mt-1">{errorMsg}</AlertDescription>
               </Alert>
             )}
 
-            {success && (
+            {successMsg && (
               <Alert className="bg-green-50 border-green-200 text-green-800">
                 <CheckCircle2 className="h-4 w-4 text-green-600" />
                 <AlertTitle className="font-semibold text-green-800">Thành công</AlertTitle>
-                <AlertDescription className="text-green-700 text-xs mt-1">Đăng nhập thành công! Đang chuyển hướng...</AlertDescription>
+                <AlertDescription className="text-green-700 text-xs mt-1">{successMsg}</AlertDescription>
               </Alert>
             )}
 
-            {longLoading && !success && !errorMsg && (
+            {longLoading && !successMsg && !errorMsg && (
               <Alert className="bg-blue-50 border-blue-200 text-blue-800">
                 <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
                 <AlertTitle className="font-semibold text-blue-800">Đang chờ phản hồi</AlertTitle>
                 <AlertDescription className="text-blue-700 text-xs mt-1">
-                  Máy chủ (Supabase) đang khởi động từ trạng thái nghỉ. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
+                  Máy chủ đang xử lý. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
                 </AlertDescription>
               </Alert>
             )}
             
+            {isRegisterMode && (
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-charcoal uppercase tracking-wider" htmlFor="fullName">
+                  Họ và tên
+                </label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="Nguyễn Văn A"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                  disabled={loading}
+                  className="h-11 rounded-md border border-hairline focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary text-sm font-sans"
+                />
+              </div>
+            )}
+
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-charcoal uppercase tracking-wider" htmlFor="email">
-                Email nhân viên
+                Email
               </label>
               <Input
                 id="email"
@@ -179,27 +237,39 @@ export default function LoginPage() {
             <Button
               type="submit"
               className={`w-full font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98] ${
-                success 
+                successMsg && !isRegisterMode
                   ? 'bg-green-600 hover:bg-green-700 text-white' 
                   : 'bg-primary hover:bg-primary-deep text-white'
               }`}
-              disabled={loading || success}
+              disabled={loading || (!!successMsg && !isRegisterMode)}
             >
-              {success ? (
+              {successMsg && !isRegisterMode ? (
                 <>
                   <CheckCircle2 className="mr-2 h-4 w-4" />
-                  Thành công
+                  Đang chuyển hướng
                 </>
               ) : loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Đang xác thực...
+                  Đang xử lý...
                 </>
               ) : (
-                'Đăng nhập'
+                isRegisterMode ? 'Tạo tài khoản' : 'Đăng nhập'
               )}
             </Button>
             
+            <p className="mt-4 text-sm text-center text-graphite">
+              {isRegisterMode ? 'Đã có tài khoản?' : 'Chưa có tài khoản?'}
+              <button 
+                type="button" 
+                onClick={switchMode} 
+                className="ml-1 text-primary hover:underline font-semibold"
+                disabled={loading}
+              >
+                {isRegisterMode ? 'Đăng nhập ngay' : 'Đăng ký'}
+              </button>
+            </p>
+
             <p className="mt-5 text-[11px] text-center text-graphite leading-relaxed">
               Hệ thống bảo mật nội bộ. Mọi truy cập trái phép sẽ bị ghi nhật ký.<br />
               &copy; {new Date().getFullYear()} PharmaAssist. All rights reserved.

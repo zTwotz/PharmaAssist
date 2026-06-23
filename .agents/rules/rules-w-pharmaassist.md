@@ -1,302 +1,203 @@
 ---
 trigger: always_on
-glob: "*"
 description: Quy tắc phát triển PharmaAssist (NestJS, Next.js, Prisma, Supabase, Jira)
 ---
 
 # Quy Tắc Làm Việc PharmaAssist
 
-## 1. Giao Tiếp & Phiên Làm Việc
+## 1. Giao tiếp và bắt đầu phiên
 
-- **Bắt đầu:** Đọc lại file này. Khi user gõ "Bắt đầu": Pull `develop` mới nhất về `main` & `develop` -> Checkout `develop` -> Đọc `WORKING-CONTEXT.md` -> Báo cáo trạng thái dự án.
-- **Ghi chép:** Cập nhật ngay các thiết kế, ý tưởng chốt và tiến độ công việc vào file `WORKING-CONTEXT.md`.
-- **Ngôn ngữ:** Giao tiếp & tài liệu chính thức bằng Tiếng Việt. Code, biến, comment hoàn toàn bằng Tiếng Anh (Comment giải thích TẠI SAO - WHY, không phải CÁI GÌ - WHAT).
+- Khi user gõ **“Bắt đầu”**: đọc file này, fetch/pull `develop` mới nhất, bảo đảm `main` và `develop` được đồng bộ đúng quy trình, checkout `develop`, đọc `WORKING-CONTEXT.md` và các file liên quan trong `work-context`, sau đó báo cáo trạng thái dự án.
+- Mọi thiết kế, quyết định đã chốt, tiến độ, bằng chứng kỹ thuật và vấn đề còn lại phải được cập nhật vào `WORKING-CONTEXT.md` hoặc file progress/evidence tương ứng.
+- Giao tiếp và tài liệu chính thức bằng tiếng Việt. Code, tên biến và comment bằng tiếng Anh. Comment giải thích **WHY**, không mô tả lại **WHAT**.
+- Không sửa code trước khi hiểu task, phạm vi, context và có implementation plan ngắn.
 
-## 2. Tiêu Chuẩn Code & Kiến Trúc
+## 2. Nguyên tắc kỹ thuật
 
-- **Nguyên tắc Karpathy:** Suy nghĩ trước khi code, Đơn giản là nhất, Thay đổi tối thiểu, Hướng mục tiêu.
-- **Tech Stack:**
-  - _Frontend:_ Next.js (TypeScript), Tailwind CSS. Tuân thủ `DESIGN.md` (màu `#024ad8`).
-  - _Backend:_ NestJS (TypeScript), Prisma ORM. RESTful API chuẩn, phân quyền RBAC.
-  - _DB:_ Supabase PostgreSQL (Project Ref: `opzhotrjpxlldflcnzzq`).
-- **Code Rules:** Dùng `const`, hạn chế `any`. Không nuốt lỗi (silent catch), phải log lỗi rõ ràng và validate dữ liệu ở ranh giới (API endpoints).
+- Áp dụng nguyên tắc Karpathy: suy nghĩ trước khi code, ưu tiên giải pháp đơn giản, thay đổi tối thiểu và bám đúng mục tiêu.
+- Frontend: Next.js, TypeScript, Tailwind CSS; tuân thủ `DESIGN.md`, màu chính `#024ad8`.
+- Backend: NestJS, TypeScript, Prisma ORM, RESTful API và RBAC.
+- Database: Supabase PostgreSQL, project ref `opzhotrjpxlldflcnzzq`.
+- Dùng `const` khi có thể, hạn chế `any`, không silent catch, phải log lỗi rõ ràng và validate dữ liệu tại ranh giới hệ thống như API endpoint.
+- Không tự ý thay đổi kiến trúc, dependency, database schema hoặc module ngoài phạm vi task.
 
-## 3. Nghiệp Vụ & An Toàn
+## 3. Quy tắc nghiệp vụ và an toàn
 
-- **Nghiệp vụ:** Không bán vượt tồn kho (`BR-06`); Đơn phải có ít nhất 1 thuốc (`BR-09`); Trừ tồn kho khi thanh toán xong (`BR-10`); Tự động kiểm tra tương tác thuốc (`BR-13`).
-- **An toàn:** Cảnh báo tương tác mang tính tham khảo, AI Copilot không chẩn đoán y tế. Tuyệt đối KHÔNG commit `.env` hay credentials lên Git.
+Các quy tắc bắt buộc:
 
-## 4. Quản Lý Phiên Bản (Git & Jira)
+- `BR-06`: không bán vượt tồn kho.
+- `BR-09`: đơn hàng phải có ít nhất một thuốc.
+- `BR-10`: chỉ trừ tồn kho sau khi thanh toán thành công.
+- `BR-13`: tự động kiểm tra tương tác thuốc.
+- Cảnh báo tương tác chỉ mang tính tham khảo; AI Copilot không chẩn đoán y tế.
+- Không commit `.env`, API key, token, mật khẩu, credential, log nhạy cảm hoặc dữ liệu thật lên Git.
 
-- **Quy tắc sử dụng nhánh:** Không tạo thêm nhánh mới cho các task, user story, hay epic đã được lên kế hoạch. Thay vào đó, AI bắt buộc checkout và sử dụng đúng nhánh tương ứng dựa theo cột "Nhánh Git tương ứng" trong file `Jira/branch-on-jira.md`. Tuy nhiên, vẫn ĐƯỢC PHÉP tạo nhánh mới nếu cần fix lỗi gấp (hotfix) hoặc thêm tính năng khác ngoài scope của file trên. Không viết đè code lên task khác.
-- **Quy trình Commit, Test, PR và Merge chính thức:**
-  - **Cấp độ Task/Bug:** AI checkout đúng nhánh Task/Bug, lập kế hoạch ngắn, triển khai, chạy targeted tests, chạy Supabase verification khi có ảnh hưởng dữ liệu persistent, commit, push, tạo Pull Request vào `develop`, kiểm tra CI/diff/scope/conflict và tự merge vào `develop` khi toàn bộ merge gate đạt. Sau đó AI cập nhật technical progress/evidence và tiếp tục Task kế tiếp.
-  - **Cấp độ User Story (US):** Không tạo Story PR và không merge qua Story branch. Sau khi toàn bộ Task của Story đã merge vào `develop`, AI checkout/pull `develop` mới nhất, chạy Story Acceptance Review và các test cấp Story. Nếu phát hiện lỗi, xử lý bằng Task/Bug branch phù hợp rồi merge lại vào `develop`.
-  - **Cấp độ Epic:** Không tạo Epic PR và không merge qua Epic branch. Sau khi toàn bộ Story đạt Acceptance Review, AI chạy Epic Integration/Regression Review trực tiếp trên `develop`, bao gồm test/build/Prisma/Supabase phù hợp. Lỗi phải được xử lý qua Task/Bug branch rồi merge vào `develop`.
-  - **Cấp độ Release:** AI không merge `develop` vào `main`. Sau khi Sprint Final Review đạt PASS, Project Owner kiểm tra và thực hiện PR/merge từ `develop` vào `main`.
-- **Quản lý Jira thủ công:** Project Owner tự cập nhật trạng thái, comment, liên kết và Bug trên Jira. AI không thực hiện Jira write action; AI chỉ giữ Jira key trong branch/commit/PR/evidence, đề xuất trạng thái Jira và ghi Bug candidate để Project Owner xử lý.
-- **Commit Format:**
-  - Định dạng: `<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>`.
-  - Không dùng `git push --force` lên `main/develop`.
-  - **Các kiểu commit thường dùng:**
+AI Agent tuyệt đối không được:
 
-| Type       | Dùng khi nào                            | Ví dụ                                            |
-| ---------- | --------------------------------------- | ------------------------------------------------ |
-| `feat`     | Thêm chức năng mới                      | `feat(pos): thêm màn hình tạo đơn bán hàng`      |
-| `fix`      | Sửa lỗi                                 | `fix(auth): sửa lỗi không lưu session`           |
-| `docs`     | Cập nhật tài liệu                       | `docs(uml): bổ sung sequence diagram checkout`   |
-| `style`    | Sửa format code, không đổi logic        | `style(ui): căn chỉnh giao diện login`           |
-| `refactor` | Tái cấu trúc code, không thêm tính năng | `refactor(order): tách logic tính tổng đơn hàng` |
-| `test`     | Thêm/sửa test                           | `test(inventory): thêm test cho FEFO deduction`  |
-| `chore`    | Việc phụ trợ: config, package, setup    | `chore(prisma): cập nhật schema và migration`    |
-| `build`    | Thay đổi build/dependency               | `build(next): cập nhật cấu hình build frontend`  |
-| `ci`       | Thay đổi GitHub Actions/CI              | `ci(github): thêm workflow kiểm tra lint`        |
-| `perf`     | Tối ưu hiệu năng                        | `perf(graph): tối ưu truy vấn interaction rule`  |
-| `revert`   | Hoàn tác commit                         | `revert: hoàn tác thay đổi checkout validation`  |
+1. Thay Supabase Auth bằng custom JWT.
+2. Lưu `password_hash` trong PostgreSQL.
+3. Tạo custom session table thay Supabase.
+4. Bỏ qua `AuthGuard` hoặc `PermissionGuard`.
+5. Cho Warehouse truy cập POS/Checkout.
+6. Cho Staff xem dữ liệu toàn hệ thống khi không có quyền.
+7. Reset database thật khi chưa được phép.
+8. Sửa seed lớn hoặc triển khai module Future/Commercial Expansion ngoài scope.
 
-## 5. Quy Trình Làm Việc Tự Động (AI Agent Workflow)
+## 4. Phạm vi và nhánh Git
 
-**5.1. Bắt Đầu Task:** Tuân thủ `/karpathy-principles`. Dùng `/brainstorming`, `/writing-plans` để lên kế hoạch. Hỏi `/grill-me` nếu mơ hồ trước khi code.
-**5.2. Triển Khai:** Tích hợp `/build`, `/api`, `/design-ui`...
-**5.3. Kiểm Tra:** Chạy `/tdd`, `/debug` để đảm bảo không có lỗi.
-**5.4. Hoàn Thành & Tích Hợp (Finalization):**
-Chỉ khi các bài kiểm tra phù hợp đã vượt qua và mã nguồn hoạt động chính xác:
+- Chỉ làm đúng Task/Bug hiện tại. Khi review Story chỉ xử lý phạm vi Story; khi review Epic chỉ xử lý phạm vi Epic. Không tự mở rộng sang Sprint khác.
+- Không code, commit hoặc push trực tiếp lên `develop` hay `main`.
+- Task đã được lên kế hoạch phải dùng đúng nhánh trong `Jira/branch-on-jira.md`; không tạo nhánh mới tùy tiện.
+- Chỉ tạo nhánh mới cho Bug, hotfix hoặc tính năng ngoài danh sách khi thực sự cần và có Jira key phù hợp.
+- Không viết đè hoặc gộp thay đổi của task khác vào nhánh hiện tại.
+- Thường xuyên fetch/pull `develop` để giảm conflict; trước PR phải đồng bộ nhánh Task/Bug với `develop` bằng phương án an toàn.
+- Không dùng `git push --force` lên `main` hoặc `develop`.
+- Giữ lại branch sau merge khi dự án cần lịch sử và traceability.
 
-1. **Xác minh code trước khi Push:** Chạy targeted lint/typecheck/test/build phù hợp với phần đã sửa; chạy Supabase verification khi Task có ảnh hưởng dữ liệu persistent.
-2. **Đồng bộ nhánh Task/Bug:** Fetch `develop` mới nhất và đồng bộ nhánh hiện tại bằng phương án an toàn trước khi mở PR. Không push trực tiếp vào `develop`.
-3. **Đẩy code (Push):** Push lên đúng nhánh Task/Bug hiện tại. Giữ nguyên các nhánh đã dùng để làm bằng chứng; không xóa branch sau merge nếu dự án cần traceability.
-4. **Tạo PR:** Tạo Pull Request từ Task/Bug branch vào `develop`. Không tạo Story PR hoặc Epic PR.
-5. **Merge Gate:** AI phải kiểm tra đúng head/base, diff đúng scope, không có secret, không có conflict, required CI checks PASS, targeted tests PASS, Supabase verification PASS hoặc N/A hợp lệ và `develop` vẫn buildable/testable.
-6. **AI tự merge vào develop:** Chỉ merge Task/Bug PR khi toàn bộ Merge Gate đạt. Nếu gate fail, sửa trên cùng branch, push lại và kiểm tra lại; không được bỏ qua lỗi.
-7. **Story/Epic Review:** Khi đủ Task, chạy Story Acceptance Review trên `develop`; khi đủ Story, chạy Epic Integration/Regression Review trên `develop`. Không dùng Story/Epic branch để tích hợp.
-8. **Báo cáo trước khi lên main:** AI tuyệt đối không merge `develop` vào `main`. Khi Sprint Final Review PASS, Project Owner kiểm tra và tự thực hiện PR/merge `develop → main`.
-9. **Mô tả PR & Che dấu AI:** PR phải có description đầy đủ. Commit, PR và description tuyệt đối không nhắc đến AI, agents hoặc automation.
-10. **Tiếp tục:** Sau khi merge, checkout `develop`, pull bản mới nhất, xác minh merge và bắt đầu Task tiếp theo.
-11. **Cập nhật:** Cập nhật technical progress/evidence sau mỗi Task hoàn thành hoặc cuối phiên; cập nhật `WORKING-CONTEXT.md` ở checkpoint cần thiết.
-
-## Git, Branch, Skill, Test & Commit Rules for AI Agent
-
-### 1. Nguyên tắc chung
-
-Khi thực hiện bất kỳ Jira Task, User Story hoặc Epic nào, AI Agent phải làm việc theo quy trình có kiểm soát:
-
-1. Đọc tài liệu context liên quan trước khi sửa code.
-2. Sử dụng các skill phù hợp để lập kế hoạch, kiểm tra, kiểm thử, debug và viết commit.
-3. Không sửa code khi chưa có implementation plan ngắn.
-4. Không làm ngoài phạm vi task/story/epic hiện tại.
-5. Không commit code lỗi nếu lỗi nằm trong phạm vi task đang làm.
-6. Không push code khi chưa chạy kiểm thử phù hợp hoặc chưa ghi rõ lý do không thể chạy.
-7. Mỗi thay đổi phải có Jira key trong branch hoặc commit message.
-8. Không code hoặc commit trực tiếp trên `develop` hoặc `main`; mọi thay đổi production phải đi qua Task/Bug branch và Pull Request.
-9. Sau khi hoàn thành phải cập nhật progress/evidence tương ứng.
-10. AI không thực hiện Jira write action. Trạng thái, comment, liên kết và Bug trên Jira do Project Owner quản lý thủ công.
-11. AI chỉ đề xuất Jira status, ghi Bug candidate và cung cấp technical evidence để Project Owner cập nhật Jira.
-
----
-
-### 2. Quy trình khi thực hiện một Jira Task
-
-Khi bắt đầu một task, AI Agent phải:
-
-1. Đọc task hiện tại.
-2. Xác định task thuộc User Story nào.
-3. Xác định task thuộc Epic nào.
-4. Đọc file context liên quan trong `work-context`.
-5. Xác định file dự kiến sửa.
-6. Xác định database/API/UI/test liên quan.
-7. Lập implementation plan ngắn.
-8. Chỉ sau đó mới sửa code.
-
-Sau khi sửa code, AI Agent phải:
-
-1. Sử dụng skill phù hợp để kiểm tra code.
-2. Chạy targeted lint/typecheck/test/build phù hợp với phần đã sửa.
-3. Chạy Supabase verification khi Task có ảnh hưởng dữ liệu persistent; nếu không có ảnh hưởng, ghi N/A kèm lý do.
-4. Nếu có lỗi, dùng skill để debug và sửa lỗi trong phạm vi Task.
-5. Review diff, kiểm tra secret, scope và conflict.
-6. Commit các thay đổi hợp lý và push lên đúng Task branch.
-7. Tạo Pull Request từ Task branch vào `develop`.
-8. Kiểm tra required CI checks và Merge Gate.
-9. Tự merge Pull Request vào `develop` chỉ khi mọi gate PASS.
-10. Checkout/pull `develop` mới nhất và xác minh merge.
-11. Cập nhật technical progress/evidence và đề xuất trạng thái Jira cho Project Owner.
-
-Mỗi task có thể có nhiều commit nhỏ, thường từ **1–10 commit tùy độ lớn và độ phức tạp của task**. Không ép số lượng commit cố định. Task nhỏ có thể chỉ cần 1–2 commit; task lớn có thể cần nhiều commit hơn.
-
-Ví dụ branch task:
+Ví dụ nhánh:
 
 ```text
 feature/PAC-TASK-025-implement-permission-guard
+bugfix/PAC-BUG-101-fix-checkout-stock-validation
 ```
 
-Ví dụ commit task:
+## 5. Quy trình thực hiện Task/Bug
 
-```text
-feat(auth): PAC-TASK-024 add permission decorator
-feat(auth): PAC-TASK-025 implement permission guard
-test(auth): PAC-TASK-025 add permission guard tests
-fix(auth): PAC-TASK-030 handle forbidden response
-```
+### 5.1. Trước khi sửa code
 
----
+1. Đọc Jira Task/Bug hiện tại.
+2. Xác định Task thuộc User Story và Epic nào.
+3. Đọc context liên quan trong `work-context`.
+4. Kiểm tra branch chính xác trong `Jira/branch-on-jira.md`.
+5. Xác định file dự kiến sửa, database/API/UI/test bị ảnh hưởng.
+6. Xác định acceptance criteria, rủi ro và test cần chạy.
+7. Lập implementation plan ngắn rồi mới code.
 
-### 3. Quy trình khi hoàn thành toàn bộ task trong một User Story
+Sử dụng skill đúng mục đích: planning trước khi code; build/API/design khi triển khai; code review sau khi sửa; testing để chọn test; debug khi kiểm tra fail; Git cho branch/commit/push; documentation cho progress/evidence; commit writer cho commit message.
 
-Sau khi toàn bộ Task thuộc một User Story đã merge vào `develop`, AI Agent phải:
+### 5.2. Trong khi triển khai
 
-1. Checkout `develop` và pull phiên bản mới nhất.
-2. Xác minh toàn bộ Task PR của Story đã merge thành công vào `develop`.
+- Chỉ thay đổi phần cần thiết để hoàn thành acceptance criteria.
+- Không nuốt lỗi hoặc che giấu test fail.
+- Nếu phát hiện vấn đề ngoài scope, ghi Known Issue hoặc Bug candidate; không tự sửa lan sang module khác.
+- Một Task có thể có 1–10 commit tùy độ lớn; không ép số lượng cố định. Mỗi commit phải là một nhóm thay đổi hợp lý và chạy được trong phạm vi tương ứng.
+
+### 5.3. Sau khi sửa code
+
+1. Tự review diff và kiểm tra scope.
+2. Chạy targeted lint, typecheck, test và build phù hợp.
+3. Chạy Prisma/Supabase verification nếu thay đổi ảnh hưởng dữ liệu persistent.
+4. Nếu không cần Supabase verification, ghi `N/A` kèm lý do.
+5. Nếu lỗi thuộc scope, phải debug và sửa trên cùng branch.
+6. Kiểm tra secret, file `.env`, credential, conflict và thay đổi ngoài scope.
+7. Commit và push lên đúng Task/Bug branch.
+8. Tạo Pull Request vào `develop`.
+9. Kiểm tra đầy đủ Merge Gate.
+10. Chỉ tự merge khi toàn bộ gate PASS.
+11. Sau merge: checkout `develop`, pull mới nhất, xác minh commit/merge SHA và trạng thái build/test.
+12. Cập nhật technical progress/evidence, Known Issues, Next Action và đề xuất Jira status cho Project Owner.
+
+## 6. Pull Request và Merge Gate
+
+Task/Bug PR luôn target `develop`. Không tạo Story PR hoặc Epic PR.
+
+Chỉ merge khi đáp ứng tất cả điều kiện:
+
+- Head branch và base `develop` chính xác.
+- Diff đúng phạm vi Task/Bug.
+- Không có secret, credential hoặc `.env` thật.
+- Không có conflict.
+- Targeted lint/typecheck/test/build PASS.
+- Required CI checks PASS.
+- Prisma/Supabase verification PASS hoặc `N/A` hợp lệ.
+- Không còn blocking technical defect.
+- `develop` sau merge vẫn buildable và testable.
+- PR description ghi rõ phạm vi, test evidence, ảnh hưởng dữ liệu và known issues.
+
+Nếu gate fail, tiếp tục sửa trên cùng branch, push lại và kiểm tra lại. Không bỏ qua lỗi, không merge cưỡng ép.
+
+Commit, PR title và PR description không nhắc đến AI, agent hoặc automation.
+
+## 7. Quy trình User Story
+
+Sau khi toàn bộ Task của Story đã merge vào `develop`:
+
+1. Checkout/pull `develop` mới nhất.
+2. Xác minh tất cả Task PR liên quan đã merge.
 3. Chạy Story Acceptance Review theo acceptance criteria.
 4. Chạy lint/typecheck/test/build cấp Story phù hợp.
-5. Chạy Supabase Story verification khi Story có ảnh hưởng dữ liệu persistent.
-6. Nếu phát hiện lỗi, ghi Bug candidate hoặc dùng Task/Bug branch phù hợp để sửa; không commit integration fix trực tiếp lên `develop`.
-7. Chỉ đánh dấu trạng thái kỹ thuật của Story là PASS khi acceptance criteria và test evidence đạt.
-8. Cập nhật progress/evidence và ghi `Recommended Jira status` để Project Owner tự cập nhật Jira.
+5. Chạy Supabase Story verification nếu có dữ liệu persistent.
+6. Nếu phát hiện lỗi, ghi Bug candidate hoặc sửa bằng Task/Bug branch rồi PR lại vào `develop`.
+7. Chỉ ghi Story technical status là PASS khi acceptance criteria và test evidence đầy đủ.
+8. Cập nhật progress/evidence và `Recommended Jira status`.
 
-Không thực hiện các việc sau:
+Không checkout Story branch để tích hợp; không merge Task vào Story branch; không commit integration fix lên Story branch; không tạo Story PR. Story branch cũ chỉ giữ làm lịch sử.
 
-- Không checkout Story branch để tích hợp.
-- Không merge Task branch vào Story branch.
-- Không commit hoặc push integration fix lên Story branch.
-- Không tạo Story Pull Request.
-- Không dùng Story branch làm điều kiện hoàn thành Story.
+## 8. Quy trình Epic
 
-Các Story branch đã tồn tại được giữ lại cho mục đích lịch sử và traceability.
+Sau khi tất cả Story thuộc Epic đạt technical PASS:
 
----
+1. Checkout/pull `develop` mới nhất.
+2. Xác minh trạng thái kỹ thuật của từng Story.
+3. Chạy Epic Integration/Regression Review trực tiếp trên `develop`.
+4. Chạy full lint/typecheck/test/build trong phạm vi Epic.
+5. Khi áp dụng, chạy Prisma validate/generate, migration verification và Supabase verification.
+6. Lỗi phải được xử lý bằng Task/Bug branch; không commit trực tiếp lên `develop`.
+7. Chỉ ghi Epic technical status là PASS khi đủ bằng chứng và không còn blocker.
+8. Cập nhật progress/evidence và đề xuất Jira status.
 
-### 4. Quy trình khi hoàn thành toàn bộ User Story trong một Epic
+Không tích hợp qua Epic branch, không tạo Epic PR. Epic branch cũ chỉ dùng cho traceability.
 
-Sau khi toàn bộ User Story thuộc một Epic đã đạt Story Acceptance Review trên `develop`, AI Agent phải:
+## 9. Release và quyền của Project Owner
 
-1. Checkout `develop` và pull phiên bản mới nhất.
-2. Xác minh tất cả Story thuộc Epic đã đạt trạng thái kỹ thuật PASS.
-3. Chạy Epic Integration/Regression Review trên `develop`.
-4. Chạy full lint/typecheck/test/build phù hợp với phạm vi Epic.
-5. Chạy Prisma validate/generate, migration verification và Supabase verification khi áp dụng.
-6. Nếu phát hiện lỗi, ghi Bug candidate hoặc dùng Task/Bug branch phù hợp để sửa; không commit trực tiếp lên `develop`.
-7. Chỉ đánh dấu trạng thái kỹ thuật của Epic là PASS khi integration/regression evidence đầy đủ và không còn blocker kỹ thuật.
-8. Cập nhật progress/evidence và ghi `Recommended Jira status` để Project Owner tự cập nhật Jira.
+- AI Agent không merge `develop` vào `main`.
+- Sau khi Sprint Final Review PASS, Project Owner review và tự thực hiện PR/merge `develop → main`.
+- Project Owner quản lý thủ công trạng thái, comment, liên kết và Bug trên Jira.
+- AI Agent không tự ý thực hiện Jira write action; chỉ giữ Jira key trong branch/commit/PR/evidence, cung cấp technical evidence, ghi Bug candidate và đề xuất trạng thái.
+- AI chỉ tạo Jira Bug khi Project Owner yêu cầu rõ ràng.
 
-Không thực hiện các việc sau:
+## 10. Commit rules
 
-- Không checkout Epic branch để tích hợp.
-- Không merge Story branch vào Epic branch.
-- Không commit hoặc push integration fix lên Epic branch.
-- Không tạo Epic Pull Request.
-- Không dùng Epic branch làm điều kiện hoàn thành Epic.
-
-Các Epic branch đã tồn tại được giữ lại cho mục đích lịch sử và traceability.
-
----
-
-### 5. Quy tắc sử dụng skill
-
-AI Agent phải sử dụng skill đúng mục đích:
-
-1. Planning skill: dùng trước khi code để lập kế hoạch.
-2. Code review skill: dùng sau khi sửa code để tự kiểm tra.
-3. Testing skill: dùng để xác định và chạy test phù hợp.
-4. Debug skill: dùng khi lint/test/build fail.
-5. Git skill: dùng để tạo branch, commit, push, kiểm tra diff.
-6. Documentation skill: dùng để cập nhật progress/evidence.
-7. Commit writer skill: dùng để viết commit message đúng chuẩn.
-
-AI Agent không được bỏ qua bước kiểm tra chỉ vì task nhỏ.
-
----
-
-### 6. Quy tắc commit
-
-Commit phải rõ ràng, ngắn gọn, có phạm vi và bám vào thay đổi thật.
-
-Format khuyến nghị:
+Format:
 
 ```text
-<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>
+<type>(<scope>): <Jira key> <short English description>
 ```
 
 Ví dụ:
 
 ```text
 feat(auth): PAC-TASK-025 add permission guard
-fix(auth): PAC-TASK-030 return forbidden response
+fix(checkout): PAC-BUG-101 prevent overselling stock
 test(auth): PAC-TASK-025 add guard test cases
-docs(sprint-1): PAC-TASK-025 update progress
+docs(sprint-1): PAC-TASK-025 update technical evidence
 ```
 
-Không commit các nội dung sau:
+Type thường dùng:
 
-1. Log chat với AI.
-2. Prompt dài không liên quan.
-3. File tạm.
-4. Secret, API key, token.
-5. File `.env` chứa thông tin thật.
-6. Code chưa chạy được nếu lỗi nằm trong phạm vi task.
-7. Thay đổi ngoài scope task mà không giải thích.
+- `feat`: chức năng mới.
+- `fix`: sửa lỗi.
+- `docs`: tài liệu.
+- `style`: format, không đổi logic.
+- `refactor`: tái cấu trúc, không thêm tính năng.
+- `test`: thêm/sửa test.
+- `chore`: config hoặc việc phụ trợ.
+- `build`: dependency/build.
+- `ci`: GitHub Actions/CI.
+- `perf`: tối ưu hiệu năng.
+- `revert`: hoàn tác thay đổi.
 
----
+Không commit:
 
-### 7. Các kiểu commit thường dùng
+- Chat log, prompt dài hoặc nội dung nhắc đến AI.
+- File tạm, output không cần thiết.
+- Secret, token, API key, `.env` thật.
+- Code không chạy nếu lỗi thuộc scope Task.
+- Thay đổi ngoài scope không có giải thích.
 
-| Type       | Dùng khi nào                            | Ví dụ                                            |
-| ---------- | --------------------------------------- | ------------------------------------------------ |
-| `feat`     | Thêm chức năng mới                      | `feat(pos): thêm màn hình tạo đơn bán hàng`      |
-| `fix`      | Sửa lỗi                                 | `fix(auth): sửa lỗi không lưu session`           |
-| `docs`     | Cập nhật tài liệu                       | `docs(uml): bổ sung sequence diagram checkout`   |
-| `style`    | Sửa format code, không đổi logic        | `style(ui): căn chỉnh giao diện login`           |
-| `refactor` | Tái cấu trúc code, không thêm tính năng | `refactor(order): tách logic tính tổng đơn hàng` |
-| `test`     | Thêm/sửa test                           | `test(inventory): thêm test cho FEFO deduction`  |
-| `chore`    | Việc phụ trợ: config, package, setup    | `chore(prisma): cập nhật schema và migration`    |
-| `build`    | Thay đổi build/dependency               | `build(next): cập nhật cấu hình build frontend`  |
-| `ci`       | Thay đổi GitHub Actions/CI              | `ci(github): thêm workflow kiểm tra lint`        |
-| `perf`     | Tối ưu hiệu năng                        | `perf(graph): tối ưu truy vấn interaction rule`  |
-| `revert`   | Hoàn tác commit                         | `revert: hoàn tác thay đổi checkout validation`  |
+## 11. Kiểm thử tối thiểu
 
----
-
-### 8. Quy tắc push, PR và merge
-
-AI Agent phải push sau khi hoàn thành một nhóm thay đổi hợp lý.
-
-Với Task branch:
-
-```text
-git push origin <exact-task-branch>
-```
-
-Với Bug branch:
-
-```text
-git push origin bugfix/<BUG-JIRA-KEY>-bug-<short-english-slug>
-```
-
-Quy tắc tích hợp:
-
-1. Task/Bug Pull Request phải target `develop`.
-2. Không tạo Story Pull Request hoặc Epic Pull Request.
-3. Không push trực tiếp lên `develop` hoặc `main`.
-4. Không force push lên `develop` hoặc `main`.
-5. AI được tự merge Task/Bug PR vào `develop` khi:
-   - PR head/base chính xác;
-   - diff đúng phạm vi;
-   - không có secret hoặc file `.env` thật;
-   - không có conflict;
-   - targeted tests PASS;
-   - required CI checks PASS;
-   - Supabase verification PASS hoặc N/A hợp lệ;
-   - không có Blocking technical defect;
-   - `develop` vẫn buildable và testable.
-6. Nếu Merge Gate fail, AI phải sửa trên cùng Task/Bug branch và chạy lại checks.
-7. AI không được merge `develop` vào `main`.
-8. Project Owner là người duy nhất review và merge release PR `develop → main` sau Sprint Final Review PASS.
-9. Giữ lại các branch đã dùng khi dự án cần bằng chứng và traceability.
-
----
-
-### 9. Quy tắc kiểm thử trước khi hoàn thành
-
-Tùy phần đã sửa, AI Agent phải chạy lệnh phù hợp.
+Chọn lệnh phù hợp với phần thay đổi, không chạy máy móc nhưng không được bỏ qua kiểm tra vì Task nhỏ.
 
 Frontend:
 
@@ -316,105 +217,62 @@ npx prisma validate
 npx prisma generate
 ```
 
-Nếu có lỗi:
+Ngoài ra chạy targeted test, typecheck, integration test, migration verification hoặc Supabase verification khi cần.
 
-1. Ghi lỗi rõ ràng.
-2. Xác định lỗi thuộc scope task hay ngoài scope.
-3. Nếu thuộc scope task, phải sửa.
-4. Nếu ngoài scope task, ghi vào Known Issues.
-5. Không tự ý sửa module ngoài scope nếu chưa cần.
+Khi kiểm tra fail:
 
----
+1. Ghi rõ command và lỗi.
+2. Xác định lỗi thuộc scope hay ngoài scope.
+3. Lỗi thuộc scope phải sửa, commit và chạy lại.
+4. Lỗi ngoài scope ghi Known Issue/Bug candidate.
+5. Không đánh dấu PASS hoặc Done khi test bắt buộc còn fail.
 
-### 10. Quy tắc cập nhật progress/evidence
+## 12. Progress và evidence
 
-Sau khi hoàn thành Task, Story Acceptance Review hoặc Epic Integration/Regression Review, AI Agent phải cập nhật technical progress/evidence tương ứng, ví dụ:
+Sau mỗi Task, Story Review, Epic Review hoặc cuối phiên, cập nhật `WORKING-CONTEXT.md` và file phù hợp, ví dụ:
 
 ```text
 work-context/sprint-1/sprint-1-progress.md
 ```
 
-Nội dung cần cập nhật:
+Evidence tối thiểu:
 
-1. Task technical status, exact branch, commit, PR, merge SHA và target `develop`.
-2. User Story technical status sau Acceptance Review trên `develop`.
-3. Epic technical status sau Integration/Regression Review trên `develop`.
-4. Test Results.
-5. Supabase evidence hoặc N/A hợp lệ.
-6. Manual Demo Evidence nếu có.
-7. Known Issues và Bug candidates.
-8. Recommended Jira status để Project Owner tự cập nhật.
-9. Next Action.
+1. Jira key và technical status.
+2. Exact branch.
+3. Commit SHA, PR, base `develop` và merge SHA.
+4. File/phạm vi đã thay đổi.
+5. Test command và kết quả.
+6. CI result.
+7. Prisma/Supabase evidence hoặc `N/A` hợp lệ.
+8. Manual demo evidence nếu có.
+9. Known Issues và Bug candidates.
+10. `Recommended Jira status`.
+11. Next Action.
 
-Nếu task chưa hoàn thành, không được tick checkbox.
+Không tick hoàn thành khi mới làm một phần. Không ghi PASS nếu test fail. Trạng thái chưa đủ phải ghi rõ `Partial`, `Blocked` hoặc `Known Issue`.
 
-Nếu test fail, không được ghi pass.
+## 13. Xử lý Bug và hotfix
 
-Nếu chỉ hoàn thành một phần, phải ghi rõ là Partial hoặc Known Issue.
+- Khi phát hiện lỗi, xác định mức độ ảnh hưởng, bước tái hiện, kết quả mong đợi và kết quả thực tế.
+- Bug thuộc scope Task hiện tại phải được sửa trước khi Task PASS.
+- Bug ngoài scope phải được ghi thành Bug candidate với module, mức độ, evidence và đề xuất Jira key; chỉ triển khai sau khi có Task/Bug branch phù hợp.
+- Hotfix vẫn phải có branch riêng, Jira key, targeted test, PR vào `develop` và Merge Gate; không được dùng lý do khẩn cấp để push trực tiếp.
+- Sau khi sửa, thêm regression test khi hợp lý để ngăn lỗi tái diễn.
 
----
+## 14. Checklist kết thúc Task
 
-### 11. Quy tắc xử lý lỗi
+Trước khi báo hoàn thành, xác nhận:
 
-Khi có lỗi trong quá trình kiểm thử:
-
-1. Không bỏ qua lỗi.
-2. Không đánh dấu task Done nếu lỗi thuộc task đó.
-3. Dùng debug skill để phân tích lỗi.
-4. Sửa lỗi trong phạm vi task.
-5. Commit bản sửa lỗi.
-6. Push lại branch.
-7. Cập nhật Known Issues nếu lỗi ngoài scope.
-
-Ví dụ commit sửa lỗi:
-
-```text
-fix(auth): resolve permission guard metadata lookup for PAC-TASK-025
-```
-
----
-
-### 12. Quy tắc phạm vi
-
-AI Agent phải luôn tuân thủ scope hiện tại.
-
-Khi đang làm task:
-
-```text
-Chỉ làm task đó.
-```
-
-Khi đang làm User Story:
-
-```text
-Chỉ làm các task thuộc User Story đó.
-```
-
-Khi đang làm Epic:
-
-```text
-Chỉ làm các User Story thuộc Epic đó.
-```
-
-Không tự ý mở rộng sang Sprint khác.
-
-Không tự ý implement module Future/Commercial Expansion.
-
-Không implement toàn bộ 100 bảng nếu task hiện tại không yêu cầu.
-
----
-
-### 13. Quy tắc an toàn riêng của PharmaAssist
-
-AI Agent tuyệt đối không được:
-
-1. Thay Supabase Auth bằng custom JWT.
-2. Lưu `password_hash` trong PostgreSQL.
-3. Tạo custom session table thay Supabase.
-4. Bỏ qua AuthGuard.
-5. Bỏ qua PermissionGuard.
-6. Cho Warehouse truy cập POS/Checkout.
-7. Cho Staff xem dữ liệu toàn hệ thống nếu không có quyền.
-8. Reset database thật nếu chưa được phép.
-9. Commit secret hoặc `.env` thật.
-10. Sửa dữ liệu seed lớn ngoài phạm vi task.
+- Đúng Task/Bug và đúng branch.
+- Context đã đọc, plan đã thực hiện.
+- Diff tối thiểu và đúng scope.
+- Code review đã hoàn tất.
+- Test/build phù hợp PASS.
+- Supabase verification PASS hoặc N/A hợp lệ.
+- Không có secret, conflict hoặc file ngoài scope.
+- Commit đúng format và có Jira key.
+- PR target `develop`, CI PASS, Merge Gate PASS.
+- Merge đã được xác minh trên `develop`.
+- Progress/evidence đã cập nhật.
+- Jira status chỉ được đề xuất cho Project Owner.
+- Không merge `develop` vào `main`.
