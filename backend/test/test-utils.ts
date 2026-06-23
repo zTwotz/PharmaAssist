@@ -11,7 +11,7 @@ export async function cleanDatabase(prisma: PrismaService) {
     'prescription_uploads',
     'consultation_notes',
     'interaction_alerts',
-    'drug_interactions',
+    'drug_interaction_rules',
     'medicine_group_members',
     'medicine_groups',
     'medicine_ingredients',
