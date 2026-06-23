@@ -15,7 +15,6 @@ export class GraphExplorerController {
     private readonly graphFreshnessService: GraphFreshnessService,
   ) {}
 
-
   @Get('freshness')
   async getFreshness() {
     return this.graphFreshnessService.checkFreshness();

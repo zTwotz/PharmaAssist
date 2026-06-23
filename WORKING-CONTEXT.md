@@ -267,3 +267,48 @@ Dự án phát triển website quản lý nhà thuốc thông minh **PharmaAssis
 - Features included: Graph Sync UI, Graph Explorer, AI Governance UI, System Audit Log UI, Supabase Storage for Images, Supabase Realtime fallback polling, Notification Center, and AI Business Narrative.
 - Code has been fully tested and audited on the `develop` branch.
 - **Next steps**: Project Owner can merge `develop` to `main`.
+## 2026-06-23 - Sprint 12 Audit
+- Sprint 12 Audit = PASS.
+- Mandatory Gates: 20/20.
+- Ready to document Sprint 12: Yes.
+- Next steps: PAC-TASK-556.
+- PAC-TASK-556 (PAC-766): Documented Full Customer Management future scope. Quality Gate passed. PR #873 merged to develop.
+- PAC-TASK-557 (PAC-767): Documented customer profile CRUD future scope. Quality Gate passed. PR #874 merged to develop.
+- PAC-TASK-558 (PAC-768): Documented customer purchase history expansion. Quality Gate passed. PR #875 merged to develop.
+- US-161 and PAC-EPIC-31: Story and Epic Reviews passed after completing PAC-TASK-556, 557, 558.
+- PAC-TASK-559 (PAC-769): Documented online commerce storefront future scope. Quality Gate passed. PR #876 merged to develop.
+- PAC-TASK-560 (PAC-770): Documented online cart and wishlist future scope. Quality Gate passed. PR #877 merged to develop.
+- PAC-TASK-561 (PAC-771): Documented online checkout separation. Quality Gate passed. PR #878 merged to develop.
+- US-162 and PAC-EPIC-32: Story and Epic Reviews passed after completing PAC-TASK-559, 560, 561.
+- PAC-TASK-562 (PAC-772): Documented Product Variant Catalog future scope. Quality Gate passed. PR #879 merged to develop.
+- PAC-TASK-563 (PAC-773): Documented product images and documents commercial scope. Quality Gate passed. PR #880 merged to develop.
+- PAC-TASK-564 (PAC-774): Documented real catalog data import future workflow. Quality Gate passed. PR #881 merged to develop.
+- US-163 (PAC-EPIC-33): Story Acceptance Review and Epic Integration Review passed. All tasks for Product Variant Catalog are complete.
+- PAC-TASK-565 (PAC-775): Documented Multi-store future scope. Quality Gate passed. PR #882 merged to develop.
+- PAC-TASK-566 (PAC-776): Documented default store assumption for MVP. Quality Gate passed. PR #883 merged to develop.
+- US-164 (PAC-EPIC-34): Story Acceptance Review passed. All tasks for Multi-store support are complete.
+- PAC-TASK-567 (PAC-777): Documented Multi-warehouse future scope. Quality Gate passed. PR #884 merged to develop.
+- PAC-TASK-568 (PAC-778): Documented default warehouse assumption for MVP. Quality Gate passed. PR #885 merged to develop.
+- US-165 (PAC-EPIC-34): Story Acceptance Review passed. All tasks for Multi-warehouse support are complete.
+- PAC-EPIC-34 (PAC-34): Epic Integration Review passed. Multi-store / Multi-warehouse backlog is complete.
+- PAC-TASK-569 (PAC-779): Documented Stock Transfer future workflow. Quality Gate passed. PR #886 merged to develop.
+- PAC-TASK-570 (PAC-780): Documented stock transfer audit future requirement. Quality Gate passed. PR #887 merged to develop.
+- US-166 (PAC-EPIC-35): Story Acceptance Review passed. All tasks for Stock Transfer support are complete.
+- PAC-EPIC-35 (PAC-35): Epic Integration Review passed. Stock Transfer backlog is complete.
+- PAC-TASK-571 (PAC-781): Documented Forecasting and reorder suggestion future scope. Quality Gate passed. PR #888 merged to develop.
+- PAC-TASK-572 (PAC-782): Documented forecast data requirements and limitations. Quality Gate passed. PR #889 merged to develop.
+- US-167 (PAC-EPIC-36): Story Acceptance Review passed. All tasks for Forecasting & Reorder support are complete.
+- PAC-EPIC-36 (PAC-36): Epic Integration Review passed. Forecasting & Reorder backlog is complete.
+- PAC-TASK-573 (PAC-783): Documented Promotion and Coupon future scope. Quality Gate passed. PR #890 merged to develop.
+- PAC-TASK-574 (PAC-784): Documented discount not included in MVP checkout. Quality Gate passed. PR #891 merged to develop.
+- US-168 (PAC-EPIC-37): Story Acceptance Review passed. All tasks for Promotion / Coupon support are complete.
+- PAC-EPIC-37 (PAC-37): Epic Integration Review passed. Promotion / Coupon backlog is complete.
+- PAC-TASK-575 (PAC-785): Documented Shipping and Delivery future scope. Quality Gate passed. PR #892 merged to develop.
+- PAC-TASK-576 (PAC-786): Documented delivery status future workflow. Quality Gate passed. PR #893 merged to develop.
+- US-169 (PAC-EPIC-38): Story Acceptance Review passed. All tasks for Shipping / Delivery support are complete.
+- PAC-EPIC-38 (PAC-38): Epic Integration Review passed. Shipping / Delivery backlog is complete.
+- PAC-TASK-577 (PAC-787): Documented Review and CMS future scope. Quality Gate passed. PR #894 merged to develop.
+- PAC-TASK-578 (PAC-788): Documented product review moderation future consideration. Quality Gate passed. PR #895 merged to develop.
+- PAC-TASK-579 (PAC-789): Documented commercial expansion dependency map. Quality Gate passed. PR #896 merged to develop.
+- PAC-TASK-580 (PAC-790): Documented final out-of-scope guardrails for AI agents. Quality Gate passed. PR #897 merged to develop.
+- Sprint 12 Final Review: PASS. Release PR #1 is ready for Project Owner to merge.

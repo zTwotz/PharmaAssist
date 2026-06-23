@@ -1,4 +1,3 @@
-
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AiReportService } from './ai-report.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -12,7 +11,10 @@ export class AiReportController {
 
   @Get()
   @Roles('ADMIN')
-  async getBusinessNarrative(@Query('startDate') startDate: string, @Query('endDate') endDate: string) {
+  async getBusinessNarrative(
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ) {
     return this.aiReportService.generateBusinessNarrative(startDate, endDate);
   }
 }

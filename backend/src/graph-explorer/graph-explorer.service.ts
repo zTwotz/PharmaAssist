@@ -14,7 +14,7 @@ export class GraphExplorerService {
         LIMIT 500
       `;
       const result = await this.neo4jService.read(cypher);
-      
+
       const nodesMap = new Map<string, any>();
       const linksSet = new Set<string>();
       const links: any[] = [];

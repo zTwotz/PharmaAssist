@@ -14,7 +14,6 @@ export class AiConfigService {
     private readonly prisma: PrismaService,
   ) {}
 
-  
   async findAll() {
     return this.prisma.aiProviderConfig.findMany({
       orderBy: { priority: 'asc' },
@@ -70,7 +69,6 @@ export class AiConfigService {
     return AiProviderType.GOOGLE;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async isFallbackEnabled(): Promise<boolean> {
     // Check DB first: if there's a second enabled provider, fallback is essentially enabled.
     // However, explicit flag might be in SystemSettings in the future.
@@ -106,7 +104,6 @@ export class AiConfigService {
     return AiProviderType.MOCK;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async getGoogleAiApiKey(): Promise<string> {
     const key = this.configService.get<string>('GEMINI_API_KEY');
     if (!key) {

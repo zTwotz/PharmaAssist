@@ -3,7 +3,10 @@ import {
   Logger,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { CreatePromptDto, UpdatePromptStatusDto } from './dto/create-prompt.dto';
+import {
+  CreatePromptDto,
+  UpdatePromptStatusDto,
+} from './dto/create-prompt.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface PromptTemplateData {
@@ -17,13 +20,9 @@ export class PromptsService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  
   async findAll() {
     return this.prisma.promptTemplate.findMany({
-      orderBy: [
-        { code: 'asc' },
-        { version: 'desc' },
-      ],
+      orderBy: [{ code: 'asc' }, { version: 'desc' }],
     });
   }
 
@@ -54,7 +53,9 @@ export class PromptsService {
 
   async updateStatus(id: string, dto: UpdatePromptStatusDto) {
     if (dto.status === 'ACTIVE') {
-      const target = await this.prisma.promptTemplate.findUnique({ where: { id } });
+      const target = await this.prisma.promptTemplate.findUnique({
+        where: { id },
+      });
       if (target) {
         await this.prisma.promptTemplate.updateMany({
           where: { code: target.code, status: 'ACTIVE' },

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -19,7 +18,7 @@ export class NotificationsService {
   async markAsRead(id: number, userId: string) {
     return this.prisma.notificationRecipient.updateMany({
       where: { notificationId: id, userId },
-      data: { isRead: true, readAt: new Date() }
+      data: { isRead: true, readAt: new Date() },
     });
   }
 
@@ -28,7 +27,7 @@ export class NotificationsService {
       where: { userId },
       include: { notification: true },
       orderBy: { notification: { createdAt: 'desc' } },
-      take: 50
+      take: 50,
     });
   }
 }
