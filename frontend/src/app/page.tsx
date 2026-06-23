@@ -1545,6 +1545,7 @@ const AI_BOT_QAS = [
 export default function HomePage() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showVaccineModal, setShowVaccineModal] = useState(false);
 
   const slides = useMemo(() => [
     {
@@ -2157,8 +2158,8 @@ export default function HomePage() {
             </a>
 
             {/* Action 5: Tiêm Vắc xin */}
-            <a 
-              href="#vaccination"
+            <button
+              onClick={() => setShowVaccineModal(true)}
               className="bg-white rounded-2xl p-4 border border-fog shadow-sm hover:shadow-md hover:border-[#024ad8]/20 hover:scale-102 transition-all duration-300 flex items-center gap-3 text-left group"
             >
               <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-xl group-hover:bg-[#024ad8]/10 transition-colors shrink-0">
@@ -2168,7 +2169,7 @@ export default function HomePage() {
                 <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">Tiêm Vắc</span>
                 <span className="text-xs md:text-sm font-extrabold text-[#1f2937] leading-tight">xin</span>
               </div>
-            </a>
+            </button>
 
             {/* Action 6: Tra thuốc chính hãng */}
             <button 
@@ -4602,6 +4603,161 @@ export default function HomePage() {
           >
             <X size={14} />
           </button>
+        </div>
+      )}
+
+      {/* VACCINE MODAL */}
+      {showVaccineModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+          onClick={() => setShowVaccineModal(false)}
+        >
+          <div
+            className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-gradient-to-r from-[#024ad8] to-blue-500 text-white px-6 py-5 rounded-t-3xl flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 p-2 rounded-xl">
+                  <Syringe size={24} />
+                </div>
+                <div>
+                  <h2 className="text-lg font-black">Vắc xin phổ biến cần tiêm</h2>
+                  <p className="text-blue-100 text-xs font-medium">Danh sách vắc xin không thể bỏ qua</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowVaccineModal(false)}
+                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-xl transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-4">
+              {[
+                {
+                  name: "Vắc xin 6 in 1 (Hexaxim / Infanrix Hexa)",
+                  target: "Trẻ từ 2 tháng tuổi",
+                  diseases: "Bạch hầu, uốn ván, ho gà, viêm gan B, bại liệt, Hib",
+                  schedule: "3 mũi: 2, 3, 4 tháng; nhắc lại 18 tháng",
+                  color: "blue",
+                  icon: "💉",
+                },
+                {
+                  name: "Vắc xin Rotavirus",
+                  target: "Trẻ từ 6 tuần tuổi",
+                  diseases: "Tiêu chảy cấp do Rotavirus",
+                  schedule: "2-3 liều, uống xong trước 6-8 tháng tuổi",
+                  color: "green",
+                  icon: "🦠",
+                },
+                {
+                  name: "Vắc xin Viêm gan A + B",
+                  target: "Trẻ & người lớn",
+                  diseases: "Viêm gan A, Viêm gan B",
+                  schedule: "3 mũi: 0, 1, 6 tháng",
+                  color: "amber",
+                  icon: "🛡️",
+                },
+                {
+                  name: "Vắc xin Cúm",
+                  target: "Từ 6 tháng tuổi",
+                  diseases: "Cúm mùa, biến chứng viêm phổi",
+                  schedule: "Tiêm nhắc lại hàng năm",
+                  color: "sky",
+                  icon: "🌬️",
+                },
+                {
+                  name: "Vắc xin Phế cầu (Prevenar 13)",
+                  target: "Trẻ từ 6 tuần tuổi",
+                  diseases: "Viêm phổi, viêm tai giữa, viêm màng não",
+                  schedule: "3 mũi cơ bản, nhắc lại 12-15 tháng",
+                  color: "purple",
+                  icon: "🫁",
+                },
+                {
+                  name: "Vắc xin Thuỷ đậu",
+                  target: "Từ 12 tháng tuổi",
+                  diseases: "Thuỷ đậu, zona thần kinh",
+                  schedule: "2 mũi: cách nhau 3 tháng",
+                  color: "rose",
+                  icon: "⭐",
+                },
+                {
+                  name: "Vắc xin HPV (Gardasil 9)",
+                  target: "Nữ từ 9-26 tuổi",
+                  diseases: "Ung thư cổ tử cung, sùi mào gà",
+                  schedule: "3 mũi: 0, 2, 6 tháng",
+                  color: "pink",
+                  icon: "🎗️",
+                },
+                {
+                  name: "Vắc xin Viêm não Nhật",
+                  target: "Từ 1 tuổi",
+                  diseases: "Viêm não Nhật B",
+                  schedule: "3 liều: 0, 1-2, 12 tháng sau",
+                  color: "orange",
+                  icon: "🧠",
+                },
+              ].map((vaccine, idx) => {
+                const colorMap: Record<string, string> = {
+                  blue: "bg-blue-50 border-blue-200 text-blue-800",
+                  green: "bg-green-50 border-green-200 text-green-800",
+                  amber: "bg-amber-50 border-amber-200 text-amber-800",
+                  sky: "bg-sky-50 border-sky-200 text-sky-800",
+                  purple: "bg-purple-50 border-purple-200 text-purple-800",
+                  rose: "bg-rose-50 border-rose-200 text-rose-800",
+                  pink: "bg-pink-50 border-pink-200 text-pink-800",
+                  orange: "bg-orange-50 border-orange-200 text-orange-800",
+                };
+                const badgeMap: Record<string, string> = {
+                  blue: "bg-blue-100 text-blue-700",
+                  green: "bg-green-100 text-green-700",
+                  amber: "bg-amber-100 text-amber-700",
+                  sky: "bg-sky-100 text-sky-700",
+                  purple: "bg-purple-100 text-purple-700",
+                  rose: "bg-rose-100 text-rose-700",
+                  pink: "bg-pink-100 text-pink-700",
+                  orange: "bg-orange-100 text-orange-700",
+                };
+                return (
+                  <div key={idx} className={`border rounded-2xl p-4 ${colorMap[vaccine.color]} transition-all hover:shadow-sm`}>
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl shrink-0">{vaccine.icon}</span>
+                      <div className="flex-1 space-y-1.5">
+                        <h3 className="font-black text-sm leading-snug">{vaccine.name}</h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeMap[vaccine.color]}`}>
+                            👤 {vaccine.target}
+                          </span>
+                        </div>
+                        <p className="text-xs opacity-80"><strong>Phòng:</strong> {vaccine.diseases}</p>
+                        <p className="text-xs opacity-80"><strong>Lịch:</strong> {vaccine.schedule}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 pb-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-center">
+                <p className="text-xs text-blue-700 font-medium">
+                  ⚠️ Thông tin chỉ mang tính tham khảo. Hãy tham khảo bác sĩ để có phác đồ tiêm chủng phù hợp.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowVaccineModal(false)}
+                className="w-full mt-3 bg-[#024ad8] hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
