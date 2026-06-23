@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
+import { supabase } from '@/lib/supabase';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -149,6 +150,30 @@ export function CategoryList() {
       ...prev,
       [name]: name === 'sortOrder' ? parseInt(value) || 0 : value,
     }));
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setFormLoading(true);
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('bucket', 'medicine-images');
+
+      const response = await api.post('/admin/storage/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      setFormData((prev) => ({ ...prev, imageUrl: response.data.url }));
+    } catch (err: any) {
+      console.error('Upload failed:', err);
+      setErrorAlert(err.message || 'Không thể tải ảnh lên. Vui lòng thử lại.');
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   const handleSelectChange = (name: string, value: string) => {
@@ -447,15 +472,29 @@ export function CategoryList() {
               </div>
 
               <div className="grid gap-1.5">
-                <label className="text-sm font-semibold text-slate-700">Đường dẫn ảnh đại diện</label>
-                <Input
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleFormChange}
-                  placeholder="Ví dụ: /images/categories/thuoc-ho.png"
-                  disabled={formLoading}
-                  className="border-hairline focus-visible:ring-primary"
-                />
+                <label className="text-sm font-semibold text-slate-700">Ảnh của danh mục</label>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      disabled={formLoading}
+                      className="border-hairline focus-visible:ring-primary flex-1 cursor-pointer"
+                    />
+                    {formData.imageUrl && (
+                      <div className="h-10 w-10 relative rounded border border-hairline overflow-hidden flex-shrink-0 bg-slate-50">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                  </div>
+                  {formData.imageUrl && (
+                    <div className="text-xs text-slate-500 break-all">
+                      Đã lưu ảnh: {formData.imageUrl}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
