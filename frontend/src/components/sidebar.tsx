@@ -136,7 +136,7 @@ export function Sidebar({ currentPath }: SidebarProps) {
   return (
     <aside className="w-64 bg-cloud border-r border-hairline flex flex-col h-screen sticky top-0 hidden md:flex">
       {/* Brand logo section - click to go home */}
-      <Link href="/dashboard" className="h-16 flex items-center px-6 border-b border-hairline bg-white hover:bg-fog transition-colors">
+      <Link href="/" className="h-16 flex items-center px-6 border-b border-hairline bg-white hover:bg-fog transition-colors">
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded bg-primary flex items-center justify-center text-white font-bold text-lg">
             P
