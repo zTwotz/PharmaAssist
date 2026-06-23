@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const { login, register, isAuthenticated, user } = useAuth();
@@ -47,6 +48,11 @@ export default function LoginPage() {
     
     if (password.length < 6) {
       setErrorMsg('Mật khẩu phải có độ dài tối thiểu 6 ký tự.');
+      return false;
+    }
+
+    if (isRegistering && !fullName.trim()) {
+      setErrorMsg('Vui lòng nhập họ và tên.');
       return false;
     }
     return true;
@@ -92,8 +98,8 @@ export default function LoginPage() {
     setErrorMsg('');
     setSuccessMsg('');
 
-    if (!email || !password) {
-      setErrorMsg('Vui lòng nhập đầy đủ email và mật khẩu.');
+    if (!email || !password || (isRegistering && !fullName)) {
+      setErrorMsg('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
 
@@ -113,8 +119,37 @@ export default function LoginPage() {
     } catch (err: any) {
       clearTimeout(timeoutId);
       console.warn('Login warning:', err?.message || err);
+      if (isRegistering) {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: fullName,
+            }
+          }
+        });
+
+        if (error) throw error;
+        
+        clearTimeout(timeoutId);
+        setSuccess(true);
+        setErrorMsg('Đăng ký thành công! Vui lòng kiểm tra email để xác nhận hoặc đăng nhập ngay.');
+        setTimeout(() => {
+          setIsRegistering(false);
+          setSuccess(false);
+          setErrorMsg('');
+        }, 3000);
+      } else {
+        await login(email, password);
+        clearTimeout(timeoutId);
+        setSuccess(true);
+      }
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      console.warn('Auth warning:', err?.message || err);
       const status = err.response?.status;
-      const message = err.response?.data?.message;
+      const message = err.response?.data?.message || err.message;
 
       if (status === 401) {
         setErrorMsg('Email hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại.');
@@ -123,7 +158,7 @@ export default function LoginPage() {
       } else if (message) {
         setErrorMsg(message);
       } else {
-        setErrorMsg('Đăng nhập thất bại. Vui lòng kiểm tra lại kết nối mạng hoặc thử lại sau.');
+        setErrorMsg('Thao tác thất bại. Vui lòng kiểm tra lại kết nối mạng hoặc thử lại sau.');
       }
     } finally {
       setLoading(false);
@@ -158,11 +193,17 @@ export default function LoginPage() {
         </CardHeader>
         
         <form onSubmit={isRegisterMode ? handleRegister : handleLogin}>
+            {isRegistering ? 'Đăng ký tài khoản mới' : 'Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh'}
+          </CardDescription>
+        </CardHeader>
+        
+        <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 px-6">
-            {errorMsg && (
+            {errorMsg && !success && (
               <Alert variant="destructive" className="bg-bloom-rose border-bloom-coral/30 text-bloom-deep">
                 <ShieldAlert className="h-4 w-4 text-bloom-deep" />
                 <AlertTitle className="font-semibold text-bloom-deep">Lỗi</AlertTitle>
+                <AlertTitle className="font-semibold text-bloom-deep">Lỗi thao tác</AlertTitle>
                 <AlertDescription className="text-bloom-wine text-xs mt-1">{errorMsg}</AlertDescription>
               </Alert>
             )}

@@ -872,7 +872,7 @@ const renderSubcatThumbnail = (name: string) => {
   }
   
   const src = images[name] || "https://cdn.nhathuoclongchau.com.vn/v1/static/00020710_dasbrain_pharmametics_30v_1177_6065_large_49dd64ad5b.jpg";
-  return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" />;
+  return <img src={src} alt={name} className="w-full h-full object-contain p-0.5" referrerPolicy="no-referrer" />;
 };
 
 export const RETAIL_PRODUCT_MAP: Record<string, { id: string; dbId: number; name: string; price: number; unit: string; imageUrl: string; activeIngredient: string; isAvailable: boolean }> = {
@@ -1520,6 +1520,27 @@ const BEST_SELLING_PRODUCTS = [
   }
 ];
 
+const SIDE_EFFECTS_DATA = [
+  { name: "Paracetamol (Acetaminophen)", brand: "Panadol, Hapacol, Efferalgan", active: "Paracetamol", desc: "Giảm đau, hạ sốt nhanh chóng.", sideEffects: "Buồn nôn, dị ứng da (hiếm gặp). Nguy cơ hoại tử gan cấp tính nếu sử dụng quá liều quy định (>4g/ngày) hoặc kết hợp với rượu.", warning: "Tuyệt đối không uống rượu trong thời gian dùng thuốc. Tránh dùng chung với các thuốc khác chứa paracetamol để tránh quá liều." },
+  { name: "Ibuprofen", brand: "Gofen, Alaxan", active: "Ibuprofen", desc: "Giảm đau kháng viêm không steroid (NSAID).", sideEffects: "Đau dạ dày, buồn nôn, đầy hơi, chóng mặt, nhức đầu. Có thể gây loét hoặc chảy máu dạ dày nếu dùng liều cao kéo dài.", warning: "Nên uống thuốc sau khi ăn no để giảm kích ứng dạ dày. Thận trọng với người có tiền sử loét dạ dày, suy thận." },
+  { name: "Aspirin (Acid Acetylsalicylic)", brand: "Aspirin 81mg, Aspirin PH8", active: "Aspirin", desc: "Giảm đau, kháng viêm, phòng ngừa huyết khối (đột quỵ, nhồi máu cơ tim).", sideEffects: "Ợ chua, đau bao tử, chảy máu kéo dài. Có nguy cơ gây hội chứng Reye cực nguy hiểm ở trẻ dưới 16 tuổi.", warning: "Không dùng cho trẻ em dưới 16 tuổi bị sốt do virus. Thận trọng với người dễ chảy máu hoặc hen suyễn." },
+  { name: "Amoxicillin", brand: "Clamoxyl, Ospamox", active: "Amoxicillin", desc: "Kháng sinh nhóm Penicillin điều trị nhiễm khuẩn.", sideEffects: "Tiêu chảy, phát ban da, buồn nôn, nhiễm nấm men (ngứa âm đạo/tưa miệng).", warning: "Phải dùng đủ liều theo chỉ định để tránh kháng thuốc. Kháng sinh có thể làm giảm hiệu lực của thuốc tránh thai hàng ngày." },
+  { name: "Omeprazole", brand: "Lomex, Omez", active: "Omeprazole", desc: "Thuốc ức chế bơm proton (PPI) giảm tiết acid dạ dày.", sideEffects: "Tiêu chảy, đau bụng, buồn nôn, nhức đầu. Dùng lâu năm có thể giảm hấp thu vitamin B12, loãng xương.", warning: "Nên uống trước khi ăn sáng 30 phút. Không tự ý lạm dụng thuốc kéo dài mà không có chỉ định." }
+];
+
+const INTERACTIONS_DATA = [
+  { key: "paracetamol-rượu", nameA: "Paracetamol", nameB: "Rượu", severity: "HIGH", severityText: "Cực kỳ nguy hiểm", bg: "bg-red-50 border-red-200 text-red-950", iconBg: "bg-red-500 text-white", desc: "Rượu kích thích men gan CYP2E1 hoạt động mạnh, làm tăng tốc độ chuyển hóa Paracetamol thành chất độc NAPQI gây hoại tử tế bào gan cấp tính, có thể dẫn đến tử vong.", recommendation: "Tuyệt đối không uống rượu hoặc đồ uống có cồn trước, trong và sau khi sử dụng Paracetamol ít nhất 24 giờ." },
+  { key: "ibuprofen-aspirin", nameA: "Ibuprofen", nameB: "Aspirin", severity: "HIGH", severityText: "Nguy hiểm", bg: "bg-red-50 border-red-200 text-red-950", iconBg: "bg-red-500 text-white", desc: "Cả hai đều thuộc nhóm NSAID. Ibuprofen cạnh tranh vị trí liên kết với tiểu cầu của Aspirin làm giảm tác dụng bảo vệ tim mạch của Aspirin, đồng thời tăng gấp đôi nguy cơ loét và chảy máu dạ dày.", recommendation: "Không tự ý dùng chung. Nếu bắt buộc phải dùng cả hai, hãy uống Aspirin trước Ibuprofen ít nhất 30 phút hoặc uống Ibuprofen sau Aspirin ít nhất 8 giờ." },
+  { key: "amoxicillin-tránh thai", nameA: "Amoxicillin", nameB: "Thuốc tránh thai", severity: "MEDIUM", severityText: "Cần lưu ý", bg: "bg-yellow-50 border-yellow-200 text-yellow-950", iconBg: "bg-yellow-500 text-white", desc: "Amoxicillin tiêu diệt vi khuẩn đường ruột, làm giảm chu trình gan ruột của estrogen trong thuốc tránh thai, từ đó có thể làm giảm nồng độ và hiệu quả ngừa thai.", recommendation: "Nên sử dụng thêm biện pháp tránh thai dự phòng (như bao cao su) trong suốt thời gian dùng kháng sinh và 7 ngày sau đó." },
+  { key: "omeprazole-clopidogrel", nameA: "Omeprazole", nameB: "Clopidogrel", severity: "HIGH", severityText: "Nguy hiểm", bg: "bg-red-50 border-red-200 text-red-950", iconBg: "bg-red-500 text-white", desc: "Omeprazole ức chế enzyme CYP2C19 ở gan, là enzyme cần thiết để chuyển hóa Clopidogrel (tiền chất) thành dạng hoạt động. Việc này làm giảm mạnh hiệu quả chống đông máu của Clopidogrel, tăng nguy cơ đột quỵ.", recommendation: "Tránh dùng Omeprazole khi đang điều trị bằng Clopidogrel. Hãy tham khảo dược sĩ để đổi sang PPI ít ảnh hưởng hơn như Pantoprazole hoặc Esomeprazole." }
+];
+
+const AI_BOT_QAS = [
+  { q: "Paracetamol uống chung với Ibuprofen được không?", a: "Có thể phối hợp Paracetamol và Ibuprofen trong một số trường hợp đau mức độ vừa đến nặng (như đau răng, đau sau phẫu thuật) vì chúng có cơ chế giảm đau khác nhau. Tuy nhiên, không nên lạm dụng phối hợp này thường xuyên. Hãy tuân thủ đúng liều lượng tối đa của từng loại thuốc (Paracetamol tối đa 4g/ngày, Ibuprofen tối đa 1.2g/ngày) và luôn uống Ibuprofen sau khi ăn no để tránh loét dạ dày." },
+  { q: "Tại sao không được uống rượu khi dùng thuốc giảm đau?", a: "Uống rượu khi dùng Paracetamol làm tăng độc tính trên gan gấp nhiều lần, dễ gây suy gan cấp hoại tử. Uống rượu khi dùng thuốc giảm đau kháng viêm NSAID (như Ibuprofen, Aspirin) làm tăng đáng kể nguy cơ kích ứng, viêm loét và xuất huyết dạ dày do rượu và NSAID đều bào mòn lớp nhầy bảo vệ dạ dày." },
+  { q: "Kháng sinh Amoxicillin uống thế nào là đúng?", a: "Amoxicillin nên được uống ngay trước hoặc trong bữa ăn để giảm thiểu tác dụng phụ trên đường tiêu hóa. Điều cực kỳ quan trọng là bạn phải uống đúng giờ, đủ liều và đủ số ngày bác sĩ kê ngay cả khi các triệu chứng bệnh đã biến mất hoàn toàn. Việc dừng kháng sinh giữa chừng là nguyên nhân hàng đầu dẫn đến tình trạng kháng kháng sinh nguy hiểm." }
+];
+
 export default function HomePage() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -1623,8 +1644,85 @@ export default function HomePage() {
     }
   };
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
+  const [showSideEffectModal, setShowSideEffectModal] = useState(false);
+  const [seSearchQuery, setSeSearchQuery] = useState("");
+  const [selectedSeDrug, setSelectedSeDrug] = useState<typeof SIDE_EFFECTS_DATA[0] | null>(null);
+  const [showInteractionModal, setShowInteractionModal] = useState(false);
+  const [iaDrugA, setIaDrugA] = useState("");
+  const [iaDrugB, setIaDrugB] = useState("");
+  const [iaResult, setIaResult] = useState<typeof INTERACTIONS_DATA[0] | null | "clean">(null);
+  const [showAICopilotModal, setShowAICopilotModal] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ sender: 'user' | 'bot'; text: string }[]>([
+    { sender: 'bot', text: 'Xin chào! Tôi là Trợ lý AI Dược sĩ của PharmaAssist. Bạn có câu hỏi nào về tác dụng phụ hay cách sử dụng thuốc an toàn không?' }
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const [isChatLoading, setIsChatLoading] = useState(false);
+
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  const handleSendChatMessage = (textToSend?: string) => {
+    const msgText = textToSend || chatInput;
+    if (!msgText.trim() || isChatLoading) return;
+
+    setChatMessages(prev => [...prev, { sender: 'user', text: msgText }]);
+    if (!textToSend) setChatInput("");
+    setIsChatLoading(true);
+
+    setTimeout(() => {
+      const normalizedQuery = msgText.toLowerCase();
+      
+      const matchedQA = AI_BOT_QAS.find(qa => 
+        normalizedQuery.includes(qa.q.toLowerCase()) || 
+        qa.q.toLowerCase().split(' ').filter(word => word.length > 3).every(word => normalizedQuery.includes(word))
+      );
+
+      let botResponse = "";
+      if (matchedQA) {
+        botResponse = matchedQA.a;
+      } else {
+        if (normalizedQuery.includes("paracetamol") || normalizedQuery.includes("panadol") || normalizedQuery.includes("hapacol")) {
+          botResponse = "Paracetamol (Acetaminophen) là thuốc hạ sốt, giảm đau phổ biến. Liều dùng an toàn tối đa cho người lớn là 4000mg (4g) mỗi 24 giờ. Tác dụng phụ đáng lo ngại nhất là độc tính trên gan nếu dùng quá liều hoặc dùng chung với rượu bia. Tuyệt đối không dùng chung rượu bia khi uống thuốc này.";
+        } else if (normalizedQuery.includes("ibuprofen") || normalizedQuery.includes("aspirin") || normalizedQuery.includes("nsaid")) {
+          botResponse = "Các thuốc kháng viêm không steroid (NSAID) như Ibuprofen hoặc Aspirin giúp giảm đau và chống viêm tốt, nhưng chúng kích ứng niêm mạc dạ dày. Tác dụng phụ thường gặp là đau bụng, đầy hơi, ợ chua. Dùng lâu ngày gây loét và xuất huyết tiêu hóa. Bạn nên uống thuốc sau bữa ăn no để giảm kích ứng.";
+        } else if (normalizedQuery.includes("amoxicillin") || normalizedQuery.includes("kháng sinh")) {
+          botResponse = "Amoxicillin là kháng sinh nhóm Penicillin dùng trị nhiễm khuẩn. Các tác dụng phụ thường gặp gồm tiêu chảy, nổi mề đay, mẩn ngứa. Lưu ý quan trọng là bạn phải hoàn thành đúng liệu trình kháng sinh mà bác sĩ chỉ định (không tự ý dừng khi thấy bớt bệnh) để ngăn ngừa hiện tượng vi khuẩn kháng thuốc.";
+        } else {
+          botResponse = "Cảm ơn bạn đã đặt câu hỏi về thuốc. Tác dụng phụ của thuốc này có thể bao gồm buồn nôn, nhức đầu hoặc dị ứng da nhẹ ở người nhạy cảm. Bạn nên tuân thủ đúng liều lượng bác sĩ kê, tránh kết hợp nhiều thuốc không rõ nguồn gốc và hạn chế dùng chất kích thích. Nếu có triệu chứng nặng như khó thở, phát ban diện rộng, hãy đến ngay cơ sở y tế gần nhất.";
+        }
+      }
+
+      setChatMessages(prev => [...prev, { sender: 'bot', text: botResponse }]);
+      setIsChatLoading(false);
+    }, 1000);
+  };
+
+  const handleCheckInteraction = () => {
+    if (!iaDrugA || !iaDrugB) {
+      setToastMessage("Vui lòng chọn hoặc nhập đủ cả 2 loại thuốc để kiểm tra.");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+      return;
+    }
+    if (iaDrugA.toLowerCase().trim() === iaDrugB.toLowerCase().trim()) {
+      setToastMessage("Vui lòng chọn 2 loại thuốc khác nhau.");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+      return;
+    }
+
+    const found = INTERACTIONS_DATA.find(item => {
+      const matchNormal = item.nameA.toLowerCase() === iaDrugA.toLowerCase() && item.nameB.toLowerCase() === iaDrugB.toLowerCase();
+      const matchReverse = item.nameA.toLowerCase() === iaDrugB.toLowerCase() && item.nameB.toLowerCase() === iaDrugA.toLowerCase();
+      return matchNormal || matchReverse;
+    });
+
+    if (found) {
+      setIaResult(found);
+    } else {
+      setIaResult("clean");
+    }
+  };
   const [activeSubId, setActiveSubId] = useState<string>("supplements-vitamin");
   const [loading, setLoading] = useState(true);
   const [samsungUnit, setSamsungUnit] = useState<"hop" | "chai">("hop");
@@ -1878,6 +1976,11 @@ export default function HomePage() {
                     src={slide.imageUrl} 
                     alt={slide.subBrand} 
                     className="w-40 h-40 object-contain drop-shadow-xl relative z-10 hover:scale-105 transition-transform duration-300"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                    }}
                   />
                   
                   {/* Badge indicator */}
@@ -2150,12 +2253,19 @@ export default function HomePage() {
                       )}
                     </div>
                     
-                    <Link href={`/san-pham/${product.slug}`} className="block cursor-pointer">
+                    <Link href={`/thuoc/${product.slug || product.id}`} className="block cursor-pointer">
                       <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                         <img 
                           src={product.imageUrl} 
                           alt={product.name} 
                           className={`w-full h-full object-contain p-2 ${isOutOfStock ? "grayscale opacity-80" : ""}`}
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                              target.src = 'https://placehold.co/300x300?text=No+Image';
+                            }
+                          }}
                         />
                         {isOutOfStock && (
                           <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
@@ -2169,7 +2279,7 @@ export default function HomePage() {
 
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <Link href={`/san-pham/${product.slug}`} className="block hover:underline">
+                        <Link href={`/thuoc/${product.slug || product.id}`} className="block hover:underline">
                           <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px] group-hover:text-[#024ad8] transition-colors text-left">
                             {product.name}
                           </h4>
@@ -2196,7 +2306,7 @@ export default function HomePage() {
                         
                         {isOutOfStock ? (
                           <Link 
-                            href={`/san-pham/${product.slug}`}
+                            href={`/thuoc/${product.slug || product.id}`}
                             className="w-full bg-cloud text-graphite text-[10px] font-bold py-2 rounded-xl mt-3 uppercase tracking-wider text-center block"
                           >
                             Xem chi tiết
@@ -2286,19 +2396,26 @@ export default function HomePage() {
                       )}
                     </div>
                     
-                    <Link href={`/san-pham/${product.slug}`} className="block cursor-pointer">
+                    <Link href={`/thuoc/${product.slug || product.id}`} className="block cursor-pointer">
                       <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                         <img 
                           src={product.imageUrl} 
                           alt={product.name} 
                           className="w-full h-full object-contain p-2"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                              target.src = 'https://placehold.co/300x300?text=No+Image';
+                            }
+                          }}
                         />
                       </div>
                     </Link>
 
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <Link href={`/san-pham/${product.slug}`} className="block hover:underline">
+                        <Link href={`/thuoc/${product.slug || product.id}`} className="block hover:underline">
                           <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors text-left">
                             {product.name}
                           </h4>
@@ -2485,7 +2602,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 5.5. HEALTH CHECK BANNER (KIỂM TRA SỨC KHỎE) */}
+        {/* 5.5. SMART SIDE EFFECT WARNING BANNER (CẢNH BÁO TÁC DỤNG PHỤ THÔNG MINH) */}
         <section className="max-w-7xl mx-auto px-4 md:px-8 py-6">
           <div className="bg-gradient-to-r from-[#024ad8] via-[#1d4ed8] to-[#1e40af] rounded-3xl p-6 md:p-8 text-white relative overflow-hidden shadow-sm flex flex-col lg:flex-row justify-between items-center gap-6 min-h-[220px]">
             {/* Background design elements */}
@@ -2495,11 +2612,14 @@ export default function HomePage() {
             {/* Left Content Column */}
             <div className="flex-1 flex flex-col justify-between relative z-10 w-full">
               <div className="text-left">
-                <h2 className="text-xl md:text-2xl font-black text-white tracking-wide">
-                  Kiểm tra sức khỏe
+                <h2 className="text-xl md:text-2xl font-black text-white tracking-wide flex items-center gap-2">
+                  <span className="bg-white/20 p-1.5 rounded-lg text-white">
+                    <AlertTriangle size={20} className="text-yellow-300 animate-pulse" />
+                  </span>
+                  Cảnh báo tác dụng phụ thông minh
                 </h2>
                 <p className="text-xs md:text-sm text-blue-100/90 font-semibold mt-1">
-                  Kết quả đánh giá sẽ cho bạn lời khuyên xử trí phù hợp!
+                  Nhận biết sớm và phòng ngừa các tác dụng phụ không mong muốn của thuốc!
                 </p>
               </div>
 
@@ -2508,18 +2628,19 @@ export default function HomePage() {
                 
                 {/* Card 1 */}
                 <div 
-                  onClick={() => triggerToast("Bài kiểm tra trí nhớ đang được chuẩn bị...")}
+                  onClick={() => {
+                    setShowSideEffectModal(true);
+                    setSeSearchQuery("");
+                    setSelectedSeDrug(null);
+                  }}
                   className="bg-white rounded-2xl p-4 shadow-sm border border-sky-100/10 flex items-center gap-3.5 hover:shadow-md hover:scale-102 transition-all duration-300 group cursor-pointer"
                 >
                   <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-2xl shrink-0 group-hover:bg-[#024ad8]/10 transition-colors flex items-center justify-center">
-                    <svg className="w-8 h-8 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v1.5c0 1.5-1 2.5-2.5 2.5s-2.5-1-2.5-2.5V9.5z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 9.5c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5h5c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5" />
-                    </svg>
+                    <Pill className="w-8 h-8 text-[#024ad8]" />
                   </div>
                   <div className="flex flex-col justify-between h-full text-left">
                     <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px]">
-                      Bài kiểm tra trí nhớ và mức độ tập trung chú ý
+                      Tra cứu tác dụng phụ thuốc phổ biến
                     </h4>
                     <span className="text-[11px] font-black text-[#024ad8] hover:text-[#01359c] mt-2 flex items-center gap-0.5 group-hover:underline">
                       Bắt đầu
@@ -2529,20 +2650,20 @@ export default function HomePage() {
 
                 {/* Card 2 */}
                 <div 
-                  onClick={() => triggerToast("Bài kiểm tra sàng lọc đái tháo đường đang được chuẩn bị...")}
+                  onClick={() => {
+                    setShowInteractionModal(true);
+                    setIaDrugA("");
+                    setIaDrugB("");
+                    setIaResult(null);
+                  }}
                   className="bg-white rounded-2xl p-4 shadow-sm border border-sky-100/10 flex items-center gap-3.5 hover:shadow-md hover:scale-102 transition-all duration-300 group cursor-pointer"
                 >
                   <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-2xl shrink-0 group-hover:bg-[#024ad8]/10 transition-colors flex items-center justify-center">
-                    <svg className="w-8 h-8 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <rect x="7" y="5" width="10" height="14" rx="2" />
-                      <circle cx="12" cy="12" r="3" />
-                      <line x1="12" y1="5" x2="12" y2="7" />
-                      <line x1="10" y1="12" x2="14" y2="12" />
-                    </svg>
+                    <Activity className="w-8 h-8 text-[#024ad8]" />
                   </div>
                   <div className="flex flex-col justify-between h-full text-left">
                     <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px]">
-                      Bài kiểm tra sàng lọc nguy cơ tiền đái tháo đường
+                      Kiểm tra tương tác thuốc nguy hại
                     </h4>
                     <span className="text-[11px] font-black text-[#024ad8] hover:text-[#01359c] mt-2 flex items-center gap-0.5 group-hover:underline">
                       Bắt đầu
@@ -2552,19 +2673,15 @@ export default function HomePage() {
 
                 {/* Card 3 */}
                 <div 
-                  onClick={() => triggerToast("Bài kiểm tra suy giáp đang được chuẩn bị...")}
+                  onClick={() => setShowAICopilotModal(true)}
                   className="bg-white rounded-2xl p-4 shadow-sm border border-sky-100/10 flex items-center gap-3.5 hover:shadow-md hover:scale-102 transition-all duration-300 group cursor-pointer"
                 >
                   <div className="bg-[#eff6ff] text-[#024ad8] p-3 rounded-2xl shrink-0 group-hover:bg-[#024ad8]/10 transition-colors flex items-center justify-center">
-                    <svg className="w-8 h-8 text-[#024ad8]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4c-3.333 0-5 2.5-5 5.5S8.667 15 12 15s5-2 5-5.5S15.333 4 12 4z" />
-                      <circle cx="9" cy="9.5" r="1.5" fill="currentColor" />
-                      <circle cx="15" cy="9.5" r="1.5" fill="currentColor" />
-                    </svg>
+                    <Brain className="w-8 h-8 text-[#024ad8]" />
                   </div>
                   <div className="flex flex-col justify-between h-full text-left">
                     <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-2 min-h-[30px]">
-                      Bài kiểm tra khả năng suy giáp
+                      Trợ lý dược sĩ AI tư vấn tác dụng phụ
                     </h4>
                     <span className="text-[11px] font-black text-[#024ad8] hover:text-[#01359c] mt-2 flex items-center gap-0.5 group-hover:underline">
                       Bắt đầu
@@ -2580,13 +2697,20 @@ export default function HomePage() {
               <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-xl bottom-4 right-4 pointer-events-none" />
               <img 
                 src="/friendly_pharmacists.png" 
-                alt="Dược sĩ hỗ trợ kiểm tra sức khỏe" 
+                alt="Dược sĩ hỗ trợ tác dụng phụ" 
                 className="w-[220px] md:w-[240px] lg:w-[260px] h-auto object-contain drop-shadow-2xl z-10 hover:scale-102 transition-transform duration-300 relative -bottom-8" 
               />
             </div>
             
             {/* Aesthetic slide next button indicator */}
-            <div className="absolute top-[50%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden">
+            <div 
+              onClick={() => {
+                setShowSideEffectModal(true);
+                setSeSearchQuery("");
+                setSelectedSeDrug(null);
+              }}
+              className="absolute top-[50%] right-2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border border-sky-100 hover:bg-cloud flex items-center justify-center shadow-md text-[#4b5563] hover:text-[#111827] cursor-pointer transition-colors z-20 md:flex hidden"
+            >
               <ChevronRight size={16} />
             </div>
 
@@ -2738,14 +2862,14 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_7_c7528bf5e9.jpg" alt="Aloclair Gel" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/gel-boi-mieng-aloclair-plus-alliance-8ml" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Gel bôi miệng Aloclair Plus Alliance 8ml giảm nhiệt miệng, tay chân...
                             </h4>
@@ -2779,14 +2903,14 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/CHAI_XIT_NHIET_MIENG_TAY_CHAN_MIENG_ALOCLAIR_PLUS_15_ML_00502899_6_d4a9ad973b.jpg" alt="Aloclair Spray" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/chai-xit-nhiet-mieng-tay-chan-mieng-aloclair-plus-15ml-ho-tro-dieu-tri-cac-vet-thuong-trong-khoang-mieng" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Chai xịt nhiệt miệng, tay chân miệng Aloclair Plus 15ml hỗ trợ điều...
                             </h4>
@@ -2820,14 +2944,14 @@ export default function HomePage() {
                           🇸🇬 Singapore
                         </span>
                       </div>
-                      <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_01900_6fe44907dd.jpg" alt="Pearlie Mouthwash" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nuoc-suc-mieng-pearlie-white-chlor-rinse-plus-250ml" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nước Súc Miệng Pearlie White Chlor-Rinse Plus (250ml)
                             </h4>
@@ -2861,14 +2985,14 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00006940_su_bac_gel_lam_sach_sat_khuan_da_8596_63aa_large_5e8c66eecc.jpg" alt="Su Bac Gel" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/gel-boi-su-bac-khang-khuan-lam-sach-da-25g" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Gel bôi Su Bạc kháng khuẩn, làm sạch da (25g)
                             </h4>
@@ -2907,14 +3031,14 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09757_76bf71dab2.png" alt="Fysoline Septinasal" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nuoc-muoi-sinh-ly-fysoline-septinasal-20-ong-x-5ml-giup-giam-so-mui-viem-mui-nghet-mui-dung-duoc-cho-tre-so-sinh" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nước muối sinh lý Fysoline Septinasal (20 ống x 5ml) giúp giảm...
                             </h4>
@@ -2970,14 +3094,14 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09895_dac9a658d8.jpg" alt="Fysoline Isotonique" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nuoc-muoi-sinh-ly-fysoline-isotonique-dang-truong-40-ong-x-5ml-giup-ve-sinh-mat-mui-hang-ngay" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nước muối sinh lý Fysoline Isotonique đẳng trương (40 ống x...
                             </h4>
@@ -3033,14 +3157,14 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_08159_6dcd5953f8.jpg" alt="Famapro Mask" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/khau-trang-4-lop-famapro-extra-mau-trang-50-cai-nam-anh-ngan-khoi-bui-vi-khuan" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Khẩu trang 4 lớp Famapro Extra màu trắng (50 cái) Nam A...
                             </h4>
@@ -3096,14 +3220,14 @@ export default function HomePage() {
                           🇻🇳 Việt Nam
                         </span>
                       </div>
-                      <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_0188_f4db0565ff.jpg" alt="Dolphin Mask" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/khau-trang-tre-em-4-lop-3d-dolphin-mask-10-cai-ngan-khoi-bui-vi-khuan-va-giot-ban" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Khẩu trang trẻ em 4 lớp 3D Dolphin Mask (10 cái) ngăn khói bụi, vi...
                             </h4>
@@ -3142,14 +3266,14 @@ export default function HomePage() {
                           🇬🇧 Anh
                         </span>
                       </div>
-                      <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_099842_74c1fc532a.png" alt="Panadol Extra" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/vien-nen-panadol-extra-do-gsk-giam-manh-cac-con-dau-ha-sot-dieu-tri-dau-dau-dau-lung-15-vi-x-12-vien" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Viên nén Panadol Extra đỏ GSK giảm mạnh các cơn đau, hạ sốt, điều...
                             </h4>
@@ -3205,14 +3329,14 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/acemuc_200_3x10_sanofi_00000462_73028f19a5.png" alt="Acemuc" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/thuoc-acemuc-200mg-sanofi-long-dam-tieu-nhay-giam-ho-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Thuốc Acemuc 200mg Sanofi long đờm, tiêu nhầy, giảm ho...
                             </h4>
@@ -3268,14 +3392,14 @@ export default function HomePage() {
                           🇫🇷 Pháp
                         </span>
                       </div>
-                      <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/1_467af3daf4.png" alt="Telfast 180" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/thuoc-chong-di-ung-telfast-hd-180mg-sanofi-giam-trieu-chung-viem-mui-di-ung-may-day-vo-can-man-tinh-3-vi-x-10-vien" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Thuốc chống dị ứng Telfast HD 180mg Sanofi giảm triệu...
                             </h4>
@@ -3334,14 +3458,14 @@ export default function HomePage() {
                           -10%
                         </span>
                       </div>
-                      <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_09324_db795e136a.jpg" alt="Kudos Vitamin C" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/vien-sui-giup-bo-sung-vitamin-c-cho-co-the-kudos-vitamin-c-1000mg-huong-chanh-20-vien" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Viên sủi giúp bổ sung vitamin C cho cơ thể Kudos Vitamin C...
                             </h4>
@@ -3386,14 +3510,14 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5064_7c5c85e337.jpg" alt="Kamizol Orange" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nuoc-bu-dien-giai-kamizol-vi-cam-250ml" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nước Bù Điện Giải Kamizol Vị Cam (250ml)
                             </h4>
@@ -3457,14 +3581,14 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/IMG_5077_cc650f0dc4.jpg" alt="Kamizol Lemon" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nuoc-bu-dien-giai-kamizol-vi-chanh-250ml" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nước Bù Điện Giải Kamizol Vị Chanh (250ml)
                             </h4>
@@ -3528,14 +3652,14 @@ export default function HomePage() {
                           -20%
                         </span>
                       </div>
-                      <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/DSC_06452_66c43d8446.jpg" alt="Kamizol Powder" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/bot-dien-giai-vi-chanh-day-kamizol-sports-drink-powder-5-goi-x-25g" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Bột Điện Giải Vị Chanh Dây Kamizol Sports Drink Powder (5 gói x...
                             </h4>
@@ -3572,14 +3696,14 @@ export default function HomePage() {
                           🇨🇭 Thụy Sĩ
                         </span>
                       </div>
-                      <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block w-full cursor-pointer">
+                      <Link href="/thuoc/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block w-full cursor-pointer">
                         <div className="bg-cloud aspect-square rounded-xl flex items-center justify-center overflow-hidden mb-3 relative group-hover:scale-102 transition-transform">
                           <img src="https://cdn.nhathuoclongchau.com.vn/v1/static/00502788_nhiet_ke_hong_ngoai_do_tran_microlife_nc200_7708_6391_large_84c0ed9d82.jpg" alt="Microlife NC200" className="w-full h-full object-contain p-2" />
                         </div>
                       </Link>
                       <div className="flex-1 flex flex-col justify-between text-left">
                         <div>
-                          <Link href="/san-pham/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block text-left mb-1 cursor-pointer">
+                          <Link href="/thuoc/nhiet-ke-hong-ngoai-do-tran-microlife-nc200" className="block text-left mb-1 cursor-pointer">
                             <h4 className="text-[11px] font-bold text-ink leading-tight line-clamp-3 min-h-[42px] group-hover:text-[#024ad8] transition-colors">
                               Nhiệt kế hồng ngoại đo trán Microlife NC200
                             </h4>
@@ -3811,6 +3935,13 @@ export default function HomePage() {
                     src={selectedMedicine.imageUrl} 
                     alt={selectedMedicine.name} 
                     className="h-full object-contain p-4" 
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== 'https://placehold.co/300x300?text=No+Image') {
+                        target.src = 'https://placehold.co/300x300?text=No+Image';
+                      }
+                    }}
                   />
                 </div>
               )}
@@ -3908,6 +4039,406 @@ export default function HomePage() {
                   Thêm vào giỏ
                 </button>
               </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 1. SMART SIDE EFFECT SEARCH MODAL */}
+      {showSideEffectModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300">
+          <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl border border-sky-100 flex flex-col animate-scaleUp">
+            
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#024ad8] to-[#1e40af] p-6 text-white flex justify-between items-center sticky top-0 z-10">
+              <div>
+                <h3 className="text-lg font-black flex items-center gap-2">
+                  <Pill size={20} className="text-yellow-300" />
+                  Tra cứu tác dụng phụ thuốc
+                </h3>
+                <p className="text-xs text-blue-100/80 font-bold mt-1">
+                  Tìm kiếm thông tin tác dụng phụ và cảnh báo sử dụng thuốc an toàn
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowSideEffectModal(false)}
+                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 overflow-y-auto flex-1 flex flex-col gap-5">
+              
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                <input 
+                  type="text" 
+                  value={seSearchQuery}
+                  onChange={(e) => {
+                    setSeSearchQuery(e.target.value);
+                    setSelectedSeDrug(null);
+                  }}
+                  placeholder="Nhập tên thuốc hoặc hoạt chất (Ví dụ: Paracetamol, Ibuprofen...)" 
+                  className="w-full pl-11 pr-4 py-3 rounded-2xl border border-sky-100 outline-none text-xs font-bold focus:border-[#024ad8] focus:ring-2 focus:ring-[#024ad8]/10 transition-all bg-[#f8fafc]"
+                />
+              </div>
+
+              {/* Drug list or selected drug detail */}
+              {!selectedSeDrug ? (
+                <div>
+                  <h4 className="text-[11px] font-extrabold text-gray-400 mb-3 uppercase tracking-wider">
+                    {seSearchQuery ? "Kết quả tìm kiếm" : "Thuốc phổ biến trong tủ thuốc của bạn"}
+                  </h4>
+                  <div className="flex flex-col gap-3">
+                    {SIDE_EFFECTS_DATA.filter(drug => 
+                      drug.name.toLowerCase().includes(seSearchQuery.toLowerCase()) || 
+                      drug.active.toLowerCase().includes(seSearchQuery.toLowerCase()) ||
+                      drug.brand.toLowerCase().includes(seSearchQuery.toLowerCase())
+                    ).map((drug, index) => (
+                      <div 
+                        key={index}
+                        onClick={() => setSelectedSeDrug(drug)}
+                        className="p-4 rounded-2xl border border-sky-50 bg-white hover:border-[#024ad8]/30 hover:shadow-md cursor-pointer transition-all duration-300 group flex justify-between items-center"
+                      >
+                        <div className="text-left">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-extrabold text-ink group-hover:text-[#024ad8] transition-colors">{drug.name}</span>
+                            <span className="text-[9px] px-2 py-0.5 rounded-full bg-blue-50 text-[#024ad8] font-bold border border-blue-100">{drug.active}</span>
+                          </div>
+                          <p className="text-[10px] text-gray-400 font-bold mt-1">Biệt dược: {drug.brand}</p>
+                          <p className="text-[11px] text-gray-600 mt-1 line-clamp-1">{drug.desc}</p>
+                        </div>
+                        <ChevronRight size={16} className="text-gray-400 group-hover:text-[#024ad8] group-hover:translate-x-0.5 transition-all" />
+                      </div>
+                    ))}
+                    {SIDE_EFFECTS_DATA.filter(drug => 
+                      drug.name.toLowerCase().includes(seSearchQuery.toLowerCase()) || 
+                      drug.active.toLowerCase().includes(seSearchQuery.toLowerCase()) ||
+                      drug.brand.toLowerCase().includes(seSearchQuery.toLowerCase())
+                    ).length === 0 && (
+                      <div className="text-center py-8 text-gray-400 text-xs font-semibold">
+                        Không tìm thấy thông tin tác dụng phụ cho từ khóa &quot;{seSearchQuery}&quot;.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4 animate-fadeIn">
+                  {/* Back button */}
+                  <button 
+                    onClick={() => setSelectedSeDrug(null)}
+                    className="self-start text-[#024ad8] text-[11px] font-extrabold hover:underline flex items-center gap-1 mb-1"
+                  >
+                    <ChevronLeft size={14} /> Quay lại danh sách
+                  </button>
+
+                  {/* Drug Info Detail */}
+                  <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100/50 text-left">
+                    <h4 className="text-sm font-black text-[#024ad8]">{selectedSeDrug.name}</h4>
+                    <p className="text-[11px] text-gray-500 font-bold mt-1">Biệt dược phổ biến: {selectedSeDrug.brand}</p>
+                    <p className="text-[11px] text-gray-500 font-bold">Hoạt chất: {selectedSeDrug.active}</p>
+                    <p className="text-[12px] text-ink font-semibold mt-3 bg-white p-3 rounded-xl border border-sky-100">{selectedSeDrug.desc}</p>
+                  </div>
+
+                  {/* Side effects content */}
+                  <div className="text-left">
+                    <h5 className="text-[11px] font-extrabold text-gray-400 uppercase tracking-wider mb-2">Tác dụng phụ có thể gặp</h5>
+                    <div className="p-4 rounded-2xl bg-red-50/40 border border-red-100 text-red-950 text-xs font-semibold leading-relaxed">
+                      {selectedSeDrug.sideEffects}
+                    </div>
+                  </div>
+
+                  {/* Clinical warning */}
+                  <div className="text-left">
+                    <h5 className="text-[11px] font-extrabold text-gray-400 uppercase tracking-wider mb-2">Cảnh báo y tế đặc biệt</h5>
+                    <div className="p-4 rounded-2xl bg-yellow-50/40 border border-yellow-100 text-yellow-950 text-xs font-semibold leading-relaxed flex gap-2">
+                      <AlertTriangle className="text-yellow-600 shrink-0 mt-0.5" size={16} />
+                      <span>{selectedSeDrug.warning}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Disclaimer */}
+              <div className="bg-sky-50/40 border border-sky-100 rounded-2xl p-4 text-[10px] text-sky-950 flex gap-2.5 text-left mt-auto">
+                <Info size={16} className="text-[#024ad8] shrink-0 mt-0.5" />
+                <span>
+                  <strong>Miễn trừ trách nhiệm:</strong> Thông tin trên đây được tổng hợp cho mục đích tra cứu tham khảo học tập. Người bệnh không được tự ý ngưng dùng thuốc hoặc tự ý thay đổi liều dùng khi chưa có chỉ định và sự hướng dẫn của bác sĩ chuyên khoa hoặc dược sĩ chuyên môn.
+                </span>
+              </div>
+
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 p-4 border-t border-sky-100 flex justify-end">
+              <button 
+                onClick={() => setShowSideEffectModal(false)}
+                className="bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow-md transition-colors"
+              >
+                Đóng
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 2. DRUG INTERACTION MODAL */}
+      {showInteractionModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300">
+          <div className="bg-white rounded-3xl w-full max-w-xl max-h-[85vh] overflow-hidden shadow-2xl border border-sky-100 flex flex-col animate-scaleUp">
+            
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#024ad8] to-[#1e40af] p-6 text-white flex justify-between items-center sticky top-0 z-10">
+              <div>
+                <h3 className="text-lg font-black flex items-center gap-2">
+                  <Activity size={20} className="text-yellow-300" />
+                  Kiểm tra tương tác thuốc chéo
+                </h3>
+                <p className="text-xs text-blue-100/80 font-bold mt-1">
+                  Đánh giá mức độ tương tác nguy hiểm giữa hai loại thuốc dùng chung
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowInteractionModal(false)}
+                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 overflow-y-auto flex-1 flex flex-col gap-6">
+              
+              {/* Select Drugs Section */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Drug A */}
+                <div className="flex flex-col gap-2 text-left">
+                  <label className="text-[11px] font-extrabold text-gray-400 uppercase">Thuốc / Chất A</label>
+                  <select 
+                    value={iaDrugA}
+                    onChange={(e) => {
+                      setIaDrugA(e.target.value);
+                      setIaResult(null);
+                    }}
+                    className="w-full p-3 rounded-xl border border-sky-100 text-xs font-bold outline-none focus:border-[#024ad8] bg-[#f8fafc] cursor-pointer"
+                  >
+                    <option value="">-- Chọn thuốc A --</option>
+                    <option value="Paracetamol">Paracetamol (Panadol)</option>
+                    <option value="Ibuprofen">Ibuprofen (Gofen)</option>
+                    <option value="Aspirin">Aspirin</option>
+                    <option value="Amoxicillin">Amoxicillin</option>
+                    <option value="Omeprazole">Omeprazole</option>
+                    <option value="Rượu">Rượu (Ethanol)</option>
+                    <option value="Thuốc tránh thai">Thuốc tránh thai hàng ngày</option>
+                    <option value="Clopidogrel">Clopidogrel (Thuốc chống đông)</option>
+                  </select>
+                </div>
+
+                {/* Drug B */}
+                <div className="flex flex-col gap-2 text-left">
+                  <label className="text-[11px] font-extrabold text-gray-400 uppercase">Thuốc / Chất B</label>
+                  <select 
+                    value={iaDrugB}
+                    onChange={(e) => {
+                      setIaDrugB(e.target.value);
+                      setIaResult(null);
+                    }}
+                    className="w-full p-3 rounded-xl border border-sky-100 text-xs font-bold outline-none focus:border-[#024ad8] bg-[#f8fafc] cursor-pointer"
+                  >
+                    <option value="">-- Chọn thuốc B --</option>
+                    <option value="Paracetamol">Paracetamol (Panadol)</option>
+                    <option value="Ibuprofen">Ibuprofen (Gofen)</option>
+                    <option value="Aspirin">Aspirin</option>
+                    <option value="Amoxicillin">Amoxicillin</option>
+                    <option value="Omeprazole">Omeprazole</option>
+                    <option value="Rượu">Rượu (Ethanol)</option>
+                    <option value="Thuốc tránh thai">Thuốc tránh thai hàng ngày</option>
+                    <option value="Clopidogrel">Clopidogrel (Thuốc chống đông)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button 
+                onClick={handleCheckInteraction}
+                className="w-full py-3 rounded-2xl bg-[#024ad8] hover:bg-[#01359c] text-white text-xs font-extrabold transition-all duration-300 shadow-md flex items-center justify-center gap-1.5"
+              >
+                Kiểm tra tương tác
+              </button>
+
+              {/* Result Area */}
+              {iaResult !== null && (
+                <div className="animate-fadeIn text-left">
+                  {iaResult === "clean" ? (
+                    <div className="p-5 rounded-2xl bg-green-50 border border-green-200 text-green-950 flex gap-3 text-xs font-bold">
+                      <div className="bg-green-5050 text-white p-1 rounded-full shrink-0 flex items-center justify-center w-6 h-6 bg-green-500">
+                        <Check size={14} />
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-black text-green-900">Không tìm thấy tương tác bất lợi</h4>
+                        <p className="font-semibold text-green-800/80 mt-1">Chưa ghi nhận tương tác bất lợi trực tiếp hoặc nguy cơ cao giữa {iaDrugA} và {iaDrugB} trong cơ sở dữ liệu y khoa của PharmaAssist.</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={`p-5 rounded-2xl border flex gap-3 text-xs font-bold ${iaResult.bg}`}>
+                      <div className={`p-1.5 rounded-full shrink-0 flex items-center justify-center w-8 h-8 ${iaResult.iconBg}`}>
+                        <AlertTriangle size={18} />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-sm font-black">{iaDrugA} &harr; {iaDrugB}</h4>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-black/10 font-black uppercase tracking-wider">{iaResult.severityText}</span>
+                        </div>
+                        
+                        <div className="mt-3">
+                          <h5 className="text-[10px] text-gray-500 uppercase tracking-wider font-extrabold">Cơ chế & Tác hại</h5>
+                          <p className="mt-0.5 leading-relaxed text-gray-800 font-semibold">{iaResult.desc}</p>
+                        </div>
+
+                        <div className="mt-3">
+                          <h5 className="text-[10px] text-gray-500 uppercase tracking-wider font-extrabold">Khuyến cáo chuyên khoa</h5>
+                          <p className="mt-0.5 leading-relaxed text-[#024ad8] font-bold">{iaResult.recommendation}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Disclaimer */}
+              <div className="bg-sky-50/40 border border-sky-100 rounded-2xl p-4 text-[10px] text-sky-950 flex gap-2.5 text-left mt-auto">
+                <Info size={16} className="text-[#024ad8] shrink-0 mt-0.5" />
+                <span>
+                  <strong>Miễn trừ trách nhiệm:</strong> Kết quả tương tác trên đây chỉ có giá trị tham khảo giáo dục lâm sàng. Bệnh nhân tuyệt đối không tự ý ngưng hoặc thay đổi phác đồ thuốc điều trị mà không hỏi ý kiến trực tiếp của Bác sĩ điều trị hoặc Dược sĩ phụ trách chuyên môn.
+                </span>
+              </div>
+
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 p-4 border-t border-sky-100 flex justify-end">
+              <button 
+                onClick={() => setShowInteractionModal(false)}
+                className="bg-white hover:bg-gray-100 text-gray-600 text-xs font-bold px-6 py-2.5 rounded-xl border border-gray-200 transition-colors"
+              >
+                Đóng
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 3. AI PHARMACIST COPILOT CHAT MODAL */}
+      {showAICopilotModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-300">
+          <div className="bg-white rounded-3xl w-full max-w-lg h-[80vh] overflow-hidden shadow-2xl border border-sky-100 flex flex-col animate-scaleUp">
+            
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#024ad8] to-[#1e40af] p-5 text-white flex justify-between items-center sticky top-0 z-10 shadow-sm shrink-0">
+              <div className="flex items-center gap-2.5 text-left">
+                <div className="bg-white/20 p-2 rounded-xl text-white">
+                  <Brain size={20} className="text-yellow-300 animate-pulse" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black">Trợ lý Dược sĩ AI</h3>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping" />
+                    <span className="text-[9px] text-green-300 font-bold uppercase tracking-wider">Hỗ trợ y tế trực tuyến 24/7</span>
+                  </div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowAICopilotModal(false)}
+                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Chat Messages Body */}
+            <div className="p-5 flex-1 overflow-y-auto bg-gray-50 flex flex-col gap-4">
+              
+              {/* Bot welcome & Suggestion QAs */}
+              <div className="flex flex-col gap-3">
+                {chatMessages.map((msg, index) => (
+                  <div 
+                    key={index}
+                    className={`flex gap-2 max-w-[85%] ${msg.sender === 'user' ? 'self-end flex-row-reverse' : 'self-start'}`}
+                  >
+                    {msg.sender === 'bot' && (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#024ad8] to-[#1e40af] text-white flex items-center justify-center text-xs font-black shrink-0">
+                        AI
+                      </div>
+                    )}
+                    <div className={`p-3.5 rounded-2xl text-xs font-semibold leading-relaxed shadow-sm text-left ${msg.sender === 'user' ? 'bg-[#024ad8] text-white rounded-tr-none' : 'bg-white text-ink border border-sky-100/50 rounded-tl-none'}`}>
+                      {msg.text}
+                    </div>
+                  </div>
+                ))}
+
+                {isChatLoading && (
+                  <div className="flex gap-2 max-w-[85%] self-start animate-pulse">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#024ad8] to-[#1e40af] text-white flex items-center justify-center text-xs font-black shrink-0">
+                      AI
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-white border border-sky-100/50 text-xs font-bold text-gray-400 rounded-tl-none flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Suggestions Chips when there are only few messages */}
+              {chatMessages.length === 1 && (
+                <div className="mt-2 text-left shrink-0">
+                  <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-wider block mb-2">Câu hỏi y học thường gặp</span>
+                  <div className="flex flex-col gap-2">
+                    {AI_BOT_QAS.map((qa, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSendChatMessage(qa.q)}
+                        disabled={isChatLoading}
+                        className="text-[11px] font-bold text-left p-3 rounded-xl border border-sky-100 bg-white hover:border-[#024ad8]/40 hover:bg-blue-50/20 text-[#024ad8] transition-all"
+                      >
+                        {qa.q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Disclaimer Bar */}
+            <div className="bg-yellow-50/80 px-4 py-2 border-t border-b border-yellow-100 text-[9px] text-yellow-900/90 text-center font-bold shrink-0">
+              * Khuyến cáo: AI chỉ dùng cho mô phỏng học tập. Không tự chẩn đoán bệnh lý y tế thực tế!
+            </div>
+
+            {/* Chat Input Area */}
+            <div className="p-4 bg-white border-t border-gray-150 flex items-center gap-3 shrink-0">
+              <input 
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSendChatMessage()}
+                placeholder="Hỏi về tác dụng phụ, cách dùng thuốc..."
+                disabled={isChatLoading}
+                className="flex-1 p-3 rounded-xl border border-gray-200 text-xs font-bold outline-none focus:border-[#024ad8] transition-colors"
+              />
+              <button 
+                onClick={() => handleSendChatMessage()}
+                disabled={!chatInput.trim() || isChatLoading}
+                className={`px-4 py-3 rounded-xl text-xs font-extrabold text-white transition-all shadow-sm ${chatInput.trim() && !isChatLoading ? 'bg-[#024ad8] hover:bg-[#01359c]' : 'bg-gray-300 cursor-not-allowed'}`}
+              >
+                Gửi
+              </button>
             </div>
 
           </div>
