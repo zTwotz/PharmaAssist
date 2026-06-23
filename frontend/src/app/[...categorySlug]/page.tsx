@@ -5,6 +5,8 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { SubCategoryCards } from '@/components/product/SubCategoryCards';
 import { buildCategoryTree, getCategoryAndDescendantIds, findCategoryNodeBySlug } from '@/lib/utils/category';
 import Link from 'next/link';
+import { fetchProduct, fetchRelatedProducts } from '@/lib/api/product-detail';
+import ProductDetailClient from '@/components/product/ProductDetailClient';
 
 export const revalidate = 60; // Cache page for 60 seconds
 
@@ -41,19 +43,73 @@ export default async function DynamicProductListingPage(props: {
   let categoryName = 'Tất cả sản phẩm';
   let activeNodeSlug: string | undefined;
   
+  let isProductPage = false;
+  let productData = null;
+  let relatedProducts = [];
+
   if (activeSlug) {
     let selectedNode = findCategoryNodeBySlug(categoryTree, activeSlug);
-    // Fallback to parent slug if child (Level 3) is not in DB
-    if (!selectedNode && slugArray.length > 1) {
-      selectedNode = findCategoryNodeBySlug(categoryTree, slugArray[slugArray.length - 2]);
+    
+    // If it's not a category, check if it's a product
+    if (!selectedNode) {
+      const product = await fetchProduct(activeSlug);
+      if (product) {
+        isProductPage = true;
+        productData = product;
+        relatedProducts = await fetchRelatedProducts(product.category.id, product.id);
+        // We will render ProductDetailClient instead of category
+      } else {
+        // Fallback to parent category if not a product
+        if (slugArray.length > 1) {
+          selectedNode = findCategoryNodeBySlug(categoryTree, slugArray[slugArray.length - 2]);
+        }
+      }
     }
     
-    if (selectedNode) {
+    if (selectedNode && !isProductPage) {
       descendantIds = getCategoryAndDescendantIds(selectedNode);
       categoryName = selectedNode.name;
       subCategories = selectedNode.children || [];
       activeNodeSlug = selectedNode.slug;
     }
+  }
+
+  if (isProductPage && productData) {
+    // Generate Breadcrumbs for product
+    const breadcrumbs = [];
+    if (slugArray.length > 1) {
+      let currentPath = '';
+      for (let i = 0; i < slugArray.length - 1; i++) {
+        const s = slugArray[i];
+        currentPath += '/' + s;
+        const node = findCategoryNodeBySlug(categoryTree, s);
+        breadcrumbs.push({ name: node?.name || s, href: currentPath });
+      }
+    }
+    breadcrumbs.push({ name: productData.name, href: '/' + slugArray.join('/') });
+
+    return (
+      <div className="bg-gray-50 min-h-screen pb-16">
+        <div className="bg-white border-b border-gray-100">
+          <div className="max-w-[1200px] mx-auto px-4 py-3 flex flex-wrap items-center text-sm text-gray-500 gap-y-2">
+            <Link href="/" className="hover:text-[#024ad8] transition-colors whitespace-nowrap">Trang chủ</Link>
+            {breadcrumbs.map((crumb, idx) => (
+              <React.Fragment key={crumb.href}>
+                <span className="mx-2 text-gray-300 flex-shrink-0">/</span>
+                <Link 
+                  href={crumb.href} 
+                  className={idx === breadcrumbs.length - 1 ? "text-gray-900 font-medium truncate max-w-[200px] sm:max-w-[300px] md:max-w-md lg:max-w-xl" : "hover:text-[#024ad8] whitespace-nowrap"}
+                  title={crumb.name}
+                >
+                  {crumb.name}
+                </Link>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+        <ProductDetailClient product={productData} relatedProducts={relatedProducts} />
+      </div>
+    );
   }
 
   // 2. Fetch Brands
@@ -164,6 +220,7 @@ export default async function DynamicProductListingPage(props: {
               totalCount={totalCount}
               categoryIds={descendantIds}
               brandIds={selectedBrandIds}
+              basePath={`/${slugArray.join('/')}`}
             />
           </div>
         </div>
