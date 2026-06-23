@@ -140,14 +140,10 @@ export function Header() {
                 )}
               </Link>
               {user ? (
-                isInternalUser ? (
+                isInternalUser && (
                   <Link href="/dashboard" id="mobile-login-btn" className="p-2 text-primary hover:text-primary-deep transition-colors" title={user.fullName || user.email}>
                     <User size={22} className="text-primary" />
                   </Link>
-                ) : (
-                  <div className="p-2 text-primary" title={user.fullName || user.email}>
-                    <User size={22} className="text-primary" />
-                  </div>
                 )
               ) : (
                 <Link href="/login" id="mobile-login-btn" className="p-2 text-ink hover:text-primary transition-colors">
@@ -199,7 +195,7 @@ export function Header() {
             </Link>
             {user ? (
               <div className="flex items-center gap-2.5 shrink-0">
-                {isInternalUser ? (
+                {isInternalUser && (
                   <Link 
                     href="/dashboard"
                     className="flex items-center gap-2 bg-primary-soft/40 hover:bg-primary-soft text-primary-deep px-4 py-2.5 rounded-xl transition-all duration-300 text-sm font-semibold border border-primary-bright/10 animate-fadeIn shrink-0 whitespace-nowrap shadow-sm"
@@ -210,13 +206,6 @@ export function Header() {
                       {user.fullName || user.email}
                     </span>
                   </Link>
-                ) : (
-                  <div className="flex items-center gap-2 bg-primary-soft/40 text-primary-deep px-4 py-2.5 rounded-xl text-sm font-semibold border border-primary-bright/10 shrink-0 whitespace-nowrap shadow-sm">
-                    <User size={16} className="text-primary" />
-                    <span className="truncate max-w-[150px]">
-                      {user.fullName || user.email}
-                    </span>
-                  </div>
                 )}
                 <button 
                   onClick={async () => {
