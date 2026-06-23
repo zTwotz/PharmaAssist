@@ -11,14 +11,16 @@ import { Loader2, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
-  const { login, isAuthenticated, user } = useAuth();
-  const [isRegistering, setIsRegistering] = useState(false);
+  const { login, register, isAuthenticated, user } = useAuth();
+  
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [longLoading, setLongLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
 
@@ -27,7 +29,12 @@ export default function LoginPage() {
       if (user.mustChangePassword) {
         router.push('/change-password');
       } else {
-        router.push('/dashboard');
+        const roles = user.roles || [];
+        if (roles.includes('ADMIN') || roles.includes('STAFF') || roles.includes('WAREHOUSE')) {
+          router.push('/dashboard');
+        } else {
+          router.push('/');
+        }
       }
     }
   }, [isAuthenticated, user, router]);
@@ -44,18 +51,54 @@ export default function LoginPage() {
       return false;
     }
 
-    if (isRegistering && !fullName.trim()) {
+    if (isRegisterMode && !fullName.trim()) {
       setErrorMsg('Vui lòng nhập họ và tên.');
       return false;
     }
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
+    setSuccessMsg('');
 
-    if (!email || !password || (isRegistering && !fullName)) {
+    if (!email || !password || !fullName) {
+      setErrorMsg('Vui lòng nhập đầy đủ họ tên, email và mật khẩu.');
+      return;
+    }
+
+    if (!validateForm()) return;
+
+    setLoading(true);
+    setLongLoading(false);
+    
+    const timeoutId = setTimeout(() => {
+      setLongLoading(true);
+    }, 5000);
+
+    try {
+      await register({ email, password, fullName });
+      clearTimeout(timeoutId);
+      setSuccessMsg('Tài khoản đã được đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+      setIsRegisterMode(false);
+      setPassword(''); // clear password field
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      console.warn('Register warning:', err?.message || err);
+      const message = err.response?.data?.message || err.message;
+      setErrorMsg(message || 'Đăng ký thất bại. Vui lòng thử lại sau.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
+    if (!email || !password) {
       setErrorMsg('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
@@ -70,32 +113,9 @@ export default function LoginPage() {
     }, 5000);
 
     try {
-      if (isRegistering) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: fullName,
-            }
-          }
-        });
-
-        if (error) throw error;
-        
-        clearTimeout(timeoutId);
-        setSuccess(true);
-        setErrorMsg('Đăng ký thành công! Vui lòng kiểm tra email để xác nhận hoặc đăng nhập ngay.');
-        setTimeout(() => {
-          setIsRegistering(false);
-          setSuccess(false);
-          setErrorMsg('');
-        }, 3000);
-      } else {
-        await login(email, password);
-        clearTimeout(timeoutId);
-        setSuccess(true);
-      }
+      await login(email, password);
+      clearTimeout(timeoutId);
+      setSuccessMsg('Đăng nhập thành công! Đang chuyển hướng...');
     } catch (err: any) {
       clearTimeout(timeoutId);
       console.warn('Auth warning:', err?.message || err);
@@ -116,6 +136,13 @@ export default function LoginPage() {
     }
   };
 
+  const switchMode = () => {
+    setIsRegisterMode(!isRegisterMode);
+    setErrorMsg('');
+    setSuccessMsg('');
+    setPassword('');
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-cloud px-4 py-12 relative overflow-hidden font-sans">
       <div className="absolute top-[-20%] left-[-10%] w-[30%] h-[150%] bg-primary opacity-5 transform rotate-[25deg] hidden lg:block pointer-events-none"></div>
@@ -132,13 +159,13 @@ export default function LoginPage() {
             Pharma<span className="text-primary">Assist</span>
           </CardTitle>
           <CardDescription className="text-sm text-graphite">
-            {isRegistering ? 'Đăng ký tài khoản mới' : 'Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh'}
+            {isRegisterMode ? 'Đăng ký tài khoản khách hàng mới' : 'Hệ thống quản lý nhà thuốc và cảnh báo tương tác thuốc thông minh'}
           </CardDescription>
         </CardHeader>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={isRegisterMode ? handleRegister : handleLogin}>
           <CardContent className="space-y-4 px-6">
-            {errorMsg && !success && (
+            {errorMsg && !successMsg && (
               <Alert variant="destructive" className="bg-bloom-rose border-bloom-coral/30 text-bloom-deep">
                 <ShieldAlert className="h-4 w-4 text-bloom-deep" />
                 <AlertTitle className="font-semibold text-bloom-deep">Lỗi thao tác</AlertTitle>
@@ -146,27 +173,25 @@ export default function LoginPage() {
               </Alert>
             )}
 
-            {success && (
+            {successMsg && (
               <Alert className="bg-green-50 border-green-200 text-green-800">
                 <CheckCircle2 className="h-4 w-4 text-green-600" />
                 <AlertTitle className="font-semibold text-green-800">Thành công</AlertTitle>
-                <AlertDescription className="text-green-700 text-xs mt-1">
-                  {isRegistering ? errorMsg : 'Đăng nhập thành công! Đang chuyển hướng...'}
-                </AlertDescription>
+                <AlertDescription className="text-green-700 text-xs mt-1">{successMsg}</AlertDescription>
               </Alert>
             )}
 
-            {longLoading && !success && !errorMsg && (
+            {longLoading && !successMsg && !errorMsg && (
               <Alert className="bg-blue-50 border-blue-200 text-blue-800">
                 <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
                 <AlertTitle className="font-semibold text-blue-800">Đang chờ phản hồi</AlertTitle>
                 <AlertDescription className="text-blue-700 text-xs mt-1">
-                  Máy chủ (Supabase) đang khởi động từ trạng thái nghỉ. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
+                  Máy chủ đang xử lý. Quá trình này có thể mất tới 30-40 giây, vui lòng kiên nhẫn đợi...
                 </AlertDescription>
               </Alert>
             )}
             
-            {isRegistering && (
+            {isRegisterMode && (
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-charcoal uppercase tracking-wider" htmlFor="fullName">
                   Họ và tên
@@ -177,7 +202,7 @@ export default function LoginPage() {
                   placeholder="Nguyễn Văn A"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  required={isRegistering}
+                  required
                   disabled={loading}
                   className="h-11 rounded-md border border-hairline focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary text-sm font-sans"
                 />
@@ -223,16 +248,16 @@ export default function LoginPage() {
             <Button
               type="submit"
               className={`w-full font-semibold uppercase tracking-wider text-xs h-11 rounded-md transition-all shadow-md active:scale-[0.98] ${
-                success 
+                successMsg && !isRegisterMode
                   ? 'bg-green-600 hover:bg-green-700 text-white' 
                   : 'bg-primary hover:bg-primary-deep text-white'
               }`}
-              disabled={loading || (success && !isRegistering)}
+              disabled={loading || (!!successMsg && !isRegisterMode)}
             >
-              {success && !isRegistering ? (
+              {successMsg && !isRegisterMode ? (
                 <>
                   <CheckCircle2 className="mr-2 h-4 w-4" />
-                  Thành công
+                  Đang chuyển hướng
                 </>
               ) : loading ? (
                 <>
@@ -240,23 +265,21 @@ export default function LoginPage() {
                   Đang xử lý...
                 </>
               ) : (
-                isRegistering ? 'Đăng ký tài khoản' : 'Đăng nhập'
+                isRegisterMode ? 'Tạo tài khoản' : 'Đăng nhập'
               )}
             </Button>
             
-            <div className="mt-4 text-center">
+            <p className="mt-4 text-sm text-center text-graphite">
+              {isRegisterMode ? 'Đã có tài khoản?' : 'Chưa có tài khoản?'}
               <button 
                 type="button" 
-                onClick={() => {
-                  setIsRegistering(!isRegistering);
-                  setErrorMsg('');
-                  setSuccess(false);
-                }} 
-                className="text-sm font-medium text-primary hover:underline bg-transparent border-none cursor-pointer"
+                onClick={switchMode} 
+                className="ml-1 text-primary hover:underline font-semibold"
+                disabled={loading}
               >
-                {isRegistering ? 'Đã có tài khoản? Đăng nhập ngay' : 'Chưa có tài khoản? Đăng ký ngay'}
+                {isRegisterMode ? 'Đăng nhập ngay' : 'Đăng ký'}
               </button>
-            </div>
+            </p>
 
             <p className="mt-5 text-[11px] text-center text-graphite leading-relaxed">
               Hệ thống bảo mật nội bộ. Mọi truy cập trái phép sẽ bị ghi nhật ký.<br />

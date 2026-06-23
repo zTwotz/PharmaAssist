@@ -9,6 +9,7 @@ interface AuthContextType {
   user: UserProfile | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (data: any) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   hasRole: (allowedRoles: string[]) => boolean;
@@ -126,13 +127,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(response.user);
-      router.push('/dashboard');
+      
+      const roles = response.user.roles || [];
+      if (roles.includes('ADMIN') || roles.includes('STAFF') || roles.includes('WAREHOUSE')) {
+        router.push('/dashboard');
+      } else {
+        router.push('/');
+      }
     } catch (error) {
       setUser(null);
       if (typeof window !== 'undefined') {
         localStorage.removeItem('access_token');
       }
       throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (data: any) => {
+    setLoading(true);
+    try {
+      await authService.register(data);
     } finally {
       setLoading(false);
     }
@@ -171,7 +187,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user, hasRole, hasPermission, hasAnyPermission }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, isAuthenticated: !!user, hasRole, hasPermission, hasAnyPermission }}>
       {children}
     </AuthContext.Provider>
   );

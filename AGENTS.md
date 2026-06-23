@@ -26,6 +26,7 @@ AI Agent must read before coding:
 - Every completed task must have evidence in `/work-context/evidence`.
 - If existing code conflicts with baseline, report the conflict before changing code.
 - Do not delete existing working modules without evidence and explanation.
+
 ## PR and Merge Rule
 
 Official merge flow:
@@ -73,7 +74,6 @@ Rules:
 
 Jira is managed manually by the Project Owner.
 
-<<<<<<< HEAD
 The AI Agent must not:
 
 - change Jira issue status;
@@ -88,17 +88,13 @@ The AI Agent must:
 - record Bug candidates with reproduction evidence;
 - provide a concise manual Jira update queue for the Project Owner.
 
-## Git Commit & Collaboration Rules
+cập nhật điều này vào rules và thực hiện các yêu cầu sau
+Hiện tại nhóm đang cùng nhau code nên khi bạn thực hiện bất kì sửa đổi gì đều phải commit và push lên 1 nhánh của tính năng hay lỗi vừa làm lên github đồng thời tạo PR lên develop
 
-Hiện tại nhóm đang cùng nhau code nên khi thực hiện bất kỳ sửa đổi gì đều phải commit và push lên 1 nhánh của tính năng hay lỗi vừa làm lên GitHub đồng thời tạo PR lên develop.
-- **Không được push trực tiếp lên develop hay main.**
-- **Thường xuyên pull code từ develop về để có các code mới của các thành viên khác.**
-
-### Commit Format
-Định dạng: `<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>`
-- **Không dùng `git push --force` lên `main/develop`.**
-
-**Các kiểu commit thường dùng:**
+- **Commit Format:**
+  - Định dạng: `<type>(<scope>): <Jira key> <mô tả ngắn bằng tiếng Anh>`.
+  - Không dùng `git push --force` lên `main/develop`.
+  - **Các kiểu commit thường dùng:**
 
 | Type       | Dùng khi nào                            | Ví dụ                                            |
 | ---------- | --------------------------------------- | ------------------------------------------------ |
@@ -114,5 +110,8 @@ Hiện tại nhóm đang cùng nhau code nên khi thực hiện bất kỳ sửa
 | `perf`     | Tối ưu hiệu năng                        | `perf(graph): tối ưu truy vấn interaction rule`  |
 | `revert`   | Hoàn tác commit                         | `revert: hoàn tác thay đổi checkout validation`  |
 
-### Quy trình xử lý lỗi (BUG)
-Với các lỗi thì tạo 1 issues BUG trên Jira đồng thời tạo nhánh mới đúng với mã Jira key của BUG vừa tạo và push code lên nhánh này với commit có ghi mã Jira key và tạo PR vào develop.
+Không được push trực tiếp lên develop hay main
+
+Với các lỗi thì tạo 1 issues BUG trên jira đồng thời tạo nhánh mới đúng với mã jira key của BUG vừa tạo và push code lên nhánh này với commit có ghi mã jira key và tạo PR vào develop
+
+Thường xuyên pull code từ develop về để có các code mới của các thành viên khác
