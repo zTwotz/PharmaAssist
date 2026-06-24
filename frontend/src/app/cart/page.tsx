@@ -36,15 +36,27 @@ export default function CartPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderCode, setOrderCode] = useState('');
+  const [selectedItemIds, setSelectedItemIds] = useState<string[]>([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // Run only on client side
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
+  React.useEffect(() => {
+    if (mounted && isInitialLoad && cartItems.length > 0) {
+      setSelectedItemIds(cartItems.map(item => item.id));
+      setIsInitialLoad(false);
+    }
+  }, [mounted, cartItems, isInitialLoad]);
+
+  const selectedItems = cartItems.filter(item => selectedItemIds.includes(item.id));
+  const selectedTotal = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   // Shipping fee logic: 20k, free for orders > 300k
-  const shippingFee = cartTotal > 300000 || cartTotal === 0 ? 0 : 20000;
-  const finalTotal = cartTotal + shippingFee;
+  const shippingFee = selectedTotal > 300000 || selectedTotal === 0 ? 0 : 20000;
+  const finalTotal = selectedTotal + shippingFee;
 
   // Format currency helper
   const formatPrice = (amount: number) => {
@@ -53,7 +65,10 @@ export default function CartPage() {
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
-    if (cartItems.length === 0) return;
+    if (selectedItemIds.length === 0) {
+      alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+      return;
+    }
 
     if (!customerName.trim() || !phoneNumber.trim() || !deliveryAddress.trim()) {
       alert('Vui lòng điền đầy đủ thông tin nhận hàng.');
@@ -72,7 +87,8 @@ export default function CartPage() {
   };
 
   const handleCloseSuccessModal = () => {
-    clearCart();
+    selectedItemIds.forEach(id => removeFromCart(id));
+    setSelectedItemIds([]);
     setOrderSuccess(false);
     router.push('/');
   };
@@ -138,11 +154,38 @@ export default function CartPage() {
             {/* Left side: Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               <div className="bg-white border border-hairline rounded-2xl shadow-sm overflow-hidden">
+                <div className="flex items-center gap-3 p-4 md:px-6 border-b border-hairline bg-cloud/30">
+                  <input 
+                    type="checkbox" 
+                    checked={cartItems.length > 0 && selectedItemIds.length === cartItems.length}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedItemIds(cartItems.map(item => item.id));
+                      } else {
+                        setSelectedItemIds([]);
+                      }
+                    }}
+                    className="w-4 h-4 rounded border-steel text-[#024ad8] focus:ring-[#024ad8] cursor-pointer"
+                  />
+                  <span className="text-sm font-semibold text-ink">Chọn tất cả ({cartItems.length} sản phẩm)</span>
+                </div>
                 <div className="p-4 md:p-6 divide-y divide-fog">
                   {cartItems.map((item) => (
                     <div key={item.id} className="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 first:pt-0 last:pb-0">
                       {/* Product details */}
                       <div className="flex items-center gap-4 flex-1">
+                        <input 
+                          type="checkbox" 
+                          checked={selectedItemIds.includes(item.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedItemIds(prev => [...prev, item.id]);
+                            } else {
+                              setSelectedItemIds(prev => prev.filter(id => id !== item.id));
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-steel text-[#024ad8] focus:ring-[#024ad8] cursor-pointer shrink-0"
+                        />
                         <div className="w-16 h-16 bg-cloud border border-fog rounded-lg overflow-hidden flex items-center justify-center p-1 shrink-0">
                           {item.imageUrl ? (
                             <img 
@@ -210,7 +253,10 @@ export default function CartPage() {
                         {/* Remove button */}
                         <button 
                           type="button"
-                          onClick={() => removeFromCart(item.id)}
+                          onClick={() => {
+                            removeFromCart(item.id);
+                            setSelectedItemIds(prev => prev.filter(id => id !== item.id));
+                          }}
                           className="text-graphite hover:text-bloom-coral p-1.5 rounded-lg hover:bg-bloom-coral/10 transition-colors"
                           title="Xóa khỏi giỏ hàng"
                         >
@@ -234,7 +280,7 @@ export default function CartPage() {
                 <div className="space-y-2.5 text-sm">
                   <div className="flex justify-between text-graphite">
                     <span>Tổng tiền sản phẩm</span>
-                    <span className="font-semibold text-charcoal">{formatPrice(cartTotal)}</span>
+                    <span className="font-semibold text-charcoal">{formatPrice(selectedTotal)}</span>
                   </div>
                   <div className="flex justify-between text-graphite">
                     <span>Phí vận chuyển</span>
@@ -242,9 +288,9 @@ export default function CartPage() {
                       {shippingFee === 0 ? 'Miễn phí' : formatPrice(shippingFee)}
                     </span>
                   </div>
-                  {shippingFee > 0 && (
+                  {shippingFee > 0 && selectedTotal > 0 && (
                     <p className="text-[10px] text-[#024ad8] bg-[#024ad8]/5 p-2 rounded-lg border border-[#024ad8]/10 leading-normal">
-                      💡 Mua thêm <strong>{formatPrice(300000 - cartTotal)}</strong> để được miễn phí vận chuyển.
+                      💡 Mua thêm <strong>{formatPrice(300000 - selectedTotal)}</strong> để được miễn phí vận chuyển.
                     </p>
                   )}
                   <div className="pt-3 border-t border-fog flex justify-between items-center text-ink font-bold text-base">
