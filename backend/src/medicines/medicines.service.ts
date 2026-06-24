@@ -555,6 +555,38 @@ export class MedicinesService {
     };
   }
 
+  async getTopSelling() {
+    // Để phục vụ demo: Lấy 12 sản phẩm đang active
+    // Trong thực tế sẽ cần group by từ OrderLineItem và sum quantity.
+    const medicines = await this.prisma.medicine.findMany({
+      where: { status: 'ACTIVE' },
+      take: 12,
+      include: {
+        product: {
+          include: {
+            variants: {
+              include: { unit: true },
+            },
+            images: true,
+          },
+        },
+        unit: true,
+      },
+    });
+
+    return medicines.map((med) => ({
+      id: med.id,
+      name: med.product.name,
+      sku: med.product.variants[0]?.sku || '',
+      sellingPrice: Number(med.product.variants[0]?.sellingPrice || 0),
+      imageUrl: med.product.images[0]?.imageUrl || null,
+      baseUnit: med.unit?.name || '',
+      product: {
+        variants: med.product.variants.map((v) => ({ id: v.id })),
+      },
+    }));
+  }
+
   async search(term: string) {
     if (!term || term.trim().length < 2) return [];
 

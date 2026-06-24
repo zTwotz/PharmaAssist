@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import api from '@/lib/api';
 import { format } from 'date-fns';
+import { Sidebar } from '@/components/sidebar';
+import { RouteGuard } from '@/components/route-guard';
 
 interface InteractionAlertHistory {
   id: number;
@@ -104,7 +106,11 @@ export default function InteractionAlertHistoryPage() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <RouteGuard allowedPermissions={['MANAGE_DRUG_INTERACTIONS']}>
+      <div className="flex min-h-screen bg-gray-50 font-sans">
+        <Sidebar currentPath="/drug-interactions/history" />
+        <div className="flex-1 overflow-x-hidden">
+          <div className="p-6 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Lịch sử cảnh báo tương tác</h1>
@@ -235,7 +241,10 @@ export default function InteractionAlertHistoryPage() {
             </tbody>
           </table>
         </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </RouteGuard>
   );
 }

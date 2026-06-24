@@ -7,6 +7,7 @@ import { CheckoutPanel } from '@/components/pos/CheckoutPanel';
 import { InteractionWarningModal, InteractionData } from '@/components/pos/InteractionWarningModal';
 import { usePosStore } from '@/store/usePosStore';
 import axios from 'axios';
+import { QuickSellTabs } from '@/components/pos/QuickSellTabs';
 
 export default function PosPage() {
   const { cart, removeItem } = usePosStore();
@@ -90,19 +91,11 @@ export default function PosPage() {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Column: Product Search */}
         <div className="flex-1 flex flex-col h-full bg-white border-r border-slate-200">
-          <div className="p-4 border-b border-slate-200 shadow-sm z-10 relative">
+          <div className="p-4 border-b border-slate-200 shadow-sm z-10 relative shrink-0">
             <MedicineSearch />
           </div>
-          <div className="flex-1 overflow-auto p-4 bg-slate-50/50">
-            <div className="text-center text-slate-500 mt-20">
-              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <p>Gõ tên thuốc hoặc mã SKU (Ví dụ: Paracetamol, SKU123)</p>
-              <p className="text-sm mt-1">Hoặc quét mã vạch để thêm nhanh vào đơn</p>
-            </div>
+          <div className="flex-1 overflow-hidden bg-slate-50">
+            <QuickSellTabs />
           </div>
         </div>
 
