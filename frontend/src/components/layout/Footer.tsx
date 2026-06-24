@@ -21,9 +21,14 @@ export function Footer() {
             <MapPin size={24} className="text-white" />
             <span className="text-base font-bold">Xem hệ thống nhà thuốc trên toàn quốc</span>
           </div>
-          <button className="bg-white text-[#024ad8] font-bold text-sm px-6 py-2.5 rounded-full hover:bg-cloud transition-colors shadow-sm">
+          <a
+            href="https://sapnhap.bando.com.vn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-[#024ad8] font-bold text-sm px-6 py-2.5 rounded-full hover:bg-cloud transition-colors shadow-sm"
+          >
             Xem danh sách nhà thuốc
-          </button>
+          </a>
         </div>
       </div>
 
