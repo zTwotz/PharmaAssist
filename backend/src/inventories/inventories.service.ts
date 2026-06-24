@@ -9,8 +9,23 @@ export class InventoriesService {
     private readonly calculations: InventoryCalculationsService,
   ) {}
 
-  async findAll() {
+  async findAll(params?: { page: number; limit: number; search: string; status: string }) {
+    const { page = 1, limit = 20, search = '', status = 'ALL' } = params || {};
+    const skip = (page - 1) * limit;
+
+    const where: any = {};
+    if (search) {
+      where.productVariant = {
+        OR: [
+          { sku: { contains: search, mode: 'insensitive' } },
+          { variantName: { contains: search, mode: 'insensitive' } },
+          { product: { name: { contains: search, mode: 'insensitive' } } },
+        ]
+      };
+    }
+
     const inventories = await this.prisma.inventory.findMany({
+      where,
       include: {
         productVariant: {
           include: {
@@ -35,7 +50,7 @@ export class InventoriesService {
       },
     });
 
-    return inventories.map((inv: any) => {
+    const processed = inventories.map((inv: any) => {
       const medicines = inv.productVariant?.product?.medicines || [];
       const allBatches = medicines
         .flatMap((m: { batches?: any[] }) => m.batches || [])
@@ -57,7 +72,7 @@ export class InventoriesService {
 
       return {
         ...inv,
-        quantity: sellableQuantity, // Override with source-of-truth quantity
+        quantity: sellableQuantity,
         sellableQuantity,
         isLowStock,
         totalBatches: allBatches.length,
@@ -65,6 +80,35 @@ export class InventoriesService {
         expiredBatchesCount: expiredCount,
       };
     });
+
+    // Calculate stats
+    const stats = {
+      totalItems: processed.length,
+      outOfStockCount: processed.filter((item: any) => item.quantity === 0).length,
+      lowStockCount: processed.filter((item: any) => item.quantity > 0 && item.quantity <= item.minQuantity).length,
+      normalStockCount: processed.filter((item: any) => item.quantity > item.minQuantity).length,
+    };
+
+    // Filter by status
+    const filtered = processed.filter((item: any) => {
+      if (status === 'LOW') return item.isLowStock;
+      if (status === 'OUT') return item.quantity === 0;
+      if (status === 'OK') return !item.isLowStock && item.quantity > 0;
+      if (status === 'NEAR_EXPIRY') return item.nearExpiryBatchesCount > 0;
+      if (status === 'EXPIRED') return item.expiredBatchesCount > 0;
+      return true;
+    });
+
+    // Paginate
+    const paginatedData = filtered.slice(skip, skip + limit);
+
+    return {
+      data: paginatedData,
+      stats,
+      total: filtered.length,
+      page,
+      limit,
+    };
   }
 
   async findOne(id: number) {

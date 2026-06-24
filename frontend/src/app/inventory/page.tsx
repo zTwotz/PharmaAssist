@@ -5,6 +5,7 @@ import { useAuth } from '@/context/auth-context';
 import { Sidebar } from '@/components/sidebar';
 import { RouteGuard } from '@/components/route-guard';
 import api from '@/lib/api';
+import { useInView } from 'react-intersection-observer';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -90,6 +91,17 @@ export default function InventoryPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL'); // ALL, LOW, OUT, OK
   
+  // Pagination State
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [stats, setStats] = useState({
+    totalItems: 0,
+    outOfStockCount: 0,
+    lowStockCount: 0,
+    normalStockCount: 0
+  });
+  const { ref, inView } = useInView();
+  
   // Alerts
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
   const [successAlert, setSuccessAlert] = useState<string | null>(null);
@@ -102,58 +114,64 @@ export default function InventoryPage() {
   // Form input states
   const [newMinQuantity, setNewMinQuantity] = useState(10);
 
-  async function fetchInventory() {
-    setLoading(true);
+  async function fetchInventory(currentPage = 1, reset = false) {
+    if (currentPage === 1) setLoading(true);
     setErrorAlert(null);
     try {
-      const response = await api.get('/inventories');
-      setInventory(response.data);
+      const response = await api.get('/inventories', {
+        params: {
+          page: currentPage,
+          limit: 20,
+          search: searchQuery,
+          status: statusFilter
+        }
+      });
+      
+      const { data, stats: newStats, page: resPage } = response.data;
+      
+      if (reset) {
+        setInventory(data);
+      } else {
+        setInventory(prev => {
+          // Prevent duplicates if API returns same data due to strict mode double fetch
+          const existingIds = new Set(prev.map(i => i.id));
+          const newItems = data.filter((i: InventoryItem) => !existingIds.has(i.id));
+          return [...prev, ...newItems];
+        });
+      }
+      
+      setStats(newStats);
+      setHasMore(data.length === 20);
     } catch (err) {
       console.error('Failed to fetch inventory:', err);
       const errorMsg = (err as any).response?.data?.message || 'Không thể tải dữ liệu tồn kho.';
       setErrorAlert(errorMsg);
     } finally {
-      setLoading(false);
+      if (currentPage === 1) setLoading(false);
     }
   }
 
+  // Trigger search/filter change
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchInventory();
-  }, []);
+    setPage(1);
+    fetchInventory(1, true);
+  }, [searchQuery, statusFilter]);
+
+  // Load more when scrolled to bottom
+  useEffect(() => {
+    if (inView && hasMore && !loading) {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      fetchInventory(nextPage, false);
+    }
+  }, [inView, hasMore, loading]);
 
   const displayRole = user?.roles?.includes('ADMIN') 
     ? 'Quản trị viên' 
     : 'Quản lý kho';
 
-  // Calculate statistics
-  const totalItems = inventory.length;
-  const outOfStockCount = inventory.filter(item => item.quantity === 0).length;
-  const lowStockCount = inventory.filter(item => item.quantity > 0 && item.quantity <= item.minQuantity).length;
-  const normalStockCount = inventory.filter(item => item.quantity > item.minQuantity).length;
-
-  // Filter items
-  const filteredInventory = inventory.filter((item) => {
-    const nameMatch = item.productVariant?.product?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      item.productVariant?.variantName?.toLowerCase().includes(searchQuery.toLowerCase());
-    const skuMatch = item.productVariant?.sku?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesSearch = nameMatch || skuMatch;
-
-    let matchesStatus = true;
-    if (statusFilter === 'LOW') {
-      matchesStatus = item.isLowStock;
-    } else if (statusFilter === 'OUT') {
-      matchesStatus = item.quantity === 0;
-    } else if (statusFilter === 'OK') {
-      matchesStatus = !item.isLowStock && item.quantity > 0;
-    } else if (statusFilter === 'NEAR_EXPIRY') {
-      matchesStatus = item.nearExpiryBatchesCount > 0;
-    } else if (statusFilter === 'EXPIRED') {
-      matchesStatus = item.expiredBatchesCount > 0;
-    }
-
-    return matchesSearch && matchesStatus;
-  });
+  // Calculate statistics from backend
+  const { totalItems, outOfStockCount, lowStockCount, normalStockCount } = stats;
 
   const handleOpenUpdate = (item: InventoryItem) => {
     setSelectedItem(item);
@@ -176,7 +194,13 @@ export default function InventoryPage() {
 
       setSuccessAlert(`Đã điều chỉnh tồn kho cho "${selectedItem.productVariant.product.name} (${selectedItem.productVariant.variantName})" thành công.`);
       setIsUpdateOpen(false);
-      fetchInventory();
+      
+      // Update item in local state
+      setInventory(prev => prev.map(item => 
+        item.id === selectedItem.id 
+          ? { ...item, minQuantity: newMinQuantity, isLowStock: item.quantity <= newMinQuantity } 
+          : item
+      ));
     } catch (err) {
       console.error('Update inventory failed:', err);
       const errorMsg = (err as any).response?.data?.message || 'Đã xảy ra lỗi khi điều chỉnh tồn kho.';
@@ -323,7 +347,7 @@ export default function InventoryPage() {
                     <Loader2 className="h-8 w-8 text-primary animate-spin" />
                     <p className="text-xs text-graphite font-medium">Đang tải dữ liệu tồn kho...</p>
                   </div>
-                ) : filteredInventory.length === 0 ? (
+                ) : inventory.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-20 text-center p-6">
                     <span className="text-4xl mb-3">📦</span>
                     <h3 className="font-bold text-ink text-sm">Không tìm thấy sản phẩm tồn kho</h3>
@@ -348,7 +372,7 @@ export default function InventoryPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody className="divide-y divide-hairline">
-                        {filteredInventory.map((item) => {
+                        {inventory.map((item) => {
                           const isOutOfStock = item.quantity === 0;
                           const isLowStock = item.isLowStock;
                           const hasExpired = item.expiredBatchesCount > 0;
@@ -458,6 +482,14 @@ export default function InventoryPage() {
                         })}
                       </TableBody>
                     </Table>
+                    
+                    {/* Infinite Scroll Trigger */}
+                    {hasMore && (
+                      <div ref={ref} className="py-6 flex justify-center items-center w-full">
+                        <Loader2 className="h-6 w-6 text-primary animate-spin" />
+                        <span className="ml-2 text-xs text-graphite font-medium">Đang tải thêm...</span>
+                      </div>
+                    )}
                   </div>
                 )}
               </CardContent>

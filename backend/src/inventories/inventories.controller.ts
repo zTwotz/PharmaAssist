@@ -6,6 +6,7 @@ import {
   Param,
   UseGuards,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { InventoriesService } from './inventories.service';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
@@ -20,8 +21,18 @@ export class InventoriesController {
 
   @Get()
   @Roles('ADMIN', 'WAREHOUSE')
-  async findAll() {
-    return this.inventoriesService.findAll();
+  async findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
+    @Query('status') status?: string,
+  ) {
+    return this.inventoriesService.findAll({
+      page: page ? parseInt(page, 10) : 1,
+      limit: limit ? parseInt(limit, 10) : 20,
+      search: search || '',
+      status: status || 'ALL',
+    });
   }
 
   @Get(':id')

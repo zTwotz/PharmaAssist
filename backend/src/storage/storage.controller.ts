@@ -5,6 +5,7 @@ import {
   UploadedFile,
   Param,
   UseGuards,
+  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { StorageService } from './storage.service';
@@ -25,5 +26,20 @@ export class StorageController {
     @UploadedFile() file: any,
   ) {
     return this.storageService.uploadMedicineImage(file, parseInt(id, 10));
+  }
+
+  @Post('upload')
+  @Roles('ADMIN', 'STAFF')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: any,
+    @Body('bucket') bucket: string,
+    @Body('folder') folder: string,
+  ) {
+    return this.storageService.uploadFile(
+      file,
+      bucket || 'images',
+      folder || '',
+    );
   }
 }

@@ -404,6 +404,7 @@ export class OrdersService {
           },
         },
         customer: true,
+        staff: true,
       },
       orderBy: {
         createdAt: 'desc',

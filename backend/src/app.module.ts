@@ -27,6 +27,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ReportsModule } from './reports/reports.module';
 import { SettingsModule } from './settings/settings.module';
 import { GraphExplorerModule } from './graph-explorer/graph-explorer.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { GraphExplorerModule } from './graph-explorer/graph-explorer.module';
     ReportsModule,
     SettingsModule,
     GraphExplorerModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

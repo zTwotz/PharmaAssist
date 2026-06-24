@@ -600,20 +600,28 @@ export class MedicinesService {
           name: v.product.name,
           medicines: v.product.medicines.map((m) => ({ id: m.id })),
         },
-        inventories: v.inventories.map((inv) => {
-          const warehouseBatches = allBatches.filter(
-            (b) => b.warehouseId === inv.warehouseId,
-          );
-          const sellableBatches = warehouseBatches.filter(
-            (b) => new Date(b.expiryDate) >= today,
-          );
-          const sellableQuantity = sellableBatches.reduce(
-            (sum, b) => sum + b.quantity,
-            0,
-          );
+        inventories: v.inventories.length > 0 
+          ? v.inventories.map((inv) => {
+              const warehouseBatches = allBatches.filter(
+                (b) => b.warehouseId === inv.warehouseId,
+              );
+              const sellableBatches = warehouseBatches.filter(
+                (b) => new Date(b.expiryDate) >= today,
+              );
+              const sellableQuantity = sellableBatches.reduce(
+                (sum, b) => sum + b.quantity,
+                0,
+              );
 
-          return { quantity: sellableQuantity };
-        }),
+              return { quantity: sellableQuantity };
+            })
+          : [
+              {
+                quantity: allBatches
+                  .filter((b) => new Date(b.expiryDate) >= today)
+                  .reduce((sum, b) => sum + b.quantity, 0),
+              },
+            ],
       };
     });
   }
